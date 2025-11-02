@@ -139,7 +139,7 @@ const HealthPriorities = () => {
     });
     
     navigate('/app/today');
-  }};
+  };
 
   return (
     <div className={pageContainer}>
@@ -153,7 +153,6 @@ const HealthPriorities = () => {
           >
             <ArrowLeft size={28} className="text-foreground" />
           </Button>
-           <div className="mt-2">
           <h1 className={sectionHeading}>Anpassa tips efter mina mål</h1>
         </div>
         <p className={sectionSubheading}>
