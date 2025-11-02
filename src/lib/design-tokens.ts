@@ -91,31 +91,35 @@ export const pageSubtitle = "text-[#212658]/70 text-lg font-normal";
 /**
  * SECTION HEADINGS 18 px (Starta här, Mina tips den här veckan, etc.)
  * Used for section headers within pages
- * subheading 16 px
  */
 export const sectionHeading = "text-lg font-bold text-[#212658]";
+
+/**
+ * SECTION SUB HEADINGS 
+ * subheading 16 px
+ */
 export const sectionSubheading = "text-base font-normal text-[#212658]/70";
 
 /**
- * CARD TITLES- Used for titles within cards
+ * CARD TITLES- Used for titles within cards 20px
  */
 export const cardTitle = "text-xl font-bold text-[#212658]";
 
 /**
- * CARD TEXT
- * Used for body text within cards
+ * CARD TEXT 
+ * Used for body text within cards 16 px
  */
 export const cardText = "text-base text-[#212658]/70";
 
 /**
  * SMALL CARD TEXT
- * Used for secondary text in cards
+ * Used for secondary text in cards 14 px
  */
 export const cardTextSmall = "text-sm text-[#212658]/70";
 
 /**
  * BUTTON TEXT (large)
- * Used for primary action buttons
+ * Used for primary action buttons 20 px
  */
 export const buttonTextLarge = "text-xl font-bold";
 
