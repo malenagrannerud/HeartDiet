@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
-import { arrowBack, sectionHeading, sectionSubheading, cardTitle, cardText, standardCard, headerContainer, primaryButton, pageContainer, pagePadding } from '@/lib/design-tokens';
+import { arrowBack, sectionHeading, sectionSubheading, cardTitle, cardText, standardCard, headerContainer, primaryButton, pageContainer, pagePadding, backButton} from '@/lib/design-tokens';
 import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
@@ -143,16 +143,18 @@ const HealthPriorities = () => {
   return (
     <div className={pageContainer}>
 <header className={headerContainer}>
-  <div className="flex flex-col">
-    <Button
-      variant="ghost"
-      onClick={() => navigate('/app/today')}
-      className={`self-start mb-4 ${arrowBack}`}
-      aria-label="Tillbaka"
-    >
-      <ArrowLeft size={40} className="text-foreground" />
-    </Button>
+  {/* Use the same pattern as the working back button */}
+  <Button
+    variant="ghost"
+    onClick={() => navigate('/app/today')}
+    className={`${backButton} flex items-center justify-center`}
+    aria-label="Tillbaka"
+  >
+    <ArrowLeft size={28} className="text-[#212658]" />
+  </Button>
 
+  {/* Text content below */}
+  <div className="mt-4">
     <h1 className={sectionHeading}>Anpassa tips efter mina mål</h1>
     <p className={sectionSubheading}>
       Bocka i dina mål och mediciner du tar. Du kan ändra detta när som helst under Mina sidor - Inställningar.
