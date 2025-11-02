@@ -141,8 +141,7 @@ const HealthPriorities = () => {
   };
 
   return (
-    <div className={`${pageContainer} pb-24`}>
-      {/* Header - CENTRALIZED */}
+    <div className={pageContainer}>
       <header className={headerContainer}>
         <div className="flex items-center gap-3 mb-3">
           <Button
@@ -153,14 +152,13 @@ const HealthPriorities = () => {
           >
             <ArrowLeft size={28} className="text-foreground" />
           </Button>
-          <h1 className={`${pageTitle} text-3xl`}>Anpassa tips efter mina mål</h1>
+          <h1 className={sectionHeading}>Anpassa tips efter mina mål</h1>
         </div>
-        <p className={`${cardText} ml-14`}>
-          Bocka i dina mål och mediciner du tar. Då anpassas tips något till dej, även fast de är väligt lika. Du kan ändra detta när som helst under "Inställningar".
+        <p className={sectionSubheading}>
+          Bocka i dina mål och mediciner du tar. Du kan ändra detta när som helst under Mina sidor - Inställningar.
         </p>
       </header>
 
-      {/* STANDARDIZATION: space-y-6 for sections, space-y-4 for card lists */}
       <div className={`${pagePadding} space-y-6`}>
         {/* Health Priorities Section - CENTRALIZED */}
         <section>
@@ -193,7 +191,7 @@ const HealthPriorities = () => {
 
         {/* Medications Section - CENTRALIZED */}
         <section>
-          <h2 className={`${sectionHeading} mb-2`}>Läkemedel</h2>
+          <h2 className={sectionHeading}>Läkemedel</h2>
           <p className={`${cardText} mb-4`}>
             Markera de läkemedel du tar regelbundet.
           </p>

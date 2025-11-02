@@ -19,7 +19,6 @@ const Tutorial = () => {
         aria-label="Gå tillbaka"
       >
       </button>
-      {/* STANDARDIZATION: Title uses sectionHeading, subtitle uses sectionSubheading */}
       <h1 className={sectionHeading}>Så fungerar appen</h1>
       <p className={sectionSubheading}>En guide för dig</p>
       </header>
