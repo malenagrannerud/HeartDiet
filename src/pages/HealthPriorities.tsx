@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
-import { arrowBack, sectionHeading, sectionSubheading, cardTitle, cardText, standardCard, headerContainer, primaryButton, pageContainer, pagePadding } from '@/lib/design-tokens';
+import { BackToTodayButton } from "@/components/BackToTodayButton";
 import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
+import { sectionHeading, sectionSubheading, cardTitle, cardText, standardCard, headerContainer, primaryButton, pageContainer, pagePadding } from "@/lib/design-tokens";
 import { getStorageItem, setStorageItem } from "@/lib/storage";
 import { healthPrioritiesSchema, completedActivitiesSchema } from "@/lib/schemas";
 
@@ -62,14 +62,21 @@ const medications: Medication[] = [
     description: "Till exempel: Eliquis, Xarelto"
   },
   {
-    id: "ace",
-    label: "ACE-hämmare",
-    description: "Till exempel: Ramipril, Enalapril"
-  },
-  {
-    id: "diuretics",
-    label: "Diuretika",
-    description: "Till exempel: Hydroklorotiazid"
+    id: "bloodPressureMeds",
+    label: "Blodtrycksmedicin",
+    description: "",
+    subOptions: [
+      {
+        id: "ace",
+        label: "ACE-hämmare",
+        description: "Till exempel: Ramipril, Enalapril"
+      },
+      {
+        id: "diuretics",
+        label: "Diuretika",
+        description: "Till exempel: Hydroklorotiazid"
+      }
+    ]
   },
   {
     id: "statins",
@@ -142,25 +149,19 @@ const HealthPriorities = () => {
 
   return (
     <div className={pageContainer}>
-<header className={`${headerContainer} flex flex-col`}>
-  <Button
-    variant="ghost"
-    onClick={() => navigate('/app/today')}
-    className={`self-start mb-4 ${arrowBack}`}
-    aria-label="Tillbaka"
-  >
-    <ArrowLeft size={40} className="text-foreground" />
-  </Button>
+      <div className={headerContainer}>
+        
+          <BackToTodayButton />
+        <h1 className={sectionHeading}>Anpassa tips efter mina mål</h1>
+      <p className={sectionSubheading}>Bocka i vad du önskar att få ut efter programmet. Bocka i läkemedel du tar, så att vi kan påminna dej om livsmedel som du evenutellt bör undvika. Du kan när som helst ändra önskningar och läkemedel under "Mina sidor - Inställningar</p>
+    </div>
+      
 
-  <h1 className={sectionHeading}>Anpassa tips efter mina mål</h1>
-  <p className={sectionSubheading}>
-    Bocka i dina mål och mediciner du tar. Du kan ändra detta när som helst under Mina sidor - Inställningar.
-  </p>
-</header>
-
-      <div className={pagePadding}>
+      {/* STANDARDIZATION: space-y-6 for sections, space-y-4 for card lists */}
+      <div className={`${pagePadding} space-y-6`}>
+        {/* Health Priorities Section - CENTRALIZED */}
         <section>
-          <h2 className={`${sectionHeading} mb-4`}>Hjälp mej att:</h2>
+          <h2 className={`${sectionHeading} mb-4`}>Mina mål:</h2>
           <div className="space-y-4">
             {healthPriorities.map((priority) => (
               <Card key={priority.id} className={standardCard}>
@@ -187,8 +188,9 @@ const HealthPriorities = () => {
           </div>
         </section>
 
+        {/* Medications Section - CENTRALIZED */}
         <section>
-          <h2 className={sectionHeading}>Läkemedel</h2>
+          <h2 className={`${sectionHeading} mb-2`}>Läkemedel</h2>
           <p className={`${cardText} mb-4`}>
             Markera de läkemedel du tar regelbundet.
           </p>
@@ -214,6 +216,7 @@ const HealthPriorities = () => {
                   </div>
                 </label>
                 
+                {/* Sub-options for blood pressure medication */}
                 {medication.subOptions && selectedMedications.includes(medication.id) && (
                   <div className="ml-10 mt-4 space-y-3">
                     {medication.subOptions.map((subOption) => (
@@ -241,6 +244,7 @@ const HealthPriorities = () => {
           </div>
         </section>
 
+        {/* Save Button - Using Button component with CENTRALIZED STYLING */}
         <Button
           onClick={handleSave}
           className={primaryButton}

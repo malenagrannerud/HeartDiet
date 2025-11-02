@@ -5,7 +5,8 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { pageTitle, cardText, labelText, headerContainer, backButton, secondaryButton, disabledButton, compactCard, pageContainer, pagePadding } from "@/lib/design-tokens";
+import { BackToTodayButton } from "@/components/BackToTodayButton";
+import { sectionHeading, sectionSubheading, cardText, labelText, headerContainer, secondaryButton, disabledButton, compactCard, pageContainer, pagePadding} from "@/lib/design-tokens";
 import { getStorageItem, setStorageItem } from "@/lib/storage";
 import { healthMetricsSchema, completedActivitiesSchema } from "@/lib/schemas";
 
@@ -44,21 +45,17 @@ const HealthMetrics = () => {
   const isValid = weight !== "" && systolic !== "" && diastolic !== "";
 
   return (
-    /* STANDARDIZATION: Cards use compactCard (p-5, bg-blue-50, min-h-80px) */
-    <div className={`${pageContainer} pb-16`}>
-      <header className={headerContainer}>
-        <div className="flex items-center gap-3 mb-2">
-          <Button variant="ghost" onClick={() => navigate('/app/today')} className={backButton}>
-            <ArrowLeft size={24} className="text-foreground" />
-          </Button>
-          <h1 className={`${pageTitle} text-2xl`}>Vikt och blodtryck</h1>
-        </div>
-        <p className={`${cardText} text-sm ml-14`}>Fyll i dina startvärden</p>
-      </header>
+    <div className={pageContainer}>
+      <div className={headerContainer}>
+       <BackToTodayButton />
 
+          <h1 className={sectionHeading}>Vikt och blodtryck</h1>
+          <p className={sectionSubheading}> Fyll i dina startvärden här. Du kan uppdatera dem senare under "Mina sidor"</p>
+        </div>
+    
       <div className={`${pagePadding} space-y-6`}>
         <Card className={compactCard}>
-          <div className="space-y-3">
+          <div className="space-y-4">
             <Label htmlFor="weight" className={labelText}>Vikt (kg)</Label>
             <Input id="weight" type="number" placeholder="T.ex. 75" value={weight} onChange={(e) => setWeight(e.target.value)} className="text-lg" step="0.1" min="0" />
             <p className={`text-sm ${cardText}`}>Ange din nuvarande vikt i kilogram</p>

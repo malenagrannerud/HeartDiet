@@ -12,18 +12,12 @@
 
 @layer base {
   :root {
-
- 
-  /* Add if you want light blue cards */
-
-
-
     /* Background Colors */
     --background: 0 0% 100%;           /* #FFFFFF - Pure white */
     --foreground: 230 36% 27%;         /* #212658 - Dark blue text */
 
     /* Card Colors */
-    --card: 210 40% 96%;  /* Equivalent to bg-blue-50 */
+    --card: 0 0% 100%;                 /* #FFFFFF - White cards */
     --card-foreground: 230 36% 27%;    /* #212658 - Card text */
 
     /* Primary Colors (main buttons, links) */
