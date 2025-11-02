@@ -147,7 +147,7 @@ const HealthPriorities = () => {
           <Button
             variant="ghost"
             onClick={() => navigate('/app/today')}
-            className={backButton}
+            className={arrowBack}
             aria-label="Tillbaka"
           >
             <ArrowLeft size={28} className="text-foreground" />
