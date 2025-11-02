@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { BackToTodayButton } from "@/components/BackToTodayButton";
-import { pageTitle, pageSubtitle, cardText, labelText, headerContainer, backButton, secondaryButton, disabledButton, compactCard, pageContainer, pagePadding } from "@/lib/design-tokens";
+import { pageTitle, pageSubtitle, sectionHeading, sectionSubheading, cardText, labelText, headerContainer, backButton, secondaryButton, disabledButton, compactCard, pageContainer, pagePadding } from "@/lib/design-tokens";
 import { getStorageItem, setStorageItem } from "@/lib/storage";
 import { healthMetricsSchema, completedActivitiesSchema } from "@/lib/schemas";
 
@@ -50,8 +50,8 @@ const HealthMetrics = () => {
       <div className={headerContainer}>
        <BackToTodayButton />
 
-          <h1 className={pageTitle}>Vikt och blodtryck</h1>
-          <p className={`${pageSubtitle} mt-3`}>Fyll i dina startvärden</p>
+          <h1 className={sectionHeading}>Vikt och blodtryck</h1>
+          <p className={`${sectionSubheading} mt-3`}>Fyll i dina startvärden</p>
         </div>
     
       <div className={`${pagePadding} space-y-6`}>
