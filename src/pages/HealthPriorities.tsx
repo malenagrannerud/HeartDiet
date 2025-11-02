@@ -142,21 +142,21 @@ const HealthPriorities = () => {
 
   return (
     <div className={pageContainer}>
-      <header className={headerContainer}>
-  {/* Arrow button */}
+<header className="relative pt-20 px-4"> {/* Force new styling */}
+  {/* Arrow button - top left */}
   <Button
     variant="ghost"
     onClick={() => navigate('/app/today')}
-    className={arrowBack}
+    className="absolute top-4 left-4 hover:bg-accent rounded-lg transition-colors w-12 h-12 flex items-center justify-center"
     aria-label="Tillbaka"
   >
     <ArrowLeft size={40} className="text-foreground" />
   </Button>
 
-  {/* Text content below */}
-  <div className="mt-4">
-    <h1 className={sectionHeading}>Anpassa tips efter mina mål</h1>
-    <p className={sectionSubheading}>
+  {/* Text content - starts below the arrow */}
+  <div className="mt-2">
+    <h1 className="text-2xl font-bold text-[#212658] mb-3">Anpassa tips efter mina mål</h1>
+    <p className="text-lg text-muted-foreground">
       Bocka i dina mål och mediciner du tar. Du kan ändra detta när som helst under Mina sidor - Inställningar.
     </p>
   </div>
