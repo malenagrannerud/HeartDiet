@@ -5,7 +5,7 @@ import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { pageTitle, sectionHeading, cardTitle, cardText, standardCard, headerContainer, backButton, primaryButton, pageContainer, pagePadding } from "@/lib/design-tokens";
+import { pageTitle, sectionHeading, sectionSubheading, cardTitle, cardText, standardCard, headerContainer, backButton, primaryButton, pageContainer, pagePadding } from "@/lib/design-tokens";
 import { getStorageItem, setStorageItem } from "@/lib/storage";
 import { healthPrioritiesSchema, completedActivitiesSchema } from "@/lib/schemas";
 
