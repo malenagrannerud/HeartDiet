@@ -143,22 +143,22 @@ const HealthPriorities = () => {
   return (
     <div className={pageContainer}>
       <header className={headerContainer}>
-        <Button
-          variant="ghost"
-          onClick={() => navigate('/app/today')}
-          className={arrowBack}
-          aria-label="Tillbaka"
-            >
-          <ArrowLeft size={36} className="text-foreground" />
-        </Button>
-        
-        <div className="mt-4">
-          <h1 className={sectionHeading}>Anpassa tips efter mina mål</h1>
-          <p className={sectionSubheading}>
-            Bocka i dina mål och mediciner du tar. Du kan ändra detta när som helst under Mina sidor - Inställningar.
-          </p>
-        </div>
-      </header>
+  {/* Arrow button - now positioned above */}
+  <Button
+    variant="ghost"
+    onClick={() => navigate('/app/today')}
+    className={arrowBack}
+    aria-label="Tillbaka"
+  >
+    <ArrowLeft size={40} className="text-foreground" />
+  </Button>
+
+  {/* Text content - now below the arrow */}
+  <h1 className={`${sectionHeading} mt-4`}>Anpassa tips efter mina mål</h1>
+  <p className={`${sectionSubheading} mt-2`}>
+    Bocka i dina mål och mediciner du tar. Du kan ändra detta när som helst under Mina sidor - Inställningar.
+  </p>
+</header>
 
       <div className={pagePadding}>
         <section>
