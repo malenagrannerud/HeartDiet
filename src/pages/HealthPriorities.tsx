@@ -142,25 +142,25 @@ const HealthPriorities = () => {
 
   return (
     <div className={pageContainer}>
-<header className={headerContainer}>
-  {/* Use the same pattern as the working back button */}
-  <Button
-    variant="ghost"
-    onClick={() => navigate('/app/today')}
-    className={`${backButton} flex items-center justify-center`}
-    aria-label="Tillbaka"
-  >
-    <ArrowLeft size={28} className="text-[#212658]" />
-  </Button>
+    <header className={headerContainer}>
+      {/* Use the same pattern as the working back button */}
+      <Button
+        variant="ghost"
+        onClick={() => navigate('/app/today')}
+        className={`${backButton} flex items-center justify-center`}
+        aria-label="Tillbaka"
+      >
+        <ArrowLeft size={28} className="text-[#212658]" />
+      </Button>
 
-  {/* Text content below */}
-  <div className="mt-4">
-    <h1 className={sectionHeading}>Anpassa tips efter mina mål</h1>
-    <p className={sectionSubheading}>
-      Bocka i dina mål och mediciner du tar. Du kan ändra detta när som helst under Mina sidor - Inställningar.
-    </p>
-  </div>
-</header>
+      {/* Text content below */}
+      <div className="mt-4">
+        <h1 className={sectionHeading}>Anpassa tips efter mina mål</h1>
+        <p className={sectionSubheading}>
+          Bocka i dina mål och mediciner du tar. Du kan ändra detta när som helst under Mina sidor - Inställningar.
+        </p>
+      </div>
+    </header>
 
       <div className={pagePadding}>
         <section>
