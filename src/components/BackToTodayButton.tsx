@@ -18,7 +18,7 @@ export const BackToTodayButton = ({
       aria-label="Gå tillbaka till idag"
     >
       <ArrowLeft size={28} />
-      <span className="text-lg font-semibold">Tillbaka till idag</span>
+      <span className="text-lg font-semibold">Tillbaka</span>
     </button>
   );
 };
