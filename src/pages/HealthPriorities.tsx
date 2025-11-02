@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
+import { BackToTodayButton } from "@/components/BackToTodayButton";
 import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { pageTitle, pageSubtitle, sectionHeading, cardTitle, cardText, standardCard, headerContainer, backButton, primaryButton, pageContainer, pagePadding } from "@/lib/design-tokens";
+import { sectionHeading, sectionSubheading, cardTitle, cardText, standardCard, headerContainer, primaryButton, pageContainer, pagePadding } from "@/lib/design-tokens";
 import { getStorageItem, setStorageItem } from "@/lib/storage";
 import { healthPrioritiesSchema, completedActivitiesSchema } from "@/lib/schemas";
 
@@ -149,27 +149,13 @@ const HealthPriorities = () => {
 
   return (
     <div className={`${pageContainer} pb-24`}>
-      {/* Header - CENTRALIZED */}
-<div className="bg-white border-b border-border sticky top-0 z-10">
-        <div className="p-6">
-          {/* STANDARDIZATION: Back button uses backButton token */}
-          <button
-            onClick={() => navigate('/app/today')}
-            className={`flex items-center gap-3 text-[#212658] mb-4 ${backButton}`}
-            aria-label="Gå tillbaka"
-          >
-            <ArrowLeft size={28} />
-            <span className="text-lg font-semibold">Tillbaka</span>
-          </button>
-          {/* STANDARDIZATION: Title uses pageTitle (text-4xl), subtitle uses pageSubtitle (text-lg) */}
-          <h1 className={pageTitle}>Anpassa tips efter mina mål</h1>
-          <p className={`${pageSubtitle} mt-3`}>Bocka i dina mål och mediciner du tar. Du kan ändra detta när som helst under "Mina sidor - Inställninga</p>
-        </div>
-      </div>
-
-
-
-
+      <div className={headerContainer}>
+        
+          <BackToTodayButton />
+        <h1 className={sectionHeading}>Anpassa tips efter mina mål</h1>
+      <p className={`${sectionSubheading} mt-3`}>Bocka i dina mål och mediciner du tar. Du kan ändra när som helst under "Mina sidor - Inställninga</p>
+    </div>
+      
 
       {/* STANDARDIZATION: space-y-6 for sections, space-y-4 for card lists */}
       <div className={`${pagePadding} space-y-6`}>

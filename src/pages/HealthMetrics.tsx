@@ -45,7 +45,7 @@ const HealthMetrics = () => {
   const isValid = weight !== "" && systolic !== "" && diastolic !== "";
 
   return (
-    <div className={pageContainer}>
+    <div className={`${pageContainer} pb-24`}>
       <div className={headerContainer}>
        <BackToTodayButton />
 
