@@ -5,7 +5,7 @@ import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { pageTitle, sectionHeading, cardTitle, cardText, standardCard, headerContainer, backButton, primaryButton, pageContainer, pagePadding } from "@/lib/design-tokens";
+import { pageTitle, pageSubtitle, sectionHeading, cardTitle, cardText, standardCard, headerContainer, backButton, primaryButton, pageContainer, pagePadding } from "@/lib/design-tokens";
 import { getStorageItem, setStorageItem } from "@/lib/storage";
 import { healthPrioritiesSchema, completedActivitiesSchema } from "@/lib/schemas";
 
@@ -150,22 +150,26 @@ const HealthPriorities = () => {
   return (
     <div className={`${pageContainer} pb-24`}>
       {/* Header - CENTRALIZED */}
-      <header className={headerContainer}>
-        <div className="flex items-center gap-3 mb-3">
-          <Button
-            variant="ghost"
+<div className="bg-white border-b border-border sticky top-0 z-10">
+        <div className="p-6">
+          {/* STANDARDIZATION: Back button uses backButton token */}
+          <button
             onClick={() => navigate('/app/today')}
-            className={backButton}
-            aria-label="Tillbaka"
+            className={`flex items-center gap-3 text-[#212658] mb-4 ${backButton}`}
+            aria-label="Gå tillbaka"
           >
-            <ArrowLeft size={28} className="text-foreground" />
-          </Button>
-          <h1 className={`${pageTitle} text-3xl`}>Anpassa tips efter mina mål</h1>
+            <ArrowLeft size={28} />
+            <span className="text-lg font-semibold">Tillbaka</span>
+          </button>
+          {/* STANDARDIZATION: Title uses pageTitle (text-4xl), subtitle uses pageSubtitle (text-lg) */}
+          <h1 className={pageTitle}>Anpassa tips efter mina mål</h1>
+          <p className={`${pageSubtitle} mt-3`}>Bocka i dina mål och mediciner du tar. Du kan ändra detta när som helst under "Mina sidor - Inställninga</p>
         </div>
-        <p className={`${cardText} ml-14`}>
-          Bocka i dina mål och mediciner du tar. Du kan ändra detta när som helst under "Mina sidor - Inställningar".
-        </p>
-      </header>
+      </div>
+
+
+
+
 
       {/* STANDARDIZATION: space-y-6 for sections, space-y-4 for card lists */}
       <div className={`${pagePadding} space-y-6`}>
