@@ -45,7 +45,7 @@ const HealthMetrics = () => {
 
   return (
     /* STANDARDIZATION: Cards use compactCard (p-5, bg-blue-50, min-h-80px) */
-    <div className={`${pageContainer} pb-16`}>
+    <div className={pageContainer}>
       <header className={headerContainer}>
         <div className="flex items-center gap-3 mb-2">
           <Button variant="ghost" onClick={() => navigate('/app/today')} className={backButton}>
