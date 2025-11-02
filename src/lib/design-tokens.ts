@@ -176,7 +176,8 @@ export const tipCard = "p-5 hover:shadow-md transition-all cursor-pointer active
 /**
  * Arrow back 
  */
-export const arrowBack = "hover:bg-accent rounded-lg transition-colors min-h-[48px] flex items-start justify-center w-12 h-12";
+export const arrowBack = "hover:bg-accent rounded-lg transition-colors w-12 h-12";
+
 /**
  * BACK BUTTON
  */

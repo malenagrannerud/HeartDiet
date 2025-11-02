@@ -143,7 +143,7 @@ const HealthPriorities = () => {
   return (
     <div className={pageContainer}>
       <header className={headerContainer}>
-  {/* Arrow button - now positioned above */}
+  {/* Arrow button */}
   <Button
     variant="ghost"
     onClick={() => navigate('/app/today')}
@@ -153,11 +153,13 @@ const HealthPriorities = () => {
     <ArrowLeft size={40} className="text-foreground" />
   </Button>
 
-  {/* Text content - now below the arrow */}
-  <h1 className={`${sectionHeading} mt-4`}>Anpassa tips efter mina mål</h1>
-  <p className={`${sectionSubheading} mt-2`}>
-    Bocka i dina mål och mediciner du tar. Du kan ändra detta när som helst under Mina sidor - Inställningar.
-  </p>
+  {/* Text content below */}
+  <div className="mt-4">
+    <h1 className={sectionHeading}>Anpassa tips efter mina mål</h1>
+    <p className={sectionSubheading}>
+      Bocka i dina mål och mediciner du tar. Du kan ändra detta när som helst under Mina sidor - Inställningar.
+    </p>
+  </div>
 </header>
 
       <div className={pagePadding}>
