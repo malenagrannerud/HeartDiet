@@ -6,10 +6,9 @@ import { tips } from "@/data/tips";
 import TipCard from "@/components/TipCard";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import { pageTitle, pageSubtitle, sectionHeading, sectionSubheading, cardTitle, cardText, cardTextSmall, standardCard, interactiveCard, pageContainer, pagePadding, iconButton } from "@/lib/design-tokens";
+import { pageTitle, pageSubtitle, sectionHeading, sectionSubheading, cardTitle, cardText, cardTextSmall, standardCard, interactiveCard, pageContainer, pagePadding, iconButton, headerContainer, standardSpacing } from "@/lib/design-tokens";
 import { getStorageItem, setStorageItem } from "@/lib/storage";
 import { markedTipsSchema, completedActivitiesSchema } from "@/lib/schemas";
-
 
 interface MarkedTip {
   id: number;
@@ -106,133 +105,127 @@ const Today = () => {
   );
 
   return (
-
-
-  <div className={pageContainer}>
-    <div className={headerContainer}>
-
-   
-  <header className="flex items-start justify-between mb-6">
-    <div>
-      <h1 className={pageTitle}>Idag</h1>
-    </div>
-    <Sheet>
-      <SheetTrigger asChild>
-        <Button 
-          variant="ghost" 
-          size="icon"
-          className={iconButton}
-          aria-label="Visa senaste aktiviteter"
-        >
-          <History size={24} className="text-foreground" />
-        </Button>
-      </SheetTrigger>
-      <SheetContent side="right" className="w-full sm:max-w-md bg-background">
-        <SheetHeader>
-          <SheetTitle className={sectionHeading}>Senast</SheetTitle>
-        </SheetHeader>
-        <div className="mt-6 space-y-4">
-          {allCompletedActivities.length > 0 ? (
-            allCompletedActivities.map((activity, index) => (
-              /* STANDARDIZATION: Uses standardCard (light blue bg, p-5 padding, min-h-80px) */
-              <Card 
-                key={`${activity.id}-${index}`}
-                className={standardCard}
+    <div className={pageContainer}>
+      {/* HEADER CONTAINER */}
+      <header className={headerContainer}>
+        <div className="flex items-start justify-between">
+          <div>
+            <h1 className={pageTitle}>Idag</h1>
+          </div>
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button 
+                variant="ghost" 
+                size="icon"
+                className={iconButton}
+                aria-label="Visa senaste aktiviteter"
               >
-                {/* STANDARDIZED FONT: text-xl via cardTitle */}
-                <h4 className={`${cardTitle} mb-1`}>{activity.title}</h4>
-                {/* STANDARDIZED FONT: text-sm via cardTextSmall */}
-                <p className={cardTextSmall}>
-                  {getRelativeTime(activity.completedDate)}
-                </p>
-              </Card>
-            ))
-          ) : (
-            <p className="text-muted-foreground text-center py-8">
-              Inga genomförda aktiviteter än
-            </p>
-          )}
+                <History size={24} className="text-foreground" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right" className="w-full sm:max-w-md bg-background">
+              <SheetHeader>
+                <SheetTitle className={sectionHeading}>Senast</SheetTitle>
+              </SheetHeader>
+              <div className={`mt-6 ${standardSpacing.cardList}`}>
+                {allCompletedActivities.length > 0 ? (
+                  allCompletedActivities.map((activity, index) => (
+                    <Card 
+                      key={`${activity.id}-${index}`}
+                      className={standardCard}
+                    >
+                      <h4 className={`${cardTitle} mb-1`}>{activity.title}</h4>
+                      <p className={cardTextSmall}>
+                        {getRelativeTime(activity.completedDate)}
+                      </p>
+                    </Card>
+                  ))
+                ) : (
+                  <p className="text-muted-foreground text-center py-8">
+                    Inga genomförda aktiviteter än
+                  </p>
+                )}
+              </div>
+            </SheetContent>
+          </Sheet>
         </div>
-      </SheetContent>
-    </Sheet>
-  </header>
-      {/* STARTA HÄR SECTION */}
-      <div className="space-y-4">
-        <h3 className={sectionHeading}>Starta här</h3>
-        
-        {/* Step 1 - STANDARDIZED: Uses interactiveCard for consistent styling */}
-        <Card 
-          className={interactiveCard}
-          onClick={() => navigate('/app/tutorial')}
-          aria-label="Gå till tutorial"
-        >
-          <div className="flex items-start justify-between">
-            <div>
-              {/* STANDARDIZED FONT: text-xl via cardTitle */}
-              <h4 className={cardTitle}>Så fungerar appen</h4>
-              {/* STANDARDIZED FONT: text-base via cardText */}
-              <div className={`flex items-center gap-2 ${cardText}`}>
-                <Clock size={20} strokeWidth={2.5} />
-                <span>5 min</span>
-              </div>
+      </header>
+
+      {/* FIRST PAGE PADDING: Starta här and down */}
+      <div className={pagePadding}>
+        <div className={standardSpacing.pageContent}>
+          <div className={standardSpacing.sectionContent}>
+            <h3 className={sectionHeading}>Starta här</h3>
+            
+            <div className={standardSpacing.cardList}>
+              <Card 
+                className={interactiveCard}
+                onClick={() => navigate('/app/tutorial')}
+                aria-label="Gå till tutorial"
+              >
+                <div className="flex items-start justify-between">
+                  <div>
+                    <h4 className={cardTitle}>Så fungerar appen</h4>
+                    <div className={cardTextSmall}>
+                      ◷ 5 min
+                    </div>
+                  </div>
+                </div>
+              </Card>
+              
+              <Card 
+                className={interactiveCard}
+                onClick={() => navigate('/app/health-priorities')}
+                aria-label="Gå till mina hälsoprioriteringar"
+              >
+                <div className="flex items-start justify-between">
+                  <div>
+                    <h4 className={cardTitle}>Anpassa tips efter mina mål</h4>
+                    <div className={cardTextSmall}>
+                      ◷ 5 min
+                    </div>
+                  </div>
+                </div>
+              </Card>
+              
+              <Card 
+                className={interactiveCard}
+                onClick={() => navigate('/app/health-metrics')}
+                aria-label="Gå till hälsomätningar"
+              >
+                <div className="flex items-start justify-between">
+                  <div>
+                    <h4 className={cardTitle}>Vikt och blodtryck</h4>
+                  </div>
+                </div>
+              </Card>
             </div>
           </div>
-        </Card>
-        
-        {/* Step 2 - STANDARDIZED: Uses interactiveCard for consistent styling */}
-        <Card 
-          className={interactiveCard}
-          onClick={() => navigate('/app/health-priorities')}
-          aria-label="Gå till mina hälsoprioriteringar"
-        >
-          <div className="flex items-start justify-between">
-            <div>
-              {/* STANDARDIZED FONT: text-xl via cardTitle */}
-              <h4 className={cardTitle}>Anpassa tips efter mina mål</h4>
-              {/* STANDARDIZED FONT: text-base via cardText */}
-              <div className={`flex items-center gap-2 ${cardText}`}>
-                <Clock size={20} strokeWidth={2.5} />
-                <span>5 min</span>
-              </div>
-            </div>
-          </div>
-        </Card>
-        
-        {/* Step 3 - STANDARDIZED: Uses interactiveCard for consistent styling */}
-        <Card 
-          className={interactiveCard}
-          onClick={() => navigate('/app/health-metrics')}
-          aria-label="Gå till hälsomätningar"
-        >
-          <div className="flex items-start justify-between">
-            <div>
-              {/* STANDARDIZED FONT: text-xl via cardTitle */}
-              <h4 className={cardTitle}>Vikt och blodtryck</h4>
-            </div>
-          </div>
-        </Card>
+        </div>
       </div>
 
-      {/* MINA TIPS SECTION - TipCards keep their specific colors (not light blue) */}
-      <div className="space-y-6">
-        <h3 className={sectionSubheading}>Mina tips den här veckan</h3>
-        {markedTipsList.length > 0 ? (
-          <div className="space-y-4">
-            {/* STANDARDIZATION: TipCard uses same padding (p-5), fonts (text-xl/text-base), min-h-80px 
-                but keeps tip-specific colors (requirement: tip cards keep their colors) */}
-            {markedTipsList.map((tip) => (
-              <TipCard
-                key={tip.id}
-                tip={tip}
-                isMarked={true}
-                onToggleMark={(e) => e.stopPropagation()}
-                onClick={() => navigate(`/app/tips/${tip.id}`)}
-              />
-            ))}
+      {/* SECOND PAGE PADDING: Mina tips den här veckan and down */}
+      <div className={pagePadding}>
+        <div className={standardSpacing.pageContent}>
+          <div className={standardSpacing.sectionContent}>
+            <h3 className={sectionHeading}>Mina tips den här veckan</h3>
+            {markedTipsList.length > 0 ? (
+              <div className={standardSpacing.cardList}>
+                {markedTipsList.map((tip) => (
+                  <TipCard
+                    key={tip.id}
+                    tip={tip}
+                    isMarked={true}
+                    onToggleMark={(e) => e.stopPropagation()}
+                    onClick={() => navigate(`/app/tips/${tip.id}`)}
+                  />
+                ))}
+              </div>
+            ) : (
+              <p className={sectionSubheading}>Välj ett eller två tips för veckan under "Tips"</p>
+            )}
           </div>
-        ) : (
-          <p className={sectionHeading}>Välj ett eller två tips för veckan under "Tips"</p>
-        )}
+        </div>
       </div>
     </div>
   );
