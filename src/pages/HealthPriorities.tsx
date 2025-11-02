@@ -163,7 +163,7 @@ const HealthPriorities = () => {
           <h1 className={`${pageTitle} text-3xl`}>Anpassa tips efter mina mål</h1>
         </div>
         <p className={`${cardText} ml-14`}>
-          Bocka i dina mål och mediciner du tar.Du kan ändra detta när som helst under "Mina sidor".
+          Bocka i dina mål och mediciner du tar. Du kan ändra detta när som helst under "Mina sidor - Inställningar".
         </p>
       </header>
 
