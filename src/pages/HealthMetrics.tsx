@@ -50,7 +50,7 @@ const HealthMetrics = () => {
        <BackToTodayButton />
 
           <h1 className={sectionHeading}>Vikt och blodtryck</h1>
-          <p className={`${sectionSubheading} mt-2`}> Fyll i dina startvärden här. Du kan uppdatera dem senare under "Mina sidor"</p>
+          <p className={sectionSubheading}> Fyll i dina startvärden här. Du kan uppdatera dem senare under "Mina sidor"</p>
         </div>
     
       <div className={`${pagePadding} space-y-6`}>

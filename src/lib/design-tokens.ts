@@ -78,7 +78,7 @@ export const colors = {
 } as const;
 
 // ==========================================
-// 📝 TYPOGRAPHY - CENTRALIZED TEXT STYLES
+// 📝 TYPOGRAPHY - TEXT
 // ==========================================
 
 /**
@@ -98,7 +98,7 @@ export const sectionHeading = "text-lg font-bold text-[#212658]";
  * SECTION SUB HEADINGS 
  * subheading 16 px
  */
-export const sectionSubheading = "text-base font-normal text-[#212658]/70";
+export const sectionSubheading = "text-base font-normal text-[#212658]/70 mt-2";
 
 /**
  * CARD TITLES- Used for titles within cards 20px
@@ -136,9 +136,8 @@ export const buttonText = "text-base font-semibold";
 export const labelText = "text-[#212658] font-semibold";
 
 // ==========================================
-// 📏 SPACING - STANDARDIZED SPACING
+// 📏 SPACING 
 // ==========================================
-
 /**
  * SPACING STANDARDS
  * - pageContent: Main page content sections (space-y-6)
@@ -153,10 +152,24 @@ export const standardSpacing = {
   formFields: "space-y-3",
 } as const;
 
-// ==========================================
-// 📦 CARD SIZES - STANDARDIZED DIMENSIONS
-// ==========================================
+/**
+ * PAGE CONTAINER-  Main page container styling
+ */
+export const pageContainer = "min-h-screen pb-24 space-y-6 bg-background";
 
+/**
+ * HEADER CONTAINER - Page header styling
+ */
+export const headerContainer = "bg-white border-b border-border sticky top-0 z-10 p-6";
+
+/**
+ * PAGE PADDING - Standard page padding
+ */
+export const pagePadding = "p-6";
+
+// ==========================================
+// 📦 CARD SIZES - 
+// ==========================================
 /**
  * STANDARD CARD
  * Default card padding and styling
@@ -166,8 +179,7 @@ export const standardCard = "p-5 border-0 shadow-sm bg-blue-50 min-h-[80px]";
 
 /**
  * COMPACT CARD
- * Smaller padding for dense layouts
- * STANDARDIZATION: Same as standard card - consistent styling across all non-tip cards
+ * Smaller padding for dense layouts. Same as standard card 
  */
 export const compactCard = "p-5 border-0 shadow-sm bg-blue-50 min-h-[80px]";
 
@@ -218,30 +230,6 @@ export const secondaryButton = "w-full py-4 rounded-lg font-semibold transition-
  * Disabled button styling
  */
 export const disabledButton = "bg-gray-300 text-gray-500 cursor-not-allowed";
-
-// ==========================================
-// 📐 LAYOUT CONSTANTS
-// ==========================================
-
-/**
- * PAGE CONTAINER
- * Main page container styling
- */
-export const pageContainer = "min-h-screen pb-24 space-y-6 bg-background";
-
-/**
- * PAGE PADDING
- * Standard page padding
- */
-export const pagePadding = "p-6";
-
-/**
- * HEADER CONTAINER
- * Page header styling
- */
-export const headerContainer = "bg-white border-b border-border sticky top-0 z-10 p-6";
-
-
 
 // ==========================================
 // 🎪 HELPER FUNCTIONS
