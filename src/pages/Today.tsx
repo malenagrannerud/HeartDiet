@@ -6,7 +6,7 @@ import { tips } from "@/data/tips";
 import TipCard from "@/components/TipCard";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import { pageTitle, pageSubtitle, sectionHeading, sectionSubheading, cardTitle, cardText, cardTextSmall, standardCard, interactiveCard, pageContainer, pagePadding, iconButton } from "@/lib/design-tokens";
+import { pageTitle, pageSubtitle, sectionHeading, sectionSubheading, cardTitle, cardText, cardTextSmall, standardCard, interactiveCard, pageContainer,headerContainer, pagePadding, iconButton } from "@/lib/design-tokens";
 import { getStorageItem, setStorageItem } from "@/lib/storage";
 import { markedTipsSchema, completedActivitiesSchema } from "@/lib/schemas";
 
@@ -106,13 +106,14 @@ const Today = () => {
   );
 
   return (
+    /* STANDARDIZATION: space-y-6 for page sections, space-y-4 for card lists */
+    <div className={pageContainer}>
+        <div className={headerContainer}>
 
 
-  <div className={pageContainer}>
-    <div className={headerContainer}>
 
-   
-  <header className="flex items-start justify-between mb-6">
+ 
+
     <div>
       <h1 className={pageTitle}>Idag</h1>
     </div>
@@ -155,7 +156,7 @@ const Today = () => {
         </div>
       </SheetContent>
     </Sheet>
-  </header>
+  
       {/* STARTA HÄR SECTION */}
       <div className="space-y-4">
         <h3 className={sectionHeading}>Starta här</h3>
