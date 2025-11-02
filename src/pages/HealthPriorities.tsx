@@ -157,7 +157,6 @@ const HealthPriorities = () => {
         </div>
         <p className={sectionSubheading}>
           Bocka i dina mål och mediciner du tar. Du kan ändra detta när som helst under Mina sidor - Inställningar.
-      </header>
       </p> 
       <div className={pagePadding}>
         <section>
