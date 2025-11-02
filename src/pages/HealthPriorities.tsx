@@ -148,12 +148,12 @@ const HealthPriorities = () => {
   };
 
   return (
-    <div className={`${pageContainer} pb-24`}>
+    <div className={pageContainer}>
       <div className={headerContainer}>
         
           <BackToTodayButton />
         <h1 className={sectionHeading}>Anpassa tips efter mina mål</h1>
-      <p className={`${sectionSubheading} mt-2`}>Bocka i vad du önskar att få ut efter programmet. Bocka i läkemedel du tar, så att vi kan påminna dej om livsmedel som du evenutellt bör undvika. Du kan när som helst ändra önskningar och läkemedel under "Mina sidor - Inställningar</p>
+      <p className={sectionSubheading}>Bocka i vad du önskar att få ut efter programmet. Bocka i läkemedel du tar, så att vi kan påminna dej om livsmedel som du evenutellt bör undvika. Du kan när som helst ändra önskningar och läkemedel under "Mina sidor - Inställningar</p>
     </div>
       
 
