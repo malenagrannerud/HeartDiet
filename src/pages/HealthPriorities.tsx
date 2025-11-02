@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
+import { arrowBack } from '@/lib/design-tokens'; // or your actual path
 import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
@@ -138,7 +139,7 @@ const HealthPriorities = () => {
     });
     
     navigate('/app/today');
-  };
+  }};
 
   return (
     <div className={pageContainer}>
