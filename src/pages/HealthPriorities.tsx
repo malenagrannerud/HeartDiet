@@ -62,21 +62,14 @@ const medications: Medication[] = [
     description: "Till exempel: Eliquis, Xarelto"
   },
   {
-    id: "bloodPressureMeds",
-    label: "Blodtrycksmedicin",
-    description: "",
-    subOptions: [
-      {
-        id: "ace",
-        label: "ACE-hämmare",
-        description: "Till exempel: Ramipril, Enalapril"
-      },
-      {
-        id: "diuretics",
-        label: "Diuretika",
-        description: "Till exempel: Hydroklorotiazid"
-      }
-    ]
+  id: "ace",
+  label: "ACE-hämmare",
+  description: "Till exempel: Ramipril, Enalapril"
+  },
+  {
+    id: "diuretics",
+    label: "Diuretika",
+    description: "Till exempel: Hydroklorotiazid"
   },
   {
     id: "statins",
