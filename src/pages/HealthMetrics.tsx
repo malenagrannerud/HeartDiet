@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { BackToTodayButton } from "@/components/BackToTodayButton";
-import { pageTitle, pageSubtitle, sectionHeading, sectionSubheading, cardText, labelText, headerContainer, backButton, secondaryButton, disabledButton, compactCard, pageContainer, pagePadding } from "@/lib/design-tokens";
+import { sectionHeading, sectionSubheading, cardText, labelText, headerContainer, secondaryButton, disabledButton, compactCard, pageContainer, pagePadding} from "@/lib/design-tokens";
 import { getStorageItem, setStorageItem } from "@/lib/storage";
 import { healthMetricsSchema, completedActivitiesSchema } from "@/lib/schemas";
 
@@ -45,7 +45,6 @@ const HealthMetrics = () => {
   const isValid = weight !== "" && systolic !== "" && diastolic !== "";
 
   return (
-    /* STANDARDIZATION: Cards use compactCard (p-5, bg-blue-50, min-h-80px) */
     <div className={pageContainer}>
       <div className={headerContainer}>
        <BackToTodayButton />
@@ -56,7 +55,7 @@ const HealthMetrics = () => {
     
       <div className={`${pagePadding} space-y-6`}>
         <Card className={compactCard}>
-          <div className="space-y-3">
+          <div className="space-y-4">
             <Label htmlFor="weight" className={labelText}>Vikt (kg)</Label>
             <Input id="weight" type="number" placeholder="T.ex. 75" value={weight} onChange={(e) => setWeight(e.target.value)} className="text-lg" step="0.1" min="0" />
             <p className={`text-sm ${cardText}`}>Ange din nuvarande vikt i kilogram</p>
