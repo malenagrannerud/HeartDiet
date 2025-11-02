@@ -161,8 +161,7 @@ const HealthPriorities = () => {
         </p>
       </header>
 
-      <div className={`${pagePadding} space-y-6`}>
-        {/* Health Priorities Section - CENTRALIZED */}
+      <div className={pagePadding}>
         <section>
           <h2 className={`${sectionHeading} mb-4`}>Hjälp mej att:</h2>
           <div className="space-y-4">
