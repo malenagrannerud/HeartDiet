@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
-import { arrowBack, sectionHeading, sectionSubheading, cardTitle, cardText, standardCard, headerContainer, primaryButton, pageContainer, pagePadding, backButton} from '@/lib/design-tokens';
 import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
+import { pageTitle, sectionHeading, sectionSubheading, cardTitle, cardText, standardCard, headerContainer, backButton, primaryButton, pageContainer, pagePadding } from "@/lib/design-tokens";
 import { getStorageItem, setStorageItem } from "@/lib/storage";
 import { healthPrioritiesSchema, completedActivitiesSchema } from "@/lib/schemas";
 
@@ -62,9 +62,9 @@ const medications: Medication[] = [
     description: "Till exempel: Eliquis, Xarelto"
   },
   {
-    id: "ace",
-    label: "ACE-hämmare",
-    description: "Till exempel: Ramipril, Enalapril"
+  id: "ace",
+  label: "ACE-hämmare",
+  description: "Till exempel: Ramipril, Enalapril"
   },
   {
     id: "diuretics",
@@ -142,27 +142,25 @@ const HealthPriorities = () => {
 
   return (
     <div className={pageContainer}>
-    <header className={headerContainer}>
-      {/* Use the same pattern as the working back button */}
-      <Button
-        variant="ghost"
-        onClick={() => navigate('/app/today')}
-        className={`${backButton} flex items-center justify-center`}
-        aria-label="Tillbaka"
-      >
-        <ArrowLeft size={28} className="text-[#212658]" />
-      </Button>
-
-      {/* Text content below */}
-      <div className="mt-4">
-        <h1 className={sectionHeading}>Anpassa tips efter mina mål</h1>
+      <header className={headerContainer}>
+        <div className="flex items-center gap-3 mb-3">
+          <Button
+            variant="ghost"
+            onClick={() => navigate('/app/today')}
+            className={arrowBack}
+            aria-label="Tillbaka"
+          >
+            <ArrowLeft size={28} className="text-foreground" />
+          </Button>
+          <h1 className={sectionHeading}>Anpassa tips efter mina mål</h1>
+        </div>
         <p className={sectionSubheading}>
           Bocka i dina mål och mediciner du tar. Du kan ändra detta när som helst under Mina sidor - Inställningar.
         </p>
-      </div>
-    </header>
+      </header>
 
-      <div className={pagePadding}>
+      <div className={`${pagePadding} space-y-6`}>
+        {/* Health Priorities Section - CENTRALIZED */}
         <section>
           <h2 className={`${sectionHeading} mb-4`}>Hjälp mej att:</h2>
           <div className="space-y-4">
@@ -191,6 +189,7 @@ const HealthPriorities = () => {
           </div>
         </section>
 
+        {/* Medications Section - CENTRALIZED */}
         <section>
           <h2 className={sectionHeading}>Läkemedel</h2>
           <p className={`${cardText} mb-4`}>
@@ -218,6 +217,7 @@ const HealthPriorities = () => {
                   </div>
                 </label>
                 
+                {/* Sub-options for blood pressure medication */}
                 {medication.subOptions && selectedMedications.includes(medication.id) && (
                   <div className="ml-10 mt-4 space-y-3">
                     {medication.subOptions.map((subOption) => (
@@ -245,6 +245,7 @@ const HealthPriorities = () => {
           </div>
         </section>
 
+        {/* Save Button - Using Button component with CENTRALIZED STYLING */}
         <Button
           onClick={handleSave}
           className={primaryButton}
