@@ -18,7 +18,6 @@ const Tutorial = () => {
         className={arrowBack}
         aria-label="Gå tillbaka"
       >
-      <ArrowLeft size={28} />
       </button>
       {/* STANDARDIZATION: Title uses sectionHeading, subtitle uses sectionSubheading */}
       <h1 className={sectionHeading}>Så fungerar appen</h1>
