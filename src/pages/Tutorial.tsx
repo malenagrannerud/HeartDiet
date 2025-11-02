@@ -2,33 +2,20 @@ import { useNavigate } from "react-router-dom";
 import { ArrowLeft, Home, BookOpen, TrendingUp, HelpCircle } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import fruitsImage from "@/assets/fruits-illustration.jpg";
-import { pageTitle, pageSubtitle, cardTitle, cardText, standardCard, backButton, primaryButton, pageContainer, pagePadding } from "@/lib/design-tokens";
+import { sectionHeading, sectionSubheading, cardTitle, cardText, standardCard, primaryButton, pageContainer, headerContainer, pagePadding } from "@/lib/design-tokens";
+import { BackToTodayButton } from "@/components/BackToTodayButton";
 
 const Tutorial = () => {
   const navigate = useNavigate();
 
   return (
-    /* STANDARDIZATION: Page uses pageContainer for consistent layout */
     <div className={pageContainer}>
-      {/* STANDARDIZATION: Header uses standard headerContainer styling */}
-      <div className="bg-white border-b border-border sticky top-0 z-10">
-        <div className="p-6">
-          {/* STANDARDIZATION: Back button uses backButton token */}
-          <button
-            onClick={() => navigate('/app/today')}
-            className={`flex items-center gap-3 text-[#212658] mb-4 ${backButton}`}
-            aria-label="Gå tillbaka"
-          >
-            <ArrowLeft size={28} />
-            <span className="text-lg font-semibold">Tillbaka</span>
-          </button>
-          {/* STANDARDIZATION: Title uses pageTitle (text-4xl), subtitle uses pageSubtitle (text-lg) */}
-          <h1 className={pageTitle}>Så fungerar appen</h1>
-          <p className={`${pageSubtitle} mt-3`}>En enkel guide för dig</p>
-        </div>
-      </div>
-
-      {/* STANDARDIZATION: Content uses space-y-6 for section spacing */}
+      <div className={headerContainer}>
+          <BackToTodayButton />
+        <h1 className={sectionHeading}>Så fungerar appen</h1>
+      <p className={sectionSubheading}>Läs om hur appens huvudfunktioner fungerar. Du kan när du vill läsa igen under "Mina sidor - Inställningar"</p>
+    </div>
+     
       <div className={`${pagePadding} space-y-6`}>
         {/* Introduction */}
         <div className="space-y-6">
@@ -43,15 +30,12 @@ const Tutorial = () => {
           />
         </div>
 
-        {/* STANDARDIZATION: Cards use p-5 padding, bg-blue-50, min-h-[80px] */}
-        {/* Section 1: Today */}
         <Card className={standardCard}>
           <div className="flex items-start gap-5">
             <div className="bg-green-100 p-4 rounded-full flex-shrink-0">
               <Home className="w-8 h-8 text-green-700" />
             </div>
             <div className="space-y-4">
-              {/* STANDARDIZATION: Text uses cardTitle (text-xl), cardText (text-base) */}
               <h2 className={`${cardTitle} text-2xl`}>Idag-sidan</h2>
               <p className={`${cardText} text-lg`}>
                 När du öppnar appen hamnar du på "Idag". Här ser du dina valda hälsotips och kan 
