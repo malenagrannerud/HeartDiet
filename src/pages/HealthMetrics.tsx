@@ -5,7 +5,7 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { pageTitle, cardText, labelText, headerContainer, backButton, secondaryButton, disabledButton, compactCard, pageContainer, pagePadding } from "@/lib/design-tokens";
+import { pageTitle, pageSubtitle, cardText, labelText, headerContainer, backButton, secondaryButton, disabledButton, compactCard, pageContainer, pagePadding } from "@/lib/design-tokens";
 import { getStorageItem, setStorageItem } from "@/lib/storage";
 import { healthMetricsSchema, completedActivitiesSchema } from "@/lib/schemas";
 
@@ -46,15 +46,31 @@ const HealthMetrics = () => {
   return (
     /* STANDARDIZATION: Cards use compactCard (p-5, bg-blue-50, min-h-80px) */
     <div className={pageContainer}>
-      <header className={headerContainer}>
-        <div className="flex items-center gap-3 mb-2">
-          <Button variant="ghost" onClick={() => navigate('/app/today')} className={backButton}>
-            <ArrowLeft size={24} className="text-foreground" />
-          </Button>
-          <h1 className={`${pageTitle} text-2xl`}>Vikt och blodtryck</h1>
+     
+
+
+
+
+ <div className="bg-white border-b border-border sticky top-0 z-10">
+        <div className="p-6">
+          <button
+            onClick={() => navigate('/app/today')}
+            className={`flex items-center gap-3 text-[#212658] mb-4 ${backButton}`}
+            aria-label="Gå tillbaka"
+          >
+            <ArrowLeft size={28} />
+            <span className="text-lg font-semibold">Tillbaka</span>
+          </button>
+          <h1 className={pageTitle}>Vikt och blodtryck</h1>
+          <p className={`${pageSubtitle} mt-3`}>Fyll i dina startvärden</p>
         </div>
-        <p className={`${cardText} text-sm ml-14`}>Fyll i dina startvärden</p>
-      </header>
+      </div>
+
+
+
+
+
+
 
       <div className={`${pagePadding} space-y-6`}>
         <Card className={compactCard}>
