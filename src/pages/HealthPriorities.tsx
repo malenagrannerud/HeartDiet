@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
-import { arrowBack } from '@/lib/design-tokens'; // or your actual path
+import { arrowBack } from '@/lib/design-tokens';
 import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { pageTitle, sectionHeading, sectionSubheading, cardTitle, cardText, standardCard, headerContainer, backButton, primaryButton, pageContainer, pagePadding } from "@/lib/design-tokens";
+import { sectionHeading, sectionSubheading, cardTitle, cardText, standardCard, headerContainer, primaryButton, pageContainer, pagePadding } from "@/lib/design-tokens";
 import { getStorageItem, setStorageItem } from "@/lib/storage";
 import { healthPrioritiesSchema, completedActivitiesSchema } from "@/lib/schemas";
 
@@ -63,9 +63,9 @@ const medications: Medication[] = [
     description: "Till exempel: Eliquis, Xarelto"
   },
   {
-  id: "ace",
-  label: "ACE-hämmare",
-  description: "Till exempel: Ramipril, Enalapril"
+    id: "ace",
+    label: "ACE-hämmare",
+    description: "Till exempel: Ramipril, Enalapril"
   },
   {
     id: "diuretics",
@@ -157,7 +157,9 @@ const HealthPriorities = () => {
         </div>
         <p className={sectionSubheading}>
           Bocka i dina mål och mediciner du tar. Du kan ändra detta när som helst under Mina sidor - Inställningar.
-      </p> 
+        </p>
+      </header>
+
       <div className={pagePadding}>
         <section>
           <h2 className={`${sectionHeading} mb-4`}>Hjälp mej att:</h2>
@@ -187,7 +189,6 @@ const HealthPriorities = () => {
           </div>
         </section>
 
-        {/* Medications Section - CENTRALIZED */}
         <section>
           <h2 className={sectionHeading}>Läkemedel</h2>
           <p className={`${cardText} mb-4`}>
@@ -215,7 +216,6 @@ const HealthPriorities = () => {
                   </div>
                 </label>
                 
-                {/* Sub-options for blood pressure medication */}
                 {medication.subOptions && selectedMedications.includes(medication.id) && (
                   <div className="ml-10 mt-4 space-y-3">
                     {medication.subOptions.map((subOption) => (
@@ -243,7 +243,6 @@ const HealthPriorities = () => {
           </div>
         </section>
 
-        {/* Save Button - Using Button component with CENTRALIZED STYLING */}
         <Button
           onClick={handleSave}
           className={primaryButton}
