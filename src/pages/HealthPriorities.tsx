@@ -142,20 +142,22 @@ const HealthPriorities = () => {
 
   return (
     <div className={pageContainer}>
-<header className={`${headerContainer} flex flex-col`}>
-  <Button
-    variant="ghost"
-    onClick={() => navigate('/app/today')}
-    className={`self-start mb-4 ${arrowBack}`}
-    aria-label="Tillbaka"
-  >
-    <ArrowLeft size={40} className="text-foreground" />
-  </Button>
+<header className={headerContainer}>
+  <div className="flex flex-col">
+    <Button
+      variant="ghost"
+      onClick={() => navigate('/app/today')}
+      className={`self-start mb-4 ${arrowBack}`}
+      aria-label="Tillbaka"
+    >
+      <ArrowLeft size={40} className="text-foreground" />
+    </Button>
 
-  <h1 className={sectionHeading}>Anpassa tips efter mina mål</h1>
-  <p className={sectionSubheading}>
-    Bocka i dina mål och mediciner du tar. Du kan ändra detta när som helst under Mina sidor - Inställningar.
-  </p>
+    <h1 className={sectionHeading}>Anpassa tips efter mina mål</h1>
+    <p className={sectionSubheading}>
+      Bocka i dina mål och mediciner du tar. Du kan ändra detta när som helst under Mina sidor - Inställningar.
+    </p>
+  </div>
 </header>
 
       <div className={pagePadding}>
