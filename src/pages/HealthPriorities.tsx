@@ -153,7 +153,7 @@ const HealthPriorities = () => {
         
           <BackToTodayButton />
         <h1 className={sectionHeading}>Anpassa tips efter mina mål</h1>
-      <p className={`${sectionSubheading} mt-3`}>Bocka i dina mål och mediciner du tar. Du kan ändra när som helst under "Mina sidor - Inställninga</p>
+      <p className={`${sectionSubheading} mt-2`}>Bocka i vad du önskar att få ut efter programmet. Bocka i läkemedel du tar, så att vi kan påminna dej om livsmedel som du evenutellt bör undvika. Du kan när som helst ändra önskningar och läkemedel under "Mina sidor - Inställningar</p>
     </div>
       
 
@@ -161,7 +161,7 @@ const HealthPriorities = () => {
       <div className={`${pagePadding} space-y-6`}>
         {/* Health Priorities Section - CENTRALIZED */}
         <section>
-          <h2 className={`${sectionHeading} mb-4`}>Hjälp mej att:</h2>
+          <h2 className={`${sectionHeading} mb-4`}>Mina mål:</h2>
           <div className="space-y-4">
             {healthPriorities.map((priority) => (
               <Card key={priority.id} className={standardCard}>
