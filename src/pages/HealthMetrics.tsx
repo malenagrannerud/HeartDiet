@@ -47,12 +47,7 @@ const HealthMetrics = () => {
     /* STANDARDIZATION: Cards use compactCard (p-5, bg-blue-50, min-h-80px) */
     <div className={pageContainer}>
      
-
-
-
-
- <div className="bg-white border-b border-border sticky top-0 z-10">
-        <div className="p-6">
+    <div className={headerContainer}>
           <button
             onClick={() => navigate('/app/today')}
             className={`flex items-center gap-3 text-[#212658] mb-4 ${backButton}`}
@@ -64,13 +59,7 @@ const HealthMetrics = () => {
           <h1 className={pageTitle}>Vikt och blodtryck</h1>
           <p className={`${pageSubtitle} mt-3`}>Fyll i dina startvärden</p>
         </div>
-      </div>
-
-
-
-
-
-
+    
 
       <div className={`${pagePadding} space-y-6`}>
         <Card className={compactCard}>

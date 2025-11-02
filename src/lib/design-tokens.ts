@@ -239,7 +239,7 @@ export const pagePadding = "p-6";
  * HEADER CONTAINER
  * Page header styling
  */
-export const headerContainer = "bg-white border-b border-border sticky top-0 z-10";
+export const headerContainer = "bg-white border-b border-border sticky top-0 z-10 p-6";
 
 
 
