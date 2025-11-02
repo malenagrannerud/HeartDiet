@@ -5,7 +5,11 @@ import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { pageTitle, sectionHeading, sectionSubheading, cardTitle, cardText, standardCard, headerContainer, backButton, primaryButton, pageContainer, pagePadding } from "@/lib/design-tokens";
+<<<<<<< HEAD
+import { pageTitle, sectionHeading, cardTitle, cardText, standardCard, headerContainer, backButton, primaryButton, pageContainer, pagePadding, standardSpacing, bodyText, sectionSubheading } from "@/lib/design-tokens";
+=======
+import { heading, pageTitle, sectionHeading, cardTitle, cardText, standardCard, headerContainer, backButton, primaryButton, pageContainer, pagePadding, standardSpacing, bodyText } from "@/lib/design-tokens";
+>>>>>>> bc4f4ca54a132e6cce8b4bb778d754f9a7e00821
 import { getStorageItem, setStorageItem } from "@/lib/storage";
 import { healthPrioritiesSchema, completedActivitiesSchema } from "@/lib/schemas";
 
@@ -62,14 +66,21 @@ const medications: Medication[] = [
     description: "Till exempel: Eliquis, Xarelto"
   },
   {
-  id: "ace",
-  label: "ACE-hämmare",
-  description: "Till exempel: Ramipril, Enalapril"
-  },
-  {
-    id: "diuretics",
-    label: "Diuretika",
-    description: "Till exempel: Hydroklorotiazid"
+    id: "bloodPressureMeds",
+    label: "Blodtrycksmedicin",
+    description: "",
+    subOptions: [
+      {
+        id: "ace",
+        label: "ACE-hämmare",
+        description: "Till exempel: Ramipril, Enalapril"
+      },
+      {
+        id: "diuretics",
+        label: "Diuretika",
+        description: "Till exempel: Hydroklorotiazid"
+      }
+    ]
   },
   {
     id: "statins",
@@ -142,12 +153,13 @@ const HealthPriorities = () => {
 
   return (
     <div className={pageContainer}>
+      {/* HEADER CONTAINER */}
       <header className={headerContainer}>
-        <div className="flex items-center gap-3 mb-3">
+        <div className="flex items-center gap-3">
           <Button
             variant="ghost"
             onClick={() => navigate('/app/today')}
-            className={arrowBack}
+            className={backButton}
             aria-label="Tillbaka"
           >
             <ArrowLeft size={28} className="text-foreground" />
@@ -155,104 +167,108 @@ const HealthPriorities = () => {
           <h1 className={sectionHeading}>Anpassa tips efter mina mål</h1>
         </div>
         <p className={sectionSubheading}>
-          Bocka i dina mål och mediciner du tar. Du kan ändra detta när som helst under Mina sidor - Inställningar.
+          Bocka i dina mål och mediciner du tar. Då anpassas tips till dej. Du kan ändra detta när som helst under "Inställningar".
         </p>
       </header>
 
-      <div className={`${pagePadding} space-y-6`}>
-        {/* Health Priorities Section - CENTRALIZED */}
-        <section>
-          <h2 className={`${sectionHeading} mb-4`}>Hjälp mej att:</h2>
-          <div className="space-y-4">
-            {healthPriorities.map((priority) => (
-              <Card key={priority.id} className={standardCard}>
-                <label className="flex items-start gap-4 cursor-pointer">
-                  <Checkbox
-                    checked={selectedPriorities.includes(priority.id)}
-                    onCheckedChange={() => handlePriorityToggle(priority.id)}
-                    className="mt-1 h-6 w-6 flex-shrink-0"
-                    aria-label={priority.label}
-                  />
-                  <div className="flex-1">
-                    <div className={`${cardTitle} text-lg mb-1`}>
-                      {priority.label}
+      {/* FIRST PAGE PADDING: Health Priorities Section */}
+      <div className={pagePadding}>
+        <div className={standardSpacing.pageContent}>
+          <section className={standardSpacing.sectionContent}>
+            <h2 className={heading}>Hjälp mej att:</h2>
+            <div className={standardSpacing.cardList}>
+              {healthPriorities.map((priority) => (
+                <Card key={priority.id} className={standardCard}>
+                  <label className="flex items-start gap-4 cursor-pointer">
+                    <Checkbox
+                      checked={selectedPriorities.includes(priority.id)}
+                      onCheckedChange={() => handlePriorityToggle(priority.id)}
+                      className="mt-1 h-6 w-6 flex-shrink-0"
+                      aria-label={priority.label}
+                    />
+                    <div className="flex-1">
+                      <div className={cardTitle}>
+                        {priority.label}
+                      </div>
+                      {priority.description && (
+                        <p className={cardText}>
+                          {priority.description}
+                        </p>
+                      )}
                     </div>
-                    {priority.description && (
-                      <p className={cardText}>
-                        {priority.description}
-                      </p>
-                    )}
-                  </div>
-                </label>
-              </Card>
-            ))}
-          </div>
-        </section>
+                  </label>
+                </Card>
+              ))}
+            </div>
+          </section>
+        </div>
+      </div>
 
-        {/* Medications Section - CENTRALIZED */}
-        <section>
-          <h2 className={sectionHeading}>Läkemedel</h2>
-          <p className={`${cardText} mb-4`}>
-            Markera de läkemedel du tar regelbundet.
-          </p>
-          <div className="space-y-4">
-            {medications.map((medication) => (
-              <Card key={medication.id} className={standardCard}>
-                <label className="flex items-start gap-4 cursor-pointer">
-                  <Checkbox
-                    checked={selectedMedications.includes(medication.id)}
-                    onCheckedChange={() => handleMedicationToggle(medication.id)}
-                    className="mt-1 h-6 w-6 flex-shrink-0"
-                    aria-label={medication.label}
-                  />
-                  <div className="flex-1">
-                    <div className={`${cardTitle} text-lg mb-1`}>
-                      {medication.label}
+      {/* SECOND PAGE PADDING: Medications Section */}
+      <div className={pagePadding}>
+        <div className={standardSpacing.pageContent}>
+          <section className={standardSpacing.sectionContent}>
+            <h2 className={sectionHeading}>Läkemedel</h2>
+            <p className={cardText}>
+              Markera de läkemedel du tar regelbundet.
+            </p>
+            <div className={standardSpacing.cardList}>
+              {medications.map((medication) => (
+                <Card key={medication.id} className={standardCard}>
+                  <label className="flex items-start gap-4 cursor-pointer">
+                    <Checkbox
+                      checked={selectedMedications.includes(medication.id)}
+                      onCheckedChange={() => handleMedicationToggle(medication.id)}
+                      className="mt-1 h-6 w-6 flex-shrink-0"
+                      aria-label={medication.label}
+                    />
+                    <div className="flex-1">
+                      <div className={cardTitle}>
+                        {medication.label}
+                      </div>
+                      {medication.description && (
+                        <p className={cardText}>
+                          {medication.description}
+                        </p>
+                      )}
                     </div>
-                    {medication.description && (
-                      <p className={cardText}>
-                        {medication.description}
-                      </p>
-                    )}
-                  </div>
-                </label>
-                
-                {/* Sub-options for blood pressure medication */}
-                {medication.subOptions && selectedMedications.includes(medication.id) && (
-                  <div className="ml-10 mt-4 space-y-3">
-                    {medication.subOptions.map((subOption) => (
-                      <label key={subOption.id} className="flex items-start gap-3 cursor-pointer">
-                        <Checkbox
-                          checked={selectedMedications.includes(subOption.id)}
-                          onCheckedChange={() => handleMedicationToggle(subOption.id)}
-                          className="mt-1 h-5 w-5 flex-shrink-0"
-                          aria-label={subOption.label}
-                        />
-                        <div className="flex-1">
-                          <div className="font-semibold text-base text-foreground">
-                            {subOption.label}
+                  </label>
+                  
+                  {medication.subOptions && selectedMedications.includes(medication.id) && (
+                    <div className={standardSpacing.sectionContent}>
+                      {medication.subOptions.map((subOption) => (
+                        <label key={subOption.id} className="flex items-start gap-3 cursor-pointer">
+                          <Checkbox
+                            checked={selectedMedications.includes(subOption.id)}
+                            onCheckedChange={() => handleMedicationToggle(subOption.id)}
+                            className="mt-1 h-5 w-5 flex-shrink-0"
+                            aria-label={subOption.label}
+                          />
+                          <div className="flex-1">
+                            <div className="font-semibold text-base text-foreground">
+                              {subOption.label}
+                            </div>
+                            <p className="text-sm text-muted-foreground">
+                              {subOption.description}
+                            </p>
                           </div>
-                          <p className="text-sm text-muted-foreground">
-                            {subOption.description}
-                          </p>
-                        </div>
-                      </label>
-                    ))}
-                  </div>
-                )}
-              </Card>
-            ))}
-          </div>
-        </section>
+                        </label>
+                      ))}
+                    </div>
+                  )}
+                </Card>
+              ))}
+            </div>
+          </section>
 
-        {/* Save Button - Using Button component with CENTRALIZED STYLING */}
-        <Button
-          onClick={handleSave}
-          className={primaryButton}
-          aria-label="Spara mina val"
-        >
-          Spara mina val
-        </Button>
+          <Button
+            onClick={handleSave}
+            className={primaryButton}
+            aria-label="Spara mina val"
+          >
+            Spara mina val
+          </Button>
+        </div>
       </div>
     </div>
   );
