@@ -5,6 +5,7 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { BackToTodayButton } from "@/components/BackToTodayButton";
 import { pageTitle, pageSubtitle, cardText, labelText, headerContainer, backButton, secondaryButton, disabledButton, compactCard, pageContainer, pagePadding } from "@/lib/design-tokens";
 import { getStorageItem, setStorageItem } from "@/lib/storage";
 import { healthMetricsSchema, completedActivitiesSchema } from "@/lib/schemas";
@@ -46,21 +47,13 @@ const HealthMetrics = () => {
   return (
     /* STANDARDIZATION: Cards use compactCard (p-5, bg-blue-50, min-h-80px) */
     <div className={pageContainer}>
-     
-    <div className={headerContainer}>
-          <button
-            onClick={() => navigate('/app/today')}
-            className={`flex items-center gap-3 text-[#212658] mb-4 ${backButton}`}
-            aria-label="Gå tillbaka"
-          >
-            <ArrowLeft size={28} />
-            <span className="text-lg font-semibold">Tillbaka</span>
-          </button>
+      <div className={headerContainer}>
+       <BackToTodayButton />
+
           <h1 className={pageTitle}>Vikt och blodtryck</h1>
           <p className={`${pageSubtitle} mt-3`}>Fyll i dina startvärden</p>
         </div>
     
-
       <div className={`${pagePadding} space-y-6`}>
         <Card className={compactCard}>
           <div className="space-y-3">
