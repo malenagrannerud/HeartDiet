@@ -1,5 +1,11 @@
 import { tipCardColors } from '@/lib/design-tokens';
 
+export interface UserPlan {
+  when: string;       // "Varje morgon", "På söndagar", etc.
+  how: string;        // "Jag ska...", detailed plan
+  reminder?: string;  // Optional reminder
+}
+
 export interface Tip {
   id: number;
   title: string;
@@ -7,10 +13,8 @@ export interface Tip {
   healthScore: number;
   subtitle: string;
   detailedInfo: string;
-  steps: {
-    heading: string;
-    content: string;
-  }[];
+  steps: Array<string | { heading: string; content: string }>;
+  userPlan?: UserPlan; // User's personal plan
 }
 
 export const tips: Tip[] = [
