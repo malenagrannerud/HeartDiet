@@ -86,16 +86,15 @@ export const tips: Tip[] = [
      `,
      steps: [
       {
-        heading: "Knäckebröd - 100% fullkorn",
+        heading: "1 - Knäckebröd - 100% fullkorn",
         content: "Ät varje dag",
       },
-
       {
-        heading: "Byt vitt mjöl mot fullkornsmjöl",
+        heading: "2 - Byt vitt mjöl mot fullkornsmjöl",
         content: "Baka ditt eget bröd med några delar fullkorsnmjöl blandat med vitt mjöl. Till exempel kan du testa vete, råg, dinkel och enkorn, med unika smaker och egenskaper. "
       },
       {
-        heading: "Soppor och smoothies",
+        heading: "3 - Soppor och smoothies",
         content: "Koka grönsaker och bönor i buljong och mixa slät med en stavmixer. Resultatet blir en mycket smak- och näringsrik soppa som är redd och klar att äta. ",
       },
     ],
@@ -106,27 +105,24 @@ export const tips: Tip[] = [
     color: tipCardColors.cyan,
     healthScore: 3,
     subtitle:  "text",
-    detailedInfo:`
-      Fisk och skaldjur innehåller protein, D-vitamin, jod och selen. 
+    detailedInfo:`Fisk och skaldjur innehåller protein, D-vitamin, jod och selen. 
       Fet fisk innehåller dessutom omega-3-fettsyror som är viktiga för hjärtat och hjärnan.,
 
        "Planera två fiskmiddagar varje vecka",
       "Fisksoppa kan varieras. Prova olika recept",
       "Köp fryst fisk för att alltid ha hemma",
-    
-    `.replace(/\n\s+/g, '\n').trim(),
-    
+    `,
       steps: [
       {
-        heading: "Förbered veckan",
+        heading: "1 - Förbered veckan",
         content: "Se till att frukter och grönsaker finns hemma för veckan på till exempel söndagar. "
       },
       {
-        heading: "Veckans råkostsallad",
+        heading: "2 - Veckans råkostsallad",
         content: "Gör en stor sallad med riven rödkål, vitkål, morot och äpple exempelvis. Blanda i olivolja, vitvinsvinäger, salt och peppar och låt stå i kylen. Salladen håller hela veckan, prefekt att ta fram som tillbehör till veckans alla middagar.",
       },
       {
-        heading: "Soppor och smoothies",
+        heading: "3 - Soppor och smoothies",
         content: "Koka grönsaker och bönor i buljong och mixa slät med en stavmixer. Resultatet blir en mycket smak- och näringsrik soppa som är redd och klar att äta. ",
       },
     ],
@@ -140,22 +136,22 @@ export const tips: Tip[] = [
       "Använd flytande margarin och oljor i matlagning. Begränsa smör, hårdmargarin och andra mättade fetter",
     detailedInfo:`
       "Fettkvaliteten påverkar hälsan. Omättade fetter från växtolior, flytande margarin, nötter och fet fisk är nyttigare än mättade fetter från smör, hårdmargarin och fett kött.",
-          "Byt ut smör mot flytande margarin på mackan",
+      "Byt ut smör mot flytande margarin på mackan",
       "Använd rapsolja eller olivolja vid matlagning",
       "Snacksa på nötter istället för chips",
-    `.replace(/\n\s+/g, '\n').trim(),
+    `,
     
        steps: [
       {
-        heading: "Förbered veckan",
+        heading: "1 - Förbered veckan",
         content: "Se till att frukter och grönsaker finns hemma för veckan på till exempel söndagar. "
       },
       {
-        heading: "Veckans råkostsallad",
+        heading: "2 - Veckans råkostsallad",
         content: "Gör en stor sallad med riven rödkål, vitkål, morot och äpple exempelvis. Blanda i olivolja, vitvinsvinäger, salt och peppar och låt stå i kylen. Salladen håller hela veckan, prefekt att ta fram som tillbehör till veckans alla middagar.",
       },
       {
-        heading: "Soppor och smoothies",
+        heading: "3 - Soppor och smoothies",
         content: "Koka grönsaker och bönor i buljong och mixa slät med en stavmixer. Resultatet blir en mycket smak- och näringsrik soppa som är redd och klar att äta. ",
       },
     ],
@@ -172,7 +168,7 @@ export const tips: Tip[] = [
        "Välj mellanmjölk eller lättmjölk istället för standardmjölk",
       "Prova lättfil eller lättyoghurt till frukost",
       "Kolla fetthalt på ost och välj varianter under 17%",
-     `.replace(/\n\s+/g, '\n').trim(),
+     `,
        steps: [
       {
         heading: "Förbered veckan",
@@ -203,15 +199,15 @@ export const tips: Tip[] = [
       `.replace(/\n\s+/g, '\n').trim(),
         steps: [
       {
-        heading: "Förbered veckan",
+        heading: "1 - Förbered veckan",
         content: "Se till att frukter och grönsaker finns hemma för veckan på till exempel söndagar. "
       },
       {
-        heading: "Veckans råkostsallad",
+        heading: "2 - Veckans råkostsallad",
         content: "Gör en stor sallad med riven rödkål, vitkål, morot och äpple exempelvis. Blanda i olivolja, vitvinsvinäger, salt och peppar och låt stå i kylen. Salladen håller hela veckan, prefekt att ta fram som tillbehör till veckans alla middagar.",
       },
       {
-        heading: "Soppor och smoothies",
+        heading: "3 - Soppor och smoothies",
         content: "Koka grönsaker och bönor i buljong och mixa slät med en stavmixer. Resultatet blir en mycket smak- och näringsrik soppa som är redd och klar att äta. ",
       },
     ],
@@ -222,14 +218,13 @@ export const tips: Tip[] = [
     color: tipCardColors.graygreen,
     healthScore: 4,
     subtitle:  "Minska saltintaget till max 6 gram per dag. Använd joderat salt",
-    detailedInfo: `
-      "För mycket salt ökar risken för högt blodtryck. Ät max 6 gram salt per dag - det motsvarar en tesked. Använd joderat salt och undvik att salta för mycket.",
+    detailedInfo: `För mycket salt ökar risken för högt blodtryck. Ät max 6 gram salt per dag - det motsvarar en tesked. Använd joderat salt och undvik att salta för mycket.",
      
      
       "Smaka på maten innan du saltar",
       "Krydda med örter och kryddor istället för salt",
       "Välj produkter med lägre saltinnehåll",
-      `.replace(/\n\s+/g, '\n').trim(),
+      `,
         steps: [
       {
         heading: "Förbered veckan",
@@ -256,7 +251,7 @@ export const tips: Tip[] = [
       "Använd mindre tallrikar för att kontrollera portioner",
       "Ät långsamt och känn efter när du är mätt",
       "Planera regelbundna måltider - 3 huvudmål och 2 mellanmål",
-      `.replace(/\n\s+/g, '\n').trim(),
+      `,
         steps: [
       {
         heading: "Förbered veckan",
@@ -284,7 +279,7 @@ export const tips: Tip[] = [
       "Ta trapporna istället för hissen",
       "Hitta en aktivitet du tycker om - dans, simning eller cykling",
      
-      `.replace(/\n\s+/g, '\n').trim(),
+      `,
         steps: [
       {
         heading: "Förbered veckan",
@@ -312,7 +307,7 @@ export const tips: Tip[] = [
       "Testa en lins- eller böngryta varje vecka",
       "Snacksa på rostade kikärtor eller bönor",
      
-      `.replace(/\n\s+/g, '\n').trim(),
+      `,
        steps: [
       {
         heading: "Förbered veckan",
@@ -341,7 +336,7 @@ export const tips: Tip[] = [
       "Koka själv så du kan kontrollera salt- och sockermängden",
       "Läs innehållsförteckningen - socker har många namn (glukos, sackaros, fruktossirap)",
       "Använd kryddor istället för salt för mer smak"
-    `.replace(/\n\s+/g, '\n').trim(),
+    `,
      steps: [
       {
         heading: "Förbered veckan",
