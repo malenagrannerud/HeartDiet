@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Home, BookOpen, TrendingUp, HelpCircle } from "lucide-react";
 import { Card } from "@/components/ui/card";
-import { sectionHeading, sectionSubheading, cardTitle, cardText, standardCard, primaryButton, pageContainer, headerContainer, pagePadding, bodyTextBald } from "@/lib/design-tokens";
+import { sectionHeading, sectionSubheading, cardTitle, cardText, standardCard, primaryButton, pageContainer, headerContainer, pagePadding, bodyTextBald, bodyText } from "@/lib/design-tokens";
 import { BackToTodayButton } from "@/components/BackToTodayButton";
 
 const Tutorial = () => {
@@ -10,11 +10,11 @@ const Tutorial = () => {
   return (
     <div className={pageContainer}>
       <div className={headerContainer}>
-          <BackToTodayButton />
-        <h1 className={sectionHeading}>SÅ FUNGERAR APPEN</h1>
-      <p className={sectionSubheading}>Läs om hur du använder appen. Du kan när du vill läsa igen under "Mina sidor - Inställningar"
-      </p>
-    </div>
+        <BackToTodayButton />
+          <h1 className={sectionHeading}>SÅ FUNGERAR APPEN</h1>
+        <p className={sectionSubheading}>Läs om hur du använder appen. Du kan när du vill läsa igen under "Mina sidor - Inställningar"
+        </p>
+      </div>
      
       <div className={pagePadding}>
         <p className={bodyTextBald}>
@@ -31,13 +31,13 @@ const Tutorial = () => {
             </div>
             <div className="space-y-4">
               <h2 className={`${cardTitle} text-2xl`}>Idag-sidan</h2>
-              <p className={`${cardText} text-lg`}>
+              <p className={bodyText}>
                 När du öppnar appen hamnar du på "Idag". Här ser du dina valda hälsotips och kan 
                 följa stegen i din egen takt. Du behöver inte göra allt på en gång - ta det lugnt och 
                 börja med det som känns rätt för dig.
               </p>
               <div className="bg-[#FCFAF7] p-5 rounded-lg border-2 border-border">
-                <p className={`${cardText} font-medium`}>
+                <p className={bodyText}>
                   💡 Tips: Börja med att välja ett eller två tips att fokusera på denna vecka.
                 </p>
               </div>
@@ -66,8 +66,9 @@ const Tutorial = () => {
             </div>
           </div>
         </Card>
+      </div>
 
-        {/* Section 3: Progress */}
+      <div className={pagePadding}>
         <Card className={standardCard}>
           <div className="flex items-start gap-5">
             <div className="bg-purple-100 p-4 rounded-full flex-shrink-0">
@@ -91,7 +92,9 @@ const Tutorial = () => {
             </div>
           </div>
         </Card>
+      </div>
 
+      <div className={pagePadding}>
         {/* Section 4: Help */}
         <Card className={standardCard}>
           <div className="flex items-start gap-5">
@@ -107,8 +110,9 @@ const Tutorial = () => {
             </div>
           </div>
         </Card>
+      </div>
 
-        {/* Encouragement */}
+      <div className={pagePadding}>
         <div className="bg-green-50 p-8 rounded-lg border-2 border-green-200">
           <h3 className={`${cardTitle} text-2xl mb-4`}>Du klarar det här!</h3>
           <p className={`${cardText} text-lg mb-4`}>
@@ -120,16 +124,17 @@ const Tutorial = () => {
             Appen finns här när du behöver den, och allt du gör är i din egen takt.
           </p>
         </div>
+      </div>
 
-        {/* STANDARDIZATION: Button uses primaryButton token */}
-        <div className="flex gap-3 pt-6">
-          <button
-            onClick={() => {
-              localStorage.setItem('tutorialCompleted', 'true');
+        
+      <div className={pagePadding}>
+        <button
+          onClick={() => {
+            localStorage.setItem('tutorialCompleted', 'true');
               
-              // Add to completed activities
-              const completedActivities = JSON.parse(localStorage.getItem('completedActivities') || '[]');
-              completedActivities.push({
+            // Add to completed activities
+            const completedActivities = JSON.parse(localStorage.getItem('completedActivities') || '[]');
+            completedActivities.push({
                 id: 'tutorial',
                 title: 'Så fungerar appen',
                 completedDate: new Date().toISOString(),
@@ -143,8 +148,7 @@ const Tutorial = () => {
             aria-label="Kom igång med appen"
           >
             Kom igång
-          </button>
-        </div>
+        </button>
       </div>
     </div>
   );
