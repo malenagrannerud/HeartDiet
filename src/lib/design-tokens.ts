@@ -78,6 +78,38 @@ export const colors = {
 } as const;
 
 // ==========================================
+// 📏 SPACING 
+// ==========================================
+/**
+ * SPACING STANDARDS
+ * - pageContent: Main page content sections (space-y-6)
+ * - cardList: Lists of cards (space-y-4)
+ * - sectionContent: Content within a section (space-y-3)
+ * - formFields: Form field spacing (space-y-3)
+ */
+export const standardSpacing = {
+  pageContent: "space-y-6",
+  cardList: "space-y-4",
+  sectionContent: "space-y-3",
+  formFields: "space-y-3",
+} as const;
+
+/**
+ * PAGE CONTAINER-  Main page container styling
+ */
+export const pageContainer = "min-h-screen pb-24 space-y-6 bg-background";
+
+/**
+ * HEADER CONTAINER - Page header styling
+ */
+export const headerContainer = "bg-white border-b border-border sticky top-0 z-10 p-6";
+
+/**
+ * PAGE PADDING - Standard page padding
+ */
+export const pagePadding = "p-6";
+
+// ==========================================
 // 📝 TYPOGRAPHY - TEXT
 // ==========================================
 
@@ -164,38 +196,6 @@ export const buttonText = "text-base font-semibold";
  * Used for form labels
  */
 export const labelText = "text-[#212658] font-semibold";
-
-// ==========================================
-// 📏 SPACING 
-// ==========================================
-/**
- * SPACING STANDARDS
- * - pageContent: Main page content sections (space-y-6)
- * - cardList: Lists of cards (space-y-4)
- * - sectionContent: Content within a section (space-y-3)
- * - formFields: Form field spacing (space-y-3)
- */
-export const standardSpacing = {
-  pageContent: "space-y-6",
-  cardList: "space-y-4",
-  sectionContent: "space-y-3",
-  formFields: "space-y-3",
-} as const;
-
-/**
- * PAGE CONTAINER-  Main page container styling
- */
-export const pageContainer = "min-h-screen pb-24 space-y-6 bg-background";
-
-/**
- * HEADER CONTAINER - Page header styling
- */
-export const headerContainer = "bg-white border-b border-border sticky top-0 z-10 p-6";
-
-/**
- * PAGE PADDING - Standard page padding
- */
-export const pagePadding = "p-6";
 
 // ==========================================
 // 📦 CARD SIZES - 
