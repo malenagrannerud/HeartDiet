@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { tips } from "@/data/tips";
-import { pageTitle, sectionHeading, cardText, backButton, pageContainer, pagePadding, bodyText, bodyTextBald } from "@/lib/design-tokens";
+import { pageTitle, sectionHeading, cardText, backButton, pageContainer, headerContainer, pagePadding, bodyText, bodyTextBald } from "@/lib/design-tokens";
 import { Button } from "@/components/ui/button";
 
 const TipDetail = () => {
@@ -16,7 +16,7 @@ const TipDetail = () => {
   return (
     <div className={pageContainer}>
      
-      <header className={`w-full h-[200px] ${tip.color}`}>
+      <header className={`${headerContainer} ${tip.color}`}>
         <Button
           variant="ghost"
           onClick={() => navigate(-1)}
