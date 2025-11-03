@@ -107,7 +107,7 @@ export const headerContainer = "bg-white border-b border-border sticky top-0 z-1
 /**
  * PAGE PADDING - Standard page padding 24 px around 
  */
-export const pagePadding = "p-6";
+export const pagePadding = "p-3";
 
 // ==========================================
 // 📝 TYPOGRAPHY - TEXT
