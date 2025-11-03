@@ -91,7 +91,9 @@ const TipDetail = () => {
       <div className={pagePadding}>
         <BackToTodayButton />
         <h2 className={sectionHeading}>{tip.title}</h2>
-        <p className={`text-foreground leading-relaxed text-lg`}>{tip.detailedInfo}</p>
+        <p className="text-foreground leading-relaxed text-lg whitespace-pre-line">
+          {tip.detailedInfo}
+        </p>
 
         {/* Steps section */}
         <div className="space-y-6 pt-6">
