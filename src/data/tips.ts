@@ -24,8 +24,7 @@ export const tips: Tip[] = [
     color: tipCardColors.green,
     healthScore: 8,
     subtitle:  "Text",
-    detailedInfo: `
-      Fem nävar grönsaker, rotfrukter, frukter och bär per dag minskar risken 
+    detailedInfo: `Fem nävar grönsaker, rotfrukter, frukter och bär per dag minskar risken 
       för hjärt- och kärlsjukdom, cancer i bland annat bröst och tjocktarm 
       samt förtidig död. 
       
@@ -35,29 +34,29 @@ export const tips: Tip[] = [
       • Lågt energiinnehåll
 
       För att se till att få i dej fem nävar om dagen, prova att till exempel: 
-    `.replace(/\n\s+/g, '\n').trim(),
+    `,
        
     steps: [
       {
-        heading: "Förbered veckan",
+        heading: "1 - Förbered veckan",
         content: "Se till att frukter och grönsaker finns hemma för veckan på till exempel söndagar. "
       },
       {
-        heading: "Veckans råkostsallad",
+        heading: "2 - Veckans råkostsallad",
         content: "Gör en stor sallad med fint riven rödkål, vitkål, morot och äpple exempelvis. Blanda i olivolja, vitvinsvinäger, salt och peppar och låt stå i kylen. Salladen håller hela veckan, prefekt att ta fram som tillbehör till veckans alla middagar.",
       },
       {
-        heading: "Soppor och smoothies i kylskåpet",
+        heading: "3 - Soppor och smoothies i kylskåpet",
         content: "Koka grönsaker och bönor i buljong och mixa slät med en stavmixer. Resultatet blir en mycket smak- och näringsrik soppa som är redd och klar att äta. ",
       },
 
        {
-        heading: "Frukt och grönsaks-stavar",
+        heading: "4 - Frukt och grönsaks-stavar",
         content: "Hacka fina stavar av olika färger. Ta med dej till lunchen eller mellanmålet.",
       },
 
        {
-        heading: "Portionera ut",
+        heading: "5 - Portionera ut",
         content: "Tänk ut tider på dagen då en portion passar dej. Till exempel: En näve bär till frukost, en sked råkostsallad till lunch och ett äpple till efterrätt, morotsstavar till mellanmål och linser i köttfärsen till middagen.",
       },
     ],
