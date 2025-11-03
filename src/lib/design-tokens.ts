@@ -82,15 +82,15 @@ export const colors = {
 // ==========================================
 
 /**
- * PAGE TITLES- Used for main page headers
+ * PAGE TITLES - Used for main page headers
  * PAGE SUBTITLES- Used under page titles
  */
 export const pageTitle = "text-4xl font-bold text-[#212658] mb-1";
 export const pageSubtitle = "text-[#212658]/70 text-lg font-normal";
 
 /**
- * SECTION HEADINGS 18 px (Starta här, Mina tips den här veckan, etc.)
- * Used for section headers within pages
+ * SECTION HEADINGS  
+ * 18 px - Used for section headers within pages
  */
 export const sectionHeading = "text-lg font-bold text-[#212658]";
 
@@ -99,6 +99,20 @@ export const sectionHeading = "text-lg font-bold text-[#212658]";
  * subheading 16 px
  */
 export const sectionSubheading = "text-base font-normal text-[#212658]/70 mt-2";
+
+/**
+ * BODY TEXT 
+ * Used for body text within cards 16 px
+ */
+export const bodyText = "text-base text-[#212658]";
+
+
+/**
+ * BODY TEXT 
+ * Used for body text within cards 16 px
+ */
+export const bodyTextBald = "text-base font-bold text-[#212658]";
+
 
 /**
  * CARD TITLES - 20px
@@ -122,6 +136,16 @@ export const cardText = "text-base text-[#212658]/70";
  * Used for secondary text in cards 14 px
  */
 export const cardTextSmall = "text-sm text-[#212658]/70";
+
+
+
+
+
+
+
+
+
+
 
 /**
  * BUTTON TEXT (large)
