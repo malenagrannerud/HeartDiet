@@ -86,7 +86,7 @@ const Today = () => {
           </section>
 
           <section>
-              <h3 className={`${sectionHeading} mb-6`}>Mina tips den här veckan</h3>
+              <h3 className={`${sectionHeading} mb-3`}>Mina tips den här veckan</h3>
               {markedTipsList.length > 0 ? (
                 <div className="space-y-4">
                   {markedTipsList.map((tip) => (
