@@ -1,3 +1,7 @@
+import { tipCardColors } from '@/lib/design-tokens';
+
+
+
 export interface Tip {
   id: number;
   title: string;
@@ -15,7 +19,7 @@ export const tips: Tip[] = [
   {
     id: 1,
     title: "Fem nävar frukt och grönt",
-    color: "bg-green-300",
+    color: tipCardColors.green,
     healthScore: 8,
     subtitle:  "Text",
     detailedInfo: `
