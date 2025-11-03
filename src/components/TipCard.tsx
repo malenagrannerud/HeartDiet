@@ -3,6 +3,7 @@ import { Check } from "lucide-react";
 import { Tip } from "@/data/tips";
 import { cardTitle } from "@/lib/design-tokens";
 import { cardTitleSmall } from "@/lib/design-tokens";
+import { standardSpacing } from "@/lib/design-tokens";
 
 interface TipCardProps {
   tip: Tip;
@@ -25,10 +26,9 @@ const TipCard = ({ tip, isMarked, onToggleMark, onClick }: TipCardProps) => {
       >
         {isMarked && <Check size={16} className="text-white" strokeWidth={3} />}
       </div>
-      <div className="pr-8">
+      <div className={standardSpacing.cardList}>
     
         <h3 className={cardTitle}>{tip.title}</h3>
-       
         <div className={cardTitleSmall}>
           {tip.healthScore} poäng
         </div>
