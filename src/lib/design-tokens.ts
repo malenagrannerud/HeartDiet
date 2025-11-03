@@ -125,31 +125,31 @@ export const pageSubtitle = "text-[#212658]/70 text-lg font-normal";
 
 /**
  * SECTION HEADINGS 1  
- * 20 px - Used for a header within pages
+ * 24 px - Used for a header within pages
  */
-export const sectionHeading = "text-xl font-bold text-[#212658]";
+export const sectionHeading = "text-2xl font-bold text-[#212658]";
 
 /**
  * SECTION SUB HEADINGS 1
- * subheading 18 px
+ * subheading 22 px
  */
-export const sectionSubheading = "text-[#212658]/70 text-lg font-normal";
+export const sectionSubheading = "text-[#212658]/70 text-[22px] font-normal";
 
 /**
  * SECTION HEADINGS 2 
- * 18 px - Used for section headers within pages
+ * 20 px - Used for section headers within pages
  */
-export const sectionHeading2 = "text-lg font-bold text-[#212658]";
+export const sectionHeading2 = "text-xl font-bold text-[#212658]";
 
 /**
  * SECTION SUB HEADINGS 2
- * subheading 18 px
+ * 18 px subheading 
  */
 export const sectionSubheading2 = "text-lg font-normal text-[#212658]/70 mt-2";
 
 /**
  * BODY TEXT 
- * Used for body text within cards 16 px
+ * 16 px Used for body text within cards 16 px
  */
 export const bodyText = "text-base text-[#212658]";
 
