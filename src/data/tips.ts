@@ -51,7 +51,7 @@ export const tips: Tip[] = [
   {
     id: 2,
     title: "Fyll på med fullkorn",
-    color: "bg-amber-100",
+    color: tipCardColors.amber,
     healthScore: 3,
     subtitle: "Text",
     detailedInfo: `
@@ -88,7 +88,7 @@ export const tips: Tip[] = [
   {
     id: 3,
     title: "Fisk och skaldjur 3 gånger i veckan",
-    color: "bg-cyan-100",
+    color: tipCardColors.cyan,
     healthScore: 3,
     subtitle:  "text",
     detailedInfo:`
@@ -119,7 +119,7 @@ export const tips: Tip[] = [
   {
     id: 4,
     title: "Rätt fett",
-    color: "bg-yellow-100",
+    color: tipCardColors.yellow,
     healthScore: 3,
     subtitle: 
       "Använd flytande margarin och oljor i matlagning. Begränsa smör, hårdmargarin och andra mättade fetter",
