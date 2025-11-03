@@ -90,8 +90,6 @@ const Today = () => {
               <h3 className={sectionHeading}>Mina tips den här veckan</h3>
               {markedTipsList.length > 0 ? (
                 <div className="space-y-4">
-                  {/* STANDARDIZATION: TipCard uses same padding (p-5), fonts (text-xl/text-base), min-h-80px 
-                      but keeps tip-specific colors (requirement: tip cards keep their colors) */}
                   {markedTipsList.map((tip) => (
                     <TipCard
                       key={tip.id}
