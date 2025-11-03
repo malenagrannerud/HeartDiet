@@ -33,10 +33,8 @@ export const tips: Tip[] = [
       • Högt innehåll av antioxidanter  
       • Lågt energiinnehåll
 
-      
       För att se till att få i dej fem nävar om dagen, prova att till exempel: 
     `,
-       
     steps: [
       {
         heading: "1 - Förbered veckan",
@@ -68,30 +66,33 @@ export const tips: Tip[] = [
     color: tipCardColors.amber,
     healthScore: 3,
     subtitle: "Text",
-    detailedInfo: `
+    detailedInfo: `Fullkorn minskar risken för 
+    • kranskärlsjukdom, 
+    • tarmcancer, 
+    • typ 2-diabetes och 
+    • förtidig död.  
     
-    Fullkorn innehåller fibrer, vitaminer och mineraler som är viktiga för din hälsa. 
-    Genom att välja fullkorn istället för raffinerade produkter får du mer näring och 
-    håller dig mätt längre. Fullkorn har också visats minska risken för 
-    
-    • hjärt-kärlsjukdomar och
-    • typ 2-diabetes
+    Det höga innehållet av kostfibrer är en av förklaringarna till detta. 
+    Fibrerna bidrar till en bra tarmhälsa. De bidrar också till att sänka 
+    blodtrycket, vilket i sin tur leder till minskad risk för hjärt- och kärlsjukdom.
 
-      "Byt ut vitt bröd mot fullkornsbröd",
-      "Välj havregryn eller fullkornsflingor till frukost",
-      "Testa fullkornspasta eller råris istället för vanliga varianter",
-      "Ha havregryn eller müsli med fullkorn till frukost"
+    Fullkorn innehåller också växtsteroler som minskar upptaget av kolesterol i 
+    tarmen, vilket sänker halten av det skadliga LDL-kolesterolet i blodet. 
+    Det finns även evidens för att ett högre intag av fullkorn kan motverka 
+    viktuppgång och bidra till lägre totalkolesterol och minskat systoliskt blodtryck, 
+    vilket kan vara en annan förklaring till den minskade risken för kostrelaterad ohälsa.
 
-    
-     `.replace(/\n\s+/g, '\n').trim(),
+    För att se till att få i dej minst 90 g fullkorn per dag, prova att till exempel: 
+     `,
      steps: [
       {
-        heading: "Förbered veckan",
-        content: "Se till att frukter och grönsaker finns hemma för veckan på till exempel söndagar. "
+        heading: "Knäckebröd - 100% fullkorn",
+        content: "Ät varje dag",
       },
+
       {
-        heading: "Veckans råkostsallad",
-        content: "Gör en stor sallad med riven rödkål, vitkål, morot och äpple exempelvis. Blanda i olivolja, vitvinsvinäger, salt och peppar och låt stå i kylen. Salladen håller hela veckan, prefekt att ta fram som tillbehör till veckans alla middagar.",
+        heading: "Byt vitt mjöl mot fullkornsmjöl",
+        content: "Baka ditt eget bröd med några delar fullkorsnmjöl blandat med vitt mjöl. Till exempel kan du testa vete, råg, dinkel och enkorn, med unika smaker och egenskaper. "
       },
       {
         heading: "Soppor och smoothies",
