@@ -44,8 +44,9 @@ const Tutorial = () => {
             </div>
           </div>
         </Card>
+      </div>
 
-        {/* Section 2: Tips */}
+      <div className={pagePadding}>
         <Card className={standardCard}>
           <div className="flex items-start gap-5">
             <div className="bg-blue-100 p-4 rounded-full flex-shrink-0">
