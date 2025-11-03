@@ -14,11 +14,11 @@ const Tutorial = () => {
           <h1 className={sectionHeading}>Så fungerar appen</h1>
       </div>
      
-      <div className={pagePadding}>
+      <main className={pagePadding}>
         <p className={sectionSubheading}>
         Läs om hur du använder appen. Du kan när du vill läsa igen under "Mina sidor - Inställningar"
         </p>
-      </div>
+      
 
       <div className={pagePadding}>
         <Card className={standardCard}>
@@ -147,6 +147,7 @@ const Tutorial = () => {
             Kom igång
         </button>
       </div>
+      </main>
     </div>
   );
 };
