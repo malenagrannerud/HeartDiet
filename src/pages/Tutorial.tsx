@@ -12,14 +12,12 @@ const Tutorial = () => {
       <div className={headerContainer}>
         <BackToTodayButton />
           <h1 className={sectionHeading}>Så fungerar appen</h1>
-        <p className={sectionSubheading}>Läs om hur du använder appen. Du kan när du vill läsa igen under "Mina sidor - Inställningar"
-        </p>
       </div>
      
       <div className={pagePadding}>
-        <p className={bodyTextBald}>
+        <p className={sectionHeading}>
           Välkommen! Den här appen är skapad för att hjälpa dig ta hand om din hälsa på ett enkelt sätt. 
-          Du bestämmer själv tempot - allt går att göra i din egen takt.
+          Du bestämmer själv tempot - allt går att göra i din egen takt. Läs om hur du använder appen. Du kan när du vill läsa igen under "Mina sidor - Inställningar"
         </p>
       </div>
 
