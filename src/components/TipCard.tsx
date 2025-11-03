@@ -34,7 +34,7 @@ const TipCard = ({ tip, isMarked, onToggleMark, onClick }: TipCardProps) => {
       </div>
       <div className="pr-8">
     
-        <h3 className={`${cardTitle} ${tip.textColor}`}>{tip.title}</h3>
+        <h3 className={cardTitle}>{tip.title}</h3>
        
         <div className={cardTitleSmall}>
           {tip.healthScore} poäng
