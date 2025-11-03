@@ -33,9 +33,9 @@ const TipCard = ({ tip, isMarked, onToggleMark, onClick }: TipCardProps) => {
         {isMarked && <Check size={16} className="text-white" strokeWidth={3} />}
       </div>
       <div className="pr-8">
-        {/* STANDARDIZED FONT: text-xl for card title */}
+    
         <h3 className={`${cardTitle} ${tip.textColor}`}>{tip.title}</h3>
-        {/* STANDARDIZED FONT: text-base for health score */}
+       
         <div className={cardTitleSmall}>
           {tip.healthScore} poäng
         </div>
