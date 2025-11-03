@@ -4,7 +4,7 @@ import { Card } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
 import { tips } from "@/data/tips";
 import TipCard from "@/components/TipCard";
-import { pageTitle, sectionHeading, sectionSubheading, cardTitle, cardText, standardCard, interactiveCard, pageContainer, pagePadding } from "@/lib/design-tokens";
+import { pageTitle, sectionHeading, sectionSubheading, cardTitle, cardText, standardCard, interactiveCard, pageContainer, pagePadding, cardTitleSmall } from "@/lib/design-tokens";
 import { getStorageItem } from "@/lib/storage";
 import { markedTipsSchema } from "@/lib/schemas";
 
@@ -67,7 +67,7 @@ const Today = () => {
           <div className="flex items-start justify-between">
             <div>
               <h4 className={cardTitle}>Anpassa tips efter mina mål</h4>
-              <div className={`flex items-center gap-2 ${cardText}`}>
+              <div className={cardTitleSmall}>
                 <Clock size={20} strokeWidth={2.5} />
                 <span>5 min</span>
               </div>
