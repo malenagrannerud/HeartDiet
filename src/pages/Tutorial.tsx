@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Home, BookOpen, TrendingUp, HelpCircle } from "lucide-react";
 import { Card } from "@/components/ui/card";
-import { sectionHeading, sectionSubheading, cardTitle, cardText, standardCard, primaryButton, pageContainer, headerContainer, pagePadding } from "@/lib/design-tokens";
+import { sectionHeading, sectionSubheading, cardTitle, cardText, standardCard, primaryButton, pageContainer, headerContainer, pagePadding, bodyTextBald } from "@/lib/design-tokens";
 import { BackToTodayButton } from "@/components/BackToTodayButton";
 
 const Tutorial = () => {
@@ -17,7 +17,7 @@ const Tutorial = () => {
     </div>
      
       <div className={pagePadding}>
-        <p className={`${cardText} text-lg`}>
+        <p className={bodyTextBald}>
           Välkommen! Den här appen är skapad för att hjälpa dig ta hand om din hälsa på ett enkelt sätt. 
           Du bestämmer själv tempot - allt går att göra i din egen takt.
         </p>
