@@ -40,7 +40,7 @@ const Today = () => {
           <section className={standardSpacing.sectionContent}>
             <h3 className={sectionHeading}>Starta här</h3>
               
-              <Card 
+            <Card 
                 className={interactiveCard}
                 onClick={() => navigate('/app/tutorial')}
                 aria-label="Gå till tutorial"
@@ -54,9 +54,9 @@ const Today = () => {
                     </div>
                   </div>
                 </div>
-              </Card>
+            </Card>
           
-              <Card 
+            <Card 
                 className={interactiveCard}
                 onClick={() => navigate('/app/health-priorities')}
                 aria-label="Gå till mina hälsoprioriteringar"
@@ -70,24 +70,23 @@ const Today = () => {
                     </div>
                   </div>
                 </div>
-              </Card>
+            </Card>
               
-              <Card 
+            <Card 
                 className={interactiveCard}
                 onClick={() => navigate('/app/health-metrics')}
                 aria-label="Gå till hälsomätningar"
                 >
                 <div className="flex items-start justify-between">
                   <div>
-                    {/* STANDARDIZED FONT: text-xl via cardTitle */}
                     <h4 className={cardTitle}>Vikt och blodtryck</h4>
                   </div>
                 </div>
-              </Card>
+            </Card>
           </section>
 
           <section>
-              <h3 className={sectionHeading}>Mina tips den här veckan</h3>
+              <h3 className={`${sectionHeading} mb-6`}>Mina tips den här veckan</h3>
               {markedTipsList.length > 0 ? (
                 <div className="space-y-4">
                   {markedTipsList.map((tip) => (
