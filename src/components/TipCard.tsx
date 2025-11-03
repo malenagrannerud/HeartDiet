@@ -14,13 +14,6 @@ interface TipCardProps {
 const TipCard = ({ tip, isMarked, onToggleMark, onClick }: TipCardProps) => {
   return (
     <Card
-      /* STANDARDIZATION: 
-         - Padding: p-5 (consistent with all cards)
-         - Font: text-xl for title, text-base for health score (standardized sizes)
-         - Min height: min-h-[80px] (consistent with other cards)
-         - Colors: Keeps tip-specific colors from tip.color (requirement: tip cards keep their colors)
-         - Background: Uses tip.color - NOT light blue (only non-tip cards are light blue)
-      */
       className={`p-5 hover:shadow-md transition-all cursor-pointer active:scale-[0.98] ${tip.color} relative border-0 shadow-none min-h-[80px]`}
       onClick={onClick}
     >
