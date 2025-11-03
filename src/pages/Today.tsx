@@ -4,7 +4,7 @@ import { Card } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
 import { tips } from "@/data/tips";
 import TipCard from "@/components/TipCard";
-import { pageTitle, sectionHeading, sectionSubheading, cardTitle, cardText, standardCard, interactiveCard, pageContainer, pagePadding, cardTitleSmall } from "@/lib/design-tokens";
+import { pageTitle, sectionHeading, sectionSubheading, cardTitle, cardText, standardCard, interactiveCard, pageContainer, headerContainer, pagePadding, cardTitleSmall, pageSubtitle } from "@/lib/design-tokens";
 import { getStorageItem } from "@/lib/storage";
 import { markedTipsSchema } from "@/lib/schemas";
 
@@ -29,13 +29,15 @@ const Today = () => {
   const markedTipsList = tips.filter(tip => markedTips.some(mt => mt.id === tip.id));
 
   return (
-    /* STANDARDIZATION: space-y-6 for page sections, space-y-4 for card lists */
-    <div className={`${pageContainer} ${pagePadding} space-y-6`}>
-  {/* STANDARDIZED HEADER */}
-  <header className="mb-6">
-    <h1 className={pageTitle}>Idag</h1>
-  </header>
-      {/* STARTA HÄR SECTION */}
+   
+
+  <div className={pageContainer}>
+        <div className={headerContainer}>
+            
+          <h1 className={pageTitle}>Idag</h1>
+        <p className={pageSubtitle}>Dagens fokus</p>
+      </div>
+      
       <div className="space-y-4">
         <h3 className={sectionHeading}>Starta här</h3>
         

@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Home, BookOpen, TrendingUp, HelpCircle } from "lucide-react";
+import { Home, BookOpen, TrendingUp, HelpCircle } from "lucide-react";
 import { Card } from "@/components/ui/card";
-import fruitsImage from "@/assets/fruits-illustration.jpg";
 import { sectionHeading, sectionSubheading, cardTitle, cardText, standardCard, primaryButton, pageContainer, headerContainer, pagePadding } from "@/lib/design-tokens";
 import { BackToTodayButton } from "@/components/BackToTodayButton";
 
@@ -13,7 +12,7 @@ const Tutorial = () => {
       <div className={headerContainer}>
           <BackToTodayButton />
         <h1 className={sectionHeading}>Så fungerar appen</h1>
-      <p className={sectionSubheading}>Läs om hur appens huvudfunktioner fungerar. Du kan när du vill läsa igen under "Mina sidor - Inställningar"</p>
+      <p className={sectionSubheading}>Läs om hur du använder appen. Du kan när du vill läsa igen under "Mina sidor - Inställningar"</p>
     </div>
      
       <div className={`${pagePadding} space-y-6`}>
