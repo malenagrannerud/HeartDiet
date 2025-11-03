@@ -1,7 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { Check } from "lucide-react";
 import { Tip } from "@/data/tips";
-
+import { cardTitle } from "@/lib/design-tokens";
 interface TipCardProps {
   tip: Tip;
   isMarked: boolean;
@@ -32,7 +32,7 @@ const TipCard = ({ tip, isMarked, onToggleMark, onClick }: TipCardProps) => {
       </div>
       <div className="pr-8">
         {/* STANDARDIZED FONT: text-xl for card title */}
-        <h3 className={`font-semibold text-xl ${tip.textColor} mb-2`}>{tip.title}</h3>
+        <h3 className={`${cardTitle} ${tip.textColor}`}>{tip.title}</h3>
         {/* STANDARDIZED FONT: text-base for health score */}
         <div className="text-blue-900 text-base font-bold">
           {tip.healthScore} poäng
