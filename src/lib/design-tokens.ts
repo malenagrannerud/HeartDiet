@@ -108,7 +108,7 @@ export const cardTitle = "text-xl font-bold text-[#212658]";
 /**
  * CARD TITLES SMALL - 14 px
  */
-export const cardTitleSmall = "text-sm text-[#212658]";
+export const cardTitleSmall = "text-sm font-bold text-[#212658]";
 
 
 /**
