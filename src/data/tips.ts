@@ -29,6 +29,8 @@ export const tips: Tip[] = [
       • Högt innehåll av fibrer
       • Högt innehåll av antioxidanter  
       • Lågt energiinnehåll
+
+      För att se till att få i dej fem nävar om dagen, prova att till exempel: 
     `.replace(/\n\s+/g, '\n').trim(),
        
     steps: [
@@ -41,8 +43,18 @@ export const tips: Tip[] = [
         content: "Gör en stor sallad med fint riven rödkål, vitkål, morot och äpple exempelvis. Blanda i olivolja, vitvinsvinäger, salt och peppar och låt stå i kylen. Salladen håller hela veckan, prefekt att ta fram som tillbehör till veckans alla middagar.",
       },
       {
-        heading: "Soppor och smoothies",
+        heading: "Soppor och smoothies i kylskåpet",
         content: "Koka grönsaker och bönor i buljong och mixa slät med en stavmixer. Resultatet blir en mycket smak- och näringsrik soppa som är redd och klar att äta. ",
+      },
+
+       {
+        heading: "Frukt och grönsaks-stavar till efterrätt eller mellis",
+        content: "Hacka fina stavar av olika färger. Ta med dej till lunchen eller mellanmålet.",
+      },
+
+       {
+        heading: "Portionera ut",
+        content: "Tänk ut tider på dagen då en portion passar dej. Till exempel: En näve bär till frukost, en sked råkostsallad till lunch och ett äpple till efterrätt, morotsstavar till mellanmål och linser i köttfärsen till middagen.",
       },
     ],
   },
