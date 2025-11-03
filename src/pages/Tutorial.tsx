@@ -11,7 +11,7 @@ const Tutorial = () => {
     <div className={pageContainer}>
       <div className={headerContainer}>
         <BackToTodayButton />
-          <h1 className={sectionHeading}>SÅ FUNGERAR APPEN</h1>
+          <h1 className={sectionHeading}>Så fungerar appen</h1>
         <p className={sectionSubheading}>Läs om hur du använder appen. Du kan när du vill läsa igen under "Mina sidor - Inställningar"
         </p>
       </div>

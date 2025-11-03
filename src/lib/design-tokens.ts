@@ -105,7 +105,7 @@ export const pageContainer = "min-h-screen pb-24 space-y-6 bg-background";
 export const headerContainer = "bg-white border-b border-border sticky top-0 z-10 p-6";
 
 /**
- * PAGE PADDING - Standard page padding
+ * PAGE PADDING - Standard page padding 24 px around 
  */
 export const pagePadding = "p-6";
 
@@ -122,15 +122,27 @@ export const pageSubtitle = "text-[#212658]/70 text-lg font-normal";
 
 /**
  * SECTION HEADINGS  
- * 18 px - Used for section headers within pages
+ * 20 px - Used for a header within pages
  */
-export const sectionHeading = "text-lg font-bold text-[#212658]";
+export const sectionHeading = "text-xl font-bold text-[#212658]";
 
 /**
  * SECTION SUB HEADINGS 
  * subheading 16 px
  */
-export const sectionSubheading = "text-base font-normal text-[#212658]/70 mt-2";
+export const sectionSubheading = "text-xl font-normal text-[#212658]/70 mt-2";
+
+/**
+ * SECTION HEADINGS  
+ * 18 px - Used for section headers within pages
+ */
+export const sectionHeading2 = "text-lg font-bold text-[#212658]";
+
+/**
+ * SECTION SUB HEADINGS 
+ * subheading 18 px
+ */
+export const sectionSubheading2 = "text-lg font-normal text-[#212658]/70 mt-2";
 
 /**
  * BODY TEXT 
