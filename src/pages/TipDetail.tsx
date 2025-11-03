@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { UserPlan } from '@/data/tips'; // Same import path
-import { tips } from '@/data/tips'; // Same file
+import { tips } from "@/data/tips";
+import { UserPlan } from "@/data/tips";
 import { sectionHeading, sectionHeading2, cardText, backButton, pageContainer, pagePadding, bodyText, bodyTextBald } from "@/lib/design-tokens";
 import { BackToTodayButton } from "@/components/BackToTodayButton";
 import { UserPlanForm } from "@/components/UserPlanForm";
@@ -49,7 +49,7 @@ const TipDetail = () => {
   const navigate = useNavigate();
   const tip = tips.find((t) => t.id === Number(id));
   const [userPlan, setUserPlan] = useState<UserPlan | null>(null);
-  const [isEditing, setIsEditing] = useState(false);
+  const [isEditing, setIsEditing] = useState(!userPlan); // Start editing if no plan exists
 
   // Load user plan from localStorage on component mount
   useEffect(() => {
@@ -57,6 +57,9 @@ const TipDetail = () => {
       const savedPlan = localStorage.getItem(`userPlan-${tip.id}`);
       if (savedPlan) {
         setUserPlan(JSON.parse(savedPlan));
+        setIsEditing(false); // Don't show form if plan exists
+      } else {
+        setIsEditing(true); // Show form if no plan exists
       }
     }
   }, [tip]);
@@ -71,7 +74,7 @@ const TipDetail = () => {
 
   const handleDeletePlan = () => {
     setUserPlan(null);
-    setIsEditing(false);
+    setIsEditing(true); // Show form again after deletion
     if (tip) {
       localStorage.removeItem(`userPlan-${tip.id}`);
     }
@@ -95,29 +98,20 @@ const TipDetail = () => {
           {tip.steps.map(renderStep)}
         </div>
 
-        {/* User Plan Section */}
+        {/* User Plan Section - Always visible at the bottom */}
         <div className="mt-8 pt-6 border-t border-gray-200">
-          {!userPlan && !isEditing && (
-            <button
-              onClick={() => setIsEditing(true)}
-              className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition-colors font-medium"
-            >
-              + Skapa min plan för detta tips
-            </button>
-          )}
-
-          {isEditing && (
+          <h3 className={`${bodyTextBald} text-xl mb-4`}>Min plan</h3>
+          
+          {isEditing ? (
             <UserPlanForm
               tipId={tip.id}
               initialPlan={userPlan || undefined}
               onSave={handleSavePlan}
-              onCancel={() => setIsEditing(false)}
+              onCancel={() => userPlan && setIsEditing(false)} // Only show cancel if plan exists
             />
-          )}
-
-          {userPlan && !isEditing && (
+          ) : (
             <UserPlanDisplay
-              plan={userPlan}
+              plan={userPlan!}
               onEdit={() => setIsEditing(true)}
               onDelete={handleDeletePlan}
             />
