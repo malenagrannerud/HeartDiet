@@ -1,8 +1,9 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { tips } from "@/data/tips";
-import { sectionHeading,sectionHeading2, cardText, backButton, pageContainer, pagePadding } from "@/lib/design-tokens";
+import { sectionHeading,sectionHeading2, cardText, backButton, pageContainer, pagePadding, bodyText } from "@/lib/design-tokens";
 import { Button } from "@/components/ui/button";
+import { BackToTodayButton } from "@/components/BackToTodayButton";
 
 const TipDetail = () => {
   const { id } = useParams();
@@ -18,30 +19,17 @@ const TipDetail = () => {
       <div className={`w-full h-[200px] ${tip.color}`}></div>
 
       <div className={pagePadding}>
-      
-        <Button
-          variant="ghost"
-          onClick={() => navigate(-1)}
-          className={`${backButton} flex gap-3`}
-        >
-          <ArrowLeft size={28} className="text-foreground" />
-          <span className="text-lg font-semibold text-foreground">Tillbaka</span>
-        </Button>
-
-        
+        <BackToTodayButton />
         <h2 className={sectionHeading}>{tip.title}</h2>
-
-        {/* Description - CENTRALIZED */}
         <p className={`text-foreground leading-relaxed text-lg`}>{tip.detailedInfo}</p>
 
-        {/* Steps - CENTRALIZED */}
         <div className="space-y-4 pt-4">
           {tip.steps.map((step, index) => (
             <div key={index} className="space-y-2">
               <h3 className={sectionHeading2}>
                 Steg {index + 1}
               </h3>
-              <p className={`${cardText} text-base leading-relaxed`}>{step}</p>
+              <p className={bodyText}>{step}</p>
             </div>
           ))}
         </div>
