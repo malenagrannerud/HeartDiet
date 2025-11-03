@@ -174,7 +174,7 @@ export const tips: Tip[] = [
   {
     id: 6,
     title: "Minska på rött och bearbetat kött",
-    color: "bg-rose-100",
+    color: tipCardColors.rose,
     healthScore: 3,
     subtitle:  "Max 500 gram tillagat kött per vecka. Begränsa chark, korv och andra bearbetade köttprodukter",
     detailedInfo: `
@@ -202,7 +202,7 @@ export const tips: Tip[] = [
   {
     id: 7,
     title: "Salt-halt",
-    color: "bg-orange-100",
+    color: tipCardColors.graygreen,
     healthScore: 4,
     subtitle:  "Minska saltintaget till max 6 gram per dag. Använd joderat salt",
     detailedInfo: `
@@ -231,7 +231,7 @@ export const tips: Tip[] = [
   {
     id: 8,
     title: "Ät lagom mycket",
-    color: "bg-purple-100",
+    color: tipCardColors.purple,
     healthScore: 4,
     subtitle:  "Anpassa mängden mat efter ditt energibehov. Lyssna på din kropp och ät när du är hungrig",
     detailedInfo:`
@@ -286,7 +286,7 @@ export const tips: Tip[] = [
   {
     id: 10,
     title: "Ät mer baljväxter",
-    color: "bg-green-100",
+    color: tipCardColors.yellow,
     healthScore: 3,
     subtitle:  "Bönor, linser och ärtor är bra proteinkällor och innehåller fibrer. Klimatsmart alternativ till kött",
     detailedInfo: `
@@ -314,7 +314,7 @@ export const tips: Tip[] = [
   {
     id: 11,
     title: "Minska på sockret",
-    color: "bg-green-100",
+    color: tipCardColors.yellow,
     healthScore: 3,
     subtitle:  "Begränsa sötsaker, läsk och godis. Max 10% av ditt dagliga energiintag",
     detailedInfo: `"För mycket socker och salt är skadligt för hjärtat och blodtrycket. Genom att minska på dessa kan du förbättra din hälsa avsevärt. Socker ökar risken för övervikt och diabetes, medan för mycket salt höjer blodtrycket.",
