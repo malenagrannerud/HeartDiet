@@ -16,7 +16,10 @@ const TipDetail = () => {
   return (
     <div className={pageContainer}>
      
-      <header className={`${headerContainer} ${tip.color}`}>
+      <header 
+        className={headerContainer}
+        style={{ backgroundColor: tip.color }}
+      >
         <Button
           variant="ghost"
           onClick={() => navigate(-1)}
