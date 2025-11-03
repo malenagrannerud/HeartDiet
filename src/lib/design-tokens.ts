@@ -77,6 +77,18 @@ export const colors = {
   },
 } as const;
 
+export const tipCardColors = {
+  green: "bg-[#59ca80ff]",
+  amber: "bg-[#f6e5a0ff]", 
+  cyan: "bg-[#aad9ddff]",
+  yellow: "bg-[#FEF9C3]",
+  blue: "bg-[#DBEAFE]",
+  rose: "bg-[#FFE4E6]",
+  orange: "bg-[#FFEDD5]",
+  purple: "bg-[#F3E8FF]",
+  teal: "bg-[#CCFBF1]",
+} as const;
+
 // ==========================================
 // 📏 SPACING 
 // ==========================================
