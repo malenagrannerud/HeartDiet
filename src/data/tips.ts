@@ -48,7 +48,7 @@ export const tips: Tip[] = [
       },
 
        {
-        heading: "Frukt och grönsaks-stavar till efterrätt eller mellis",
+        heading: "Frukt och grönsaks-stavar",
         content: "Hacka fina stavar av olika färger. Ta med dej till lunchen eller mellanmålet.",
       },
 
