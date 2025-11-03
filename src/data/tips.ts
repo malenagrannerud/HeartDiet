@@ -15,9 +15,20 @@ export const tips: Tip[] = [
     color: "bg-green-100",
     healthScore: 8,
     subtitle:  "Frukt",
-    detailedInfo:
-      "Fem nävar grönsaker, rotfrukter, frukter och bär per dag minskar risken för hjärt- och kärlsjukdom, cancer i bland annat bröst och tjocktarm samt förtidig död. Det beror på höga innehåll av fibrer och antioxidanter samt ett lågt energiinnehåll.",
+    detailedInfo: `
+      Fem nävar grönsaker, rotfrukter, frukter och bär per dag minskar risken 
+      för hjärt- och kärlsjukdom, cancer i bland annat bröst och tjocktarm 
+      samt förtidig död. 
+      
+      Det beror på:
+      • Högt innehåll av fibrer
+      • Högt innehåll av antioxidanter  
+      • Lågt energiinnehåll
+    `.replace(/\n\s+/g, '\n').trim(),
+       
     steps: [
+      
+      "Förbered",
       "Förbered frukter och grönsaker på söndagar så de är lättillgängliga",
       "Gör en stor sallad med fint riven rödkål, vitkål, morot och äpple exempelvis. Blanda i olivolja, vitvinsvinäger, salt och peppar och låt stå i kylen. Salladen håller hela veckan, prefekt att ta fram som tillbehör till veckans alla middagar.",
       "Koka upp valfria grönsaker och bönor i buljong och mixa slät med en stavmixer. Resultatet blir en mycket smak- och näringsrik soppa som är redd och klar att äta. ",
