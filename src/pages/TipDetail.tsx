@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { tips } from "@/data/tips";
-import { pageTitle, sectionHeading, cardText, backButton, pageContainer, pagePadding } from "@/lib/design-tokens";
+import { sectionHeading,sectionHeading2, cardText, backButton, pageContainer, pagePadding } from "@/lib/design-tokens";
 import { Button } from "@/components/ui/button";
 
 const TipDetail = () => {
@@ -17,7 +17,7 @@ const TipDetail = () => {
     <div className={pageContainer}>
       <div className={`w-full h-[200px] ${tip.color}`}></div>
 
-      <div className={`${pagePadding} space-y-6`}>
+      <div className={pagePadding}>
       
         <Button
           variant="ghost"
@@ -28,8 +28,8 @@ const TipDetail = () => {
           <span className="text-lg font-semibold text-foreground">Tillbaka</span>
         </Button>
 
-        {/* Title - CENTRALIZED */}
-        <h1 className={`${pageTitle} leading-tight`}>{tip.title}</h1>
+        
+        <h2 className={sectionHeading}>{tip.title}</h2>
 
         {/* Description - CENTRALIZED */}
         <p className={`text-foreground leading-relaxed text-lg`}>{tip.detailedInfo}</p>
@@ -38,7 +38,7 @@ const TipDetail = () => {
         <div className="space-y-4 pt-4">
           {tip.steps.map((step, index) => (
             <div key={index} className="space-y-2">
-              <h3 className={`${sectionHeading} text-xl`}>
+              <h3 className={sectionHeading2}>
                 Steg {index + 1}
               </h3>
               <p className={`${cardText} text-base leading-relaxed`}>{step}</p>
