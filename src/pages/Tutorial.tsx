@@ -14,13 +14,13 @@ const Tutorial = () => {
           <h1 className={sectionHeading}>Så fungerar appen</h1>
       </div>
      
-      <div className="pagePadding">
+      <div className={pagePadding}>
         <p className={sectionSubheading}>
         Läs om hur du använder appen. Du kan när du vill läsa igen under "Mina sidor - Inställningar"
         </p>
       </div>
 
-      <div className="pagePadding">
+      <div className={pagePadding}>
         <Card className={standardCard}>
           <div className="flex items-start gap-5">
             <div className="bg-green-100 p-4 rounded-full flex-shrink-0">
