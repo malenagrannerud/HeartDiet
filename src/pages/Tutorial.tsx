@@ -17,14 +17,12 @@ const Tutorial = () => {
     </div>
      
       <div className={pagePadding}>
-        <div className="space-y-6">
-          <p className={`${cardText} text-lg`}>
-            Välkommen! Den här appen är skapad för att hjälpa dig ta hand om din hälsa på ett enkelt sätt. 
-            Du bestämmer själv tempot - allt går att göra i din egen takt.
-          </p>
-        </div>
+        <p className={`${cardText} text-lg`}>
+          Välkommen! Den här appen är skapad för att hjälpa dig ta hand om din hälsa på ett enkelt sätt. 
+          Du bestämmer själv tempot - allt går att göra i din egen takt.
+        </p>
       </div>
-      
+
       <div className={pagePadding}>
         <Card className={standardCard}>
           <div className="flex items-start gap-5">
