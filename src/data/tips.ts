@@ -119,12 +119,26 @@ export const tips: Tip[] = [
     healthScore: 3,
     subtitle: 
       "Använd flytande margarin och oljor i matlagning. Begränsa smör, hårdmargarin och andra mättade fetter",
-    detailedInfo:
+    detailedInfo:`
       "Fettkvaliteten påverkar hälsan. Omättade fetter från växtolior, flytande margarin, nötter och fet fisk är nyttigare än mättade fetter från smör, hårdmargarin och fett kött.",
-    steps: [
-      "Byt ut smör mot flytande margarin på mackan",
+          "Byt ut smör mot flytande margarin på mackan",
       "Använd rapsolja eller olivolja vid matlagning",
       "Snacksa på nötter istället för chips",
+    `.replace(/\n\s+/g, '\n').trim(),
+    
+       steps: [
+      {
+        heading: "Förbered veckan",
+        content: "Se till att frukter och grönsaker finns hemma för veckan på till exempel söndagar. "
+      },
+      {
+        heading: "Veckans råkostsallad",
+        content: "Gör en stor sallad med riven rödkål, vitkål, morot och äpple exempelvis. Blanda i olivolja, vitvinsvinäger, salt och peppar och låt stå i kylen. Salladen håller hela veckan, prefekt att ta fram som tillbehör till veckans alla middagar.",
+      },
+      {
+        heading: "Soppor och smoothies",
+        content: "Koka grönsaker och bönor i buljong och mixa slät med en stavmixer. Resultatet blir en mycket smak- och näringsrik soppa som är redd och klar att äta. ",
+      },
     ],
   },
   {
@@ -133,12 +147,26 @@ export const tips: Tip[] = [
     color: "bg-blue-100",
     healthScore: 3,
     subtitle:  "Mjölk, filmjölk och yoghurt med max 1,5% fett. Ost med max 17% fett",
-    detailedInfo:
+    detailedInfo:`
       "Mejeriprodukter innehåller kalcium, protein, jod och flera vitaminer. För de flesta är det bra att välja magra varianter för att minska intaget av mättat fett.",
-    steps: [
-      "Välj mellanmjölk eller lättmjölk istället för standardmjölk",
+    
+       "Välj mellanmjölk eller lättmjölk istället för standardmjölk",
       "Prova lättfil eller lättyoghurt till frukost",
       "Kolla fetthalt på ost och välj varianter under 17%",
+     `.replace(/\n\s+/g, '\n').trim(),
+       steps: [
+      {
+        heading: "Förbered veckan",
+        content: "Se till att frukter och grönsaker finns hemma för veckan på till exempel söndagar. "
+      },
+      {
+        heading: "Veckans råkostsallad",
+        content: "Gör en stor sallad med riven rödkål, vitkål, morot och äpple exempelvis. Blanda i olivolja, vitvinsvinäger, salt och peppar och låt stå i kylen. Salladen håller hela veckan, prefekt att ta fram som tillbehör till veckans alla middagar.",
+      },
+      {
+        heading: "Soppor och smoothies",
+        content: "Koka grönsaker och bönor i buljong och mixa slät med en stavmixer. Resultatet blir en mycket smak- och näringsrik soppa som är redd och klar att äta. ",
+      },
     ],
   },
   {
@@ -147,12 +175,26 @@ export const tips: Tip[] = [
     color: "bg-rose-100",
     healthScore: 3,
     subtitle:  "Max 500 gram tillagat kött per vecka. Begränsa chark, korv och andra bearbetade köttprodukter",
-    detailedInfo:
+    detailedInfo: `
       "Kött innehåller protein, järn och B-vitaminer, men ett stort intag av rött kött och charkprodukter ökar risken för tjocktarmscancer.",
-    steps: [
-      "Byt ut kött mot kyckling eller fisk 2 gånger i veckan",
+     
+     "Byt ut kött mot kyckling eller fisk 2 gånger i veckan",
       "Testa vegetariska alternativ som bönor eller linser",
       "Skippa charken på mackan - välj ägg, ost eller hummus",
+      `.replace(/\n\s+/g, '\n').trim(),
+        steps: [
+      {
+        heading: "Förbered veckan",
+        content: "Se till att frukter och grönsaker finns hemma för veckan på till exempel söndagar. "
+      },
+      {
+        heading: "Veckans råkostsallad",
+        content: "Gör en stor sallad med riven rödkål, vitkål, morot och äpple exempelvis. Blanda i olivolja, vitvinsvinäger, salt och peppar och låt stå i kylen. Salladen håller hela veckan, prefekt att ta fram som tillbehör till veckans alla middagar.",
+      },
+      {
+        heading: "Soppor och smoothies",
+        content: "Koka grönsaker och bönor i buljong och mixa slät med en stavmixer. Resultatet blir en mycket smak- och näringsrik soppa som är redd och klar att äta. ",
+      },
     ],
   },
   {
@@ -161,12 +203,27 @@ export const tips: Tip[] = [
     color: "bg-orange-100",
     healthScore: 4,
     subtitle:  "Minska saltintaget till max 6 gram per dag. Använd joderat salt",
-    detailedInfo:
+    detailedInfo: `
       "För mycket salt ökar risken för högt blodtryck. Ät max 6 gram salt per dag - det motsvarar en tesked. Använd joderat salt och undvik att salta för mycket.",
-    steps: [
+     
+     
       "Smaka på maten innan du saltar",
       "Krydda med örter och kryddor istället för salt",
       "Välj produkter med lägre saltinnehåll",
+      `.replace(/\n\s+/g, '\n').trim(),
+        steps: [
+      {
+        heading: "Förbered veckan",
+        content: "Se till att frukter och grönsaker finns hemma för veckan på till exempel söndagar. "
+      },
+      {
+        heading: "Veckans råkostsallad",
+        content: "Gör en stor sallad med riven rödkål, vitkål, morot och äpple exempelvis. Blanda i olivolja, vitvinsvinäger, salt och peppar och låt stå i kylen. Salladen håller hela veckan, prefekt att ta fram som tillbehör till veckans alla middagar.",
+      },
+      {
+        heading: "Soppor och smoothies",
+        content: "Koka grönsaker och bönor i buljong och mixa slät med en stavmixer. Resultatet blir en mycket smak- och näringsrik soppa som är redd och klar att äta. ",
+      },
     ],
   },
   {
@@ -175,12 +232,25 @@ export const tips: Tip[] = [
     color: "bg-purple-100",
     healthScore: 4,
     subtitle:  "Anpassa mängden mat efter ditt energibehov. Lyssna på din kropp och ät när du är hungrig",
-    detailedInfo:
+    detailedInfo:`
       "Energibehovet varierar mellan personer beroende på ålder, kön och hur mycket du rör dig. Ät lagom mycket för att hålla en hälsosam vikt.",
-    steps: [
       "Använd mindre tallrikar för att kontrollera portioner",
       "Ät långsamt och känn efter när du är mätt",
       "Planera regelbundna måltider - 3 huvudmål och 2 mellanmål",
+      `.replace(/\n\s+/g, '\n').trim(),
+        steps: [
+      {
+        heading: "Förbered veckan",
+        content: "Se till att frukter och grönsaker finns hemma för veckan på till exempel söndagar. "
+      },
+      {
+        heading: "Veckans råkostsallad",
+        content: "Gör en stor sallad med riven rödkål, vitkål, morot och äpple exempelvis. Blanda i olivolja, vitvinsvinäger, salt och peppar och låt stå i kylen. Salladen håller hela veckan, prefekt att ta fram som tillbehör till veckans alla middagar.",
+      },
+      {
+        heading: "Soppor och smoothies",
+        content: "Koka grönsaker och bönor i buljong och mixa slät med en stavmixer. Resultatet blir en mycket smak- och näringsrik soppa som är redd och klar att äta. ",
+      },
     ],
   },
   {
@@ -189,12 +259,26 @@ export const tips: Tip[] = [
     color: "bg-teal-100",
     healthScore: 5,
     subtitle:  "Fysisk aktivitet är viktig för hälsan tillsammans med bra matvanor",
-    detailedInfo:
+    detailedInfo: `
       "Fysisk aktivitet är en viktig del av en hälsosam livsstil. Rör på dig minst 30 minuter om dagen med måttlig intensitet.",
-    steps: [
-      "Gå en 30 minuters promenad varje dag",
+     "Gå en 30 minuters promenad varje dag",
       "Ta trapporna istället för hissen",
       "Hitta en aktivitet du tycker om - dans, simning eller cykling",
+     
+      `.replace(/\n\s+/g, '\n').trim(),
+        steps: [
+      {
+        heading: "Förbered veckan",
+        content: "Se till att frukter och grönsaker finns hemma för veckan på till exempel söndagar. "
+      },
+      {
+        heading: "Veckans råkostsallad",
+        content: "Gör en stor sallad med riven rödkål, vitkål, morot och äpple exempelvis. Blanda i olivolja, vitvinsvinäger, salt och peppar och låt stå i kylen. Salladen håller hela veckan, prefekt att ta fram som tillbehör till veckans alla middagar.",
+      },
+      {
+        heading: "Soppor och smoothies",
+        content: "Koka grönsaker och bönor i buljong och mixa slät med en stavmixer. Resultatet blir en mycket smak- och näringsrik soppa som är redd och klar att äta. ",
+      },
     ],
   },
   {
@@ -203,12 +287,26 @@ export const tips: Tip[] = [
     color: "bg-green-100",
     healthScore: 3,
     subtitle:  "Bönor, linser och ärtor är bra proteinkällor och innehåller fibrer. Klimatsmart alternativ till kött",
-    detailedInfo:
+    detailedInfo: `
       "Baljväxter som bönor, linser, ärtor och kikärtor innehåller protein, fibrer, vitaminer och mineraler. De är klimatsmarta alternativ till kött.",
-    steps: [
-      "Blanda 50% baljväxter i köttfärsen vid tacos eller bolognese",
+       "Blanda 50% baljväxter i köttfärsen vid tacos eller bolognese",
       "Testa en lins- eller böngryta varje vecka",
       "Snacksa på rostade kikärtor eller bönor",
+     
+      `.replace(/\n\s+/g, '\n').trim(),
+       steps: [
+      {
+        heading: "Förbered veckan",
+        content: "Se till att frukter och grönsaker finns hemma för veckan på till exempel söndagar. "
+      },
+      {
+        heading: "Veckans råkostsallad",
+        content: "Gör en stor sallad med riven rödkål, vitkål, morot och äpple exempelvis. Blanda i olivolja, vitvinsvinäger, salt och peppar och låt stå i kylen. Salladen håller hela veckan, prefekt att ta fram som tillbehör till veckans alla middagar.",
+      },
+      {
+        heading: "Soppor och smoothies",
+        content: "Koka grönsaker och bönor i buljong och mixa slät med en stavmixer. Resultatet blir en mycket smak- och näringsrik soppa som är redd och klar att äta. ",
+      },
     ],
   },
   {
@@ -217,13 +315,27 @@ export const tips: Tip[] = [
     color: "bg-green-100",
     healthScore: 3,
     subtitle:  "Begränsa sötsaker, läsk och godis. Max 10% av ditt dagliga energiintag",
-    detailedInfo: "För mycket socker och salt är skadligt för hjärtat och blodtrycket. Genom att minska på dessa kan du förbättra din hälsa avsevärt. Socker ökar risken för övervikt och diabetes, medan för mycket salt höjer blodtrycket.",
-    steps: [
-      "Undvik läsk, saft och andra sockrade drycker",
+    detailedInfo: `"För mycket socker och salt är skadligt för hjärtat och blodtrycket. Genom att minska på dessa kan du förbättra din hälsa avsevärt. Socker ökar risken för övervikt och diabetes, medan för mycket salt höjer blodtrycket.",
+     
+    "Undvik läsk, saft och andra sockrade drycker",
       "Begränsa sötsaker och godis till speciella tillfällen",
       "Koka själv så du kan kontrollera salt- och sockermängden",
       "Läs innehållsförteckningen - socker har många namn (glukos, sackaros, fruktossirap)",
       "Använd kryddor istället för salt för mer smak"
+    `.replace(/\n\s+/g, '\n').trim(),
+     steps: [
+      {
+        heading: "Förbered veckan",
+        content: "Se till att frukter och grönsaker finns hemma för veckan på till exempel söndagar. "
+      },
+      {
+        heading: "Veckans råkostsallad",
+        content: "Gör en stor sallad med riven rödkål, vitkål, morot och äpple exempelvis. Blanda i olivolja, vitvinsvinäger, salt och peppar och låt stå i kylen. Salladen håller hela veckan, prefekt att ta fram som tillbehör till veckans alla middagar.",
+      },
+      {
+        heading: "Soppor och smoothies",
+        content: "Koka grönsaker och bönor i buljong och mixa slät med en stavmixer. Resultatet blir en mycket smak- och näringsrik soppa som är redd och klar att äta. ",
+      },
     ],
   },
 ];
