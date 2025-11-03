@@ -188,7 +188,6 @@ const HealthPriorities = () => {
           </div>
         </section>
 
-        {/* Medications Section - CENTRALIZED */}
         <section>
           <h2 className={`${sectionHeading} mb-2`}>Läkemedel</h2>
           <p className={`${cardText} mb-4`}>
@@ -216,7 +215,6 @@ const HealthPriorities = () => {
                   </div>
                 </label>
                 
-                {/* Sub-options for blood pressure medication */}
                 {medication.subOptions && selectedMedications.includes(medication.id) && (
                   <div className="ml-10 mt-4 space-y-3">
                     {medication.subOptions.map((subOption) => (
@@ -244,7 +242,6 @@ const HealthPriorities = () => {
           </div>
         </section>
 
-        {/* Save Button - Using Button component with CENTRALIZED STYLING */}
         <Button
           onClick={handleSave}
           className={primaryButton}
