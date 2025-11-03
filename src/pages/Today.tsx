@@ -4,7 +4,7 @@ import { Card } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
 import { tips } from "@/data/tips";
 import TipCard from "@/components/TipCard";
-import { pageTitle, sectionHeading, sectionSubheading, cardTitle, cardText, standardCard, interactiveCard, pageContainer, headerContainer, pagePadding, standardSpacing, cardTitleSmall, pageSubtitle } from "@/lib/design-tokens";
+import { pageTitle, sectionHeading, sectionSubheading, cardTitle, cardText, standardCard, interactiveCard, pageContainer, headerContainer, pagePadding, standardSpacing, cardTitleSmall, pageSubtitle, sectionSubheading2 } from "@/lib/design-tokens";
 import { getStorageItem } from "@/lib/storage";
 import { markedTipsSchema } from "@/lib/schemas";
 
@@ -102,7 +102,7 @@ const Today = () => {
                   ))}
                 </div>
               ) : (
-                <p className={sectionSubheading}>Välj ett eller två tips för veckan under "Tips"</p>
+                <p className={sectionSubheading2}>Välj ett eller två tips för veckan under "Tips"</p>
               )}
           </section>
         </div>
