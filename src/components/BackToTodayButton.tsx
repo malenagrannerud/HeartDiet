@@ -13,12 +13,14 @@ export const BackToTodayButton = ({
 
   return (
     <button
-      onClick={() => navigate('/app/today')}
+      onClick={() => navigate(-1)}
       className={`flex items-center gap-3 text-[#212658] mb-4 ${backButton} ${className}`}
       aria-label="Gå tillbaka till idag"
     >
       <ArrowLeft size={28} />
       <span className="text-lg font-semibold">Tillbaka</span>
     </button>
+
+
   );
 };

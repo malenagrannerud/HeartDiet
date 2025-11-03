@@ -14,13 +14,11 @@ const TipDetail = () => {
   }
 
   return (
-    <div className={`${pageContainer} pb-16`}>
-      {/* Color Header */}
+    <div className={pageContainer}>
       <div className={`w-full h-[200px] ${tip.color}`}></div>
 
-      {/* Content - CENTRALIZED STYLES */}
       <div className={`${pagePadding} space-y-6`}>
-        {/* Back Button - Using Button component */}
+      
         <Button
           variant="ghost"
           onClick={() => navigate(-1)}
