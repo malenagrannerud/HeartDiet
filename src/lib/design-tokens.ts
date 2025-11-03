@@ -78,7 +78,7 @@ export const colors = {
 } as const;
 
 export const tipCardColors = {
-  green: "bg-[#67c789ff]",
+  green: "bg-[#59ca80ff]",
   amber: "bg-[#f6e5a0ff]", 
   cyan: "bg-[#aad9ddff]",
   yellow: "bg-[#FEF9C3]",
