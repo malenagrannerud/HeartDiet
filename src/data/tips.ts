@@ -1,7 +1,5 @@
 import { tipCardColors } from '@/lib/design-tokens';
 
-
-
 export interface Tip {
   id: number;
   title: string;
