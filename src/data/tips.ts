@@ -62,7 +62,7 @@ export const tips: Tip[] = [
   },
   {
     id: 2,
-    title: "Fyll på med fullkorn",
+    title: "Minst 3 dl fullkorn om dagen",
     color: tipCardColors.amber,
     healthScore: 3,
     subtitle: "Text",
@@ -82,7 +82,7 @@ export const tips: Tip[] = [
     viktuppgång och bidra till lägre totalkolesterol och minskat systoliskt blodtryck, 
     vilket kan vara en annan förklaring till den minskade risken för kostrelaterad ohälsa.
 
-    För att se till att få i dej minst 90 g fullkorn per dag, prova att till exempel: 
+    För att se till att få i dej minst 3 dl (90 g) fullkorn per dag, prova att till exempel: 
      `,
      steps: [
       {
