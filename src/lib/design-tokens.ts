@@ -66,27 +66,29 @@ export const colors = {
   // Tip card colors
   tipCards: {
     green: '#A8CC7D',
-    amber: '#f6e5a0ff',
-    cyan: '#aad9ddff',
-    yellow: '#FEF9C3',
-    blue: '#DBEAFE',
-    rose: '#FFE4E6',
+    lightgreen: '#E4F5CF',
+    amber: '#FFD670',
+    cyan: '#C1DFE9',
+    yellow: '#FAEAC2',
+    blue: '#E4F3F8',
+    rose: '#FDD8E5',
     orange: '#FFEDD5',
-    purple: '#F3E8FF',
-    teal: '#CCFBF1',
+    purple: '#CAADC3',
+    teal: '#DAEADE',
   },
 } as const;
 
 export const tipCardColors = {
   green: "bg-[#A8CC7D]",
-  amber: "bg-[#f6e5a0ff]", 
-  cyan: "bg-[#aad9ddff]",
-  yellow: "bg-[#FEF9C3]",
-  blue: "bg-[#DBEAFE]",
-  rose: "bg-[#FFE4E6]",
+  lightgreen: "bg-[#E4F5CF]",  
+  amber: "bg-[#FFD670]", 
+  cyan: "bg-[#C1DFE9]",
+  yellow: "bg-[#FAEAC2]",
+  blue: "bg-[#E4F3F8]",
+  rose: "bg-[#FDD8E5]",
   orange: "bg-[#FFEDD5]",
-  purple: "bg-[#F3E8FF]",
-  teal: "bg-[#CCFBF1]",
+  purple: "bg-[#CAADC3]",
+  teal: "bg-[#DAEADE]",
 } as const;
 
 // ==========================================
