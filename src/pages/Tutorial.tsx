@@ -20,7 +20,7 @@ const Tutorial = () => {
         </p>
       </div>
 
-      <div className={pagePadding}>
+      <div className="space-y-3">
         <Card className={standardCard}>
           <div className="flex items-start gap-5">
             <div className="bg-green-100 p-4 rounded-full flex-shrink-0">
