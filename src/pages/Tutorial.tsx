@@ -16,8 +16,7 @@ const Tutorial = () => {
      
       <div className={pagePadding}>
         <p className={sectionSubheading}>
-          Välkommen! Den här appen är skapad för att hjälpa dig ta hand om din hälsa på ett enkelt sätt. 
-          Du bestämmer själv tempot - allt går att göra i din egen takt. Läs om hur du använder appen. Du kan när du vill läsa igen under "Mina sidor - Inställningar"
+        Läs om hur du använder appen. Du kan när du vill läsa igen under "Mina sidor - Inställningar"
         </p>
       </div>
 
