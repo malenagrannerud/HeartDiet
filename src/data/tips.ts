@@ -5,7 +5,10 @@ export interface Tip {
   healthScore: number;
   subtitle: string;
   detailedInfo: string;
-  steps: string[];
+  steps: {
+    heading: string;
+    content: string;
+  }[];
 }
 
 export const tips: Tip[] = [
@@ -14,7 +17,7 @@ export const tips: Tip[] = [
     title: "Fem nävar frukt och grönt",
     color: "bg-green-100",
     healthScore: 8,
-    subtitle:  "Frukt",
+    subtitle:  "Text",
     detailedInfo: `
       Fem nävar grönsaker, rotfrukter, frukter och bär per dag minskar risken 
       för hjärt- och kärlsjukdom, cancer i bland annat bröst och tjocktarm 
@@ -27,11 +30,18 @@ export const tips: Tip[] = [
     `.replace(/\n\s+/g, '\n').trim(),
        
     steps: [
-      
-      "Förbered",
-      "Förbered frukter och grönsaker på söndagar så de är lättillgängliga",
-      "Gör en stor sallad med fint riven rödkål, vitkål, morot och äpple exempelvis. Blanda i olivolja, vitvinsvinäger, salt och peppar och låt stå i kylen. Salladen håller hela veckan, prefekt att ta fram som tillbehör till veckans alla middagar.",
-      "Koka upp valfria grönsaker och bönor i buljong och mixa slät med en stavmixer. Resultatet blir en mycket smak- och näringsrik soppa som är redd och klar att äta. ",
+      {
+        heading: "Förbered veckan",
+        content: "Se till att frukter och grönsaker finns hemma för veckan på till exempel söndagar. "
+      },
+      {
+        heading: "Veckans råkostsallad",
+        content: "Gör en stor sallad med fint riven rödkål, vitkål, morot och äpple exempelvis. Blanda i olivolja, vitvinsvinäger, salt och peppar och låt stå i kylen. Salladen håller hela veckan, prefekt att ta fram som tillbehör till veckans alla middagar.",
+      },
+      {
+        heading: "Soppor och smoothies",
+        content: "Koka grönsaker och bönor i buljong och mixa slät med en stavmixer. Resultatet blir en mycket smak- och näringsrik soppa som är redd och klar att äta. ",
+      },
     ],
   },
   {
@@ -39,13 +49,36 @@ export const tips: Tip[] = [
     title: "Fyll på med fullkorn",
     color: "bg-amber-100",
     healthScore: 3,
-    subtitle:  "Välj helst fullkornsbröd, fullkornspasta, råris och havregryn",
-    detailedInfo: "Fullkorn innehåller fibrer, vitaminer och mineraler som är viktiga för din hälsa. Genom att välja fullkorn istället för raffinerade produkter får du mer näring och håller dig mätt längre. Fullkorn har också visats minska risken för hjärt-kärlsjukdomar och typ 2-diabetes.",
-    steps: [
+    subtitle: "Text",
+    detailedInfo: `
+    
+    Fullkorn innehåller fibrer, vitaminer och mineraler som är viktiga för din hälsa. 
+    Genom att välja fullkorn istället för raffinerade produkter får du mer näring och 
+    håller dig mätt längre. Fullkorn har också visats minska risken för 
+    
+    • hjärt-kärlsjukdomar och
+    • typ 2-diabetes
+
       "Byt ut vitt bröd mot fullkornsbröd",
       "Välj havregryn eller fullkornsflingor till frukost",
       "Testa fullkornspasta eller råris istället för vanliga varianter",
       "Ha havregryn eller müsli med fullkorn till frukost"
+
+    
+     `.replace(/\n\s+/g, '\n').trim(),
+     steps: [
+      {
+        heading: "Förbered veckan",
+        content: "Se till att frukter och grönsaker finns hemma för veckan på till exempel söndagar. "
+      },
+      {
+        heading: "Veckans råkostsallad",
+        content: "Gör en stor sallad med riven rödkål, vitkål, morot och äpple exempelvis. Blanda i olivolja, vitvinsvinäger, salt och peppar och låt stå i kylen. Salladen håller hela veckan, prefekt att ta fram som tillbehör till veckans alla middagar.",
+      },
+      {
+        heading: "Soppor och smoothies",
+        content: "Koka grönsaker och bönor i buljong och mixa slät med en stavmixer. Resultatet blir en mycket smak- och näringsrik soppa som är redd och klar att äta. ",
+      },
     ],
   },
   {
@@ -53,13 +86,30 @@ export const tips: Tip[] = [
     title: "Fisk och skaldjur 3 gånger i veckan",
     color: "bg-cyan-100",
     healthScore: 3,
-    subtitle:  "...",
-    detailedInfo:
-      "Fisk och skaldjur innehåller protein, D-vitamin, jod och selen. Fet fisk innehåller dessutom omega-3-fettsyror som är viktiga för hjärtat och hjärnan.",
-    steps: [
-      "Planera två fiskmiddagar varje vecka",
+    subtitle:  "text",
+    detailedInfo:`
+      Fisk och skaldjur innehåller protein, D-vitamin, jod och selen. 
+      Fet fisk innehåller dessutom omega-3-fettsyror som är viktiga för hjärtat och hjärnan.,
+
+       "Planera två fiskmiddagar varje vecka",
       "Fisksoppa kan varieras. Prova olika recept",
       "Köp fryst fisk för att alltid ha hemma",
+    
+    `.replace(/\n\s+/g, '\n').trim(),
+    
+      steps: [
+      {
+        heading: "Förbered veckan",
+        content: "Se till att frukter och grönsaker finns hemma för veckan på till exempel söndagar. "
+      },
+      {
+        heading: "Veckans råkostsallad",
+        content: "Gör en stor sallad med riven rödkål, vitkål, morot och äpple exempelvis. Blanda i olivolja, vitvinsvinäger, salt och peppar och låt stå i kylen. Salladen håller hela veckan, prefekt att ta fram som tillbehör till veckans alla middagar.",
+      },
+      {
+        heading: "Soppor och smoothies",
+        content: "Koka grönsaker och bönor i buljong och mixa slät med en stavmixer. Resultatet blir en mycket smak- och näringsrik soppa som är redd och klar att äta. ",
+      },
     ],
   },
   {

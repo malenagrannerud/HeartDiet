@@ -1,7 +1,44 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { tips } from "@/data/tips";
-import { sectionHeading,sectionHeading2, cardText, backButton, pageContainer, pagePadding, bodyText } from "@/lib/design-tokens";
+import { sectionHeading, sectionHeading2, cardText, backButton, pageContainer, pagePadding, bodyText } from "@/lib/design-tokens";
 import { BackToTodayButton } from "@/components/BackToTodayButton";
+
+// Helper function to render steps consistently
+const renderStep = (step: any, index: number) => {
+  // If step is an object with heading and content
+  if (typeof step === 'object' && step.heading && step.content) {
+    return (
+      <div key={index} className="space-y-3">
+        <h3 className={sectionHeading2}>
+          {step.heading}
+        </h3>
+        <p className={bodyText}>{step.content}</p>
+      </div>
+    );
+  }
+  
+  // If step is a simple string
+  if (typeof step === 'string') {
+    return (
+      <div key={index} className="space-y-3">
+        <h3 className={sectionHeading2}>
+          Steg {index + 1}
+        </h3>
+        <p className={bodyText}>{step}</p>
+      </div>
+    );
+  }
+  
+  // Fallback for any other format
+  return (
+    <div key={index} className="space-y-3">
+      <h3 className={sectionHeading2}>
+        Steg {index + 1}
+      </h3>
+      <p className={bodyText}>{String(step)}</p>
+    </div>
+  );
+};
 
 const TipDetail = () => {
   const { id } = useParams();
@@ -21,15 +58,8 @@ const TipDetail = () => {
         <h2 className={sectionHeading}>{tip.title}</h2>
         <p className={`text-foreground leading-relaxed text-lg`}>{tip.detailedInfo}</p>
 
-        <div className="space-y-4 pt-4">
-          {tip.steps.map((step, index) => (
-            <div key={index} className="space-y-2">
-              <h3 className={sectionHeading2}>
-                Steg {index + 1}
-              </h3>
-              <p className={bodyText}>{step}</p>
-            </div>
-          ))}
+        <div className="space-y-6 pt-6">
+          {tip.steps.map(renderStep)}
         </div>
       </div>
     </div>
