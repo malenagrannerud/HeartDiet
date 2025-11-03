@@ -10,14 +10,12 @@ const Tutorial = () => {
   return (
     <div className={pageContainer}>
       <header className={headerContainer}>
-        <BackToTodayButton />
+        <BackToTodayButton/>
           <h1 className={sectionHeading}>Så fungerar appen</h1>
       </header>
      
       <main className={pagePadding}>
-
         <div className={standardSpacing.pageContent}>
-
           <section className={standardSpacing.sectionContent}>
             <p className={sectionSubheading}>
             Läs om hur du använder appen. Du kan när du vill läsa igen under "Mina sidor - Inställningar"
