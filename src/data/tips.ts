@@ -146,7 +146,7 @@ export const tips: Tip[] = [
   {
     id: 5,
     title: "Mera magra mejerier",
-    color: "bg-blue-100",
+    color: tipCardColors.lightblue,
     healthScore: 3,
     subtitle:  "Mjölk, filmjölk och yoghurt med max 1,5% fett. Ost med max 17% fett",
     detailedInfo:`
@@ -174,7 +174,7 @@ export const tips: Tip[] = [
   {
     id: 6,
     title: "Minska på rött och bearbetat kött",
-    color: tipCardColors.rose,
+    color: tipCardColors.darkrose,
     healthScore: 3,
     subtitle:  "Max 500 gram tillagat kött per vecka. Begränsa chark, korv och andra bearbetade köttprodukter",
     detailedInfo: `
@@ -230,8 +230,8 @@ export const tips: Tip[] = [
   },
   {
     id: 8,
-    title: "Ät lagom mycket",
-    color: tipCardColors.purple,
+    title: "Lagom matmängd är bäst",
+    color: tipCardColors.lightpurple,
     healthScore: 4,
     subtitle:  "Anpassa mängden mat efter ditt energibehov. Lyssna på din kropp och ät när du är hungrig",
     detailedInfo:`
@@ -258,7 +258,7 @@ export const tips: Tip[] = [
   {
     id: 9,
     title: "Rör på dig minst 30 min om dagen",
-    color: "bg-teal-100",
+    color: tipCardColors.lightgreen,
     healthScore: 5,
     subtitle:  "Fysisk aktivitet är viktig för hälsan tillsammans med bra matvanor",
     detailedInfo: `
@@ -286,7 +286,7 @@ export const tips: Tip[] = [
   {
     id: 10,
     title: "Ät mer baljväxter",
-    color: tipCardColors.yellow,
+    color: tipCardColors.orange,
     healthScore: 3,
     subtitle:  "Bönor, linser och ärtor är bra proteinkällor och innehåller fibrer. Klimatsmart alternativ till kött",
     detailedInfo: `
@@ -314,7 +314,7 @@ export const tips: Tip[] = [
   {
     id: 11,
     title: "Minska på sockret",
-    color: tipCardColors.yellow,
+    color: tipCardColors.purple,
     healthScore: 3,
     subtitle:  "Begränsa sötsaker, läsk och godis. Max 10% av ditt dagliga energiintag",
     detailedInfo: `"För mycket socker och salt är skadligt för hjärtat och blodtrycket. Genom att minska på dessa kan du förbättra din hälsa avsevärt. Socker ökar risken för övervikt och diabetes, medan för mycket salt höjer blodtrycket.",
