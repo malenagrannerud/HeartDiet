@@ -23,7 +23,9 @@ const Tutorial = () => {
             Du bestämmer själv tempot - allt går att göra i din egen takt.
           </p>
         </div>
-
+      </div>
+      
+      <div className={pagePadding}>
         <Card className={standardCard}>
           <div className="flex items-start gap-5">
             <div className="bg-green-100 p-4 rounded-full flex-shrink-0">
