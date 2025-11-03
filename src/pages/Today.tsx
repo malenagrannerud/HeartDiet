@@ -39,7 +39,6 @@ const Today = () => {
       <div className="space-y-4">
         <h3 className={sectionHeading}>Starta här</h3>
         
-        {/* Step 1 - STANDARDIZED: Uses interactiveCard for consistent styling */}
         <Card 
           className={interactiveCard}
           onClick={() => navigate('/app/tutorial')}
@@ -56,7 +55,6 @@ const Today = () => {
           </div>
         </Card>
         
-        {/* Step 2 - STANDARDIZED: Uses interactiveCard for consistent styling */}
         <Card 
           className={interactiveCard}
           onClick={() => navigate('/app/health-priorities')}
@@ -67,7 +65,7 @@ const Today = () => {
               <h4 className={cardTitle}>Anpassa tips efter mina mål</h4>
               <div className={`flex items-center gap-2 ${cardTitleSmall}`}>
                 <Clock size={14} strokeWidth={2.5} />
-                <span>5 min</span>
+                <span>4 min</span>
               </div>
             </div>
           </div>
