@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Home, BookOpen, TrendingUp, HelpCircle } from "lucide-react";
 import { Card } from "@/components/ui/card";
-import { sectionHeading, sectionSubheading, sectionHeading2, cardTitle, cardText, standardCard, primaryButton, pageContainer, standardSpacing, headerContainer, pagePadding, standa bodyTextBald, bodyText } from "@/lib/design-tokens";
+import { sectionHeading, sectionSubheading, sectionHeading2, cardTitle, cardText, standardCard, primaryButton, pageContainer, standardSpacing, headerContainer, pagePadding, bodyTextBald, bodyText } from "@/lib/design-tokens";
 import { BackToTodayButton } from "@/components/BackToTodayButton";
 
 const Tutorial = () => {
@@ -22,8 +22,7 @@ const Tutorial = () => {
           </p>
         </div>
 
-        <div className={standardSpacing.pageContent}></div>
-        <div className={pagePadding}>
+        <div className={standardSpacing.pageContent}>
           <Card className={standardCard}>
             <div className="flex items-start gap-5">
               <div className="bg-green-100 p-4 rounded-full flex-shrink-0">
@@ -46,8 +45,7 @@ const Tutorial = () => {
           </Card>
         </div>
 
-        <div className={standardSpacing.pageContent}></div>
-        <div className={pagePadding}>
+        <div className={standardSpacing.pageContent}>
           <Card className={standardCard}>
             <div className="flex items-start gap-5">
               <div className="bg-blue-100 p-4 rounded-full flex-shrink-0">
@@ -69,8 +67,7 @@ const Tutorial = () => {
           </Card>
         </div>
 
-        <div className={standardSpacing.pageContent}></div>
-        <div className={pagePadding}>
+        <div className={standardSpacing.pageContent}>
           <Card className={standardCard}>
             <div className="flex items-start gap-5">
               <div className="bg-purple-100 p-4 rounded-full flex-shrink-0">
@@ -96,8 +93,7 @@ const Tutorial = () => {
           </Card>
         </div>
 
-        <div className={standardSpacing.pageContent}></div>
-        <div className={pagePadding}>
+        <div className={standardSpacing.pageContent}>
           {/* Section 4: Help */}
           <Card className={standardCard}>
             <div className="flex items-start gap-5">
@@ -115,8 +111,7 @@ const Tutorial = () => {
           </Card>
         </div>
 
-        <div className={standardSpacing.pageContent}></div>
-        <div className={pagePadding}>
+        <div className={standardSpacing.pageContent}>
           <div className="bg-green-50 p-8 rounded-lg border-2 border-green-200">
             <h3 className={`${cardTitle} text-2xl mb-4`}>Du klarar det här!</h3>
             <p className={bodyText}>
@@ -130,8 +125,7 @@ const Tutorial = () => {
           </div>
         </div>
 
-        <div className={standardSpacing.pageContent}></div>       
-        <div className={pagePadding}>
+        <div className={standardSpacing.pageContent}>       
           <button
             onClick={() => {
               localStorage.setItem('tutorialCompleted', 'true');
