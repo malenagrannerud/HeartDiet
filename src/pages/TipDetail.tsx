@@ -1,8 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
 import { tips } from "@/data/tips";
 import { sectionHeading,sectionHeading2, cardText, backButton, pageContainer, pagePadding, bodyText } from "@/lib/design-tokens";
-import { Button } from "@/components/ui/button";
 import { BackToTodayButton } from "@/components/BackToTodayButton";
 
 const TipDetail = () => {
