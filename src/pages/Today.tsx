@@ -68,7 +68,7 @@ const Today = () => {
             <div>
               <h4 className={cardTitle}>Anpassa tips efter mina mål</h4>
               <div className={cardTitleSmall}>
-                <Clock size={20} strokeWidth={2.5} />
+                <Clock size={14} strokeWidth={2.5} />
                 <span>5 min</span>
               </div>
             </div>
