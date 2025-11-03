@@ -66,9 +66,7 @@ const Today = () => {
         >
           <div className="flex items-start justify-between">
             <div>
-              {/* STANDARDIZED FONT: text-xl via cardTitle */}
               <h4 className={cardTitle}>Anpassa tips efter mina mål</h4>
-              {/* STANDARDIZED FONT: text-base via cardText */}
               <div className={`flex items-center gap-2 ${cardText}`}>
                 <Clock size={20} strokeWidth={2.5} />
                 <span>5 min</span>

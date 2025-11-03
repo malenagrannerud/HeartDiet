@@ -101,9 +101,15 @@ export const sectionHeading = "text-lg font-bold text-[#212658]";
 export const sectionSubheading = "text-base font-normal text-[#212658]/70 mt-2";
 
 /**
- * CARD TITLES- Used for titles within cards 20px
+ * CARD TITLES - 20px
  */
 export const cardTitle = "text-xl font-bold text-[#212658]";
+
+/**
+ * CARD TITLES SMALL - 14 px
+ */
+export const cardTitleSmall = "text-sm text-[#212658]";
+
 
 /**
  * CARD TEXT 
@@ -172,8 +178,7 @@ export const pagePadding = "p-6";
 // ==========================================
 /**
  * STANDARD CARD
- * Default card padding and styling
- * STANDARDIZATION: All non-tip cards use p-5 padding, light grey-blue background (bg-blue-50), min height 80px
+ * p-5 padding, light grey-blue background (bg-blue-50), min height 80px
  */
 export const standardCard = "p-5 border-0 shadow-sm bg-blue-50 min-h-[80px]";
 
@@ -185,15 +190,13 @@ export const compactCard = "p-5 border-0 shadow-sm bg-blue-50 min-h-[80px]";
 
 /**
  * INTERACTIVE CARD
- * Card with hover and click effects
- * STANDARDIZATION: Uses same base styling as standard card, adds interaction effects
+ * Same base styling as standard card, adds interaction effects
  */
 export const interactiveCard = "p-5 border-0 shadow-sm bg-blue-50 min-h-[80px] cursor-pointer hover:bg-blue-100 transition-all active:scale-[0.98]";
 
 /**
  * TIP CARD
- * Special styling for tip cards
- * STANDARDIZATION: Uses p-5 padding like other cards, keeps tip-specific colors, min height 80px
+ * p-5 padding, keeps tip-specific colors, min height 80px
  */
 export const tipCard = "p-5 hover:shadow-md transition-all cursor-pointer active:scale-[0.98] relative border-0 shadow-none min-h-[80px]";
 
