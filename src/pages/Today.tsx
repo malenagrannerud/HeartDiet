@@ -29,11 +29,8 @@ const Today = () => {
   const markedTipsList = tips.filter(tip => markedTips.some(mt => mt.id === tip.id));
 
   return (
-   
-
   <div className={pageContainer}>
         <div className={headerContainer}>
-            
           <h1 className={pageTitle}>Idag</h1>
         <p className={pageSubtitle}>Dagens fokus</p>
       </div>
