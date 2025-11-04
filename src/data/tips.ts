@@ -62,11 +62,6 @@ export const tips: Tip[] = [
         heading: "4 - Frukt och grönsaks-stavar",
         content: "Hacka fina stavar av olika färger. Ta med dej till lunchen eller mellanmålet.",
       },
-
-       {
-        heading: "5 - Portionera ut",
-        content: "Tänk ut tider på dagen då en portion passar dej. Till exempel: En näve bär till frukost, en sked råkostsallad till lunch och ett äpple till efterrätt, morotsstavar till mellanmål och linser i köttfärsen till middagen.",
-      },
     ],
   },
   {
@@ -94,7 +89,7 @@ export const tips: Tip[] = [
      `,
      steps: [
       {
-        heading: "1 - Ät knäckebröd varje dag ",
+        heading: "1 - Handla knäckebröd ",
         content: "Knäckebröd innehåller 100% fullkorn. Ät varje dag",
       },
       {
