@@ -25,7 +25,7 @@ const renderStep = (step: any, index: number) => {
   if (typeof step === 'string') {
     return (
       <div key={index} className="space-y-3">
-        <h3 className={sectionHeading2}>
+        <h3 className={bodyTextBald}>
           Steg {index + 1}
         </h3>
         <p className={bodyText}>{step}</p>
@@ -36,7 +36,7 @@ const renderStep = (step: any, index: number) => {
   // Fallback for any other format
   return (
     <div key={index} className="space-y-3">
-      <h3 className={sectionHeading2}>
+      <h3 className={bodyTextBald}>
         Steg {index + 1}
       </h3>
       <p className={bodyText}>{String(step)}</p>
@@ -91,7 +91,7 @@ const TipDetail = () => {
       </header>
       <main className={pagePadding}>
         
-        <h2 className={sectionHeading2}>{tip.title}</h2>
+        <h2 className={bodyText}>{tip.title}</h2>
         <p className="text-foreground leading-relaxed text-lg whitespace-pre-line">
           {tip.detailedInfo}
         </p>
