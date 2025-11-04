@@ -102,7 +102,7 @@ const TipDetail = () => {
 
         {/* User Plan Section - Always visible at the bottom */}
         <div className="mt-8 pt-6 border-t border-gray-200">
-          <h3 className={`${bodyTextBald} text-xl mb-4`}>Min plan</h3>
+          <h3 className={bodyTextBald}>Min plan</h3>
           
           {isEditing ? (
             <UserPlanForm
