@@ -97,13 +97,13 @@ const TipDetail = () => {
         </p>
 
         {/* Steps section */}
-        <div className="space-y-6 pt-6">
+        <div className="space-y-3 pt-6">
           {tip.steps.map(renderStep)}
         </div>
 
         {/* User Plan Section - Always visible at the bottom */}
         <div className="mt-8 pt-6 border-t border-gray-200">
-          <h3 className={bodyTextBald}>Min plan</h3>
+          <h4 className={bodyTextBald}>Min plan</h4>
           
           {isEditing ? (
             <UserPlanForm
