@@ -123,8 +123,7 @@ export const pageContainer = "min-h-screen pb-24 space-y-6 bg-background";
 /**
  * HEADER CONTAINER - Page header styling
  */
-export const headerContainer = "bg-white border-b border-border sticky top-0 z-10 p-6";
-
+export const headerContainer = "border-b border-border sticky top-0 z-10 p-6";
 /**
  * PAGE PADDING - Standard page padding 24 px around 
  */
