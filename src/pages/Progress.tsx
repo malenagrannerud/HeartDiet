@@ -226,8 +226,8 @@ const Progress = () => {
   const handleDayClick = (clickedDate: Date | undefined) => {
     if (!clickedDate) return;
     
-    const today = startOfDay(new Date());
-    const clicked = startOfDay(clickedDate);
+    // const today = startOfDay(new Date());
+    // const clicked = startOfDay(clickedDate);
     
     // Allow today and past dates only
     // if (clicked.getTime() > today.getTime()) return;
