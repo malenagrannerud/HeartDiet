@@ -19,17 +19,14 @@ export const BottomNav = () => {
             className={({ isActive }) =>
               `flex flex-col items-center justify-center flex-1 h-full transition-colors ${
                 isActive
-                  ? "text-primary"
+                  ? "text-white"
                   : "text-muted-foreground hover:text-foreground"
               }`
             }
           >
             {({ isActive }) => (
               <>
-                <item.icon 
-                  className="h-6 w-6 mb-1" 
-                  fill={isActive && item.icon !== HelpCircle ? "currentColor" : "none"} 
-                />
+                <item.icon className="h-6 w-6 mb-1" fill={isActive ? "currentColor" : "none"} />
                 <span className="text-xs font-medium">{item.label}</span>
               </>
             )}
