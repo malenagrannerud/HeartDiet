@@ -25,6 +25,7 @@ export const tips: Tip[] = [
     healthScore: 8,
     subtitle:  "Text",
     detailedInfo: `Att få i sig fem nävar frukt och grönt per dag ger dej stora hälsofördelar. Fem nävar är ungefär 500 g. 
+
     Ränka in
     • rotfrukter
     • bär
@@ -42,25 +43,33 @@ export const tips: Tip[] = [
       • antioxidanter  
       • lite energi
 
+      Gör en stor sallad med fint riven rödkål, vitkål, morot och äpple exempelvis. 
+      Blanda i olivolja, vitvinsvinäger, salt och peppar och låt stå i kylen.
+
       För att se till att få i dej fem nävar om dagen, prova att till exempel: 
     `,
     steps: [
+
       {
-        heading: "1 - Förbered veckan",
-        content: "Se till att frukter och grönsaker finns hemma för veckan på till exempel söndagar. "
+        heading: "Vad du kan behöva inför veckan",
+        content: "Burkar och behållare (PVC fria). Frukter, grönsaker, vinjägrett "
       },
       {
-        heading: "2 - Veckans råkostsallad",
-        content: "Gör en stor sallad med fint riven rödkål, vitkål, morot och äpple exempelvis. Blanda i olivolja, vitvinsvinäger, salt och peppar och låt stå i kylen. Salladen håller hela veckan, prefekt att ta fram som tillbehör till veckans alla middagar.",
+        heading: "Steg 1 - Planera veckans meny",
+        content: "Tänk ut vad du vill äta i veckan. Leta efter nya recept. Till exempel: smoothie, tomatsoppa, sallad eller rotmos?"
       },
       {
-        heading: "3 - Soppor och smoothies i kylskåpet",
-        content: "Koka grönsaker och bönor i buljong och mixa slät med en stavmixer. Resultatet blir en mycket smak- och näringsrik soppa som är redd och klar att äta. ",
+        heading: "Steg 2 - Gör en shoppinglista",
+        content: "När din veckomeny är färdig, gör en shoppinglista för veckan. ",
+      },
+      {
+        heading: "Steg 3 - Preppa ingredienser",
+        content: "Koka grönsaker och bönor i buljong och mixa slät med en stavmixer. Hacka fina stavar av olika färger. Ta med dej till lunchen eller mellanmålet.  ",
       },
 
        {
-        heading: "4 - Frukt och grönsaks-stavar",
-        content: "Hacka fina stavar av olika färger. Ta med dej till lunchen eller mellanmålet.",
+        heading: "Steg 4 - Frukt och grönsaks-stavar",
+        content: "",
       },
     ],
   },
