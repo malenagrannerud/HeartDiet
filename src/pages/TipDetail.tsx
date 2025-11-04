@@ -91,8 +91,8 @@ const TipDetail = () => {
       </header>
       <main className={pagePadding}>
         
-        <h2 className={sectionHeading2}>{tip.title}</h2>
-        <p className={bodyText}>
+        <h2 className={bodyText}>{tip.title}</h2>
+        <p className="text-foreground leading-relaxed text-lg whitespace-pre-line">
           {tip.detailedInfo}
         </p>
 
