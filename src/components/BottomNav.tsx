@@ -26,7 +26,10 @@ export const BottomNav = () => {
           >
             {({ isActive }) => (
               <>
-                <item.icon className="h-6 w-6 mb-1" fill={isActive ? "currentColor" : "none"} />
+                <item.icon 
+                  className="h-6 w-6 mb-1" 
+                  fill={isActive && item.icon !== HelpCircle ? "currentColor" : "none"} 
+                />
                 <span className="text-xs font-medium">{item.label}</span>
               </>
             )}
