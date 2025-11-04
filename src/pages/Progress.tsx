@@ -99,9 +99,11 @@ const Progress = () => {
   const daysThisMonth = getDaysWithGoalThisMonth();
   const currentStreak = getCurrentStreak();
 
-  // FIXED: Simple click handler that works for all dates
+ 
   const handleDayClick = (clickedDate: Date | undefined) => {
-    if (!clickedDate) return;
+    if (!clickedDate) {
+       clickedDate = new Date();
+    }
     setSelectedDate(clickedDate);
     setEntryType('tip');
     setSelectedTipId(1);
@@ -143,7 +145,6 @@ const Progress = () => {
     setDialogOpen(false);
   };
 
-  // FIXED: Proper delete function
   const handleDeleteEntry = (entryIndex: number) => {
     if (!selectedDate) return;
     
