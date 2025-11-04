@@ -24,15 +24,23 @@ export const tips: Tip[] = [
     color: tipCardColors.green,
     healthScore: 8,
     subtitle:  "Text",
-    detailedInfo: `Att få i sig fem nävar grönsaker, rotfrukter, frukter och bär per dag minskar risken för 
+    detailedInfo: `Att få i sig fem nävar frukt och grönt per dag ger dej stora hälsofördelar. Fem nävar är ungefär 500 g. 
+    Ränka in
+    • rotfrukter
+    • bär
+    • frukt 
+    • grönsaker i maten du lagar 
+    • frysta grönsaker
+    
+    Att få i sig fem nävar per dag minskar risken för 
       • hjärt- och kärlsjukdom, 
       • vissa former av cancer samt
-      • förtidig död. 
+      • förtidig död
       
-      Det beror på ett:
-      • högt innehåll av fibrer
-      • högt innehåll av antioxidanter  
-      • lågt energiinnehåll
+      Det beror på att frukt och grönt innehåller:
+      • fibrer
+      • antioxidanter  
+      • lite energi
 
       För att se till att få i dej fem nävar om dagen, prova att till exempel: 
     `,
@@ -132,8 +140,7 @@ export const tips: Tip[] = [
     title: "Rätt fett",
     color: tipCardColors.yellow,
     healthScore: 3,
-    subtitle: 
-      "Använd flytande margarin och oljor i matlagning. Begränsa smör, hårdmargarin och andra mättade fetter",
+    subtitle: "text",
     detailedInfo:`
       "Fettkvaliteten påverkar hälsan. Omättade fetter från växtolior, flytande margarin, nötter och fet fisk är nyttigare än mättade fetter från smör, hårdmargarin och fett kött.",
       "Byt ut smör mot flytande margarin på mackan",
