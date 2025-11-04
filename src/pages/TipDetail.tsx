@@ -2,7 +2,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { tips } from "@/data/tips";
 import { UserPlan } from "@/data/tips";
-import { sectionHeading, sectionHeading2, cardText, backButton, pageContainer, pagePadding, bodyText, bodyTextBald } from "@/lib/design-tokens";
+import { sectionHeading, sectionHeading2, cardText, backButton, pageContainer, headerContainer, pagePadding, bodyText, bodyTextBald } from "@/lib/design-tokens";
 import { BackToTodayButton } from "@/components/BackToTodayButton";
 import { UserPlanForm } from "@/components/UserPlanForm";
 import { UserPlanDisplay } from "@/components/UserPlanDisplay";
@@ -86,9 +86,13 @@ const TipDetail = () => {
 
   return (
     <div className={pageContainer}>
-      <div className={`w-full h-[200px] ${tip.color}`}></div>
-        <BackToTodayButton />
-      <div className={pagePadding}>
+      <header className={headerContainer}>
+        <div className={`w-full h-full ${tip.color}`}>
+          <BackToTodayButton/>
+          <h1 className={sectionHeading}>Så fungerar appen</h1>
+        </div>
+      </header>
+      <main className={pagePadding}>
         
         <h2 className={sectionHeading2}>{tip.title}</h2>
         <p className="text-foreground leading-relaxed text-lg whitespace-pre-line">
@@ -119,7 +123,7 @@ const TipDetail = () => {
             />
           )}
         </div>
-      </div>
+      </main>
     </div>
   );
 };
