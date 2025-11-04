@@ -86,10 +86,8 @@ const TipDetail = () => {
 
   return (
     <div className={pageContainer}>
-      <header className={headerContainer}>
-        <div className={`w-full h-full ${tip.color}`}>
-          <BackToTodayButton/>
-        </div>
+      <header className={`${headerContainer} ${tip.color}`}>
+        <BackToTodayButton/>
       </header>
       <main className={pagePadding}>
         
