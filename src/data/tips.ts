@@ -24,9 +24,14 @@ export const tips: Tip[] = [
     color: tipCardColors.green,
     healthScore: 8,
     subtitle:  "Text",
-    detailedInfo: `Fem nävar grönsaker, rotfrukter, frukter och bär per dag minskar risken 
-      för hjärt- och kärlsjukdom, cancer i bland annat bröst och tjocktarm 
-      samt förtidig död. 
+    detailedInfo: ` Fem nävar frukt och grönt är ungeför 500 g. 
+    
+    
+    
+    Att få i sig fem nävar grönsaker, rotfrukter, frukter och bär per dag minskar risken för 
+      • hjärt- och kärlsjukdom, 
+      • vissa former av cancer
+      • samt förtidig död. 
       
       Det beror på:
       • Högt innehåll av fibrer
