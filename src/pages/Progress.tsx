@@ -230,7 +230,7 @@ const Progress = () => {
     const clicked = startOfDay(clickedDate);
     
     // Allow today and past dates only
-    if (clicked.getTime() > today.getTime()) return;
+    // if (clicked.getTime() > today.getTime()) return;
     
     setSelectedDate(clickedDate);
     setEntryType('tip');
