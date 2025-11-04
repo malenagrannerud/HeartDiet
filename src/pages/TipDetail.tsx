@@ -13,7 +13,7 @@ const renderStep = (step: any, index: number) => {
   if (typeof step === 'object' && step.heading && step.content) {
     return (
       <div key={index} className="space-y-3">
-        <h3 className={sectionHeading2}>
+        <h3 className={bodyTextBald}>
           {step.heading}
         </h3>
         <p className={bodyText}>{step.content}</p>

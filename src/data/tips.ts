@@ -20,11 +20,11 @@ export interface Tip {
 export const tips: Tip[] = [
   {
     id: 1,
-    title: "Fem nävar frukt och grönt om dagen",
+    title: "Fem om dagen",
     color: tipCardColors.green,
     healthScore: 8,
     subtitle:  "Text",
-    detailedInfo: `Att få i sig fem nävar frukt och grönt per dag ger dej stora hälsofördelar. Fem nävar är ungefär 500 g. 
+    detailedInfo: `Att äta fem nävar frukt och grönt per dag ger dej stora hälsofördelar. Fem nävar är ungefär 500 g. 
 
     Hit räknas
     • rotfrukter
