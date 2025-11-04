@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Clock } from "lucide-react";
+import { Clock, Check } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
 import { tips } from "@/data/tips";
@@ -18,12 +18,20 @@ interface MarkedTip {
 const Today = () => {
   const navigate = useNavigate();
   const [markedTips, setMarkedTips] = useState<MarkedTip[]>([]);
+  const [tutorialCompleted, setTutorialCompleted] = useState(false);
+  const [healthPrioritiesCompleted, setHealthPrioritiesCompleted] = useState(false);
+  const [healthMetricsCompleted, setHealthMetricsCompleted] = useState(false);
 
   useEffect(() => {
     const savedTips = getStorageItem('markedTips', markedTipsSchema);
     if (savedTips) {
       setMarkedTips(savedTips as MarkedTip[]);
     }
+    
+    // Check completion status
+    setTutorialCompleted(localStorage.getItem('tutorialCompleted') === 'true');
+    setHealthPrioritiesCompleted(localStorage.getItem('healthPrioritiesCompleted') === 'true');
+    setHealthMetricsCompleted(localStorage.getItem('healthMetricsCompleted') === 'true');
   }, []);
 
   const markedTipsList = tips.filter(tip => markedTips.some(mt => mt.id === tip.id));
@@ -41,7 +49,7 @@ const Today = () => {
             <h3 className={sectionHeading}>Starta här</h3>
               
             <Card 
-                className={interactiveCard}
+                className={`${interactiveCard} ${tutorialCompleted ? 'bg-green-50 border-green-200' : ''}`}
                 onClick={() => navigate('/app/tutorial')}
                 aria-label="Gå till tutorial"
                 >
@@ -53,11 +61,16 @@ const Today = () => {
                       <span>5 min</span>
                     </div>
                   </div>
+                  {tutorialCompleted && (
+                    <div className="w-6 h-6 rounded-full bg-green-600 flex items-center justify-center flex-shrink-0">
+                      <Check size={16} className="text-white" strokeWidth={3} />
+                    </div>
+                  )}
                 </div>
             </Card>
           
             <Card 
-                className={interactiveCard}
+                className={`${interactiveCard} ${healthPrioritiesCompleted ? 'bg-green-50 border-green-200' : ''}`}
                 onClick={() => navigate('/app/health-priorities')}
                 aria-label="Gå till mina hälsoprioriteringar"
                 >
@@ -69,11 +82,16 @@ const Today = () => {
                       <span>4 min</span>
                     </div>
                   </div>
+                  {healthPrioritiesCompleted && (
+                    <div className="w-6 h-6 rounded-full bg-green-600 flex items-center justify-center flex-shrink-0">
+                      <Check size={16} className="text-white" strokeWidth={3} />
+                    </div>
+                  )}
                 </div>
             </Card>
               
             <Card 
-                className={interactiveCard}
+                className={`${interactiveCard} ${healthMetricsCompleted ? 'bg-green-50 border-green-200' : ''}`}
                 onClick={() => navigate('/app/health-metrics')}
                 aria-label="Gå till hälsomätningar"
                 >
@@ -81,6 +99,11 @@ const Today = () => {
                   <div>
                     <h4 className={cardTitle}>Vikt och blodtryck</h4>
                   </div>
+                  {healthMetricsCompleted && (
+                    <div className="w-6 h-6 rounded-full bg-green-600 flex items-center justify-center flex-shrink-0">
+                      <Check size={16} className="text-white" strokeWidth={3} />
+                    </div>
+                  )}
                 </div>
             </Card>
           </section>
