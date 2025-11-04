@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Heart, Pill, BookOpen, Check } from "lucide-react";
+import { Heart, Pill, BookOpen, Check } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { pageTitle, cardTitle, cardText, interactiveCard, headerContainer, backButton, pageContainer, pagePadding } from "@/lib/design-tokens";
@@ -47,21 +47,10 @@ const Settings = () => {
   }, []);
 
   return (
-    /* STANDARDIZATION: Cards use interactiveCard (p-5, bg-blue-50, min-h-80px) */
     <div className={`${pageContainer} pb-16`}>
-      {/* Header - CENTRALIZED */}
-      <header className={headerContainer}>
-        <div className="flex items-center gap-3">
-          <Button
-            variant="ghost"
-            onClick={() => navigate('/app/progress')}
-            className={backButton}
-            aria-label="Tillbaka"
-          >
-            <ArrowLeft size={28} className="text-foreground" />
-          </Button>
-          <h1 className={`${pageTitle} text-3xl`}>Inställningar</h1>
-        </div>
+      {/* Header */}
+      <header className="px-6 py-8">
+        <h1 className={pageTitle}>Hjälp</h1>
       </header>
 
       <div className={`${pagePadding} space-y-6`}>

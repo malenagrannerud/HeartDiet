@@ -14,7 +14,7 @@ const MainApp = () => {
   const location = useLocation();
   
   // Show bottom nav only on main pages (Headspace style)
-  const showBottomNav = ["/app/today", "/app/tips", "/app/progress"].includes(location.pathname);
+  const showBottomNav = ["/app/today", "/app/tips", "/app/progress", "/app/settings"].includes(location.pathname);
   
   return (
     <>
