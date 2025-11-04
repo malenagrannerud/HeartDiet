@@ -24,19 +24,15 @@ export const tips: Tip[] = [
     color: tipCardColors.green,
     healthScore: 8,
     subtitle:  "Text",
-    detailedInfo: ` Fem nävar frukt och grönt är ungeför 500 g. 
-    
-    
-    
-    Att få i sig fem nävar grönsaker, rotfrukter, frukter och bär per dag minskar risken för 
+    detailedInfo: `Att få i sig fem nävar grönsaker, rotfrukter, frukter och bär per dag minskar risken för 
       • hjärt- och kärlsjukdom, 
-      • vissa former av cancer
-      • samt förtidig död. 
+      • vissa former av cancer samt
+      • förtidig död. 
       
-      Det beror på:
-      • Högt innehåll av fibrer
-      • Högt innehåll av antioxidanter  
-      • Lågt energiinnehåll
+      Det beror på ett:
+      • högt innehåll av fibrer
+      • högt innehåll av antioxidanter  
+      • lågt energiinnehåll
 
       För att se till att få i dej fem nävar om dagen, prova att till exempel: 
     `,
@@ -71,28 +67,27 @@ export const tips: Tip[] = [
     color: tipCardColors.amber,
     healthScore: 3,
     subtitle: "Text",
-    detailedInfo: `Fullkorn minskar risken för 
+    detailedInfo: `Att få i sig minst 3 dl fullkorn om dagen minskar risken för 
     • kranskärlsjukdom, 
     • tarmcancer, 
     • typ 2-diabetes och 
     • förtidig död.  
     
-    Det höga innehållet av kostfibrer är en av förklaringarna till detta. 
-    Fibrerna bidrar till en bra tarmhälsa. De bidrar också till att sänka 
-    blodtrycket, vilket i sin tur leder till minskad risk för hjärt- och kärlsjukdom.
+    Det beror bland annat på det höga innehållet av kostfibrer. Fibrerna bidrar till 
+    • en bra tarmhälsa och
+    • att sänka blodtrycket.
 
-    Fullkorn innehåller också växtsteroler som minskar upptaget av kolesterol i 
-    tarmen, vilket sänker halten av det skadliga LDL-kolesterolet i blodet. 
-    Det finns även evidens för att ett högre intag av fullkorn kan motverka 
-    viktuppgång och bidra till lägre totalkolesterol och minskat systoliskt blodtryck, 
+    Fullkorn innehåller också växtsteroler som 
+    • minskar upptaget av kolesterol i tarmen. Då sänks halten av LDL-kolesterolet i blodet --> 
+    lägre totalkolesterol och minskat systoliskt blodtryck, 
     vilket kan vara en annan förklaring till den minskade risken för kostrelaterad ohälsa.
 
     För att se till att få i dej minst 3 dl (90 g) fullkorn per dag, prova att till exempel: 
      `,
      steps: [
       {
-        heading: "1 - Knäckebröd - 100% fullkorn",
-        content: "Ät varje dag",
+        heading: "1 - Ät knäckebröd varje dag ",
+        content: "Knäckebröd innehåller 100% fullkorn. Ät varje dag",
       },
       {
         heading: "2 - Byt vitt mjöl mot fullkornsmjöl",
