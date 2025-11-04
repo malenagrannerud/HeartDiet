@@ -19,7 +19,7 @@ export const BottomNav = () => {
             className={({ isActive }) =>
               `flex flex-col items-center justify-center flex-1 h-full transition-colors ${
                 isActive
-                  ? "text-primary"
+                  ? "text-white"
                   : "text-muted-foreground hover:text-foreground"
               }`
             }
