@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Separator } from "@/components/ui/separator";
 import { Calendar } from "@/components/ui/calendar";
-import { format, startOfMonth, endOfMonth, isSameDay, addDays, isWithinInterval } from "date-fns";
+import { format, startOfMonth, endOfMonth, isSameDay, addDays, isWithinInterval, startOfDay } from "date-fns";
 import { sv } from "date-fns/locale";
 import { Trophy, Flame, Weight, Activity, Trash2, Settings } from "lucide-react";
 import { tips } from "@/data/tips";
@@ -222,25 +222,19 @@ const Progress = () => {
   const handleDayClick = (clickedDate: Date | undefined) => {
     if (!clickedDate) return;
     
-    // Don't allow entries for future dates
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const clicked = new Date(clickedDate);
-    clicked.setHours(0, 0, 0, 0);
+    const today = startOfDay(new Date());
+    const clicked = startOfDay(clickedDate);
     
     // Allow today and past dates only
     if (clicked.getTime() > today.getTime()) return;
     
     setSelectedDate(clickedDate);
-    
-    // Reset inputs
     setEntryType('tip');
     setSelectedTipId(1);
     setGramsInput("");
     setWeightInput("");
     setSystolicInput("");
     setDiastolicInput("");
-    
     setDialogOpen(true);
   };
 
