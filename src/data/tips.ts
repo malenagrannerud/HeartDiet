@@ -20,33 +20,24 @@ export interface Tip {
 export const tips: Tip[] = [
   {
     id: 1,
-    title: "Fem nävar frukt och grönt",
+    title: "Fem nävar frukt och grönt om dagen",
     color: tipCardColors.green,
     healthScore: 8,
     subtitle:  "Text",
     detailedInfo: `Att få i sig fem nävar frukt och grönt per dag ger dej stora hälsofördelar. Fem nävar är ungefär 500 g. 
 
-    Ränka in
+    Hit räknas
     • rotfrukter
-    • bär
-    • frukt 
-    • grönsaker i maten du lagar 
-    • frysta grönsaker
+    • frukt & bär 
+    • frysta grönsaker & grönsaker i maten du lagar 
     
     Att få i sig fem nävar per dag minskar risken för 
       • hjärt- och kärlsjukdom, 
       • vissa former av cancer samt
       • förtidig död
-      
-      Det beror på att frukt och grönt innehåller:
-      • fibrer
-      • antioxidanter  
-      • lite energi
-
-      Gör en stor sallad med fint riven rödkål, vitkål, morot och äpple exempelvis. 
-      Blanda i olivolja, vitvinsvinäger, salt och peppar och låt stå i kylen.
-
-      För att se till att få i dej fem nävar om dagen, prova att till exempel: 
+    Det beror på att frukt och grönt innehåller fibrer och antioxidanter.  
+    
+    För att få i dej dina fem nävar om dagen, prova stegen: 
     `,
     steps: [
 
@@ -56,20 +47,19 @@ export const tips: Tip[] = [
       },
       {
         heading: "Steg 1 - Planera veckans meny",
-        content: "Tänk ut vad du vill äta i veckan. Leta efter nya recept. Till exempel: smoothie, tomatsoppa, sallad eller rotmos?"
+        content: "Tänk ut vad du vill äta i veckan. Leta efter nya recept. Till exempel: smoothies, soppor, råkostsallad, sallad med rotsaker eller rotmos?"
       },
       {
         heading: "Steg 2 - Gör en shoppinglista",
-        content: "När din veckomeny är färdig, gör en shoppinglista för veckan. ",
+        content: "När din veckomeny är färdig, tänk efter vad som finns hemma. Gör en shoppinglista för veckan. Glöm inte frysta bär och grönsaker. ",
       },
       {
         heading: "Steg 3 - Preppa ingredienser",
-        content: "Koka grönsaker och bönor i buljong och mixa slät med en stavmixer. Hacka fina stavar av olika färger. Ta med dej till lunchen eller mellanmålet.  ",
+        content: "Till exempel: hacka fina stavar av olika färger. Koka grönsaker och bönor i buljong och mixa med en stavmixer. Gör en stor råkostsallad med vinjegrett för veckan",
       },
-
-       {
-        heading: "Steg 4 - Frukt och grönsaks-stavar",
-        content: "",
+      {
+        heading: "Tips",
+        content: " Bjud en vän på middag. Fruktkorg på jobbet? Gör det till en vana att dela ut",
       },
     ],
   },
