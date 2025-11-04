@@ -2,7 +2,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { tips } from "@/data/tips";
 import { UserPlan } from "@/data/tips";
-import { sectionHeading, sectionHeading2, pageContainer, headerContainer, pagePadding, bodyText, bodyTextBald } from "@/lib/design-tokens";
+import { sectionHeading, sectionHeading2, cardText, backButton, pageContainer, headerContainer, pagePadding, bodyText, bodyTextBald } from "@/lib/design-tokens";
 import { BackToTodayButton } from "@/components/BackToTodayButton";
 import { UserPlanForm } from "@/components/UserPlanForm";
 import { UserPlanDisplay } from "@/components/UserPlanDisplay";
