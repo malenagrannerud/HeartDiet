@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ChevronRight, ChevronLeft } from "lucide-react";
+import { sectionHeading, sectionHeading2, cardText, backButton, pageContainer, headerContainer, pagePadding, pageTitle} from "@/lib/design-tokens";
 import welcomeIllustration from "@/assets/welcome-illustration.png";
 
 interface OnboardingProps {
@@ -32,7 +33,7 @@ const Onboarding = ({ onComplete }: OnboardingProps) => {
       {step === 1 && (
         <>
           <div className="flex-1 flex flex-col justify-center space-y-6 w-full">
-            <h1 className="text-5xl font-bold text-primary">Hjärtkost</h1>
+            <h1 className={pageTitle}>Hjärtkost</h1>
             <p className="text-primary font-bold text-lg leading-relaxed">
               Ditt individanpassade program för en hjärt-vänlig kosthållning
             </p>
