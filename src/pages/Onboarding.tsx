@@ -37,12 +37,11 @@ const Onboarding = ({ onComplete }: OnboardingProps) => {
       <div className={`${pagePadding} flex-1`}>
         {step === 1 && (
           <>
-            <div className="text-center mb-8">
-              <h1 className={pageTitle}>Hjärtkost</h1>
+            <h1 className={pageTitle}>Hjärtkost</h1>
               <p className={sectionHeading}>
                 Ditt individanpassade program för en hjärt-vänlig kosthållning
               </p>
-            </div>
+           
             <div className={standardSpacing.pageContent}>
               <img 
                 src={welcomeIllustration} 
@@ -55,9 +54,7 @@ const Onboarding = ({ onComplete }: OnboardingProps) => {
 
         {step === 2 && (
           <>
-            <div className="text-center mb-8">
-              <h1 className={pageTitle}>Hjärtkost</h1>
-            </div>
+            <h1 className={pageTitle}>Hjärtkost</h1>
             <ul className={standardSpacing.sectionContent}>
               {features.map((feature, index) => (
                 <li key={index} className="flex items-start gap-4 mb-4">
