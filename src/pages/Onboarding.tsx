@@ -55,7 +55,7 @@ const Onboarding = ({ onComplete }: OnboardingProps) => {
 
         {step === 2 && (
           <>
-            <h1 className={pageTitle}>Hjärtkost</h1>
+            <h1 className={`${pageTitle} mb-12`}>Hjärtkost</h1>
             <ul className={`${sectionHeading2} mb-12`}>
               {features.map((feature, index) => (
                 <li key={index} className="flex items-start gap-4 mb-4">
