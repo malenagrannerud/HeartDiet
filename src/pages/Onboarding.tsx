@@ -38,7 +38,7 @@ const Onboarding = ({ onComplete }: OnboardingProps) => {
         {step === 1 && (
           <>
             <h1 className={pageTitle}>Hjärtkost</h1>
-              <p className={`${sectionHeading} mb-8`}>
+              <p className={`${sectionHeading} mb-10`}>
                 Ditt individanpassade program för en hjärt-vänlig kosthållning
               </p>
            
