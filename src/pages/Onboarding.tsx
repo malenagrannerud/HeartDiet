@@ -38,7 +38,7 @@ const Onboarding = ({ onComplete }: OnboardingProps) => {
         {step === 1 && (
           <>
             <h1 className={pageTitle}>Hjärtkost</h1>
-              <p className={`${sectionHeading} mb-12`}>
+              <p className={`${sectionHeading2} mb-12`}>
                 // Hjärtkost hjälper dej att följa en evidensbaserad hjärt-vänlig kosthållning
                 Ditt individanpassade program för en hjärt-vänlig kosthållning
               </p>
