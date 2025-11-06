@@ -53,13 +53,13 @@ const Onboarding = ({ onComplete }: OnboardingProps) => {
           <div className={pagePadding}>
             <h1 className={pageTitle}>Hjärtkost</h1>
             
-            <ul className="space-y-4 text-left">
+            <ul className={standardSpacing.sectionContent}>
               <li className="flex gap-3">
                 <span className={sectionHeading}>•</span>
                 <span className={sectionHeading}>Tio evidensbaserade tips för ett starkare hjärta</span>
               </li>
               <li className="flex gap-3">
-                <span className="text-primary mt-1 font-bold">•</span>
+                <span className={sectionHeading}>•</span>
                 <span className={sectionHeading}>Välj vilka tips du vill implementera varje vecka</span>
               </li>
               <li className="flex gap-3">
