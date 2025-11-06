@@ -31,7 +31,7 @@ const Onboarding = ({ onComplete }: OnboardingProps) => {
   return (
     <div className={pageContainer}>
       {step === 1 && (
-        <>
+        <> 
           <div className={pagePadding}>
             <h1 className={pageTitle}>Hjärtkost</h1>
               <p className={bodyText}>
