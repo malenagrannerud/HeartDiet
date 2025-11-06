@@ -32,8 +32,9 @@ const Onboarding = ({ onComplete }: OnboardingProps) => {
   ];
 
   return (
-    <div className={pageContainer}>
-      <div className={pagePadding}>
+    <div className={`${pageContainer} flex flex-col min-h-screen`}>
+      {/* Main content */}
+      <div className={`${pagePadding} flex-1`}>
         {step === 1 && (
           <>
             <div className="text-center mb-8">
@@ -69,38 +70,43 @@ const Onboarding = ({ onComplete }: OnboardingProps) => {
         )}
       </div>
 
-      {/* Navigation dots */}
-      <div className="flex gap-2 mb-6 justify-center">
-        {[1, 2].map((dot) => (
-          <button
-            key={dot}
-            onClick={() => setStep(dot)}
-            className={`h-2 rounded-full transition-all ${
-              step === dot ? "w-8 bg-primary" : "w-2 bg-muted"
-            }`}
-          />
-        ))}
-      </div>
+      {/* Bottom navigation section */}
+      <div className="flex flex-col items-center mt-auto">
+        {/* Navigation dots */}
+        <div className="flex gap-2 mb-6 justify-center w-full">
+          {[1, 2].map((dot) => (
+            <button
+              key={dot}
+              onClick={() => setStep(dot)}
+              className={`h-2 rounded-full transition-all ${
+                step === dot ? "w-8 bg-primary" : "w-2 bg-muted"
+              }`}
+            />
+          ))}
+        </div>
 
-      {/* Navigation buttons */}
-      <div className="w-full px-6">
-        {step === 1 ? (
-          <Button onClick={handleNext} className="w-2/3 h-12 text-base" size="lg">
-            Nästa
-            <ChevronRight className="ml-2 h-5 w-5" />
-          </Button>
-        ) : (
-          <div className="flex gap-3">
-            <Button variant="outline" onClick={handleBack} className="flex-1 h-12" size="lg">
-              <ChevronLeft className="mr-2 h-5 w-5" />
-              Tillbaka
-            </Button>
-            <Button onClick={handleNext} className="flex-1 h-12 text-base" size="lg">
-              Börja nu
-              <ChevronRight className="ml-2 h-5 w-5" />
-            </Button>
-          </div>
-        )}
+        {/* Navigation buttons */}
+        <div className="w-full px-6 pb-6">
+          {step === 1 ? (
+            <div className="flex justify-center">
+              <Button onClick={handleNext} className="w-2/3 h-12 text-base" size="lg">
+                Nästa
+                <ChevronRight className="ml-2 h-5 w-5" />
+              </Button>
+            </div>
+          ) : (
+            <div className="flex gap-3 justify-center">
+              <Button variant="outline" onClick={handleBack} className="flex-1 max-w-[45%] h-12" size="lg">
+                <ChevronLeft className="mr-2 h-5 w-5" />
+                Tillbaka
+              </Button>
+              <Button onClick={handleNext} className="flex-1 max-w-[45%] h-12 text-base" size="lg">
+                Börja nu
+                <ChevronRight className="ml-2 h-5 w-5" />
+              </Button>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
