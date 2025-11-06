@@ -34,7 +34,7 @@ const Onboarding = ({ onComplete }: OnboardingProps) => {
         <> 
           <div className={pagePadding}>
             <h1 className={pageTitle}>Hjärtkost</h1>
-              <p className={bodyText}>
+              <p className={sectionHeading }>
                 Ditt individanpassade program för en hjärt-vänlig kosthållning
               </p>
             <div className={standardSpacing.pageContent}>
@@ -55,20 +55,20 @@ const Onboarding = ({ onComplete }: OnboardingProps) => {
             
             <ul className="space-y-4 text-left">
               <li className="flex gap-3">
-                <span className={bodyText}>•</span>
-                <span className={bodyText}>Tio evidensbaserade tips för ett starkare hjärta</span>
+                <span className={sectionHeading}>•</span>
+                <span className={sectionHeading}>Tio evidensbaserade tips för ett starkare hjärta</span>
               </li>
               <li className="flex gap-3">
                 <span className="text-primary mt-1 font-bold">•</span>
-                <span className={bodyText}>Välj vilka tips du vill implementera varje vecka</span>
+                <span className={sectionHeading}>Välj vilka tips du vill implementera varje vecka</span>
               </li>
               <li className="flex gap-3">
-                <span className={bodyText}>•</span>
-                <span className={bodyText}>Upplev effekterna av en näringsriktig diet utan orimliga tvång</span>
+                <span className={sectionHeading}>•</span>
+                <span className={sectionHeading}>Upplev effekterna av en näringsriktig diet utan orimliga tvång</span>
               </li>
               <li className="flex gap-3">
-                <span className={bodyText}>•</span>
-                <span className={bodyText}>Få stöd under resan. Om något tips är svårt att implementera hjälper vi dej att anpassa stegen</span>
+                <span className={sectionHeading}>•</span>
+                <span className={sectionHeading}>Få stöd under resan. Om något tips är svårt att implementera hjälper vi dej att anpassa stegen</span>
               </li>
             </ul>
           </div>
