@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ChevronRight, ChevronLeft } from "lucide-react";
-import { sectionHeading, backButton, pageContainer, headerContainer, pagePadding, pageTitle, pageSubtitle} from "@/lib/design-tokens";
+import { sectionHeading, backButton, pageContainer, headerContainer, pagePadding, pageTitle, pageSubtitle, bodyText} from "@/lib/design-tokens";
 import welcomeIllustration from "@/assets/welcome-illustration.png";
 
 interface OnboardingProps {
@@ -34,7 +34,7 @@ const Onboarding = ({ onComplete }: OnboardingProps) => {
         <>
           <div className="flex-1 flex flex-col justify-center space-y-6 w-full">
             <h1 className={pageTitle}>Hjärtkost</h1>
-            <p className={pageSubtitle}>
+            <p className={bodyText}>
               Ditt individanpassade program för en hjärt-vänlig kosthållning
             </p>
             <div className="w-full mt-4">
