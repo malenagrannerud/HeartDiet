@@ -39,6 +39,7 @@ const Onboarding = ({ onComplete }: OnboardingProps) => {
           <>
             <h1 className={pageTitle}>Hjärtkost</h1>
               <p className={`${sectionHeading} mb-12`}>
+                // Hjärtkost hjälper dej att följa en evidensbaserad hjärt-vänlig kosthållning
                 Ditt individanpassade program för en hjärt-vänlig kosthållning
               </p>
            
@@ -94,7 +95,7 @@ const Onboarding = ({ onComplete }: OnboardingProps) => {
           ) : (
             <div className="flex gap-3 justify-center">
               <Button variant="outline" onClick={handleBack} className="flex-1 max-w-[45%] h-12" size="lg">
-                <ChevronLeft className="mr-2 h-5 w-5" />
+                <ChevronLeft className="ml-2 h-5 w-5" />
                 Tillbaka
               </Button>
               <Button onClick={handleNext} className="flex-1 max-w-[45%] h-12 text-base" size="lg">
