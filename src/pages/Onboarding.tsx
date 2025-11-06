@@ -39,7 +39,7 @@ const Onboarding = ({ onComplete }: OnboardingProps) => {
           <>
             <h1 className={pageTitle}>Hjärtkost</h1>
               <p className={`${sectionHeading2} mb-12`}>
-                // Hjärtkost hjälper dej att följa en evidensbaserad hjärt-vänlig kosthållning
+                {/* Hjärtkost hjälper dej att följa en evidensbaserad hjärt-vänlig kosthållning */}
                 Ditt individanpassade program för en hjärt-vänlig kosthållning
               </p>
            
