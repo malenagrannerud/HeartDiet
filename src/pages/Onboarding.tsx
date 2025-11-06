@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ChevronRight, ChevronLeft } from "lucide-react";
-import { pageContainer, pagePadding, pageTitle, sectionHeading, standardSpacing } from "@/lib/design-tokens";
+import { pageContainer, pagePadding, pageTitle, sectionHeading, sectionHeading2, standardSpacing } from "@/lib/design-tokens";
 import welcomeIllustration from "@/assets/welcome-illustration.png";
 
 interface OnboardingProps {
@@ -38,7 +38,7 @@ const Onboarding = ({ onComplete }: OnboardingProps) => {
         {step === 1 && (
           <>
             <h1 className={pageTitle}>Hjärtkost</h1>
-              <p className={sectionHeading}>
+              <p className={sectionHeading2}>
                 Ditt individanpassade program för en hjärt-vänlig kosthållning
               </p>
            
