@@ -56,7 +56,7 @@ const Onboarding = ({ onComplete }: OnboardingProps) => {
         {step === 2 && (
           <>
             <h1 className={pageTitle}>Hjärtkost</h1>
-            <ul className={standardSpacing.sectionContent}>
+            <ul className={`${sectionHeading2} mb-12`}>
               {features.map((feature, index) => (
                 <li key={index} className="flex items-start gap-4 mb-4">
                   <span className={`${sectionHeading} mt-0.5`}>•</span>
