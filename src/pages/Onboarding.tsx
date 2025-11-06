@@ -46,29 +46,29 @@ const Onboarding = ({ onComplete }: OnboardingProps) => {
             </div>
           </div>
         </>
-      )}
+      )} 
 
       {step === 2 && (
         <>
-          <div className="flex-1 flex flex-col justify-center space-y-6 w-full">
+          <div className={pagePadding}>
             <h1 className={pageTitle}>Hjärtkost</h1>
             
             <ul className="space-y-4 text-left">
               <li className="flex gap-3">
-                <span className="text-primary mt-1 font-bold">•</span>
-                <span className="font-semibold text-foreground">Tio evidensbaserade tips för ett starkare hjärta</span>
+                <span className={bodyText}>•</span>
+                <span className={bodyText}>Tio evidensbaserade tips för ett starkare hjärta</span>
               </li>
               <li className="flex gap-3">
                 <span className="text-primary mt-1 font-bold">•</span>
-                <span className="font-semibold text-foreground">Välj vilka tips du vill implementera varje vecka</span>
+                <span className={bodyText}>Välj vilka tips du vill implementera varje vecka</span>
               </li>
               <li className="flex gap-3">
-                <span className="text-primary mt-1 font-bold">•</span>
-                <span className="font-semibold text-foreground">Upplev effekterna av en näringsriktig diet utan orimliga tvång</span>
+                <span className={bodyText}>•</span>
+                <span className={bodyText}>Upplev effekterna av en näringsriktig diet utan orimliga tvång</span>
               </li>
               <li className="flex gap-3">
-                <span className="text-primary mt-1 font-bold">•</span>
-                <span className="font-semibold text-foreground">Få stöd under resan. Om något tips är svårt att implementera hjälper vi dej att anpassa stegen</span>
+                <span className={bodyText}>•</span>
+                <span className={bodyText}>Få stöd under resan. Om något tips är svårt att implementera hjälper vi dej att anpassa stegen</span>
               </li>
             </ul>
           </div>
