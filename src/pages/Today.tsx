@@ -102,7 +102,7 @@ const Today = () => {
 
           <section>
               <h3 className={`${sectionHeading} ${standardSpacing.sectionContent}`}>
-                Mina tips den här veckan
+                Mina tips
               </h3>
               {markedTipsList.length > 0 ? (
                 <div className="space-y-4">
