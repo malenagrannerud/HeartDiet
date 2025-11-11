@@ -153,7 +153,7 @@ const Today = () => {
                     <h4 className={cardTitle}>Mina mål</h4>
                     <div className={`flex items-center gap-2 ${cardTitleSmall}`}>
                         <FileEdit size={14} strokeWidth={2.5} />
-                        <span>Kurs</span>
+                        <span>Formulär</span>
                         <Clock size={14} strokeWidth={2.5} />
                         <span>3 min</span>
                       </div>
@@ -184,7 +184,7 @@ const Today = () => {
                     <h4 className={cardTitle}>Vikt och blodtryck</h4>
                     <div className={`flex items-center gap-2 ${cardTitleSmall}`}>
                         <FileEdit size={14} strokeWidth={2.5} />
-                        <span>Kurs</span>
+                        <span>Formulär</span>
                         <Clock size={14} strokeWidth={2.5} />
                         <span>5 min</span>
                       </div>
