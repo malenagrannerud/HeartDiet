@@ -5,7 +5,7 @@ import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { sectionHeading, sectionSubheading, cardTitle, cardText, standardCard, headerContainer, primaryButton, pageContainer, pagePadding } from "@/lib/design-tokens";
+import { sectionHeading, sectionSubheading, cardTitle, cardText, standardCard, headerContainer, primaryButton, pageContainer, pagePadding, sectionHeading2, bodyText } from "@/lib/design-tokens";
 import { getStorageItem, setStorageItem } from "@/lib/storage";
 import { healthPrioritiesSchema, completedActivitiesSchema } from "@/lib/schemas";
 import { markCardCompleted } from "@/lib/card-completion"; // Add this import
@@ -165,7 +165,7 @@ const HealthPriorities = () => {
       {/* STANDARDIZATION: space-y-6 for sections, space-y-4 for card lists */}
       <div className={`${pagePadding} space-y-6`}>
         <section>
-          <h2 className={`${sectionHeading} mb-4`}>Mina mål</h2>
+          <h2 className={`${sectionHeading2} mb-4`}>Hälsomål</h2>
           <div className="space-y-4">
             {healthPriorities.map((priority) => (
               <Card key={priority.id} className={standardCard}>
@@ -181,7 +181,7 @@ const HealthPriorities = () => {
                       {priority.label}
                     </div>
                     {priority.description && (
-                      <p className={cardText}>
+                      <p className={bodyText}>
                         {priority.description}
                       </p>
                     )}
