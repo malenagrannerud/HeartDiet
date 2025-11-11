@@ -184,7 +184,7 @@ export const bodyTextBald = "text-base font-bold text-[#212658]";
 /**
  * CARD TITLES - 20px
  */
-export const cardTitle = "text-xl font-bold text-[#212658]";
+export const cardTitle = "text-base font-bold text-[#212658]";
 
 /**
  * CARD TITLES SMALL - 14 px

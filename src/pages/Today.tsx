@@ -73,7 +73,7 @@ const Today = () => {
                 >
                 <div className="flex items-center justify-between">
                     <div>
-                        <h4 className={bodyTextBald}>Mina mål</h4>
+                        <h4 className={cardTitle}>Mina mål</h4>
                         <div className={`flex items-center gap-2 ${cardTitleSmall}`}>
                             <Clock size={14} strokeWidth={2.5} />
                             <span>4 min</span>
