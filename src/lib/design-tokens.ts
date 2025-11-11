@@ -200,9 +200,9 @@ export const cardText = "text-base text-[#212658]/70";
 
 /**
  * SMALL CARD TEXT
- * Used for secondary text in cards 14 px
+ * Used for secondary text in cards 12 px
  */
-export const cardTextSmall = "text-sm text-[#212658]/70";
+export const cardTextSmall = "text-xs text-[#212658]/70";
 
 
 
