@@ -64,9 +64,18 @@ export const cleanupOldCompletions = (): void => {
 };
 
 export const getCardsToHide = (): Record<CardId, boolean> => {
-  return {
-    'tutorial': wasCardCompletedOnDifferentDay('tutorial'),
-    'health-priorities': wasCardCompletedOnDifferentDay('health-priorities'),
-    'health-metrics': wasCardCompletedOnDifferentDay('health-metrics'),
+  const completedCards = getCompletedCards();
+  const today = new Date().toISOString().split('T')[0];
+  
+  console.log('🕵️ getCardsToHide - Today:', today);
+  console.log('🕵️ getCardsToHide - All completed cards:', completedCards);
+  
+  const result = {
+    'tutorial': completedCards.some(card => card.cardId === 'tutorial' && card.completedDate !== today),
+    'health-priorities': completedCards.some(card => card.cardId === 'health-priorities' && card.completedDate !== today),
+    'health-metrics': completedCards.some(card => card.cardId === 'health-metrics' && card.completedDate !== today),
   };
+  
+  console.log('🕵️ getCardsToHide - Cards to hide:', result);
+  return result;
 };
