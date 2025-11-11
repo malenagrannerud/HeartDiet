@@ -8,6 +8,7 @@ import { useToast } from "@/hooks/use-toast";
 import { sectionHeading, sectionSubheading, cardTitle, cardText, standardCard, headerContainer, primaryButton, pageContainer, pagePadding } from "@/lib/design-tokens";
 import { getStorageItem, setStorageItem } from "@/lib/storage";
 import { healthPrioritiesSchema, completedActivitiesSchema } from "@/lib/schemas";
+import { markCardCompleted } from "@/lib/card-completion"; // Add this import
 
 interface HealthPriority {
   id: string;
@@ -121,6 +122,7 @@ const HealthPriorities = () => {
   };
 
   const handleSave = () => {
+    // Save health priorities data
     const data = {
       priorities: selectedPriorities,
       medications: selectedMedications
@@ -138,6 +140,9 @@ const HealthPriorities = () => {
       type: 'health-priorities'
     });
     setStorageItem('completedActivities', activities, completedActivitiesSchema);
+    
+    // MARK THE CARD AS COMPLETED - This is the key fix
+    markCardCompleted('health-priorities');
     
     toast({
       title: "Inställningar sparade",
