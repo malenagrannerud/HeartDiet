@@ -97,7 +97,7 @@ const Today = () => {
 
   return (
     <div className={pageContainer}>
-        <header className={headerContainer}>
+      <header className={headerContainer}>
           <h1 className={pageTitle}>Idag</h1>
           <p className={pageSubtitle}>Dagens fokus</p>
 
@@ -112,7 +112,7 @@ const Today = () => {
                 >
                   🔄 Reset All Data (Testing)
                 </Button>
-        </header>
+      </header>
 
       <main className={pagePadding}>
          <div className={standardSpacing.pageContent}>
