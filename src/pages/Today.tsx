@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { StartCard } from "@/components/StartCard";
 import { Clock, BookOpen, FileEdit } from "lucide-react"; 
 import { Card } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
@@ -117,78 +118,42 @@ const Today = () => {
          <div className={standardSpacing.pageContent}>
           <section className={standardSpacing.sectionContent}>
             <h3 className={sectionHeading}>Starta här</h3>
-              
-              {!hiddenCards.tutorial && (
-                <Card 
-                  className={interactiveCard} 
-                  onClick={() => handleCardNavigation('tutorial', '/app/tutorial')}
-                  aria-label="Gå till tutorial"
-                  >
-                  <div className="flex items-start gap-3">
-                    <CheckBoxLeft isCompleted={completionStatus.tutorial} className="mt-1" />
-                    <div>
-                      <h4 className={cardTitle}>Så fungerar appen</h4>
-                      <div className={`flex items-center gap-2 ${cardTitleSmall} mt-2`}>
-                        <BookOpen size={12} strokeWidth={2.5} />
-                        <span>Kurs</span>
-                        <Clock size={12} strokeWidth={2.5} />
-                        <span>5 min</span>
-                      </div>
-                    </div>
-                  </div>
-                </Card>
-              )}
+             <StartCard
+                isHidden={hiddenCards.tutorial}
+                isCompleted={completionStatus.tutorial}
+                title="Så fungerar appen"
+                icon={<BookOpen size={12} strokeWidth={2.5} />}
+                label="Kurs"
+                time="5 min"
+                onClick={() => handleCardNavigation('tutorial', '/app/tutorial')}
+                ariaLabel="Gå till tutorial"
+              />
 
-            {!hiddenCards.healthPriorities && (
-              <Card 
-                className={`${interactiveCard} relative`} // Add 'relative' here
+              <StartCard
+                isHidden={hiddenCards.healthPriorities}
+                isCompleted={completionStatus.healthPriorities}
+                title="Mina mål"
+                icon={<FileEdit size={12} strokeWidth={2.5} />}
+                label="Formulär"
+                time="3 min"
                 onClick={() => handleCardNavigation('health-priorities', '/app/health-priorities')}
-                aria-label="Gå till mina hälsoprioriteringar"
-                >
-                <div className="flex items-start gap-3">
-                  <CheckBoxLeft isCompleted={completionStatus.healthPriorities} className="mt-1" />
-                  <div className="flex-1">
-                    <h4 className={cardTitle}>Mina mål</h4>
-                    <div className={`flex items-center gap-2 ${cardTitleSmall}`}>
-                        <FileEdit size={12} strokeWidth={2.5} />
-                        <span>Formulär</span>
-                        <Clock size={12} strokeWidth={2.5} />
-                        <span>3 min</span>
-                      </div>
-                  </div>
-                </div>
-                
-                {/* Background image covering 1/3 of card on right side */}
-                <div className="absolute right-0 top-0 bottom-0 w-1/3 overflow-hidden">
-                  <img 
-                    src={HealthPrioritiesImage}
-                    alt="Health goals illustration"
-                    className="h-full w-full object-cover"
-                  />
-                </div>
-              </Card>
-            )}
-              
-            {!hiddenCards.healthMetrics && (
-              <Card 
-                className={interactiveCard} 
+                ariaLabel="Gå till mina hälsoprioriteringar"
+                hasImage={true}
+                imageSrc={HealthPrioritiesImage}
+                imageAlt="Health goals illustration"
+              />
+
+              <StartCard
+                isHidden={hiddenCards.healthMetrics}
+                isCompleted={completionStatus.healthMetrics}
+                title="Vikt och blodtryck"
+                icon={<FileEdit size={12} strokeWidth={2.5} />}
+                label="Formulär"
+                time="5 min"
                 onClick={() => handleCardNavigation('health-metrics', '/app/health-metrics')}
-                aria-label="Gå till hälsomätningar"
-                >
-                <div className="flex items-start gap-3">
-                  <CheckBoxLeft isCompleted={completionStatus.healthMetrics} className="mt-1" />
-                  <div>
-                    <h4 className={cardTitle}>Vikt och blodtryck</h4>
-                    <div className={`flex items-center gap-2 ${cardTitleSmall}`}>
-                        <FileEdit size={12} strokeWidth={2.5} />
-                        <span>Formulär</span>
-                        <Clock size={12} strokeWidth={2.5} />
-                        <span>5 min</span>
-                      </div>
-                  </div>
-                </div>
-              </Card>
-            )}
+                ariaLabel="Gå till hälsomätningar"
+              /> 
+              
           </section>
 
           <section>
