@@ -117,7 +117,7 @@ const Today = () => {
                   ))}
                 </div>
               ) : (
-                <p className={sectionSubheading2}>Välj ett eller två tips för veckan under "Tips"</p>
+                <p className={sectionSubheading2}>Välj vilka tips du vill göra under "Tips"</p>
               )}
           </section>
         </div>
