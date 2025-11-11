@@ -117,37 +117,37 @@ const Today = () => {
                     
                 <Button 
                   onClick={() => {
-                    const completedCards = JSON.parse(localStorage.getItem('completedCards') || '[]');
-                    const today = new Date().toISOString().split('T')[0];
-                    
-                    console.log('Before clearing today:', completedCards);
-                    
-                    // Remove all completions from today
-                    const filteredCards = completedCards.filter((card: any) => card.completedDate !== today);
-                    localStorage.setItem('completedCards', JSON.stringify(filteredCards));
-                    
-                    console.log('After clearing today:', filteredCards);
-                    
-                    // FIXED: Check if cards were completed on DIFFERENT days (not today)
-                    const newCardsToHide = {
-                      tutorial: filteredCards.some((card: any) => card.cardId === 'tutorial' && card.completedDate !== today),
-                      healthPriorities: filteredCards.some((card: any) => card.cardId === 'health-priorities' && card.completedDate !== today),
-                      healthMetrics: filteredCards.some((card: any) => card.cardId === 'health-metrics' && card.completedDate !== today),
-                    };
-                    
-                    console.log('Cards to hide:', newCardsToHide);
-                    
-                    setHiddenCards(newCardsToHide);
-                    setCompletionStatus({
-                      tutorial: false,
-                      healthPriorities: false,
-                      healthMetrics: false
-                    });
-                  }}
-                  className="bg-blue-500 text-white p-2 text-sm"
-                 >
-                  🔄 Test Next Day
-                </Button>
+                  const completedCards = JSON.parse(localStorage.getItem('completedCards') || '[]');
+                  const today = new Date().toISOString().split('T')[0];
+                  
+                  console.log('Before - All completed cards:', completedCards);
+                  
+                  // Remove only TODAY'S completions (keep yesterday's completions)
+                  const filteredCards = completedCards.filter((card: any) => card.completedDate !== today);
+                  localStorage.setItem('completedCards', JSON.stringify(filteredCards));
+                  
+                  console.log('After - Only yesterday completions remain:', filteredCards);
+                  
+                  // Cards to hide: ONLY the ones that were completed on previous days
+                  const newCardsToHide = {
+                    tutorial: filteredCards.some((card: any) => card.cardId === 'tutorial'),
+                    healthPriorities: filteredCards.some((card: any) => card.cardId === 'health-priorities'),
+                    healthMetrics: filteredCards.some((card: any) => card.cardId === 'health-metrics'),
+                  };
+                  
+                  console.log('Cards to hide (completed yesterday):', newCardsToHide);
+                  
+                  setHiddenCards(newCardsToHide);
+                  setCompletionStatus({
+                    tutorial: false,
+                    healthPriorities: false,
+                    healthMetrics: false
+                  });
+                }}
+                className="bg-blue-500 text-white p-2 text-sm"
+              >
+                🔄 Test Next Day
+              </Button>
 
 
 
