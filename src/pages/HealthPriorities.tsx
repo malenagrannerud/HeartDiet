@@ -5,7 +5,7 @@ import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { sectionHeading, sectionSubheading, cardTitle, cardText, standardCard, headerContainer, primaryButton, pageContainer, pagePadding, sectionHeading2, bodyText } from "@/lib/design-tokens";
+import { sectionHeading, sectionSubheading2, cardTitle, cardText, standardCard, headerContainer, primaryButton, pageContainer, pagePadding, sectionHeading2, bodyText } from "@/lib/design-tokens";
 import { getStorageItem, setStorageItem } from "@/lib/storage";
 import { healthPrioritiesSchema, completedActivitiesSchema } from "@/lib/schemas";
 import { markCardCompleted } from "@/lib/card-completion"; // Add this import
@@ -158,7 +158,7 @@ const HealthPriorities = () => {
         
           <BackToTodayButton />
         <h1 className={sectionHeading}>Mina mål</h1>
-      <p className={sectionSubheading}>Bocka i dina hälsomål och läkemedel du tar regelbundet. Du kan när som helst ändra detta under "Mina sidor - Inställningar</p>
+      <p className={sectionSubheading2}>Bocka i dina hälsomål och läkemedel du tar regelbundet. Du kan när som helst ändra detta under "Mina sidor - Inställningar</p>
     </div>
       
 
