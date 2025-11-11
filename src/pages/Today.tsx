@@ -114,8 +114,8 @@ const Today = () => {
                 </Button>
 
                 {/* TEMPORARY TEST BUTTON - REMOVE LATER */}
-                    <div className="fixed bottom-4 left-4 z-50">
-                      <button 
+                    
+                      <Button 
                         onClick={() => {
                           // Simulate midnight by clearing today's completions
                           const completedCards = JSON.parse(localStorage.getItem('completedCards') || '[]');
@@ -131,8 +131,8 @@ const Today = () => {
                         className="bg-blue-500 text-white px-4 py-2 rounded-lg text-sm font-medium shadow-lg"
                       >
                         🔄 Test Next Day
-                      </button>
-                    </div>
+                      </Button>
+                   
 
 
 
