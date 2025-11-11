@@ -66,22 +66,13 @@ const Today = () => {
                 </div>
             </Card>
 
-            <Card 
-              className={interactiveCard}
+           <Card 
+              className={`${interactiveCard} relative overflow-hidden`}
               onClick={() => navigate('/app/health-priorities')}
               aria-label="Gå till mina hälsoprioriteringar"
               >
-              <div className="flex items-center h-24"> {/* Set fixed height */}
-                  {/* Image taking 1/3 of the card */}
-                  <div className="w-1/3 h-full flex items-center justify-center">
-                      <img 
-                          src={HealthPrioritiesImage}
-                          alt="Health goals illustration"
-                          className="w-full h-full object-cover"
-                      />
-                  </div>
-                  
-                  <div className="w-2/3 pl-4">
+              <div className="flex items-center justify-between relative z-10">
+                  <div className="flex-1">
                       <h4 className={cardTitle}>Mina mål</h4>
                       <div className={`flex items-center gap-2 ${cardTitleSmall}`}>
                           <Clock size={14} strokeWidth={2.5} />
@@ -89,6 +80,13 @@ const Today = () => {
                       </div>
                   </div>
               </div>
+              
+              {/* Background image covering 1/3 of card on right side */}
+              <img 
+                  src={HealthPrioritiesImage}
+                  alt="Health goals illustration"
+                  className="absolute right-0 top-0 h-full w-1/3 object-cover z-0"
+              />
             </Card>
               
             <Card 
