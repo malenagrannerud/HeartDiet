@@ -115,7 +115,7 @@ const Today = () => {
 
                 {/* TEMPORARY TEST BUTTON - REMOVE LATER */}
                     
-                      <Button 
+                <Button 
                   onClick={() => {
                     // Simulate midnight by clearing today's completions
                     const completedCards = JSON.parse(localStorage.getItem('completedCards') || '[]');
@@ -144,7 +144,7 @@ const Today = () => {
                     });
                   }}
                   className="bg-blue-500 text-white p-2 text-sm"
-                >
+                  >
                   🔄 Test Next Day
                 </Button>
 
