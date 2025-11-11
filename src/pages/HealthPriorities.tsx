@@ -164,7 +164,6 @@ const HealthPriorities = () => {
 
       {/* STANDARDIZATION: space-y-6 for sections, space-y-4 for card lists */}
       <div className={`${pagePadding} space-y-6`}>
-        {/* Health Priorities Section - CENTRALIZED */}
         <section>
           <h2 className={`${sectionHeading} mb-4`}>Mina mål:</h2>
           <div className="space-y-4">
