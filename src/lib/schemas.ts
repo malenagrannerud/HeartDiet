@@ -66,15 +66,6 @@ export type CompletedActivity = z.infer<typeof completedActivitySchema>;
 export type DayLogEntry = z.infer<typeof dayLogEntrySchema>;
 export type DayLog = z.infer<typeof dayLogSchema>;
 
-
-
-
-
-
-
-
-// Add to your existing schemas in /lib/schemas.ts
-
 // Card completion schema
 export const cardCompletionSchema = z.object({
   cardId: z.enum(['tutorial', 'health-priorities', 'health-metrics']),
