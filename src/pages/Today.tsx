@@ -131,9 +131,9 @@ const Today = () => {
                     <div>
                       <h4 className={cardTitle}>Så fungerar appen</h4>
                       <div className={`flex items-center gap-2 ${cardTitleSmall}`}>
-                        <BookOpen size={14} strokeWidth={2.5} />
+                        <BookOpen size={12} strokeWidth={2.5} />
                         <span>Kurs</span>
-                        <Clock size={14} strokeWidth={2.5} />
+                        <Clock size={12} strokeWidth={2.5} />
                         <span>5 min</span>
                       </div>
                     </div>
@@ -152,9 +152,9 @@ const Today = () => {
                   <div className="flex-1">
                     <h4 className={cardTitle}>Mina mål</h4>
                     <div className={`flex items-center gap-2 ${cardTitleSmall}`}>
-                        <FileEdit size={14} strokeWidth={2.5} />
+                        <FileEdit size={12} strokeWidth={2.5} />
                         <span>Formulär</span>
-                        <Clock size={14} strokeWidth={2.5} />
+                        <Clock size={12} strokeWidth={2.5} />
                         <span>3 min</span>
                       </div>
                   </div>
@@ -182,9 +182,9 @@ const Today = () => {
                   <div>
                     <h4 className={cardTitle}>Vikt och blodtryck</h4>
                     <div className={`flex items-center gap-2 ${cardTitleSmall}`}>
-                        <FileEdit size={14} strokeWidth={2.5} />
+                        <FileEdit size={12} strokeWidth={2.5} />
                         <span>Formulär</span>
-                        <Clock size={14} strokeWidth={2.5} />
+                        <Clock size={12} strokeWidth={2.5} />
                         <span>5 min</span>
                       </div>
                   </div>
