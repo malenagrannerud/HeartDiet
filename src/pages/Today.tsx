@@ -112,6 +112,35 @@ const Today = () => {
                 >
                   🔄 Reset All Data (Testing)
                 </Button>
+
+                {/* TEMPORARY TEST BUTTON - REMOVE LATER */}
+                    <div className="fixed bottom-4 left-4 z-50">
+                      <button 
+                        onClick={() => {
+                          // Simulate midnight by clearing today's completions
+                          const completedCards = JSON.parse(localStorage.getItem('completedCards') || '[]');
+                          const today = new Date().toISOString().split('T')[0];
+                          
+                          // Remove all completions from today
+                          const filteredCards = completedCards.filter((card: any) => card.completedDate !== today);
+                          localStorage.setItem('completedCards', JSON.stringify(filteredCards));
+                          
+                          // Force refresh to see changes
+                          window.location.reload();
+                        }}
+                        className="bg-blue-500 text-white px-4 py-2 rounded-lg text-sm font-medium shadow-lg"
+                      >
+                        🔄 Test Next Day
+                      </button>
+                    </div>
+
+
+
+
+
+
+
+
       </header>
 
       <main className={pagePadding}>
