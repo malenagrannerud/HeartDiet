@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { UserPlan } from '@/data/tips'; // Import from src/data/tips.ts
 import { bodyText } from '@/lib/design-tokens';
 import { bodyTextBald } from '@/lib/design-tokens';
+import { sectionHeading2} from '@/lib/design-tokens';
 
 interface UserPlanFormProps {
   tipId: number;
@@ -30,13 +31,13 @@ export const UserPlanForm: React.FC<UserPlanFormProps> = ({
 
   return (
     <div className="bg-white rounded-lg border border-gray-200 p-6 mt-6">
-      <h3 className={bodyTextBald}> Min plan </h3>
+      <h3 className={sectionHeading2}> Min plan </h3>
       
       <form onSubmit={handleSubmit} className="space-y-4 mt-4">
         {/* When */}
         <div>
           <label className={`${bodyTextBald} block mb-2`}>
-            När ska jag göra detta?
+            När?
           </label>
           <input
             type="text"
@@ -50,7 +51,7 @@ export const UserPlanForm: React.FC<UserPlanFormProps> = ({
         {/* How */}
         <div>
           <label className={`${bodyTextBald} block mb-2`}>
-            Hur ska jag göra det?
+            Hur?
           </label>
           <textarea
             value={plan.how}
