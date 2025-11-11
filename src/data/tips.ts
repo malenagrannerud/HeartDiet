@@ -65,7 +65,7 @@ export const tips: Tip[] = [
   },
   {
     id: 2,
-    title: "Minst 3 dl fullkorn om dagen",
+    title: "Fyll på med fullkorn",
     color: tipCardColors.amber,
     healthScore: 3,
     subtitle: "Text",
@@ -103,7 +103,7 @@ export const tips: Tip[] = [
   },
   {
     id: 3,
-    title: "Fisk och skaldjur 3 gånger i veckan",
+    title: "Fisk och skaldjur",
     color: tipCardColors.cyan,
     healthScore: 3,
     subtitle:  "text",
@@ -159,7 +159,7 @@ export const tips: Tip[] = [
   },
   {
     id: 5,
-    title: "Mera magra mejerier",
+    title: "Mer magra mejerier",
     color: tipCardColors.lightblue,
     healthScore: 3,
     subtitle:  "text",
@@ -192,7 +192,7 @@ export const tips: Tip[] = [
   },
   {
     id: 6,
-    title: "Max 500 g rött och bearbetat kött per vecka",
+    title: "Rött och bearbetat kött",
     color: tipCardColors.darkrose,
     healthScore: 3,
     subtitle:  "text",
@@ -250,7 +250,7 @@ export const tips: Tip[] = [
   },
   {
     id: 8,
-    title: "Lagom matmängd är bäst",
+    title: "Lagom är bäst",
     color: tipCardColors.lightpurple,
     healthScore: 4,
     subtitle:  "text",
@@ -277,7 +277,7 @@ export const tips: Tip[] = [
   },
   {
     id: 9,
-    title: "Rör på dig minst 30 min om dagen",
+    title: "30 min om dagen",
     color: tipCardColors.lightgreen,
     healthScore: 5,
     subtitle: "...",

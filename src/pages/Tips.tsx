@@ -49,7 +49,7 @@ const Tips = () => {
     <div className={pageContainer}>
       <header className={headerContainer}>
         <h1 className={pageTitle}>Mina tips</h1>
-        <p className={pageSubtitle}>Välj ett eller två tips per vecka</p>
+        <p className={pageSubtitle}>Välj tips</p>
       </header>
 
       <main className={pagePadding}>
