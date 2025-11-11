@@ -165,7 +165,7 @@ const HealthPriorities = () => {
       {/* STANDARDIZATION: space-y-6 for sections, space-y-4 for card lists */}
       <div className={`${pagePadding} space-y-6`}>
         <section>
-          <h2 className={`${sectionHeading2} mb-4`}>Hälsomål</h2>
+          <h2 className={`${sectionHeading2} mb-2`}>Hälsomål</h2>
           <div className="space-y-4">
             {healthPriorities.map((priority) => (
               <Card key={priority.id} className={standardCard}>
