@@ -116,23 +116,37 @@ const Today = () => {
                 {/* TEMPORARY TEST BUTTON - REMOVE LATER */}
                     
                       <Button 
-                        onClick={() => {
-                          // Simulate midnight by clearing today's completions
-                          const completedCards = JSON.parse(localStorage.getItem('completedCards') || '[]');
-                          const today = new Date().toISOString().split('T')[0];
-                          
-                          // Remove all completions from today
-                          const filteredCards = completedCards.filter((card: any) => card.completedDate !== today);
-                          localStorage.setItem('completedCards', JSON.stringify(filteredCards));
-                          
-                          // Force refresh to see changes
-                          window.location.reload();
-                        }}
-                        className="bg-blue-500 text-white px-4 py-2 rounded-lg text-sm font-medium shadow-lg"
-                      >
-                        🔄 Test Next Day
-                      </Button>
-                   
+                  onClick={() => {
+                    // Simulate midnight by clearing today's completions
+                    const completedCards = JSON.parse(localStorage.getItem('completedCards') || '[]');
+                    const today = new Date().toISOString().split('T')[0];
+                    
+                    // Remove all completions from today
+                    const filteredCards = completedCards.filter((card: any) => card.completedDate !== today);
+                    localStorage.setItem('completedCards', JSON.stringify(filteredCards));
+                    
+                    console.log('Completed cards after clearing today:', filteredCards);
+                    
+                    // Force update the hiddenCards state instead of just reloading
+                    const newCardsToHide = {
+                      tutorial: filteredCards.some((card: any) => card.cardId === 'tutorial'),
+                      healthPriorities: filteredCards.some((card: any) => card.cardId === 'health-priorities'),
+                      healthMetrics: filteredCards.some((card: any) => card.cardId === 'health-metrics'),
+                    };
+                    
+                    console.log('Cards to hide:', newCardsToHide);
+                    
+                    setHiddenCards(newCardsToHide);
+                    setCompletionStatus({
+                      tutorial: false,
+                      healthPriorities: false,
+                      healthMetrics: false
+                    });
+                  }}
+                  className="bg-blue-500 text-white p-2 text-sm"
+                >
+                  🔄 Test Next Day
+                </Button>
 
 
 
