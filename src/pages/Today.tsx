@@ -15,6 +15,8 @@ import {
   type CardId 
 } from "@/lib/card-completion";
 import { Button } from "@/components/ui/button";
+import { CheckBoxLeft } from "@/components/CheckBoxLeft"; 
+
 
 interface MarkedTip {
   id: number;
@@ -142,7 +144,6 @@ const Today = () => {
                       </div>
                     </div>
                   </div>
-                  {/* Removed green round checkmark button */}
                 </div>
               </Card>
             )}
@@ -190,14 +191,8 @@ const Today = () => {
                 >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    {/* Checkbox */}
-                    <div className="flex-shrink-0">
-                      {completionStatus.healthMetrics ? (
-                        <CheckSquare size={20} className="text-green-600" fill="currentColor" />
-                      ) : (
-                        <Square size={20} className="text-gray-400" />
-                      )}
-                    </div>
+                    {/* Add CheckBoxLeft component */}
+                    <CheckBoxLeft isCompleted={completionStatus.healthMetrics} />
                     <div>
                       <h4 className={cardTitle}>Vikt och blodtryck</h4>
                     </div>
