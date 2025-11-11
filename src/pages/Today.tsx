@@ -157,11 +157,13 @@ const Today = () => {
                 </div>
                 
                 {/* Background image covering 1/3 of card on right side */}
-                <img 
-                  src={HealthPrioritiesImage}
-                  alt="Health goals illustration"
-                  className="absolute right-0 top-0 h-full w-1/3 object-cover z-0"
-                />
+                <div className="absolute right-0 top-0 bottom-0 w-1/3 overflow-hidden">
+                  <img 
+                    src={HealthPrioritiesImage}
+                    alt="Health goals illustration"
+                    className="h-full w-full object-cover"
+                  />
+                </div>
               </Card>
             )}
               
