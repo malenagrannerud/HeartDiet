@@ -147,7 +147,7 @@ export const pageSubtitle = "text-[#212658]/70 text-lg font-normal";
  * SECTION HEADINGS 1  
  * 24 px - Used for a header within pages
  */
-export const sectionHeading = "text-2xl font-bold text-[#212658]";
+export const sectionHeading = "text-2xl font-bold text-[#212658] mb-4";
 
 /**
  * SECTION SUB-HEADINGS 1
