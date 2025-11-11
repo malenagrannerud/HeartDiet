@@ -175,12 +175,11 @@ const Today = () => {
                 onClick={() => handleCardNavigation('health-metrics', '/app/health-metrics')}
                 aria-label="Gå till hälsomätningar"
                 >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <CheckBoxLeft isCompleted={completionStatus.healthMetrics} />
-                    <div>
-                      <h4 className={cardTitle}>Vikt och blodtryck</h4>
-                    </div>
+                <div className="flex items-center gap-3">
+                  {/* CheckBoxLeft aligned with text baseline */}
+                  <CheckBoxLeft isCompleted={completionStatus.healthMetrics} className="mt-1" />
+                  <div>
+                    <h4 className={cardTitle}>Vikt och blodtryck</h4>
                   </div>
                 </div>
               </Card>
