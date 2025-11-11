@@ -191,7 +191,6 @@ const Today = () => {
                 >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    {/* Add CheckBoxLeft component */}
                     <CheckBoxLeft isCompleted={completionStatus.healthMetrics} />
                     <div>
                       <h4 className={cardTitle}>Vikt och blodtryck</h4>
