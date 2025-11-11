@@ -62,19 +62,6 @@ export const UserPlanForm: React.FC<UserPlanFormProps> = ({
           />
         </div>
 
-        {/* Reminder (Optional) */}
-        <div>
-          <label className={`${bodyText} block mb-2`}>
-            Påminnelse (valfritt)
-          </label>
-          <input
-            type="text"
-            value={plan.reminder || ''}
-            onChange={(e) => setPlan({ ...plan, reminder: e.target.value })}
-            placeholder="Ex: Sätt alarm, Lägg i kalender..."
-            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          />
-        </div>
 
         {/* Buttons */}
         <div className="flex gap-3 pt-2">
@@ -82,7 +69,7 @@ export const UserPlanForm: React.FC<UserPlanFormProps> = ({
             type="submit"
             className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors"
           >
-            Spara plan
+            Spara 
           </button>
           <button
             type="button"
