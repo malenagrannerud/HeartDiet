@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Clock, Check, Square, CheckSquare } from "lucide-react"; // Added checkbox icons
+import { Clock, Check, Square, CheckSquare } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
 import { tips } from "@/data/tips";
@@ -105,7 +105,7 @@ const Today = () => {
               
             {!hiddenCards.tutorial && (
               <Card 
-                className={`${interactiveCard} ${completionStatus.tutorial ? 'bg-green-50 border-green-200' : ''}`}
+                className={interactiveCard} // Removed green background class
                 onClick={() => handleCardNavigation('tutorial', '/app/tutorial')}
                 aria-label="Gå till tutorial"
                 >
@@ -127,18 +127,14 @@ const Today = () => {
                       </div>
                     </div>
                   </div>
-                  {completionStatus.tutorial && (
-                    <div className="w-6 h-6 rounded-full bg-green-600 flex items-center justify-center flex-shrink-0">
-                      <Check size={16} className="text-white" strokeWidth={3} />
-                    </div>
-                  )}
+                  {/* Removed green round checkmark button */}
                 </div>
               </Card>
             )}
 
             {!hiddenCards.healthPriorities && (
               <Card 
-                className={`${interactiveCard} ${completionStatus.healthPriorities ? 'bg-green-50 border-green-200' : ''} relative overflow-hidden`}
+                className={`${interactiveCard} relative overflow-hidden`} // Removed green background class
                 onClick={() => handleCardNavigation('health-priorities', '/app/health-priorities')}
                 aria-label="Gå till mina hälsoprioriteringar"
                 >
@@ -160,11 +156,7 @@ const Today = () => {
                       </div>
                     </div>
                   </div>
-                  {completionStatus.healthPriorities && (
-                    <div className="w-6 h-6 rounded-full bg-green-600 flex items-center justify-center flex-shrink-0 z-20">
-                      <Check size={16} className="text-white" strokeWidth={3} />
-                    </div>
-                  )}
+                  {/* Removed green round checkmark button */}
                 </div>
                 
                 {/* Background image covering 1/3 of card on right side */}
@@ -178,7 +170,7 @@ const Today = () => {
               
             {!hiddenCards.healthMetrics && (
               <Card 
-                className={`${interactiveCard} ${completionStatus.healthMetrics ? 'bg-green-50 border-green-200' : ''}`}
+                className={interactiveCard} // Removed green background class
                 onClick={() => handleCardNavigation('health-metrics', '/app/health-metrics')}
                 aria-label="Gå till hälsomätningar"
                 >
@@ -196,11 +188,7 @@ const Today = () => {
                       <h4 className={cardTitle}>Vikt och blodtryck</h4>
                     </div>
                   </div>
-                  {completionStatus.healthMetrics && (
-                    <div className="w-6 h-6 rounded-full bg-green-600 flex items-center justify-center flex-shrink-0">
-                      <Check size={16} className="text-white" strokeWidth={3} />
-                    </div>
-                  )}
+                  {/* Removed green round checkmark button */}
                 </div>
               </Card>
             )}
