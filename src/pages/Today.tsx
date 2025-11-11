@@ -128,14 +128,7 @@ const Today = () => {
                 >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    {/* Checkbox */}
-                    <div className="flex-shrink-0">
-                      {completionStatus.tutorial ? (
-                        <CheckSquare size={20} className="text-green-600" fill="currentColor" />
-                      ) : (
-                        <Square size={20} className="text-gray-400" />
-                      )}
-                    </div>
+                    <CheckBoxLeft isCompleted={completionStatus.healthMetrics} />
                     <div>
                       <h4 className={cardTitle}>Så fungerar appen</h4>
                       <div className={`flex items-center gap-2 ${cardTitleSmall}`}>
@@ -156,14 +149,7 @@ const Today = () => {
                 >
                 <div className="flex items-center justify-between relative z-10">
                   <div className="flex items-center gap-3 flex-1">
-                    {/* Checkbox */}
-                    <div className="flex-shrink-0 z-20">
-                      {completionStatus.healthPriorities ? (
-                        <CheckSquare size={20} className="text-green-600" fill="currentColor" />
-                      ) : (
-                        <Square size={20} className="text-gray-400" />
-                      )}
-                    </div>
+                    <CheckBoxLeft isCompleted={completionStatus.healthMetrics} />
                     <div className="flex-1">
                       <h4 className={cardTitle}>Mina mål</h4>
                       <div className={`flex items-center gap-2 ${cardTitleSmall}`}>
