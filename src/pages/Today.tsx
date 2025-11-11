@@ -141,12 +141,12 @@ const Today = () => {
 
             {!hiddenCards.healthPriorities && (
               <Card 
-                className={interactiveCard}
+                className={`${interactiveCard} relative`} // Add 'relative' here
                 onClick={() => handleCardNavigation('health-priorities', '/app/health-priorities')}
                 aria-label="Gå till mina hälsoprioriteringar"
                 >
-                <div className="flex items-center gap-3 relative z-10">
-                  <CheckBoxLeft isCompleted={completionStatus.healthPriorities} className="mt-1 z-20" />
+                <div className="flex items-center gap-3">
+                  <CheckBoxLeft isCompleted={completionStatus.healthPriorities} className="mt-1" />
                   <div className="flex-1">
                     <h4 className={cardTitle}>Mina mål</h4>
                     <div className={`flex items-center gap-2 ${cardTitleSmall}`}>
