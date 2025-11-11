@@ -63,20 +63,24 @@ const Today = () => {
                   </div>
                 </div>
             </Card>
-          
             <Card 
                 className={interactiveCard}
                 onClick={() => navigate('/app/health-priorities')}
                 aria-label="Gå till mina hälsoprioriteringar"
                 >
-                <div className="flex items-start justify-between">
-                  <div>
-                    <h4 className={cardTitle}>Anpassa tips efter mina mål</h4>
-                    <div className={`flex items-center gap-2 ${cardTitleSmall}`}>
-                      <Clock size={14} strokeWidth={2.5} />
-                      <span>4 min</span>
+                <div className="flex items-center justify-between">
+                    <div>
+                        <h4 className={cardTitle}>Anpassa tips efter mina mål</h4>
+                        <div className={`flex items-center gap-2 ${cardTitleSmall}`}>
+                            <Clock size={14} strokeWidth={2.5} />
+                            <span>4 min</span>
+                        </div>
                     </div>
-                  </div>
+                    <img 
+                        src="/assets/fill.png" 
+                        alt="Health goals illustration"
+                        className="w-16 h-16 object-contain flex-shrink-0"
+                    />
                 </div>
             </Card>
               
