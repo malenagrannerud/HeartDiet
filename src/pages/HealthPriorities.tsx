@@ -158,7 +158,7 @@ const HealthPriorities = () => {
         
           <BackToTodayButton />
         <h1 className={sectionHeading}>Mina mål</h1>
-      <p className={sectionSubheading}>Bocka i dina hälsomål och läkemedel du tar regelbundet. Du kan när som helst ändra mål och läkemedel under "Mina sidor - Inställningar</p>
+      <p className={sectionSubheading}>Bocka i dina hälsomål och läkemedel du tar regelbundet. Du kan när som helst ändra detta under "Mina sidor - Inställningar</p>
     </div>
       
 
