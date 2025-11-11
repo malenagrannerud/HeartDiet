@@ -4,7 +4,7 @@ import { Card } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
 import { tips } from "@/data/tips";
 import TipCard from "@/components/TipCard";
-import { pageTitle, sectionHeading, sectionSubheading, cardTitle, cardText, standardCard, interactiveCard, pageContainer, headerContainer, pagePadding, standardSpacing, cardTitleSmall, pageSubtitle, sectionSubheading2 } from "@/lib/design-tokens";
+import { pageTitle, sectionHeading, sectionSubheading, cardTitle, cardText, standardCard, interactiveCard, pageContainer, headerContainer, pagePadding, standardSpacing, cardTitleSmall, pageSubtitle, sectionSubheading2, bodyTextBald } from "@/lib/design-tokens";
 import { getStorageItem } from "@/lib/storage";
 import { markedTipsSchema } from "@/lib/schemas";
 import HealthPrioritiesImage from "@/assets/fill.png"; 
@@ -73,7 +73,7 @@ const Today = () => {
                 >
                 <div className="flex items-center justify-between">
                     <div>
-                        <h4 className={cardTitle}>Mina mål</h4>
+                        <h4 className={bodyTextBald}>Mina mål</h4>
                         <div className={`flex items-center gap-2 ${cardTitleSmall}`}>
                             <Clock size={14} strokeWidth={2.5} />
                             <span>4 min</span>
