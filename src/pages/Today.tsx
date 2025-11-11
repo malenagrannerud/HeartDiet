@@ -5,7 +5,7 @@ import { Card } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
 import { tips } from "@/data/tips";
 import TipCard from "@/components/TipCard";
-import { pageTitle, sectionHeading, cardTitle, interactiveCard, pageContainer, headerContainer, pagePadding, standardSpacing, cardTitleSmall, pageSubtitle, sectionSubheading2 } from "@/lib/design-tokens";
+import { pageTitle, sectionHeading, cardTitle, interactiveCard, pageContainer, headerContainer, pagePadding, standardSpacing, cardTitleSmall, pageSubtitle, sectionSubheading2, bodyTextBald } from "@/lib/design-tokens";
 import { getStorageItem } from "@/lib/storage";
 import { markedTipsSchema } from "@/lib/schemas";
 import HealthPrioritiesImage from "@/assets/fill.png"; 
@@ -114,65 +114,65 @@ const Today = () => {
                 </Button>
         </header>
 
-        <main className={pagePadding}>
+      <main className={pagePadding}>
          <div className={standardSpacing.pageContent}>
-          <section className={standardSpacing.sectionContent}>
-            <h3 className={sectionHeading}>Starta här</h3>
-             <StartCard
-                isHidden={hiddenCards.tutorial}
-                isCompleted={completionStatus.tutorial}
-                title="Så fungerar appen"
-                icon={<BookOpen size={12} strokeWidth={2.5} />}
-                label="Kurs"
-                time="5 min"
-                onClick={() => handleCardNavigation('tutorial', '/app/tutorial')}
-                ariaLabel="Gå till tutorial"
-              />
-
+            <section className={standardSpacing.sectionContent}>
+              <h3 className={bodyTextBald}>Starta här</h3>
               <StartCard
-                isHidden={hiddenCards.healthPriorities}
-                isCompleted={completionStatus.healthPriorities}
-                title="Mina mål"
-                icon={<FileEdit size={12} strokeWidth={2.5} />}
-                label="Formulär"
-                time="3 min"
-                onClick={() => handleCardNavigation('health-priorities', '/app/health-priorities')}
-                ariaLabel="Gå till mina hälsoprioriteringar"
-                hasImage={true}
-                imageSrc={HealthPrioritiesImage}
-                imageAlt="Health goals illustration"
-              />
+                  isHidden={hiddenCards.tutorial}
+                  isCompleted={completionStatus.tutorial}
+                  title="Så fungerar appen"
+                  icon={<BookOpen size={12} strokeWidth={2.5} />}
+                  label="Kurs"
+                  time="5 min"
+                  onClick={() => handleCardNavigation('tutorial', '/app/tutorial')}
+                  ariaLabel="Gå till tutorial"
+                />
 
-              <StartCard
-                isHidden={hiddenCards.healthMetrics}
-                isCompleted={completionStatus.healthMetrics}
-                title="Vikt och blodtryck"
-                icon={<FileEdit size={12} strokeWidth={2.5} />}
-                label="Formulär"
-                time="5 min"
-                onClick={() => handleCardNavigation('health-metrics', '/app/health-metrics')}
-                ariaLabel="Gå till hälsomätningar"
-              /> 
-          </section>
+                <StartCard
+                  isHidden={hiddenCards.healthPriorities}
+                  isCompleted={completionStatus.healthPriorities}
+                  title="Mina mål"
+                  icon={<FileEdit size={12} strokeWidth={2.5} />}
+                  label="Formulär"
+                  time="3 min"
+                  onClick={() => handleCardNavigation('health-priorities', '/app/health-priorities')}
+                  ariaLabel="Gå till mina hälsoprioriteringar"
+                  hasImage={true}
+                  imageSrc={HealthPrioritiesImage}
+                  imageAlt="Health goals illustration"
+                />
 
-          <section>
-              <h3 className={sectionHeading}>Mina tips</h3>
-              {markedTipsList.length > 0 ? (
-                <div className="space-y-4">
-                  {markedTipsList.map((tip) => (
-                    <TipCard
-                      key={tip.id}
-                      tip={tip}
-                      isMarked={false}
-                      onToggleMark={(e) => e.stopPropagation()}
-                      onClick={() => navigate(`/app/tips/${tip.id}`)}
-                    />
-                  ))}
-                </div>
-              ) : (
-                <p className={sectionSubheading2}>Välj vilka tips du vill göra under "Tips"</p>
-              )}
-          </section>
+                <StartCard
+                  isHidden={hiddenCards.healthMetrics}
+                  isCompleted={completionStatus.healthMetrics}
+                  title="Vikt och blodtryck"
+                  icon={<FileEdit size={12} strokeWidth={2.5} />}
+                  label="Formulär"
+                  time="5 min"
+                  onClick={() => handleCardNavigation('health-metrics', '/app/health-metrics')}
+                  ariaLabel="Gå till hälsomätningar"
+                /> 
+            </section>
+
+            <section>
+                <h3 className={bodyTextBald}>Mina tips</h3>
+                {markedTipsList.length > 0 ? (
+                  <div className="space-y-4">
+                    {markedTipsList.map((tip) => (
+                      <TipCard
+                        key={tip.id}
+                        tip={tip}
+                        isMarked={false}
+                        onToggleMark={(e) => e.stopPropagation()}
+                        onClick={() => navigate(`/app/tips/${tip.id}`)}
+                      />
+                    ))}
+                  </div>
+                ) : (
+                  <p className={sectionSubheading2}>Välj vilka tips du vill göra under "Tips"</p>
+                )}
+            </section>
         </div>
       </main>
     </div>
