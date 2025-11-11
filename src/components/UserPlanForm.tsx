@@ -30,7 +30,7 @@ export const UserPlanForm: React.FC<UserPlanFormProps> = ({
 
   return (
     <div className="bg-white rounded-lg border border-gray-200 p-6 mt-6">
-      <h3 className={bodyTextBald}>Min plan för detta tips</h3>
+      <h3 className={bodyTextBald}> Min plan </h3>
       
       <form onSubmit={handleSubmit} className="space-y-4 mt-4">
         {/* When */}
