@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Clock, Check, Square, CheckSquare } from "lucide-react";
+import { Clock, BookOpen, FileEdit } from "lucide-react"; 
 import { Card } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
 import { tips } from "@/data/tips";
@@ -120,24 +120,26 @@ const Today = () => {
           <section className={standardSpacing.sectionContent}>
             <h3 className={sectionHeading}>Starta här</h3>
               
-            {!hiddenCards.tutorial && (
-              <Card 
-                className={interactiveCard} 
-                onClick={() => handleCardNavigation('tutorial', '/app/tutorial')}
-                aria-label="Gå till tutorial"
-                >
-                <div className="flex items-center gap-3">
-                  <CheckBoxLeft isCompleted={completionStatus.tutorial} className="mt-1" />
-                  <div>
-                    <h4 className={cardTitle}>Så fungerar appen</h4>
-                    <div className={`flex items-center gap-2 ${cardTitleSmall}`}>
-                      <Clock size={14} strokeWidth={2.5} />
-                      <span>5 min</span>
+              {!hiddenCards.tutorial && (
+                <Card 
+                  className={interactiveCard} 
+                  onClick={() => handleCardNavigation('tutorial', '/app/tutorial')}
+                  aria-label="Gå till tutorial"
+                  >
+                  <div className="flex items-center gap-3">
+                    <CheckBoxLeft isCompleted={completionStatus.tutorial} className="mt-1" />
+                    <div>
+                      <h4 className={cardTitle}>Så fungerar appen</h4>
+                      <div className={`flex items-center gap-2 ${cardTitleSmall}`}>
+                        <BookOpen size={14} strokeWidth={2.5} />
+                        <span>Kurs</span>
+                        <Clock size={14} strokeWidth={2.5} />
+                        <span>5 min</span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </Card>
-            )}
+                </Card>
+              )}
 
             {!hiddenCards.healthPriorities && (
               <Card 
