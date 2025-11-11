@@ -126,7 +126,7 @@ const Today = () => {
                   onClick={() => handleCardNavigation('tutorial', '/app/tutorial')}
                   aria-label="Gå till tutorial"
                   >
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-start gap-3">
                     <CheckBoxLeft isCompleted={completionStatus.tutorial} className="mt-1" />
                     <div>
                       <h4 className={cardTitle}>Så fungerar appen</h4>
