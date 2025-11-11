@@ -67,24 +67,28 @@ const Today = () => {
             </Card>
 
             <Card 
-                className={interactiveCard}
-                onClick={() => navigate('/app/health-priorities')}
-                aria-label="Gå till mina hälsoprioriteringar"
-                >
-                <div className="flex items-center justify-between">
-                    <div>
-                        <h4 className={cardTitle}>Mina mål</h4>
-                        <div className={`flex items-center gap-2 ${cardTitleSmall}`}>
-                            <Clock size={14} strokeWidth={2.5} />
-                            <span>4 min</span>
-                        </div>
-                    </div>
-                    <img 
-                        src={HealthPrioritiesImage}
-                        alt="Health goals illustration"
-                        className="w-16 h-16 object-contain flex-shrink-0"
-                    />
-                </div>
+              className={interactiveCard}
+              onClick={() => navigate('/app/health-priorities')}
+              aria-label="Gå till mina hälsoprioriteringar"
+              >
+              <div className="flex items-center h-24"> {/* Set fixed height */}
+                  {/* Image taking 1/3 of the card */}
+                  <div className="w-1/3 h-full flex items-center justify-center">
+                      <img 
+                          src={HealthPrioritiesImage}
+                          alt="Health goals illustration"
+                          className="w-full h-full object-cover"
+                      />
+                  </div>
+                  
+                  <div className="w-2/3 pl-4">
+                      <h4 className={cardTitle}>Mina mål</h4>
+                      <div className={`flex items-center gap-2 ${cardTitleSmall}`}>
+                          <Clock size={14} strokeWidth={2.5} />
+                          <span>4 min</span>
+                      </div>
+                  </div>
+              </div>
             </Card>
               
             <Card 
