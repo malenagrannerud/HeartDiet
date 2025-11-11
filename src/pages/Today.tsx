@@ -101,8 +101,6 @@ const Today = () => {
           <p className={pageSubtitle}>Dagens fokus</p>
 
 
-
-
             {/* TEMPORARY RESET BUTTON - REMOVE LATER */}
                 <Button 
                   onClick={() => {
@@ -130,7 +128,7 @@ const Today = () => {
                     <CheckBoxLeft isCompleted={completionStatus.tutorial} className="mt-1" />
                     <div>
                       <h4 className={cardTitle}>Så fungerar appen</h4>
-                      <div className={`flex items-center gap-2 ${cardTitleSmall}`}>
+                      <div className={`flex items-center gap-2 ${cardTitleSmall} mt-2`}>
                         <BookOpen size={12} strokeWidth={2.5} />
                         <span>Kurs</span>
                         <Clock size={12} strokeWidth={2.5} />
