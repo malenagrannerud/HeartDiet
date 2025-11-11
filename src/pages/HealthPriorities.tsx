@@ -32,7 +32,7 @@ const healthPriorities: HealthPriority[] = [
   {
     id: "bloodPressure",
     label: "Sänk mitt blodtryck",
-    description: "Få påminnelser och alternativ för att hålla koll på saltet."
+    description: "Få alternativ för att hålla koll på saltet."
   },
   {
     id: "diabetes",
@@ -46,8 +46,8 @@ const healthPriorities: HealthPriority[] = [
   },
   {
     id: "general",
-    label: "Inget ovanstående",
-    description: "Ge mig tips för att förebygga hjärt- och kärlsjukdom och bli piggare"
+    label: "Inget av ovanstående",
+    description: "Ge mig tips för att förebygga hjärt-kärlsjukdom och bli piggare"
   }
 ];
 
@@ -135,7 +135,7 @@ const HealthPriorities = () => {
     const activities = Array.isArray(completedActivities) ? completedActivities : [];
     activities.push({
       id: 'health-priorities',
-      title: 'Anpassa tips efter mina mål',
+      title: 'Mina mål',
       completedDate: new Date().toISOString(),
       type: 'health-priorities'
     });
@@ -157,8 +157,8 @@ const HealthPriorities = () => {
       <div className={headerContainer}>
         
           <BackToTodayButton />
-        <h1 className={sectionHeading}>Anpassa tips efter mina mål</h1>
-      <p className={sectionSubheading}>Bocka i vad du önskar att få ut efter programmet. Bocka i läkemedel du tar, så att vi kan påminna dej om livsmedel som du evenutellt bör undvika. Du kan när som helst ändra önskningar och läkemedel under "Mina sidor - Inställningar</p>
+        <h1 className={sectionHeading}>Mina mål</h1>
+      <p className={sectionSubheading}>Bocka i dina hälsomål och läkemedel du tar regelbundet. Du kan när som helst ändra mål och läkemedel under "Mina sidor - Inställningar</p>
     </div>
       
 
@@ -196,7 +196,7 @@ const HealthPriorities = () => {
         <section>
           <h2 className={`${sectionHeading} mb-2`}>Läkemedel</h2>
           <p className={`${cardText} mb-4`}>
-            Markera de läkemedel du tar regelbundet.
+            Markera läkemedel du tar regelbundet. Då kan vi påminna dej om livsmedel som du evenutellt bör undvika.
           </p>
           <div className="space-y-4">
             {medications.map((medication) => (
