@@ -118,7 +118,7 @@ const Today = () => {
                     <TipCard
                       key={tip.id}
                       tip={tip}
-                      isMarked={true}
+                      isMarked={false}
                       onToggleMark={(e) => e.stopPropagation()}
                       onClick={() => navigate(`/app/tips/${tip.id}`)}
                     />
