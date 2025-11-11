@@ -7,7 +7,7 @@ import TipCard from "@/components/TipCard";
 import { pageTitle, sectionHeading, sectionSubheading, cardTitle, cardText, standardCard, interactiveCard, pageContainer, headerContainer, pagePadding, standardSpacing, cardTitleSmall, pageSubtitle, sectionSubheading2 } from "@/lib/design-tokens";
 import { getStorageItem } from "@/lib/storage";
 import { markedTipsSchema } from "@/lib/schemas";
-import HealthPrioritiesImage from "@/assets/fill.png"; // Add this import
+import HealthPrioritiesImage from "@/assets/fill.png"; 
 
 
 
@@ -65,6 +65,7 @@ const Today = () => {
                   </div>
                 </div>
             </Card>
+
             <Card 
                 className={interactiveCard}
                 onClick={() => navigate('/app/health-priorities')}
@@ -79,7 +80,7 @@ const Today = () => {
                         </div>
                     </div>
                     <img 
-                        src="/assets/fill.png" 
+                        src={HealthPrioritiesImage}
                         alt="Health goals illustration"
                         className="w-16 h-16 object-contain flex-shrink-0"
                     />
