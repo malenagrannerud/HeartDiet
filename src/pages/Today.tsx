@@ -153,13 +153,10 @@ const Today = () => {
                 onClick={() => handleCardNavigation('health-metrics', '/app/health-metrics')}
                 ariaLabel="Gå till hälsomätningar"
               /> 
-              
           </section>
 
           <section>
-              <h3 className={`${sectionHeading} ${standardSpacing.sectionContent}`}>
-                Mina tips
-              </h3>
+              <h3 className={sectionHeading}>Mina tips</h3>
               {markedTipsList.length > 0 ? (
                 <div className="space-y-4">
                   {markedTipsList.map((tip) => (
