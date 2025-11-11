@@ -147,7 +147,7 @@ const Today = () => {
                 onClick={() => handleCardNavigation('health-priorities', '/app/health-priorities')}
                 aria-label="Gå till mina hälsoprioriteringar"
                 >
-                <div className="flex items-center gap-3">
+                <div className="flex items-start gap-3">
                   <CheckBoxLeft isCompleted={completionStatus.healthPriorities} className="mt-1" />
                   <div className="flex-1">
                     <h4 className={cardTitle}>Mina mål</h4>
@@ -177,8 +177,7 @@ const Today = () => {
                 onClick={() => handleCardNavigation('health-metrics', '/app/health-metrics')}
                 aria-label="Gå till hälsomätningar"
                 >
-                <div className="flex items-center gap-3">
-                  {/* CheckBoxLeft aligned with text baseline */}
+                <div className="flex items-start gap-3">
                   <CheckBoxLeft isCompleted={completionStatus.healthMetrics} className="mt-1" />
                   <div>
                     <h4 className={cardTitle}>Vikt och blodtryck</h4>
