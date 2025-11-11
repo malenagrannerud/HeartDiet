@@ -139,31 +139,31 @@ const Today = () => {
               </Card>
             )}
 
-          {!hiddenCards.healthPriorities && (
-            <Card 
-              className={interactiveCard}
-              onClick={() => handleCardNavigation('health-priorities', '/app/health-priorities')}
-              aria-label="Gå till mina hälsoprioriteringar"
-              >
-              <div className="flex items-center gap-3 relative z-10">
-                <CheckBoxLeft isCompleted={completionStatus.healthPriorities} className="mt-1 z-20" />
-                <div className="flex-1">
-                  <h4 className={cardTitle}>Mina mål</h4>
-                  <div className={`flex items-center gap-2 ${cardTitleSmall}`}>
-                    <Clock size={14} strokeWidth={2.5} />
-                    <span>4 min</span>
+            {!hiddenCards.healthPriorities && (
+              <Card 
+                className={interactiveCard}
+                onClick={() => handleCardNavigation('health-priorities', '/app/health-priorities')}
+                aria-label="Gå till mina hälsoprioriteringar"
+                >
+                <div className="flex items-center gap-3 relative z-10">
+                  <CheckBoxLeft isCompleted={completionStatus.healthPriorities} className="mt-1 z-20" />
+                  <div className="flex-1">
+                    <h4 className={cardTitle}>Mina mål</h4>
+                    <div className={`flex items-center gap-2 ${cardTitleSmall}`}>
+                      <Clock size={14} strokeWidth={2.5} />
+                      <span>4 min</span>
+                    </div>
                   </div>
                 </div>
-              </div>
-              
-              {/* Background image covering 1/3 of card on right side */}
-              <img 
-                src={HealthPrioritiesImage}
-                alt="Health goals illustration"
-                className="absolute right-0 top-0 h-full w-1/3 object-cover z-0"
-              />
-            </Card>
-          )}
+                
+                {/* Background image covering 1/3 of card on right side */}
+                <img 
+                  src={HealthPrioritiesImage}
+                  alt="Health goals illustration"
+                  className="absolute right-0 top-0 h-full w-1/3 object-cover z-0"
+                />
+              </Card>
+            )}
               
             {!hiddenCards.healthMetrics && (
               <Card 
