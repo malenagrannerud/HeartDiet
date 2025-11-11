@@ -9,6 +9,7 @@ import { BackToTodayButton } from "@/components/BackToTodayButton";
 import { sectionHeading, sectionSubheading, cardText, labelText, headerContainer, secondaryButton, disabledButton, compactCard, pageContainer, pagePadding} from "@/lib/design-tokens";
 import { getStorageItem, setStorageItem } from "@/lib/storage";
 import { healthMetricsSchema, completedActivitiesSchema } from "@/lib/schemas";
+import { markCardCompleted } from "@/lib/card-completion"; // Add this import
 
 const HealthMetrics = () => {
   const navigate = useNavigate();
@@ -39,6 +40,10 @@ const HealthMetrics = () => {
       type: 'health-metrics'
     });
     setStorageItem('completedActivities', activitiesArray, completedActivitiesSchema);
+    
+    // MARK THE CARD AS COMPLETED - Add this line
+    markCardCompleted('health-metrics');
+    
     navigate('/app/today');
   };
 
