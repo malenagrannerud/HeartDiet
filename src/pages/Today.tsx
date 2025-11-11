@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Clock, Check } from "lucide-react";
+import { Clock } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
 import { tips } from "@/data/tips";
@@ -49,7 +49,7 @@ const Today = () => {
             <h3 className={sectionHeading}>Starta här</h3>
               
             <Card 
-                className={`${interactiveCard} ${tutorialCompleted ? 'bg-green-50 border-green-200' : ''}`}
+                className={interactiveCard}
                 onClick={() => navigate('/app/tutorial')}
                 aria-label="Gå till tutorial"
                 >
@@ -61,16 +61,11 @@ const Today = () => {
                       <span>5 min</span>
                     </div>
                   </div>
-                  {tutorialCompleted && (
-                    <div className="w-6 h-6 rounded-full bg-green-600 flex items-center justify-center flex-shrink-0">
-                      <Check size={16} className="text-white" strokeWidth={3} />
-                    </div>
-                  )}
                 </div>
             </Card>
           
             <Card 
-                className={`${interactiveCard} ${healthPrioritiesCompleted ? 'bg-green-50 border-green-200' : ''}`}
+                className={interactiveCard}
                 onClick={() => navigate('/app/health-priorities')}
                 aria-label="Gå till mina hälsoprioriteringar"
                 >
@@ -82,16 +77,11 @@ const Today = () => {
                       <span>4 min</span>
                     </div>
                   </div>
-                  {healthPrioritiesCompleted && (
-                    <div className="w-6 h-6 rounded-full bg-green-600 flex items-center justify-center flex-shrink-0">
-                      <Check size={16} className="text-white" strokeWidth={3} />
-                    </div>
-                  )}
                 </div>
             </Card>
               
             <Card 
-                className={`${interactiveCard} ${healthMetricsCompleted ? 'bg-green-50 border-green-200' : ''}`}
+                className={interactiveCard}
                 onClick={() => navigate('/app/health-metrics')}
                 aria-label="Gå till hälsomätningar"
                 >
@@ -99,11 +89,6 @@ const Today = () => {
                   <div>
                     <h4 className={cardTitle}>Vikt och blodtryck</h4>
                   </div>
-                  {healthMetricsCompleted && (
-                    <div className="w-6 h-6 rounded-full bg-green-600 flex items-center justify-center flex-shrink-0">
-                      <Check size={16} className="text-white" strokeWidth={3} />
-                    </div>
-                  )}
                 </div>
             </Card>
           </section>
