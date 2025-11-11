@@ -5,19 +5,25 @@ import { type CardId } from '@/lib/schemas';
 interface CompleteCardButtonProps {
   cardId: CardId;
   className?: string;
+  children?: React.ReactNode;
 }
 
-export const CompleteCardButton = ({ cardId, className }: CompleteCardButtonProps) => {
+export const CompleteCardButton = ({ cardId, className = "", children }: CompleteCardButtonProps) => {
   const navigate = useNavigate();
   
   const handleComplete = () => {
-    markCardCompleted(cardId);
-    navigate('/app/today');
+    const success = markCardCompleted(cardId);
+    if (success) {
+      navigate('/app/today');
+    }
   };
 
   return (
-    <button onClick={handleComplete} className={className}>
-      Spara och avsluta
+    <button 
+      onClick={handleComplete} 
+      className={className}
+    >
+      {children || "Spara och avsluta"}
     </button>
   );
 };

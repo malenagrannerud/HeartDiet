@@ -3,6 +3,7 @@ import { Home, BookOpen, TrendingUp, HelpCircle } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { sectionHeading, sectionSubheading, sectionHeading2, cardTitle, cardText, standardCard, primaryButton, pageContainer, standardSpacing, headerContainer, pagePadding, bodyTextBald, bodyText } from "@/lib/design-tokens";
 import { BackToTodayButton } from "@/components/BackToTodayButton";
+import { CompleteCardButton } from "@/components/CompleteCardButton";
 
 const Tutorial = () => {
   const navigate = useNavigate();
@@ -125,28 +126,14 @@ const Tutorial = () => {
           </section>
 
           <section>       
-            <button
-              onClick={() => {
-                localStorage.setItem('tutorialCompleted', 'true');
-                  
-                // Add to completed activities
-                const completedActivities = JSON.parse(localStorage.getItem('completedActivities') || '[]');
-                completedActivities.push({
-                    id: 'tutorial',
-                    title: 'Så fungerar appen',
-                    completedDate: new Date().toISOString(),
-                    type: 'tutorial'
-                  });
-                  localStorage.setItem('completedActivities', JSON.stringify(completedActivities));
-                  
-                  navigate('/app/today');
-                }}
-                className={primaryButton}
-                aria-label="Kom igång med appen"
-              >
-                Kom igång
-            </button>
+            <CompleteCardButton 
+              cardId="tutorial"
+              className={`${primaryButton} w-full`}
+            >
+              Kom igång
+            </CompleteCardButton>
           </section>
+          
         </div>
       </main>
     </div>
