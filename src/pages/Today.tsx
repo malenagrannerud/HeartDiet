@@ -152,9 +152,11 @@ const Today = () => {
                   <div className="flex-1">
                     <h4 className={cardTitle}>Mina mål</h4>
                     <div className={`flex items-center gap-2 ${cardTitleSmall}`}>
-                      <Clock size={14} strokeWidth={2.5} />
-                      <span>4 min</span>
-                    </div>
+                        <FileEdit size={14} strokeWidth={2.5} />
+                        <span>Kurs</span>
+                        <Clock size={14} strokeWidth={2.5} />
+                        <span>3 min</span>
+                      </div>
                   </div>
                 </div>
                 
@@ -180,6 +182,12 @@ const Today = () => {
                   <CheckBoxLeft isCompleted={completionStatus.healthMetrics} className="mt-1" />
                   <div>
                     <h4 className={cardTitle}>Vikt och blodtryck</h4>
+                    <div className={`flex items-center gap-2 ${cardTitleSmall}`}>
+                        <FileEdit size={14} strokeWidth={2.5} />
+                        <span>Kurs</span>
+                        <Clock size={14} strokeWidth={2.5} />
+                        <span>5 min</span>
+                      </div>
                   </div>
                 </div>
               </Card>
