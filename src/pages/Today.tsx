@@ -1,14 +1,13 @@
 import { useState, useEffect } from "react";
-import { Clock, Check } from "lucide-react";
+import { Clock, Check, Square, CheckSquare } from "lucide-react"; // Added checkbox icons
 import { Card } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
 import { tips } from "@/data/tips";
 import TipCard from "@/components/TipCard";
-import { pageTitle, sectionHeading, sectionSubheading, cardTitle, cardText, standardCard, interactiveCard, pageContainer, headerContainer, pagePadding, standardSpacing, cardTitleSmall, pageSubtitle, sectionSubheading2, bodyTextBald } from "@/lib/design-tokens";
+import { pageTitle, sectionHeading, cardTitle, interactiveCard, pageContainer, headerContainer, pagePadding, standardSpacing, cardTitleSmall, pageSubtitle, sectionSubheading2 } from "@/lib/design-tokens";
 import { getStorageItem } from "@/lib/storage";
 import { markedTipsSchema } from "@/lib/schemas";
 import HealthPrioritiesImage from "@/assets/fill.png"; 
-
 import { 
   isCardCompletedToday, 
   cleanupOldCompletions,
@@ -87,10 +86,9 @@ const Today = () => {
 
   const markedTipsList = tips.filter(tip => markedTips.some(mt => mt.id === tip.id));
 
-  // Handler for when user navigates to a card (just navigation, no completion)
+  // Handler for when user navigates to a card
   const handleCardNavigation = (cardId: CardId, path: string) => {
     navigate(path);
-    // Don't mark as completed here - only when bottom button is clicked in child pages
   };
 
   return (
@@ -112,11 +110,21 @@ const Today = () => {
                 aria-label="Gå till tutorial"
                 >
                 <div className="flex items-center justify-between">
-                  <div>
-                    <h4 className={cardTitle}>Så fungerar appen</h4>
-                    <div className={`flex items-center gap-2 ${cardTitleSmall}`}>
-                      <Clock size={14} strokeWidth={2.5} />
-                      <span>5 min</span>
+                  <div className="flex items-center gap-3">
+                    {/* Checkbox */}
+                    <div className="flex-shrink-0">
+                      {completionStatus.tutorial ? (
+                        <CheckSquare size={20} className="text-green-600" fill="currentColor" />
+                      ) : (
+                        <Square size={20} className="text-gray-400" />
+                      )}
+                    </div>
+                    <div>
+                      <h4 className={cardTitle}>Så fungerar appen</h4>
+                      <div className={`flex items-center gap-2 ${cardTitleSmall}`}>
+                        <Clock size={14} strokeWidth={2.5} />
+                        <span>5 min</span>
+                      </div>
                     </div>
                   </div>
                   {completionStatus.tutorial && (
@@ -135,11 +143,21 @@ const Today = () => {
                 aria-label="Gå till mina hälsoprioriteringar"
                 >
                 <div className="flex items-center justify-between relative z-10">
-                  <div className="flex-1">
-                    <h4 className={cardTitle}>Mina mål</h4>
-                    <div className={`flex items-center gap-2 ${cardTitleSmall}`}>
-                      <Clock size={14} strokeWidth={2.5} />
-                      <span>4 min</span>
+                  <div className="flex items-center gap-3 flex-1">
+                    {/* Checkbox */}
+                    <div className="flex-shrink-0 z-20">
+                      {completionStatus.healthPriorities ? (
+                        <CheckSquare size={20} className="text-green-600" fill="currentColor" />
+                      ) : (
+                        <Square size={20} className="text-gray-400" />
+                      )}
+                    </div>
+                    <div className="flex-1">
+                      <h4 className={cardTitle}>Mina mål</h4>
+                      <div className={`flex items-center gap-2 ${cardTitleSmall}`}>
+                        <Clock size={14} strokeWidth={2.5} />
+                        <span>4 min</span>
+                      </div>
                     </div>
                   </div>
                   {completionStatus.healthPriorities && (
@@ -165,8 +183,18 @@ const Today = () => {
                 aria-label="Gå till hälsomätningar"
                 >
                 <div className="flex items-center justify-between">
-                  <div>
-                    <h4 className={cardTitle}>Vikt och blodtryck</h4>
+                  <div className="flex items-center gap-3">
+                    {/* Checkbox */}
+                    <div className="flex-shrink-0">
+                      {completionStatus.healthMetrics ? (
+                        <CheckSquare size={20} className="text-green-600" fill="currentColor" />
+                      ) : (
+                        <Square size={20} className="text-gray-400" />
+                      )}
+                    </div>
+                    <div>
+                      <h4 className={cardTitle}>Vikt och blodtryck</h4>
+                    </div>
                   </div>
                   {completionStatus.healthMetrics && (
                     <div className="w-6 h-6 rounded-full bg-green-600 flex items-center justify-center flex-shrink-0">
