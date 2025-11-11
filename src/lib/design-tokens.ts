@@ -187,9 +187,10 @@ export const bodyTextBald = "text-base font-bold text-[#212658]";
 export const cardTitle = "text-base font-bold text-[#212658]";
 
 /**
- * CARD TITLES SMALL - 14 px
+ * CARD TITLE SMALL - 12 px
  */
-export const cardTitleSmall = "text-sm font-bold text-[#212658]";
+export const cardTitleSmall = "text-xs text-[#212658]/70";
+
 
 
 /**
@@ -198,12 +199,12 @@ export const cardTitleSmall = "text-sm font-bold text-[#212658]";
  */
 export const cardText = "text-base text-[#212658]/70";
 
+
 /**
  * SMALL CARD TEXT
- * Used for secondary text in cards 12 px
+ * Used for secondary text in cards 14 px
  */
-export const cardTextSmall = "text-xs text-[#212658]/70";
-
+export const cardTextSmall = "text-sm text-[#212658]/70";
 
 
 
