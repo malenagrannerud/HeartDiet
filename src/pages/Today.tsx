@@ -156,7 +156,6 @@ const Today = () => {
                       </div>
                     </div>
                   </div>
-                  {/* Removed green round checkmark button */}
                 </div>
                 
                 {/* Background image covering 1/3 of card on right side */}
@@ -170,7 +169,7 @@ const Today = () => {
               
             {!hiddenCards.healthMetrics && (
               <Card 
-                className={interactiveCard} // Removed green background class
+                className={interactiveCard} 
                 onClick={() => handleCardNavigation('health-metrics', '/app/health-metrics')}
                 aria-label="Gå till hälsomätningar"
                 >
@@ -188,7 +187,6 @@ const Today = () => {
                       <h4 className={cardTitle}>Vikt och blodtryck</h4>
                     </div>
                   </div>
-                  {/* Removed green round checkmark button */}
                 </div>
               </Card>
             )}
