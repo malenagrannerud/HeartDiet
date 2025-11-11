@@ -7,6 +7,8 @@ import TipCard from "@/components/TipCard";
 import { pageTitle, sectionHeading, sectionSubheading, cardTitle, cardText, standardCard, interactiveCard, pageContainer, headerContainer, pagePadding, standardSpacing, cardTitleSmall, pageSubtitle, sectionSubheading2 } from "@/lib/design-tokens";
 import { getStorageItem } from "@/lib/storage";
 import { markedTipsSchema } from "@/lib/schemas";
+import HealthPrioritiesImage from "@/assets/fill.png"; // Add this import
+
 
 
 interface MarkedTip {
