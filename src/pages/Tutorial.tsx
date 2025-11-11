@@ -130,10 +130,10 @@ const Tutorial = () => {
               cardId="tutorial"
               className={`${primaryButton} w-full`}
             >
-              Kom igång
+              Fortsätt
             </CompleteCardButton>
           </section>
-          
+
         </div>
       </main>
     </div>
