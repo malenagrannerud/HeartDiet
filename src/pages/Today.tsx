@@ -115,39 +115,40 @@ const Today = () => {
 
                 {/* TEMPORARY TEST BUTTON - REMOVE LATER */}
                     
-                <Button 
-                  onClick={() => {
-                  const completedCards = JSON.parse(localStorage.getItem('completedCards') || '[]');
-                  const today = new Date().toISOString().split('T')[0];
-                  
-                  console.log('Before - All completed cards:', completedCards);
-                  
-                  // Remove only TODAY'S completions (keep yesterday's completions)
-                  const filteredCards = completedCards.filter((card: any) => card.completedDate !== today);
-                  localStorage.setItem('completedCards', JSON.stringify(filteredCards));
-                  
-                  console.log('After - Only yesterday completions remain:', filteredCards);
-                  
-                  // Cards to hide: ONLY the ones that were completed on previous days
-                  const newCardsToHide = {
-                    tutorial: filteredCards.some((card: any) => card.cardId === 'tutorial'),
-                    healthPriorities: filteredCards.some((card: any) => card.cardId === 'health-priorities'),
-                    healthMetrics: filteredCards.some((card: any) => card.cardId === 'health-metrics'),
-                  };
-                  
-                  console.log('Cards to hide (completed yesterday):', newCardsToHide);
-                  
-                  setHiddenCards(newCardsToHide);
-                  setCompletionStatus({
-                    tutorial: false,
-                    healthPriorities: false,
-                    healthMetrics: false
-                  });
-                }}
-                className="bg-blue-500 text-white p-2 text-sm"
-              >
-                🔄 Test Next Day
-              </Button>
+              <Button 
+              onClick={() => {
+                const completedCards = JSON.parse(localStorage.getItem('completedCards') || '[]');
+                const today = new Date().toISOString().split('T')[0];
+                
+                console.log('Before clearing today:', completedCards);
+                
+                // Remove all completions from today
+                const filteredCards = completedCards.filter((card: any) => card.completedDate !== today);
+                localStorage.setItem('completedCards', JSON.stringify(filteredCards));
+                
+                console.log('After clearing today:', filteredCards);
+                
+                // USE getCardsToHide and map the keys
+                const cardsToHide = getCardsToHide();
+                const newCardsToHide = {
+                  tutorial: cardsToHide['tutorial'],
+                  healthPriorities: cardsToHide['health-priorities'],
+                  healthMetrics: cardsToHide['health-metrics'],
+                };
+                
+                console.log('Cards to hide (mapped):', newCardsToHide);
+                
+                setHiddenCards(newCardsToHide);
+                setCompletionStatus({
+                  tutorial: false,
+                  healthPriorities: false,
+                  healthMetrics: false
+                });
+              }}
+              className="bg-blue-500 text-white p-2 text-sm"
+            >
+              🔄 Test Next Day
+            </Button>
 
 
 
