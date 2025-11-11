@@ -122,52 +122,48 @@ const Today = () => {
               
             {!hiddenCards.tutorial && (
               <Card 
-                className={interactiveCard} // Removed green background class
+                className={interactiveCard} 
                 onClick={() => handleCardNavigation('tutorial', '/app/tutorial')}
                 aria-label="Gå till tutorial"
                 >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <CheckBoxLeft isCompleted={completionStatus.healthMetrics} />
-                    <div>
-                      <h4 className={cardTitle}>Så fungerar appen</h4>
-                      <div className={`flex items-center gap-2 ${cardTitleSmall}`}>
-                        <Clock size={14} strokeWidth={2.5} />
-                        <span>5 min</span>
-                      </div>
+                <div className="flex items-center gap-3">
+                  <CheckBoxLeft isCompleted={completionStatus.tutorial} className="mt-1" />
+                  <div>
+                    <h4 className={cardTitle}>Så fungerar appen</h4>
+                    <div className={`flex items-center gap-2 ${cardTitleSmall}`}>
+                      <Clock size={14} strokeWidth={2.5} />
+                      <span>5 min</span>
                     </div>
                   </div>
                 </div>
               </Card>
             )}
 
-            {!hiddenCards.healthPriorities && (
-              <Card 
-                className={`${interactiveCard} relative overflow-hidden`} // Removed green background class
-                onClick={() => handleCardNavigation('health-priorities', '/app/health-priorities')}
-                aria-label="Gå till mina hälsoprioriteringar"
-                >
-                <div className="flex items-center justify-between relative z-10">
-                  <div className="flex items-center gap-3 flex-1">
-                    <CheckBoxLeft isCompleted={completionStatus.healthMetrics} />
-                    <div className="flex-1">
-                      <h4 className={cardTitle}>Mina mål</h4>
-                      <div className={`flex items-center gap-2 ${cardTitleSmall}`}>
-                        <Clock size={14} strokeWidth={2.5} />
-                        <span>4 min</span>
-                      </div>
-                    </div>
+          {!hiddenCards.healthPriorities && (
+            <Card 
+              className={interactiveCard}
+              onClick={() => handleCardNavigation('health-priorities', '/app/health-priorities')}
+              aria-label="Gå till mina hälsoprioriteringar"
+              >
+              <div className="flex items-center gap-3 relative z-10">
+                <CheckBoxLeft isCompleted={completionStatus.healthPriorities} className="mt-1 z-20" />
+                <div className="flex-1">
+                  <h4 className={cardTitle}>Mina mål</h4>
+                  <div className={`flex items-center gap-2 ${cardTitleSmall}`}>
+                    <Clock size={14} strokeWidth={2.5} />
+                    <span>4 min</span>
                   </div>
                 </div>
-                
-                {/* Background image covering 1/3 of card on right side */}
-                <img 
-                  src={HealthPrioritiesImage}
-                  alt="Health goals illustration"
-                  className="absolute right-0 top-0 h-full w-1/3 object-cover z-0"
-                />
-              </Card>
-            )}
+              </div>
+              
+              {/* Background image covering 1/3 of card on right side */}
+              <img 
+                src={HealthPrioritiesImage}
+                alt="Health goals illustration"
+                className="absolute right-0 top-0 h-full w-1/3 object-cover z-0"
+              />
+            </Card>
+          )}
               
             {!hiddenCards.healthMetrics && (
               <Card 

@@ -1,4 +1,4 @@
-import { Square, CheckSquare } from "lucide-react";
+import { Square, Check } from "lucide-react";
 
 interface CheckBoxLeftProps {
   isCompleted: boolean;
@@ -7,11 +7,13 @@ interface CheckBoxLeftProps {
 
 export const CheckBoxLeft = ({ isCompleted, className = "" }: CheckBoxLeftProps) => {
   return (
-    <div className={`flex-shrink-0 ${className}`}>
+    <div className={`flex items-center justify-center ${className}`}>
       {isCompleted ? (
-        <CheckSquare size={20} className="text-green-600" fill="currentColor" />
+        <div className="w-5 h-5 border-2 border-green-600 rounded flex items-center justify-center bg-white">
+          <Check size={14} className="text-green-600" strokeWidth={3} />
+        </div>
       ) : (
-        <Square size={20} className="text-gray-400" />
+        <div className="w-5 h-5 border-2 border-gray-400 rounded bg-white" />
       )}
     </div>
   );
