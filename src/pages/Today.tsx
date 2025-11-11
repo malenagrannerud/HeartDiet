@@ -116,38 +116,38 @@ const Today = () => {
                 {/* TEMPORARY TEST BUTTON - REMOVE LATER */}
                     
               <Button 
-              onClick={() => {
-                const completedCards = JSON.parse(localStorage.getItem('completedCards') || '[]');
-                const today = new Date().toISOString().split('T')[0];
-                
-                console.log('Before clearing today:', completedCards);
-                
-                // Remove all completions from today
-                const filteredCards = completedCards.filter((card: any) => card.completedDate !== today);
-                localStorage.setItem('completedCards', JSON.stringify(filteredCards));
-                
-                console.log('After clearing today:', filteredCards);
-                
-                // USE getCardsToHide and map the keys
-                const cardsToHide = getCardsToHide();
-                const newCardsToHide = {
-                  tutorial: cardsToHide['tutorial'],
-                  healthPriorities: cardsToHide['health-priorities'],
-                  healthMetrics: cardsToHide['health-metrics'],
-                };
-                
-                console.log('Cards to hide (mapped):', newCardsToHide);
-                
-                setHiddenCards(newCardsToHide);
-                setCompletionStatus({
-                  tutorial: false,
-                  healthPriorities: false,
-                  healthMetrics: false
-                });
-              }}
-              className="bg-blue-500 text-white p-2 text-sm"
-            >
-              🔄 Test Next Day
+                onClick={() => {
+                  const completedCards = JSON.parse(localStorage.getItem('completedCards') || '[]');
+                  const today = new Date().toISOString().split('T')[0];
+                  
+                  console.log('Before clearing today:', completedCards);
+                  
+                  // Remove all completions from today
+                  const filteredCards = completedCards.filter((card: any) => card.completedDate !== today);
+                  localStorage.setItem('completedCards', JSON.stringify(filteredCards));
+                  
+                  console.log('After clearing today:', filteredCards);
+                  
+                  // USE getCardsToHide and map the keys
+                  const cardsToHide = getCardsToHide();
+                  const newCardsToHide = {
+                    tutorial: cardsToHide['tutorial'],
+                    healthPriorities: cardsToHide['health-priorities'],
+                    healthMetrics: cardsToHide['health-metrics'],
+                  };
+                  
+                  console.log('Cards to hide (mapped):', newCardsToHide);
+                  
+                  setHiddenCards(newCardsToHide);
+                  setCompletionStatus({
+                    tutorial: false,
+                    healthPriorities: false,
+                    healthMetrics: false
+                  });
+                }}
+                className="bg-blue-500 text-white p-2 text-sm"
+              >
+                🔄 Test Next Day
             </Button>
 
 
