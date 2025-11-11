@@ -193,7 +193,7 @@ const HealthPriorities = () => {
         </section>
 
         <section>
-          <h2 className={`${sectionHeading2} mb-2`}>Läkemedel</h2>
+          <h2 className={`${sectionHeading2} mb-4`}>Läkemedel</h2>
           <p className={`${bodyText} mb-4`}>
             Markera läkemedel du tar regelbundet. Då kan vi påminna dej om livsmedel som du evenutellt bör undvika.
           </p>
