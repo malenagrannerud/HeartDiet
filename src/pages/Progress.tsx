@@ -58,7 +58,11 @@ const Progress = () => {
   useEffect(() => {
     const achievedDays = dayLogs
       .filter(log => log.entries.some(entry => entry.type === 'tip'))
-      .map(log => new Date(log.date));
+      .map(log => {
+      // FIX: Create date at start of day to ensure exact match
+      const date = new Date(log.date + 'T00:00:00');
+      return date;
+    });
     setAchievementDays(achievedDays);
 
     const weightLogDays = dayLogs
