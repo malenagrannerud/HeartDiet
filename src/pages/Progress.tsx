@@ -114,48 +114,36 @@ const Progress = () => {
     setDialogOpen(true);
   };
 
-    const [selectedTipIds, setSelectedTipIds] = useState<number[]>([]);
+  const handleSaveEntry = () => {
+    if (!selectedDate) return;
+    
+    const dateStr = format(selectedDate, 'yyyy-MM-dd');
+    const existingLog = dayLogs.find(log => log.date === dateStr);
+    const newEntries = existingLog ? [...existingLog.entries] : [];
 
-    // Update handleSaveEntry to handle multiple tips
-    const handleSaveEntry = () => {
-      if (!selectedDate) return;
-      
-      const dateStr = format(selectedDate, 'yyyy-MM-dd');
-      const existingLog = dayLogs.find(log => log.date === dateStr);
-      const newEntries = existingLog ? [...existingLog.entries] : [];
-
-      if (entryType === 'tip') {
-        // For each selected tip, create an entry with value=1 (to mark as completed)
-        selectedTipIds.forEach(tipId => {
-          newEntries.push({ 
-            type: 'tip', 
-            value: 1, // This marks the tip as completed
-            tipId: tipId 
-          });
-        });
-      } else if (entryType === 'weight') {
-        const kg = parseFloat(weightInput) || 0;
-        if (kg > 0) newEntries.push({ type: 'weight', value: kg });
-      } else if (entryType === 'bloodPressure') {
-        const systolic = parseInt(systolicInput) || 0;
-        const diastolic = parseInt(diastolicInput) || 0;
-        if (systolic > 0 && diastolic > 0) newEntries.push({ 
-          type: 'bloodPressure', 
-          value: systolic, 
-          value2: diastolic 
-        });
-      }
-      
-      if (newEntries.length > (existingLog?.entries.length || 0)) {
-        const updatedLogs = dayLogs.filter(log => log.date !== dateStr);
-        updatedLogs.push({ date: dateStr, entries: newEntries });
-        setDayLogs(updatedLogs);
-        localStorage.setItem('dayLogs', JSON.stringify(updatedLogs));
-      }
-      
-      setDialogOpen(false);
-      setSelectedTipIds([]);
-    };
+    let newEntry;
+    if (entryType === 'tip') {
+      const grams = parseInt(gramsInput) || 0;
+      if (grams > 0) newEntry = { type: 'tip', value: grams, tipId: selectedTipId };
+    } else if (entryType === 'weight') {
+      const kg = parseFloat(weightInput) || 0;
+      if (kg > 0) newEntry = { type: 'weight', value: kg };
+    } else if (entryType === 'bloodPressure') {
+      const systolic = parseInt(systolicInput) || 0;
+      const diastolic = parseInt(diastolicInput) || 0;
+      if (systolic > 0 && diastolic > 0) newEntry = { type: 'bloodPressure', value: systolic, value2: diastolic };
+    }
+    
+    if (newEntry) {
+      newEntries.push(newEntry);
+      const updatedLogs = dayLogs.filter(log => log.date !== dateStr);
+      updatedLogs.push({ date: dateStr, entries: newEntries });
+      setDayLogs(updatedLogs);
+      localStorage.setItem('dayLogs', JSON.stringify(updatedLogs));
+    }
+    
+    setDialogOpen(false);
+  };
 
   const handleDeleteEntry = (entryIndex: number) => {
     if (!selectedDate) return;
@@ -238,9 +226,6 @@ const Progress = () => {
         />
       </div>
 
-
-
-
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         <DialogContent className="max-w-md max-h-[80vh] overflow-y-auto">
           <DialogHeader>
@@ -305,45 +290,31 @@ const Progress = () => {
             </div>
 
             {entryType === 'tip' && (
-              <div className="space-y-4">
+              <div className="space-y-3">
                 <div>
-                  <Label className="text-base mb-3 block font-semibold">Vilka tips följde du idag?</Label>
-                  <div className="space-y-3 max-h-60 overflow-y-auto">
-                    {tips.map((tip) => (
-                      <div 
-                        key={tip.id} 
-                        className="flex items-center justify-between p-4 rounded-xl border-2 shadow-sm transition-all duration-200 hover:shadow-md"
-                        style={{ 
-                          borderColor: tip.color,
-                          backgroundColor: `${tip.color}15` // Very light version of the color
-                        }}
-                      >
-                        <div className="flex items-center gap-3 flex-1">
-                          <div 
-                            className="w-3 h-3 rounded-full flex-shrink-0"
-                            style={{ backgroundColor: tip.color }}
-                          ></div>
-                          <Label htmlFor={`tip-${tip.id}`} className="cursor-pointer text-sm font-medium flex-1">
-                            {tip.title}
-                          </Label>
-                        </div>
-                        <input
-                          id={`tip-${tip.id}`}
-                          type="checkbox"
-                          checked={selectedTipIds.includes(tip.id)}
-                          onChange={(e) => {
-                            if (e.target.checked) {
-                              setSelectedTipIds(prev => [...prev, tip.id]);
-                            } else {
-                              setSelectedTipIds(prev => prev.filter(id => id !== tip.id));
-                            }
-                          }}
-                          className="h-5 w-5 rounded border-2 border-gray-300 text-blue-600 focus:ring-blue-500 flex-shrink-0"
-                          style={{ borderColor: tip.color }}
-                        />
-                      </div>
+                  <Label htmlFor="tip-select" className="text-base mb-2 block">Välj tips-kategori</Label>
+                  <select
+                    id="tip-select"
+                    value={selectedTipId}
+                    onChange={(e) => setSelectedTipId(parseInt(e.target.value))}
+                    className="w-full p-2 border rounded-md"
+                  >
+                    {tips.map(tip => (
+                      <option key={tip.id} value={tip.id}>{tip.title}</option>
                     ))}
-                  </div>
+                  </select>
+                </div>
+                <div>
+                  <Label htmlFor="grams-input" className="text-base mb-2 block">Hur många gram?</Label>
+                  <Input
+                    id="grams-input"
+                    type="number"
+                    value={gramsInput}
+                    onChange={(e) => setGramsInput(e.target.value)}
+                    placeholder="Ange gram"
+                    className="w-full"
+                  />
+                  <p className="text-sm text-muted-foreground mt-2">Minst 500g för att markera dagen som klarad</p>
                 </div>
               </div>
             )}
