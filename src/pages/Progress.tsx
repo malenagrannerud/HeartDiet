@@ -232,7 +232,7 @@ const Progress = () => {
             bloodPressure: bloodPressureDays
           }}
           modifiersClassNames={{
-            achievement: "relative before:content-[''] before:absolute before:inset-[8px] before:bg-emerald-500 before:rounded-full before:-z-10 !text-blue-900 font-bold"
+            achievement: "relative before:content-[''] before:absolute before:inset-[8px] before:bg-emerald-500 before:rounded-full before:z-10 !text-blue-900 font-bold"
           }}
           modifiersStyles={{
             achievement: { backgroundColor: "transparent" }
