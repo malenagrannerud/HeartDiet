@@ -24,7 +24,9 @@ export const tips: Tip[] = [
     color: tipCardColors.green,
     healthScore: 8,
     subtitle:  "Text",
-    detailedInfo: `Att äta fem nävar frukt och grönt per dag ger dej stora hälsofördelar. Fem nävar är ungefär 500 g. 
+    detailedInfo: `
+    Att äta fem nävar frukt och grönt per dag ger dej stora hälsofördelar. 
+    Fem nävar är ungefär 500 g. 
 
     Hit räknas
     • rotfrukter
@@ -32,7 +34,7 @@ export const tips: Tip[] = [
     • frysta grönsaker & grönsaker i maten du lagar 
     
     Att få i sig fem nävar per dag minskar risken för 
-      • hjärt- och kärlsjukdom, 
+      • hjärt-kärlsjukdom, 
       • vissa former av cancer samt
       • förtidig död
     Det beror på att frukt och grönt innehåller fibrer och antioxidanter.  
@@ -69,7 +71,8 @@ export const tips: Tip[] = [
     color: tipCardColors.amber,
     healthScore: 3,
     subtitle: "Text",
-    detailedInfo: `Att få i sig minst 3 dl fullkorn om dagen minskar risken för 
+    detailedInfo: `
+    Att få i sig minst 3 dl fullkorn om dagen minskar risken för 
     • kranskärlsjukdom, 
     • tarmcancer, 
     • typ 2-diabetes och 
@@ -79,8 +82,7 @@ export const tips: Tip[] = [
     • en bra tarmhälsa och
     • att sänka blodtrycket.
 
-    Fullkorn innehåller också växtsteroler som 
-    • minskar upptaget av kolesterol i tarmen. Då sänks halten av LDL-kolesterolet i blodet --> 
+    Fullkorn innehåller också växtsteroler som minskar upptaget av kolesterol i tarmen. Då sänks halten av LDL-kolesterolet i blodet --> 
     lägre totalkolesterol och minskat systoliskt blodtryck, 
     vilket kan vara en annan förklaring till den minskade risken för kostrelaterad ohälsa.
 
@@ -107,8 +109,9 @@ export const tips: Tip[] = [
     color: tipCardColors.cyan,
     healthScore: 3,
     subtitle:  "text",
-    detailedInfo:`Fisk och skaldjur innehåller protein, D-vitamin, jod och selen. 
-      Fet fisk innehåller dessutom omega-3-fettsyror som är viktiga för hjärtat och hjärnan.,
+    detailedInfo:`
+    Fisk och skaldjur innehåller protein, D-vitamin, jod och selen. 
+    Fet fisk innehåller dessutom omega-3-fettsyror som är viktiga för hjärtat och hjärnan.,
 
        "Planera två fiskmiddagar varje vecka",
       "Fisksoppa kan varieras. Prova olika recept",
