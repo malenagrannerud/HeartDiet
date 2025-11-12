@@ -114,21 +114,27 @@ const Today = () => {
                 </Button>
 
                 {/* TEMPORARY TEST BUTTON - REMOVE LATER */}
-                    
               <Button 
                 onClick={() => {
                   const completedCards = JSON.parse(localStorage.getItem('completedCards') || '[]');
                   const today = new Date().toISOString().split('T')[0];
+                  const yesterday = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString().split('T')[0];
                   
-                  console.log('Before clearing today:', completedCards);
+                  console.log('Simulating next day - moving completions from today to yesterday');
+                  console.log('Before:', completedCards);
                   
-                  // Remove all completions from today
-                  const filteredCards = completedCards.filter((card: any) => card.completedDate !== today);
-                  localStorage.setItem('completedCards', JSON.stringify(filteredCards));
+                  // Change today's completions to yesterday's date to simulate passage of time
+                  const updatedCards = completedCards.map((card: any) => {
+                    if (card.completedDate === today) {
+                      return { ...card, completedDate: yesterday };
+                    }
+                    return card;
+                  });
                   
-                  console.log('After clearing today:', filteredCards);
+                  localStorage.setItem('completedCards', JSON.stringify(updatedCards));
+                  console.log('After (today is now yesterday):', updatedCards);
                   
-                  // USE getCardsToHide and map the keys
+                  // Now check which cards should be hidden (completed yesterday)
                   const cardsToHide = getCardsToHide();
                   const newCardsToHide = {
                     tutorial: cardsToHide['tutorial'],
@@ -136,9 +142,10 @@ const Today = () => {
                     healthMetrics: cardsToHide['health-metrics'],
                   };
                   
-                  console.log('Cards to hide (mapped):', newCardsToHide);
+                  console.log('Cards to hide (completed yesterday):', newCardsToHide);
                   
                   setHiddenCards(newCardsToHide);
+                  // Reset completion status for the new "today"
                   setCompletionStatus({
                     tutorial: false,
                     healthPriorities: false,
@@ -148,7 +155,7 @@ const Today = () => {
                 className="bg-blue-500 text-white p-2 text-sm"
               >
                 🔄 Test Next Day
-            </Button>
+              </Button>
 
 
 
