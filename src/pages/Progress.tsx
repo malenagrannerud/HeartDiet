@@ -244,8 +244,8 @@ const Progress = () => {
               return (
                 <div className="relative w-full h-full flex items-center justify-center">
                   <div className="absolute top-0.5 left-0.5 flex flex-col gap-0.5">
-                    {hasBP && <span className="text-xs leading-none text-rose-600">♥</span>}
-                    {hasWeight && <span className="text-xs leading-none text-blue-700">⚖</span>}
+                    {hasBP && <span className="text-[10px] leading-none text-rose-600">♥</span>}
+                    {hasWeight && <span className="text-[10px] leading-none text-blue-700">⚖</span>}
                   </div>
                   <span className="relative z-10">{props.date.getDate()}</span>
                 </div>
