@@ -29,7 +29,7 @@ function Calendar({ className, classNames, showOutsideDays = true, components = 
         head_cell: "text-muted-foreground w-12 font-normal text-[0.8rem] [&_.rdp-head_cell]:capitalize [&_.rdp-head_cell]:text-base",
         row: "flex w-full mt-2",
         cell: "h-12 w-12 text-center p-0 relative border-r border-b border-border/30 [&:has([aria-selected].day-range-end)]:rounded-r-md [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected])]:bg-accent first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20",
-        day: cn(buttonVariants({ variant: "ghost" }), "h-12 w-12 p-0 font-normal aria-selected:opacity-100 [&_button]:cursor-pointer [&_button]:min-h-[48px] [&_button]:min-w-[48px] [&_button]:text-lg"),
+        day: cn(buttonVariants({ variant: "ghost" }), "h-12 w-12 p-0 font-normal aria-selected:opacity-100 [&_button]:cursor-pointer [&_button]:min-h-[48px] [&_button]:min-w-[48px]"),
         day_range_end: "day-range-end",
         day_selected: "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground",
         day_today: "bg-white text-blue-500 hover:bg-gray-100",
