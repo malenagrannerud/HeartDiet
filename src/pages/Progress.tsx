@@ -535,6 +535,21 @@ const Progress = () => {
           </div>
         </div>
       </div>
+      {/* TEMPORARY DEBUG - REMOVE LATER */}
+      <div className="fixed bottom-4 left-4 bg-black text-white p-2 text-xs">
+        Tips: {dayLogs.filter(log => log.entries.some(entry => entry.type === 'tip')).length} days
+        <br />
+        Achievement Days: {achievementDays.length}
+        <br />
+        Last Tip: {dayLogs.filter(log => log.entries.some(entry => entry.type === 'tip')).slice(-1)[0]?.date || 'None'}
+      </div>
+
+
+
+
+
+
+
     </div>
   );
 };
