@@ -236,12 +236,26 @@ const Progress = () => {
           modifiersStyles={{
             achievement: { backgroundColor: "transparent" }
           }}
+          components={{
+            DayContent: (props) => {
+              const hasWeight = weightDays.some(d => isSameDay(d, props.date));
+              const hasBP = bloodPressureDays.some(d => isSameDay(d, props.date));
+              return (
+                <div className="relative w-full h-full flex items-center justify-center">
+                  <div className="absolute top-0.5 left-0.5 flex flex-col gap-1">
+                    {hasBP && <span className="text-[10px] leading-none text-rose-600">♥</span>}
+                    {hasWeight && <span className="text-[10px] leading-none text-black-900">⚖</span>}
+                  </div>
+                  <span className="relative z-10">{props.date.getDate()}</span>
+                </div>
+              );
+            }
+          }}
         />
-
       </div>
 
 
-
+      
          <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
               <DialogContent className="max-w-md max-h-[80vh] overflow-y-auto">
                 <DialogHeader>
