@@ -9,7 +9,8 @@ import { BackToTodayButton } from "@/components/BackToTodayButton";
 import { sectionHeading, sectionSubheading, cardText, labelText, headerContainer, secondaryButton, disabledButton, compactCard, pageContainer, pagePadding} from "@/lib/design-tokens";
 import { getStorageItem, setStorageItem } from "@/lib/storage";
 import { healthMetricsSchema, completedActivitiesSchema } from "@/lib/schemas";
-import { markCardCompleted } from "@/lib/card-completion"; // Add this import
+import { markCardCompleted } from "@/lib/card-completion";
+import { format } from "date-fns";
 
 const HealthMetrics = () => {
   const navigate = useNavigate();
@@ -27,10 +28,50 @@ const HealthMetrics = () => {
   }, []);
 
   const handleSubmit = () => {
+    // Save to healthMetrics storage (original functionality)
     const metrics = { weight, systolic, diastolic, date: new Date().toISOString() };
     setStorageItem('healthMetrics', metrics, healthMetricsSchema);
     localStorage.setItem('healthMetricsCompleted', 'true');
     
+    // ALSO save to dayLogs storage for the calendar
+    const today = new Date();
+    const dateStr = format(today, 'yyyy-MM-dd');
+    
+    // Get existing day logs
+    const existingDayLogs = JSON.parse(localStorage.getItem('dayLogs') || '[]');
+    
+    // Find or create today's log
+    let todayLog = existingDayLogs.find((log: any) => log.date === dateStr);
+    if (!todayLog) {
+      todayLog = { date: dateStr, entries: [] };
+      existingDayLogs.push(todayLog);
+    }
+    
+    // Remove any existing weight and blood pressure entries for today
+    todayLog.entries = todayLog.entries.filter((entry: any) => 
+      entry.type !== 'weight' && entry.type !== 'bloodPressure'
+    );
+    
+    // Add new entries
+    if (weight) {
+      todayLog.entries.push({
+        type: 'weight',
+        value: parseFloat(weight)
+      });
+    }
+    
+    if (systolic && diastolic) {
+      todayLog.entries.push({
+        type: 'bloodPressure',
+        value: parseInt(systolic),
+        value2: parseInt(diastolic)
+      });
+    }
+    
+    // Save back to localStorage
+    localStorage.setItem('dayLogs', JSON.stringify(existingDayLogs));
+    
+    // Original completion tracking
     const activities = getStorageItem('completedActivities', completedActivitiesSchema) || [];
     const activitiesArray = Array.isArray(activities) ? activities : [];
     activitiesArray.push({
@@ -41,7 +82,7 @@ const HealthMetrics = () => {
     });
     setStorageItem('completedActivities', activitiesArray, completedActivitiesSchema);
     
-    // MARK THE CARD AS COMPLETED - Add this line
+    // Mark the card as completed
     markCardCompleted('health-metrics');
     
     navigate('/app/today');
