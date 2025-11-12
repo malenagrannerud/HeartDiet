@@ -243,7 +243,7 @@ const Progress = () => {
               const hasBP = bloodPressureDays.some(d => isSameDay(d, props.date));
               return (
                 <div className="relative w-full h-full flex items-center justify-center">
-                  <div className="absolute top-0.5 left-0.5 flex flex-col gap-0.5">
+                  <div className="absolute top-0.5 left-0.5 flex flex-col gap-1">
                     {hasBP && <span className="text-[10px] leading-none text-rose-600">♥</span>}
                     {hasWeight && <span className="text-[10px] leading-none text-black">⚖</span>}
                   </div>
