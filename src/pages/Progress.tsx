@@ -253,6 +253,9 @@ const Progress = () => {
           }}
         />
       </div>
+
+
+      
          <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
               <DialogContent className="max-w-md max-h-[80vh] overflow-y-auto">
                 <DialogHeader>
