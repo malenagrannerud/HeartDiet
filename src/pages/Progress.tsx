@@ -290,31 +290,38 @@ const Progress = () => {
             </div>
 
             {entryType === 'tip' && (
-              <div className="space-y-3">
+              <div className="space-y-4">
                 <div>
-                  <Label htmlFor="tip-select" className="text-base mb-2 block">Välj tips-kategori</Label>
-                  <select
-                    id="tip-select"
-                    value={selectedTipId}
-                    onChange={(e) => setSelectedTipId(parseInt(e.target.value))}
-                    className="w-full p-2 border rounded-md"
-                  >
-                    {tips.map(tip => (
-                      <option key={tip.id} value={tip.id}>{tip.title}</option>
+                  <Label className="text-base mb-3 block font-semibold">Vilka tips följde du idag?</Label>
+                  <div className="space-y-2 max-h-60 overflow-y-auto">
+                    {tips.map((tip) => (
+                      <div 
+                        key={tip.id} 
+                        className="flex items-center justify-between p-3 rounded-lg border"
+                        style={{ 
+                          backgroundColor: tip.color || '#f3f4f6',
+                          borderColor: tip.color ? `${tip.color}80` : '#e5e7eb'
+                        }}
+                      >
+                        <Label htmlFor={`tip-${tip.id}`} className="flex-1 cursor-pointer text-sm font-medium">
+                          {tip.title}
+                        </Label>
+                        <input
+                          id={`tip-${tip.id}`}
+                          type="checkbox"
+                          checked={selectedTipIds.includes(tip.id)}
+                          onChange={(e) => {
+                            if (e.target.checked) {
+                              setSelectedTipIds(prev => [...prev, tip.id]);
+                            } else {
+                              setSelectedTipIds(prev => prev.filter(id => id !== tip.id));
+                            }
+                          }}
+                          className="h-5 w-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                        />
+                      </div>
                     ))}
-                  </select>
-                </div>
-                <div>
-                  <Label htmlFor="grams-input" className="text-base mb-2 block">Hur många gram?</Label>
-                  <Input
-                    id="grams-input"
-                    type="number"
-                    value={gramsInput}
-                    onChange={(e) => setGramsInput(e.target.value)}
-                    placeholder="Ange gram"
-                    className="w-full"
-                  />
-                  <p className="text-sm text-muted-foreground mt-2">Minst 500g för att markera dagen som klarad</p>
+                  </div>
                 </div>
               </div>
             )}
