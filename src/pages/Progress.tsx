@@ -302,7 +302,6 @@ const Progress = () => {
               </div>
             </div>
 
-<<<<<<< HEAD
             {entryType === 'tip' && (
               <div className="space-y-4">
                 <div>
@@ -319,54 +318,15 @@ const Progress = () => {
                         </span>
                         <input
                           type="checkbox"
-=======
-            {entryType === 'tip' && (
-              <div className="space-y-4">
-                <div>
-                  <Label className="text-base mb-3 block font-semibold">Vilka tips följde du idag?</Label>
-                  <div className="space-y-3 max-h-60 overflow-y-auto">
-                    {tips.map((tip) => (
-                      <div 
-                        key={tip.id} 
-                        className="flex items-center justify-between p-4 rounded-xl border-2 shadow-sm transition-all duration-200 hover:shadow-md"
-                        style={{ 
-                          borderColor: tip.color,
-                          backgroundColor: `${tip.color}15` // Very light version of the color
-                        }}
-                      >
-                        <div className="flex items-center gap-3 flex-1">
-                          <div 
-                            className="w-3 h-3 rounded-full flex-shrink-0"
-                            style={{ backgroundColor: tip.color }}
-                          ></div>
-                          <Label htmlFor={`tip-${tip.id}`} className="cursor-pointer text-sm font-medium flex-1">
-                            {tip.title}
-                          </Label>
-                        </div>
-                        <input
-                          id={`tip-${tip.id}`}
-                          type="checkbox"
->>>>>>> 2b847cbbd5c353939d465e20830e48c2c9718a59
                           checked={selectedTipIds.includes(tip.id)}
-<<<<<<< HEAD
                           onChange={(e) => {
                             if (e.target.checked) {
                               setSelectedTipIds([...selectedTipIds, tip.id]);
-=======
-                          onChange={(e) => {
-                            if (e.target.checked) {
-                              setSelectedTipIds(prev => [...prev, tip.id]);
->>>>>>> 2b847cbbd5c353939d465e20830e48c2c9718a59
                             } else {
                               setSelectedTipIds(selectedTipIds.filter(id => id !== tip.id));
                             }
                           }}
-<<<<<<< HEAD
                           className="h-5 w-5 rounded border-2 border-white bg-white/20 checked:bg-white"
-=======
-                          className="h-5 w-5 rounded border-2 border-gray-300 text-blue-600 focus:ring-blue-500 flex-shrink-0"
-                          style={{ borderColor: tip.color }}
->>>>>>> 2b847cbbd5c353939d465e20830e48c2c9718a59
                         />
                       </div>
                     ))}
