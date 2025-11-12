@@ -11,6 +11,7 @@ function Calendar({ className, classNames, showOutsideDays = true, ...props }: C
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
+      /* CALENDAR CONTAINER */
       className={cn("p-3", className)}
       classNames={{
         months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
@@ -28,15 +29,31 @@ function Calendar({ className, classNames, showOutsideDays = true, ...props }: C
         head_row: "flex",
         head_cell: "text-muted-foreground w-12 font-normal text-[0.8rem]",
         row: "flex w-full mt-2",
-        cell: "h-12 w-12 text-left p-0 relative border-r border-b border-border/30 [&:has([aria-selected].day-range-end)]:rounded-r-md [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected])]:bg-accent first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20",        day: cn(buttonVariants({ variant: "ghost" }), "h-12 w-12 p-0 font-semibold aria-selected:opacity-100 flex items-end justify-start text-xs"),
+        
+        /* DAY CELL STYLING - Square cells with borders, no rounded corners */
+        cell: "h-12 w-12 text-left p-0 relative border-r border-b border-border/30 focus-within:relative focus-within:z-20",
+        
+        /* DAY NUMBER POSITIONING - Bottom left corner with smaller, bolder text */
+        day: cn(
+          buttonVariants({ variant: "ghost" }), 
+          "h-12 w-12 p-0 font-bold aria-selected:opacity-100 flex items-end justify-start pb-1 pl-1 text-[0.65rem] rounded-none"
+        ),
+        
         day_range_end: "day-range-end",
+        
+        /* SELECTED DAY STYLING */
         day_selected:
           "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground",
+        
         day_today: "bg-accent text-accent-foreground",
+        
         day_outside:
           "day-outside text-muted-foreground opacity-50 aria-selected:bg-accent/50 aria-selected:text-muted-foreground aria-selected:opacity-30",
+        
         day_disabled: "text-muted-foreground opacity-50",
+        
         day_range_middle: "aria-selected:bg-accent aria-selected:text-accent-foreground",
+        
         day_hidden: "invisible",
         ...classNames,
       }}
