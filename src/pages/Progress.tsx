@@ -239,7 +239,9 @@ const Progress = () => {
       </div>
 
 
-       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+
+
+      <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         <DialogContent className="max-w-md max-h-[80vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>
@@ -310,23 +312,34 @@ const Progress = () => {
                     {tips.map((tip) => (
                       <div 
                         key={tip.id} 
-                        className="flex items-center justify-between p-4 rounded-xl shadow-sm"
-                        style={{ backgroundColor: tip.color }}
+                        className="flex items-center justify-between p-4 rounded-xl border-2 shadow-sm transition-all duration-200 hover:shadow-md"
+                        style={{ 
+                          borderColor: tip.color,
+                          backgroundColor: `${tip.color}15` // Very light version of the color
+                        }}
                       >
-                        <span className="text-sm font-medium text-white flex-1">
-                          {tip.title}
-                        </span>
+                        <div className="flex items-center gap-3 flex-1">
+                          <div 
+                            className="w-3 h-3 rounded-full flex-shrink-0"
+                            style={{ backgroundColor: tip.color }}
+                          ></div>
+                          <Label htmlFor={`tip-${tip.id}`} className="cursor-pointer text-sm font-medium flex-1">
+                            {tip.title}
+                          </Label>
+                        </div>
                         <input
+                          id={`tip-${tip.id}`}
                           type="checkbox"
                           checked={selectedTipIds.includes(tip.id)}
                           onChange={(e) => {
                             if (e.target.checked) {
-                              setSelectedTipIds([...selectedTipIds, tip.id]);
+                              setSelectedTipIds(prev => [...prev, tip.id]);
                             } else {
-                              setSelectedTipIds(selectedTipIds.filter(id => id !== tip.id));
+                              setSelectedTipIds(prev => prev.filter(id => id !== tip.id));
                             }
                           }}
-                          className="h-5 w-5 rounded border-2 border-white bg-white/20 checked:bg-white"
+                          className="h-5 w-5 rounded border-2 border-gray-300 text-blue-600 focus:ring-blue-500 flex-shrink-0"
+                          style={{ borderColor: tip.color }}
                         />
                       </div>
                     ))}
