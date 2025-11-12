@@ -165,7 +165,7 @@ const Today = () => {
               <h3 className={bodyTextBald}>Starta här</h3>
               
               {allStartCardsHidden ? (
-                <p className={sectionSubheading2}>Alla starter är klara för idag! Kom tillbaka imorgon.</p>
+                <p className={sectionSubheading2}>Alla dina kurser är avklarade. Fokusera på att implementera en ny hälsosam vana!</p>
               ) : (
                 <>
                   <StartCard
