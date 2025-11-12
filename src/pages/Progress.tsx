@@ -536,7 +536,7 @@ const Progress = () => {
         </div>
       </div>
       {/* TEMPORARY DEBUG - REMOVE LATER */}
-      <div className="fixed bottom-4 left-4 bg-black text-white p-2 text-xs">
+      <div className="fixed bottom-4 left-4 bg-black text-white p-2 text-xs z-50">
         Tips: {dayLogs.filter(log => log.entries.some(entry => entry.type === 'tip')).length} days
         <br />
         Achievement Days: {achievementDays.length}
