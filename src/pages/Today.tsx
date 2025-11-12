@@ -18,7 +18,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { CheckBoxLeft } from "@/components/CheckBoxLeft"; 
 
-
 interface MarkedTip {
   id: number;
   markedDate: string;
@@ -95,12 +94,14 @@ const Today = () => {
     navigate(path);
   };
 
+  // Check if all start cards are hidden
+  const allStartCardsHidden = hiddenCards.tutorial && hiddenCards.healthPriorities && hiddenCards.healthMetrics;
+
   return (
     <div className={pageContainer}>
       <header className={headerContainer}>
           <h1 className={pageTitle}>Idag</h1>
           <p className={pageSubtitle}>Dagens fokus</p>
-
 
             {/* TEMPORARY RESET BUTTON - REMOVE LATER */}
                 <Button 
@@ -156,55 +157,54 @@ const Today = () => {
               >
                 🔄 Test Next Day
               </Button>
-
-
-
-
-
-
-
-
       </header>
 
       <main className={pagePadding}>
          <div className={standardSpacing.pageContent}>
             <section className={standardSpacing.sectionContent}>
               <h3 className={bodyTextBald}>Starta här</h3>
-              <StartCard
-                  isHidden={hiddenCards.tutorial}
-                  isCompleted={completionStatus.tutorial}
-                  title="Så fungerar appen"
-                  icon={<BookOpen size={12} strokeWidth={2.5} />}
-                  label="Kurs"
-                  time="5 min"
-                  onClick={() => handleCardNavigation('tutorial', '/app/tutorial')}
-                  ariaLabel="Gå till tutorial"
-                />
+              
+              {allStartCardsHidden ? (
+                <p className={sectionSubheading2}>Alla starter är klara för idag! Kom tillbaka imorgon.</p>
+              ) : (
+                <>
+                  <StartCard
+                    isHidden={hiddenCards.tutorial}
+                    isCompleted={completionStatus.tutorial}
+                    title="Så fungerar appen"
+                    icon={<BookOpen size={12} strokeWidth={2.5} />}
+                    label="Kurs"
+                    time="5 min"
+                    onClick={() => handleCardNavigation('tutorial', '/app/tutorial')}
+                    ariaLabel="Gå till tutorial"
+                  />
 
-                <StartCard
-                  isHidden={hiddenCards.healthPriorities}
-                  isCompleted={completionStatus.healthPriorities}
-                  title="Mina mål"
-                  icon={<FileEdit size={12} strokeWidth={2.5} />}
-                  label="Formulär"
-                  time="3 min"
-                  onClick={() => handleCardNavigation('health-priorities', '/app/health-priorities')}
-                  ariaLabel="Gå till mina hälsoprioriteringar"
-                  hasImage={true}
-                  imageSrc={HealthPrioritiesImage}
-                  imageAlt="Health goals illustration"
-                />
+                  <StartCard
+                    isHidden={hiddenCards.healthPriorities}
+                    isCompleted={completionStatus.healthPriorities}
+                    title="Mina mål"
+                    icon={<FileEdit size={12} strokeWidth={2.5} />}
+                    label="Formulär"
+                    time="3 min"
+                    onClick={() => handleCardNavigation('health-priorities', '/app/health-priorities')}
+                    ariaLabel="Gå till mina hälsoprioriteringar"
+                    hasImage={true}
+                    imageSrc={HealthPrioritiesImage}
+                    imageAlt="Health goals illustration"
+                  />
 
-                <StartCard
-                  isHidden={hiddenCards.healthMetrics}
-                  isCompleted={completionStatus.healthMetrics}
-                  title="Vikt och blodtryck"
-                  icon={<FileEdit size={12} strokeWidth={2.5} />}
-                  label="Formulär"
-                  time="5 min"
-                  onClick={() => handleCardNavigation('health-metrics', '/app/health-metrics')}
-                  ariaLabel="Gå till hälsomätningar"
-                /> 
+                  <StartCard
+                    isHidden={hiddenCards.healthMetrics}
+                    isCompleted={completionStatus.healthMetrics}
+                    title="Vikt och blodtryck"
+                    icon={<FileEdit size={12} strokeWidth={2.5} />}
+                    label="Formulär"
+                    time="5 min"
+                    onClick={() => handleCardNavigation('health-metrics', '/app/health-metrics')}
+                    ariaLabel="Gå till hälsomätningar"
+                  />
+                </>
+              )}
             </section>
 
             <section>
