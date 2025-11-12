@@ -184,9 +184,10 @@ const Progress = () => {
           <h1 className={pageTitle}>Mina sidor</h1>
           <p className={pageSubtitle}>Följ dina framsteg & redigera loggar</p>
         </div>
-        <Button variant="ghost" onClick={() => navigate('/app/settings')} className={iconButton}>
+
+        {/* <Button variant="ghost" onClick={() => navigate('/app/settings')} className={iconButton}>
           <Settings size={28} className="text-foreground" />
-        </Button>
+        </Button> */}
       </header>
 
       <div className="pt-6 pb-0 flex justify-center">
