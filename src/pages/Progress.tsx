@@ -231,7 +231,6 @@ const Progress = () => {
             <DialogTitle>
               Redigera {selectedDate && format(selectedDate, 'd MMMM yyyy', { locale: sv })}
             </DialogTitle>
-            <DialogDescription>Lägg till eller ta bort inlägg för denna dag</DialogDescription>
           </DialogHeader>
           
           {getExistingEntries().length > 0 && (
@@ -263,7 +262,7 @@ const Progress = () => {
 
           <div className="space-y-4 py-4">
             <div>
-              <Label className="text-lg mb-4 block font-semibold">Vad vill du logga?</Label>
+              <Label className="text-lg mb-4 block font-semibold">Logga</Label>
               <div className="grid grid-cols-3 gap-3">
                 <Button
                   variant={entryType === 'tip' ? 'default' : 'outline'}
