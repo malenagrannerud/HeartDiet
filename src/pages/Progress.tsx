@@ -114,36 +114,48 @@ const Progress = () => {
     setDialogOpen(true);
   };
 
-  const handleSaveEntry = () => {
-    if (!selectedDate) return;
-    
-    const dateStr = format(selectedDate, 'yyyy-MM-dd');
-    const existingLog = dayLogs.find(log => log.date === dateStr);
-    const newEntries = existingLog ? [...existingLog.entries] : [];
+    const [selectedTipIds, setSelectedTipIds] = useState<number[]>([]);
 
-    let newEntry;
-    if (entryType === 'tip') {
-      const grams = parseInt(gramsInput) || 0;
-      if (grams > 0) newEntry = { type: 'tip', value: grams, tipId: selectedTipId };
-    } else if (entryType === 'weight') {
-      const kg = parseFloat(weightInput) || 0;
-      if (kg > 0) newEntry = { type: 'weight', value: kg };
-    } else if (entryType === 'bloodPressure') {
-      const systolic = parseInt(systolicInput) || 0;
-      const diastolic = parseInt(diastolicInput) || 0;
-      if (systolic > 0 && diastolic > 0) newEntry = { type: 'bloodPressure', value: systolic, value2: diastolic };
-    }
-    
-    if (newEntry) {
-      newEntries.push(newEntry);
-      const updatedLogs = dayLogs.filter(log => log.date !== dateStr);
-      updatedLogs.push({ date: dateStr, entries: newEntries });
-      setDayLogs(updatedLogs);
-      localStorage.setItem('dayLogs', JSON.stringify(updatedLogs));
-    }
-    
-    setDialogOpen(false);
-  };
+    // Update handleSaveEntry to handle multiple tips
+    const handleSaveEntry = () => {
+      if (!selectedDate) return;
+      
+      const dateStr = format(selectedDate, 'yyyy-MM-dd');
+      const existingLog = dayLogs.find(log => log.date === dateStr);
+      const newEntries = existingLog ? [...existingLog.entries] : [];
+
+      if (entryType === 'tip') {
+        // For each selected tip, create an entry with value=1 (to mark as completed)
+        selectedTipIds.forEach(tipId => {
+          newEntries.push({ 
+            type: 'tip', 
+            value: 1, // This marks the tip as completed
+            tipId: tipId 
+          });
+        });
+      } else if (entryType === 'weight') {
+        const kg = parseFloat(weightInput) || 0;
+        if (kg > 0) newEntries.push({ type: 'weight', value: kg });
+      } else if (entryType === 'bloodPressure') {
+        const systolic = parseInt(systolicInput) || 0;
+        const diastolic = parseInt(diastolicInput) || 0;
+        if (systolic > 0 && diastolic > 0) newEntries.push({ 
+          type: 'bloodPressure', 
+          value: systolic, 
+          value2: diastolic 
+        });
+      }
+      
+      if (newEntries.length > (existingLog?.entries.length || 0)) {
+        const updatedLogs = dayLogs.filter(log => log.date !== dateStr);
+        updatedLogs.push({ date: dateStr, entries: newEntries });
+        setDayLogs(updatedLogs);
+        localStorage.setItem('dayLogs', JSON.stringify(updatedLogs));
+      }
+      
+      setDialogOpen(false);
+      setSelectedTipIds([]);
+    };
 
   const handleDeleteEntry = (entryIndex: number) => {
     if (!selectedDate) return;
