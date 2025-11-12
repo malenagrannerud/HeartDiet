@@ -239,9 +239,7 @@ const Progress = () => {
       </div>
 
 
-
-
-      <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         <DialogContent className="max-w-md max-h-[80vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>
@@ -304,6 +302,24 @@ const Progress = () => {
               </div>
             </div>
 
+<<<<<<< HEAD
+            {entryType === 'tip' && (
+              <div className="space-y-4">
+                <div>
+                  <Label className="text-base mb-3 block font-semibold">Vilka tips följde du idag?</Label>
+                  <div className="space-y-3 max-h-60 overflow-y-auto">
+                    {tips.map((tip) => (
+                      <div 
+                        key={tip.id} 
+                        className="flex items-center justify-between p-4 rounded-xl shadow-sm"
+                        style={{ backgroundColor: tip.color }}
+                      >
+                        <span className="text-sm font-medium text-white flex-1">
+                          {tip.title}
+                        </span>
+                        <input
+                          type="checkbox"
+=======
             {entryType === 'tip' && (
               <div className="space-y-4">
                 <div>
@@ -330,16 +346,27 @@ const Progress = () => {
                         <input
                           id={`tip-${tip.id}`}
                           type="checkbox"
+>>>>>>> 2b847cbbd5c353939d465e20830e48c2c9718a59
                           checked={selectedTipIds.includes(tip.id)}
+<<<<<<< HEAD
+                          onChange={(e) => {
+                            if (e.target.checked) {
+                              setSelectedTipIds([...selectedTipIds, tip.id]);
+=======
                           onChange={(e) => {
                             if (e.target.checked) {
                               setSelectedTipIds(prev => [...prev, tip.id]);
+>>>>>>> 2b847cbbd5c353939d465e20830e48c2c9718a59
                             } else {
-                              setSelectedTipIds(prev => prev.filter(id => id !== tip.id));
+                              setSelectedTipIds(selectedTipIds.filter(id => id !== tip.id));
                             }
                           }}
+<<<<<<< HEAD
+                          className="h-5 w-5 rounded border-2 border-white bg-white/20 checked:bg-white"
+=======
                           className="h-5 w-5 rounded border-2 border-gray-300 text-blue-600 focus:ring-blue-500 flex-shrink-0"
                           style={{ borderColor: tip.color }}
+>>>>>>> 2b847cbbd5c353939d465e20830e48c2c9718a59
                         />
                       </div>
                     ))}
