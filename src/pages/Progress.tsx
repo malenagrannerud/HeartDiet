@@ -237,157 +237,159 @@ const Progress = () => {
           }}
         />
       </div>
-          <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-            <DialogContent className="max-w-md max-h-[80vh] overflow-y-auto">
-              <DialogHeader>
-                <DialogTitle>
-                  Redigera {selectedDate && format(selectedDate, 'd MMMM yyyy', { locale: sv })}
-                </DialogTitle>
-              </DialogHeader>
-              
-              {getExistingEntries().length > 0 && (
-                <div className="space-y-2 pb-4 border-b">
-                  <Label className="text-base font-semibold">Dina inlägg</Label>
-                  {getExistingEntries().map((entry, index) => (
-                    <div key={index} className="flex items-center justify-between p-3 bg-accent/50 rounded-lg">
-                      <div className="text-sm font-medium">
-                        {entry.type === 'tip' && (
-                          <span>{tips.find(t => t.id === entry.tipId)?.title}: {entry.value}g</span>
-                        )}
-                        {entry.type === 'weight' && <span>Vikt: {entry.value} kg</span>}
-                        {entry.type === 'bloodPressure' && (
-                          <span>Blodtryck: {entry.value}/{entry.value2} mmHg</span>
-                        )}
+         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+              <DialogContent className="max-w-md max-h-[80vh] overflow-y-auto">
+                <DialogHeader>
+                  <DialogTitle>
+                    Redigera {selectedDate && format(selectedDate, 'd MMMM yyyy', { locale: sv })}
+                  </DialogTitle>
+                </DialogHeader>
+                
+                {getExistingEntries().length > 0 && (
+                  <div className="space-y-2 pb-4 border-b">
+                    <Label className="text-base font-semibold">Dina inlägg</Label>
+                    {getExistingEntries().map((entry, index) => (
+                      <div key={index} className="flex items-center justify-between p-3 bg-accent/50 rounded-lg">
+                        <div className="text-sm font-medium">
+                          {entry.type === 'tip' && (
+                            <span>{tips.find(t => t.id === entry.tipId)?.title}: {entry.value}g</span>
+                          )}
+                          {entry.type === 'weight' && <span>Vikt: {entry.value} kg</span>}
+                          {entry.type === 'bloodPressure' && (
+                            <span>Blodtryck: {entry.value}/{entry.value2} mmHg</span>
+                          )}
+                        </div>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => handleDeleteEntry(index)}
+                          className="h-8 w-8 p-0 hover:bg-destructive/10"
+                        >
+                          <Trash2 size={16} className="text-destructive" />
+                        </Button>
                       </div>
+                    ))}
+                  </div>
+                )}
+
+                <div className="space-y-4 py-4">
+                  <div>
+                    <Label className="text-lg mb-4 block font-semibold">Logga</Label>
+                    <div className="grid grid-cols-3 gap-3">
                       <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => handleDeleteEntry(index)}
-                        className="h-8 w-8 p-0 hover:bg-destructive/10"
+                        variant={entryType === 'tip' ? 'default' : 'outline'}
+                        onClick={() => setEntryType('tip')}
+                        className="w-full text-base py-6 min-h-[56px]"
                       >
-                        <Trash2 size={16} className="text-destructive" />
+                        Tips
+                      </Button>
+                      <Button
+                        variant={entryType === 'weight' ? 'default' : 'outline'}
+                        onClick={() => setEntryType('weight')}
+                        className="w-full text-base py-6 min-h-[56px]"
+                      >
+                        Vikt
+                      </Button>
+                      <Button
+                        variant={entryType === 'bloodPressure' ? 'default' : 'outline'}
+                        onClick={() => setEntryType('bloodPressure')}
+                        className="w-full text-base py-6 min-h-[56px]"
+                      >
+                        Blodtryck
                       </Button>
                     </div>
-                  ))}
-                </div>
-              )}
-
-              <div className="space-y-4 py-4">
-                <div>
-                  <Label className="text-lg mb-4 block font-semibold">Logga</Label>
-                  <div className="grid grid-cols-3 gap-3">
-                    <Button
-                      variant={entryType === 'tip' ? 'default' : 'outline'}
-                      onClick={() => setEntryType('tip')}
-                      className="w-full text-base py-6 min-h-[56px]"
-                    >
-                      Tips
-                    </Button>
-                    <Button
-                      variant={entryType === 'weight' ? 'default' : 'outline'}
-                      onClick={() => setEntryType('weight')}
-                      className="w-full text-base py-6 min-h-[56px]"
-                    >
-                      Vikt
-                    </Button>
-                    <Button
-                      variant={entryType === 'bloodPressure' ? 'default' : 'outline'}
-                      onClick={() => setEntryType('bloodPressure')}
-                      className="w-full text-base py-6 min-h-[56px]"
-                    >
-                      Blodtryck
-                    </Button>
                   </div>
-                </div>
 
-                {entryType === 'tip' && (
-                  <div className="space-y-4">
-                    <div>
-                      <Label className="text-base mb-3 block font-semibold">Vilka tips följde du idag?</Label>
-                      <div className="space-y-2 max-h-60 overflow-y-auto">
-                        {tips.map((tip) => (
-                          <div 
-                            key={tip.id} 
-                            className="flex items-center justify-between p-3 rounded-lg"
-                            style={{ 
-                              backgroundColor: tip.color || '#f3f4f6'
-                            }}
-                          >
-                            <span className="text-sm font-medium flex-1">
-                              {tip.title}
-                            </span>
-                            <input
-                              type="checkbox"
-                              checked={selectedTipIds.includes(tip.id)}
-                              onChange={(e) => {
-                                if (e.target.checked) {
-                                  setSelectedTipIds(prev => [...prev, tip.id]);
-                                } else {
-                                  setSelectedTipIds(prev => prev.filter(id => id !== tip.id));
-                                }
+                  {entryType === 'tip' && (
+                    <div className="space-y-4">
+                      <div>
+                        <Label className="text-base mb-3 block font-semibold">Vilka tips följde du idag?</Label>
+                        <div className="space-y-3 max-h-60 overflow-y-auto">
+                          {tips.map((tip) => (
+                            <div 
+                              key={tip.id} 
+                              className="flex items-center justify-between p-3 rounded-lg border"
+                              style={{ 
+                                backgroundColor: tip.color || '#f3f4f6',
+                                borderColor: tip.color ? `${tip.color}80` : '#e5e7eb'
                               }}
-                              className="h-5 w-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                            />
-                          </div>
-                        ))}
+                            >
+                              <Label htmlFor={`tip-${tip.id}`} className="flex-1 cursor-pointer text-sm font-medium">
+                                {tip.title}
+                              </Label>
+                              <input
+                                id={`tip-${tip.id}`}
+                                type="checkbox"
+                                checked={selectedTipIds.includes(tip.id)}
+                                onChange={(e) => {
+                                  if (e.target.checked) {
+                                    setSelectedTipIds(prev => [...prev, tip.id]);
+                                  } else {
+                                    setSelectedTipIds(prev => prev.filter(id => id !== tip.id));
+                                  }
+                                }}
+                                className="h-5 w-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                              />
+                            </div>
+                          ))}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                )}
+                  )}
 
-                {entryType === 'weight' && (
-                  <div>
-                    <Label htmlFor="weight-input" className="text-base mb-2 block">Vikt (kg)</Label>
-                    <Input
-                      id="weight-input"
-                      type="number"
-                      step="0.1"
-                      value={weightInput}
-                      onChange={(e) => setWeightInput(e.target.value)}
-                      placeholder="Ange vikt i kg"
-                      className="w-full"
-                    />
-                  </div>
-                )}
-
-                {entryType === 'bloodPressure' && (
-                  <div className="space-y-3">
+                  {entryType === 'weight' && (
                     <div>
-                      <Label htmlFor="systolic-input" className="text-base mb-2 block">Systoliskt (övre värde)</Label>
+                      <Label htmlFor="weight-input" className="text-base mb-2 block">Vikt (kg)</Label>
                       <Input
-                        id="systolic-input"
+                        id="weight-input"
                         type="number"
-                        value={systolicInput}
-                        onChange={(e) => setSystolicInput(e.target.value)}
-                        placeholder="T.ex. 120"
+                        step="0.1"
+                        value={weightInput}
+                        onChange={(e) => setWeightInput(e.target.value)}
+                        placeholder="Ange vikt i kg"
                         className="w-full"
                       />
                     </div>
-                    <div>
-                      <Label htmlFor="diastolic-input" className="text-base mb-2 block">Diastoliskt (nedre värde)</Label>
-                      <Input
-                        id="diastolic-input"
-                        type="number"
-                        value={diastolicInput}
-                        onChange={(e) => setDiastolicInput(e.target.value)}
-                        placeholder="T.ex. 80"
-                        className="w-full"
-                      />
-                    </div>
-                  </div>
-                )}
-              </div>
+                  )}
 
-              <DialogFooter className="gap-3">
-                <Button variant="outline" onClick={() => setDialogOpen(false)} className="text-base py-6 min-h-[56px]">
-                  Avbryt
-                </Button>
-                <Button onClick={handleSaveEntry} className="text-base py-6 min-h-[56px]">
-                  Spara
-                </Button>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
+                  {entryType === 'bloodPressure' && (
+                    <div className="space-y-3">
+                      <div>
+                        <Label htmlFor="systolic-input" className="text-base mb-2 block">Systoliskt (övre värde)</Label>
+                        <Input
+                          id="systolic-input"
+                          type="number"
+                          value={systolicInput}
+                          onChange={(e) => setSystolicInput(e.target.value)}
+                          placeholder="T.ex. 120"
+                          className="w-full"
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="diastolic-input" className="text-base mb-2 block">Diastoliskt (nedre värde)</Label>
+                        <Input
+                          id="diastolic-input"
+                          type="number"
+                          value={diastolicInput}
+                          onChange={(e) => setDiastolicInput(e.target.value)}
+                          placeholder="T.ex. 80"
+                          className="w-full"
+                        />
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                <DialogFooter className="gap-3">
+                  <Button variant="outline" onClick={() => setDialogOpen(false)} className="text-base py-6 min-h-[56px]">
+                    Avbryt
+                  </Button>
+                  <Button onClick={handleSaveEntry} className="text-base py-6 min-h-[56px]">
+                    Spara
+                  </Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
 
       <div className="grid grid-cols-2 gap-0 -mt-8 pt-0">
         <div className="py-6 pr-6 pl-0 border-r border-t">
