@@ -38,20 +38,26 @@ const Progress = () => {
   const [weightInput, setWeightInput] = useState("");
   const [systolicInput, setSystolicInput] = useState("");
   const [diastolicInput, setDiastolicInput] = useState("");
+  const [highestStreak, setHighestStreak] = useState(0);
   
-  // Load day logs from localStorage
+  // Load day logs and highest streak from localStorage
   useEffect(() => {
     const savedLogs = localStorage.getItem('dayLogs');
     if (savedLogs) {
       const parsed = JSON.parse(savedLogs);
       setDayLogs(parsed);
     }
+    
+    const savedHighestStreak = localStorage.getItem('highestStreak');
+    if (savedHighestStreak) {
+      setHighestStreak(parseInt(savedHighestStreak));
+    }
   }, []);
 
   // Update achievement days based on day logs
   useEffect(() => {
     const achievedDays = dayLogs
-      .filter(log => log.entries.some(entry => entry.type === 'tip' && entry.value >= 500))
+      .filter(log => log.entries.some(entry => entry.type === 'tip'))
       .map(log => new Date(log.date));
     setAchievementDays(achievedDays);
 
@@ -64,6 +70,13 @@ const Progress = () => {
       .filter(log => log.entries.some(entry => entry.type === 'bloodPressure'))
       .map(log => new Date(log.date));
     setBloodPressureDays(bpLogDays);
+    
+    // Update highest streak if current streak is higher
+    const currentStreakValue = getCurrentStreak();
+    if (currentStreakValue > highestStreak) {
+      setHighestStreak(currentStreakValue);
+      localStorage.setItem('highestStreak', currentStreakValue.toString());
+    }
   }, [dayLogs]);
 
   const getDaysWithGoalThisMonth = () => {
