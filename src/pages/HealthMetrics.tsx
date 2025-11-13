@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { BackToTodayButton } from "@/components/BackToTodayButton";
-import { sectionHeading, sectionSubheading, cardText, labelText, headerContainer, secondaryButton, disabledButton, compactCard, pageContainer, pagePadding, placeholderText} from "@/lib/design-tokens";
+import { sectionHeading, sectionSubheading, cardText, labelText, headerContainer, secondaryButton, disabledButton, compactCard, pageContainer, pagePadding, placeholderText, bodyTextBald, bodyText} from "@/lib/design-tokens";
 import { getStorageItem, setStorageItem } from "@/lib/storage";
 import { healthMetricsSchema, completedActivitiesSchema } from "@/lib/schemas";
 import { markCardCompleted } from "@/lib/card-completion";
@@ -118,21 +118,20 @@ const HealthMetrics = () => {
       <div className={headerContainer}>
         <BackToTodayButton />
         <h1 className={sectionHeading}>Vikt och blodtryck</h1>
-        <p className={sectionSubheading}>Fyll i dina startvärden här. Du kan uppdatera dem senare under "Mina sidor"</p>
       </div>
     
       <div className={`${pagePadding} space-y-6`}>
-
+        <p className={bodyText}>Fyll i dina startvärden här. Uppdatera dem senare under "Mina sidor"</p>
         <Card className={compactCard}>
           <div className="space-y-4">
             <Label htmlFor="height" className={labelText}>Hur lång är du (cm)?</Label>
             <Input 
               id="height" 
               type="number" 
-              placeholder="T.ex. 175" 
+              placeholder="Ex: 175" 
               value={height} 
               onChange={(e) => setHeight(e.target.value)} 
-              className="text-lg" 
+              className={placeholderText} 
               min="0" 
               max="240"
             />
@@ -145,7 +144,7 @@ const HealthMetrics = () => {
             <Input 
               id="weight" 
               type="number" 
-              placeholder="T.ex. 79.3" 
+              placeholder="Ex: 103,3" 
               value={weight} 
               onChange={(e) => setWeight(e.target.value)} 
               className={placeholderText}
@@ -164,7 +163,7 @@ const HealthMetrics = () => {
                   type="button" 
                   variant="ghost" 
                   onClick={handleSkipBloodPressure}
-                  className="text-sm text-muted-foreground hover:text-foreground"
+                  className={bodyTextBald}
                 >
                   Fyll i senare
                 </Button>
@@ -178,10 +177,10 @@ const HealthMetrics = () => {
                   <Input 
                     id="systolic" 
                     type="number" 
-                    placeholder="T.ex. 120" 
+                    placeholder="Ex: 120" 
                     value={systolic} 
                     onChange={(e) => setSystolic(e.target.value)} 
-                    className="text-lg" 
+                    className={placeholderText}
                     min="0" 
                   />
                 </div>
@@ -190,10 +189,10 @@ const HealthMetrics = () => {
                   <Input 
                     id="diastolic" 
                     type="number" 
-                    placeholder="T.ex. 80" 
+                    placeholder="Ex: 80" 
                     value={diastolic} 
                     onChange={(e) => setDiastolic(e.target.value)} 
-                    className="text-lg" 
+                    className={placeholderText}
                     min="0" 
                   />
                 </div>
@@ -202,7 +201,7 @@ const HealthMetrics = () => {
             ) : (
               <div className="bg-gray-50 p-4 rounded-lg">
                 <p className={`text-sm ${cardText} text-muted-foreground text-center`}>
-                  Du kan lägga till blodtryck senare under "Mina sidor" om du vill.
+                  Lägga till blodtryck senare under "Mina sidor"
                 </p>
               </div>
             )}
