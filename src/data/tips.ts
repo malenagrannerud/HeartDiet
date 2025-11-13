@@ -24,7 +24,10 @@ export const tips: Tip[] = [
     color: tipCardColors.green,
     //healthScore: 8,
     freq: `Dagligen`,
-    detailedInfo: `Att äta fem nävar frukt och grönt per dag ger dej stora hälsofördelar. Fem nävar är ungefär 500 g. 
+    detailedInfo: `
+    Att äta fem nävar frukt och grönt per dag ger dej stora hälsofördelar. 
+    
+    Fem nävar är ungefär 500 g. 
 
     Hit räknas
     • rotfrukter
@@ -69,7 +72,8 @@ export const tips: Tip[] = [
     color: tipCardColors.amber,
     //healthScore: 3,
     freq: `Dagligen`,
-    detailedInfo: `Att få i sig minst 3 dl fullkorn om dagen minskar risken för 
+    detailedInfo: `
+    Att få i sig minst 3 dl fullkorn om dagen minskar risken för 
     • kranskärlsjukdom, 
     • tarmcancer, 
     • typ 2-diabetes och 
@@ -102,8 +106,13 @@ export const tips: Tip[] = [
     title: "Fisk och skaldjur",
     color: tipCardColors.cyan,
     //healthScore: 3,
-    freq: `Dagligen`,
-    detailedInfo:`Fisk och skaldjur innehåller protein, D-vitamin, jod och selen. 
+    freq: `Veckovis`,
+    detailedInfo:`
+    
+    Att äta fisk och skaldjur min 3 gånger i veckan 
+    
+    
+    Fisk och skaldjur innehåller protein, D-vitamin, jod och selen. 
       Fet fisk innehåller dessutom omega-3-fettsyror som är viktiga för hjärtat och hjärnan.,
 
        "Planera två fiskmiddagar varje vecka",
@@ -131,7 +140,13 @@ export const tips: Tip[] = [
     color: tipCardColors.yellow,
     //healthScore: 3,
     freq: `Dagligen`,
-    detailedInfo:`Omättade fetter från växtoljor, flytande margarin, nötter och fet fisk är nyttigt.
+    detailedInfo:`
+    
+    
+    Att få i sig omättade fetter varje dag 
+    
+    
+    Omättade fetter från växtoljor, flytande margarin, nötter och fet fisk är nyttigt.
     
       "Byt ut smör mot flytande margarin på mackan",
       "Använd rapsolja eller olivolja vid matlagning",
@@ -159,7 +174,11 @@ export const tips: Tip[] = [
     color: tipCardColors.lightblue,
     //healthScore: 3,
     freq: `Dagligen`,
-    detailedInfo:`Magra mejeriprodukter innehåller kalcium, protein, jod, D-vitaminer m.fl.
+    detailedInfo:`
+    
+    Att välja magra mejeriprodukter 
+    
+    Magra mejeriprodukter innehåller kalcium, protein, jod, D-vitaminer m.fl.
      Det är bra för sklett ..... 
 
     Feta mejerier innehåller dock mättat fett. Ett glas standardmjölk innehåller
@@ -191,9 +210,13 @@ export const tips: Tip[] = [
     title: "Rött och bearbetat kött",
     color: tipCardColors.darkrose,
     //healthScore: 3,
-    freq: `Dagligen`,
-    detailedInfo: `Kött innehåller protein, järn och B-vitaminer, men ett stort intag ökar risken för tjocktarmscancer.
-    Att äta max 500 g kött per vecka, minskar risken för tjocktarmscancer. 
+    freq: `Veckovis`,
+    detailedInfo: `
+    
+    Att äta max 500 g kött per vecka, minskar risken för tjocktarmscancer.
+    
+    Kött innehåller protein, järn och B-vitaminer, men ett stort intag ökar risken för tjocktarmscancer.
+     
     
     och framförallt begränsa bearbetated köttprodukter
     Begränsa chark, korv och andra bearbetade köttprodukter
@@ -220,7 +243,11 @@ export const tips: Tip[] = [
     color: tipCardColors.graygreen,
     //healthScore: 4,
     freq: `Dagligen`,
-    detailedInfo: `Salt förhöjer smaken på maten och innehåller mineraler. 
+    detailedInfo: `
+    
+    Att äta max 6 gram salt per dag 
+    
+    Salt förhöjer smaken på maten och innehåller mineraler. 
     För mycket salt ökar risken för högt blodtryck. 
     Ät max 6 gram salt per dag - det motsvarar en tesked. 
     Använd joderat salt och undvik att salta för mycket.",
@@ -251,6 +278,11 @@ export const tips: Tip[] = [
     //healthScore: 4,
     freq: `Dagligen`,
     detailedInfo:`
+
+    Att minska på portionerna vid varje mål
+
+
+
       "Energibehovet varierar mellan personer beroende på ålder, kön och hur mycket du rör dig. Ät lagom mycket för att hålla en hälsosam vikt.",
       "Använd mindre tallrikar för att kontrollera portioner",
       "Ät långsamt och känn efter när du är mätt",
@@ -277,7 +309,11 @@ export const tips: Tip[] = [
     color: tipCardColors.lightgreen,
     //healthScore: 5,
     freq: `Dagligen`,
-    detailedInfo: `Fysisk aktivitet stärker din kropp både fysiskt och psykiskt. 
+    detailedInfo: `
+    
+    Att röra på sig minst 30 minuter per dag 
+    
+    Fysisk aktivitet stärker din kropp både fysiskt och psykiskt. 
 
        är en viktig del av en hälsosam livsstil. Rör på dig minst 30 minuter om dagen med måttlig intensitet.",
      "Gå en 30 minuters promenad varje dag",
@@ -306,7 +342,11 @@ export const tips: Tip[] = [
     color: tipCardColors.orange,
     //healthScore: 3,
     freq: `Dagligen`,
-    detailedInfo: `Bönor, linser och ärtor är bra proteinkällor och innehåller fibrer.
+    detailedInfo: `
+    
+    Att äta 
+    
+    Bönor, linser och ärtor är bra proteinkällor och innehåller fibrer.
       "Baljväxter som bönor, linser, ärtor och kikärtor
        innehåller protein, fibrer, vitaminer och mineraler. 
       De är klimatsmarta alternativ till kött.",
@@ -336,7 +376,10 @@ export const tips: Tip[] = [
     color: tipCardColors.purple,
    // healthScore: 3,
     freq: `Dagligen`,
-    detailedInfo: `Sötsaker är trevligt vid speciella tillfällen. 
+    detailedInfo: `
+    
+    Att minska på sockret 
+    Sötsaker är trevligt vid speciella tillfällen. 
     För mycket är dock skadligt för hjärtat och blodtrycket. 
     
     
