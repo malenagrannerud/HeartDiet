@@ -24,11 +24,10 @@ export const tips: Tip[] = [
     color: tipCardColors.green,
     //healthScore: 8,
     freq: `Dagligen`,
-    detailedInfo: `
-    Att äta minst fem nävar frukter och grönsaker varje dag hjälper dig att 
+    detailedInfo: `Att äta minst fem nävar frukter och grönsaker varje dag hjälper dig att 
     må bättre just nu samtidigt som det minskar risken för hjärt-kärlsjukdomar på sikt.
 
-    Det hjälper dig att må bättre eftersom frukt och grönsaker innehåller näringsämnen
+    Du mår bättre eftersom frukt och grönt innehåller näringsämnen
     som ger dig mer energi, förbättrar matsmältningen och stärker kroppens försvar. 
     Du kommer att känna dig piggare och friskare i vardagen, med 
     bättre humör och mindre trötthet.
