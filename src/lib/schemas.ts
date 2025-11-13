@@ -26,6 +26,7 @@ export const healthPrioritiesSchema = z.object({
 // Health metrics schema
 export const healthMetricsSchema = z.object({
   weight: z.string(),
+  height: z.string(),
   systolic: z.string(),
   diastolic: z.string(),
   date: z.string(),

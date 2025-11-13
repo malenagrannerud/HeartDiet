@@ -15,6 +15,7 @@ import { format } from "date-fns";
 const HealthMetrics = () => {
   const navigate = useNavigate();
   const [weight, setWeight] = useState("");
+  const [height, setHeight] = useState("");
   const [systolic, setSystolic] = useState("");
   const [diastolic, setDiastolic] = useState("");
 
@@ -22,6 +23,7 @@ const HealthMetrics = () => {
     const metrics = getStorageItem('healthMetrics', healthMetricsSchema);
     if (metrics) {
       setWeight(metrics.weight || "");
+      setHeight(metrics.height || "");
       setSystolic(metrics.systolic || "");
       setDiastolic(metrics.diastolic || "");
     }
@@ -29,7 +31,7 @@ const HealthMetrics = () => {
 
   const handleSubmit = () => {
     // Save to healthMetrics storage (original functionality)
-    const metrics = { weight, systolic, diastolic, date: new Date().toISOString() };
+    const metrics = { weight, height, systolic, diastolic, date: new Date().toISOString() };
     setStorageItem('healthMetrics', metrics, healthMetricsSchema);
     localStorage.setItem('healthMetricsCompleted', 'true');
     
@@ -47,9 +49,9 @@ const HealthMetrics = () => {
       existingDayLogs.push(todayLog);
     }
     
-    // Remove any existing weight and blood pressure entries for today
+    // Remove any existing weight, height and blood pressure entries for today
     todayLog.entries = todayLog.entries.filter((entry: any) => 
-      entry.type !== 'weight' && entry.type !== 'bloodPressure'
+      entry.type !== 'weight' && entry.type !== 'height' && entry.type !== 'bloodPressure'
     );
     
     // Add new entries
@@ -57,6 +59,13 @@ const HealthMetrics = () => {
       todayLog.entries.push({
         type: 'weight',
         value: parseFloat(weight)
+      });
+    }
+    
+    if (height) {
+      todayLog.entries.push({
+        type: 'height',
+        value: parseFloat(height)
       });
     }
     
@@ -76,7 +85,7 @@ const HealthMetrics = () => {
     const activitiesArray = Array.isArray(activities) ? activities : [];
     activitiesArray.push({
       id: 'health-metrics',
-      title: 'Vikt och blodtryck',
+      title: 'Vikt, längd och blodtryck',
       completedDate: new Date().toISOString(),
       type: 'health-metrics'
     });
@@ -97,18 +106,26 @@ const HealthMetrics = () => {
 
           <h1 className={sectionHeading}>Vikt och blodtryck</h1>
           <p className={sectionSubheading}> Fyll i dina startvärden här. Du kan uppdatera dem senare under "Mina sidor"</p>
-        </div>
+      </div>
     
       <div className={`${pagePadding} space-y-6`}>
 
-
+        {/* FIXED: Added opening < for the Card component */}
         <Card className={compactCard}>
           <div className="space-y-4">
-            <Label htmlFor="weight" className={labelText}>Hur lång är du (cm)?</Label>
-            <Input id="weight" type="number" placeholder="T.ex. 175" value={weight} onChange={(e) => setWeight(e.target.value)} className="text-lg" step="0.1" min="0" />
+            <Label htmlFor="height" className={labelText}>Hur lång är du (cm)?</Label>
+            <Input 
+              id="height" 
+              type="number" 
+              placeholder="T.ex. 175" 
+              value={height} 
+              onChange={(e) => setHeight(e.target.value)} 
+              className="text-lg" 
+              min="0" 
+              max="240"
+            />
           </div>
         </Card>
-
 
         
         <Card className={compactCard}>
