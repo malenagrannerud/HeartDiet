@@ -25,35 +25,42 @@ export const tips: Tip[] = [
     //healthScore: 8,
     freq: `Dagligen`,
     detailedInfo: `
-    Att äta fem nävar frukt och grönt per dag ger dej stora hälsofördelar. 
-    
+    Att äta minst fem nävar frukter och grönsaker varje dag hjälper dig att må bättre just nu samtidigt som det minskar risken för hjärt-kärlsjukdomar på sikt.
+
+    Det hjälper dig att må bättre eftersom frukt och grönsaker innehåller näringsämnen som ger dig mer energi, 
+    förbättrar matsmältningen och stärker kroppens försvar. 
+    Du kommer att känna dig piggare och friskare i vardagen, med bättre humör och mindre trötthet.
+
+    Det minskar risken för hjärtsjukdom eftersom frukt och grönsaker innehåller kalium som sänker blodtrycket och 
+    antioxidanter som skyddar dina blodkärl. Samtidigt hjälper kostfibren att minska kolesterolet, vilket förhindrar förtjockning av blodkärlens väggar.
+
+
     Fem nävar är ungefär 500 g. 
 
     Hit räknas
     • rotfrukter
     • frukt & bär 
     • frysta grönsaker & grönsaker i maten du lagar 
+
+
+
     
-    Att få i sig fem nävar per dag minskar risken för 
-      • hjärt- och kärlsjukdom, 
-      • vissa former av cancer samt
-      • förtidig död
-    Det beror på att frukt och grönt innehåller fibrer och antioxidanter.  
+
     
     För att få i dej dina fem nävar om dagen, prova stegen: 
     `,
     steps: [
 
       {
-        heading: "Vad du kan behöva inför veckan",
-        content: "Burkar och behållare (PVC fria). Frukter, grönsaker, vinjägrett "
+        heading: "Lägg till en portion till varje måltid",
+        content: ".... "
       },
       {
-        heading: "Steg 1 - Planera veckans meny",
-        content: "Tänk ut vad du vill äta i veckan. Leta efter nya recept. Till exempel: smoothies, soppor, råkostsallad, sallad med rotsaker eller rotmos?"
+        heading: "Steg 1 - Lägg till en näve till frukost",
+        content: "Till exempel: Gör en smoothie, som du kan spara i kylen. Gör en fruktsallad. "
       },
       {
-        heading: "Steg 2 - Gör en shoppinglista",
+        heading: "Steg 2 - Lägg till en näve sallad till lunchen",
         content: "När din veckomeny är färdig, tänk efter vad som finns hemma. Gör en shoppinglista för veckan. Glöm inte frysta bär och grönsaker. ",
       },
       {
@@ -73,7 +80,21 @@ export const tips: Tip[] = [
     //healthScore: 3,
     freq: `Dagligen`,
     detailedInfo: `
-    Att få i sig minst 3 dl fullkorn om dagen minskar risken för 
+    Att få i sig minst 90 g fullkorn om dagen dig stabil energi, bättre matsmältning, 
+    hjälper med vikthantering och minskar risken för hjärt-kärlsjukdom, typ 2-diabetes samt tjock- och ändtarmscancer.
+
+
+    Fullkorns unika kombination av kostfiber ger långsammare energiåtergivning och bättre mättnad, 
+    medan B-vitaminer och järn bidrar till uthållig energi och bra blodbildning. 
+    Magnesium och zink stöttar muskler och immunförsvar, och E-vitamin med antioxidanter 
+    skyddar dina celler och hjärta. Genom att behålla alla delar av kärnan – grodd, kli och mjölkkropp – 
+    får du en fullständig näringskombination som samverkar för din långsiktiga hälsa.
+    
+    
+    
+    
+    
+    minskar risken för 
     • kranskärlsjukdom, 
     • tarmcancer, 
     • typ 2-diabetes och 
