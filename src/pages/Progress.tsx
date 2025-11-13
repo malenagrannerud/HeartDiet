@@ -4,18 +4,15 @@ import { Calendar } from "@/components/ui/calendar";
 import { format, isSameDay } from "date-fns";
 import { sv } from "date-fns/locale";
 import { pageTitle, pageSubtitle, pageContainer, pagePadding } from "@/lib/design-tokens";
+
 import { useProgress } from "@/hooks/use-progress";
 import { ProgressDialog } from "@/components/ProgressDialog";
 import { ProgressStats } from "@/components/ProgressStats";
 import { ProgressCharts } from "@/components/ProgressCharts";
 
 /**
- * Progress Tracking Page - Displaying and managing user progress
- * Features:
- * - Interactive calendar with achievement indicators
- * - Statistics for completed days and streaks
- * - Charts for weight and blood pressure trends
- * - Dialog for logging new entries and editing existing ones
+ * Progress Tracking Page
+ * Main component for displaying and managing user progress
  */
 const Progress = () => {
   const navigate = useNavigate();
@@ -28,8 +25,8 @@ const Progress = () => {
   const [systolicInput, setSystolicInput] = useState("");
   const [diastolicInput, setDiastolicInput] = useState("");
 
-  
-  const {       // Use custom hook for progress state management
+  // Use custom hook for progress state management
+  const {
     dayLogs,
     setDayLogs,
     achievementDays,
@@ -41,7 +38,6 @@ const Progress = () => {
 
   /**
    * Handles calendar day clicks to open the entry dialog
-   * @param clickedDate The date that was clicked on the calendar
    */
   const handleDayClick = (clickedDate: Date | undefined) => {
     const dateToUse = clickedDate || new Date();
@@ -55,8 +51,7 @@ const Progress = () => {
   };
 
   /**
-   * Saves new entry || updates existing entries for the date
-   * Handles all three entry types: tips, weight, and blood pressure
+   * Saves a new entry or updates existing entries for the selected date
    */
   const handleSaveEntry = () => {
     if (!selectedDate) return;
@@ -65,12 +60,11 @@ const Progress = () => {
     const existingLog = dayLogs.find(log => log.date === dateStr);
     const newEntries = existingLog ? [...existingLog.entries] : [];
 
-    // Add new entries based on entry type
     if (entryType === 'tip') {
       selectedTipIds.forEach(tipId => {
         newEntries.push({ 
           type: 'tip', 
-          value: 1, // Mark as completed
+          value: 1,
           tipId: tipId 
         });
       });
@@ -86,20 +80,20 @@ const Progress = () => {
         value2: diastolic 
       });
     }
-    // Update day logs if new entries were added
+    
     if (newEntries.length > (existingLog?.entries.length || 0)) {
       const updatedLogs = dayLogs.filter(log => log.date !== dateStr);
       updatedLogs.push({ date: dateStr, entries: newEntries });
       setDayLogs(updatedLogs);
       localStorage.setItem('dayLogs', JSON.stringify(updatedLogs));
     }
+    
     setDialogOpen(false);
     setSelectedTipIds([]);
   };
 
   /**
    * Deletes a specific entry from the selected date
-   * @param entryIndex Index of the entry to delete
    */
   const handleDeleteEntry = (entryIndex: number) => {
     if (!selectedDate) return;
@@ -111,7 +105,6 @@ const Progress = () => {
       const updatedEntries = existingLog.entries.filter((_, index) => index !== entryIndex);
       let updatedLogs;
       
-      // Remove entire day log if no entries remain, otherwise update entries
       if (updatedEntries.length === 0) {
         updatedLogs = dayLogs.filter(log => log.date !== dateStr);
       } else {
@@ -125,12 +118,11 @@ const Progress = () => {
     }
   };
 
-  const daysThisMonth = getDaysWithGoalThisMonth(date); // Calculate statistics for display
+  const daysThisMonth = getDaysWithGoalThisMonth(date);
   const currentStreak = getCurrentStreak();
 
   return (
     <div className={`${pageContainer} ${pagePadding} space-y-6`}>
-      {/* Page Header */}
       <header className="flex items-start justify-between">
         <div>
           <h1 className={pageTitle}>Mina sidor</h1>
@@ -138,7 +130,7 @@ const Progress = () => {
         </div>
       </header>
 
-      {/* Interactive Calendar */}
+      {/* Fixed Calendar Section */}
       <div className="pt-6 pb-0 flex justify-center">
         <Calendar
           mode="single"
@@ -154,26 +146,18 @@ const Progress = () => {
             achievement: achievementDays,
             weight: weightDays,
             bloodPressure: bloodPressureDays,
+            today: new Date()
           }}
-          modifiersStyles={{
-            achievement: { 
-              backgroundColor: "rgb(16 185 129)", // emerald-500
-              color: "white",
-              fontWeight: "bold",
-              borderRadius: "9999px"
-            },
-            weight: {
-              position: "relative"
-            },
-            bloodPressure: {
-              position: "relative"
-            }
+          modifiersClassNames={{
+            achievement: "achievement-day",
+            today: "today-day",
+            weight: "weight-day", 
+            bloodPressure: "bp-day"
           }}
           className="rounded-md border"
         />
       </div>
 
-      {/* Entry Dialog */}
       <ProgressDialog
         open={dialogOpen}
         onOpenChange={setDialogOpen}
@@ -193,16 +177,14 @@ const Progress = () => {
         onDeleteEntry={handleDeleteEntry}
       />
 
-      {/* Progress Statistics */}
       <ProgressStats 
         daysThisMonth={daysThisMonth}
         currentStreak={currentStreak}
       />
 
-      {/* Progress Charts */}
       <ProgressCharts dayLogs={dayLogs} />
 
-      {/* Debug Information - Remove in production */}
+      {/* Debug Information */}
       <div className="fixed bottom-4 left-4 bg-black text-white p-2 text-xs z-50">
         Tips: {dayLogs.filter(log => log.entries.some(entry => entry.type === 'tip')).length} days
         <br />
@@ -210,6 +192,50 @@ const Progress = () => {
         <br />
         Last Tip: {dayLogs.filter(log => log.entries.some(entry => entry.type === 'tip')).slice(-1)[0]?.date || 'None'}
       </div>
+
+      {/* Add minimal CSS fixes */}
+      <style>{`
+        /* Fix for achievement days - ensure text is visible */
+        .achievement-day button {
+          position: relative;
+          background-color: rgb(16 185 129) !important; /* emerald-500 */
+          color: white !important;
+          font-weight: bold;
+        }
+        
+        /* Today's date styling */
+        .today-day button {
+          font-weight: bold;
+          border: 2px solid #2563eb !important; /* blue-600 */
+        }
+        
+        /* Ensure selected date is visible */
+        .rdp-day_selected button {
+          background-color: hsl(var(--primary)) !important;
+          color: hsl(var(--primary-foreground)) !important;
+        }
+        
+        /* Fix for weight and BP indicator positioning */
+        .weight-day button::before,
+        .bp-day button::before {
+          content: '';
+          position: absolute;
+          top: 2px;
+          left: 2px;
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          z-index: 10;
+        }
+        
+        .weight-day button::before {
+          background-color: #000;
+        }
+        
+        .bp-day button::before {
+          background-color: #e11d48; /* rose-600 */
+        }
+      `}</style>
     </div>
   );
 };
