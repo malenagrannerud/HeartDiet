@@ -141,7 +141,7 @@ export const tips: Tip[] = [
     Feta fiskar, som lax, sill och makrill, är rika på omega-3-fetter. De minskar risken för 
     hjärt- och kärlsjukdom eftersom de minskar inflammationer i blodkärlen, sänker blodfetter,
      och gör blodet tunnare vilket förhindrar farliga blodproppar. Dessutom stabiliseras hjärtats
-      elektriska system vilket förhindrar hjärtrytmsrubbningar.
+     elektriska system vilket förhindrar hjärtrytmsrubbningar.
     
     Omega-3-fetter är viktiga för hjärnans utveckling och funktion eftersom Omega-3 :
     • gör cellmembranen flexibla och porösa, vilket förbättrar kommunikationen mellan hjärnceller.
@@ -170,13 +170,23 @@ export const tips: Tip[] = [
     color: tipCardColors.yellow,
     //healthScore: 3,
     freq: `Dagligen`,
-    detailedInfo:`
+    detailedInfo:` 
+
+   Att få i sig mer omättade fetter och mindre mättade, minskar risken 
+   för hjärt- och kärlsjukdom avsevärt.
     
-    
-    Att få i sig omättade fetter varje dag 
-    
-    
-    Omättade fetter från växtoljor, flytande margarin, nötter och fet fisk är nyttigt.
+   Omättade fetter finns i t.ex. rapsolja, olivolja, nötter och fisk. 
+   
+   De minskar risken för hjärt kärlsjukdom eftersom de 
+   • sänker det dåliga kolesterol som lägger sig i kärlväggarna och orsakar förtjockning.
+   • minskar inflammation i blodkärlen, vilket är en grundläggande orsak till åderförfettning. 
+   • gör blodet mindre benäget att levra sig, vilket förhindrar blodproppar. 
+
+    Mättade fetter från t.ex. smör, rött kött, palmolja har motsatt effekt, 
+    de höjer LDL-kolesterol och ökar inflammation. 
+    Genom bytesprincipen får du alltså en trippelverkan: lägre dåligt 
+    kolesterol, mindre inflammation och tunnare blod.
+
     
       "Byt ut smör mot flytande margarin på mackan",
       "Använd rapsolja eller olivolja vid matlagning",
