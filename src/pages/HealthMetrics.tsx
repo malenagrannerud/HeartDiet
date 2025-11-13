@@ -104,7 +104,7 @@ const HealthMetrics = () => {
 
         <Card className={compactCard}>
           <div className="space-y-4">
-            <Label htmlFor="weight" className={labelText}>Hur lång är du?</Label>
+            <Label htmlFor="weight" className={labelText}>Hur lång är du (cm)?</Label>
             <Input id="weight" type="number" placeholder="T.ex. 175" value={weight} onChange={(e) => setWeight(e.target.value)} className="text-lg" step="0.1" min="0" />
           </div>
         </Card>
@@ -113,8 +113,8 @@ const HealthMetrics = () => {
         
         <Card className={compactCard}>
           <div className="space-y-4">
-            <Label htmlFor="weight" className={labelText}>Hur mycket väger du?</Label>
-            <Input id="weight" type="number" placeholder="T.ex. 75" value={weight} onChange={(e) => setWeight(e.target.value)} className="text-lg" step="0.1" min="0" />
+            <Label htmlFor="weight" className={labelText}>Hur mycket väger du (kg)?</Label>
+            <Input id="weight" type="number" placeholder="T.ex. 79.3" value={weight} onChange={(e) => setWeight(e.target.value)} className="text-lg" step="0.1" min="0" />
           </div>
         </Card>
 
