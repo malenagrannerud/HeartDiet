@@ -285,7 +285,7 @@ export const tips: Tip[] = [
     freq: `Dagligen`,
     detailedInfo: `
     
-    Att äta max 6 gram salt per dag 
+    Att äta mindre än 6 gram salt per dag minskar risken för 
     
     Salt förhöjer smaken på maten och innehåller mineraler. 
     För mycket salt ökar risken för högt blodtryck. 
