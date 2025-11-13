@@ -55,7 +55,7 @@ export const UserPlanForm: React.FC<UserPlanFormProps> = ({
           <textarea
             value={plan.how}
             onChange={(e) => setPlan({ ...plan, how: e.target.value })}
-            placeholder="Beskriv din plan... Ex: Jag ska handla grönsaker på söndag och förbereda fruktsallad till hela veckan..."
+            placeholder="Ex: Jag ska handla grönsaker på söndag och förbereda fruktsallad till hela veckan..."
             rows={4}
             className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
