@@ -13,7 +13,6 @@ import { markCardCompleted } from "@/lib/card-completion"; // Add this import
 interface HealthPriority {
   id: string;
   label: string;
-  description: string;
 }
 
 interface Medication {
@@ -26,28 +25,27 @@ interface Medication {
 const healthPriorities: HealthPriority[] = [
   {
     id: "cholesterol",
-    label: "Sänk mitt kolesterol",
-    description: "Få tips om hälsosamma fetter och mat som sänker kolesterolet."
+    label: "Hantera mitt kolesterol",
   },
   {
     id: "bloodPressure",
-    label: "Sänk mitt blodtryck",
-    description: "Få alternativ för att hålla koll på saltet."
+    label: "Hantera mitt blodtryck",
   },
   {
     id: "diabetes",
     label: "Minska risken för diabetes typ 2",
-    description: "Få råd om kolhydrater och socker vid typ 2-diabetes eller metabola syndromet."
   },
   {
     id: "weight",
-    label: "Viktbalans",
-    description: "Fokus på energibalans genom kost och motion."
+    label: "Gå ner i vikt",
   },
   {
     id: "general",
-    label: "Inget av ovanstående",
-    description: "Ge mig tips för att förebygga hjärt-kärlsjukdom och bli piggare"
+    label: "Bli piggare",
+  },
+    {
+    id: "general",
+    label: "Förebygg livsstilsrelaterade sjukdomar",
   }
 ];
 
@@ -155,14 +153,10 @@ const HealthPriorities = () => {
   return (
     <div className={pageContainer}>
       <div className={headerContainer}>
-        
           <BackToTodayButton />
-        <h1 className={sectionHeading}>Mina mål</h1>
-      <p className={sectionSubheading2}>Bocka i dina hälsomål och läkemedel du tar regelbundet. Du kan när som helst ändra detta under "Mina sidor - Inställningar</p>
-    </div>
+        <h1 className={sectionHeading}>Mina hälsomål</h1>
+      </div>
       
-
-      {/* STANDARDIZATION: space-y-6 for sections, space-y-4 for card lists */}
       <div className={`${pagePadding} space-y-6`}>
         <section>
           <h2 className={`${sectionHeading2} mb-2`}>Hälsomål</h2>
@@ -170,22 +164,17 @@ const HealthPriorities = () => {
             {healthPriorities.map((priority) => (
               <Card key={priority.id} className={standardCard}>
                 <label className="flex items-start gap-4 cursor-pointer">
+                  <div className="flex-1">
+                    <div className={`${cardTitle} text-lg mb-1`}>
+                      {priority.label}
+                    </div>
+                  </div>
                   <Checkbox
                     checked={selectedPriorities.includes(priority.id)}
                     onCheckedChange={() => handlePriorityToggle(priority.id)}
                     className="mt-1 h-6 w-6 flex-shrink-0"
                     aria-label={priority.label}
                   />
-                  <div className="flex-1">
-                    <div className={`${cardTitle} text-lg mb-1`}>
-                      {priority.label}
-                    </div>
-                    {priority.description && (
-                      <p className={bodyText}>
-                        {priority.description}
-                      </p>
-                    )}
-                  </div>
                 </label>
               </Card>
             ))}
