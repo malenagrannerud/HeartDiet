@@ -100,11 +100,21 @@ const HealthMetrics = () => {
         </div>
     
       <div className={`${pagePadding} space-y-6`}>
+
+
         <Card className={compactCard}>
           <div className="space-y-4">
-            <Label htmlFor="weight" className={labelText}>Vikt (kg)</Label>
+            <Label htmlFor="weight" className={labelText}>Hur lång är du?</Label>
+            <Input id="weight" type="number" placeholder="T.ex. 175" value={weight} onChange={(e) => setWeight(e.target.value)} className="text-lg" step="0.1" min="0" />
+          </div>
+        </Card>
+
+
+        
+        <Card className={compactCard}>
+          <div className="space-y-4">
+            <Label htmlFor="weight" className={labelText}>Hur mycket väger du?</Label>
             <Input id="weight" type="number" placeholder="T.ex. 75" value={weight} onChange={(e) => setWeight(e.target.value)} className="text-lg" step="0.1" min="0" />
-            <p className={`text-sm ${cardText}`}>Ange din nuvarande vikt i kilogram</p>
           </div>
         </Card>
 
