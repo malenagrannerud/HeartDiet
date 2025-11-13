@@ -184,8 +184,9 @@ const HealthPriorities = () => {
         </section>
 
         <section className={standardSpacing.sectionContent}>
+
             <h2 className={`${sectionHeading2} mb-4`}>Läkemedel</h2>
-            <p className={`${bodyText} mb-4`}>
+            <p className={bodyText}>
               Markera läkemedel du tar regelbundet. Då kan vi påminna dej om livsmedel som du evenutellt bör undvika.
             </p>
             <div className="space-y-4">
@@ -236,6 +237,7 @@ const HealthPriorities = () => {
               ))}
             </div>
         </section>
+
         <section className={standardSpacing.sectionContent}>
           <Button
             onClick={handleSave}
@@ -245,6 +247,7 @@ const HealthPriorities = () => {
             Spara mina val
           </Button>
         </section>
+        
       </main>
     </div>
   );

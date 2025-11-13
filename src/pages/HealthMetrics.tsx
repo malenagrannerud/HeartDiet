@@ -120,7 +120,7 @@ const HealthMetrics = () => {
         <h1 className={sectionHeading}>Vikt och blodtryck</h1>
       </div>
     
-      <div className={`${pagePadding} space-y-6`}>
+      <div className={pagePadding}>
         <p className={bodyText}>Fyll i dina startvärden här. Uppdatera dem senare under "Mina sidor"</p>
         <Card className={compactCard}>
           <div className="space-y-4">
@@ -186,6 +186,7 @@ const HealthMetrics = () => {
                     max="250" 
                   />
                 </div>
+
                 <div className="space-y-3">
                   <Label htmlFor="diastolic" className={bodyText}>Undertryck (diastoliskt)</Label>
                   <Input 
