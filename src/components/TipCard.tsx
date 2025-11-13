@@ -30,7 +30,7 @@ const TipCard = ({ tip, isMarked, onToggleMark, onClick }: TipCardProps) => {
     
         <h3 className={cardTitle}>{tip.title}</h3>
         <div className={cardTitleSmall}>
-          {tip.healthScore} poäng
+          {tip.freq} 
         </div>
       </div>
     </Card>
