@@ -258,7 +258,7 @@ export const interactiveCard = "p-5 border-0 shadow-sm bg-blue-50 min-h-[80px] c
  * TIP CARD
  * p-5 padding, keeps tip-specific colors, min height 80px
  */
-export const tipCard = "p-5 hover:shadow-md transition-all cursor-pointer active:scale-[0.98] relative border-0 shadow-none min-h-[80px]";
+export const tipCard = "p-5 hover:shadow-sm transition-all cursor-pointer active:scale-[0.98] relative border-0 shadow-none min-h-[80px]";
 
 // ==========================================
 // 🎯 COMPONENT STYLES

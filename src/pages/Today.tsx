@@ -208,7 +208,7 @@ const Today = () => {
             </section>
 
             <section>
-                <h3 className={bodyTextBald}>Mina tips</h3>
+                <h3 className={bodyTextBald }>Mina tips</h3>
                 {markedTipsList.length > 0 ? (
                   <div className="space-y-6">
                     {markedTipsList.map((tip) => (
