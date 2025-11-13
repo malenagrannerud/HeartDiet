@@ -1,18 +1,16 @@
- import { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Calendar } from "@/components/ui/calendar";
 import { format, isSameDay } from "date-fns";
 import { sv } from "date-fns/locale";
 import { pageTitle, pageSubtitle, pageContainer, pagePadding } from "@/lib/design-tokens";
-
 import { useProgress } from "@/hooks/use-progress";
 import { ProgressDialog } from "@/components/ProgressDialog";
 import { ProgressStats } from "@/components/ProgressStats";
 import { ProgressCharts } from "@/components/ProgressCharts";
 
 /**
- * Progress Tracking Page
- * Main component for displaying and managing user progress
+ * Progress Tracking Page - Displaying and managing user progress
  * Features:
  * - Interactive calendar with achievement indicators
  * - Statistics for completed days and streaks
@@ -30,8 +28,8 @@ const Progress = () => {
   const [systolicInput, setSystolicInput] = useState("");
   const [diastolicInput, setDiastolicInput] = useState("");
 
-  // Use custom hook for progress state management
-  const {
+  
+  const {       // Use custom hook for progress state management
     dayLogs,
     setDayLogs,
     achievementDays,
@@ -57,7 +55,7 @@ const Progress = () => {
   };
 
   /**
-   * Saves a new entry or updates existing entries for the selected date
+   * Saves new entry || updates existing entries for the date
    * Handles all three entry types: tips, weight, and blood pressure
    */
   const handleSaveEntry = () => {
@@ -88,7 +86,6 @@ const Progress = () => {
         value2: diastolic 
       });
     }
-    
     // Update day logs if new entries were added
     if (newEntries.length > (existingLog?.entries.length || 0)) {
       const updatedLogs = dayLogs.filter(log => log.date !== dateStr);
@@ -96,7 +93,6 @@ const Progress = () => {
       setDayLogs(updatedLogs);
       localStorage.setItem('dayLogs', JSON.stringify(updatedLogs));
     }
-    
     setDialogOpen(false);
     setSelectedTipIds([]);
   };
@@ -129,8 +125,7 @@ const Progress = () => {
     }
   };
 
-  // Calculate statistics for display
-  const daysThisMonth = getDaysWithGoalThisMonth(date);
+  const daysThisMonth = getDaysWithGoalThisMonth(date); // Calculate statistics for display
   const currentStreak = getCurrentStreak();
 
   return (
@@ -148,34 +143,33 @@ const Progress = () => {
         <Calendar
           mode="single"
           selected={date}
-          onSelect={handleDayClick}
+          onSelect={(newDate) => {
+            if (newDate) {
+              setDate(newDate);
+              handleDayClick(newDate);
+            }
+          }}
           locale={sv}
           modifiers={{
             achievement: achievementDays,
             weight: weightDays,
-            bloodPressure: bloodPressureDays
-          }}
-          modifiersClassNames={{
-            achievement: "relative before:content-[''] before:absolute before:inset-[8px] before:bg-emerald-500 before:rounded-full before:z-10 !text-blue-900 font-bold"
+            bloodPressure: bloodPressureDays,
           }}
           modifiersStyles={{
-            achievement: { backgroundColor: "transparent" }
-          }}
-          components={{
-            DayContent: (props) => {
-              const hasWeight = weightDays.some(d => isSameDay(d, props.date));
-              const hasBP = bloodPressureDays.some(d => isSameDay(d, props.date));
-              return (
-                <div className="relative w-full h-full flex items-center justify-center">
-                  <div className="absolute top-0.5 left-0.5 flex flex-col gap-1">
-                    {hasBP && <span className="text-[10px] leading-none text-rose-600">♥</span>}
-                    {hasWeight && <span className="text-[10px] leading-none text-black-900">⚖</span>}
-                  </div>
-                  <span className="relative z-10">{props.date.getDate()}</span>
-                </div>
-              );
+            achievement: { 
+              backgroundColor: "rgb(16 185 129)", // emerald-500
+              color: "white",
+              fontWeight: "bold",
+              borderRadius: "9999px"
+            },
+            weight: {
+              position: "relative"
+            },
+            bloodPressure: {
+              position: "relative"
             }
           }}
+          className="rounded-md border"
         />
       </div>
 
