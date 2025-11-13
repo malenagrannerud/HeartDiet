@@ -162,7 +162,7 @@ const HealthPriorities = () => {
       
         <section className={standardSpacing.sectionContent}>
             <p className={bodyText}>Välj de hälsomål som är viktigast för dej</p>
-            <div className="space-y-4">
+            <div className={standardSpacing.cardList}>
               {healthPriorities.map((priority) => (
                 <Card key={priority.id} className={standardCard}>
                   <label className="flex items-start gap-4 cursor-pointer">
@@ -183,10 +183,7 @@ const HealthPriorities = () => {
             </div>
         </section>
 
-        <div className="my-4">Vertical margin</div>
-
-        
-
+        <section className={standardSpacing.sectionContent}>
             <h2 className={`${sectionHeading2} mb-4`}>Läkemedel</h2>
             <p className={bodyText}>
               Markera läkemedel du tar regelbundet. Då kan vi påminna dej om livsmedel som du evenutellt bör undvika.
@@ -238,11 +235,10 @@ const HealthPriorities = () => {
                 </Card>
               ))}
             </div>
-        
-        <div className="my-4">Vertical margin</div>
+        </section>
 
 
-    
+        <section>
           <Button
             onClick={handleSave}
             className={primaryButton}
@@ -250,7 +246,7 @@ const HealthPriorities = () => {
           >
             Spara mina val
           </Button>
-        
+        </section>
 
       </main>
     </div>
