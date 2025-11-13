@@ -183,7 +183,9 @@ const HealthPriorities = () => {
             </div>
         </section>
 
-        <section className={standardSpacing.sectionContent}>
+        <div className="my-4">Vertical margin</div>
+
+        
 
             <h2 className={`${sectionHeading2} mb-4`}>Läkemedel</h2>
             <p className={bodyText}>
@@ -236,9 +238,11 @@ const HealthPriorities = () => {
                 </Card>
               ))}
             </div>
-        </section>
+        
+        <div className="my-4">Vertical margin</div>
 
-        <section className={standardSpacing.sectionContent}>
+
+    
           <Button
             onClick={handleSave}
             className={primaryButton}
@@ -246,8 +250,8 @@ const HealthPriorities = () => {
           >
             Spara mina val
           </Button>
-        </section>
         
+
       </main>
     </div>
   );
