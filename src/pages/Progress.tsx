@@ -225,13 +225,14 @@ const Progress = () => {
           selected={date}
           onSelect={handleDayClick}
           locale={sv}
+          className="rounded-md border-0 [&_.rdp-caption_label]:font-bold [&_.rdp-caption_label]:capitalize [&_.rdp-caption_label]:text-xl [&_.rdp-head_cell]:capitalize [&_.rdp-head_cell]:text-base mx-auto text-lg [&_button]:cursor-pointer [&_button]:min-h-[48px] [&_button]:min-w-[48px] [&_button]:text-lg"
           modifiers={{
             achievement: achievementDays,
             weight: weightDays,
             bloodPressure: bloodPressureDays
           }}
           modifiersClassNames={{
-            achievement: "relative before:content-[''] before:absolute before:inset-[8px] before:bg-emerald-500 before:rounded-full before:z-0 !text-blue-900 font-bold"
+            achievement: "relative before:content-[''] before:absolute before:inset-[8px] before:bg-emerald-500 before:rounded-full before:z-10 !text-blue-900 font-bold"
           }}
           modifiersStyles={{
             achievement: { backgroundColor: "transparent" }
@@ -253,9 +254,6 @@ const Progress = () => {
           }}
         />
       </div>
-
-
-      
          <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
               <DialogContent className="max-w-md max-h-[80vh] overflow-y-auto">
                 <DialogHeader>
