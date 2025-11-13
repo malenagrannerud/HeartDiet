@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { BackToTodayButton } from "@/components/BackToTodayButton";
-import { sectionHeading, sectionSubheading, cardText, labelText, headerContainer, secondaryButton, disabledButton, compactCard, pageContainer, pagePadding, placeholderText, bodyTextBald, bodyText} from "@/lib/design-tokens";
+import { sectionHeading, sectionSubheading, cardText, labelText, headerContainer, secondaryButton, disabledButton, compactCard, pageContainer, pagePadding, placeholderText, bodyTextBald, bodyText, standardSpacing} from "@/lib/design-tokens";
 import { getStorageItem, setStorageItem } from "@/lib/storage";
 import { healthMetricsSchema, completedActivitiesSchema } from "@/lib/schemas";
 import { markCardCompleted } from "@/lib/card-completion";
@@ -121,111 +121,125 @@ const HealthMetrics = () => {
       </div>
     
       <div className={pagePadding}>
-        <p className={bodyText}>Fyll i dina startvärden här. Uppdatera dem senare under "Mina sidor"</p>
-        <Card className={compactCard}>
-          <div className="space-y-4">
-            <Label htmlFor="height" className={labelText}>Hur lång är du (cm)?</Label>
-            <Input 
-              id="height" 
-              type="number" 
-              placeholder="Ex: 175" 
-              value={height} 
-              onChange={(e) => setHeight(e.target.value)} 
-              className={placeholderText} 
-              min="30" 
-              max="240"
-            />
-          </div>
-        </Card>
+        {/* Main content container with proper spacing */}
+        <div className={standardSpacing.pageContent}>
+          
+          {/* Description section */}
+          <section className={standardSpacing.sectionContent}>
+            <p className={bodyText}>Fyll i dina startvärden här. Uppdatera dem senare under "Mina sidor"</p>
+          </section>
 
-        <Card className={compactCard}>
-          <div className="space-y-4">
-            <Label htmlFor="weight" className={labelText}>Hur mycket väger du (kg)?</Label>
-            <Input 
-              id="weight" 
-              type="number" 
-              placeholder="Ex: 103,3" 
-              value={weight} 
-              onChange={(e) => setWeight(e.target.value)} 
-              className={placeholderText}
-              step="0.1" 
-              min="30"
-              max="300" 
-            />
-          </div>
-        </Card>
-
-        <Card className={compactCard}>
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <h3 className={labelText}>Blodtryck</h3>
-              {!skipBloodPressure && (
-                <Button 
-                  type="button" 
-                  variant="ghost" 
-                  onClick={handleSkipBloodPressure}
-                  className={bodyTextBald}
-                >
-                  Fyll i senare
-                </Button>
-              )}
-            </div>
-            
-            {!skipBloodPressure ? (
-              <>
-                <div className="space-y-3">
-                  <Label htmlFor="systolic" className={bodyText}>Övertryck (systoliskt)</Label>
-                  <Input 
-                    id="systolic" 
-                    type="number" 
-                    placeholder="Ex: 120" 
-                    value={systolic} 
-                    onChange={(e) => setSystolic(e.target.value)} 
-                    className={placeholderText}
-                    min="70"
-                    max="250" 
-                  />
-                </div>
-
-                <div className="space-y-3">
-                  <Label htmlFor="diastolic" className={bodyText}>Undertryck (diastoliskt)</Label>
-                  <Input 
-                    id="diastolic" 
-                    type="number" 
-                    placeholder="Ex: 80" 
-                    value={diastolic} 
-                    onChange={(e) => setDiastolic(e.target.value)} 
-                    className={placeholderText}
-                    min="40"
-                    max="150"
-
-                  />
-                </div>
-                <p className={`text-sm ${cardText}`}>Blodtryck mäts i mmHg och anges som övertryck/undertryck</p>
-              </>
-            ) : (
-              <div className="bg-gray-50 p-4 rounded-lg">
-                <p className={`text-sm ${cardText} text-muted-foreground text-center`}>
-                  Lägga till blodtryck senare under "Mina sidor"
-                </p>
+          {/* Form sections with card list spacing */}
+          <div className={standardSpacing.cardList}>
+            <Card className={compactCard}>
+              <div className={standardSpacing.formFields}>
+                <Label htmlFor="height" className={labelText}>Hur lång är du (cm)?</Label>
+                <Input 
+                  id="height" 
+                  type="number" 
+                  placeholder="Ex: 175" 
+                  value={height} 
+                  onChange={(e) => setHeight(e.target.value)} 
+                  className={placeholderText} 
+                  min="100" 
+                  max="220"
+                />
               </div>
-            )}
+            </Card>
+
+            <Card className={compactCard}>
+              <div className={standardSpacing.formFields}>
+                <Label htmlFor="weight" className={labelText}>Hur mycket väger du (kg)?</Label>
+                <Input 
+                  id="weight" 
+                  type="number" 
+                  placeholder="Ex: 103,3" 
+                  value={weight} 
+                  onChange={(e) => setWeight(e.target.value)} 
+                  className={placeholderText}
+                  step="0.1" 
+                  min="30"
+                  max="300" 
+                />
+              </div>
+            </Card>
+
+            <Card className={compactCard}>
+              <div className={standardSpacing.formFields}>
+                <div className="flex items-center justify-between">
+                  <h3 className={labelText}>Blodtryck</h3>
+                  {!skipBloodPressure && (
+                    <Button 
+                      type="button" 
+                      variant="ghost" 
+                      onClick={handleSkipBloodPressure}
+                      className={bodyTextBald}
+                    >
+                      Fyll i senare
+                    </Button>
+                  )}
+                </div>
+                
+                {!skipBloodPressure ? (
+                  <>
+                    <div className={standardSpacing.formFields}>
+                      <Label htmlFor="systolic" className={bodyText}>Övertryck (systoliskt)</Label>
+                      <Input 
+                        id="systolic" 
+                        type="number" 
+                        placeholder="Ex: 120" 
+                        value={systolic} 
+                        onChange={(e) => setSystolic(e.target.value)} 
+                        className={placeholderText}
+                        min="70"
+                        max="250" 
+                      />
+                    </div>
+
+                    <div className={standardSpacing.formFields}>
+                      <Label htmlFor="diastolic" className={bodyText}>Undertryck (diastoliskt)</Label>
+                      <Input 
+                        id="diastolic" 
+                        type="number" 
+                        placeholder="Ex: 80" 
+                        value={diastolic} 
+                        onChange={(e) => setDiastolic(e.target.value)} 
+                        className={placeholderText}
+                        min="40"
+                        max="150"
+                      />
+                    </div>
+                    <p className={`text-sm ${cardText}`}>Blodtryck mäts i mmHg och anges som övertryck/undertryck</p>
+                  </>
+                ) : (
+                  <div className="bg-gray-50 p-4 rounded-lg">
+                    <p className={`text-sm ${cardText} text-muted-foreground text-center`}>
+                      Lägga till blodtryck senare under "Mina sidor"
+                    </p>
+                  </div>
+                )}
+              </div>
+            </Card>
+
+            <Card className="p-4 border-0 shadow-sm bg-blue-50">
+              <p className="text-sm text-foreground">
+                <strong>Tips:</strong> Mät ditt blodtryck samma tid varje dag för mest tillförlitliga resultat. Vila några minuter innan mätning.
+              </p>
+            </Card>
           </div>
-        </Card>
 
-        <Card className="p-4 border-0 shadow-sm bg-blue-50">
-          <p className="text-sm text-foreground">
-            <strong>Tips:</strong> Mät ditt blodtryck samma tid varje dag för mest tillförlitliga resultat. Vila några minuter innan mätning.
-          </p>
-        </Card>
+          {/* Save button section */}
+          <section className={standardSpacing.sectionContent}>
+            <Button 
+              onClick={handleSubmit} 
+              disabled={!isValid} 
+              className={`${secondaryButton} ${!isValid ? disabledButton : ''}`}
+            >
+              Spara
+            </Button>
+          </section>
 
-        <Button 
-          onClick={handleSubmit} 
-          disabled={!isValid} 
-          className={`${secondaryButton} ${!isValid ? disabledButton : ''}`}
-        >
-          Spara
-        </Button>
+        </div>
       </div>
     </div>
   );
