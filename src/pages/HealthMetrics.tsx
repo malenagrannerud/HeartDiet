@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { BackToTodayButton } from "@/components/BackToTodayButton";
-import { sectionHeading, sectionSubheading, cardText, labelText, headerContainer, secondaryButton, disabledButton, compactCard, pageContainer, pagePadding} from "@/lib/design-tokens";
+import { sectionHeading, sectionSubheading, cardText, labelText, headerContainer, secondaryButton, disabledButton, compactCard, pageContainer, pagePadding, placeholderText} from "@/lib/design-tokens";
 import { getStorageItem, setStorageItem } from "@/lib/storage";
 import { healthMetricsSchema, completedActivitiesSchema } from "@/lib/schemas";
 import { markCardCompleted } from "@/lib/card-completion";
@@ -148,7 +148,7 @@ const HealthMetrics = () => {
               placeholder="T.ex. 79.3" 
               value={weight} 
               onChange={(e) => setWeight(e.target.value)} 
-              className="text-lg" 
+              className={placeholderText}
               step="0.1" 
               min="0" 
             />

@@ -206,6 +206,14 @@ export const cardText = "text-base text-[#212658]/70";
  */
 export const cardTextSmall = "text-sm text-[#212658]/70";
 
+/**
+ * Placeholder TEXT
+ * Gray, 16 px
+ */
+
+export const placeholderText = "[&::placeholder]:text-base [&::placeholder]:text-gray-400";
+
+
 
 
 
