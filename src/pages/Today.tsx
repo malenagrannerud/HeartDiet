@@ -207,24 +207,22 @@ const Today = () => {
               )}
             </section>
 
-            <section>
-                <h3 className={`${bodyTextBald} mb-6`}>Mina tips</h3>
-                {markedTipsList.length > 0 ? (
-                  <div className="space-y-6">
-                    {markedTipsList.map((tip) => (
+            <section className={standardSpacing.sectionContent}>
+              <h3 className={bodyTextBold}>Mina tips</h3>
+              {markedTipsList.length > 0 ? (
+                  markedTipsList.map((tip) => (
                       <TipCard
-                        key={tip.id}
-                        tip={tip}
-                        isMarked={false}
-                        onToggleMark={(e) => e.stopPropagation()}
-                        onClick={() => navigate(`/app/tips/${tip.id}`)}
+                          key={tip.id}
+                          tip={tip}
+                          isMarked={false}
+                          onToggleMark={(e) => e.stopPropagation()}
+                          onClick={() => navigate(`/app/tips/${tip.id}`)}
                       />
-                    ))}
-                  </div>
-                ) : (
+                  ))
+              ) : (
                   <p className={sectionSubheading2}>Välj vilka tips du vill göra under "Tips"</p>
-                )}
-            </section>
+              )}
+          </section>
         </div>
       </main>
     </div>
