@@ -29,16 +29,13 @@ export const tips: Tip[] = [
 
     Du mår bättre eftersom frukt och grönt innehåller näringsämnen
     som ger dig mer energi, förbättrar matsmältningen och stärker kroppens försvar. 
-    Du kommer att känna dig piggare och friskare i vardagen, med 
-    bättre humör och mindre trötthet.
+    Du kommer att känna dig piggare och friskare i vardagen, med bättre humör och mindre trötthet.
 
     Det minskar risken för hjärtsjukdom eftersom frukt och grönsaker innehåller 
-    kalium som sänker blodtrycket och antioxidanter som skyddar dina blodkärl. 
-    Samtidigt hjälper kostfibren att minska kolesterolet, vilket förhindrar 
-    förtjockning av blodkärlens väggar.
+    • kalium -  det sänker blodtrycket 
+    • antioxidanter -  skyddar dina blodkärl
+    • kostfiber -  minskar kolesterolet. Det förhindrar förtjockning av blodkärlens väggar.
 
-
-    Fem nävar är ungefär 500 g. 
 
     Hit räknas
     • rotfrukter
