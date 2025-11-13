@@ -8,7 +8,8 @@ import { useToast } from "@/hooks/use-toast";
 import { sectionHeading, sectionSubheading2, cardTitle, cardText, standardCard, headerContainer, primaryButton, pageContainer, pagePadding, sectionHeading2, bodyText } from "@/lib/design-tokens";
 import { getStorageItem, setStorageItem } from "@/lib/storage";
 import { healthPrioritiesSchema, completedActivitiesSchema } from "@/lib/schemas";
-import { markCardCompleted } from "@/lib/card-completion"; // Add this import
+import { markCardCompleted } from "@/lib/card-completion"; 
+import { standardSpacing } from "@/lib/design-tokens";
 
 interface HealthPriority {
   id: string;
@@ -157,8 +158,8 @@ const HealthPriorities = () => {
         <h1 className={sectionHeading}>Mina hälsomål</h1>
       </div>
       
-      <div className={`${pagePadding} space-y-6`}>
-        <section>
+      
+        <section className={standardSpacing.sectionContent}>
           <h2 className={bodyText}>Välj de hälsomål som är viktigast för dej</h2>
           <div className="space-y-4">
             {healthPriorities.map((priority) => (
@@ -181,7 +182,7 @@ const HealthPriorities = () => {
           </div>
         </section>
 
-        <section>
+        <section className={standardSpacing.sectionContent}>
           <h2 className={`${sectionHeading2} mb-4`}>Läkemedel</h2>
           <p className={`${bodyText} mb-4`}>
             Markera läkemedel du tar regelbundet. Då kan vi påminna dej om livsmedel som du evenutellt bör undvika.
@@ -242,7 +243,6 @@ const HealthPriorities = () => {
         >
           Spara mina val
         </Button>
-      </div>
     </div>
   );
 };
