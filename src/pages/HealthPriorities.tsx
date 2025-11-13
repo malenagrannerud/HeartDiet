@@ -159,7 +159,7 @@ const HealthPriorities = () => {
       </div>
       
       
-        <section className={standardSpacing.sectionContent}>
+      <section className={standardSpacing.sectionContent}>
           <p className={bodyText}>Välj de hälsomål som är viktigast för dej</p>
           <div className="space-y-4">
             {healthPriorities.map((priority) => (
@@ -180,9 +180,9 @@ const HealthPriorities = () => {
               </Card>
             ))}
           </div>
-        </section>
+      </section>
 
-        <section className={standardSpacing.sectionContent}>
+      <section className={standardSpacing.sectionContent}>
           <h2 className={`${sectionHeading2} mb-4`}>Läkemedel</h2>
           <p className={`${bodyText} mb-4`}>
             Markera läkemedel du tar regelbundet. Då kan vi påminna dej om livsmedel som du evenutellt bör undvika.
@@ -234,8 +234,8 @@ const HealthPriorities = () => {
               </Card>
             ))}
           </div>
-        </section>
-
+      </section>
+      <section className={standardSpacing.sectionContent}>
         <Button
           onClick={handleSave}
           className={primaryButton}
@@ -243,6 +243,7 @@ const HealthPriorities = () => {
         >
           Spara mina val
         </Button>
+      </section>
     </div>
   );
 };
