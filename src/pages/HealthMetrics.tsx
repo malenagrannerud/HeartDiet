@@ -132,7 +132,7 @@ const HealthMetrics = () => {
               value={height} 
               onChange={(e) => setHeight(e.target.value)} 
               className={placeholderText} 
-              min="0" 
+              min="30" 
               max="240"
             />
           </div>
@@ -149,7 +149,8 @@ const HealthMetrics = () => {
               onChange={(e) => setWeight(e.target.value)} 
               className={placeholderText}
               step="0.1" 
-              min="0" 
+              min="30"
+              max="300" 
             />
           </div>
         </Card>
@@ -173,7 +174,7 @@ const HealthMetrics = () => {
             {!skipBloodPressure ? (
               <>
                 <div className="space-y-3">
-                  <Label htmlFor="systolic" className={labelText}>Övertryck (systoliskt)</Label>
+                  <Label htmlFor="systolic" className={bodyText}>Övertryck (systoliskt)</Label>
                   <Input 
                     id="systolic" 
                     type="number" 
@@ -181,11 +182,12 @@ const HealthMetrics = () => {
                     value={systolic} 
                     onChange={(e) => setSystolic(e.target.value)} 
                     className={placeholderText}
-                    min="0" 
+                    min="70"
+                    max="250" 
                   />
                 </div>
                 <div className="space-y-3">
-                  <Label htmlFor="diastolic" className={labelText}>Undertryck (diastoliskt)</Label>
+                  <Label htmlFor="diastolic" className={bodyText}>Undertryck (diastoliskt)</Label>
                   <Input 
                     id="diastolic" 
                     type="number" 
@@ -193,7 +195,9 @@ const HealthMetrics = () => {
                     value={diastolic} 
                     onChange={(e) => setDiastolic(e.target.value)} 
                     className={placeholderText}
-                    min="0" 
+                    min="40"
+                    max="150"
+
                   />
                 </div>
                 <p className={`text-sm ${cardText}`}>Blodtryck mäts i mmHg och anges som övertryck/undertryck</p>
