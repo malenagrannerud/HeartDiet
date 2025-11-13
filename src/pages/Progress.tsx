@@ -1,100 +1,179 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Calendar } from "@/components/ui/calendar";
-import { format, isSameDay } from "date-fns";
+import { format, startOfMonth, endOfMonth, isSameDay } from "date-fns";
 import { sv } from "date-fns/locale";
-import { pageTitle, pageSubtitle, pageContainer, pagePadding } from "@/lib/design-tokens";
+import { Trash2, Settings } from "lucide-react";
+import { tips } from "@/data/tips";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from "@/components/ui/dialog";
+import { pageTitle, pageSubtitle, iconButton, pageContainer, pagePadding } from "@/lib/design-tokens";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, LabelList } from 'recharts';
+import { ChartContainer } from "@/components/ui/chart";
 
-import { useProgress } from "@/hooks/use-progress";
-import { ProgressDialog } from "@/components/ProgressDialog";
-import { ProgressStats } from "@/components/ProgressStats";
-import { ProgressCharts } from "@/components/ProgressCharts";
+interface DayLog {
+  date: string;
+  entries: {
+    type: 'weight' | 'bloodPressure' | 'tip';
+    value: number;
+    value2?: number;
+    tipId?: number;
+  }[];
+}
 
-/**
- * Progress Tracking Page
- * Main component for displaying and managing user progress
- */
 const Progress = () => {
   const navigate = useNavigate();
   const [date, setDate] = useState<Date>(new Date());
+  const [achievementDays, setAchievementDays] = useState<Date[]>([]);
+  const [weightDays, setWeightDays] = useState<Date[]>([]);
+  const [bloodPressureDays, setBloodPressureDays] = useState<Date[]>([]);
+  const [dayLogs, setDayLogs] = useState<DayLog[]>([]);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [entryType, setEntryType] = useState<'weight' | 'bloodPressure' | 'tip'>('tip');
-  const [selectedTipIds, setSelectedTipIds] = useState<number[]>([]);
+  const [selectedTipId, setSelectedTipId] = useState<number>(1);
+  const [gramsInput, setGramsInput] = useState("");
   const [weightInput, setWeightInput] = useState("");
   const [systolicInput, setSystolicInput] = useState("");
   const [diastolicInput, setDiastolicInput] = useState("");
+  const [highestStreak, setHighestStreak] = useState(0);
+  
+  // Load day logs and highest streak from localStorage
+  useEffect(() => {
+    const savedLogs = localStorage.getItem('dayLogs');
+    if (savedLogs) {
+      const parsed = JSON.parse(savedLogs);
+      setDayLogs(parsed);
+    }
+    
+    const savedHighestStreak = localStorage.getItem('highestStreak');
+    if (savedHighestStreak) {
+      setHighestStreak(parseInt(savedHighestStreak));
+    }
+  }, []);
 
-  // Use custom hook for progress state management
-  const {
-    dayLogs,
-    setDayLogs,
-    achievementDays,
-    weightDays,
-    bloodPressureDays,
-    getCurrentStreak,
-    getDaysWithGoalThisMonth
-  } = useProgress();
+  // Update achievement days based on day logs
+  useEffect(() => {
+    const achievedDays = dayLogs
+      .filter(log => log.entries.some(entry => entry.type === 'tip'))
+      .map(log => {
+      // FIX: Create date at start of day to ensure exact match
+      const date = new Date(log.date + 'T00:00:00');
+      return date;
+    });
+    setAchievementDays(achievedDays);
 
-  /**
-   * Handles calendar day clicks to open the entry dialog
-   */
+    const weightLogDays = dayLogs
+      .filter(log => log.entries.some(entry => entry.type === 'weight'))
+      .map(log => new Date(log.date));
+    setWeightDays(weightLogDays);
+
+    const bpLogDays = dayLogs
+      .filter(log => log.entries.some(entry => entry.type === 'bloodPressure'))
+      .map(log => new Date(log.date));
+    setBloodPressureDays(bpLogDays);
+    
+    // Update highest streak if current streak is higher
+    const currentStreakValue = getCurrentStreak();
+    if (currentStreakValue > highestStreak) {
+      setHighestStreak(currentStreakValue);
+      localStorage.setItem('highestStreak', currentStreakValue.toString());
+    }
+  }, [dayLogs]);
+
+  const getDaysWithGoalThisMonth = () => {
+    const monthStart = startOfMonth(date);
+    const monthEnd = endOfMonth(date);
+    return achievementDays.filter(day => {
+      const dayDate = new Date(day);
+      return dayDate >= monthStart && dayDate <= monthEnd;
+    }).length;
+  };
+
+  const getCurrentStreak = () => {
+    if (achievementDays.length === 0) return 0;
+    const sortedDays = [...achievementDays].sort((a, b) => new Date(b).getTime() - new Date(a).getTime());
+    let streak = 0;
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    
+    for (let i = 0; i < sortedDays.length; i++) {
+      const checkDate = new Date(today);
+      checkDate.setDate(checkDate.getDate() - i);
+      const hasDay = sortedDays.some(day => {
+        const d = new Date(day);
+        d.setHours(0, 0, 0, 0);
+        return d.getTime() === checkDate.getTime();
+      });
+      if (hasDay) streak++;
+      else break;
+    }
+    return streak;
+  };
+
+  const daysThisMonth = getDaysWithGoalThisMonth();
+  const currentStreak = getCurrentStreak();
+
+ 
   const handleDayClick = (clickedDate: Date | undefined) => {
-    const dateToUse = clickedDate || new Date();
-    setSelectedDate(dateToUse);
+    if (!clickedDate) {
+       clickedDate = new Date();
+    }
+    setSelectedDate(clickedDate);
     setEntryType('tip');
-    setSelectedTipIds([]);
+    setSelectedTipId(1);
+    setGramsInput("");
     setWeightInput("");
     setSystolicInput("");
     setDiastolicInput("");
     setDialogOpen(true);
   };
 
-  /**
-   * Saves a new entry or updates existing entries for the selected date
-   */
-  const handleSaveEntry = () => {
-    if (!selectedDate) return;
-    
-    const dateStr = format(selectedDate, 'yyyy-MM-dd');
-    const existingLog = dayLogs.find(log => log.date === dateStr);
-    const newEntries = existingLog ? [...existingLog.entries] : [];
+    const [selectedTipIds, setSelectedTipIds] = useState<number[]>([]);
 
-    if (entryType === 'tip') {
-      selectedTipIds.forEach(tipId => {
-        newEntries.push({ 
-          type: 'tip', 
-          value: 1,
-          tipId: tipId 
+    // Update handleSaveEntry to handle multiple tips
+    const handleSaveEntry = () => {
+      if (!selectedDate) return;
+      
+      const dateStr = format(selectedDate, 'yyyy-MM-dd');
+      const existingLog = dayLogs.find(log => log.date === dateStr);
+      const newEntries = existingLog ? [...existingLog.entries] : [];
+
+      if (entryType === 'tip') {
+        // For each selected tip, create an entry with value=1 (to mark as completed)
+        selectedTipIds.forEach(tipId => {
+          newEntries.push({ 
+            type: 'tip', 
+            value: 1, // This marks the tip as completed
+            tipId: tipId 
+          });
         });
-      });
-    } else if (entryType === 'weight') {
-      const kg = parseFloat(weightInput) || 0;
-      if (kg > 0) newEntries.push({ type: 'weight', value: kg });
-    } else if (entryType === 'bloodPressure') {
-      const systolic = parseInt(systolicInput) || 0;
-      const diastolic = parseInt(diastolicInput) || 0;
-      if (systolic > 0 && diastolic > 0) newEntries.push({ 
-        type: 'bloodPressure', 
-        value: systolic, 
-        value2: diastolic 
-      });
-    }
-    
-    if (newEntries.length > (existingLog?.entries.length || 0)) {
-      const updatedLogs = dayLogs.filter(log => log.date !== dateStr);
-      updatedLogs.push({ date: dateStr, entries: newEntries });
-      setDayLogs(updatedLogs);
-      localStorage.setItem('dayLogs', JSON.stringify(updatedLogs));
-    }
-    
-    setDialogOpen(false);
-    setSelectedTipIds([]);
-  };
+      } else if (entryType === 'weight') {
+        const kg = parseFloat(weightInput) || 0;
+        if (kg > 0) newEntries.push({ type: 'weight', value: kg });
+      } else if (entryType === 'bloodPressure') {
+        const systolic = parseInt(systolicInput) || 0;
+        const diastolic = parseInt(diastolicInput) || 0;
+        if (systolic > 0 && diastolic > 0) newEntries.push({ 
+          type: 'bloodPressure', 
+          value: systolic, 
+          value2: diastolic 
+        });
+      }
+      
+      if (newEntries.length > (existingLog?.entries.length || 0)) {
+        const updatedLogs = dayLogs.filter(log => log.date !== dateStr);
+        updatedLogs.push({ date: dateStr, entries: newEntries });
+        setDayLogs(updatedLogs);
+        localStorage.setItem('dayLogs', JSON.stringify(updatedLogs));
+      }
+      
+      setDialogOpen(false);
+      setSelectedTipIds([]);
+    };
 
-  /**
-   * Deletes a specific entry from the selected date
-   */
   const handleDeleteEntry = (entryIndex: number) => {
     if (!selectedDate) return;
     
@@ -106,8 +185,10 @@ const Progress = () => {
       let updatedLogs;
       
       if (updatedEntries.length === 0) {
+        // Remove the entire day log if no entries left
         updatedLogs = dayLogs.filter(log => log.date !== dateStr);
       } else {
+        // Update the day log with remaining entries
         updatedLogs = dayLogs.map(log => 
           log.date === dateStr ? { ...log, entries: updatedEntries } : log
         );
@@ -118,8 +199,12 @@ const Progress = () => {
     }
   };
 
-  const daysThisMonth = getDaysWithGoalThisMonth(date);
-  const currentStreak = getCurrentStreak();
+  const getExistingEntries = () => {
+    if (!selectedDate) return [];
+    const dateStr = format(selectedDate, 'yyyy-MM-dd');
+    const log = dayLogs.find(l => l.date === dateStr);
+    return log?.entries || [];
+  };
 
   return (
     <div className={`${pageContainer} ${pagePadding} space-y-6`}>
@@ -128,63 +213,335 @@ const Progress = () => {
           <h1 className={pageTitle}>Mina sidor</h1>
           <p className={pageSubtitle}>Följ dina framsteg & redigera loggar</p>
         </div>
+
+        {/* <Button variant="ghost" onClick={() => navigate('/app/settings')} className={iconButton}>
+          <Settings size={28} className="text-foreground" />
+        </Button> */}
       </header>
 
-      {/* Fixed Calendar Section */}
       <div className="pt-6 pb-0 flex justify-center">
         <Calendar
           mode="single"
           selected={date}
-          onSelect={(newDate) => {
-            if (newDate) {
-              setDate(newDate);
-              handleDayClick(newDate);
-            }
-          }}
+          onSelect={handleDayClick}
           locale={sv}
           modifiers={{
             achievement: achievementDays,
             weight: weightDays,
-            bloodPressure: bloodPressureDays,
-            today: new Date()
+            bloodPressure: bloodPressureDays
           }}
           modifiersClassNames={{
-            achievement: "achievement-day",
-            today: "today-day",
-            weight: "weight-day", 
-            bloodPressure: "bp-day"
+            achievement: "relative before:content-[''] before:absolute before:inset-[8px] before:bg-emerald-500 before:rounded-full before:z-10 !text-blue-900 font-bold"
           }}
-          className="rounded-md border"
+          modifiersStyles={{
+            achievement: { backgroundColor: "transparent" }
+          }}
+          components={{
+            DayContent: (props) => {
+              const hasWeight = weightDays.some(d => isSameDay(d, props.date));
+              const hasBP = bloodPressureDays.some(d => isSameDay(d, props.date));
+              return (
+                <div className="relative w-full h-full flex items-center justify-center">
+                  <div className="absolute top-0.5 left-0.5 flex flex-col gap-1">
+                    {hasBP && <span className="text-[10px] leading-none text-rose-600">♥</span>}
+                    {hasWeight && <span className="text-[10px] leading-none text-black-900">⚖</span>}
+                  </div>
+                  <span className="relative z-10">{props.date.getDate()}</span>
+                </div>
+              );
+            }
+          }}
         />
       </div>
 
-      <ProgressDialog
-        open={dialogOpen}
-        onOpenChange={setDialogOpen}
-        selectedDate={selectedDate}
-        entryType={entryType}
-        onEntryTypeChange={setEntryType}
-        selectedTipIds={selectedTipIds}
-        onSelectedTipIdsChange={setSelectedTipIds}
-        weightInput={weightInput}
-        onWeightInputChange={setWeightInput}
-        systolicInput={systolicInput}
-        onSystolicInputChange={setSystolicInput}
-        diastolicInput={diastolicInput}
-        onDiastolicInputChange={setDiastolicInput}
-        dayLogs={dayLogs}
-        onSaveEntry={handleSaveEntry}
-        onDeleteEntry={handleDeleteEntry}
-      />
 
-      <ProgressStats 
-        daysThisMonth={daysThisMonth}
-        currentStreak={currentStreak}
-      />
+      
+         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+              <DialogContent className="max-w-md max-h-[80vh] overflow-y-auto">
+                <DialogHeader>
+                  <DialogTitle>
+                    Redigera {selectedDate && format(selectedDate, 'd MMMM yyyy', { locale: sv })}
+                  </DialogTitle>
+                </DialogHeader>
+                
+                {getExistingEntries().length > 0 && (
+                  <div className="space-y-2 pb-4 border-b">
+                    <Label className="text-base font-semibold">Dina inlägg</Label>
+                    {getExistingEntries().map((entry, index) => (
+                      <div key={index} className="flex items-center justify-between p-3 bg-accent/50 rounded-lg">
+                        <div className="text-sm font-medium">
+                          {entry.type === 'tip' && (
+                            <span>{tips.find(t => t.id === entry.tipId)?.title}: {entry.value}g</span>
+                          )}
+                          {entry.type === 'weight' && <span>Vikt: {entry.value} kg</span>}
+                          {entry.type === 'bloodPressure' && (
+                            <span>Blodtryck: {entry.value}/{entry.value2} mmHg</span>
+                          )}
+                        </div>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => handleDeleteEntry(index)}
+                          className="h-8 w-8 p-0 hover:bg-destructive/10"
+                        >
+                          <Trash2 size={16} className="text-destructive" />
+                        </Button>
+                      </div>
+                    ))}
+                  </div>
+                )}
 
-      <ProgressCharts dayLogs={dayLogs} />
+                <div className="space-y-4 py-4">
+                  <div>
+                    <Label className="text-lg mb-4 block font-semibold">Logga</Label>
+                    <div className="grid grid-cols-3 gap-3">
+                      <Button
+                        variant={entryType === 'tip' ? 'default' : 'outline'}
+                        onClick={() => setEntryType('tip')}
+                        className="w-full text-base py-6 min-h-[56px]"
+                      >
+                        Tips
+                      </Button>
+                      <Button
+                        variant={entryType === 'weight' ? 'default' : 'outline'}
+                        onClick={() => setEntryType('weight')}
+                        className="w-full text-base py-6 min-h-[56px]"
+                      >
+                        Vikt
+                      </Button>
+                      <Button
+                        variant={entryType === 'bloodPressure' ? 'default' : 'outline'}
+                        onClick={() => setEntryType('bloodPressure')}
+                        className="w-full text-base py-6 min-h-[56px]"
+                      >
+                        Blodtryck
+                      </Button>
+                    </div>
+                  </div>
 
-      {/* Debug Information */}
+                  {entryType === 'tip' && (
+                    <div className="space-y-4">
+                      <div>
+                        <Label className="text-base mb-3 block font-semibold">Vilka tips följde du idag?</Label>
+                        <div className="space-y-3 max-h-60 overflow-y-auto">
+                          {tips.map((tip) => (
+                            <div 
+                              key={tip.id} 
+                              className="flex items-center justify-between p-3 rounded-lg border"
+                              style={{ 
+                                backgroundColor: tip.color || '#f3f4f6',
+                                borderColor: tip.color ? `${tip.color}80` : '#e5e7eb'
+                              }}
+                            >
+                              <Label htmlFor={`tip-${tip.id}`} className="flex-1 cursor-pointer text-sm font-medium">
+                                {tip.title}
+                              </Label>
+                              <input
+                                id={`tip-${tip.id}`}
+                                type="checkbox"
+                                checked={selectedTipIds.includes(tip.id)}
+                                onChange={(e) => {
+                                  if (e.target.checked) {
+                                    setSelectedTipIds(prev => [...prev, tip.id]);
+                                  } else {
+                                    setSelectedTipIds(prev => prev.filter(id => id !== tip.id));
+                                  }
+                                }}
+                                className="h-5 w-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                              />
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {entryType === 'weight' && (
+                    <div>
+                      <Label htmlFor="weight-input" className="text-base mb-2 block">Vikt (kg)</Label>
+                      <Input
+                        id="weight-input"
+                        type="number"
+                        step="0.1"
+                        value={weightInput}
+                        onChange={(e) => setWeightInput(e.target.value)}
+                        placeholder="Ange vikt i kg"
+                        className="w-full"
+                      />
+                    </div>
+                  )}
+
+                  {entryType === 'bloodPressure' && (
+                    <div className="space-y-3">
+                      <div>
+                        <Label htmlFor="systolic-input" className="text-base mb-2 block">Systoliskt (övre värde)</Label>
+                        <Input
+                          id="systolic-input"
+                          type="number"
+                          value={systolicInput}
+                          onChange={(e) => setSystolicInput(e.target.value)}
+                          placeholder="T.ex. 120"
+                          className="w-full"
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="diastolic-input" className="text-base mb-2 block">Diastoliskt (nedre värde)</Label>
+                        <Input
+                          id="diastolic-input"
+                          type="number"
+                          value={diastolicInput}
+                          onChange={(e) => setDiastolicInput(e.target.value)}
+                          placeholder="T.ex. 80"
+                          className="w-full"
+                        />
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                <DialogFooter className="gap-3">
+                  <Button variant="outline" onClick={() => setDialogOpen(false)} className="text-base py-6 min-h-[56px]">
+                    Avbryt
+                  </Button>
+                  <Button onClick={handleSaveEntry} className="text-base py-6 min-h-[56px]">
+                    Spara
+                  </Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+
+      <div className="grid grid-cols-2 gap-0 -mt-8 pt-0">
+        <div className="py-6 pr-6 pl-0 border-r border-t">
+          <div className="flex flex-col h-full">
+            <div className="flex-1">
+              <div className="text-base font-bold text-foreground">Klarade dagar</div>
+              <div className="text-sm text-muted-foreground font-normal">Antal dagar du följt dina Tips</div>
+            </div>
+            <div className="flex items-center justify-end">
+              <div className="w-16 h-16 rounded-lg bg-emerald-500 flex items-center justify-center">
+                <span className="text-3xl font-bold text-blue-900">{daysThisMonth}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="py-6 pr-0 pl-6 border-t">
+          <div className="flex flex-col h-full">
+            <div className="flex-1">
+              <div className="text-base font-bold text-foreground">Klarade dagar i rad</div>
+              <div className="text-sm text-muted-foreground font-normal">Antal dagar i rad du följt dina Tips</div>
+            </div>
+            <div className="flex items-center justify-end">
+              <div className="w-16 h-16 rounded-lg bg-blue-100 flex items-center justify-center">
+                <span className="text-3xl font-bold text-blue-900">{currentStreak}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Charts remain the same */}
+      <div className="grid grid-cols-2 gap-0 pt-0">
+        <div className="py-6 pr-6 pl-0 border-r border-t">
+          <div className="flex flex-col h-full">
+            <div className="flex-1 mb-4">
+              <div className="text-base font-bold text-foreground">Vikt</div>
+              <div className="text-sm text-muted-foreground font-normal">Loggade vikter (kg)</div>
+            </div>
+            <ChartContainer config={{ weight: { label: "Vikt", color: "hsl(217, 91%, 60%)" } }} className="h-48 w-full">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart 
+                  data={dayLogs
+                    .flatMap(log => 
+                      log.entries
+                        .filter(e => e.type === 'weight')
+                        .map(e => ({ 
+                          date: format(new Date(log.date), 'd MMM', { locale: sv }),
+                          weight: e.value,
+                          fullDate: log.date
+                        }))
+                    )
+                    .sort((a, b) => new Date(a.fullDate).getTime() - new Date(b.fullDate).getTime())
+                    .slice(-10)} 
+                  margin={{ top: 20, bottom: 20 }}
+                >
+                  <XAxis 
+                    dataKey="date" 
+                    axisLine={false}
+                    tickLine={false}
+                    tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }}
+                  />
+                  <YAxis hide />
+                  <Bar 
+                    dataKey="weight" 
+                    fill="hsl(217, 91%, 60%)" 
+                    radius={[8, 8, 0, 0]}
+                    maxBarSize={20}
+                  >
+                    <LabelList 
+                      dataKey="weight" 
+                      position="top" 
+                      style={{ fontSize: 12, fill: 'hsl(var(--foreground))' }}
+                      formatter={(value: number) => `${value} kg`}
+                    />
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            </ChartContainer>
+          </div>
+        </div>
+
+        <div className="py-6 pr-0 pl-6 border-t">
+          <div className="flex flex-col h-full">
+            <div className="flex-1 mb-4">
+              <div className="text-base font-bold text-foreground">Blodtryck</div>
+              <div className="text-sm text-muted-foreground font-normal">Loggade blodtryck (mmHg)</div>
+            </div>
+            <ChartContainer config={{ systolic: { label: "Systoliskt", color: "hsl(350, 89%, 60%)" } }} className="h-48 w-full">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart 
+                  data={dayLogs
+                    .flatMap(log => 
+                      log.entries
+                        .filter(e => e.type === 'bloodPressure')
+                        .map(e => ({ 
+                          date: format(new Date(log.date), 'd MMM', { locale: sv }),
+                          systolic: e.value,
+                          diastolic: e.value2,
+                          fullDate: log.date
+                        }))
+                    )
+                    .sort((a, b) => new Date(a.fullDate).getTime() - new Date(b.fullDate).getTime())
+                    .slice(-10)} 
+                  margin={{ top: 20, bottom: 20 }}
+                >
+                  <XAxis 
+                    dataKey="date" 
+                    axisLine={false}
+                    tickLine={false}
+                    tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }}
+                  />
+                  <YAxis hide />
+                  <Bar 
+                    dataKey="systolic" 
+                    fill="hsl(350, 89%, 60%)" 
+                    radius={[8, 8, 0, 0]}
+                    maxBarSize={20}
+                  >
+                    <LabelList 
+                      dataKey="systolic" 
+                      position="top" 
+                      style={{ fontSize: 12, fill: 'hsl(var(--foreground))' }}
+                      formatter={(value: number) => `${value}`}
+                    />
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            </ChartContainer>
+          </div>
+        </div>
+      </div>
+      {/* TEMPORARY DEBUG - REMOVE LATER */}
       <div className="fixed bottom-4 left-4 bg-black text-white p-2 text-xs z-50">
         Tips: {dayLogs.filter(log => log.entries.some(entry => entry.type === 'tip')).length} days
         <br />
@@ -193,49 +550,12 @@ const Progress = () => {
         Last Tip: {dayLogs.filter(log => log.entries.some(entry => entry.type === 'tip')).slice(-1)[0]?.date || 'None'}
       </div>
 
-      {/* Add minimal CSS fixes */}
-      <style>{`
-        /* Fix for achievement days - ensure text is visible */
-        .achievement-day button {
-          position: relative;
-          background-color: rgb(16 185 129) !important; /* emerald-500 */
-          color: white !important;
-          font-weight: bold;
-        }
-        
-        /* Today's date styling */
-        .today-day button {
-          font-weight: bold;
-          border: 2px solid #2563eb !important; /* blue-600 */
-        }
-        
-        /* Ensure selected date is visible */
-        .rdp-day_selected button {
-          background-color: hsl(var(--primary)) !important;
-          color: hsl(var(--primary-foreground)) !important;
-        }
-        
-        /* Fix for weight and BP indicator positioning */
-        .weight-day button::before,
-        .bp-day button::before {
-          content: '';
-          position: absolute;
-          top: 2px;
-          left: 2px;
-          width: 6px;
-          height: 6px;
-          border-radius: 50%;
-          z-index: 10;
-        }
-        
-        .weight-day button::before {
-          background-color: #000;
-        }
-        
-        .bp-day button::before {
-          background-color: #e11d48; /* rose-600 */
-        }
-      `}</style>
+
+
+
+
+
+
     </div>
   );
 };
