@@ -160,7 +160,7 @@ const HealthPriorities = () => {
       
       
         <section className={standardSpacing.sectionContent}>
-          <h2 className={bodyText}>Välj de hälsomål som är viktigast för dej</h2>
+          <p className={bodyText}>Välj de hälsomål som är viktigast för dej</p>
           <div className="space-y-4">
             {healthPriorities.map((priority) => (
               <Card key={priority.id} className={standardCard}>
