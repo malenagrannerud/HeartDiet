@@ -58,16 +58,7 @@
     --popover: 0 0% 100%;              /* White popover background */
     --popover-foreground: 230 36% 27%; /* Dark blue text */
 
-    /* Fix calendar today's date visibility */
-    .rdp-day_today .relative span {
-      font-weight: bold !important;
-      color: hsl(var(--primary)) !important;
-    }
-
-.rdp-day .relative span {
-  z-index: 20;
-  position: relative;
-}
+    
 
     /* Sidebar */
     --sidebar-background: 0 0% 100%;
@@ -97,4 +88,26 @@
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
+}
+
+/* ==========================================
+ * CALENDAR FIXES - TODAY'S DATE VISIBILITY
+ * ========================================== */
+
+/* Fix for today's date visibility in calendar */
+.rdp-day_today .relative span {
+  font-weight: bold !important;
+  color: hsl(var(--primary)) !important;
+}
+
+/* Ensure all date numbers are visible above background elements */
+.rdp-day .relative span {
+  z-index: 20;
+  position: relative;
+}
+
+/* Fix calendar selected state visibility */
+.rdp-day_selected .relative span {
+  color: hsl(var(--primary-foreground)) !important;
+  font-weight: bold;
 }
