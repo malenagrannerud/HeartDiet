@@ -239,7 +239,7 @@ const HealthPriorities = () => {
         <Button
           onClick={handleSave}
           className={primaryButton}
-          aria-label="Spara mina val"
+          aria-label="Spara"
         >
           Spara mina val
         </Button>
