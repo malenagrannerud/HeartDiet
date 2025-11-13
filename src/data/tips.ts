@@ -25,14 +25,18 @@ export const tips: Tip[] = [
     //healthScore: 8,
     freq: `Dagligen`,
     detailedInfo: `
-    Att äta minst fem nävar frukter och grönsaker varje dag hjälper dig att må bättre just nu samtidigt som det minskar risken för hjärt-kärlsjukdomar på sikt.
+    Att äta minst fem nävar frukter och grönsaker varje dag hjälper dig att 
+    må bättre just nu samtidigt som det minskar risken för hjärt-kärlsjukdomar på sikt.
 
-    Det hjälper dig att må bättre eftersom frukt och grönsaker innehåller näringsämnen som ger dig mer energi, 
-    förbättrar matsmältningen och stärker kroppens försvar. 
-    Du kommer att känna dig piggare och friskare i vardagen, med bättre humör och mindre trötthet.
+    Det hjälper dig att må bättre eftersom frukt och grönsaker innehåller näringsämnen
+    som ger dig mer energi, förbättrar matsmältningen och stärker kroppens försvar. 
+    Du kommer att känna dig piggare och friskare i vardagen, med 
+    bättre humör och mindre trötthet.
 
-    Det minskar risken för hjärtsjukdom eftersom frukt och grönsaker innehåller kalium som sänker blodtrycket och 
-    antioxidanter som skyddar dina blodkärl. Samtidigt hjälper kostfibren att minska kolesterolet, vilket förhindrar förtjockning av blodkärlens väggar.
+    Det minskar risken för hjärtsjukdom eftersom frukt och grönsaker innehåller 
+    kalium som sänker blodtrycket och antioxidanter som skyddar dina blodkärl. 
+    Samtidigt hjälper kostfibren att minska kolesterolet, vilket förhindrar 
+    förtjockning av blodkärlens väggar.
 
 
     Fem nävar är ungefär 500 g. 
@@ -41,10 +45,6 @@ export const tips: Tip[] = [
     • rotfrukter
     • frukt & bär 
     • frysta grönsaker & grönsaker i maten du lagar 
-
-
-
-    
 
     
     För att få i dej dina fem nävar om dagen, prova stegen: 
@@ -81,7 +81,8 @@ export const tips: Tip[] = [
     freq: `Dagligen`,
     detailedInfo: `
     Att få i sig minst 90 g fullkorn om dagen dig stabil energi, bättre matsmältning, 
-    hjälper med vikthantering och minskar risken för hjärt-kärlsjukdom, typ 2-diabetes samt tjock- och ändtarmscancer.
+    hjälper med vikthantering och minskar risken för hjärt-kärlsjukdom, typ 2-diabetes samt 
+    tjock- och ändtarmscancer.
 
 
     Fullkorns unika kombination av kostfiber ger långsammare energiåtergivning och bättre mättnad, 
@@ -89,8 +90,6 @@ export const tips: Tip[] = [
     Magnesium och zink stöttar muskler och immunförsvar, och E-vitamin med antioxidanter 
     skyddar dina celler och hjärta. Genom att behålla alla delar av kärnan – grodd, kli och mjölkkropp – 
     får du en fullständig näringskombination som samverkar för din långsiktiga hälsa.
-    
-    
     
     
     
@@ -130,15 +129,25 @@ export const tips: Tip[] = [
     freq: `Veckovis`,
     detailedInfo:`
     
-    Att äta fisk och skaldjur min 3 gånger i veckan 
-    
-    
-    Fisk och skaldjur innehåller protein, D-vitamin, jod och selen. 
-      Fet fisk innehåller dessutom omega-3-fettsyror som är viktiga för hjärtat och hjärnan.,
+    Att äta fisk och skaldjur 2 - 3 gånger i veckan hjälper dig att få i dig många lite ovanligare näringsämnen 
+    som man behöver för att må bra. Att äta fisk och skaldjur minskar ochså risken för flera folksjukdomar. 
+     
+    I fisk finns till exempel 
+    • D-vitamin 
+    • jod och  
+    • selen
+    som det kan vara svårt att få tillräckligt av. 
 
-       "Planera två fiskmiddagar varje vecka",
-      "Fisksoppa kan varieras. Prova olika recept",
-      "Köp fryst fisk för att alltid ha hemma",
+    Feta fiskar, som lax, sill och makrill, är rika på omega-3-fetter. De minskar risken för 
+    hjärt- och kärlsjukdom eftersom de minskar inflammationer i blodkärlen, sänker blodfetter,
+     och gör blodet tunnare vilket förhindrar farliga blodproppar. Dessutom stabiliseras hjärtats
+      elektriska system vilket förhindrar hjärtrytmsrubbningar.
+    
+    Omega-3-fetter är viktiga för hjärnans utveckling och funktion eftersom Omega-3 :
+    • gör cellmembranen flexibla och porösa, vilket förbättrar kommunikationen mellan hjärnceller.
+    • omvandlas till ämnen som löser upp inflammation och skyddar hjärnceller mot skador.
+    • stimulerar tillväxten av synapser – kopplingarna mellan hjärnceller – vilket förbättrar minne, inlärning och kognitiv flexibilitet.
+
     `,
       steps: [
       {
