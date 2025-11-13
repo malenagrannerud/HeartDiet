@@ -151,94 +151,97 @@ const HealthPriorities = () => {
     navigate('/app/today');
   };
 
-  return (
-    <div className={pageContainer}>
-      <div className={headerContainer}>
-          <BackToTodayButton />
-        <h1 className={sectionHeading}>Mina hälsomål</h1>
-      </div>
-      
-      <main className={pagePadding}>
+return (
+  <div className={pageContainer}>
+    <div className={headerContainer}>
+      <BackToTodayButton />
+      <h1 className={sectionHeading}>Mina hälsomål</h1>
+    </div>
+    
+    <main className={pagePadding}>
+    
+      {/* 1 MAIN pageContent container wrapping ALL sections */}
+      <div className={standardSpacing.pageContent}>
       
         <section className={standardSpacing.sectionContent}>
-            <p className={bodyText}>Välj de hälsomål som är viktigast för dej</p>
-            <div className={standardSpacing.cardList}>
-              {healthPriorities.map((priority) => (
-                <Card key={priority.id} className={standardCard}>
-                  <label className="flex items-start gap-4 cursor-pointer">
-                    <div className="flex-1">
-                      <div className={`${cardTitle} text-lg mb-1`}>
-                        {priority.label}
-                      </div>
+          <p className={bodyText}>Välj de hälsomål som är viktigast för dej</p>
+          <div className={standardSpacing.cardList}>
+            {healthPriorities.map((priority) => (
+              <Card key={priority.id} className={standardCard}>
+                <label className="flex items-start gap-4 cursor-pointer">
+                  <div className="flex-1">
+                    <div className={`${cardTitle} text-lg mb-1`}>
+                      {priority.label}
                     </div>
-                    <Checkbox
-                      checked={selectedPriorities.includes(priority.id)}
-                      onCheckedChange={() => handlePriorityToggle(priority.id)}
-                      className="mt-1 h-6 w-6 flex-shrink-0"
-                      aria-label={priority.label}
-                    />
-                  </label>
-                </Card>
-              ))}
-            </div>
+                  </div>
+                  <Checkbox
+                    checked={selectedPriorities.includes(priority.id)}
+                    onCheckedChange={() => handlePriorityToggle(priority.id)}
+                    className="mt-1 h-6 w-6 flex-shrink-0"
+                    aria-label={priority.label}
+                  />
+                </label>
+              </Card>
+            ))}
+          </div>
         </section>
 
         <section className={standardSpacing.sectionContent}>
-            <h2 className={`${sectionHeading2} mb-4`}>Läkemedel</h2>
-            <p className={bodyText}>
-              Markera läkemedel du tar regelbundet. Då kan vi påminna dej om livsmedel som du evenutellt bör undvika.
-            </p>
-            <div className="space-y-4">
-              {medications.map((medication) => (
-                <Card key={medication.id} className={standardCard}>
-                  <label className="flex items-start gap-4 cursor-pointer">
-                    <Checkbox
-                      checked={selectedMedications.includes(medication.id)}
-                      onCheckedChange={() => handleMedicationToggle(medication.id)}
-                      className="mt-1 h-6 w-6 flex-shrink-0"
-                      aria-label={medication.label}
-                    />
-                    <div className="flex-1">
-                      <div className={`${cardTitle} text-lg mb-1`}>
-                        {medication.label}
-                      </div>
-                      {medication.description && (
-                        <p className={cardText}>
-                          {medication.description}
-                        </p>
-                      )}
+          <h2 className={`${sectionHeading2} mb-4`}>Läkemedel</h2>
+          <p className={bodyText}>
+            Markera läkemedel du tar regelbundet. Då kan vi påminna dej om livsmedel som du evenutellt bör undvika.
+          </p>
+          <div className={standardSpacing.cardList}>
+            {medications.map((medication) => (
+              <Card key={medication.id} className={standardCard}>
+                <label className="flex items-start gap-4 cursor-pointer">
+                  <Checkbox
+                    checked={selectedMedications.includes(medication.id)}
+                    onCheckedChange={() => handleMedicationToggle(medication.id)}
+                    className="mt-1 h-6 w-6 flex-shrink-0"
+                    aria-label={medication.label}
+                  />
+                  <div className="flex-1">
+                    <div className={`${cardTitle} text-lg mb-1`}>
+                      {medication.label}
                     </div>
-                  </label>
-                  
-                  {medication.subOptions && selectedMedications.includes(medication.id) && (
-                    <div className="ml-10 mt-4 space-y-3">
-                      {medication.subOptions.map((subOption) => (
-                        <label key={subOption.id} className="flex items-start gap-3 cursor-pointer">
-                          <Checkbox
-                            checked={selectedMedications.includes(subOption.id)}
-                            onCheckedChange={() => handleMedicationToggle(subOption.id)}
-                            className="mt-1 h-5 w-5 flex-shrink-0"
-                            aria-label={subOption.label}
-                          />
-                          <div className="flex-1">
-                            <div className="font-semibold text-base text-foreground">
-                              {subOption.label}
-                            </div>
-                            <p className="text-sm text-muted-foreground">
-                              {subOption.description}
-                            </p>
+                    {medication.description && (
+                      <p className={cardText}>
+                        {medication.description}
+                      </p>
+                    )}
+                  </div>
+                </label>
+                
+                {medication.subOptions && selectedMedications.includes(medication.id) && (
+                  <div className="ml-10 mt-4 space-y-3">
+                    {medication.subOptions.map((subOption) => (
+                      <label key={subOption.id} className="flex items-start gap-3 cursor-pointer">
+                        <Checkbox
+                          checked={selectedMedications.includes(subOption.id)}
+                          onCheckedChange={() => handleMedicationToggle(subOption.id)}
+                          className="mt-1 h-5 w-5 flex-shrink-0"
+                          aria-label={subOption.label}
+                        />
+                        <div className="flex-1">
+                          <div className="font-semibold text-base text-foreground">
+                            {subOption.label}
                           </div>
-                        </label>
-                      ))}
-                    </div>
-                  )}
-                </Card>
-              ))}
-            </div>
+                          <p className="text-sm text-muted-foreground">
+                            {subOption.description}
+                          </p>
+                        </div>
+                      </label>
+                    ))}
+                  </div>
+                )}
+              </Card>
+            ))}
+          </div>
         </section>
 
-
-        <section>
+        {/* Save button section with proper spacing */}
+        <section className={standardSpacing.sectionContent}>
           <Button
             onClick={handleSave}
             className={primaryButton}
@@ -248,8 +251,9 @@ const HealthPriorities = () => {
           </Button>
         </section>
 
-      </main>
-    </div>
+      </div>
+    </main>
+  </div>
   );
 };
 
