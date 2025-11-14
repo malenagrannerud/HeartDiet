@@ -16,7 +16,11 @@ const renderStep = (step: any, index: number) => {
         <p className={bodyTextBald}>
           {step.heading}
         </p>
-        <p className={bodyText}>{step.content}</p>
+        <div className="space-y-2">
+          {step.content.map((content: string, contentIndex: number) => (
+            <p key={contentIndex} className={bodyText}>{content}</p>
+          ))}
+        </div>
       </div>
     );
   }
@@ -42,6 +46,35 @@ const renderStep = (step: any, index: number) => {
       <p className={bodyText}>{String(step)}</p>
     </div>
   );
+};
+
+// Helper function to render detailedInfo paragraphs
+const renderDetailedInfo = (detailedInfo: string[]) => {
+  return detailedInfo.map((paragraph, index) => {
+    if (paragraph === "") {
+      return <div key={index} className="h-4" />; // Empty line for spacing
+    }
+    
+    // Check if it's a heading (all caps or contains specific keywords)
+    const isHeading = /^[A-ZÅÄÖ\s-]+$/.test(paragraph) || 
+                     paragraph.includes('BÄTTRE') || 
+                     paragraph.includes('SKYDD') || 
+                     paragraph.includes('EXEMPEL');
+    
+    if (isHeading) {
+      return (
+        <h3 key={index} className={`${bodyTextBald} mt-6 mb-3`}>
+          {paragraph}
+        </h3>
+      );
+    }
+    
+    return (
+      <p key={index} className={bodyText}>
+        {paragraph}
+      </p>
+    );
+  });
 };
 
 const TipDetail = () => {
@@ -93,10 +126,14 @@ const TipDetail = () => {
         
         <h2 className={sectionHeading2}>{tip.title}</h2>
         <p className={sectionSubheading2}>{tip.summary}</p>
-        <p className={bodyText}>{tip.detailedInfo}</p>
+        
+        {/* Detailed Info section - now renders array of strings */}
+        <div className="space-y-3 pt-4">
+          {renderDetailedInfo(tip.detailedInfo)}
+        </div>
 
         {/* Steps section */}
-        <div className="space-y-3 pt-6">
+        <div className="space-y-6 pt-6">
           {tip.steps.map(renderStep)}
         </div>
 
