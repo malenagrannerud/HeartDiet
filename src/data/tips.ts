@@ -36,8 +36,7 @@ export const tips: Tip[] = [
     • antioxidanter -  skyddar dina blodkärl
     • kostfiber -  minskar kolesterolet. Det förhindrar förtjockning av blodkärlens väggar.
 
-
-    Hit räknas
+    Till dina fem nävar om dagen räknas:
     • rotfrukter
     • frukt & bär 
     • frysta grönsaker & grönsaker i maten du lagar 
@@ -62,10 +61,6 @@ export const tips: Tip[] = [
       {
         heading: "Steg 3 - Preppa ingredienser",
         content: "Till exempel: hacka fina stavar av olika färger. Koka grönsaker och bönor i buljong och mixa med en stavmixer. Gör en stor råkostsallad med vinjegrett för veckan",
-      },
-      {
-        heading: "Tips",
-        content: " Bjud en vän på middag. Fruktkorg på jobbet? Gör det till en vana att dela ut",
       },
     ],
   },
