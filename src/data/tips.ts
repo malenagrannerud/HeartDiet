@@ -29,20 +29,24 @@ export const tips: Tip[] = [
     summary: `Att äta minst fem nävar frukter och grönsaker varje dag hjälper dig att 
     må bättre just nu samtidigt som det minskar risken för hjärt-kärlsjukdomar på sikt. 
     Längst ner får du ett verktyg för att skriva din egena plan för hur rådet blir din vana.`, 
+    
     detailedInfo: `
     
     BÄTTRE MÅENDE
+
     Du mår bättre eftersom frukt och grönt innehåller näringsämnen
     som ger dig mer energi, förbättrar matsmältningen och stärker kroppens försvar. 
     Du kommer att känna dig piggare och friskare i vardagen, med bättre humör och mindre trötthet.
 
     SKYDD MOT HJÄRTSJUKDOM
+
     Det minskar risken för hjärtsjukdom eftersom frukt och grönsaker innehåller 
     • kalium -  det sänker blodtrycket 
     • antioxidanter -  skyddar dina blodkärl
     • kostfiber -  minskar kolesterolet. Det förhindrar förtjockning av blodkärlens väggar.
 
     EXEMPEL PÅ HUR DU KAN FÅ I DEJ FEM OM DAGEN
+    
     Till dina fem nävar om dagen räknas:
     • rotfrukter
     • frukt & bär 

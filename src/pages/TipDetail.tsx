@@ -92,7 +92,7 @@ const TipDetail = () => {
       <main className={pagePadding}>
         
         <h2 className={sectionHeading2}>{tip.title}</h2>
-        <p className={sectionHeading2}>{tip.summary}</p>
+        <p className={sectionSubheading2}>{tip.summary}</p>
         <p className={bodyText}>{tip.detailedInfo}</p>
 
         {/* Steps section */}
