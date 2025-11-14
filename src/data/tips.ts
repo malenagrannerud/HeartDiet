@@ -41,7 +41,8 @@ export const tips: Tip[] = [
       "Till dina fem nävar om dagen räknas:",
       "• rotfrukter",
       "• frukt & bär",
-      "• frysta grönsaker & grönsaker i maten du lagar.",
+      "• frysta grönsaker &", 
+      "•grönsaker i maten du lagar.",
       "Genom att tänka ut när och hur du ska få i dej frukt, kan du lättare modifiera en plan som passar dej"
     ],
     steps: [
