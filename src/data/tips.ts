@@ -12,6 +12,7 @@ export interface Tip {
   color: string;
   //healthScore: number;
   freq: string;
+  summary: string;
   detailedInfo: string;
   steps: Array<string | { heading: string; content: string }>;
   userPlan?: UserPlan; // User's personal plan
@@ -24,25 +25,29 @@ export const tips: Tip[] = [
     color: tipCardColors.green,
     //healthScore: 8,
     freq: `Dagligen`,
-    detailedInfo: `Att äta minst fem nävar frukter och grönsaker varje dag hjälper dig att 
-    må bättre just nu samtidigt som det minskar risken för hjärt-kärlsjukdomar på sikt.
+    summary: `Att äta minst fem nävar frukter och grönsaker varje dag hjälper dig att 
+    må bättre just nu samtidigt som det minskar risken för hjärt-kärlsjukdomar på sikt. 
+    Längst ner får du ett verktyg för att skriva din egena plan för hur rådet blir din vana.`, 
+    detailedInfo: `
 
+    Bättre mående
     Du mår bättre eftersom frukt och grönt innehåller näringsämnen
     som ger dig mer energi, förbättrar matsmältningen och stärker kroppens försvar. 
     Du kommer att känna dig piggare och friskare i vardagen, med bättre humör och mindre trötthet.
 
+    Skydd mot hjärtsjukdom
     Det minskar risken för hjärtsjukdom eftersom frukt och grönsaker innehåller 
     • kalium -  det sänker blodtrycket 
     • antioxidanter -  skyddar dina blodkärl
     • kostfiber -  minskar kolesterolet. Det förhindrar förtjockning av blodkärlens väggar.
 
+    Exempel på hur du kan få i dej fem nävar om dagen
     Till dina fem nävar om dagen räknas:
     • rotfrukter
     • frukt & bär 
-    • frysta grönsaker & grönsaker i maten du lagar 
+    • frysta grönsaker & grönsaker i maten du lagar. 
 
-    
-    För att få i dej dina fem nävar om dagen, prova stegen: 
+     För att få i dej dina fem nävar om dagen, prova stegen: 
     `,
     steps: [
 
@@ -70,11 +75,11 @@ export const tips: Tip[] = [
     color: tipCardColors.amber,
     //healthScore: 3,
     freq: `Dagligen`,
+    summary: ``, 
     detailedInfo: `
     Att få i sig minst 90 g fullkorn om dagen dig stabil energi, bättre matsmältning, 
-    hjälper med vikthantering och minskar risken för hjärt-kärlsjukdom, typ 2-diabetes samt 
-    tjock- och ändtarmscancer.
-
+    hjälper med vikthantering och minskar risken för livsstilsrelaterade sjukdomar.
+    Längst ner får du ett verktyg för att skriva din egena plan för att få kostrådet att bli en vana.
 
     Fullkorns unika kombination av kostfiber ger långsammare energiåtergivning och bättre mättnad, 
     medan B-vitaminer och järn bidrar till uthållig energi och bra blodbildning. 
@@ -82,9 +87,8 @@ export const tips: Tip[] = [
     skyddar dina celler och hjärta. Genom att behålla alla delar av kärnan – grodd, kli och mjölkkropp – 
     får du en fullständig näringskombination som samverkar för din långsiktiga hälsa.
     
-    
-    
-    minskar risken för 
+    Skydd mot sjukdom
+    Fullkorn minskar risken för 
     • kranskärlsjukdom, 
     • tarmcancer, 
     • typ 2-diabetes och 
@@ -94,10 +98,9 @@ export const tips: Tip[] = [
     • en bra tarmhälsa och
     • att sänka blodtrycket.
 
-    Fullkorn innehåller också växtsteroler som 
-    • minskar upptaget av kolesterol i tarmen. Då sänks halten av LDL-kolesterolet i blodet --> 
-    lägre totalkolesterol och minskat systoliskt blodtryck, 
-    vilket kan vara en annan förklaring till den minskade risken för kostrelaterad ohälsa.
+
+
+    Exempel på hur du kan få i dej fem nävar om dagen
 
     För att se till att få i dej minst 3 dl (90 g) fullkorn per dag, prova att till exempel: 
      `,
@@ -118,6 +121,7 @@ export const tips: Tip[] = [
     color: tipCardColors.cyan,
     //healthScore: 3,
     freq: `Veckovis`,
+    summary: ``, 
     detailedInfo:`
     
     Att äta fisk och skaldjur 2 - 3 gånger i veckan hjälper dig att få i dig många lite ovanligare näringsämnen 
@@ -161,6 +165,7 @@ export const tips: Tip[] = [
     color: tipCardColors.yellow,
     //healthScore: 3,
     freq: `Dagligen`,
+    summary: ``, 
     detailedInfo:` 
 
    Att få i sig mer omättade fetter och mindre mättade, minskar risken 
@@ -205,6 +210,7 @@ export const tips: Tip[] = [
     color: tipCardColors.lightblue,
     //healthScore: 3,
     freq: `Dagligen`,
+    summary: ``, 
     detailedInfo:`
     
     Att välja magra mejeriprodukter 
@@ -242,6 +248,7 @@ export const tips: Tip[] = [
     color: tipCardColors.darkrose,
     //healthScore: 3,
     freq: `Veckovis`,
+    summary: ``, 
     detailedInfo: `
     
     Att äta max 500 g kött per vecka, minskar risken för tjocktarmscancer.
@@ -274,6 +281,7 @@ export const tips: Tip[] = [
     color: tipCardColors.graygreen,
     //healthScore: 4,
     freq: `Dagligen`,
+    summary: ``, 
     detailedInfo: `
     
     Att äta mindre än 6 gram salt per dag minskar risken för 
@@ -308,6 +316,7 @@ export const tips: Tip[] = [
     color: tipCardColors.lightpurple,
     //healthScore: 4,
     freq: `Dagligen`,
+    summary: ``, 
     detailedInfo:`
 
     Att minska på portionerna vid varje mål
@@ -340,6 +349,7 @@ export const tips: Tip[] = [
     color: tipCardColors.lightgreen,
     //healthScore: 5,
     freq: `Dagligen`,
+    summary: ``, 
     detailedInfo: `
     
     Att röra på sig minst 30 minuter per dag 
@@ -373,6 +383,7 @@ export const tips: Tip[] = [
     color: tipCardColors.orange,
     //healthScore: 3,
     freq: `Dagligen`,
+    summary: ``, 
     detailedInfo: `
     
     Att äta 
@@ -407,6 +418,7 @@ export const tips: Tip[] = [
     color: tipCardColors.purple,
    // healthScore: 3,
     freq: `Dagligen`,
+    summary: ``, 
     detailedInfo: `
     
     Att minska på sockret 
