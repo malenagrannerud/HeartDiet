@@ -1,9 +1,9 @@
 import { tipCardColors } from '@/lib/design-tokens';
 
 export interface UserPlan {
-  when: string;       // "Varje morgon", "På söndagar", etc.
-  how: string;        // "Jag ska...", detailed plan
-  reminder?: string;  // Optional reminder
+  when: string;        
+  how: string;        
+  reminder?: string;  // My reminder
 }
 
 export interface Tip {
@@ -14,8 +14,9 @@ export interface Tip {
   freq: string;
   summary: string;
   detailedInfo: string;
-  steps: Array<string | { heading: string; content: string }>;
-  userPlan?: UserPlan; // User's personal plan
+  steps: Array<string | { heading: string; content: string [] }>;
+  
+ // userPlan?: UserPlan; // User's personal plan
 }
 
 export const tips: Tip[] = [
@@ -29,65 +30,61 @@ export const tips: Tip[] = [
     må bättre just nu samtidigt som det minskar risken för hjärt-kärlsjukdomar på sikt. 
     Längst ner får du ett verktyg för att skriva din egena plan för hur rådet blir din vana.`, 
     detailedInfo: `
-
-    Bättre mående
+    
+    BÄTTRE MÅENDE
     Du mår bättre eftersom frukt och grönt innehåller näringsämnen
     som ger dig mer energi, förbättrar matsmältningen och stärker kroppens försvar. 
     Du kommer att känna dig piggare och friskare i vardagen, med bättre humör och mindre trötthet.
 
-    Skydd mot hjärtsjukdom
+    SKYDD MOT HJÄRTSJUKDOM
     Det minskar risken för hjärtsjukdom eftersom frukt och grönsaker innehåller 
     • kalium -  det sänker blodtrycket 
     • antioxidanter -  skyddar dina blodkärl
     • kostfiber -  minskar kolesterolet. Det förhindrar förtjockning av blodkärlens väggar.
 
-    Exempel på hur du kan få i dej fem nävar om dagen
+    EXEMPEL PÅ HUR DU KAN FÅ I DEJ FEM OM DAGEN
     Till dina fem nävar om dagen räknas:
     • rotfrukter
     • frukt & bär 
-    • frysta grönsaker & grönsaker i maten du lagar. 
-
-     För att få i dej dina fem nävar om dagen, prova stegen: 
-    `,
+    • frysta grönsaker & grönsaker i maten du lagar. Genom att tänka ut när och hur du ska få i dej frukt, kan du lättare modifiera en plan som passar dej`,
+    
     steps: [
-
       {
-        heading: "Lägg till en portion till varje måltid",
-        content: ".... "
+        heading: "Hitta ditt NÄR?",
+        content: [
+          ".... ",
+          ".... "
+        ]
       },
       {
-        heading: "Steg 1 - Lägg till en näve till frukost",
-        content: "Till exempel: Gör en smoothie, som du kan spara i kylen. Gör en fruktsallad. "
-      },
-      {
-        heading: "Steg 2 - Lägg till en näve sallad till lunchen",
-        content: "När din veckomeny är färdig, tänk efter vad som finns hemma. Gör en shoppinglista för veckan. Glöm inte frysta bär och grönsaker. ",
-      },
-      {
-        heading: "Steg 3 - Preppa ingredienser",
-        content: "Till exempel: hacka fina stavar av olika färger. Koka grönsaker och bönor i buljong och mixa med en stavmixer. Gör en stor råkostsallad med vinjegrett för veckan",
-      },
-    ],
+        heading: "Hitta ditt HUR?",
+        content: [
+          ".... ",
+          ".... "
+        ]
+      }
+    ], 
   },
+
+
+
   {
     id: 2,
     title: "Fyll på med fullkorn",
     color: tipCardColors.amber,
     //healthScore: 3,
     freq: `Dagligen`,
-    summary: ``, 
+    summary: `Att få i sig minst 90 g fullkorn om dagen dig stabil energi, bättre matsmältning, hjälper med vikthantering och minskar risken för livsstilsrelaterade sjukdomar. Längst ner får du ett verktyg för att skriva din egena plan för hur rådet blir din vana.`, 
     detailedInfo: `
-    Att få i sig minst 90 g fullkorn om dagen dig stabil energi, bättre matsmältning, 
-    hjälper med vikthantering och minskar risken för livsstilsrelaterade sjukdomar.
-    Längst ner får du ett verktyg för att skriva din egena plan för att få kostrådet att bli en vana.
 
+    BÄTTRE MÅENDE
     Fullkorns unika kombination av kostfiber ger långsammare energiåtergivning och bättre mättnad, 
     medan B-vitaminer och järn bidrar till uthållig energi och bra blodbildning. 
     Magnesium och zink stöttar muskler och immunförsvar, och E-vitamin med antioxidanter 
     skyddar dina celler och hjärta. Genom att behålla alla delar av kärnan – grodd, kli och mjölkkropp – 
     får du en fullständig näringskombination som samverkar för din långsiktiga hälsa.
     
-    Skydd mot sjukdom
+    SKYDD MOT SJUKDOM
     Fullkorn minskar risken för 
     • kranskärlsjukdom, 
     • tarmcancer, 
@@ -98,34 +95,40 @@ export const tips: Tip[] = [
     • en bra tarmhälsa och
     • att sänka blodtrycket.
 
-
-
-    Exempel på hur du kan få i dej fem nävar om dagen
-
+    EXEMPEL PÅ HUR DU KAN FÅ I DEJ FULLKORN
     För att se till att få i dej minst 3 dl (90 g) fullkorn per dag, prova att till exempel: 
      `,
-     steps: [
-      {
-        heading: "1 - Handla knäckebröd ",
-        content: "Knäckebröd innehåller 100% fullkorn. Ät varje dag",
-      },
-      {
-        heading: "2 - Byt vitt mjöl mot fullkornsmjöl",
-        content: "Baka ditt eget bröd med några delar fullkorsnmjöl blandat med vitt mjöl. Till exempel kan du testa vete, råg, dinkel och enkorn, med unika smaker och egenskaper. "
-      },
-    ],
+      steps: [
+        {
+          heading: "Hitta ditt NÄR?",
+          content: [
+            ".... ",
+            ".... "
+          ]
+        },
+        {
+          heading: "Hitta ditt HUR?",
+          content: [
+            ".... ",
+            ".... "
+          ]
+        }
+      ],  
   },
+
+
+
   {
     id: 3,
     title: "Fisk och skaldjur",
     color: tipCardColors.cyan,
     //healthScore: 3,
     freq: `Veckovis`,
-    summary: ``, 
+    summary: `Att äta fisk och skaldjur 2 - 3 gånger i veckan hjälper dig att få i dig många lite ovanligare näringsämnen 
+    som man behöver för att må bra. Att äta fisk och skaldjur minskar ochså risken för flera sjukdomar. `, 
     detailedInfo:`
     
-    Att äta fisk och skaldjur 2 - 3 gånger i veckan hjälper dig att få i dig många lite ovanligare näringsämnen 
-    som man behöver för att må bra. Att äta fisk och skaldjur minskar ochså risken för flera folksjukdomar. 
+    
      
     I fisk finns till exempel 
     • D-vitamin 
@@ -145,19 +148,21 @@ export const tips: Tip[] = [
 
     `,
       steps: [
-      {
-        heading: "1 - Förbered veckan",
-        content: "Se till att frukter och grönsaker finns hemma för veckan på till exempel söndagar. "
-      },
-      {
-        heading: "2 - Veckans råkostsallad",
-        content: "Gör en stor sallad med riven rödkål, vitkål, morot och äpple exempelvis. Blanda i olivolja, vitvinsvinäger, salt och peppar och låt stå i kylen. Salladen håller hela veckan, prefekt att ta fram som tillbehör till veckans alla middagar.",
-      },
-      {
-        heading: "3 - Soppor och smoothies",
-        content: "Koka grönsaker och bönor i buljong och mixa slät med en stavmixer. Resultatet blir en mycket smak- och näringsrik soppa som är redd och klar att äta. ",
-      },
-    ],
+       {
+          heading: "Hitta ditt NÄR?",
+          content: [
+            ".... ",
+            ".... "
+          ]
+        },
+        {
+          heading: "Hitta ditt HUR?",
+          content: [
+            ".... ",
+            ".... "
+          ]
+        }
+      ], 
   },
   {
     id: 4,
@@ -165,12 +170,8 @@ export const tips: Tip[] = [
     color: tipCardColors.yellow,
     //healthScore: 3,
     freq: `Dagligen`,
-    summary: ``, 
+    summary: `Att få i sig mer omättade fetter och mindre mättade, minskar risken för hjärt- och kärlsjukdom avsevärt.`, 
     detailedInfo:` 
-
-   Att få i sig mer omättade fetter och mindre mättade, minskar risken 
-   för hjärt- och kärlsjukdom avsevärt.
-    
    Omättade fetter finns i t.ex. rapsolja, olivolja, nötter och fisk. 
    
    De minskar risken för hjärt kärlsjukdom eftersom de 
@@ -190,19 +191,21 @@ export const tips: Tip[] = [
     `,
     
        steps: [
-      {
-        heading: "1 - Förbered veckan",
-        content: "Se till att frukter och grönsaker finns hemma för veckan på till exempel söndagar. "
-      },
-      {
-        heading: "2 - Veckans råkostsallad",
-        content: "Gör en stor sallad med riven rödkål, vitkål, morot och äpple exempelvis. Blanda i olivolja, vitvinsvinäger, salt och peppar och låt stå i kylen. Salladen håller hela veckan, prefekt att ta fram som tillbehör till veckans alla middagar.",
-      },
-      {
-        heading: "3 - Soppor och smoothies",
-        content: "Koka grönsaker och bönor i buljong och mixa slät med en stavmixer. Resultatet blir en mycket smak- och näringsrik soppa som är redd och klar att äta. ",
-      },
-    ],
+       {
+          heading: "Hitta ditt NÄR?",
+          content: [
+            ".... ",
+            ".... "
+          ]
+        },
+        {
+          heading: "Hitta ditt HUR?",
+          content: [
+            ".... ",
+            ".... "
+          ]
+        }
+      ], 
   },
   {
     id: 5,
@@ -228,19 +231,21 @@ export const tips: Tip[] = [
       "Kolla fetthalt på ost och välj varianter under 17%",
      `,
        steps: [
-      {
-        heading: "...",
-        content: ".. "
-      },
-      {
-        heading: "...",
-        content: "...",
-      },
-      {
-        heading: "...",
-        content: "..",
-      },
-    ],
+       {
+          heading: "Hitta ditt NÄR?",
+          content: [
+            ".... ",
+            ".... "
+          ]
+        },
+        {
+          heading: "Hitta ditt HUR?",
+          content: [
+            ".... ",
+            ".... "
+          ]
+        }
+      ], 
   },
   {
     id: 6,
@@ -261,19 +266,21 @@ export const tips: Tip[] = [
     
       `,
         steps: [
-      {
-        heading: "1 - Byt ut köttet mot kyckling eller fisk",
-        content: " "
-      },
-      {
-        heading: "2 - Blanda böner eller linser i köttfärsen",
-        content: " ...",
-      },
-      {
-        heading: "3 - Byt ut charken på smörgåsen  ",
-        content: "Skippa charken på mackan - välj ägg, ost eller hummus ",
-      },
-    ],
+       {
+          heading: "Hitta ditt NÄR?",
+          content: [
+            ".... ",
+            ".... "
+          ]
+        },
+        {
+          heading: "Hitta ditt HUR?",
+          content: [
+            ".... ",
+            ".... "
+          ]
+        }
+      ], 
   },
   {
     id: 7,
@@ -296,19 +303,21 @@ export const tips: Tip[] = [
       "Välj produkter med lägre saltinnehåll",
       `,
         steps: [
-      {
-        heading: "Förbered veckan",
-        content: "Se till att frukter och grönsaker finns hemma för veckan på till exempel söndagar. "
-      },
-      {
-        heading: "Veckans råkostsallad",
-        content: "...",
-      },
-      {
-        heading: "Soppor och smoothies",
-        content: "Koka grönsaker och bönor i buljong och mixa slät med en stavmixer. Resultatet blir en mycket smak- och näringsrik soppa som är redd och klar att äta. ",
-      },
-    ],
+       {
+          heading: "Hitta ditt NÄR?",
+          content: [
+            ".... ",
+            ".... "
+          ]
+        },
+        {
+          heading: "Hitta ditt HUR?",
+          content: [
+            ".... ",
+            ".... "
+          ]
+        }
+      ], 
   },
   {
     id: 8,
@@ -329,19 +338,21 @@ export const tips: Tip[] = [
       "Planera regelbundna måltider - 3 huvudmål och 2 mellanmål",
       `,
         steps: [
-      {
-        heading: "Förbered veckan",
-        content: "Se till att frukter och grönsaker finns hemma för veckan på till exempel söndagar. "
-      },
-      {
-        heading: "Veckans råkostsallad",
-        content: "Gör en stor sallad med riven rödkål, vitkål, morot och äpple exempelvis. Blanda i olivolja, vitvinsvinäger, salt och peppar och låt stå i kylen. Salladen håller hela veckan, prefekt att ta fram som tillbehör till veckans alla middagar.",
-      },
-      {
-        heading: "Soppor och smoothies",
-        content: "Koka grönsaker och bönor i buljong och mixa slät med en stavmixer. Resultatet blir en mycket smak- och näringsrik soppa som är redd och klar att äta. ",
-      },
-    ],
+       {
+          heading: "Hitta ditt NÄR?",
+          content: [
+            ".... ",
+            ".... "
+          ]
+        },
+        {
+          heading: "Hitta ditt HUR?",
+          content: [
+            ".... ",
+            ".... "
+          ]
+        }
+      ], 
   },
   {
     id: 9,
@@ -363,19 +374,21 @@ export const tips: Tip[] = [
      
       `,
         steps: [
-      {
-        heading: "Promenera",
-        content: "Se till att frukter och grönsaker finns hemma för veckan på till exempel söndagar. "
-      },
-      {
-        heading: "Veckans råkostsallad",
-        content: "Gör en stor sallad med riven rödkål, vitkål, morot och äpple exempelvis. Blanda i olivolja, vitvinsvinäger, salt och peppar och låt stå i kylen. Salladen håller hela veckan, prefekt att ta fram som tillbehör till veckans alla middagar.",
-      },
-      {
-        heading: "Soppor och smoothies",
-        content: "Koka grönsaker och bönor i buljong och mixa slät med en stavmixer. Resultatet blir en mycket smak- och näringsrik soppa som är redd och klar att äta. ",
-      },
-    ],
+       {
+          heading: "Hitta ditt NÄR?",
+          content: [
+            ".... ",
+            ".... "
+          ]
+        },
+        {
+          heading: "Hitta ditt HUR?",
+          content: [
+            ".... ",
+            ".... "
+          ]
+        }
+      ], 
   },
   {
     id: 10,
@@ -398,19 +411,21 @@ export const tips: Tip[] = [
      
       `,
        steps: [
-      {
-        heading: "Förbered veckan",
-        content: "Se till att frukter och grönsaker finns hemma för veckan på till exempel söndagar. "
-      },
-      {
-        heading: "Veckans råkostsallad",
-        content: "Gör en stor sallad med riven rödkål, vitkål, morot och äpple exempelvis. Blanda i olivolja, vitvinsvinäger, salt och peppar och låt stå i kylen. Salladen håller hela veckan, prefekt att ta fram som tillbehör till veckans alla middagar.",
-      },
-      {
-        heading: "Soppor och smoothies",
-        content: "Koka grönsaker och bönor i buljong och mixa slät med en stavmixer. Resultatet blir en mycket smak- och näringsrik soppa som är redd och klar att äta. ",
-      },
-    ],
+       {
+          heading: "Hitta ditt NÄR?",
+          content: [
+            ".... ",
+            ".... "
+          ]
+        },
+        {
+          heading: "Hitta ditt HUR?",
+          content: [
+            ".... ",
+            ".... "
+          ]
+        }
+      ], 
   },
   {
     id: 11,
@@ -439,18 +454,20 @@ export const tips: Tip[] = [
       
     `,
      steps: [
-      {
-        heading: "Byt sylt mot bär",
-        content: " "
-      },
-      {
-        heading: "Ät regelbundet",
-        content: "...",
-      },
-      {
-        heading: "...",
-        content: "...",
-      },
-    ],
+       {
+          heading: "Hitta ditt NÄR?",
+          content: [
+            ".... ",
+            ".... "
+          ]
+        },
+        {
+          heading: "Hitta ditt HUR?",
+          content: [
+            ".... ",
+            ".... "
+          ]
+        }
+      ], 
   },
 ];
