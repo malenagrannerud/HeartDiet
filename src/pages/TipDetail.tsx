@@ -2,7 +2,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { tips } from "@/data/tips";
 import { UserPlan } from "@/data/tips";
-import { sectionHeading, sectionHeading2, cardText, backButton, pageContainer, headerContainer, pagePadding, bodyText, bodyTextBald } from "@/lib/design-tokens";
+import { sectionHeading, sectionHeading2, sectionSubheading2, cardText, backButton, pageContainer, headerContainer, pagePadding, bodyText, bodyTextBald } from "@/lib/design-tokens";
 import { BackToTodayButton } from "@/components/BackToTodayButton";
 import { UserPlanForm } from "@/components/UserPlanForm";
 import { UserPlanDisplay } from "@/components/UserPlanDisplay";
@@ -92,9 +92,8 @@ const TipDetail = () => {
       <main className={pagePadding}>
         
         <h2 className={sectionHeading2}>{tip.title}</h2>
-        <p className="text-foreground leading-relaxed text-lg whitespace-pre-line">
-          {tip.detailedInfo}
-        </p>
+        <p className={sectionHeading2}>{tip.summary}</p>
+        <p className={bodyText}>{tip.detailedInfo}</p>
 
         {/* Steps section */}
         <div className="space-y-3 pt-6">
