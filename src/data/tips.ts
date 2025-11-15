@@ -47,16 +47,22 @@ export const tips: Tip[] = [
     ],
     steps: [
       {
-        heading: "Hitta ditt NÄR?",
+        heading: "Hitta dina NÄR? och HUR?",
         content: [
-          ".... ",
-          ".... "
+          "När under dagen äter du dina frukter och grönsaker? Hur ser du till att det händer? Ett par exempel: ",
+          "- NÄR: Jag äter en frukt eller en näve bär i samband med frukost",
+          "- HUR: Jag handlar veckans frukter på söndagar och har bär i frysen",
+          "- PÅMINNELSE: Jag sätter en lapp på kylskåpet",
+          "",
+          "- NÄR: skopa sallad till lunchen",
+          "- En frukt till mellanmål",
+          "- En skopa sallad till middagen",
         ]
       },
       {
         heading: "Hitta ditt HUR?",
         content: [
-          ".... ",
+          "Hur ser du till att dina -NÄR?- händer? ",
           ".... "
         ]
       }
