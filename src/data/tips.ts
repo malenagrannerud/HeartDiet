@@ -22,7 +22,8 @@ export const tips: Tip[] = [
     title: "Fem om dagen",
     color: tipCardColors.green,
     freq: `Dagligen`,
-    summary: `Att äta minst fem nävar frukter och grönsaker varje dag hjälper dig att 
+    summary: `
+    Att äta minst fem nävar frukter och grönsaker varje dag hjälper dig att 
     må bättre samtidigt som det minskar risken för hjärt-kärlsjukdomar på sikt. 
     Längst ner får du ett verktyg för att skriva din egena plan för hur rådet blir din vana.`, 
     
@@ -57,17 +58,8 @@ export const tips: Tip[] = [
           "- NÄR: Jag äter en skopa sallad till lunch och middag",
           "- HUR: Jag förbereder en råkostsallad med vinjägrett och har den redo i kylskåpet",
           "- PÅMINNELSE: Jag lägger in en påminnelse i kalendern",
-
-
         ]
       },
-      {
-        heading: "Hitta ditt HUR?",
-        content: [
-          "Hur ser du till att dina -NÄR?- händer? ",
-          ".... "
-        ]
-      }
     ], 
   },
   {
@@ -98,7 +90,7 @@ export const tips: Tip[] = [
     ],
     steps: [
       {
-        heading: "Hitta ditt NÄR?",
+        heading: "Hitta dina NÄR? och HUR? du ska få i dej minst 90 g fullorn om dagen ",
         content: [
           ".... ",
           ".... "
