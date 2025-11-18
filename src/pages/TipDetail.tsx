@@ -7,6 +7,29 @@ import { BackToTodayButton } from "@/components/BackToTodayButton";
 import { UserPlanForm } from "@/components/UserPlanForm";
 import { UserPlanDisplay } from "@/components/UserPlanDisplay";
 
+
+/**
+ * Tip Detail Page
+ * 
+ * useParams() - Gets tip ID from URL
+ * useNavigate() - Handles navigation between pages
+ * useState() - Manages userPlan data and edit mode
+ * useEffect() - Loads saved plan from localStorage on mount
+ * 
+ * renderStep() - Displays step content with proper formatting
+ * renderDetailedInfo() - Formats paragraphs and detects headings
+ * 
+ * handleSavePlan() - Saves user plan to localStorage
+ * handleDeletePlan() - Removes user plan from localStorage
+ * 
+ * UserPlanForm - Component for creating/editing plans
+ * UserPlanDisplay - Component for showing saved plans
+ * BackToTodayButton - Navigation back to main page
+ */
+
+
+
+
 // Helper function to render steps consistently
 const renderStep = (step: any, index: number) => {
   // If step is an object with heading and content

@@ -6,6 +6,20 @@ import { pageTitle, pageSubtitle, pageContainer, headerContainer, pagePadding, s
 import { getStorageItem, setStorageItem } from "@/lib/storage";
 import { markedTipsSchema } from "@/lib/schemas";
 
+
+/**
+ * Tips Page
+ * 
+ * toggleMark() - Marks/unmarks tips when user clicks icon
+ * isMarked() - Checks if specific tip is marked
+ * markedTips[] - Stores which tips user has marked
+ * tips[] - Contains all available tip data
+ * getStorageItem() - Loads marked tips from storage
+ * setStorageItem() - Saves marked tips to storage
+ * navigate() - Opens individual tip pages
+ */
+
+
 interface MarkedTip {
   id: number;
   markedDate: string;
