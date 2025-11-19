@@ -1,7 +1,7 @@
 // pages/TipPages/fruit.tsx
 import { useState, useEffect } from "react";
 import { UserPlan } from "@/data/tips";
-import { pageContainer, headerContainer, pagePadding, sectionHeading2, bodyText, bodyTextBald } from "@/lib/design-tokens";
+import { pageContainer, headerContainer, pagePadding, sectionHeading, sectionHeading2, bodyText, bodyTextBald } from "@/lib/design-tokens";
 import { BackToTodayButton } from "@/components/BackToTodayButton";
 import { UserPlanForm } from "@/components/UserPlanForm";
 import { UserPlanDisplay } from "@/components/UserPlanDisplay";
