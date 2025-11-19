@@ -18,7 +18,7 @@ export const UserPlanForm: React.FC<UserPlanFormProps> = ({
   onCancel
 }) => {
   const [plan, setPlan] = useState<UserPlan>(
-    initialPlan || { when: '', how: '', reminder: '' }
+    initialPlan || { when: '', how: '' }
   );
 
   const handleSubmit = (e: React.FormEvent) => {

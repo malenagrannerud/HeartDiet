@@ -47,13 +47,6 @@ export const UserPlanDisplay: React.FC<UserPlanDisplayProps> = ({
           <span className={bodyTextBald}>Hur: </span>
           <span className={bodyText}>{plan.how}</span>
         </div>
-
-        {plan.reminder && (
-          <div>
-            <span className={bodyTextBald}>Påminnelse: </span>
-            <span className={bodyText}>{plan.reminder}</span>
-          </div>
-        )}
       </div>
     </div>
   );
