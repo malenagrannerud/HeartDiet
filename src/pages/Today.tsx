@@ -89,9 +89,23 @@ const Today = () => {
 
   const markedTipsList = tips.filter(tip => markedTips.some(mt => mt.id === tip.id));
 
+  // Map tip IDs to their individual page routes
+  const tipPageRoutes: Record<number, string> = {
+    1: '/app/TipPages/fruit',
+    2: '/app/TipPages/fullkorn',
+    3: '/app/TipPages/fish',
+  };
+
   // Handler for when user navigates to a card
   const handleCardNavigation = (cardId: CardId, path: string) => {
     navigate(path);
+  };
+
+  const handleTipClick = (tipId: number) => {
+    const route = tipPageRoutes[tipId];
+    if (route) {
+      navigate(route);
+    }
   };
 
   // Check if all start cards are hidden
@@ -216,7 +230,7 @@ const Today = () => {
                           tip={tip}
                           isMarked={false}
                           onToggleMark={(e) => e.stopPropagation()}
-                          onClick={() => navigate(`/app/tips/${tip.id}`)}
+                          onClick={() => handleTipClick(tip.id)}
                       />
                   ))
               ) : (
