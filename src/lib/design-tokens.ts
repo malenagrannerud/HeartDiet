@@ -145,19 +145,19 @@ export const pageSubtitle = "text-[#212658]/70 text-lg font-normal";
 
 /**
  * SECTION HEADINGS 1  
- * 24 px - Used for a header within pages. (bottom) mb-4 = 16 px
+ * 24 px - Used for a header within pages. 
  */
 export const sectionHeading = "text-2xl font-bold text-[#212658]";
 
 /**
  * SECTION SUB-HEADINGS 1
- * subheading 22 px. (bottom) mb-4 = 16 px
+ * subheading 22 px. 
  */
 export const sectionSubheading = "text-[#212658]/70 text-[22px] font-normal";
 
 /**
  * SECTION HEADINGS 2 
- * 20 px - Used for section headers within pages, (bottom) mb-4 = 16 px
+ * 20 px - Used for section headers within pages
  */
 export const sectionHeading2 = "text-xl font-bold text-[#212658]";
 
@@ -165,7 +165,7 @@ export const sectionHeading2 = "text-xl font-bold text-[#212658]";
  * SECTION SUB HEADINGS 2
  * 18 px subheading 
  */
-export const sectionSubheading2 = "text-lg font-normal text-[#212658]/70 mb-2";
+export const sectionSubheading2 = "text-lg font-normal text-[#212658]/70 ";
 
 /**
  * BODY TEXT 
