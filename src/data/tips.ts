@@ -3,7 +3,7 @@ import { tipCardColors } from '@/lib/design-tokens';
 export interface UserPlan {
   when: string;        
   how: string;        
-  reminder?: string;  // My reminder
+  //reminder?: string;  // My reminder
 }
 
 export interface Tip {
