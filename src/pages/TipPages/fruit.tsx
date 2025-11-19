@@ -82,45 +82,48 @@ const FruitPage = () => {
           ]} />
         </div>
 
-        <h2 className={sectionHeading2}>Ät dina fem om dagen</h2>
-        <p className={bodyText}>
-          Genom att tänka ut NÄR? och HUR? du ska få i dej dina fem om dagen, kan du lättare modifiera en plan som passar dej. Några exempel:
-        </p>
+        <div>
+          <h2 className={sectionHeading2}>Ät dina fem om dagen</h2>
+          <p className={bodyText}>
+            Genom att tänka ut NÄR? och HUR? du ska få i dej dina fem om dagen, kan du lättare modifiera en plan som passar dej. Några exempel:
+          </p>
 
-        <div className="mt-4 space-y-4">
-          <div className="bg-secondary/20 border border-secondary/30 p-4 rounded-lg">
-            <p className={bodyTextBald}>NÄR: Jag äter en frukt eller en näve bär i samband med frukost</p>
-            <p className={bodyText}>HUR: Jag handlar veckans frukter på söndagar och har bär i frysen</p>
-            <p className={bodyText}>PÅMINNELSE: Jag sätter en lapp på kylskåpet</p>
-          </div>
-          <div className="bg-secondary/20 border border-secondary/30 p-4 rounded-lg">
-            <p className={bodyTextBald}>NÄR: Jag äter en skopa sallad till lunch och middag</p>
-            <p className={bodyText}>HUR: Jag förbereder en råkostsallad med vinjägrett och har den redo i kylskåpet</p>
-            <p className={bodyText}>PÅMINNELSE: Jag lägger in en påminnelse i kalendern</p>
-          </div>
+            <div className="mt-4 space-y-4">
+              <div className="bg-secondary/20 border border-secondary/30 p-4 rounded-lg">
+                <p className={bodyTextBald}>NÄR: Jag äter en frukt eller en näve bär i samband med frukost</p>
+                <p className={bodyText}>HUR: Jag handlar veckans frukter på söndagar och har bär i frysen</p>
+                <p className={bodyText}>PÅMINNELSE: Jag sätter en lapp på kylskåpet</p>
+              </div>
+              <div className="bg-secondary/20 border border-secondary/30 p-4 rounded-lg">
+                <p className={bodyTextBald}>NÄR: Jag äter en skopa sallad till lunch och middag</p>
+                <p className={bodyText}>HUR: Jag förbereder en råkostsallad med vinjägrett och har den redo i kylskåpet</p>
+                <p className={bodyText}>PÅMINNELSE: Jag lägger in en påminnelse i kalendern</p>
+              </div>
+            </div>
         </div>
 
-        {/* User Plan Section */}
-        <div className="mt-8 pt-6 border-t border-border">
-          <h2 className={sectionHeading2}>Min plan</h2>
-          <p className={bodyText}>
-            Planen kan du ändra i så många gånger du behöver, tills den fungerar för dej
-          </p>
-          
-          {isEditing ? (
-            <UserPlanForm
-              tipId={1} // Use the actual tip ID
-              initialPlan={userPlan || undefined}
-              onSave={handleSavePlan}
-              onCancel={() => userPlan && setIsEditing(false)}
-            />
-          ) : (
-            <UserPlanDisplay
-              plan={userPlan!}
-              onEdit={() => setIsEditing(true)}
-              onDelete={handleDeletePlan}
-            />
-          )}
+        <div>
+          <div className="mt-8 pt-6 border-t border-border">
+            <h2 className={sectionHeading2}>Min plan</h2>
+            <p className={bodyText}>
+              Planen kan du ändra i så många gånger du behöver, tills den fungerar för dej
+            </p>
+            
+            {isEditing ? (
+              <UserPlanForm
+                tipId={1} // Use the actual tip ID
+                initialPlan={userPlan || undefined}
+                onSave={handleSavePlan}
+                onCancel={() => userPlan && setIsEditing(false)}
+              />
+            ) : (
+              <UserPlanDisplay
+                plan={userPlan!}
+                onEdit={() => setIsEditing(true)}
+                onDelete={handleDeletePlan}
+              />
+            )}
+          </div>
         </div>
       </main>
     </div>
