@@ -153,11 +153,11 @@ export const sectionHeading = "text-2xl font-bold text-[#212658] mb-4";
  * SECTION SUB-HEADINGS 1
  * subheading 22 px
  */
-export const sectionSubheading = "text-[#212658]/70 text-[22px] font-normal";
+export const sectionSubheading = "text-[#212658]/70 text-[22px] font-normal mb-4";
 
 /**
  * SECTION HEADINGS 2 
- * 20 px - Used for section headers within pages, mb-4 = 16 px
+ * 20 px - Used for section headers within pages, (bottom) mb-4 = 16 px
  */
 export const sectionHeading2 = "text-xl font-bold text-[#212658] mb-4";
 
