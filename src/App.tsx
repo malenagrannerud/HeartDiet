@@ -10,6 +10,15 @@ import Onboarding from "./pages/Onboarding";
 import MainApp from "./pages/MainApp";
 import NotFound from "./pages/NotFound";
 
+
+// Main application wrapper that provides global context providers and routing
+// - React Query for server state management and caching
+// - Tooltip context for UI components
+// - Toast notification systems (both Toaster and Sonner)
+// - Router setup with protected routes
+// - Onboarding flow: new users see welcome screen, returning users go directly to app
+// - Automatically migrates old localStorage keys for backward compatibility
+
 // Keep QueryClient for dependency compatibility
 const queryClient = new QueryClient();
 
