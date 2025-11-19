@@ -1,11 +1,12 @@
 // pages/TipPages/fish.tsx
 import { useState, useEffect } from "react";
-import { UserPlan } from "@/data/tips";
-import { pageContainer, headerContainer, pagePadding, sectionHeading2, bodyText } from "@/lib/design-tokens";
+import { UserPlan } from "../data/tips";
+import { pageContainer, headerContainer, pagePadding, sectionHeading, sectionHeading2, bodyText } from "@/lib/design-tokens";
 import { BackToTodayButton } from "@/components/BackToTodayButton";
 import { UserPlanForm } from "@/components/UserPlanForm";
 import { UserPlanDisplay } from "@/components/UserPlanDisplay";
 import DottedList from "@/components/DottedList";
+import { sectionHeading } from "../../lib/design-tokens";
 
 const FishPage = () => {
   const [userPlan, setUserPlan] = useState<UserPlan | null>(null);
@@ -35,7 +36,7 @@ const FishPage = () => {
     <div className={pageContainer}>
       <header className={headerContainer}>
         <BackToTodayButton />
-        <h1 className="text-3xl font-bold text-foreground">Fisk och skaldjur</h1>
+        <h1 className={sectionHeading}>Fisk och skaldjur</h1>
       </header>
 
       <main className={pagePadding}>
