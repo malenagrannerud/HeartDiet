@@ -1,7 +1,7 @@
 // pages/TipPages/fruit.tsx
 import { useState, useEffect } from "react";
 import { UserPlan } from "@/data/tips";
-import { pageContainer, headerContainer, pagePadding, sectionHeading, sectionSubheading, sectionHeading2, bodyText, bodyTextBald, tipCardColors, sectionSubheading2 } from "@/lib/design-tokens";
+import { pageContainer, headerContainer, pagePadding, sectionHeading, sectionSubheading, sectionHeading2, bodyText, bodyTextBald, tipCardColors, sectionSubheading2, standardSpacing } from "@/lib/design-tokens";
 import { BackToTodayButton } from "@/components/BackToTodayButton";
 import { UserPlanForm } from "@/components/UserPlanForm";
 import { UserPlanDisplay } from "@/components/UserPlanDisplay";
@@ -43,38 +43,45 @@ const FruitPage = () => {
           Att äta minst fem nävar frukter och grönsaker varje dag hjälper dig att må bättre samtidigt som det minskar risken för hjärt-kärlsjukdom. Välj olika sorter och färger! Längst ner får du ett verktyg för att skriva din egna plan för hur rådet blir din vana.
         </p>
 
-        <h2 className={sectionHeading2}>Hur mycket är fem nävar om dagen?</h2>
-        <p className={bodyText}>Till dina fem om dagen räknas:</p>
-        <DottedList items={[
-          "Rotfrukter",
-          "Frukt",
-          "Bär", 
-          "Grönsaker i maten du lagar",
-          "Frysta grönsaker"
-        ]} />
 
-        <h2 className={sectionHeading2}>Må bättre</h2>
-        <p className={bodyText}>
-          Du mår bättre med ett bättre humör och mindre trötthet eftersom frukt och grönt ger ett:
-        </p>
-        <DottedList items={[
-          "Stärkt immunförsvar: Vitaminer & mineraler boostar energi och immunförsvar",
-          "Bättre energi: Antioxidanter minskar inflammation i kroppen", 
-          "Bättre blodsockerreglering: Det ger jämnare energi"
-        ]} />
+        <div className={standardSpacing.sectionContent}> 
+          <h2 className={sectionHeading2}>Hur mycket är fem nävar om dagen?</h2>
+          <p className={bodyText}>Till dina fem om dagen räknas:</p>
+          <DottedList items={[
+            "Rotfrukter",
+            "Frukt",
+            "Bär", 
+            "Grönsaker i maten du lagar",
+            "Frysta grönsaker"
+          ]} />
+        </div>
 
-        <h2 className={sectionHeading2}>Skydd mot hjärtsjukdom</h2>
-        <p className={bodyText}>
-          Frukt och grönt minskar risken för hjärtsjukdom eftersom de innehåller ämnen som:
-        </p>
-        <DottedList items={[
-          "Sänker blodtrycket: Kalium och nitrater vidgar blodkärlen",
-          "Minskar inflammation: Antioxidanter skyddar kärlväggarna",
-          "Sänker kolesterolet: Fibrer binder fett i tarmarna",
-          "Förbättrar blodkärlens funktion: På grund av C-vitamin och flavonoider",
-          "Håller vikten: På grund av låg energitäthet och mättande fibrer"
-        ]} />
+        <div className={standardSpacing.sectionContent}> 
+          <h2 className={sectionHeading2}>Må bättre</h2>
+          <p className={bodyText}>
+            Du mår bättre med ett bättre humör och mindre trötthet eftersom frukt och grönt ger ett:
+          </p>
+          <DottedList items={[
+            "Stärkt immunförsvar: Vitaminer & mineraler boostar energi och immunförsvar",
+            "Bättre energi: Antioxidanter minskar inflammation i kroppen", 
+            "Bättre blodsockerreglering: Det ger jämnare energi"
+          ]} />
+        </div>
 
+        <div className={standardSpacing.sectionContent}> 
+          <h2 className={sectionHeading2}>Skydd mot hjärtsjukdom</h2>
+          <p className={bodyText}>
+            Frukt och grönt minskar risken för hjärtsjukdom eftersom de innehåller ämnen som:
+          </p>
+          <DottedList items={[
+            "Sänker blodtrycket: Kalium och nitrater vidgar blodkärlen",
+            "Minskar inflammation: Antioxidanter skyddar kärlväggarna",
+            "Sänker kolesterolet: Fibrer binder fett i tarmarna",
+            "Förbättrar blodkärlens funktion: På grund av C-vitamin och flavonoider",
+            "Håller vikten: På grund av låg energitäthet och mättande fibrer"
+          ]} />
+        </div>
+        
         <h2 className={sectionHeading2}>Ät dina fem om dagen</h2>
         <p className={bodyText}>
           Genom att tänka ut NÄR? och HUR? du ska få i dej dina fem om dagen, kan du lättare modifiera en plan som passar dej. Några exempel:
