@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { tips } from "@/data/tips";
@@ -5,7 +6,6 @@ import TipCard from "@/components/TipCard";
 import { pageTitle, pageSubtitle, pageContainer, headerContainer, pagePadding, standardSpacing } from "@/lib/design-tokens";
 import { getStorageItem, setStorageItem } from "@/lib/storage";
 import { markedTipsSchema } from "@/lib/schemas";
-
 
 /**
  * Tips Page
@@ -19,7 +19,6 @@ import { markedTipsSchema } from "@/lib/schemas";
  * navigate() - Opens individual tip pages
  */
 
-
 interface MarkedTip {
   id: number;
   markedDate: string;
@@ -32,6 +31,14 @@ const Tips = () => {
     const result = getStorageItem("markedTips", markedTipsSchema);
     return (result as MarkedTip[]) ?? [];
   });
+
+  // Map tip IDs to their individual page routes
+  const tipPageRoutes: Record<number, string> = {
+    1: '/TipPages/fruit',
+    2: '/TipPages/fullkorn',
+    3: '/TipPages/fish',
+    // Add more mappings as you create pages in pages/TipPages/
+  };
 
   useEffect(() => {
     setStorageItem("markedTips", markedTips, markedTipsSchema);
@@ -59,6 +66,17 @@ const Tips = () => {
 
   const isMarked = (tipId: number) => markedTips.some((tip) => tip.id === tipId);
 
+  const handleTipClick = (tipId: number) => {
+    const route = tipPageRoutes[tipId];
+    if (route) {
+      navigate(route);
+    } else {
+      console.warn(`No route found for tip ID: ${tipId}`);
+      // Optional: navigate to a fallback page or show error
+      navigate('/app/tips');
+    }
+  };
+
   return (
     <div className={pageContainer}>
       <header className={headerContainer}>
@@ -75,7 +93,7 @@ const Tips = () => {
                 tip={tip}
                 isMarked={isMarked(tip.id)}
                 onToggleMark={(e) => toggleMark(e, tip.id)}
-                onClick={() => navigate(`/app/tips/${tip.id}`)}
+                onClick={() => handleTipClick(tip.id)}
               />
             ))}
           </div>
