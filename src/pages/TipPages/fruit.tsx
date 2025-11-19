@@ -26,13 +26,7 @@ const FruitPage = () => {
           "Frysta grönsaker"
         ]} />
 
-        {/* ... rest of your custom content */}
-      </main>
-    </div>
-  );
-};
-
-export default FruitPage; dagen</h2>
+        <h2 className={sectionHeading2}>NÄR? och HUR? Få i dej dina fem om dagen</h2>
         <p className={bodyText}>
           Genom att tänka ut NÄR? och HUR? du ska få i dej dina fem om dagen, kan du lättare modifiera en plan som passar dej. Några exempel:
         </p>
