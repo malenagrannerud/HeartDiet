@@ -1,9 +1,36 @@
-// pages/fruit.tsx - Your custom page
+// pages/TipPages/fruit.tsx
+import { useState, useEffect } from "react";
+import { UserPlan } from "@/data/tips";
 import { pageContainer, headerContainer, pagePadding, sectionHeading2, bodyText, bodyTextBald } from "@/lib/design-tokens";
 import { BackToTodayButton } from "@/components/BackToTodayButton";
+import { UserPlanForm } from "@/components/UserPlanForm";
+import { UserPlanDisplay } from "@/components/UserPlanDisplay";
 import DottedList from "@/components/DottedList";
 
 const FruitPage = () => {
+  const [userPlan, setUserPlan] = useState<UserPlan | null>(null);
+  const [isEditing, setIsEditing] = useState(true);
+
+  useEffect(() => {
+    const savedPlan = localStorage.getItem('userPlan-fruit');
+    if (savedPlan) {
+      setUserPlan(JSON.parse(savedPlan));
+      setIsEditing(false);
+    }
+  }, []);
+
+  const handleSavePlan = (plan: UserPlan) => {
+    setUserPlan(plan);
+    setIsEditing(false);
+    localStorage.setItem('userPlan-fruit', JSON.stringify(plan));
+  };
+
+  const handleDeletePlan = () => {
+    setUserPlan(null);
+    setIsEditing(true);
+    localStorage.removeItem('userPlan-fruit');
+  };
+
   return (
     <div className={pageContainer}>
       <header className={headerContainer}>
@@ -26,7 +53,29 @@ const FruitPage = () => {
           "Frysta grönsaker"
         ]} />
 
-        <h2 className={sectionHeading2}>NÄR? och HUR? Få i dej dina fem om dagen</h2>
+        <h2 className={sectionHeading2}>Må bättre</h2>
+        <p className={bodyText}>
+          Du mår bättre med ett bättre humör och mindre trötthet eftersom frukt och grönt ger ett:
+        </p>
+        <DottedList items={[
+          "Stärkt immunförsvar: Vitaminer & mineraler boostar energi och immunförsvar",
+          "Bättre energi: Antioxidanter minskar inflammation i kroppen", 
+          "Bättre blodsockerreglering: Det ger jämnare energi"
+        ]} />
+
+        <h2 className={sectionHeading2}>Skydd mot hjärtsjukdom</h2>
+        <p className={bodyText}>
+          Frukt och grönt minskar risken för hjärtsjukdom eftersom de innehåller ämnen som:
+        </p>
+        <DottedList items={[
+          "Sänker blodtrycket: Kalium och nitrater vidgar blodkärlen",
+          "Minskar inflammation: Antioxidanter skyddar kärlväggarna",
+          "Sänker kolesterolet: Fibrer binder fett i tarmarna",
+          "Förbättrar blodkärlens funktion: På grund av C-vitamin och flavonoider",
+          "Håller vikten: På grund av låg energitäthet och mättande fibrer"
+        ]} />
+
+        <h2 className={sectionHeading2}>Ät dina fem om dagen</h2>
         <p className={bodyText}>
           Genom att tänka ut NÄR? och HUR? du ska få i dej dina fem om dagen, kan du lättare modifiera en plan som passar dej. Några exempel:
         </p>
@@ -44,10 +93,29 @@ const FruitPage = () => {
             <p className={bodyTextBald}>PÅMINNELSE: Jag lägger in en påminnelse i kalendern</p>
           </div>
         </div>
-        <h2 className={sectionHeading2}>Min plan</h2>
-        <p className={bodyText}>
-          Planen kan du ändra i så många gånger du behöver, tills den fungerar för dej
-        </p>
+
+        {/* User Plan Section */}
+        <div className="mt-8 pt-6 border-t border-gray-200">
+          <h2 className={sectionHeading2}>Min plan</h2>
+          <p className={bodyText}>
+            Planen kan du ändra i så många gånger du behöver, tills den fungerar för dej
+          </p>
+          
+          {isEditing ? (
+            <UserPlanForm
+              tipId={1} // Use the actual tip ID
+              initialPlan={userPlan || undefined}
+              onSave={handleSavePlan}
+              onCancel={() => userPlan && setIsEditing(false)}
+            />
+          ) : (
+            <UserPlanDisplay
+              plan={userPlan!}
+              onEdit={() => setIsEditing(true)}
+              onDelete={handleDeletePlan}
+            />
+          )}
+        </div>
       </main>
     </div>
   );
