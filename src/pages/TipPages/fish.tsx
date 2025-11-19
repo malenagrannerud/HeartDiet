@@ -1,12 +1,12 @@
 // pages/TipPages/fish.tsx
 import { useState, useEffect } from "react";
-import { UserPlan } from "../data/tips";
+import { UserPlan } from "@/data/tips";
 import { pageContainer, headerContainer, pagePadding, sectionHeading, sectionHeading2, bodyText } from "@/lib/design-tokens";
 import { BackToTodayButton } from "@/components/BackToTodayButton";
 import { UserPlanForm } from "@/components/UserPlanForm";
 import { UserPlanDisplay } from "@/components/UserPlanDisplay";
 import DottedList from "@/components/DottedList";
-import { sectionHeading } from "../../lib/design-tokens";
+
 
 const FishPage = () => {
   const [userPlan, setUserPlan] = useState<UserPlan | null>(null);

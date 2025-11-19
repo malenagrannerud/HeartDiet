@@ -1,10 +1,65 @@
-import { tipCardColors } from '@/lib/design-tokens';
+//import { tipCardColors } from '@/lib/design-tokens';
 
 export interface UserPlan {
   when: string;        
   how: string;        
   reminder?: string;  // My reminder
 }
+
+export const colors = {
+  // Main background for all frames
+  background: {
+    primary: '#FFFFFF',    // main background
+    secondary: '#FFFFFF',  // White - for cards
+    tertiary: '#D5EDF9',   // Light blue - special sections
+  },
+  
+  // Main header color
+  header: {
+    main: '#212658',       // Dark blue - ALL main headers
+    secondary: '#212658',  // Same for consistency
+  },
+  
+  // Text colors
+  text: {
+    primary: '#212658',         // Main text
+    secondary: 'rgba(33, 38, 88, 0.7)',  // 70% opacity for subtitles
+  },
+  
+  // Tip card colors
+  tipCards: {
+    green: '#A8CC7D',
+    lightgreen: '#E4F5CF',
+    graygreen: '#DAEADE',
+    amber: '#FFD670',
+    orange: '#FFEDD5',
+    yellow: '#FAEAC2',
+    blue: '#4C73D7',
+    cyan: '#C1DFE9',
+    lightblue: '#E4F3F8',
+    darkrose: '#F0B7CC',
+    rose: '#FDD8E5',
+    purple: '#B095CB',
+    lightpurple: '#E7D7F7',
+    
+  },
+} as const;
+
+export const tipCardColors = {
+  green: "bg-[#A8CC7D]",
+  lightgreen: "bg-[#E4F5CF]",
+  graygreen: "bg-[#DAEADE]",
+  amber: "bg-[#FFD670]",
+  orange: "bg-[#FFEDD5]",
+  yellow: "bg-[#FAEAC2]",
+  blue: "bg-[#4C73D7]",
+  cyan: "bg-[#C1DFE9]",
+  lightblue: "bg-[#E4F3F8]",
+  darkrose: "bg-[#F0B7CC]",
+  rose: "bg-[#FDD8E5]",
+  purple: "bg-[#B095CB]",
+  lightpurple: "bg-[#E7D7F7]",
+} as const;
 
 export interface Tip {
   id: number;
