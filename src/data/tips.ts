@@ -11,6 +11,9 @@ export interface Tip {
   title: string;
   color: string;
   freq: string;
+  summary?: string;
+  detailedInfo?: string[];
+  steps?: any[];
 }
 
 export const tips: Tip[] = [
