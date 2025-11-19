@@ -35,10 +35,10 @@ const FruitPage = () => {
     <div className={pageContainer}>
       <header className={headerContainer}>
         <BackToTodayButton />
+         <h1 className={sectionHeading}>Fem om dagen</h1>
       </header>
 
       <main className={pagePadding}>
-        {/* Your custom content */}
         <p className={bodyText}>
           Att äta minst fem nävar frukter och grönsaker varje dag hjälper dig att må bättre samtidigt som det minskar risken för hjärt-kärlsjukdom. Välj olika sorter och färger! Längst ner får du ett verktyg för att skriva din egna plan för hur rådet blir din vana.
         </p>
