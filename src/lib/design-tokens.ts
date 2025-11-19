@@ -165,7 +165,7 @@ export const sectionHeading2 = "text-xl font-bold text-[#212658] mb-4";
  * SECTION SUB HEADINGS 2
  * 18 px subheading 
  */
-export const sectionSubheading2 = "text-lg font-normal text-[#212658]/70 mt-2";
+export const sectionSubheading2 = "text-lg font-normal text-[#212658]/70 mb-2";
 
 /**
  * BODY TEXT 
