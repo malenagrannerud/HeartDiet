@@ -153,7 +153,7 @@ export const sectionHeading = "text-2xl font-bold text-[#212658]";
  * SECTION SUB-HEADINGS 1
  * subheading 22 px. (bottom) mb-4 = 16 px
  */
-export const sectionSubheading = "text-[#212658]/70 text-[22px] font-normal mb-4";
+export const sectionSubheading = "text-[#212658]/70 text-[22px] font-normal";
 
 /**
  * SECTION HEADINGS 2 
