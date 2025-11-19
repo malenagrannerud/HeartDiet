@@ -33,9 +33,9 @@ const FruitPage = () => {
 
   return (
     <div className={pageContainer}>
-      <header className={headerContainer}>
+      <header className={`${headerContainer} ${tipCardColors.green}`}>
         <BackToTodayButton />
-         <h1 className={sectionHeading}>Fem om dagen</h1>
+        <h1 className={sectionHeading}>Fem om dagen</h1>
       </header>
 
       <main className={pagePadding}>
