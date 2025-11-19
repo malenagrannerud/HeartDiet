@@ -1,7 +1,7 @@
 // pages/TipPages/fruit.tsx
 import { useState, useEffect } from "react";
 import { UserPlan } from "@/data/tips";
-import { pageContainer, headerContainer, pagePadding, sectionHeading, sectionSubheading, sectionHeading2, bodyText, bodyTextBald } from "@/lib/design-tokens";
+import { pageContainer, headerContainer, pagePadding, sectionHeading, sectionSubheading, sectionHeading2, bodyText, bodyTextBald, tipCardColors } from "@/lib/design-tokens";
 import { BackToTodayButton } from "@/components/BackToTodayButton";
 import { UserPlanForm } from "@/components/UserPlanForm";
 import { UserPlanDisplay } from "@/components/UserPlanDisplay";
@@ -39,7 +39,7 @@ const FruitPage = () => {
       </header>
 
       <main className={pagePadding}>
-        <p className={sectionSubheading2}>
+        <p className={sectionSubheading}>
           Att äta minst fem nävar frukter och grönsaker varje dag hjälper dig att må bättre samtidigt som det minskar risken för hjärt-kärlsjukdom. Välj olika sorter och färger! Längst ner får du ett verktyg för att skriva din egna plan för hur rådet blir din vana.
         </p>
 
