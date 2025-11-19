@@ -80,7 +80,6 @@ const FruitPage = () => {
           Genom att tänka ut NÄR? och HUR? du ska få i dej dina fem om dagen, kan du lättare modifiera en plan som passar dej. Några exempel:
         </p>
 
-        {/* Habits Examples */}
         <div className="mt-4 space-y-4">
           <div className="bg-secondary/20 border border-secondary/30 p-4 rounded-lg">
             <p className={bodyTextBald}>NÄR: Jag äter en frukt eller en näve bär i samband med frukost</p>
