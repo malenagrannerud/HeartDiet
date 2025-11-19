@@ -38,13 +38,13 @@ const FruitPage = () => {
         <h1 className={sectionHeading}>Fem om dagen</h1>
       </header>
 
-      <main className={pagePadding}>
+      <main className={`${pagePadding} ${standardSpacing.pageContent}`}>
         <p className={sectionSubheading2}>
           Att äta minst fem nävar frukter och grönsaker varje dag hjälper dig att må bättre samtidigt som det minskar risken för hjärt-kärlsjukdom. Välj olika sorter och färger! Längst ner får du ett verktyg för att skriva din egna plan för hur rådet blir din vana.
         </p>
 
 
-        <div className={standardSpacing.sectionContent}> 
+        <div> 
           <h2 className={sectionHeading2}>Hur mycket är fem nävar om dagen?</h2>
           <p className={bodyText}>Till dina fem om dagen räknas:</p>
           <DottedList items={[
@@ -56,7 +56,7 @@ const FruitPage = () => {
           ]} />
         </div>
 
-        <div className={standardSpacing.sectionContent}> 
+        <div> 
           <h2 className={sectionHeading2}>Må bättre</h2>
           <p className={bodyText}>
             Du mår bättre med ett bättre humör och mindre trötthet eftersom frukt och grönt ger ett:
@@ -68,7 +68,7 @@ const FruitPage = () => {
           ]} />
         </div>
 
-        <div className={standardSpacing.sectionContent}> 
+        <div> 
           <h2 className={sectionHeading2}>Skydd mot hjärtsjukdom</h2>
           <p className={bodyText}>
             Frukt och grönt minskar risken för hjärtsjukdom eftersom de innehåller ämnen som:
@@ -81,7 +81,7 @@ const FruitPage = () => {
             "Håller vikten: På grund av låg energitäthet och mättande fibrer"
           ]} />
         </div>
-        
+
         <h2 className={sectionHeading2}>Ät dina fem om dagen</h2>
         <p className={bodyText}>
           Genom att tänka ut NÄR? och HUR? du ska få i dej dina fem om dagen, kan du lättare modifiera en plan som passar dej. Några exempel:
