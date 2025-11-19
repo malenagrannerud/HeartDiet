@@ -1,7 +1,7 @@
 // pages/TipPages/fullkorn.tsx
 import { useState, useEffect } from "react";
 import { UserPlan } from "@/data/tips";
-import { pageContainer, headerContainer, pagePadding, sectionHeading2, bodyText } from "@/lib/design-tokens";
+import { pageContainer, headerContainer, pagePadding, sectionHeading2, bodyText, tipCardColors } from "@/lib/design-tokens";
 import { BackToTodayButton } from "@/components/BackToTodayButton";
 import { UserPlanForm } from "@/components/UserPlanForm";
 import { UserPlanDisplay } from "@/components/UserPlanDisplay";
@@ -33,7 +33,7 @@ const FullkornPage = () => {
 
   return (
     <div className={pageContainer}>
-      <header className={headerContainer}>
+      <header className={`${headerContainer} ${tipCardColors.amber}`}>
         <BackToTodayButton />
         <h1 className="text-3xl font-bold text-foreground">Fyll på med fullkorn</h1>
       </header>

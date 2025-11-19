@@ -57,12 +57,12 @@ export const tips: Tip[] = [
 //    color: tipCardColors.graygreen,
 //    freq: `Dagligen`
 //  },
-  {
-    id: 8,
-    title: "Lagom är bäst",
-    color: tipCardColors.lightpurple,
-    freq: `Dagligen`  
-  },
+ // {
+  //  id: 8,
+   // title: "Lagom är bäst",
+  //  color: tipCardColors.lightpurple,
+  //  freq: `Dagligen`  
+  //},
   {
     id: 9,
     title: "30 min om dagen",
