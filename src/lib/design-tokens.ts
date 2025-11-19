@@ -136,7 +136,7 @@ export const pagePadding = "p-6";
 /**
  * PAGE TITLES - Used for main page headers 36 px
  */
-export const pageTitle = "text-4xl font-bold text-[#212658] mb-1";
+export const pageTitle = "text-4xl font-bold text-[#212658]";
 
 /**
  * PAGE SUBTITLES - Used under page titles 18px
