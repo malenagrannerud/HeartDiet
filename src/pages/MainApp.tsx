@@ -2,7 +2,9 @@ import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { BottomNav } from "@/components/BottomNav";
 import Today from "./Today";
 import Tips from "./Tips";
-import TipDetail from "./TipDetail";
+import FruitPage from "./TipPages/fruit";
+import FullkornPage from "./TipPages/fullkorn";
+import FishPage from "./TipPages/fish";
 import Progress from "./Progress";
 import Help from "./Help";
 import Tutorial from "./Tutorial";
@@ -23,7 +25,9 @@ const MainApp = () => {
           <Route path="/" element={<Navigate to="/app/today" replace />} />
           <Route path="/today" element={<Today />} />
           <Route path="/tips" element={<Tips />} />
-          <Route path="/tips/:id" element={<TipDetail />} />
+          <Route path="/TipPages/fruit" element={<FruitPage />} />
+          <Route path="/TipPages/fullkorn" element={<FullkornPage />} />
+          <Route path="/TipPages/fish" element={<FishPage />} />
           <Route path="/progress" element={<Progress />} />
           <Route path="/help" element={<Help />} />
           <Route path="/tutorial" element={<Tutorial />} />

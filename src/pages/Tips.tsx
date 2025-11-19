@@ -34,9 +34,9 @@ const Tips = () => {
 
   // Map tip IDs to their individual page routes
   const tipPageRoutes: Record<number, string> = {
-    1: '/TipPages/fruit',
-    2: '/TipPages/fullkorn',
-    3: '/TipPages/fish',
+    1: '/app/TipPages/fruit',
+    2: '/app/TipPages/fullkorn',
+    3: '/app/TipPages/fish',
     // Add more mappings as you create pages in pages/TipPages/
   };
 
