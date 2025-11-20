@@ -90,32 +90,37 @@ const FruitPage = () => {
 
         <div className="mt-2 space-y-2">
                 <ExampleCard 
-                  goal="Äta en näve bär i smoothien varje dag (2/5)"
+                  goal="Äta en näve bär i smoothien varje dag (1/5)"
                   when="Frukost"
                   how="Dricker en smoothie till min smörgås. Har frysta blåbär och hallon hemma. "
                   reminder="Bild på ett blåbär på kylskåpet"
                 />
                 
                 <ExampleCard 
-                  goal="Äta en näve sallad varje dag (3/5)"
+                  goal="Äta en näve sallad varje dag (2/5)"
                   when="Lunch"
                   how="Jag har en råkostsallad med vinjägrett redo i kylskåpet"
-                  reminder="Påminnelse att handla i min telefon"
+                  reminder="Påminnelse i min kalender i köket"
                 />
                 
                 <ExampleCard 
-                  goal="Äta en frukt (4/5)"
+                  goal="Äta en frukt varje dag (3/5)"
                   when="Mellanmål, kl 15.00"
                   how="Jag har ett äpple i väskan"
                   reminder="Larm i min telefon"
                 />
 
                 <ExampleCard 
-                  goal="Mer grönsker i maten (5/5)"
+                  goal="En näve grönsker i maten varje dag (5/5)"
                   when="Middag"
                   how="En näve linser i köttfärssåsen / soppan "
-                  reminder="Påminnelse att handla rotfrukter i min telefon"
-                  
+                  reminder="Skriver i shoppinglistan på matbordet"
+                />
+                 <ExampleCard 
+                  goal="Äta en näve sallad varje dag (2/5)"
+                  when="Middag"
+                  how="Jag har en råkostsallad med vinjägrett redo i kylskåpet"
+                  reminder="Påminnelse i min telefon"
                 />
         </div>
 
