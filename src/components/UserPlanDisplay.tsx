@@ -5,7 +5,6 @@ import { UserPlan } from '@/data/tips';
 import { bodyText } from '@/lib/design-tokens';
 import { bodyTextBald } from '@/lib/design-tokens';
 
-
 interface UserPlanDisplayProps {
   plan: UserPlan;
   onEdit: () => void;
@@ -38,6 +37,12 @@ export const UserPlanDisplay: React.FC<UserPlanDisplayProps> = ({
       </div>
 
       <div className="space-y-3">
+
+        <div>
+          <span className={bodyTextBald}>Mål: </span>
+          <span className={bodyText}>{plan.goal}</span>
+        </div>
+
         <div>
           <span className={bodyTextBald}>När: </span>
           <span className={bodyText}>{plan.when}</span>
@@ -47,6 +52,14 @@ export const UserPlanDisplay: React.FC<UserPlanDisplayProps> = ({
           <span className={bodyTextBald}>Hur: </span>
           <span className={bodyText}>{plan.how}</span>
         </div>
+
+        <div>
+          <span className={bodyTextBald}>Påminnelse: </span>
+          <span className={bodyText}>{plan.reminder}</span>
+        </div>
+
+
+
       </div>
     </div>
   );
