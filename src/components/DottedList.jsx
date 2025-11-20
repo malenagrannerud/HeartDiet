@@ -4,7 +4,7 @@ import { bodyText } from '@/lib/design-tokens';
 
 const DottedList = ({ items }) => {
   return (
-    <ul className="list-none space-y-1">
+    <ul className="list-none mt-2">
       {items.map((item, index) => (
         <li key={index} className="flex items-start">
           <span className={`${bodyText} mr-2`}>•</span>
