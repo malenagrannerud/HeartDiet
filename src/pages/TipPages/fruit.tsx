@@ -91,7 +91,7 @@ const FruitPage = () => {
           </p>
         </div>
 
-        <div>
+        <div className="mt-2 space-y-2">
                 <ExampleCard 
                   goal="Äta två nävar bär (2/5)"
                   when="Frukost"
