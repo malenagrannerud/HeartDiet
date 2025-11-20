@@ -197,7 +197,7 @@ export const cardTitleSmall = "text-xs text-[#212658]";
  * CARD TEXT 
  * Used for body text within cards 16 px
  */
-export const cardText = "text-base text-[#212658]/70";
+export const cardText = "text-xs text-[#212658]";
 
 
 /**
