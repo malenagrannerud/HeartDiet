@@ -91,7 +91,7 @@ const FruitPage = () => {
           </p>
         </div>
 
-              <div className="mt-4 space-y-4">
+        <div>
                 <ExampleCard 
                   goal="Äta två nävar bär (2/5)"
                   when="Frukost"
@@ -120,7 +120,7 @@ const FruitPage = () => {
                   reminder="Jag sätter en påminnelse att handla rotfrukter i min telefon"
                   exCardText={exCardText}
                 />
-              </div>
+        </div>
 
         <div>
           <div className="mt-8 pt-6 border-t border-border">
