@@ -9,14 +9,11 @@ interface ExampleCardProps {
 
 const ExampleCard = ({ goal, when, how, reminder }: ExampleCardProps) => {
   return (
-    <div className="bg-pink-100 border border-pink-200 p-2 rounded-mg">
-      <p className={exCardTextBold}>Exempelplan</p>
-      <p className={exCardText}>Mål: {goal}</p>
-      <p className={exCardText}>När: {when}</p>
-      <p className={exCardText}>Hur: {how}</p>
-      <p className={exCardText}>Påminnelse: {reminder}</p>
+    <div className="bg-pink-100 border border-pink-200 p-2 rounded-md">
+      <p className={exCardTextBold}>Mål: <span className="font-script">{goal}</span></p>
+      <p className={exCardTextBold}>När: <span className="font-script">{when}</span></p>
+      <p className={exCardTextBold}>Hur: <span className="font-script">{how}</span></p>
+      <p className={exCardTextBold}>Påminnelse: <span className="font-script">{reminder}</span></p>
     </div>
   );
 };
-
-export default ExampleCard;
