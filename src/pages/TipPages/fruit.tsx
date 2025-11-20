@@ -111,13 +111,13 @@ const FruitPage = () => {
                 />
 
                 <ExampleCard 
-                  goal="En näve grönsker i maten varje dag (5/5)"
+                  goal="En näve grönsker i maten varje dag (4/5)"
                   when="Middag"
                   how="En näve linser i köttfärssåsen / soppan "
                   reminder="Skriver i shoppinglistan på matbordet"
                 />
                  <ExampleCard 
-                  goal="Äta en näve sallad varje dag (2/5)"
+                  goal="Äta en näve sallad varje dag (5/5)"
                   when="Middag"
                   how="Jag har en råkostsallad med vinjägrett redo i kylskåpet"
                   reminder="Påminnelse i min telefon"
