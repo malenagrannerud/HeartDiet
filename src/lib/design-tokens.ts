@@ -218,7 +218,7 @@ export const placeholderText = "[&::placeholder]:text-base [&::placeholder]:text
  * EX CARD TEXT
  * Used for secondary text in cards 14 px
  */
-export const exCardText = "text-sm text-[#212658]";
+export const exCardText = "text-xs text-[#212658]";
 
 
 
