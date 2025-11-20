@@ -214,7 +214,11 @@ export const cardTextSmall = "text-sm text-[#212658]/70";
 export const placeholderText = "[&::placeholder]:text-base [&::placeholder]:text-gray-400";
 
 
-
+/**
+ * EX CARD TEXT
+ * Used for secondary text in cards 14 px
+ */
+export const exCardText = "text-sm text-[#212658]";
 
 
 
