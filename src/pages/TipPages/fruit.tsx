@@ -91,36 +91,36 @@ const FruitPage = () => {
           </p>
         </div>
 
-        <div className="mt-4 space-y-4">
-          <ExampleCard 
-            goal="Äta två nävar bär (2/5)"
-            when="Frukost"
-            how="Dricker en smoothie till min smörgås. Jag har frysta blåbär och hallon hemma. Handlar detta på söndagar"
-            reminder="Jag sätter en påminnelse att handla frukt i min telefon"
-          />
-          
-          <ExampleCard 
-            goal="Äta en näve sallad (3/5)"
-            when="Lunch"
-            how="Jag förbereder en råkostsallad med vinjägrett och har den redo i kylskåpet"
-            reminder="Jag sätter en påminnelse att handla rotfrukter i min telefon"
-          />
-          
-          <ExampleCard 
-            goal="Äta en frukt (4/5)"
-            when="Mellanmål, kl 15.00"
-            how="Jag har ett äpple i väskan"
-            reminder="Larm i min telefon"
-          />
+              <div className="mt-4 space-y-4">
+                <ExampleCard 
+                  goal="Äta två nävar bär (2/5)"
+                  when="Frukost"
+                  how="Dricker en smoothie till min smörgås. Jag har frysta blåbär och hallon hemma. Handlar detta på söndagar"
+                  reminder="Jag sätter en påminnelse att handla frukt i min telefon"
+                />
+                
+                <ExampleCard 
+                  goal="Äta en näve sallad (3/5)"
+                  when="Lunch"
+                  how="Jag förbereder en råkostsallad med vinjägrett och har den redo i kylskåpet"
+                  reminder="Jag sätter en påminnelse att handla rotfrukter i min telefon"
+                />
+                
+                <ExampleCard 
+                  goal="Äta en frukt (4/5)"
+                  when="Mellanmål, kl 15.00"
+                  how="Jag har ett äpple i väskan"
+                  reminder="Larm i min telefon"
+                />
 
-          <ExampleCard 
-            goal="Äta en näve sallad (5/5)"
-            when="Middag"
-            how="Jag förbereder en råkostsallad med vinjägrett och har den redo i kylskåpet"
-            reminder="Jag sätter en påminnelse att handla rotfrukter i min telefon"
-            exCardText={exCardText}
-          />
-        </div>
+                <ExampleCard 
+                  goal="Äta en näve sallad (5/5)"
+                  when="Middag"
+                  how="Jag förbereder en råkostsallad med vinjägrett och har den redo i kylskåpet"
+                  reminder="Jag sätter en påminnelse att handla rotfrukter i min telefon"
+                  exCardText={exCardText}
+                />
+              </div>
 
         <div>
           <div className="mt-8 pt-6 border-t border-border">
