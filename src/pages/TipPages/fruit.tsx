@@ -119,7 +119,7 @@ const FruitPage = () => {
             when="Middag"
             how="Jag förbereder en råkostsallad med vinjägrett och har den redo i kylskåpet"
             reminder="Jag sätter en påminnelse att handla rotfrukter i min telefon"
-            // exCardText={exCardText}
+            exCardText={exCardText}
           />
         </div>
 
