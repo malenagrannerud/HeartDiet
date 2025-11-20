@@ -58,7 +58,7 @@ const FruitPage = () => {
         <div> 
           <h2 className={sectionHeading2}>Må bättre</h2>
           <p className={bodyText}>
-            Du mår bättre med ett bättre humör och mindre trötthet eftersom frukt och grönt ger ett:
+            Du mår bättre med ett bättre humör och mindre trötthet eftersom frukt och grönt ger:
           </p>
           <DottedList items={[
             "Stärkt immunförsvar: Vitaminer & mineraler boostar energi och immunförsvar",
@@ -70,7 +70,7 @@ const FruitPage = () => {
         <div> 
           <h2 className={sectionHeading2}>Skydd mot hjärtsjukdom</h2>
           <p className={bodyText}>
-            Frukt och grönt minskar risken för hjärtsjukdom eftersom de innehåller ämnen som:
+            Frukt och grönt minskar risken för hjärtsjukdom eftersom de:
           </p>
           <DottedList items={[
             "Sänker blodtrycket: Kalium och nitrater vidgar blodkärlen",
