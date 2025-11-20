@@ -7,7 +7,7 @@ const DottedList = ({ items }) => {
     <ul className="list-none space-y-1">
       {items.map((item, index) => (
         <li key={index} className="flex items-start">
-          <span className={`${bodyText} mr-1`}>•</span>
+          <span className={`${bodyText} mr-2`}>•</span>
           <span className={bodyText}>{item}</span>
         </li>
       ))}

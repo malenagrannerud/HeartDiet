@@ -1,14 +1,12 @@
 // pages/TipPages/fruit.tsx
 import { useState, useEffect } from "react";
 import { UserPlan } from "@/data/tips";
-import { pageContainer, headerContainer, pagePadding, sectionHeading, sectionSubheading, sectionHeading2, bodyText, bodyTextBald, tipCardColors, sectionSubheading2, standardSpacing, exCardText } from "@/lib/design-tokens";
+import { pageContainer, headerContainer, pagePadding, sectionHeading, sectionHeading2, bodyText, bodyTextBald, tipCardColors, sectionSubheading2, standardSpacing} from "@/lib/design-tokens";
 import { BackToTodayButton } from "@/components/BackToTodayButton";
 import { UserPlanForm } from "@/components/UserPlanForm";
 import { UserPlanDisplay } from "@/components/UserPlanDisplay";
 import DottedList from "@/components/DottedList";
 import ExampleCard from "@/components/exCard";
-
-
 
 const FruitPage = () => {
   const [userPlan, setUserPlan] = useState<UserPlan | null>(null);
@@ -51,10 +49,9 @@ const FruitPage = () => {
           <p className={bodyText}>Till dina fem om dagen räknas:</p>
           <DottedList items={[
             "Rotfrukter",
-            "Frukt",
-            "Bär", 
-            "Grönsaker i maten du lagar",
-            "Frysta grönsaker"
+            "Frukt - färska och frysta",
+            "Bär - färska och frysta", 
+            "Grönsaker - färska, frysta och i maten du lagar",
           ]} />
         </div>
 
