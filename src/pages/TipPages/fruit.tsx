@@ -95,15 +95,15 @@ const FruitPage = () => {
                 <ExampleCard 
                   goal="Äta två nävar bär (2/5)"
                   when="Frukost"
-                  how="Dricker en smoothie till min smörgås. Jag har frysta blåbär och hallon hemma. Handlar detta på söndagar"
-                  reminder="Jag sätter en påminnelse att handla frukt i min telefon"
+                  how="Dricker en smoothie till min smörgås. Har frysta blåbär och hallon hemma. "
+                  reminder="Lapp på kylskåpet"
                 />
                 
                 <ExampleCard 
                   goal="Äta en näve sallad (3/5)"
                   when="Lunch"
-                  how="Jag förbereder en råkostsallad med vinjägrett och har den redo i kylskåpet"
-                  reminder="Jag sätter en påminnelse att handla rotfrukter i min telefon"
+                  how="Jag förbereder en råkostsallad med vinjägrett redo i kylskåpet"
+                  reminder="Påminnelse att handla i min telefon"
                 />
                 
                 <ExampleCard 
@@ -116,8 +116,8 @@ const FruitPage = () => {
                 <ExampleCard 
                   goal="Äta en näve sallad (5/5)"
                   when="Middag"
-                  how="Jag förbereder en råkostsallad med vinjägrett och har den redo i kylskåpet"
-                  reminder="Jag sätter en påminnelse att handla rotfrukter i min telefon"
+                  how="Jag förbereder en råkostsallad med vinjägrett redo i kylskåpet"
+                  reminder="Påminnelse att handla rotfrukter i min telefon"
                   
                 />
         </div>
