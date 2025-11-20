@@ -223,6 +223,7 @@ export const exCardText = "text-xs text-[#212658]";
 export const exCardTextBold = "text-xs font-bold text-[#212658]";
 
 
+export const exCardTextHand = "handwriting text-sm font-normal";
 
 
 
