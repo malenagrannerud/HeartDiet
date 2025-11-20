@@ -6,6 +6,9 @@ import { BackToTodayButton } from "@/components/BackToTodayButton";
 import { UserPlanForm } from "@/components/UserPlanForm";
 import { UserPlanDisplay } from "@/components/UserPlanDisplay";
 import DottedList from "@/components/DottedList";
+import ExampleCard from "@/components/exCard";
+
+
 
 const FruitPage = () => {
   const [userPlan, setUserPlan] = useState<UserPlan | null>(null);
@@ -116,7 +119,7 @@ const FruitPage = () => {
             when="Middag"
             how="Jag förbereder en råkostsallad med vinjägrett och har den redo i kylskåpet"
             reminder="Jag sätter en påminnelse att handla rotfrukter i min telefon"
-            bodyText={exCardText}
+            // exCardText={exCardText}
           />
         </div>
 
