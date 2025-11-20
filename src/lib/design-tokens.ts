@@ -159,7 +159,7 @@ export const sectionSubheading = "text-[#212658]/70 text-[22px] font-normal";
  * SECTION HEADINGS 2 
  * 20 px - Used for section headers within pages
  */
-export const sectionHeading2 = "text-xl font-bold text-[#212658]";
+export const sectionHeading2 = "text-xl font-bold text-[#212658] mt-2";
 
 /**
  * SECTION SUB HEADINGS 2
@@ -191,14 +191,11 @@ export const cardTitle = "text-base font-bold text-[#212658]";
  */
 export const cardTitleSmall = "text-xs text-[#212658]";
 
-
-
 /**
  * CARD TEXT 
  * Used for body text within cards 16 px
  */
 export const cardText = "text-xs text-[#212658]";
-
 
 /**
  * SMALL CARD TEXT
@@ -212,7 +209,6 @@ export const cardTextSmall = "text-sm text-[#212658]/70";
  */
 
 export const placeholderText = "[&::placeholder]:text-base [&::placeholder]:text-gray-400";
-
 
 /**
  * EX CARD TEXT
