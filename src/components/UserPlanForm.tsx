@@ -18,21 +18,30 @@ export const UserPlanForm: React.FC<UserPlanFormProps> = ({
   onCancel
 }) => {
   const [plan, setPlan] = useState<UserPlan>(
-    initialPlan || { when: '', how: '' }
+    initialPlan || { goal: '', when: '', how: '', reminder: '' }
   );
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (plan.when.trim() && plan.how.trim()) {
+    if (plan.goal.trim() && plan.when.trim() && plan.how.trim() && plan.reminder.trim()) {
       onSave(plan);
     }
   };
 
   return (
-    <div className="bg-white rounded-mg border border-gray-200 p-6 mt-6">
-      <h3 className={sectionHeading2}> Min plan </h3>
-      
+    <div className="bg-white rounded-md border border-gray-200 p-6 mt-6">
       <form onSubmit={handleSubmit} className="space-y-4 mt-4">
+        <div>
+          <label className={`${bodyTextBald} block mb-2`}>Mål</label>
+          <input
+            type="text"
+            value={plan.goal}
+            onChange={(e) => setPlan({ ...plan, goal: e.target.value })}
+            placeholder="Ex: Äta två nävar bär, äta en frukt, äta en näve sallad..."
+            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          />
+        </div>
+        
         <div>
           <label className={`${bodyTextBald} block mb-2`}>När?</label>
           <input
@@ -44,7 +53,6 @@ export const UserPlanForm: React.FC<UserPlanFormProps> = ({
           />
         </div>
 
-        
         <div>
           <label className={`${bodyTextBald} block mb-2`}>
             Hur?
@@ -58,8 +66,17 @@ export const UserPlanForm: React.FC<UserPlanFormProps> = ({
           />
         </div>
 
+        <div>
+          <label className={`${bodyTextBald} block mb-2`}>Påminnelse</label>
+          <input
+            type="text"
+            value={plan.reminder}
+            onChange={(e) => setPlan({ ...plan, reminder: e.target.value })}
+            placeholder="Ex: Sätt alarm, handla på söndag, förbereda kvällen innan..."
+            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          />
+        </div>
 
-        {/* Buttons */}
         <div className="flex gap-3 pt-2">
           <button
             type="submit"
