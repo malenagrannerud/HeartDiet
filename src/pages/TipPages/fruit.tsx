@@ -1,7 +1,7 @@
 // pages/TipPages/fruit.tsx
 import { useState, useEffect } from "react";
 import { UserPlan } from "@/data/tips";
-import { pageContainer, headerContainer, pagePadding, sectionHeading, sectionSubheading, sectionHeading2, bodyText, bodyTextBald, tipCardColors, sectionSubheading2, standardSpacing } from "@/lib/design-tokens";
+import { pageContainer, headerContainer, pagePadding, sectionHeading, sectionSubheading, sectionHeading2, bodyText, bodyTextBald, tipCardColors, sectionSubheading2, standardSpacing, exCardText } from "@/lib/design-tokens";
 import { BackToTodayButton } from "@/components/BackToTodayButton";
 import { UserPlanForm } from "@/components/UserPlanForm";
 import { UserPlanDisplay } from "@/components/UserPlanDisplay";
@@ -111,12 +111,13 @@ const FruitPage = () => {
             <p className={bodyText}> Påminnelse: Larm i min telefon </p>
           </div>
 
-          <div className="bg-secondary/20 border border-secondary/30 p-4 rounded-lg">
-            <p className={bodyText}> Mål: Äta en näve sallad (5/5) </p>
-            <p className={bodyText}> När: Middag </p>
-            <p className={bodyText}> Hur: Jag förbereder en råkostsallad med vinjägrett och har den redo i kylskåpet</p>
-            <p className={bodyText}> Påminnelse: Jag sätter en påminnelse att handla rotfrukter i min telefon </p>
-          </div>
+          <ExampleCard 
+            goal="Äta en näve sallad (5/5)"
+            when="Middag"
+            how="Jag förbereder en råkostsallad med vinjägrett och har den redo i kylskåpet"
+            reminder="Jag sätter en påminnelse att handla rotfrukter i min telefon"
+            bodyText={exCardText}
+          />
         </div>
 
         <div>
