@@ -11,7 +11,7 @@ interface ExampleCardProps {
 const ExampleCard = ({ goal, when, how, reminder }: ExampleCardProps) => {
   return (
     <div className="bg-pink-100 border border-pink-200 p-2 rounded-mg">
-      <p className={exCardTextBold}>Exempel</p>
+      <p className={exCardTextBold}>Exempelplan</p>
       <p className={exCardText}>Mål: {goal}</p>
       <p className={exCardText}>När: {when}</p>
       <p className={exCardText}>Hur: {how}</p>
