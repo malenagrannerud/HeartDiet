@@ -220,7 +220,11 @@ export const placeholderText = "[&::placeholder]:text-base [&::placeholder]:text
  */
 export const exCardText = "text-xs text-[#212658]";
 
-
+/**
+ * EX CARD TEXT
+ * Used for secondary text in cards 14 px
+ */
+export const exCardTextBold = "text-xs font-bold text-[#212658]";
 
 
 
