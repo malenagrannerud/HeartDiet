@@ -29,25 +29,22 @@ export const UserPlanForm: React.FC<UserPlanFormProps> = ({
   };
 
   return (
-    <div className="bg-white rounded-lg border border-gray-200 p-6 mt-6">
+    <div className="bg-white rounded-mg border border-gray-200 p-6 mt-6">
       <h3 className={sectionHeading2}> Min plan </h3>
       
       <form onSubmit={handleSubmit} className="space-y-4 mt-4">
-        {/* When */}
         <div>
-          <label className={`${bodyTextBald} block mb-2`}>
-            När?
-          </label>
+          <label className={`${bodyTextBald} block mb-2`}>När?</label>
           <input
             type="text"
             value={plan.when}
             onChange={(e) => setPlan({ ...plan, when: e.target.value })}
-            placeholder="Ex: Varje morgon, På lördagar, Före lunch..."
+            placeholder="Ex: Frukost, lunch, mellanmål, middag..."
             className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
         </div>
 
-        {/* How */}
+        
         <div>
           <label className={`${bodyTextBald} block mb-2`}>
             Hur?
