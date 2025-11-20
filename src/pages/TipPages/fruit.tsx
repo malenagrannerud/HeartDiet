@@ -43,7 +43,6 @@ const FruitPage = () => {
           Att äta minst fem nävar frukter och grönsaker varje dag hjälper dig att må bättre och minska risken för hjärt-kärlsjukdom. Välj olika sorter och färger! 
         </p>
 
-
         <div> 
           <h2 className={sectionHeading2}>Hur mycket är fem nävar om dagen?</h2>
           <p className={bodyText}>Till dina fem om dagen räknas:</p>
@@ -63,8 +62,8 @@ const FruitPage = () => {
           </p>
           <DottedList items={[
             "Stärkt immunförsvar: Vitaminer & mineraler boostar energi och immunförsvar",
-            "Bättre energi: Antioxidanter minskar inflammation i kroppen", 
-            "Bättre blodsockerreglering: Det ger jämnare energi"
+            "Energi: Antioxidanter minskar inflammation i kroppen", 
+            "Blodsockerreglering: Det ger jämnare energi"
           ]} />
         </div>
 
@@ -85,20 +84,36 @@ const FruitPage = () => {
         <div>
           <h2 className={sectionHeading2}>Ät dina fem om dagen</h2>
           <p className={bodyText}>
-            Genom att tänka ut NÄR? och HUR? du ska få i dej dina fem om dagen, kan du lättare modifiera en plan som passar dej. Några exempel:
+            Genom att tänka ut när och hur du ska få i dej dina fem om dagen, kan du lättare modifiera en plan som passar dej. Några exempel:
           </p>
 
             <div className="mt-4 space-y-4">
-              <div className="bg-secondary/20 border border-secondary/30 p-4 rounded-lg">
-                <p className={bodyTextBald}>NÄR: Jag äter en frukt eller en näve bär i samband med frukost</p>
-                <p className={bodyText}>HUR: Jag handlar veckans frukter på söndagar och har bär i frysen</p>
-                <p className={bodyText}>PÅMINNELSE: Jag sätter en lapp på kylskåpet</p>
+              div className="bg-secondary/20 border border-secondary/30 p-4 rounded-lg">
+                <p className={bodyText}> Mål: Äta två nävar bär: 2/5 </p>
+                <p className={bodyText}> När: Frukost </p>
+                <p className={bodyText}> Hur: Dricker en smoothie till min smörgås. Jag har frysta blåbär och hallon hemma. Handlar detta på söndagar</p>
+                <p className={bodyTextBald}> Påminnelse: Jag sätter en påminnelse att handla frukt i min telefon </p>
               </div>
+
               <div className="bg-secondary/20 border border-secondary/30 p-4 rounded-lg">
-                <p className={bodyTextBald}>NÄR: Jag äter en skopa sallad till lunch och middag</p>
-                <p className={bodyText}>HUR: Jag förbereder en råkostsallad med vinjägrett och har den redo i kylskåpet</p>
-                <p className={bodyText}>PÅMINNELSE: Jag lägger in en påminnelse i kalendern</p>
+                <p className={bodyText}> Mål: Äta en näve sallad: 3/5 </p>
+                <p className={bodyText}> När: Lunch </p>
+                <p className={bodyText}> Hur: Jag förbereder en råkostsallad med vinjägrett och har den redo i kylskåpet</p>
+                <p className={bodyTextBald}> Påminnelse: Jag sätter en påminnelse att handla rotfrukter i min telefon </p>
               </div>
+
+              <div className="bg-secondary/20 border border-secondary/30 p-4 rounded-lg">
+                <p className={bodyText}> Mål: Äta en frukt: 4/5 </p>
+                <p className={bodyText}> När: Mellanmål, kl 15.00 </p>
+                <p className={bodyText}> Hur: Jag har ett äpple i väskan</p>
+                <p className={bodyTextBald}> Påminnelse: Larm i min telefon </p>
+              </div>
+
+              <div className="bg-secondary/20 border border-secondary/30 p-4 rounded-lg">
+                <p className={bodyText}> Mål: Äta en näve sallad: 5/5 </p>
+                <p className={bodyText}> När: Middag </p>
+                <p className={bodyText}> Hur: Jag förbereder en råkostsallad med vinjägrett och har den redo i kylskåpet</p>
+                <p className={bodyTextBald}> Påminnelse: Jag sätter en påminnelse att handla rotfrukter i min telefon </p>
             </div>
         </div>
 
