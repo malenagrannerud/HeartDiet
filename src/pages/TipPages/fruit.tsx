@@ -111,8 +111,6 @@ const FruitPage = () => {
           </div>
         </div>
 
-       
-
         <div>
           <div className="mt-8 pt-6 border-t border-border">
             <h2 className={sectionHeading2}>Min plan</h2>
