@@ -5,7 +5,6 @@ interface ExampleCardProps {
   when: string;
   how: string;
   reminder: string;
-  // Remove exCardText prop since we're using the imported one directly
 }
 
 const ExampleCard = ({ goal, when, how, reminder }: ExampleCardProps) => {
