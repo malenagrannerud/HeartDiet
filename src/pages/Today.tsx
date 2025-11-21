@@ -33,12 +33,14 @@ const Today = () => {
   const [markedTips, setMarkedTips] = useState<MarkedTip[]>([]);
   const [completionStatus, setCompletionStatus] = useState({
     tutorial: false,
-    healthPriorities: false,
+    healthGoals: false,
+    medications: false,
     healthMetrics: false
   });
   const [hiddenCards, setHiddenCards] = useState({
     tutorial: false,
-    healthPriorities: false,
+    healthGoals: false,
+    medications: false,
     healthMetrics: false
   });
   const [tipCompletions, setTipCompletions] = useState<Record<number, boolean>>({});
@@ -63,7 +65,8 @@ const Today = () => {
     // Check completion status for styling
     setCompletionStatus({
       tutorial: isCardCompletedToday('tutorial'),
-      healthPriorities: isCardCompletedToday('health-priorities'),
+      healthGoals: isCardCompletedToday('health-goals'),
+      medications: isCardCompletedToday('medications'),
       healthMetrics: isCardCompletedToday('health-metrics')
     });
     
@@ -71,7 +74,8 @@ const Today = () => {
     const cardsToHide = getCardsToHide();
     setHiddenCards({
       tutorial: cardsToHide['tutorial'],
-      healthPriorities: cardsToHide['health-priorities'],
+      healthGoals: cardsToHide['health-goals'],
+      medications: cardsToHide['medications'],
       healthMetrics: cardsToHide['health-metrics']
     });
     
@@ -85,13 +89,15 @@ const Today = () => {
       const newCardsToHide = getCardsToHide();
       setHiddenCards({
         tutorial: newCardsToHide['tutorial'],
-        healthPriorities: newCardsToHide['health-priorities'],
+        healthGoals: newCardsToHide['health-goals'],
+        medications: newCardsToHide['medications'],
         healthMetrics: newCardsToHide['health-metrics']
       });
       // Reset completion status for new day
       setCompletionStatus({
         tutorial: false,
-        healthPriorities: false,
+        healthGoals: false,
+        medications: false,
         healthMetrics: false
       });
     }, timeUntilMidnight);
@@ -136,7 +142,7 @@ const Today = () => {
   };
 
   // Check if all start cards are hidden
-  const allStartCardsHidden = hiddenCards.tutorial && hiddenCards.healthPriorities && hiddenCards.healthMetrics;
+  const allStartCardsHidden = hiddenCards.tutorial && hiddenCards.healthGoals && hiddenCards.medications && hiddenCards.healthMetrics;
 
   return (
     <div className={pageContainer}>
@@ -180,7 +186,8 @@ const Today = () => {
                   const cardsToHide = getCardsToHide();
                   const newCardsToHide = {
                     tutorial: cardsToHide['tutorial'],
-                    healthPriorities: cardsToHide['health-priorities'],
+                    healthGoals: cardsToHide['health-goals'],
+                    medications: cardsToHide['medications'],
                     healthMetrics: cardsToHide['health-metrics'],
                   };
                   
@@ -190,7 +197,8 @@ const Today = () => {
                   // Reset completion status for the new "today"
                   setCompletionStatus({
                     tutorial: false,
-                    healthPriorities: false,
+                    healthGoals: false,
+                    medications: false,
                     healthMetrics: false
                   });
                 }}
@@ -226,7 +234,7 @@ const Today = () => {
                     </div>
                   )}
                   
-                  {!hiddenCards.tutorial && !hiddenCards.healthPriorities && (
+                  {!hiddenCards.tutorial && !hiddenCards.healthGoals && (
                     <div className="flex gap-4">
                       <div className="w-5 flex justify-center">
                         <div className="w-0.5 h-4 border-l-2 border-dashed border-gray-300" />
@@ -234,18 +242,18 @@ const Today = () => {
                     </div>
                   )}
 
-                  {!hiddenCards.healthPriorities && (
+                  {!hiddenCards.healthGoals && (
                     <div className="flex gap-4 items-center">
-                      <CheckBoxLeft isCompleted={completionStatus.healthPriorities} />
+                      <CheckBoxLeft isCompleted={completionStatus.healthGoals} />
                       <div className="flex-1">
                         <StartCard
                           isHidden={false}
-                          title="Mina mål"
+                          title="Hälsomål"
                           icon={<FileEdit size={12} strokeWidth={2.5} />}
                           label="Formulär"
-                          time="3 min"
-                          onClick={() => handleCardNavigation('health-priorities', '/app/health-priorities')}
-                          ariaLabel="Gå till mina hälsoprioriteringar"
+                          time="2 min"
+                          onClick={() => handleCardNavigation('health-goals', '/app/health-goals')}
+                          ariaLabel="Gå till hälsomål"
                           hasImage={true}
                           imageSrc={HealthPrioritiesImage}
                           imageAlt="Health goals illustration"
@@ -254,7 +262,32 @@ const Today = () => {
                     </div>
                   )}
                   
-                  {!hiddenCards.healthPriorities && !hiddenCards.healthMetrics && (
+                  {!hiddenCards.healthGoals && !hiddenCards.medications && (
+                    <div className="flex gap-4">
+                      <div className="w-5 flex justify-center">
+                        <div className="w-0.5 h-4 border-l-2 border-dashed border-gray-300" />
+                      </div>
+                    </div>
+                  )}
+
+                  {!hiddenCards.medications && (
+                    <div className="flex gap-4 items-center">
+                      <CheckBoxLeft isCompleted={completionStatus.medications} />
+                      <div className="flex-1">
+                        <StartCard
+                          isHidden={false}
+                          title="Läkemedel"
+                          icon={<FileEdit size={12} strokeWidth={2.5} />}
+                          label="Formulär"
+                          time="1 min"
+                          onClick={() => handleCardNavigation('medications', '/app/medications')}
+                          ariaLabel="Gå till läkemedel"
+                        />
+                      </div>
+                    </div>
+                  )}
+                  
+                  {!hiddenCards.medications && !hiddenCards.healthMetrics && (
                     <div className="flex gap-4">
                       <div className="w-5 flex justify-center">
                         <div className="w-0.5 h-4 border-l-2 border-dashed border-gray-300" />

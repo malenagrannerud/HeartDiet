@@ -72,7 +72,8 @@ export const getCardsToHide = (): Record<CardId, boolean> => {
   
   const result = {
     'tutorial': completedCards.some(card => card.cardId === 'tutorial' && card.completedDate !== today),
-    'health-priorities': completedCards.some(card => card.cardId === 'health-priorities' && card.completedDate !== today),
+    'health-goals': completedCards.some(card => card.cardId === 'health-goals' && card.completedDate !== today),
+    'medications': completedCards.some(card => card.cardId === 'medications' && card.completedDate !== today),
     'health-metrics': completedCards.some(card => card.cardId === 'health-metrics' && card.completedDate !== today),
   };
   
