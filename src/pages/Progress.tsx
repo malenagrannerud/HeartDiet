@@ -409,12 +409,13 @@ const Progress = () => {
           <table className="w-full border-collapse">
             <thead>
               <tr className="border-b bg-muted/50">
-                <th className="text-left py-4 px-4 font-semibold text-foreground w-[200px]">Tips</th>
+                <th className="text-left py-2 px-2 font-semibold text-foreground w-[200px]">Tips</th>
                 {weekDates.map((date, index) => (
-                  <th key={index} className="text-center py-4 px-2 font-semibold text-foreground min-w-[60px]">
-                    <div className="flex flex-col items-center gap-1">
-                      <span className="text-xs">{getDayInitial(date)}</span>
-                      <span className="text-sm">{format(date, 'd/M')}</span>
+                  <th key={index} className="text-center py-2 px-1 font-semibold text-foreground min-w-[60px]">
+                    <div className="flex flex-col items-center gap-0">
+                      <span className="text-[8px] text-muted-foreground leading-tight">{format(date, 'MMM', { locale: sv })}</span>
+                      <span className="text-[12px] font-bold leading-tight">{format(date, 'd')}</span>
+                      <span className="text-[8px] text-muted-foreground leading-tight">{getDayInitial(date)}</span>
                     </div>
                   </th>
                 ))}
@@ -428,11 +429,11 @@ const Progress = () => {
                 
                 return (
                   <tr key={tip.id} className="border-b hover:bg-muted/30 transition-colors">
-                    <td className="py-2 px-4">
+                    <td className="py-1 px-2">
                       <span className="text-sm font-medium">{tip.title}</span>
                     </td>
                     {weekDates.map((date, dayIndex) => (
-                      <td key={dayIndex} className="text-center py-2 px-2">
+                      <td key={dayIndex} className="text-center py-1 px-1">
                         <div className="flex justify-center">
                           <Checkbox
                             checked={isTipCompletedOnDate(tip.id, date)}
@@ -452,13 +453,13 @@ const Progress = () => {
               
               {/* Row for weight */}
               <tr className="border-b bg-muted/20">
-                <td className="py-2 px-4">
+                <td className="py-1 px-2">
                   <span className="text-sm font-medium text-muted-foreground">Vikt</span>
                 </td>
                 {weekDates.map((date, dayIndex) => {
                   const hasWeight = hasWeightOnDate(date);
                   return (
-                    <td key={dayIndex} className="text-center py-2 px-2">
+                    <td key={dayIndex} className="text-center py-1 px-1">
                       <Button
                         variant="outline"
                         size="sm"
@@ -478,13 +479,13 @@ const Progress = () => {
 
               {/* Row for blood pressure */}
               <tr className="border-b bg-muted/20">
-                <td className="py-2 px-4">
+                <td className="py-1 px-2">
                   <span className="text-sm font-medium text-muted-foreground">Blodtryck</span>
                 </td>
                 {weekDates.map((date, dayIndex) => {
                   const hasBP = hasBloodPressureOnDate(date);
                   return (
-                    <td key={dayIndex} className="text-center py-2 px-2">
+                    <td key={dayIndex} className="text-center py-1 px-1">
                       <Button
                         variant="outline"
                         size="sm"
