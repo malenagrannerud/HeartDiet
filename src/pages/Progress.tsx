@@ -2,17 +2,22 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { format, startOfWeek, addDays, startOfMonth, endOfMonth } from "date-fns";
 import { sv } from "date-fns/locale";
-import { ChevronLeft, ChevronRight, Plus } from "lucide-react";
+import { ChevronLeft, ChevronRight, Plus, Heart, Pill } from "lucide-react";
 import { tips } from "@/data/tips";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
-import { pageTitle, pageSubtitle, pageContainer, pagePadding } from "@/lib/design-tokens";
+import { pageTitle, pageSubtitle, pageContainer, pagePadding, interactiveCard, cardTitle, cardText } from "@/lib/design-tokens";
+import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { getDayLogs } from "@/lib/tip-completion";
 import { Checkbox } from "@/components/ui/checkbox";
+import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, LabelList } from 'recharts';
+import { ChartContainer } from "@/components/ui/chart";
+import { getStorageItem } from "@/lib/storage";
+import { healthPrioritiesSchema } from "@/lib/schemas";
 
 interface DayLog {
   date: string;
@@ -23,6 +28,24 @@ interface DayLog {
     tipId?: number;
   }[];
 }
+
+const healthPriorityLabels: Record<string, string> = {
+  cholesterol: "Sänk mitt kolesterol",
+  bloodPressure: "Sänk mitt blodtryck",
+  diabetes: "Minska risken för diabetes typ 2",
+  weight: "Viktbalans",
+  general: "Förebygga hjärt- och kärlsjukdom"
+};
+
+const medicationLabels: Record<string, string> = {
+  warfarin: "Waran (Warfarin)",
+  doac: "DOAC (blodförtunnande)",
+  bloodPressureMeds: "Blodtrycksmedicin",
+  ace: "ACE-hämmare",
+  diuretics: "Vattenburna tabletter",
+  statins: "Kolesterolmedicin",
+  metformin: "Metformin"
+};
 
 const Progress = () => {
   const navigate = useNavigate();
@@ -44,11 +67,19 @@ const Progress = () => {
     systolic?: string;
     diastolic?: string;
   } | null>(null);
+  const [priorities, setPriorities] = useState<string[]>([]);
+  const [medications, setMedications] = useState<string[]>([]);
 
-  // Load day logs from localStorage
+  // Load day logs and health priorities from localStorage
   useEffect(() => {
     const logs = getDayLogs();
     setDayLogs(logs);
+
+    const data = getStorageItem('healthPriorities', healthPrioritiesSchema);
+    if (data) {
+      setPriorities(data.priorities || []);
+      setMedications(data.medications || []);
+    }
   }, []);
 
   // Generate week dates (Monday to Sunday)
@@ -373,6 +404,161 @@ const Progress = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Charts */}
+      <div className="grid grid-cols-2 gap-0 pt-0">
+        <div className="py-6 pr-6 pl-0 border-r border-t">
+          <div className="flex flex-col h-full">
+            <div className="flex-1 mb-4">
+              <div className="text-base font-bold text-foreground">Vikt</div>
+              <div className="text-sm text-muted-foreground font-normal">Loggade vikter (kg)</div>
+            </div>
+            <ChartContainer config={{ weight: { label: "Vikt", color: "hsl(217, 91%, 60%)" } }} className="h-48 w-full">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart 
+                  data={dayLogs
+                    .flatMap(log => 
+                      log.entries
+                        .filter(e => e.type === 'weight')
+                        .map(e => ({ 
+                          date: format(new Date(log.date), 'd MMM', { locale: sv }),
+                          weight: e.value,
+                          fullDate: log.date
+                        }))
+                    )
+                    .sort((a, b) => new Date(a.fullDate).getTime() - new Date(b.fullDate).getTime())
+                    .slice(-10)} 
+                  margin={{ top: 20, bottom: 20 }}
+                >
+                  <XAxis 
+                    dataKey="date" 
+                    axisLine={false}
+                    tickLine={false}
+                    tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }}
+                  />
+                  <YAxis hide />
+                  <Bar 
+                    dataKey="weight" 
+                    fill="hsl(217, 91%, 60%)" 
+                    radius={[8, 8, 0, 0]}
+                    maxBarSize={20}
+                  >
+                    <LabelList 
+                      dataKey="weight" 
+                      position="top" 
+                      style={{ fontSize: 12, fill: 'hsl(var(--foreground))' }}
+                      formatter={(value: number) => `${value} kg`}
+                    />
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            </ChartContainer>
+          </div>
+        </div>
+
+        <div className="py-6 pr-0 pl-6 border-t">
+          <div className="flex flex-col h-full">
+            <div className="flex-1 mb-4">
+              <div className="text-base font-bold text-foreground">Blodtryck</div>
+              <div className="text-sm text-muted-foreground font-normal">Loggade blodtryck (mmHg)</div>
+            </div>
+            <ChartContainer config={{ systolic: { label: "Systoliskt", color: "hsl(350, 89%, 60%)" } }} className="h-48 w-full">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart 
+                  data={dayLogs
+                    .flatMap(log => 
+                      log.entries
+                        .filter(e => e.type === 'bloodPressure')
+                        .map(e => ({ 
+                          date: format(new Date(log.date), 'd MMM', { locale: sv }),
+                          systolic: e.value,
+                          diastolic: e.value2,
+                          fullDate: log.date
+                        }))
+                    )
+                    .sort((a, b) => new Date(a.fullDate).getTime() - new Date(b.fullDate).getTime())
+                    .slice(-10)} 
+                  margin={{ top: 20, bottom: 20 }}
+                >
+                  <XAxis 
+                    dataKey="date" 
+                    axisLine={false}
+                    tickLine={false}
+                    tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }}
+                  />
+                  <YAxis hide />
+                  <Bar 
+                    dataKey="systolic" 
+                    fill="hsl(350, 89%, 60%)" 
+                    radius={[8, 8, 0, 0]}
+                    maxBarSize={20}
+                  >
+                    <LabelList 
+                      dataKey="systolic" 
+                      position="top" 
+                      style={{ fontSize: 12, fill: 'hsl(var(--foreground))' }}
+                      formatter={(value: number) => `${value}`}
+                    />
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            </ChartContainer>
+          </div>
+        </div>
+      </div>
+
+      {/* Health Goals and Medications Cards */}
+      <div className="space-y-6 pt-6">
+        <Card 
+          className={interactiveCard}
+          onClick={() => navigate('/app/health-priorities')}
+        >
+          <div className="flex items-start gap-4">
+            <div className="p-3 bg-primary/10 rounded-lg">
+              <Heart size={24} className="text-primary" />
+            </div>
+            <div className="flex-1">
+              <h3 className={`${cardTitle} mb-2`}>Mina hälsomål</h3>
+              {priorities.length > 0 ? (
+                <div className="space-y-1">
+                  {priorities.map((id) => (
+                    <p key={id} className={cardText}>
+                      • {healthPriorityLabels[id]}
+                    </p>
+                  ))}
+                </div>
+              ) : (
+                <p className={cardText}>Inga mål valda ännu</p>
+              )}
+            </div>
+          </div>
+        </Card>
+
+        <Card 
+          className={interactiveCard}
+          onClick={() => navigate('/app/health-priorities')}
+        >
+          <div className="flex items-start gap-4">
+            <div className="p-3 bg-primary/10 rounded-lg">
+              <Pill size={24} className="text-primary" />
+            </div>
+            <div className="flex-1">
+              <h3 className={`${cardTitle} mb-2`}>Mina läkemedel</h3>
+              {medications.length > 0 ? (
+                <div className="space-y-1">
+                  {medications.map((id) => (
+                    <p key={id} className={cardText}>
+                      • {medicationLabels[id]}
+                    </p>
+                  ))}
+                </div>
+              ) : (
+                <p className={cardText}>Inga läkemedel valda ännu</p>
+              )}
+            </div>
+          </div>
+        </Card>
       </div>
 
       {/* Dialog for adding weight/blood pressure */}
