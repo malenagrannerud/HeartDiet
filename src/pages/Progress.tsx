@@ -54,12 +54,14 @@ const Progress = () => {
     startOfWeek(new Date(), { weekStartsOn: 1 })
   );
   const [dayLogs, setDayLogs] = useState<DayLog[]>([]);
-  const [dialogOpen, setDialogOpen] = useState(false);
+  const [weightDialogOpen, setWeightDialogOpen] = useState(false);
+  const [bpDialogOpen, setBpDialogOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [entryType, setEntryType] = useState<'weight' | 'bloodPressure'>('weight');
   const [weightInput, setWeightInput] = useState("");
   const [systolicInput, setSystolicInput] = useState("");
   const [diastolicInput, setDiastolicInput] = useState("");
+  const [existingWeightEntry, setExistingWeightEntry] = useState<number | null>(null);
+  const [existingBPEntry, setExistingBPEntry] = useState<{systolic: number, diastolic: number} | null>(null);
   const [saveAlertOpen, setSaveAlertOpen] = useState(false);
   const [pendingEntry, setPendingEntry] = useState<{
     type: 'weight' | 'bloodPressure';
@@ -152,28 +154,115 @@ const Progress = () => {
 
   const openAddDataDialog = (date: Date, type: 'weight' | 'bloodPressure') => {
     setSelectedDate(date);
-    setEntryType(type);
-    setWeightInput("");
-    setSystolicInput("");
-    setDiastolicInput("");
-    setDialogOpen(true);
+    const dateStr = format(date, 'yyyy-MM-dd');
+    const log = dayLogs.find(l => l.date === dateStr);
+    
+    if (type === 'weight') {
+      const weightEntry = log?.entries.find(e => e.type === 'weight');
+      if (weightEntry) {
+        setWeightInput(weightEntry.value.toString());
+        setExistingWeightEntry(weightEntry.value);
+      } else {
+        setWeightInput("");
+        setExistingWeightEntry(null);
+      }
+      setWeightDialogOpen(true);
+    } else {
+      const bpEntry = log?.entries.find(e => e.type === 'bloodPressure');
+      if (bpEntry && bpEntry.value2) {
+        setSystolicInput(bpEntry.value.toString());
+        setDiastolicInput(bpEntry.value2.toString());
+        setExistingBPEntry({ systolic: bpEntry.value, diastolic: bpEntry.value2 });
+      } else {
+        setSystolicInput("");
+        setDiastolicInput("");
+        setExistingBPEntry(null);
+      }
+      setBpDialogOpen(true);
+    }
   };
 
-  const handleSaveEntry = () => {
+  const handleSaveWeight = () => {
     if (!selectedDate) return;
+    const kg = parseFloat(weightInput) || 0;
+    if (kg <= 0) {
+      toast({
+        title: "Ogiltigt värde",
+        description: "Ange ett giltigt viktvärde",
+        variant: "destructive"
+      });
+      return;
+    }
+    setPendingEntry({ type: 'weight', weight: weightInput });
+    setSaveAlertOpen(true);
+  };
 
-    if (entryType === 'weight') {
-      const kg = parseFloat(weightInput) || 0;
-      if (kg <= 0) return;
-      setPendingEntry({ type: 'weight', weight: weightInput });
-    } else if (entryType === 'bloodPressure') {
-      const systolic = parseInt(systolicInput) || 0;
-      const diastolic = parseInt(diastolicInput) || 0;
-      if (systolic <= 0 || diastolic <= 0) return;
-      setPendingEntry({ type: 'bloodPressure', systolic: systolicInput, diastolic: diastolicInput });
+  const handleSaveBloodPressure = () => {
+    if (!selectedDate) return;
+    const systolic = parseInt(systolicInput) || 0;
+    const diastolic = parseInt(diastolicInput) || 0;
+    if (systolic <= 0 || diastolic <= 0) {
+      toast({
+        title: "Ogiltigt värde",
+        description: "Ange giltiga blodtrycksvärden",
+        variant: "destructive"
+      });
+      return;
+    }
+    setPendingEntry({ type: 'bloodPressure', systolic: systolicInput, diastolic: diastolicInput });
+    setSaveAlertOpen(true);
+  };
+
+  const handleDeleteWeight = () => {
+    if (!selectedDate) return;
+    const dateStr = format(selectedDate, 'yyyy-MM-dd');
+    const existingLog = dayLogs.find(log => log.date === dateStr);
+    
+    if (existingLog) {
+      const updatedEntries = existingLog.entries.filter(e => e.type !== 'weight');
+      const updatedLogs = dayLogs.filter(log => log.date !== dateStr);
+      
+      if (updatedEntries.length > 0) {
+        updatedLogs.push({ date: dateStr, entries: updatedEntries });
+      }
+      
+      setDayLogs(updatedLogs);
+      localStorage.setItem('dayLogs', JSON.stringify(updatedLogs));
+      
+      toast({
+        title: "Vikt raderad",
+        description: `Vikt för ${format(selectedDate, 'd MMMM', { locale: sv })} har raderats`,
+      });
     }
     
-    setSaveAlertOpen(true);
+    setWeightDialogOpen(false);
+    setExistingWeightEntry(null);
+  };
+
+  const handleDeleteBloodPressure = () => {
+    if (!selectedDate) return;
+    const dateStr = format(selectedDate, 'yyyy-MM-dd');
+    const existingLog = dayLogs.find(log => log.date === dateStr);
+    
+    if (existingLog) {
+      const updatedEntries = existingLog.entries.filter(e => e.type !== 'bloodPressure');
+      const updatedLogs = dayLogs.filter(log => log.date !== dateStr);
+      
+      if (updatedEntries.length > 0) {
+        updatedLogs.push({ date: dateStr, entries: updatedEntries });
+      }
+      
+      setDayLogs(updatedLogs);
+      localStorage.setItem('dayLogs', JSON.stringify(updatedLogs));
+      
+      toast({
+        title: "Blodtryck raderat",
+        description: `Blodtryck för ${format(selectedDate, 'd MMMM', { locale: sv })} har raderats`,
+      });
+    }
+    
+    setBpDialogOpen(false);
+    setExistingBPEntry(null);
   };
 
   const confirmSaveEntry = () => {
@@ -206,9 +295,12 @@ const Progress = () => {
       description: `${pendingEntry.type === 'weight' ? 'Vikt' : 'Blodtryck'} har sparats för ${format(selectedDate, 'd MMMM', { locale: sv })}`,
     });
     
-    setDialogOpen(false);
+    setWeightDialogOpen(false);
+    setBpDialogOpen(false);
     setSaveAlertOpen(false);
     setPendingEntry(null);
+    setExistingWeightEntry(null);
+    setExistingBPEntry(null);
   };
 
   const getDaysWithGoalThisMonth = () => {
@@ -600,84 +692,114 @@ const Progress = () => {
         </Card>
       </div>
 
-      {/* Dialog for adding weight/blood pressure */}
-      <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+      {/* Dialog for weight */}
+      <Dialog open={weightDialogOpen} onOpenChange={setWeightDialogOpen}>
         <DialogContent className="max-w-md">
           <DialogHeader>
             <DialogTitle>
-              Lägg till data för {selectedDate && format(selectedDate, 'd MMMM yyyy', { locale: sv })}
+              {existingWeightEntry ? 'Ändra vikt' : 'Lägg till vikt'} för {selectedDate && format(selectedDate, 'd MMMM yyyy', { locale: sv })}
             </DialogTitle>
           </DialogHeader>
           
           <div className="space-y-4 py-4">
+            {existingWeightEntry && (
+              <div className="p-3 bg-muted/50 rounded-lg">
+                <p className="text-sm text-muted-foreground mb-1">Nuvarande värde:</p>
+                <p className="text-lg font-semibold">{existingWeightEntry} kg</p>
+              </div>
+            )}
+            
             <div>
-              <Label className="text-base mb-4 block font-semibold">Välj typ</Label>
-              <div className="grid grid-cols-2 gap-3">
-                <Button
-                  variant={entryType === 'weight' ? 'default' : 'outline'}
-                  onClick={() => setEntryType('weight')}
-                  className="w-full text-base py-6"
-                >
-                  Vikt
-                </Button>
-                <Button
-                  variant={entryType === 'bloodPressure' ? 'default' : 'outline'}
-                  onClick={() => setEntryType('bloodPressure')}
-                  className="w-full text-base py-6"
-                >
-                  Blodtryck
-                </Button>
-              </div>
+              <Label htmlFor="weight-input" className="text-base mb-2 block">Vikt (kg)</Label>
+              <Input
+                id="weight-input"
+                type="number"
+                step="0.1"
+                value={weightInput}
+                onChange={(e) => setWeightInput(e.target.value)}
+                placeholder="Ange vikt i kg"
+                className="w-full"
+              />
             </div>
-
-            {entryType === 'weight' && (
-              <div>
-                <Label htmlFor="weight-input" className="text-base mb-2 block">Vikt (kg)</Label>
-                <Input
-                  id="weight-input"
-                  type="number"
-                  step="0.1"
-                  value={weightInput}
-                  onChange={(e) => setWeightInput(e.target.value)}
-                  placeholder="Ange vikt i kg"
-                  className="w-full"
-                />
-              </div>
-            )}
-
-            {entryType === 'bloodPressure' && (
-              <div className="space-y-3">
-                <div>
-                  <Label htmlFor="systolic-input" className="text-base mb-2 block">Systoliskt (övre värde)</Label>
-                  <Input
-                    id="systolic-input"
-                    type="number"
-                    value={systolicInput}
-                    onChange={(e) => setSystolicInput(e.target.value)}
-                    placeholder="T.ex. 120"
-                    className="w-full"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="diastolic-input" className="text-base mb-2 block">Diastoliskt (nedre värde)</Label>
-                  <Input
-                    id="diastolic-input"
-                    type="number"
-                    value={diastolicInput}
-                    onChange={(e) => setDiastolicInput(e.target.value)}
-                    placeholder="T.ex. 80"
-                    className="w-full"
-                  />
-                </div>
-              </div>
-            )}
           </div>
 
           <DialogFooter className="gap-3">
-            <Button variant="outline" onClick={() => setDialogOpen(false)} className="text-base py-6">
+            {existingWeightEntry && (
+              <Button 
+                variant="destructive" 
+                onClick={handleDeleteWeight} 
+                className="text-base py-6"
+              >
+                Radera
+              </Button>
+            )}
+            <Button variant="outline" onClick={() => setWeightDialogOpen(false)} className="text-base py-6">
               Avbryt
             </Button>
-            <Button onClick={handleSaveEntry} className="text-base py-6">
+            <Button onClick={handleSaveWeight} className="text-base py-6">
+              Spara
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Dialog for blood pressure */}
+      <Dialog open={bpDialogOpen} onOpenChange={setBpDialogOpen}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>
+              {existingBPEntry ? 'Ändra blodtryck' : 'Lägg till blodtryck'} för {selectedDate && format(selectedDate, 'd MMMM yyyy', { locale: sv })}
+            </DialogTitle>
+          </DialogHeader>
+          
+          <div className="space-y-4 py-4">
+            {existingBPEntry && (
+              <div className="p-3 bg-muted/50 rounded-lg">
+                <p className="text-sm text-muted-foreground mb-1">Nuvarande värde:</p>
+                <p className="text-lg font-semibold">{existingBPEntry.systolic}/{existingBPEntry.diastolic} mmHg</p>
+              </div>
+            )}
+            
+            <div className="space-y-3">
+              <div>
+                <Label htmlFor="systolic-input" className="text-base mb-2 block">Systoliskt (övre värde)</Label>
+                <Input
+                  id="systolic-input"
+                  type="number"
+                  value={systolicInput}
+                  onChange={(e) => setSystolicInput(e.target.value)}
+                  placeholder="T.ex. 120"
+                  className="w-full"
+                />
+              </div>
+              <div>
+                <Label htmlFor="diastolic-input" className="text-base mb-2 block">Diastoliskt (nedre värde)</Label>
+                <Input
+                  id="diastolic-input"
+                  type="number"
+                  value={diastolicInput}
+                  onChange={(e) => setDiastolicInput(e.target.value)}
+                  placeholder="T.ex. 80"
+                  className="w-full"
+                />
+              </div>
+            </div>
+          </div>
+
+          <DialogFooter className="gap-3">
+            {existingBPEntry && (
+              <Button 
+                variant="destructive" 
+                onClick={handleDeleteBloodPressure} 
+                className="text-base py-6"
+              >
+                Radera
+              </Button>
+            )}
+            <Button variant="outline" onClick={() => setBpDialogOpen(false)} className="text-base py-6">
+              Avbryt
+            </Button>
+            <Button onClick={handleSaveBloodPressure} className="text-base py-6">
               Spara
             </Button>
           </DialogFooter>
