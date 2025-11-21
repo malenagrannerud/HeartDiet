@@ -323,24 +323,34 @@ const Progress = () => {
               </tr>
             </thead>
             <tbody>
-              {tips.map((tip) => (
-                <tr key={tip.id} className="border-b hover:bg-muted/30 transition-colors">
-                  <td className="py-2 px-4">
-                    <span className="text-sm font-medium">{tip.title}</span>
-                  </td>
-                  {weekDates.map((date, dayIndex) => (
-                    <td key={dayIndex} className="text-center py-2 px-2">
-                      <div className="flex justify-center">
-                        <Checkbox
-                          checked={isTipCompletedOnDate(tip.id, date)}
-                          onCheckedChange={() => handleTipToggle(tip.id, date)}
-                          className="h-7 w-7 data-[state=checked]:bg-emerald-500 data-[state=checked]:border-emerald-500 transition-all duration-200"
-                        />
-                      </div>
+              {tips.map((tip) => {
+                const tipColor = tip.color.includes('bg-[') 
+                  ? tip.color.replace('bg-[', '').replace(']', '')
+                  : '#A8CC7D';
+                
+                return (
+                  <tr key={tip.id} className="border-b hover:bg-muted/30 transition-colors">
+                    <td className="py-2 px-4">
+                      <span className="text-sm font-medium">{tip.title}</span>
                     </td>
-                  ))}
-                </tr>
-              ))}
+                    {weekDates.map((date, dayIndex) => (
+                      <td key={dayIndex} className="text-center py-2 px-2">
+                        <div className="flex justify-center">
+                          <Checkbox
+                            checked={isTipCompletedOnDate(tip.id, date)}
+                            onCheckedChange={() => handleTipToggle(tip.id, date)}
+                            className="h-7 w-7 rounded-none transition-all duration-200"
+                            style={isTipCompletedOnDate(tip.id, date) ? {
+                              backgroundColor: tipColor,
+                              borderColor: tipColor
+                            } : undefined}
+                          />
+                        </div>
+                      </td>
+                    ))}
+                  </tr>
+                );
+              })}
               
               {/* Row for weight */}
               <tr className="border-b bg-muted/20">
