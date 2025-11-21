@@ -17,7 +17,7 @@ export const UserPlanDisplay: React.FC<UserPlanDisplayProps> = ({
   onDelete
 }) => {
   return (
-    <div className="bg-green-50 border border-green-200 rounded-mg p-6 mt-6">
+    <div className="bg-green-50 border border-green-200 rounded-lg p-6 mt-6">
       <div className="flex justify-between items-start mb-4">
         <h3 className={bodyTextBald}>Min sparade plan ✅</h3>
         <div className="flex gap-2">
