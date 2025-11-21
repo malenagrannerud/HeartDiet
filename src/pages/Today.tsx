@@ -181,9 +181,9 @@ const Today = () => {
               {allStartCardsHidden ? (
                 <p className={sectionSubheading2}>Alla dina kurser är avklarade. Fokusera på att implementera en ny hälsosam vana!</p>
               ) : (
-                <div>
+                <div className="space-y-4">
                   {!hiddenCards.tutorial && (
-                    <div className="flex gap-4 items-center mb-4">
+                    <div className="flex gap-4 items-center">
                       <CheckBoxLeft isCompleted={completionStatus.tutorial} />
                       <div className="flex-1">
                         <StartCard
@@ -200,7 +200,7 @@ const Today = () => {
                   )}
                   
                   {!hiddenCards.tutorial && !hiddenCards.healthPriorities && (
-                    <div className="flex gap-4 mb-4">
+                    <div className="flex gap-4">
                       <div className="w-5 flex justify-center">
                         <div className="w-0.5 h-4 border-l-2 border-dashed border-gray-300" />
                       </div>
@@ -208,7 +208,7 @@ const Today = () => {
                   )}
 
                   {!hiddenCards.healthPriorities && (
-                    <div className="flex gap-4 items-center mb-4">
+                    <div className="flex gap-4 items-center">
                       <CheckBoxLeft isCompleted={completionStatus.healthPriorities} />
                       <div className="flex-1">
                         <StartCard
@@ -228,7 +228,7 @@ const Today = () => {
                   )}
                   
                   {!hiddenCards.healthPriorities && !hiddenCards.healthMetrics && (
-                    <div className="flex gap-4 mb-4">
+                    <div className="flex gap-4">
                       <div className="w-5 flex justify-center">
                         <div className="w-0.5 h-4 border-l-2 border-dashed border-gray-300" />
                       </div>
