@@ -16,7 +16,8 @@ import {
   type CardId 
 } from "@/lib/card-completion";
 import { Button } from "@/components/ui/button";
-import { CheckBoxLeft } from "@/components/CheckBoxLeft"; 
+import { CheckBoxLeft } from "@/components/CheckBoxLeft";
+import { isTipCompletedToday, toggleTipCompletion } from "@/lib/tip-completion";
 
 interface MarkedTip {
   id: number;
@@ -27,6 +28,7 @@ interface MarkedTip {
 const Today = () => {
   const navigate = useNavigate();
   const [markedTips, setMarkedTips] = useState<MarkedTip[]>([]);
+  const [tipCompletions, setTipCompletions] = useState<Record<number, boolean>>({});
   const [completionStatus, setCompletionStatus] = useState({
     tutorial: false,
     healthPriorities: false,
@@ -43,6 +45,13 @@ const Today = () => {
     const savedTips = getStorageItem('markedTips', markedTipsSchema);
     if (savedTips) {
       setMarkedTips(savedTips as MarkedTip[]);
+      
+      // Load tip completion status
+      const completions: Record<number, boolean> = {};
+      (savedTips as MarkedTip[]).forEach(tip => {
+        completions[tip.id] = isTipCompletedToday(tip.id);
+      });
+      setTipCompletions(completions);
     }
     
     // Clean up old completion records
@@ -106,6 +115,12 @@ const Today = () => {
     if (route) {
       navigate(route);
     }
+  };
+
+  const handleToggleTipCompletion = (tipId: number, e: React.MouseEvent) => {
+    e.stopPropagation();
+    const newStatus = toggleTipCompletion(tipId);
+    setTipCompletions(prev => ({ ...prev, [tipId]: newStatus }));
   };
 
   // Check if all start cards are hidden
@@ -257,17 +272,21 @@ const Today = () => {
 
             <section className={standardSpacing.sectionContent}>
               <h3 className={bodyTextBald}>Mina tips</h3>
-              {markedTipsList.length > 0 ? (
-                  markedTipsList.map((tip) => (
-                      <TipCard
-                          key={tip.id}
-                          tip={tip}
-                          onClick={() => handleTipClick(tip.id)}
-                      />
-                  ))
-              ) : (
-                  <p className={sectionSubheading2}>Välj vilka tips du vill göra under "Tips"</p>
-              )}
+              <div className="space-y-4">
+                {markedTipsList.length > 0 ? (
+                    markedTipsList.map((tip) => (
+                        <TipCard
+                            key={tip.id}
+                            tip={tip}
+                            onClick={() => handleTipClick(tip.id)}
+                            isCompleted={tipCompletions[tip.id] || false}
+                            onToggleComplete={(e) => handleToggleTipCompletion(tip.id, e)}
+                        />
+                    ))
+                ) : (
+                    <p className={sectionSubheading2}>Välj vilka tips du vill göra under "Tips"</p>
+                )}
+              </div>
           </section>
         </div>
       </main>
