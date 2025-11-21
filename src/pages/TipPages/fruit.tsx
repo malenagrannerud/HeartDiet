@@ -8,6 +8,7 @@ import { UserPlanDisplay } from "@/components/UserPlanDisplay";
 import DottedList from "@/components/DottedList";
 import ExampleCard from "@/components/exCard";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Plus } from "lucide-react";
 
 const FruitPage = () => {
@@ -172,15 +173,6 @@ const FruitPage = () => {
               />
             )}
 
-            {isEditing && (
-              <UserPlanForm
-                tipId={1}
-                initialPlan={editingIndex !== null ? userPlans[editingIndex] : undefined}
-                onSave={handleSavePlan}
-                onCancel={handleCancelEdit}
-              />
-            )}
-
             {userPlans.length === 0 && !isEditing && (
               <div className="text-center py-8">
                 <p className={bodyText}>Du har inga sparade planer än</p>
@@ -205,6 +197,22 @@ const FruitPage = () => {
             )}
           </div>
         </div>
+
+        <Dialog open={isEditing} onOpenChange={(open) => !open && handleCancelEdit()}>
+          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle>
+                {editingIndex !== null ? 'Redigera plan' : 'Skapa ny plan'}
+              </DialogTitle>
+            </DialogHeader>
+            <UserPlanForm
+              tipId={1}
+              initialPlan={editingIndex !== null ? userPlans[editingIndex] : undefined}
+              onSave={handleSavePlan}
+              onCancel={handleCancelEdit}
+            />
+          </DialogContent>
+        </Dialog>
       </main>
     </div>
   );
