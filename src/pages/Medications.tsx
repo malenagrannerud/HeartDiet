@@ -113,7 +113,7 @@ const Medications = () => {
       setStorageItem('completedActivities', activities, completedActivitiesSchema);
     }
     
-    markCardCompleted('health-priorities');
+    markCardCompleted('medications');
     
     toast({
       title: "Läkemedel sparade",

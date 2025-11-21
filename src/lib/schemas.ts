@@ -70,7 +70,7 @@ export type DayLog = z.infer<typeof dayLogSchema>;
 
 // Card completion schema
 export const cardCompletionSchema = z.object({
-  cardId: z.enum(['tutorial', 'health-priorities', 'health-metrics']),
+  cardId: z.enum(['tutorial', 'health-goals', 'medications', 'health-metrics']),
   completedDate: z.string(), // ISO date string
 });
 

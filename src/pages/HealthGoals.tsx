@@ -88,18 +88,18 @@ const HealthGoals = () => {
     // Add to completed activities
     const completedActivities = getStorageItem('completedActivities', completedActivitiesSchema) || [];
     const activities = Array.isArray(completedActivities) ? completedActivities : [];
-    const existingActivity = activities.find(a => a.id === 'health-priorities');
+    const existingActivity = activities.find(a => a.id === 'health-goals');
     if (!existingActivity) {
       activities.push({
-        id: 'health-priorities',
-        title: 'Mina mål',
+        id: 'health-goals',
+        title: 'Hälsomål',
         completedDate: new Date().toISOString(),
-        type: 'health-priorities'
+        type: 'health-goals'
       });
       setStorageItem('completedActivities', activities, completedActivitiesSchema);
     }
     
-    markCardCompleted('health-priorities');
+    markCardCompleted('health-goals');
     
     toast({
       title: "Hälsomål sparade",
