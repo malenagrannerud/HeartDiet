@@ -352,10 +352,29 @@ const Progress = () => {
                 </tr>
               ))}
               
-              {/* Row for adding weight/BP data */}
+              {/* Row for weight */}
               <tr className="border-b bg-muted/20">
                 <td className="py-4 px-4">
-                  <span className="text-sm font-medium text-muted-foreground">Vikt & Blodtryck</span>
+                  <span className="text-sm font-medium text-muted-foreground">Vikt</span>
+                </td>
+                {weekDates.map((date, dayIndex) => (
+                  <td key={dayIndex} className="text-center py-4 px-2">
+                    <Button
+                      variant={hasWeightOrBPOnDate(date) ? "default" : "outline"}
+                      size="sm"
+                      onClick={() => openAddDataDialog(date)}
+                      className="h-8 w-8 p-0"
+                    >
+                      <Plus className="h-4 w-4" />
+                    </Button>
+                  </td>
+                ))}
+              </tr>
+
+              {/* Row for blood pressure */}
+              <tr className="border-b bg-muted/20">
+                <td className="py-4 px-4">
+                  <span className="text-sm font-medium text-muted-foreground">Blodtryck</span>
                 </td>
                 {weekDates.map((date, dayIndex) => (
                   <td key={dayIndex} className="text-center py-4 px-2">
