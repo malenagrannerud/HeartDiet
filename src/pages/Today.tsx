@@ -19,6 +19,7 @@ import { Button } from "@/components/ui/button";
 import { CheckBoxLeft } from "@/components/CheckBoxLeft";
 import { isTipCompletedToday, toggleTipCompletion } from "@/lib/tip-completion";
 import { Checkbox } from "@/components/ui/checkbox";
+import { useToast } from "@/hooks/use-toast";
 
 interface MarkedTip {
   id: number;
@@ -28,6 +29,7 @@ interface MarkedTip {
 
 const Today = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
   const [markedTips, setMarkedTips] = useState<MarkedTip[]>([]);
   const [completionStatus, setCompletionStatus] = useState({
     tutorial: false,
@@ -125,6 +127,12 @@ const Today = () => {
       ...prev,
       [tipId]: newStatus
     }));
+    
+    const tipTitle = tips.find(t => t.id === tipId)?.title || "Tips";
+    toast({
+      title: newStatus ? "Tips markerat som gjort!" : "Tips avmarkerat",
+      description: newStatus ? `${tipTitle} har sparats för idag` : `${tipTitle} har tagits bort`,
+    });
   };
 
   // Check if all start cards are hidden
@@ -293,7 +301,7 @@ const Today = () => {
                       >
                         <Checkbox 
                           checked={tipCompletions[tip.id] || false}
-                          className="h-5 w-5"
+                          className="h-7 w-7 data-[state=checked]:bg-emerald-500 data-[state=checked]:border-emerald-500 transition-all duration-200"
                         />
                       </div>
                     </div>
