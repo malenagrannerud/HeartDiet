@@ -1,8 +1,5 @@
-// components/UserPlanDisplay.tsx
-// src/components/UserPlanDisplay.tsx
 import React from 'react';
 import { UserPlan } from '@/data/tips';
-import { bodyText } from '@/lib/design-tokens';
 import { bodyTextBald } from '@/lib/design-tokens';
 import { Trash2, Edit2 } from 'lucide-react';
 
