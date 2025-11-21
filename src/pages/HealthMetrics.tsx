@@ -5,8 +5,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { BackToTodayButton } from "@/components/BackToTodayButton";
-import { useToast } from "@/hooks/use-toast";
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { sectionHeading, sectionSubheading, cardText, labelText, headerContainer, secondaryButton, disabledButton, compactCard, pageContainer, pagePadding, placeholderText, bodyTextBald, bodyText, standardSpacing} from "@/lib/design-tokens";
 import { getStorageItem, setStorageItem } from "@/lib/storage";
 import { healthMetricsSchema, completedActivitiesSchema } from "@/lib/schemas";
@@ -15,14 +13,11 @@ import { format } from "date-fns";
 
 const HealthMetrics = () => {
   const navigate = useNavigate();
-  const { toast } = useToast();
   const [weight, setWeight] = useState("");
   const [height, setHeight] = useState("");
   const [systolic, setSystolic] = useState("");
   const [diastolic, setDiastolic] = useState("");
   const [skipBloodPressure, setSkipBloodPressure] = useState(false);
-  const [saveAlertOpen, setSaveAlertOpen] = useState(false);
-  const [hasExistingData, setHasExistingData] = useState(false);
 
   useEffect(() => {
     const metrics = getStorageItem('healthMetrics', healthMetricsSchema);
@@ -32,16 +27,10 @@ const HealthMetrics = () => {
       setSystolic(metrics.systolic || "");
       setDiastolic(metrics.diastolic || "");
       setSkipBloodPressure(metrics.skipBloodPressure || false);
-      setHasExistingData(true);
     }
   }, []);
 
-  const handleSubmitClick = () => {
-    // Always show preview before saving
-    setSaveAlertOpen(true);
-  };
-
-  const confirmSubmit = () => {
+  const handleSubmit = () => {
     // Save to healthMetrics storage
     const metrics = { 
       weight, 
@@ -113,14 +102,6 @@ const HealthMetrics = () => {
     // Mark the card as completed
     markCardCompleted('health-metrics');
     
-    toast({
-      title: "Hälsodata sparad",
-      description: skipBloodPressure 
-        ? "Vikt och längd har sparats" 
-        : "Vikt, längd och blodtryck har sparats",
-    });
-    
-    setSaveAlertOpen(false);
     navigate('/app/today');
   };
 
@@ -250,7 +231,7 @@ const HealthMetrics = () => {
           {/* Save button section */}
           <section className={standardSpacing.sectionContent}>
             <Button 
-              onClick={handleSubmitClick} 
+              onClick={handleSubmit} 
               disabled={!isValid} 
               className={`${secondaryButton} ${!isValid ? disabledButton : ''}`}
             >
@@ -260,45 +241,6 @@ const HealthMetrics = () => {
 
         </div>
       </div>
-
-      <AlertDialog open={saveAlertOpen} onOpenChange={setSaveAlertOpen}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Bekräfta ändringar</AlertDialogTitle>
-            <AlertDialogDescription>
-              Granska dina värden innan du sparar:
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <div className="my-4 space-y-3 rounded-lg bg-muted/50 p-4">
-            <div className="flex justify-between items-center">
-              <span className={bodyText}>Längd:</span>
-              <span className={bodyTextBald}>{height} cm</span>
-            </div>
-            <div className="flex justify-between items-center">
-              <span className={bodyText}>Vikt:</span>
-              <span className={bodyTextBald}>{weight} kg</span>
-            </div>
-            {!skipBloodPressure && systolic && diastolic && (
-              <div className="flex justify-between items-center">
-                <span className={bodyText}>Blodtryck:</span>
-                <span className={bodyTextBald}>{systolic}/{diastolic} mmHg</span>
-              </div>
-            )}
-            {skipBloodPressure && (
-              <div className="flex justify-between items-center">
-                <span className={bodyText}>Blodtryck:</span>
-                <span className={`${bodyText} text-muted-foreground`}>Ej ifyllt</span>
-              </div>
-            )}
-          </div>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Avbryt</AlertDialogCancel>
-            <AlertDialogAction onClick={confirmSubmit}>
-              Spara ändringar
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
     </div>
   );
 };

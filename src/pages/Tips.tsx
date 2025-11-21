@@ -6,13 +6,11 @@ import TipCard from "@/components/TipCard";
 import { pageTitle, pageSubtitle, pageContainer, headerContainer, pagePadding, standardSpacing } from "@/lib/design-tokens";
 import { getStorageItem, setStorageItem } from "@/lib/storage";
 import { markedTipsSchema } from "@/lib/schemas";
-import { Checkbox } from "@/components/ui/checkbox";
-import { useToast } from "@/hooks/use-toast";
 
 /**
  * Tips Page
  * 
- * toggleMark() - Marks/unmarks tips when user clicks checkbox
+ * toggleMark() - Marks/unmarks tips when user clicks icon
  * isMarked() - Checks if specific tip is marked
  * markedTips[] - Stores which tips user has marked
  * tips[] - Contains all available tip data
@@ -29,7 +27,6 @@ interface MarkedTip {
 
 const Tips = () => {
   const navigate = useNavigate();
-  const { toast } = useToast();
   const [markedTips, setMarkedTips] = useState<MarkedTip[]>(() => {
     const result = getStorageItem("markedTips", markedTipsSchema);
     return (result as MarkedTip[]) ?? [];
@@ -47,22 +44,14 @@ const Tips = () => {
     setStorageItem("markedTips", markedTips, markedTipsSchema);
   }, [markedTips]);
 
-  const toggleMark = (tipId: number) => {
+  const toggleMark = (e: React.MouseEvent, tipId: number) => {
+    e.stopPropagation();
     setMarkedTips((prev) => {
       const isMarked = prev.some((tip) => tip.id === tipId);
-      const tip = tips.find((t) => t.id === tipId);
-      
       if (isMarked) {
-        toast({
-          title: "Tips borttaget",
-          description: `${tip?.title || "Tips"} har tagits bort från dina val`,
-        });
         return prev.filter((tip) => tip.id !== tipId);
       } else {
-        toast({
-          title: "Tips tillagt",
-          description: `${tip?.title || "Tips"} har lagts till i dina val`,
-        });
+        const tip = tips.find((t) => t.id === tipId);
         return [
           ...prev,
           {
@@ -99,19 +88,13 @@ const Tips = () => {
         <div className={standardSpacing.pageContent}>
           <div className={standardSpacing.cardList}>
             {tips.map((tip) => (
-              <div key={tip.id} className="flex items-center gap-3">
-                <div className="flex-1">
-                  <TipCard
-                    tip={tip}
-                    onClick={() => handleTipClick(tip.id)}
-                  />
-                </div>
-                <Checkbox
-                  checked={isMarked(tip.id)}
-                  onCheckedChange={() => toggleMark(tip.id)}
-                  className="shrink-0"
-                />
-              </div>
+              <TipCard
+                key={tip.id}
+                tip={tip}
+                isMarked={isMarked(tip.id)}
+                onToggleMark={(e) => toggleMark(e, tip.id)}
+                onClick={() => handleTipClick(tip.id)}
+              />
             ))}
           </div>
         </div>
