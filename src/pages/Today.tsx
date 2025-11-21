@@ -16,7 +16,9 @@ import {
   type CardId 
 } from "@/lib/card-completion";
 import { Button } from "@/components/ui/button";
-import { CheckBoxLeft } from "@/components/CheckBoxLeft"; 
+import { CheckBoxLeft } from "@/components/CheckBoxLeft";
+import { isTipCompletedToday, toggleTipCompletion } from "@/lib/tip-completion";
+import { Checkbox } from "@/components/ui/checkbox";
 
 interface MarkedTip {
   id: number;
@@ -37,6 +39,7 @@ const Today = () => {
     healthPriorities: false,
     healthMetrics: false
   });
+  const [tipCompletions, setTipCompletions] = useState<Record<number, boolean>>({});
 
   useEffect(() => {
     // Load marked tips
@@ -44,6 +47,13 @@ const Today = () => {
     if (savedTips) {
       setMarkedTips(savedTips as MarkedTip[]);
     }
+    
+    // Load tip completions for today
+    const completions: Record<number, boolean> = {};
+    tips.forEach(tip => {
+      completions[tip.id] = isTipCompletedToday(tip.id);
+    });
+    setTipCompletions(completions);
     
     // Clean up old completion records
     cleanupOldCompletions();
@@ -106,6 +116,15 @@ const Today = () => {
     if (route) {
       navigate(route);
     }
+  };
+
+  const handleTipCheckboxToggle = (tipId: number, e: React.MouseEvent) => {
+    e.stopPropagation();
+    const newStatus = toggleTipCompletion(tipId);
+    setTipCompletions(prev => ({
+      ...prev,
+      [tipId]: newStatus
+    }));
   };
 
   // Check if all start cards are hidden
@@ -258,15 +277,30 @@ const Today = () => {
             <section className={standardSpacing.sectionContent}>
               <h3 className={bodyTextBald}>Mina tips</h3>
               {markedTipsList.length > 0 ? (
-                  markedTipsList.map((tip) => (
-                      <TipCard
-                          key={tip.id}
+                <div className="space-y-4">
+                  {markedTipsList.map((tip) => (
+                    <div key={tip.id} className="flex gap-4 items-center">
+                      <div className="flex-1">
+                        <TipCard
                           tip={tip}
                           onClick={() => handleTipClick(tip.id)}
-                      />
-                  ))
+                          isCompleted={tipCompletions[tip.id]}
+                        />
+                      </div>
+                      <div 
+                        onClick={(e) => handleTipCheckboxToggle(tip.id, e)}
+                        className="cursor-pointer"
+                      >
+                        <Checkbox 
+                          checked={tipCompletions[tip.id] || false}
+                          className="h-5 w-5"
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
               ) : (
-                  <p className={sectionSubheading2}>Välj vilka tips du vill göra under "Tips"</p>
+                <p className={sectionSubheading2}>Välj vilka tips du vill göra under "Tips"</p>
               )}
           </section>
         </div>
