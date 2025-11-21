@@ -344,6 +344,10 @@ const Progress = () => {
     return days[date.getDay()];
   };
 
+  const capitalizeMonth = (dateStr: string) => {
+    return dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
+  };
+
   const hasWeightOnDate = (date: Date): boolean => {
     const dateStr = format(date, 'yyyy-MM-dd');
     const log = dayLogs.find(l => l.date === dateStr);
@@ -404,7 +408,7 @@ const Progress = () => {
       </div>
 
       {/* Weekly Table */}
-      <div className="bg-background rounded-lg border overflow-hidden">
+      <div className="bg-background border overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full border-collapse">
             <thead>
@@ -413,7 +417,7 @@ const Progress = () => {
                 {weekDates.map((date, index) => (
                   <th key={index} className="text-center py-2 px-1 font-semibold text-foreground min-w-[60px]">
                     <div className="flex flex-col items-center gap-0">
-                      <span className="text-[8px] text-muted-foreground leading-tight">{format(date, 'MMM', { locale: sv })}</span>
+                      <span className="text-[8px] text-muted-foreground leading-tight">{capitalizeMonth(format(date, 'MMM', { locale: sv }))}</span>
                       <span className="text-[12px] font-bold leading-tight">{format(date, 'd')}</span>
                       <span className="text-[8px] text-muted-foreground leading-tight">{getDayInitial(date)}</span>
                     </div>
@@ -509,28 +513,28 @@ const Progress = () => {
 
       {/* Stats */}
       <div className="grid grid-cols-2 gap-6">
-        <div className="p-6 border rounded-lg bg-background">
+        <div className="p-6 border bg-background">
           <div className="flex flex-col gap-4">
             <div>
               <div className="text-base font-bold text-foreground">Klarade dagar</div>
               <div className="text-sm text-muted-foreground font-normal">Antal dagar du följt dina Tips</div>
             </div>
             <div className="flex items-center justify-end">
-              <div className="w-16 h-16 rounded-lg bg-emerald-500 flex items-center justify-center">
+              <div className="w-16 h-16 bg-emerald-500 flex items-center justify-center">
                 <span className="text-3xl font-bold text-blue-900">{daysThisMonth}</span>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="p-6 border rounded-lg bg-background">
+        <div className="p-6 border bg-background">
           <div className="flex flex-col gap-4">
             <div>
               <div className="text-base font-bold text-foreground">Klarade dagar i rad</div>
               <div className="text-sm text-muted-foreground font-normal">Antal dagar i rad du följt dina Tips</div>
             </div>
             <div className="flex items-center justify-end">
-              <div className="w-16 h-16 rounded-lg bg-blue-100 flex items-center justify-center">
+              <div className="w-16 h-16 bg-blue-100 flex items-center justify-center">
                 <span className="text-3xl font-bold text-blue-900">{currentStreak}</span>
               </div>
             </div>
@@ -573,7 +577,7 @@ const Progress = () => {
                   <Bar 
                     dataKey="weight" 
                     fill="hsl(217, 91%, 60%)" 
-                    radius={[8, 8, 0, 0]}
+                    radius={[0, 0, 0, 0]}
                     maxBarSize={20}
                   >
                     <LabelList 
@@ -623,7 +627,7 @@ const Progress = () => {
                   <Bar 
                     dataKey="systolic" 
                     fill="hsl(350, 89%, 60%)" 
-                    radius={[8, 8, 0, 0]}
+                    radius={[0, 0, 0, 0]}
                     maxBarSize={20}
                   >
                     <LabelList 
@@ -647,7 +651,7 @@ const Progress = () => {
           onClick={() => navigate('/app/health-priorities')}
         >
           <div className="flex items-start gap-4">
-            <div className="p-3 bg-primary/10 rounded-lg">
+            <div className="p-3 bg-primary/10">
               <Heart size={24} className="text-primary" />
             </div>
             <div className="flex-1">
@@ -672,7 +676,7 @@ const Progress = () => {
           onClick={() => navigate('/app/health-priorities')}
         >
           <div className="flex items-start gap-4">
-            <div className="p-3 bg-primary/10 rounded-lg">
+            <div className="p-3 bg-primary/10">
               <Pill size={24} className="text-primary" />
             </div>
             <div className="flex-1">
@@ -704,7 +708,7 @@ const Progress = () => {
           
           <div className="space-y-4 py-4">
             {existingWeightEntry && (
-              <div className="p-3 bg-muted/50 rounded-lg">
+              <div className="p-3 bg-muted/50">
                 <p className="text-sm text-muted-foreground mb-1">Nuvarande värde:</p>
                 <p className="text-lg font-semibold">{existingWeightEntry} kg</p>
               </div>
@@ -755,7 +759,7 @@ const Progress = () => {
           
           <div className="space-y-4 py-4">
             {existingBPEntry && (
-              <div className="p-3 bg-muted/50 rounded-lg">
+              <div className="p-3 bg-muted/50">
                 <p className="text-sm text-muted-foreground mb-1">Nuvarande värde:</p>
                 <p className="text-lg font-semibold">{existingBPEntry.systolic}/{existingBPEntry.diastolic} mmHg</p>
               </div>
@@ -817,7 +821,7 @@ const Progress = () => {
             </AlertDialogDescription>
           </AlertDialogHeader>
           {pendingEntry && selectedDate && (
-            <div className="my-4 space-y-3 rounded-lg bg-muted/50 p-4">
+            <div className="my-4 space-y-3 bg-muted/50 p-4">
               <div className="flex justify-between items-center">
                 <span className="text-sm text-muted-foreground">Datum:</span>
                 <span className="text-sm font-medium">{format(selectedDate, 'd MMMM yyyy', { locale: sv })}</span>
