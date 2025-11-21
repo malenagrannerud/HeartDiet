@@ -181,78 +181,59 @@ const Today = () => {
               {allStartCardsHidden ? (
                 <p className={sectionSubheading2}>Alla dina kurser är avklarade. Fokusera på att implementera en ny hälsosam vana!</p>
               ) : (
-                <div className="space-y-4">
-                  {!hiddenCards.tutorial && (
-                    <>
-                      <div className="flex gap-4 items-center">
+                <div className="flex gap-4">
+                  <div className="flex flex-col items-center">
+                    {!hiddenCards.tutorial && (
+                      <>
                         <CheckBoxLeft isCompleted={completionStatus.tutorial} />
-                        <div className="flex-1">
-                          <StartCard
-                            isHidden={false}
-                            title="Så fungerar appen"
-                            icon={<BookOpen size={12} strokeWidth={2.5} />}
-                            label="Kurs"
-                            time="5 min"
-                            onClick={() => handleCardNavigation('tutorial', '/app/tutorial')}
-                            ariaLabel="Gå till tutorial"
-                          />
-                        </div>
-                      </div>
-                      {!hiddenCards.healthPriorities && (
-                        <div className="flex gap-4">
-                          <div className="w-5 flex justify-center">
-                            <div className="w-0.5 h-4 border-l-2 border-dashed border-gray-300" />
-                          </div>
-                        </div>
-                      )}
-                    </>
-                  )}
-                  
-                  {!hiddenCards.healthPriorities && (
-                    <>
-                      <div className="flex gap-4 items-center">
+                        {!hiddenCards.healthPriorities && <div className="w-0.5 flex-1 border-l-2 border-dashed border-gray-300 my-2" />}
+                      </>
+                    )}
+                    {!hiddenCards.healthPriorities && (
+                      <>
                         <CheckBoxLeft isCompleted={completionStatus.healthPriorities} />
-                        <div className="flex-1">
-                          <StartCard
-                            isHidden={false}
-                            title="Mina mål"
-                            icon={<FileEdit size={12} strokeWidth={2.5} />}
-                            label="Formulär"
-                            time="3 min"
-                            onClick={() => handleCardNavigation('health-priorities', '/app/health-priorities')}
-                            ariaLabel="Gå till mina hälsoprioriteringar"
-                            hasImage={true}
-                            imageSrc={HealthPrioritiesImage}
-                            imageAlt="Health goals illustration"
-                          />
-                        </div>
-                      </div>
-                      {!hiddenCards.healthMetrics && (
-                        <div className="flex gap-4">
-                          <div className="w-5 flex justify-center">
-                            <div className="w-0.5 h-4 border-l-2 border-dashed border-gray-300" />
-                          </div>
-                        </div>
-                      )}
-                    </>
-                  )}
-                  
-                  {!hiddenCards.healthMetrics && (
-                    <div className="flex gap-4 items-center">
+                        {!hiddenCards.healthMetrics && <div className="w-0.5 flex-1 border-l-2 border-dashed border-gray-300 my-2" />}
+                      </>
+                    )}
+                    {!hiddenCards.healthMetrics && (
                       <CheckBoxLeft isCompleted={completionStatus.healthMetrics} />
-                      <div className="flex-1">
-                        <StartCard
-                          isHidden={false}
-                          title="Vikt och blodtryck"
-                          icon={<FileEdit size={12} strokeWidth={2.5} />}
-                          label="Formulär"
-                          time="5 min"
-                          onClick={() => handleCardNavigation('health-metrics', '/app/health-metrics')}
-                          ariaLabel="Gå till hälsomätningar"
-                        />
-                      </div>
-                    </div>
-                  )}
+                    )}
+                  </div>
+                  
+                  <div className="flex-1 space-y-4">
+                    <StartCard
+                      isHidden={hiddenCards.tutorial}
+                      title="Så fungerar appen"
+                      icon={<BookOpen size={12} strokeWidth={2.5} />}
+                      label="Kurs"
+                      time="5 min"
+                      onClick={() => handleCardNavigation('tutorial', '/app/tutorial')}
+                      ariaLabel="Gå till tutorial"
+                    />
+
+                    <StartCard
+                      isHidden={hiddenCards.healthPriorities}
+                      title="Mina mål"
+                      icon={<FileEdit size={12} strokeWidth={2.5} />}
+                      label="Formulär"
+                      time="3 min"
+                      onClick={() => handleCardNavigation('health-priorities', '/app/health-priorities')}
+                      ariaLabel="Gå till mina hälsoprioriteringar"
+                      hasImage={true}
+                      imageSrc={HealthPrioritiesImage}
+                      imageAlt="Health goals illustration"
+                    />
+
+                    <StartCard
+                      isHidden={hiddenCards.healthMetrics}
+                      title="Vikt och blodtryck"
+                      icon={<FileEdit size={12} strokeWidth={2.5} />}
+                      label="Formulär"
+                      time="5 min"
+                      onClick={() => handleCardNavigation('health-metrics', '/app/health-metrics')}
+                      ariaLabel="Gå till hälsomätningar"
+                    />
+                  </div>
                 </div>
               )}
             </section>
