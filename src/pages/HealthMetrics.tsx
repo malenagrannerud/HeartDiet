@@ -37,11 +37,8 @@ const HealthMetrics = () => {
   }, []);
 
   const handleSubmitClick = () => {
-    if (hasExistingData) {
-      setSaveAlertOpen(true);
-    } else {
-      confirmSubmit();
-    }
+    // Always show preview before saving
+    setSaveAlertOpen(true);
   };
 
   const confirmSubmit = () => {
@@ -269,9 +266,31 @@ const HealthMetrics = () => {
           <AlertDialogHeader>
             <AlertDialogTitle>Bekräfta ändringar</AlertDialogTitle>
             <AlertDialogDescription>
-              Du har redan sparad hälsodata. Är du säker på att du vill uppdatera värdena?
+              Granska dina värden innan du sparar:
             </AlertDialogDescription>
           </AlertDialogHeader>
+          <div className="my-4 space-y-3 rounded-lg bg-muted/50 p-4">
+            <div className="flex justify-between items-center">
+              <span className={bodyText}>Längd:</span>
+              <span className={bodyTextBald}>{height} cm</span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className={bodyText}>Vikt:</span>
+              <span className={bodyTextBald}>{weight} kg</span>
+            </div>
+            {!skipBloodPressure && systolic && diastolic && (
+              <div className="flex justify-between items-center">
+                <span className={bodyText}>Blodtryck:</span>
+                <span className={bodyTextBald}>{systolic}/{diastolic} mmHg</span>
+              </div>
+            )}
+            {skipBloodPressure && (
+              <div className="flex justify-between items-center">
+                <span className={bodyText}>Blodtryck:</span>
+                <span className={`${bodyText} text-muted-foreground`}>Ej ifyllt</span>
+              </div>
+            )}
+          </div>
           <AlertDialogFooter>
             <AlertDialogCancel>Avbryt</AlertDialogCancel>
             <AlertDialogAction onClick={confirmSubmit}>

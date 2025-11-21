@@ -67,6 +67,14 @@ const Progress = () => {
   const [medications, setMedications] = useState<string[]>([]);
   const [deleteAlertOpen, setDeleteAlertOpen] = useState(false);
   const [entryToDelete, setEntryToDelete] = useState<number | null>(null);
+  const [saveAlertOpen, setSaveAlertOpen] = useState(false);
+  const [pendingEntry, setPendingEntry] = useState<{
+    type: 'weight' | 'bloodPressure' | 'tip';
+    tipIds?: number[];
+    weight?: string;
+    systolic?: string;
+    diastolic?: string;
+  } | null>(null);
   
   // Load day logs, highest streak, and health priorities from localStorage
   useEffect(() => {
@@ -167,50 +175,70 @@ const Progress = () => {
 
     const [selectedTipIds, setSelectedTipIds] = useState<number[]>([]);
 
-    // Update handleSaveEntry to handle multiple tips
+    // Show preview before saving
     const handleSaveEntry = () => {
       if (!selectedDate) return;
+
+      if (entryType === 'tip') {
+        if (selectedTipIds.length === 0) return;
+        setPendingEntry({ type: 'tip', tipIds: selectedTipIds });
+      } else if (entryType === 'weight') {
+        const kg = parseFloat(weightInput) || 0;
+        if (kg <= 0) return;
+        setPendingEntry({ type: 'weight', weight: weightInput });
+      } else if (entryType === 'bloodPressure') {
+        const systolic = parseInt(systolicInput) || 0;
+        const diastolic = parseInt(diastolicInput) || 0;
+        if (systolic <= 0 || diastolic <= 0) return;
+        setPendingEntry({ type: 'bloodPressure', systolic: systolicInput, diastolic: diastolicInput });
+      }
+      
+      setSaveAlertOpen(true);
+    };
+
+    // Confirm and save the entry
+    const confirmSaveEntry = () => {
+      if (!selectedDate || !pendingEntry) return;
       
       const dateStr = format(selectedDate, 'yyyy-MM-dd');
       const existingLog = dayLogs.find(log => log.date === dateStr);
       const newEntries = existingLog ? [...existingLog.entries] : [];
 
-      if (entryType === 'tip') {
-        // For each selected tip, create an entry with value=1 (to mark as completed)
-        selectedTipIds.forEach(tipId => {
+      if (pendingEntry.type === 'tip' && pendingEntry.tipIds) {
+        pendingEntry.tipIds.forEach(tipId => {
           newEntries.push({ 
             type: 'tip', 
-            value: 1, // This marks the tip as completed
+            value: 1,
             tipId: tipId 
           });
         });
-      } else if (entryType === 'weight') {
-        const kg = parseFloat(weightInput) || 0;
-        if (kg > 0) newEntries.push({ type: 'weight', value: kg });
-      } else if (entryType === 'bloodPressure') {
-        const systolic = parseInt(systolicInput) || 0;
-        const diastolic = parseInt(diastolicInput) || 0;
-        if (systolic > 0 && diastolic > 0) newEntries.push({ 
+      } else if (pendingEntry.type === 'weight' && pendingEntry.weight) {
+        const kg = parseFloat(pendingEntry.weight);
+        newEntries.push({ type: 'weight', value: kg });
+      } else if (pendingEntry.type === 'bloodPressure' && pendingEntry.systolic && pendingEntry.diastolic) {
+        const systolic = parseInt(pendingEntry.systolic);
+        const diastolic = parseInt(pendingEntry.diastolic);
+        newEntries.push({ 
           type: 'bloodPressure', 
           value: systolic, 
           value2: diastolic 
         });
       }
       
-      if (newEntries.length > (existingLog?.entries.length || 0)) {
-        const updatedLogs = dayLogs.filter(log => log.date !== dateStr);
-        updatedLogs.push({ date: dateStr, entries: newEntries });
-        setDayLogs(updatedLogs);
-        localStorage.setItem('dayLogs', JSON.stringify(updatedLogs));
-        
-        toast({
-          title: "Data sparad",
-          description: `${entryType === 'tip' ? 'Tips' : entryType === 'weight' ? 'Vikt' : 'Blodtryck'} har sparats för ${format(selectedDate, 'd MMMM', { locale: sv })}`,
-        });
-      }
+      const updatedLogs = dayLogs.filter(log => log.date !== dateStr);
+      updatedLogs.push({ date: dateStr, entries: newEntries });
+      setDayLogs(updatedLogs);
+      localStorage.setItem('dayLogs', JSON.stringify(updatedLogs));
+      
+      toast({
+        title: "Data sparad",
+        description: `${pendingEntry.type === 'tip' ? 'Tips' : pendingEntry.type === 'weight' ? 'Vikt' : 'Blodtryck'} har sparats för ${format(selectedDate, 'd MMMM', { locale: sv })}`,
+      });
       
       setDialogOpen(false);
       setSelectedTipIds([]);
+      setSaveAlertOpen(false);
+      setPendingEntry(null);
     };
 
   const handleDeleteEntry = (entryIndex: number) => {
@@ -673,6 +701,61 @@ const Progress = () => {
             <AlertDialogCancel onClick={() => setEntryToDelete(null)}>Avbryt</AlertDialogCancel>
             <AlertDialogAction onClick={confirmDeleteEntry} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
               Radera
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      <AlertDialog open={saveAlertOpen} onOpenChange={setSaveAlertOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Granska innan du sparar</AlertDialogTitle>
+            <AlertDialogDescription>
+              Kontrollera att uppgifterna stämmer:
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          {pendingEntry && selectedDate && (
+            <div className="my-4 space-y-3 rounded-lg bg-muted/50 p-4">
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-muted-foreground">Datum:</span>
+                <span className="text-sm font-medium">{format(selectedDate, 'd MMMM yyyy', { locale: sv })}</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-muted-foreground">Typ:</span>
+                <span className="text-sm font-medium">
+                  {pendingEntry.type === 'tip' ? 'Tips' : pendingEntry.type === 'weight' ? 'Vikt' : 'Blodtryck'}
+                </span>
+              </div>
+              {pendingEntry.type === 'tip' && pendingEntry.tipIds && (
+                <div className="space-y-2">
+                  <span className="text-sm text-muted-foreground">Tips:</span>
+                  <div className="space-y-1">
+                    {pendingEntry.tipIds.map(tipId => (
+                      <div key={tipId} className="text-sm font-medium pl-4">
+                        • {tips.find(t => t.id === tipId)?.title}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {pendingEntry.type === 'weight' && (
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-muted-foreground">Värde:</span>
+                  <span className="text-sm font-medium">{pendingEntry.weight} kg</span>
+                </div>
+              )}
+              {pendingEntry.type === 'bloodPressure' && (
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-muted-foreground">Värde:</span>
+                  <span className="text-sm font-medium">{pendingEntry.systolic}/{pendingEntry.diastolic} mmHg</span>
+                </div>
+              )}
+            </div>
+          )}
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={() => setPendingEntry(null)}>Avbryt</AlertDialogCancel>
+            <AlertDialogAction onClick={confirmSaveEntry}>
+              Spara
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
