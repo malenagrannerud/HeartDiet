@@ -1,22 +1,18 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Calendar } from "@/components/ui/calendar";
-import { format, startOfMonth, endOfMonth, isSameDay } from "date-fns";
+import { format, startOfWeek, addDays, startOfMonth, endOfMonth } from "date-fns";
 import { sv } from "date-fns/locale";
-import { Trash2, Settings, Heart, Pill } from "lucide-react";
+import { ChevronLeft, ChevronRight, Plus } from "lucide-react";
 import { tips } from "@/data/tips";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
-import { pageTitle, pageSubtitle, iconButton, pageContainer, pagePadding, interactiveCard, cardTitle, cardText } from "@/lib/design-tokens";
-import { Card } from "@/components/ui/card";
-import { getStorageItem } from "@/lib/storage";
-import { healthPrioritiesSchema } from "@/lib/schemas";
+import { pageTitle, pageSubtitle, pageContainer, pagePadding } from "@/lib/design-tokens";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, LabelList } from 'recharts';
-import { ChartContainer } from "@/components/ui/chart";
 import { useToast } from "@/hooks/use-toast";
+import { getDayLogs } from "@/lib/tip-completion";
+import { Checkbox } from "@/components/ui/checkbox";
 
 interface DayLog {
   date: string;
@@ -28,115 +24,180 @@ interface DayLog {
   }[];
 }
 
-const healthPriorityLabels: Record<string, string> = {
-  cholesterol: "Sänk mitt kolesterol",
-  bloodPressure: "Sänk mitt blodtryck",
-  diabetes: "Minska risken för diabetes typ 2",
-  weight: "Viktbalans",
-  general: "Förebygga hjärt- och kärlsjukdom"
-};
-
-const medicationLabels: Record<string, string> = {
-  warfarin: "Waran (Warfarin)",
-  doac: "DOAC (blodförtunnande)",
-  bloodPressureMeds: "Blodtrycksmedicin",
-  ace: "ACE-hämmare",
-  diuretics: "Vattenburna tabletter",
-  statins: "Kolesterolmedicin",
-  metformin: "Metformin"
-};
-
 const Progress = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const [date, setDate] = useState<Date>(new Date());
-  const [achievementDays, setAchievementDays] = useState<Date[]>([]);
-  const [weightDays, setWeightDays] = useState<Date[]>([]);
-  const [bloodPressureDays, setBloodPressureDays] = useState<Date[]>([]);
+  const [currentWeekStart, setCurrentWeekStart] = useState<Date>(
+    startOfWeek(new Date(), { weekStartsOn: 1 })
+  );
   const [dayLogs, setDayLogs] = useState<DayLog[]>([]);
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [entryType, setEntryType] = useState<'weight' | 'bloodPressure' | 'tip'>('tip');
-  const [selectedTipId, setSelectedTipId] = useState<number>(1);
-  const [gramsInput, setGramsInput] = useState("");
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [entryType, setEntryType] = useState<'weight' | 'bloodPressure'>('weight');
   const [weightInput, setWeightInput] = useState("");
   const [systolicInput, setSystolicInput] = useState("");
   const [diastolicInput, setDiastolicInput] = useState("");
-  const [highestStreak, setHighestStreak] = useState(0);
-  const [priorities, setPriorities] = useState<string[]>([]);
-  const [medications, setMedications] = useState<string[]>([]);
-  const [deleteAlertOpen, setDeleteAlertOpen] = useState(false);
-  const [entryToDelete, setEntryToDelete] = useState<number | null>(null);
   const [saveAlertOpen, setSaveAlertOpen] = useState(false);
   const [pendingEntry, setPendingEntry] = useState<{
-    type: 'weight' | 'bloodPressure' | 'tip';
-    tipIds?: number[];
+    type: 'weight' | 'bloodPressure';
     weight?: string;
     systolic?: string;
     diastolic?: string;
   } | null>(null);
-  
-  // Load day logs, highest streak, and health priorities from localStorage
-  useEffect(() => {
-    const savedLogs = localStorage.getItem('dayLogs');
-    if (savedLogs) {
-      const parsed = JSON.parse(savedLogs);
-      setDayLogs(parsed);
-    }
-    
-    const savedHighestStreak = localStorage.getItem('highestStreak');
-    if (savedHighestStreak) {
-      setHighestStreak(parseInt(savedHighestStreak));
-    }
 
-    const data = getStorageItem('healthPriorities', healthPrioritiesSchema);
-    if (data) {
-      setPriorities(data.priorities || []);
-      setMedications(data.medications || []);
-    }
+  // Load day logs from localStorage
+  useEffect(() => {
+    const logs = getDayLogs();
+    setDayLogs(logs);
   }, []);
 
-  // Update achievement days based on day logs
-  useEffect(() => {
-    const achievedDays = dayLogs
-      .filter(log => log.entries.some(entry => entry.type === 'tip'))
-      .map(log => {
-      // FIX: Create date at start of day to ensure exact match
-      const date = new Date(log.date + 'T00:00:00');
-      return date;
-    });
-    setAchievementDays(achievedDays);
+  // Generate week dates (Monday to Sunday)
+  const weekDates = Array.from({ length: 7 }, (_, i) => 
+    addDays(currentWeekStart, i)
+  );
 
-    const weightLogDays = dayLogs
-      .filter(log => log.entries.some(entry => entry.type === 'weight'))
-      .map(log => new Date(log.date));
-    setWeightDays(weightLogDays);
+  const goToPreviousWeek = () => {
+    setCurrentWeekStart(prev => addDays(prev, -7));
+  };
 
-    const bpLogDays = dayLogs
-      .filter(log => log.entries.some(entry => entry.type === 'bloodPressure'))
-      .map(log => new Date(log.date));
-    setBloodPressureDays(bpLogDays);
-    
-    // Update highest streak if current streak is higher
-    const currentStreakValue = getCurrentStreak();
-    if (currentStreakValue > highestStreak) {
-      setHighestStreak(currentStreakValue);
-      localStorage.setItem('highestStreak', currentStreakValue.toString());
+  const goToNextWeek = () => {
+    setCurrentWeekStart(prev => addDays(prev, 7));
+  };
+
+  const goToCurrentWeek = () => {
+    setCurrentWeekStart(startOfWeek(new Date(), { weekStartsOn: 1 }));
+  };
+
+  const isTipCompletedOnDate = (tipId: number, date: Date): boolean => {
+    const dateStr = format(date, 'yyyy-MM-dd');
+    const log = dayLogs.find(l => l.date === dateStr);
+    return log?.entries.some(entry => entry.type === 'tip' && entry.tipId === tipId) || false;
+  };
+
+  const handleTipToggle = (tipId: number, date: Date) => {
+    const dateStr = format(date, 'yyyy-MM-dd');
+    const existingLogIndex = dayLogs.findIndex(log => log.date === dateStr);
+    let updatedLogs = [...dayLogs];
+
+    if (existingLogIndex >= 0) {
+      const existingLog = updatedLogs[existingLogIndex];
+      const tipEntryIndex = existingLog.entries.findIndex(
+        entry => entry.type === 'tip' && entry.tipId === tipId
+      );
+
+      if (tipEntryIndex >= 0) {
+        // Remove tip
+        existingLog.entries.splice(tipEntryIndex, 1);
+        if (existingLog.entries.length === 0) {
+          updatedLogs.splice(existingLogIndex, 1);
+        }
+        toast({
+          title: "Tips avmarkerat",
+          description: `${tips.find(t => t.id === tipId)?.title} har avmarkerats`,
+        });
+      } else {
+        // Add tip
+        existingLog.entries.push({ type: 'tip', value: 1, tipId });
+        toast({
+          title: "Tips markerat som gjort!",
+          description: `${tips.find(t => t.id === tipId)?.title} har markerats`,
+        });
+      }
+    } else {
+      // Create new log with tip
+      updatedLogs.push({
+        date: dateStr,
+        entries: [{ type: 'tip', value: 1, tipId }]
+      });
+      toast({
+        title: "Tips markerat som gjort!",
+        description: `${tips.find(t => t.id === tipId)?.title} har markerats`,
+      });
     }
-  }, [dayLogs]);
+
+    setDayLogs(updatedLogs);
+    localStorage.setItem('dayLogs', JSON.stringify(updatedLogs));
+  };
+
+  const openAddDataDialog = (date: Date) => {
+    setSelectedDate(date);
+    setEntryType('weight');
+    setWeightInput("");
+    setSystolicInput("");
+    setDiastolicInput("");
+    setDialogOpen(true);
+  };
+
+  const handleSaveEntry = () => {
+    if (!selectedDate) return;
+
+    if (entryType === 'weight') {
+      const kg = parseFloat(weightInput) || 0;
+      if (kg <= 0) return;
+      setPendingEntry({ type: 'weight', weight: weightInput });
+    } else if (entryType === 'bloodPressure') {
+      const systolic = parseInt(systolicInput) || 0;
+      const diastolic = parseInt(diastolicInput) || 0;
+      if (systolic <= 0 || diastolic <= 0) return;
+      setPendingEntry({ type: 'bloodPressure', systolic: systolicInput, diastolic: diastolicInput });
+    }
+    
+    setSaveAlertOpen(true);
+  };
+
+  const confirmSaveEntry = () => {
+    if (!selectedDate || !pendingEntry) return;
+    
+    const dateStr = format(selectedDate, 'yyyy-MM-dd');
+    const existingLog = dayLogs.find(log => log.date === dateStr);
+    const newEntries = existingLog ? [...existingLog.entries] : [];
+
+    if (pendingEntry.type === 'weight' && pendingEntry.weight) {
+      const kg = parseFloat(pendingEntry.weight);
+      newEntries.push({ type: 'weight', value: kg });
+    } else if (pendingEntry.type === 'bloodPressure' && pendingEntry.systolic && pendingEntry.diastolic) {
+      const systolic = parseInt(pendingEntry.systolic);
+      const diastolic = parseInt(pendingEntry.diastolic);
+      newEntries.push({ 
+        type: 'bloodPressure', 
+        value: systolic, 
+        value2: diastolic 
+      });
+    }
+    
+    const updatedLogs = dayLogs.filter(log => log.date !== dateStr);
+    updatedLogs.push({ date: dateStr, entries: newEntries });
+    setDayLogs(updatedLogs);
+    localStorage.setItem('dayLogs', JSON.stringify(updatedLogs));
+    
+    toast({
+      title: "Data sparad",
+      description: `${pendingEntry.type === 'weight' ? 'Vikt' : 'Blodtryck'} har sparats för ${format(selectedDate, 'd MMMM', { locale: sv })}`,
+    });
+    
+    setDialogOpen(false);
+    setSaveAlertOpen(false);
+    setPendingEntry(null);
+  };
 
   const getDaysWithGoalThisMonth = () => {
-    const monthStart = startOfMonth(date);
-    const monthEnd = endOfMonth(date);
-    return achievementDays.filter(day => {
-      const dayDate = new Date(day);
-      return dayDate >= monthStart && dayDate <= monthEnd;
+    const monthStart = startOfMonth(new Date());
+    const monthEnd = endOfMonth(new Date());
+    return dayLogs.filter(log => {
+      const logDate = new Date(log.date);
+      return logDate >= monthStart && logDate <= monthEnd && 
+             log.entries.some(entry => entry.type === 'tip');
     }).length;
   };
 
   const getCurrentStreak = () => {
-    if (achievementDays.length === 0) return 0;
-    const sortedDays = [...achievementDays].sort((a, b) => new Date(b).getTime() - new Date(a).getTime());
+    const daysWithTips = dayLogs
+      .filter(log => log.entries.some(entry => entry.type === 'tip'))
+      .map(log => new Date(log.date));
+    
+    if (daysWithTips.length === 0) return 0;
+    
+    const sortedDays = daysWithTips.sort((a, b) => b.getTime() - a.getTime());
     let streak = 0;
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -155,343 +216,139 @@ const Progress = () => {
     return streak;
   };
 
+  const getDayInitial = (date: Date) => {
+    const days = ['Sön', 'Mån', 'Tis', 'Ons', 'Tor', 'Fre', 'Lör'];
+    return days[date.getDay()];
+  };
+
+  const hasWeightOrBPOnDate = (date: Date): boolean => {
+    const dateStr = format(date, 'yyyy-MM-dd');
+    const log = dayLogs.find(l => l.date === dateStr);
+    return log?.entries.some(entry => entry.type === 'weight' || entry.type === 'bloodPressure') || false;
+  };
+
   const daysThisMonth = getDaysWithGoalThisMonth();
   const currentStreak = getCurrentStreak();
-
- 
-  const handleDayClick = (clickedDate: Date | undefined) => {
-    if (!clickedDate) {
-       clickedDate = new Date();
-    }
-    setSelectedDate(clickedDate);
-    setEntryType('tip');
-    setSelectedTipId(1);
-    setGramsInput("");
-    setWeightInput("");
-    setSystolicInput("");
-    setDiastolicInput("");
-    setDialogOpen(true);
-  };
-
-    const [selectedTipIds, setSelectedTipIds] = useState<number[]>([]);
-
-    // Show preview before saving
-    const handleSaveEntry = () => {
-      if (!selectedDate) return;
-
-      if (entryType === 'tip') {
-        if (selectedTipIds.length === 0) return;
-        setPendingEntry({ type: 'tip', tipIds: selectedTipIds });
-      } else if (entryType === 'weight') {
-        const kg = parseFloat(weightInput) || 0;
-        if (kg <= 0) return;
-        setPendingEntry({ type: 'weight', weight: weightInput });
-      } else if (entryType === 'bloodPressure') {
-        const systolic = parseInt(systolicInput) || 0;
-        const diastolic = parseInt(diastolicInput) || 0;
-        if (systolic <= 0 || diastolic <= 0) return;
-        setPendingEntry({ type: 'bloodPressure', systolic: systolicInput, diastolic: diastolicInput });
-      }
-      
-      setSaveAlertOpen(true);
-    };
-
-    // Confirm and save the entry
-    const confirmSaveEntry = () => {
-      if (!selectedDate || !pendingEntry) return;
-      
-      const dateStr = format(selectedDate, 'yyyy-MM-dd');
-      const existingLog = dayLogs.find(log => log.date === dateStr);
-      const newEntries = existingLog ? [...existingLog.entries] : [];
-
-      if (pendingEntry.type === 'tip' && pendingEntry.tipIds) {
-        pendingEntry.tipIds.forEach(tipId => {
-          newEntries.push({ 
-            type: 'tip', 
-            value: 1,
-            tipId: tipId 
-          });
-        });
-      } else if (pendingEntry.type === 'weight' && pendingEntry.weight) {
-        const kg = parseFloat(pendingEntry.weight);
-        newEntries.push({ type: 'weight', value: kg });
-      } else if (pendingEntry.type === 'bloodPressure' && pendingEntry.systolic && pendingEntry.diastolic) {
-        const systolic = parseInt(pendingEntry.systolic);
-        const diastolic = parseInt(pendingEntry.diastolic);
-        newEntries.push({ 
-          type: 'bloodPressure', 
-          value: systolic, 
-          value2: diastolic 
-        });
-      }
-      
-      const updatedLogs = dayLogs.filter(log => log.date !== dateStr);
-      updatedLogs.push({ date: dateStr, entries: newEntries });
-      setDayLogs(updatedLogs);
-      localStorage.setItem('dayLogs', JSON.stringify(updatedLogs));
-      
-      toast({
-        title: "Data sparad",
-        description: `${pendingEntry.type === 'tip' ? 'Tips' : pendingEntry.type === 'weight' ? 'Vikt' : 'Blodtryck'} har sparats för ${format(selectedDate, 'd MMMM', { locale: sv })}`,
-      });
-      
-      setDialogOpen(false);
-      setSelectedTipIds([]);
-      setSaveAlertOpen(false);
-      setPendingEntry(null);
-    };
-
-  const handleDeleteEntry = (entryIndex: number) => {
-    setEntryToDelete(entryIndex);
-    setDeleteAlertOpen(true);
-  };
-
-  const confirmDeleteEntry = () => {
-    if (!selectedDate || entryToDelete === null) return;
-    
-    const dateStr = format(selectedDate, 'yyyy-MM-dd');
-    const existingLog = dayLogs.find(log => log.date === dateStr);
-    
-    if (existingLog) {
-      const updatedEntries = existingLog.entries.filter((_, index) => index !== entryToDelete);
-      let updatedLogs;
-      
-      if (updatedEntries.length === 0) {
-        // Remove the entire day log if no entries left
-        updatedLogs = dayLogs.filter(log => log.date !== dateStr);
-      } else {
-        // Update the day log with remaining entries
-        updatedLogs = dayLogs.map(log => 
-          log.date === dateStr ? { ...log, entries: updatedEntries } : log
-        );
-      }
-      
-      setDayLogs(updatedLogs);
-      localStorage.setItem('dayLogs', JSON.stringify(updatedLogs));
-      
-      toast({
-        title: "Data raderad",
-        description: "Inlägget har tagits bort",
-      });
-    }
-    
-    setDeleteAlertOpen(false);
-    setEntryToDelete(null);
-  };
-
-  const getExistingEntries = () => {
-    if (!selectedDate) return [];
-    const dateStr = format(selectedDate, 'yyyy-MM-dd');
-    const log = dayLogs.find(l => l.date === dateStr);
-    return log?.entries || [];
-  };
 
   return (
     <div className={`${pageContainer} ${pagePadding} space-y-6`}>
       <header className="flex items-start justify-between">
         <div>
-          <h1 className={pageTitle}>Mina sidor</h1>
-          <p className={pageSubtitle}>Följ dina framsteg & redigera loggar</p>
+          <h1 className={pageTitle}>Veckoöversikt</h1>
+          <p className={pageSubtitle}>Följ dina framsteg och logga data</p>
         </div>
-
-        {/* <Button variant="ghost" onClick={() => navigate('/app/settings')} className={iconButton}>
-          <Settings size={28} className="text-foreground" />
-        </Button> */}
       </header>
 
-      <div className="pt-6 pb-0 flex justify-center">
-        <Calendar
-          mode="single"
-          selected={date}
-          onSelect={handleDayClick}
-          locale={sv}
-          className="rounded-md border-0 [&_.rdp-caption_label]:font-bold [&_.rdp-caption_label]:capitalize [&_.rdp-caption_label]:text-xl [&_.rdp-head_cell]:capitalize [&_.rdp-head_cell]:text-base mx-auto text-lg [&_button]:cursor-pointer [&_button]:min-h-[48px] [&_button]:min-w-[48px] [&_button]:text-lg"
-          modifiers={{
-            achievement: achievementDays,
-            weight: weightDays,
-            bloodPressure: bloodPressureDays
-          }}
-          modifiersClassNames={{
-            achievement: "relative before:content-[''] before:absolute before:inset-[8px] before:bg-emerald-500 before:rounded-full before:z-10 !text-blue-900 font-bold"
-          }}
-          modifiersStyles={{
-            achievement: { backgroundColor: "transparent" }
-          }}
-          components={{
-            DayContent: (props) => {
-              const hasWeight = weightDays.some(d => isSameDay(d, props.date));
-              const hasBP = bloodPressureDays.some(d => isSameDay(d, props.date));
-              return (
-                <div className="relative w-full h-full flex items-center justify-center">
-                  <div className="absolute top-0.5 left-0.5 flex flex-col gap-1">
-                    {hasBP && <span className="text-[10px] leading-none text-rose-600">♥</span>}
-                    {hasWeight && <span className="text-[10px] leading-none text-black-900">⚖</span>}
-                  </div>
-                  <span className="relative z-10">{props.date.getDate()}</span>
-                </div>
-              );
-            }
-          }}
-        />
+      {/* Week Navigation */}
+      <div className="flex items-center justify-between py-4">
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={goToPreviousWeek}
+          className="h-10"
+        >
+          <ChevronLeft className="h-5 w-5" />
+        </Button>
+        
+        <div className="text-center">
+          <div className="text-lg font-semibold">
+            {format(weekDates[0], 'd MMM', { locale: sv })} - {format(weekDates[6], 'd MMM', { locale: sv })}
+          </div>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={goToCurrentWeek}
+            className="text-xs text-muted-foreground hover:text-foreground"
+          >
+            Gå till idag
+          </Button>
+        </div>
+
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={goToNextWeek}
+          className="h-10"
+        >
+          <ChevronRight className="h-5 w-5" />
+        </Button>
       </div>
-         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-              <DialogContent className="max-w-md max-h-[80vh] overflow-y-auto">
-                <DialogHeader>
-                  <DialogTitle>
-                    Redigera {selectedDate && format(selectedDate, 'd MMMM yyyy', { locale: sv })}
-                  </DialogTitle>
-                </DialogHeader>
-                
-                {getExistingEntries().length > 0 && (
-                  <div className="space-y-2 pb-4 border-b">
-                    <Label className="text-base font-semibold">Dina inlägg</Label>
-                    {getExistingEntries().map((entry, index) => (
-                      <div key={index} className="flex items-center justify-between p-3 bg-accent/50 rounded-lg">
-                        <div className="text-sm font-medium">
-                          {entry.type === 'tip' && (
-                            <span>{tips.find(t => t.id === entry.tipId)?.title}: {entry.value}g</span>
-                          )}
-                          {entry.type === 'weight' && <span>Vikt: {entry.value} kg</span>}
-                          {entry.type === 'bloodPressure' && (
-                            <span>Blodtryck: {entry.value}/{entry.value2} mmHg</span>
-                          )}
-                        </div>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => handleDeleteEntry(index)}
-                          className="h-8 w-8 p-0 hover:bg-destructive/10"
-                        >
-                          <Trash2 size={16} className="text-destructive" />
-                        </Button>
-                      </div>
-                    ))}
-                  </div>
-                )}
 
-                <div className="space-y-4 py-4">
-                  <div>
-                    <Label className="text-lg mb-4 block font-semibold">Logga</Label>
-                    <div className="grid grid-cols-3 gap-3">
-                      <Button
-                        variant={entryType === 'tip' ? 'default' : 'outline'}
-                        onClick={() => setEntryType('tip')}
-                        className="w-full text-base py-6 min-h-[56px]"
-                      >
-                        Tips
-                      </Button>
-                      <Button
-                        variant={entryType === 'weight' ? 'default' : 'outline'}
-                        onClick={() => setEntryType('weight')}
-                        className="w-full text-base py-6 min-h-[56px]"
-                      >
-                        Vikt
-                      </Button>
-                      <Button
-                        variant={entryType === 'bloodPressure' ? 'default' : 'outline'}
-                        onClick={() => setEntryType('bloodPressure')}
-                        className="w-full text-base py-6 min-h-[56px]"
-                      >
-                        Blodtryck
-                      </Button>
+      {/* Weekly Table */}
+      <div className="bg-background rounded-lg border overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="w-full border-collapse">
+            <thead>
+              <tr className="border-b bg-muted/50">
+                <th className="text-left py-4 px-4 font-semibold text-foreground w-[200px]">Tips</th>
+                {weekDates.map((date, index) => (
+                  <th key={index} className="text-center py-4 px-2 font-semibold text-foreground min-w-[60px]">
+                    <div className="flex flex-col items-center gap-1">
+                      <span className="text-xs">{getDayInitial(date)}</span>
+                      <span className="text-sm">{format(date, 'd/M')}</span>
                     </div>
-                  </div>
-
-                  {entryType === 'tip' && (
-                    <div className="space-y-4">
-                      <div>
-                        <Label className="text-base mb-3 block font-semibold">Vilka tips följde du idag?</Label>
-                        <div className="space-y-3 max-h-60 overflow-y-auto">
-                          {tips.map((tip) => (
-                            <div 
-                              key={tip.id} 
-                              className="flex items-center justify-between p-3 rounded-lg border"
-                              style={{ 
-                                backgroundColor: tip.color || '#f3f4f6',
-                                borderColor: tip.color ? `${tip.color}80` : '#e5e7eb'
-                              }}
-                            >
-                              <Label htmlFor={`tip-${tip.id}`} className="flex-1 cursor-pointer text-sm font-medium">
-                                {tip.title}
-                              </Label>
-                              <input
-                                id={`tip-${tip.id}`}
-                                type="checkbox"
-                                checked={selectedTipIds.includes(tip.id)}
-                                onChange={(e) => {
-                                  if (e.target.checked) {
-                                    setSelectedTipIds(prev => [...prev, tip.id]);
-                                  } else {
-                                    setSelectedTipIds(prev => prev.filter(id => id !== tip.id));
-                                  }
-                                }}
-                                className="h-5 w-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                              />
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                  {entryType === 'weight' && (
-                    <div>
-                      <Label htmlFor="weight-input" className="text-base mb-2 block">Vikt (kg)</Label>
-                      <Input
-                        id="weight-input"
-                        type="number"
-                        step="0.1"
-                        value={weightInput}
-                        onChange={(e) => setWeightInput(e.target.value)}
-                        placeholder="Ange vikt i kg"
-                        className="w-full"
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {tips.map((tip) => (
+                <tr key={tip.id} className="border-b hover:bg-muted/30 transition-colors">
+                  <td className="py-4 px-4">
+                    <div className="flex items-center gap-2">
+                      <div 
+                        className="w-3 h-3 rounded-full flex-shrink-0" 
+                        style={{ 
+                          backgroundColor: tip.color.includes('bg-[') 
+                            ? tip.color.replace('bg-[', '').replace(']', '')
+                            : undefined 
+                        }}
                       />
+                      <span className="text-sm font-medium">{tip.title}</span>
                     </div>
-                  )}
-
-                  {entryType === 'bloodPressure' && (
-                    <div className="space-y-3">
-                      <div>
-                        <Label htmlFor="systolic-input" className="text-base mb-2 block">Systoliskt (övre värde)</Label>
-                        <Input
-                          id="systolic-input"
-                          type="number"
-                          value={systolicInput}
-                          onChange={(e) => setSystolicInput(e.target.value)}
-                          placeholder="T.ex. 120"
-                          className="w-full"
+                  </td>
+                  {weekDates.map((date, dayIndex) => (
+                    <td key={dayIndex} className="text-center py-4 px-2">
+                      <div className="flex justify-center">
+                        <Checkbox
+                          checked={isTipCompletedOnDate(tip.id, date)}
+                          onCheckedChange={() => handleTipToggle(tip.id, date)}
+                          className="h-7 w-7 data-[state=checked]:bg-emerald-500 data-[state=checked]:border-emerald-500 transition-all duration-200"
                         />
                       </div>
-                      <div>
-                        <Label htmlFor="diastolic-input" className="text-base mb-2 block">Diastoliskt (nedre värde)</Label>
-                        <Input
-                          id="diastolic-input"
-                          type="number"
-                          value={diastolicInput}
-                          onChange={(e) => setDiastolicInput(e.target.value)}
-                          placeholder="T.ex. 80"
-                          className="w-full"
-                        />
-                      </div>
-                    </div>
-                  )}
-                </div>
+                    </td>
+                  ))}
+                </tr>
+              ))}
+              
+              {/* Row for adding weight/BP data */}
+              <tr className="border-b bg-muted/20">
+                <td className="py-4 px-4">
+                  <span className="text-sm font-medium text-muted-foreground">Vikt & Blodtryck</span>
+                </td>
+                {weekDates.map((date, dayIndex) => (
+                  <td key={dayIndex} className="text-center py-4 px-2">
+                    <Button
+                      variant={hasWeightOrBPOnDate(date) ? "default" : "outline"}
+                      size="sm"
+                      onClick={() => openAddDataDialog(date)}
+                      className="h-8 w-8 p-0"
+                    >
+                      <Plus className="h-4 w-4" />
+                    </Button>
+                  </td>
+                ))}
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
 
-                <DialogFooter className="gap-3">
-                  <Button variant="outline" onClick={() => setDialogOpen(false)} className="text-base py-6 min-h-[56px]">
-                    Avbryt
-                  </Button>
-                  <Button onClick={handleSaveEntry} className="text-base py-6 min-h-[56px]">
-                    Spara
-                  </Button>
-                </DialogFooter>
-              </DialogContent>
-            </Dialog>
-
-      <div className="grid grid-cols-2 gap-0 -mt-8 pt-0">
-        <div className="py-6 pr-6 pl-0 border-r border-t">
-          <div className="flex flex-col h-full">
-            <div className="flex-1">
+      {/* Stats */}
+      <div className="grid grid-cols-2 gap-6">
+        <div className="p-6 border rounded-lg bg-background">
+          <div className="flex flex-col gap-4">
+            <div>
               <div className="text-base font-bold text-foreground">Klarade dagar</div>
               <div className="text-sm text-muted-foreground font-normal">Antal dagar du följt dina Tips</div>
             </div>
@@ -503,9 +360,9 @@ const Progress = () => {
           </div>
         </div>
 
-        <div className="py-6 pr-0 pl-6 border-t">
-          <div className="flex flex-col h-full">
-            <div className="flex-1">
+        <div className="p-6 border rounded-lg bg-background">
+          <div className="flex flex-col gap-4">
+            <div>
               <div className="text-base font-bold text-foreground">Klarade dagar i rad</div>
               <div className="text-sm text-muted-foreground font-normal">Antal dagar i rad du följt dina Tips</div>
             </div>
@@ -518,194 +375,91 @@ const Progress = () => {
         </div>
       </div>
 
-      {/* Charts remain the same */}
-      <div className="grid grid-cols-2 gap-0 pt-0">
-        <div className="py-6 pr-6 pl-0 border-r border-t">
-          <div className="flex flex-col h-full">
-            <div className="flex-1 mb-4">
-              <div className="text-base font-bold text-foreground">Vikt</div>
-              <div className="text-sm text-muted-foreground font-normal">Loggade vikter (kg)</div>
-            </div>
-            <ChartContainer config={{ weight: { label: "Vikt", color: "hsl(217, 91%, 60%)" } }} className="h-48 w-full">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart 
-                  data={dayLogs
-                    .flatMap(log => 
-                      log.entries
-                        .filter(e => e.type === 'weight')
-                        .map(e => ({ 
-                          date: format(new Date(log.date), 'd MMM', { locale: sv }),
-                          weight: e.value,
-                          fullDate: log.date
-                        }))
-                    )
-                    .sort((a, b) => new Date(a.fullDate).getTime() - new Date(b.fullDate).getTime())
-                    .slice(-10)} 
-                  margin={{ top: 20, bottom: 20 }}
+      {/* Dialog for adding weight/blood pressure */}
+      <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>
+              Lägg till data för {selectedDate && format(selectedDate, 'd MMMM yyyy', { locale: sv })}
+            </DialogTitle>
+          </DialogHeader>
+          
+          <div className="space-y-4 py-4">
+            <div>
+              <Label className="text-base mb-4 block font-semibold">Välj typ</Label>
+              <div className="grid grid-cols-2 gap-3">
+                <Button
+                  variant={entryType === 'weight' ? 'default' : 'outline'}
+                  onClick={() => setEntryType('weight')}
+                  className="w-full text-base py-6"
                 >
-                  <XAxis 
-                    dataKey="date" 
-                    axisLine={false}
-                    tickLine={false}
-                    tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }}
-                  />
-                  <YAxis hide />
-                  <Bar 
-                    dataKey="weight" 
-                    fill="hsl(217, 91%, 60%)" 
-                    radius={[8, 8, 0, 0]}
-                    maxBarSize={20}
-                  >
-                    <LabelList 
-                      dataKey="weight" 
-                      position="top" 
-                      style={{ fontSize: 12, fill: 'hsl(var(--foreground))' }}
-                      formatter={(value: number) => `${value} kg`}
-                    />
-                  </Bar>
-                </BarChart>
-              </ResponsiveContainer>
-            </ChartContainer>
-          </div>
-        </div>
-
-        <div className="py-6 pr-0 pl-6 border-t">
-          <div className="flex flex-col h-full">
-            <div className="flex-1 mb-4">
-              <div className="text-base font-bold text-foreground">Blodtryck</div>
-              <div className="text-sm text-muted-foreground font-normal">Loggade blodtryck (mmHg)</div>
-            </div>
-            <ChartContainer config={{ systolic: { label: "Systoliskt", color: "hsl(350, 89%, 60%)" } }} className="h-48 w-full">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart 
-                  data={dayLogs
-                    .flatMap(log => 
-                      log.entries
-                        .filter(e => e.type === 'bloodPressure')
-                        .map(e => ({ 
-                          date: format(new Date(log.date), 'd MMM', { locale: sv }),
-                          systolic: e.value,
-                          diastolic: e.value2,
-                          fullDate: log.date
-                        }))
-                    )
-                    .sort((a, b) => new Date(a.fullDate).getTime() - new Date(b.fullDate).getTime())
-                    .slice(-10)} 
-                  margin={{ top: 20, bottom: 20 }}
+                  Vikt
+                </Button>
+                <Button
+                  variant={entryType === 'bloodPressure' ? 'default' : 'outline'}
+                  onClick={() => setEntryType('bloodPressure')}
+                  className="w-full text-base py-6"
                 >
-                  <XAxis 
-                    dataKey="date" 
-                    axisLine={false}
-                    tickLine={false}
-                    tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }}
+                  Blodtryck
+                </Button>
+              </div>
+            </div>
+
+            {entryType === 'weight' && (
+              <div>
+                <Label htmlFor="weight-input" className="text-base mb-2 block">Vikt (kg)</Label>
+                <Input
+                  id="weight-input"
+                  type="number"
+                  step="0.1"
+                  value={weightInput}
+                  onChange={(e) => setWeightInput(e.target.value)}
+                  placeholder="Ange vikt i kg"
+                  className="w-full"
+                />
+              </div>
+            )}
+
+            {entryType === 'bloodPressure' && (
+              <div className="space-y-3">
+                <div>
+                  <Label htmlFor="systolic-input" className="text-base mb-2 block">Systoliskt (övre värde)</Label>
+                  <Input
+                    id="systolic-input"
+                    type="number"
+                    value={systolicInput}
+                    onChange={(e) => setSystolicInput(e.target.value)}
+                    placeholder="T.ex. 120"
+                    className="w-full"
                   />
-                  <YAxis hide />
-                  <Bar 
-                    dataKey="systolic" 
-                    fill="hsl(350, 89%, 60%)" 
-                    radius={[8, 8, 0, 0]}
-                    maxBarSize={20}
-                  >
-                    <LabelList 
-                      dataKey="systolic" 
-                      position="top" 
-                      style={{ fontSize: 12, fill: 'hsl(var(--foreground))' }}
-                      formatter={(value: number) => `${value}`}
-                    />
-                  </Bar>
-                </BarChart>
-              </ResponsiveContainer>
-            </ChartContainer>
-          </div>
-        </div>
-      </div>
-
-      {/* Health Goals and Medications Cards */}
-      <div className="space-y-6 pt-6">
-        {/* Health Priorities Card */}
-        <Card 
-          className={interactiveCard}
-          onClick={() => navigate('/app/health-priorities')}
-        >
-          <div className="flex items-start gap-4">
-            <div className="p-3 bg-primary/10 rounded-lg">
-              <Heart size={24} className="text-primary" />
-            </div>
-            <div className="flex-1">
-              <h3 className={`${cardTitle} mb-2`}>Mina hälsomål</h3>
-              {priorities.length > 0 ? (
-                <div className="space-y-1">
-                  {priorities.map((id) => (
-                    <p key={id} className={cardText}>
-                      • {healthPriorityLabels[id]}
-                    </p>
-                  ))}
                 </div>
-              ) : (
-                <p className={cardText}>Inga mål valda ännu</p>
-              )}
-            </div>
-          </div>
-        </Card>
-
-        {/* Medications Card */}
-        <Card 
-          className={interactiveCard}
-          onClick={() => navigate('/app/health-priorities')}
-        >
-          <div className="flex items-start gap-4">
-            <div className="p-3 bg-primary/10 rounded-lg">
-              <Pill size={24} className="text-primary" />
-            </div>
-            <div className="flex-1">
-              <h3 className={`${cardTitle} mb-2`}>Mina läkemedel</h3>
-              {medications.length > 0 ? (
-                <div className="space-y-1">
-                  {medications.map((id) => (
-                    <p key={id} className={cardText}>
-                      • {medicationLabels[id]}
-                    </p>
-                  ))}
+                <div>
+                  <Label htmlFor="diastolic-input" className="text-base mb-2 block">Diastoliskt (nedre värde)</Label>
+                  <Input
+                    id="diastolic-input"
+                    type="number"
+                    value={diastolicInput}
+                    onChange={(e) => setDiastolicInput(e.target.value)}
+                    placeholder="T.ex. 80"
+                    className="w-full"
+                  />
                 </div>
-              ) : (
-                <p className={cardText}>Inga läkemedel valda ännu</p>
-              )}
-            </div>
+              </div>
+            )}
           </div>
-        </Card>
-      </div>
 
-      {/* TEMPORARY DEBUG - REMOVE LATER */}
-      <div className="fixed bottom-4 left-4 bg-black text-white p-2 text-xs z-50">
-        Tips: {dayLogs.filter(log => log.entries.some(entry => entry.type === 'tip')).length} days
-        <br />
-        Achievement Days: {achievementDays.length}
-        <br />
-        Last Tip: {dayLogs.filter(log => log.entries.some(entry => entry.type === 'tip')).slice(-1)[0]?.date || 'None'}
-      </div>
+          <DialogFooter className="gap-3">
+            <Button variant="outline" onClick={() => setDialogOpen(false)} className="text-base py-6">
+              Avbryt
+            </Button>
+            <Button onClick={handleSaveEntry} className="text-base py-6">
+              Spara
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
-
-
-
-
-
-      <AlertDialog open={deleteAlertOpen} onOpenChange={setDeleteAlertOpen}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Bekräfta radering</AlertDialogTitle>
-            <AlertDialogDescription>
-              Är du säker på att du vill radera detta inlägg? Denna åtgärd kan inte ångras.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel onClick={() => setEntryToDelete(null)}>Avbryt</AlertDialogCancel>
-            <AlertDialogAction onClick={confirmDeleteEntry} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
-              Radera
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
-
+      {/* Save Confirmation Alert */}
       <AlertDialog open={saveAlertOpen} onOpenChange={setSaveAlertOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>
@@ -723,21 +477,9 @@ const Progress = () => {
               <div className="flex justify-between items-center">
                 <span className="text-sm text-muted-foreground">Typ:</span>
                 <span className="text-sm font-medium">
-                  {pendingEntry.type === 'tip' ? 'Tips' : pendingEntry.type === 'weight' ? 'Vikt' : 'Blodtryck'}
+                  {pendingEntry.type === 'weight' ? 'Vikt' : 'Blodtryck'}
                 </span>
               </div>
-              {pendingEntry.type === 'tip' && pendingEntry.tipIds && (
-                <div className="space-y-2">
-                  <span className="text-sm text-muted-foreground">Tips:</span>
-                  <div className="space-y-1">
-                    {pendingEntry.tipIds.map(tipId => (
-                      <div key={tipId} className="text-sm font-medium pl-4">
-                        • {tips.find(t => t.id === tipId)?.title}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
               {pendingEntry.type === 'weight' && (
                 <div className="flex justify-between items-center">
                   <span className="text-sm text-muted-foreground">Värde:</span>
@@ -760,7 +502,6 @@ const Progress = () => {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-
     </div>
   );
 };
