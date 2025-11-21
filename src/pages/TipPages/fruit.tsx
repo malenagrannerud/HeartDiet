@@ -7,30 +7,61 @@ import { UserPlanForm } from "@/components/UserPlanForm";
 import { UserPlanDisplay } from "@/components/UserPlanDisplay";
 import DottedList from "@/components/DottedList";
 import ExampleCard from "@/components/exCard";
+import { Button } from "@/components/ui/button";
+import { Plus } from "lucide-react";
 
 const FruitPage = () => {
-  const [userPlan, setUserPlan] = useState<UserPlan | null>(null);
-  const [isEditing, setIsEditing] = useState(true);
+  const [userPlans, setUserPlans] = useState<UserPlan[]>([]);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editingIndex, setEditingIndex] = useState<number | null>(null);
 
   useEffect(() => {
-    const savedPlan = localStorage.getItem('userPlan-fruit');
-    if (savedPlan) {
-      setUserPlan(JSON.parse(savedPlan));
-      setIsEditing(false);
+    const savedPlans = localStorage.getItem('userPlans-fruit');
+    if (savedPlans) {
+      setUserPlans(JSON.parse(savedPlans));
     }
   }, []);
 
   const handleSavePlan = (plan: UserPlan) => {
-    setUserPlan(plan);
+    let updatedPlans;
+    
+    if (editingIndex !== null) {
+      // Editing existing plan
+      updatedPlans = [...userPlans];
+      updatedPlans[editingIndex] = plan;
+    } else {
+      // Adding new plan
+      updatedPlans = [...userPlans, plan];
+    }
+    
+    setUserPlans(updatedPlans);
     setIsEditing(false);
-    localStorage.setItem('userPlan-fruit', JSON.stringify(plan));
+    setEditingIndex(null);
+    localStorage.setItem('userPlans-fruit', JSON.stringify(updatedPlans));
   };
 
-  const handleDeletePlan = () => {
-    setUserPlan(null);
-    setIsEditing(true);
-    localStorage.removeItem('userPlan-fruit');
+  const handleDeletePlan = (index: number) => {
+    const updatedPlans = userPlans.filter((_, i) => i !== index);
+    setUserPlans(updatedPlans);
+    localStorage.setItem('userPlans-fruit', JSON.stringify(updatedPlans));
   };
+
+  const handleEditPlan = (index: number) => {
+    setEditingIndex(index);
+    setIsEditing(true);
+  };
+
+  const handleAddNewPlan = () => {
+    setEditingIndex(null);
+    setIsEditing(true);
+  };
+
+  const handleCancelEdit = () => {
+    setIsEditing(false);
+    setEditingIndex(null);
+  };
+
+  const canAddMorePlans = userPlans.length < 10;
 
   return (
     <div className={pageContainer}>
@@ -126,24 +157,59 @@ const FruitPage = () => {
 
         <div>
           <div className="mt-8 pt-6 border-t border-border">
-            <h2 className={sectionHeading2}>Min plan</h2>
-            <p className={bodyText}>
-              Ändra planen eller delplaner så många gånger du behöver tills den fungerar för dej
-            </p>
-            
-            {isEditing ? (
-              <UserPlanForm
-                tipId={1} // Use the actual tip ID
-                initialPlan={userPlan || undefined}
-                onSave={handleSavePlan}
-                onCancel={() => userPlan && setIsEditing(false)}
-              />
-            ) : (
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <h2 className={sectionHeading2}>Mina planer</h2>
+                <p className={bodyText}>
+                  Ändra planen eller delplaner så många gånger du behöver tills den fungerar för dej
+                </p>
+              </div>
+              {!isEditing && canAddMorePlans && (
+                <Button
+                  onClick={handleAddNewPlan}
+                  className="flex items-center gap-2"
+                  size="sm"
+                >
+                  <Plus size={16} />
+                  Lägg till plan
+                </Button>
+              )}
+            </div>
+
+            {userPlans.length > 0 && !isEditing && (
               <UserPlanDisplay
-                plan={userPlan!}
-                onEdit={() => setIsEditing(true)}
+                plans={userPlans}
+                onEdit={handleEditPlan}
                 onDelete={handleDeletePlan}
               />
+            )}
+
+            {isEditing && (
+              <UserPlanForm
+                tipId={1}
+                initialPlan={editingIndex !== null ? userPlans[editingIndex] : undefined}
+                onSave={handleSavePlan}
+                onCancel={handleCancelEdit}
+              />
+            )}
+
+            {userPlans.length === 0 && !isEditing && (
+              <div className="text-center py-8">
+                <p className={bodyText}>Du har inga sparade planer än</p>
+                <Button
+                  onClick={handleAddNewPlan}
+                  className="mt-4 flex items-center gap-2 mx-auto"
+                >
+                  <Plus size={16} />
+                  Skapa din första plan
+                </Button>
+              </div>
+            )}
+
+            {!canAddMorePlans && !isEditing && (
+              <p className="text-sm text-muted-foreground mt-4 text-center">
+                Du har nått max antal planer (10)
+              </p>
             )}
           </div>
         </div>
