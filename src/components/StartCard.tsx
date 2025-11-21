@@ -31,14 +31,14 @@ export const StartCard = ({
 
   return (
     <Card 
-      className={`${interactiveCard} ${hasImage ? 'relative' : ''}`}
+      className={`${interactiveCard} ${hasImage ? 'relative' : ''} py-3`}
       onClick={onClick}
       aria-label={ariaLabel}
     >
       <div className="flex items-start gap-3">
         <div className={hasImage ? "flex-1" : ""}>
           <h4 className={cardTitle}>{title}</h4>
-          <div className={`flex items-center gap-2 ${cardTitleSmall} mt-2`}>
+          <div className={`flex items-center gap-2 ${cardTitleSmall} mt-1`}>
             {icon}
             <span>{label}</span>
             <Clock size={12} strokeWidth={2.5} />
