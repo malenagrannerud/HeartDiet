@@ -7,6 +7,7 @@ import { pageTitle, pageSubtitle, pageContainer, headerContainer, pagePadding, s
 import { getStorageItem, setStorageItem } from "@/lib/storage";
 import { markedTipsSchema } from "@/lib/schemas";
 import { Checkbox } from "@/components/ui/checkbox";
+import { useToast } from "@/hooks/use-toast";
 
 /**
  * Tips Page
@@ -28,6 +29,7 @@ interface MarkedTip {
 
 const Tips = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
   const [markedTips, setMarkedTips] = useState<MarkedTip[]>(() => {
     const result = getStorageItem("markedTips", markedTipsSchema);
     return (result as MarkedTip[]) ?? [];
@@ -48,10 +50,19 @@ const Tips = () => {
   const toggleMark = (tipId: number) => {
     setMarkedTips((prev) => {
       const isMarked = prev.some((tip) => tip.id === tipId);
+      const tip = tips.find((t) => t.id === tipId);
+      
       if (isMarked) {
+        toast({
+          title: "Tips borttaget",
+          description: `${tip?.title || "Tips"} har tagits bort från dina val`,
+        });
         return prev.filter((tip) => tip.id !== tipId);
       } else {
-        const tip = tips.find((t) => t.id === tipId);
+        toast({
+          title: "Tips tillagt",
+          description: `${tip?.title || "Tips"} har lagts till i dina val`,
+        });
         return [
           ...prev,
           {

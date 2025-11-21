@@ -6,6 +6,7 @@ import { sv } from "date-fns/locale";
 import { Trash2, Settings, Heart, Pill } from "lucide-react";
 import { tips } from "@/data/tips";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from "@/components/ui/dialog";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { pageTitle, pageSubtitle, iconButton, pageContainer, pagePadding, interactiveCard, cardTitle, cardText } from "@/lib/design-tokens";
 import { Card } from "@/components/ui/card";
 import { getStorageItem } from "@/lib/storage";
@@ -15,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, LabelList } from 'recharts';
 import { ChartContainer } from "@/components/ui/chart";
+import { useToast } from "@/hooks/use-toast";
 
 interface DayLog {
   date: string;
@@ -46,6 +48,7 @@ const medicationLabels: Record<string, string> = {
 
 const Progress = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
   const [date, setDate] = useState<Date>(new Date());
   const [achievementDays, setAchievementDays] = useState<Date[]>([]);
   const [weightDays, setWeightDays] = useState<Date[]>([]);
@@ -62,6 +65,8 @@ const Progress = () => {
   const [highestStreak, setHighestStreak] = useState(0);
   const [priorities, setPriorities] = useState<string[]>([]);
   const [medications, setMedications] = useState<string[]>([]);
+  const [deleteAlertOpen, setDeleteAlertOpen] = useState(false);
+  const [entryToDelete, setEntryToDelete] = useState<number | null>(null);
   
   // Load day logs, highest streak, and health priorities from localStorage
   useEffect(() => {
@@ -197,6 +202,11 @@ const Progress = () => {
         updatedLogs.push({ date: dateStr, entries: newEntries });
         setDayLogs(updatedLogs);
         localStorage.setItem('dayLogs', JSON.stringify(updatedLogs));
+        
+        toast({
+          title: "Data sparad",
+          description: `${entryType === 'tip' ? 'Tips' : entryType === 'weight' ? 'Vikt' : 'Blodtryck'} har sparats för ${format(selectedDate, 'd MMMM', { locale: sv })}`,
+        });
       }
       
       setDialogOpen(false);
@@ -204,13 +214,18 @@ const Progress = () => {
     };
 
   const handleDeleteEntry = (entryIndex: number) => {
-    if (!selectedDate) return;
+    setEntryToDelete(entryIndex);
+    setDeleteAlertOpen(true);
+  };
+
+  const confirmDeleteEntry = () => {
+    if (!selectedDate || entryToDelete === null) return;
     
     const dateStr = format(selectedDate, 'yyyy-MM-dd');
     const existingLog = dayLogs.find(log => log.date === dateStr);
     
     if (existingLog) {
-      const updatedEntries = existingLog.entries.filter((_, index) => index !== entryIndex);
+      const updatedEntries = existingLog.entries.filter((_, index) => index !== entryToDelete);
       let updatedLogs;
       
       if (updatedEntries.length === 0) {
@@ -225,7 +240,15 @@ const Progress = () => {
       
       setDayLogs(updatedLogs);
       localStorage.setItem('dayLogs', JSON.stringify(updatedLogs));
+      
+      toast({
+        title: "Data raderad",
+        description: "Inlägget har tagits bort",
+      });
     }
+    
+    setDeleteAlertOpen(false);
+    setEntryToDelete(null);
   };
 
   const getExistingEntries = () => {
@@ -638,6 +661,22 @@ const Progress = () => {
 
 
 
+      <AlertDialog open={deleteAlertOpen} onOpenChange={setDeleteAlertOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Bekräfta radering</AlertDialogTitle>
+            <AlertDialogDescription>
+              Är du säker på att du vill radera detta inlägg? Denna åtgärd kan inte ångras.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={() => setEntryToDelete(null)}>Avbryt</AlertDialogCancel>
+            <AlertDialogAction onClick={confirmDeleteEntry} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
+              Radera
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
 
     </div>
   );

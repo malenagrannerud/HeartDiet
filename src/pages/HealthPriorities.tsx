@@ -5,6 +5,7 @@ import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { sectionHeading, sectionSubheading2, cardTitle, cardText, standardCard, headerContainer, primaryButton, pageContainer, pagePadding, sectionHeading2, bodyText } from "@/lib/design-tokens";
 import { getStorageItem, setStorageItem } from "@/lib/storage";
 import { healthPrioritiesSchema, completedActivitiesSchema } from "@/lib/schemas";
@@ -95,12 +96,15 @@ const HealthPriorities = () => {
   const { toast } = useToast();
   const [selectedPriorities, setSelectedPriorities] = useState<string[]>([]);
   const [selectedMedications, setSelectedMedications] = useState<string[]>([]);
+  const [saveAlertOpen, setSaveAlertOpen] = useState(false);
+  const [hasExistingData, setHasExistingData] = useState(false);
 
   useEffect(() => {
     const data = getStorageItem('healthPriorities', healthPrioritiesSchema);
     if (data) {
       setSelectedPriorities(data.priorities || []);
       setSelectedMedications(data.medications || []);
+      setHasExistingData(true);
     }
   }, []);
 
@@ -120,7 +124,15 @@ const HealthPriorities = () => {
     );
   };
 
-  const handleSave = () => {
+  const handleSaveClick = () => {
+    if (hasExistingData) {
+      setSaveAlertOpen(true);
+    } else {
+      confirmSave();
+    }
+  };
+
+  const confirmSave = () => {
     // Save health priorities data
     const data = {
       priorities: selectedPriorities,
@@ -148,6 +160,7 @@ const HealthPriorities = () => {
       description: "Dina val har sparats och appen anpassas efter dina mål.",
     });
     
+    setSaveAlertOpen(false);
     navigate('/app/today');
   };
 
@@ -243,7 +256,7 @@ const HealthPriorities = () => {
           {/* Save button section with proper spacing */}
           <section className={standardSpacing.sectionContent}>
             <Button
-              onClick={handleSave}
+              onClick={handleSaveClick}
               className={primaryButton}
               aria-label="Spara"
             >
@@ -253,6 +266,23 @@ const HealthPriorities = () => {
 
         </div>
       </main>
+
+      <AlertDialog open={saveAlertOpen} onOpenChange={setSaveAlertOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Bekräfta ändringar</AlertDialogTitle>
+            <AlertDialogDescription>
+              Du har redan sparade hälsomål. Är du säker på att du vill ändra dina val?
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Avbryt</AlertDialogCancel>
+            <AlertDialogAction onClick={confirmSave}>
+              Spara ändringar
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 };
