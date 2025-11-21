@@ -16,7 +16,7 @@ import {
   type CardId 
 } from "@/lib/card-completion";
 import { Button } from "@/components/ui/button";
-import { CheckBoxLeft } from "@/components/CheckBoxLeft"; 
+import { RoundCheckbox } from "@/components/RoundCheckbox"; 
 
 interface MarkedTip {
   id: number;
@@ -181,43 +181,71 @@ const Today = () => {
               {allStartCardsHidden ? (
                 <p className={sectionSubheading2}>Alla dina kurser är avklarade. Fokusera på att implementera en ny hälsosam vana!</p>
               ) : (
-                <>
-                  <StartCard
-                    isHidden={hiddenCards.tutorial}
-                    isCompleted={completionStatus.tutorial}
-                    title="Så fungerar appen"
-                    icon={<BookOpen size={12} strokeWidth={2.5} />}
-                    label="Kurs"
-                    time="5 min"
-                    onClick={() => handleCardNavigation('tutorial', '/app/tutorial')}
-                    ariaLabel="Gå till tutorial"
-                  />
+                <div className="space-y-4">
+                  {!hiddenCards.tutorial && (
+                    <>
+                      <div className="flex items-center gap-3">
+                        <RoundCheckbox isCompleted={completionStatus.tutorial} className="shrink-0" />
+                        <div className="flex-1">
+                          <StartCard
+                            isHidden={false}
+                            title="Så fungerar appen"
+                            icon={<BookOpen size={12} strokeWidth={2.5} />}
+                            label="Kurs"
+                            time="5 min"
+                            onClick={() => handleCardNavigation('tutorial', '/app/tutorial')}
+                            ariaLabel="Gå till tutorial"
+                          />
+                        </div>
+                      </div>
+                      {(!hiddenCards.healthPriorities || !hiddenCards.healthMetrics) && (
+                        <div className="border-b border-dashed border-gray-300 my-4" />
+                      )}
+                    </>
+                  )}
 
-                  <StartCard
-                    isHidden={hiddenCards.healthPriorities}
-                    isCompleted={completionStatus.healthPriorities}
-                    title="Mina mål"
-                    icon={<FileEdit size={12} strokeWidth={2.5} />}
-                    label="Formulär"
-                    time="3 min"
-                    onClick={() => handleCardNavigation('health-priorities', '/app/health-priorities')}
-                    ariaLabel="Gå till mina hälsoprioriteringar"
-                    hasImage={true}
-                    imageSrc={HealthPrioritiesImage}
-                    imageAlt="Health goals illustration"
-                  />
+                  {!hiddenCards.healthPriorities && (
+                    <>
+                      <div className="flex items-center gap-3">
+                        <RoundCheckbox isCompleted={completionStatus.healthPriorities} className="shrink-0" />
+                        <div className="flex-1">
+                          <StartCard
+                            isHidden={false}
+                            title="Mina mål"
+                            icon={<FileEdit size={12} strokeWidth={2.5} />}
+                            label="Formulär"
+                            time="3 min"
+                            onClick={() => handleCardNavigation('health-priorities', '/app/health-priorities')}
+                            ariaLabel="Gå till mina hälsoprioriteringar"
+                            hasImage={true}
+                            imageSrc={HealthPrioritiesImage}
+                            imageAlt="Health goals illustration"
+                          />
+                        </div>
+                      </div>
+                      {!hiddenCards.healthMetrics && (
+                        <div className="border-b border-dashed border-gray-300 my-4" />
+                      )}
+                    </>
+                  )}
 
-                  <StartCard
-                    isHidden={hiddenCards.healthMetrics}
-                    isCompleted={completionStatus.healthMetrics}
-                    title="Vikt och blodtryck"
-                    icon={<FileEdit size={12} strokeWidth={2.5} />}
-                    label="Formulär"
-                    time="5 min"
-                    onClick={() => handleCardNavigation('health-metrics', '/app/health-metrics')}
-                    ariaLabel="Gå till hälsomätningar"
-                  />
-                </>
+                  {!hiddenCards.healthMetrics && (
+                    <div className="flex items-center gap-3">
+                      <RoundCheckbox isCompleted={completionStatus.healthMetrics} className="shrink-0" />
+                      <div className="flex-1">
+                        <StartCard
+                          isHidden={false}
+                          title="Vikt och blodtryck"
+                          icon={<FileEdit size={12} strokeWidth={2.5} />}
+                          label="Formulär"
+                          time="5 min"
+                          onClick={() => handleCardNavigation('health-metrics', '/app/health-metrics')}
+                          ariaLabel="Gå till hälsomätningar"
+                        />
+                      </div>
+                    </div>
+                  )}
+                </div>
               )}
             </section>
 
