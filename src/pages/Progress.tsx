@@ -415,7 +415,7 @@ const Progress = () => {
               <tr className="border-b bg-muted/50">
                 <th className="text-left py-2 px-2 font-semibold text-foreground w-[200px]">Tips</th>
                 {weekDates.map((date, index) => (
-                  <th key={index} className="text-center py-2 px-1 font-semibold text-foreground min-w-[60px]">
+                  <th key={index} className="text-center py-2 px-0 font-semibold text-foreground min-w-[50px]">
                     <div className="flex flex-col items-center gap-0">
                       <span className="text-[8px] text-muted-foreground leading-tight">{capitalizeMonth(format(date, 'MMM', { locale: sv }))}</span>
                       <span className="text-[12px] font-bold leading-tight">{format(date, 'd')}</span>
@@ -437,7 +437,7 @@ const Progress = () => {
                       <span className="text-sm font-medium">{tip.title}</span>
                     </td>
                     {weekDates.map((date, dayIndex) => (
-                      <td key={dayIndex} className="text-center py-1 px-1">
+                      <td key={dayIndex} className="text-center py-1 px-0">
                         <div className="flex justify-center">
                           <Checkbox
                             checked={isTipCompletedOnDate(tip.id, date)}
@@ -463,7 +463,7 @@ const Progress = () => {
                 {weekDates.map((date, dayIndex) => {
                   const hasWeight = hasWeightOnDate(date);
                   return (
-                    <td key={dayIndex} className="text-center py-1 px-1">
+                    <td key={dayIndex} className="text-center py-1 px-0">
                       <Button
                         variant="outline"
                         size="sm"
@@ -489,7 +489,7 @@ const Progress = () => {
                 {weekDates.map((date, dayIndex) => {
                   const hasBP = hasBloodPressureOnDate(date);
                   return (
-                    <td key={dayIndex} className="text-center py-1 px-1">
+                    <td key={dayIndex} className="text-center py-1 px-0">
                       <Button
                         variant="outline"
                         size="sm"
