@@ -7,6 +7,7 @@ import { UserPlanForm } from "@/components/UserPlanForm";
 import { UserPlanDisplay } from "@/components/UserPlanDisplay";
 import DottedList from "@/components/DottedList";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Plus } from "lucide-react";
 
 const FullkornPage = () => {
@@ -104,15 +105,6 @@ const FullkornPage = () => {
             />
           )}
 
-          {isEditing && (
-            <UserPlanForm
-              tipId={2}
-              initialPlan={editingIndex !== null ? userPlans[editingIndex] : undefined}
-              onSave={handleSavePlan}
-              onCancel={handleCancelEdit}
-            />
-          )}
-
           {userPlans.length === 0 && !isEditing && (
             <div className="text-center py-8">
               <p className={bodyText}>Du har inga sparade planer än</p>
@@ -136,6 +128,22 @@ const FullkornPage = () => {
             </p>
           )}
         </div>
+
+        <Dialog open={isEditing} onOpenChange={(open) => !open && handleCancelEdit()}>
+          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle>
+                {editingIndex !== null ? 'Redigera plan' : 'Skapa ny plan'}
+              </DialogTitle>
+            </DialogHeader>
+            <UserPlanForm
+              tipId={2}
+              initialPlan={editingIndex !== null ? userPlans[editingIndex] : undefined}
+              onSave={handleSavePlan}
+              onCancel={handleCancelEdit}
+            />
+          </DialogContent>
+        </Dialog>
       </main>
     </div>
   );
