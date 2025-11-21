@@ -325,21 +325,11 @@ const Progress = () => {
             <tbody>
               {tips.map((tip) => (
                 <tr key={tip.id} className="border-b hover:bg-muted/30 transition-colors">
-                  <td className="py-4 px-4">
-                    <div className="flex items-center gap-2">
-                      <div 
-                        className="w-3 h-3 rounded-full flex-shrink-0" 
-                        style={{ 
-                          backgroundColor: tip.color.includes('bg-[') 
-                            ? tip.color.replace('bg-[', '').replace(']', '')
-                            : undefined 
-                        }}
-                      />
-                      <span className="text-sm font-medium">{tip.title}</span>
-                    </div>
+                  <td className="py-2 px-4">
+                    <span className="text-sm font-medium">{tip.title}</span>
                   </td>
                   {weekDates.map((date, dayIndex) => (
-                    <td key={dayIndex} className="text-center py-4 px-2">
+                    <td key={dayIndex} className="text-center py-2 px-2">
                       <div className="flex justify-center">
                         <Checkbox
                           checked={isTipCompletedOnDate(tip.id, date)}
@@ -354,11 +344,11 @@ const Progress = () => {
               
               {/* Row for weight */}
               <tr className="border-b bg-muted/20">
-                <td className="py-4 px-4">
+                <td className="py-2 px-4">
                   <span className="text-sm font-medium text-muted-foreground">Vikt</span>
                 </td>
                 {weekDates.map((date, dayIndex) => (
-                  <td key={dayIndex} className="text-center py-4 px-2">
+                  <td key={dayIndex} className="text-center py-2 px-2">
                     <Button
                       variant={hasWeightOrBPOnDate(date) ? "default" : "outline"}
                       size="sm"
@@ -373,11 +363,11 @@ const Progress = () => {
 
               {/* Row for blood pressure */}
               <tr className="border-b bg-muted/20">
-                <td className="py-4 px-4">
+                <td className="py-2 px-4">
                   <span className="text-sm font-medium text-muted-foreground">Blodtryck</span>
                 </td>
                 {weekDates.map((date, dayIndex) => (
-                  <td key={dayIndex} className="text-center py-4 px-2">
+                  <td key={dayIndex} className="text-center py-2 px-2">
                     <Button
                       variant={hasWeightOrBPOnDate(date) ? "default" : "outline"}
                       size="sm"
