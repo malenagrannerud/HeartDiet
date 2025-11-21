@@ -108,20 +108,24 @@ const FishPage = () => {
           )}
 
           {userPlans.length === 0 && !isEditing && (
-            <div className="text-center py-8">
-              <p className={bodyText}>Du har inga sparade planer än</p>
-            </div>
+            <UserPlanForm
+              tipId={3}
+              onSave={handleSavePlan}
+              onCancel={handleCancelEdit}
+            />
           )}
 
-          {canAddMorePlans && (
-            <Button
-              onClick={handleAddNewPlan}
-              className="flex items-center gap-2 mt-6"
-              variant={userPlans.length === 0 ? "default" : "outline"}
-            >
-              <Plus size={16} />
-              Lägg till plan
-            </Button>
+          {userPlans.length > 0 && canAddMorePlans && (
+            <div className="flex justify-center">
+              <Button
+                onClick={handleAddNewPlan}
+                className="flex items-center gap-2 mt-6"
+                variant="outline"
+              >
+                <Plus size={16} />
+                Lägg till plan
+              </Button>
+            </div>
           )}
 
           {!canAddMorePlans && (
@@ -131,21 +135,23 @@ const FishPage = () => {
           )}
         </div>
 
-        <Dialog open={isEditing} onOpenChange={(open) => !open && handleCancelEdit()}>
-          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
-            <DialogHeader>
-              <DialogTitle>
-                {editingIndex !== null ? 'Redigera plan' : 'Skapa ny plan'}
-              </DialogTitle>
-            </DialogHeader>
-            <UserPlanForm
-              tipId={3}
-              initialPlan={editingIndex !== null ? userPlans[editingIndex] : undefined}
-              onSave={handleSavePlan}
-              onCancel={handleCancelEdit}
-            />
-          </DialogContent>
-        </Dialog>
+        {userPlans.length > 0 && (
+          <Dialog open={isEditing} onOpenChange={(open) => !open && handleCancelEdit()}>
+            <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+              <DialogHeader>
+                <DialogTitle>
+                  {editingIndex !== null ? 'Redigera plan' : 'Skapa ny plan'}
+                </DialogTitle>
+              </DialogHeader>
+              <UserPlanForm
+                tipId={3}
+                initialPlan={editingIndex !== null ? userPlans[editingIndex] : undefined}
+                onSave={handleSavePlan}
+                onCancel={handleCancelEdit}
+              />
+            </DialogContent>
+          </Dialog>
+        )}
       </main>
     </div>
   );
