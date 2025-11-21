@@ -6,11 +6,12 @@ import TipCard from "@/components/TipCard";
 import { pageTitle, pageSubtitle, pageContainer, headerContainer, pagePadding, standardSpacing } from "@/lib/design-tokens";
 import { getStorageItem, setStorageItem } from "@/lib/storage";
 import { markedTipsSchema } from "@/lib/schemas";
+import { Checkbox } from "@/components/ui/checkbox";
 
 /**
  * Tips Page
  * 
- * toggleMark() - Marks/unmarks tips when user clicks icon
+ * toggleMark() - Marks/unmarks tips when user clicks checkbox
  * isMarked() - Checks if specific tip is marked
  * markedTips[] - Stores which tips user has marked
  * tips[] - Contains all available tip data
@@ -44,8 +45,7 @@ const Tips = () => {
     setStorageItem("markedTips", markedTips, markedTipsSchema);
   }, [markedTips]);
 
-  const toggleMark = (e: React.MouseEvent, tipId: number) => {
-    e.stopPropagation();
+  const toggleMark = (tipId: number) => {
     setMarkedTips((prev) => {
       const isMarked = prev.some((tip) => tip.id === tipId);
       if (isMarked) {
@@ -88,13 +88,19 @@ const Tips = () => {
         <div className={standardSpacing.pageContent}>
           <div className={standardSpacing.cardList}>
             {tips.map((tip) => (
-              <TipCard
-                key={tip.id}
-                tip={tip}
-                isMarked={isMarked(tip.id)}
-                onToggleMark={(e) => toggleMark(e, tip.id)}
-                onClick={() => handleTipClick(tip.id)}
-              />
+              <div key={tip.id} className="flex items-center gap-3">
+                <div className="flex-1">
+                  <TipCard
+                    tip={tip}
+                    onClick={() => handleTipClick(tip.id)}
+                  />
+                </div>
+                <Checkbox
+                  checked={isMarked(tip.id)}
+                  onCheckedChange={() => toggleMark(tip.id)}
+                  className="shrink-0"
+                />
+              </div>
             ))}
           </div>
         </div>
