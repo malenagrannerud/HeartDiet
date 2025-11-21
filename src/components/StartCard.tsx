@@ -1,11 +1,9 @@
 import { Card } from "@/components/ui/card";
-import { CheckBoxLeft } from "@/components/CheckBoxLeft";
 import { interactiveCard, cardTitle, cardTitleSmall } from "@/lib/design-tokens";
 import { Clock, BookOpen, FileEdit } from "lucide-react"; 
 
 interface StartCardProps {
   isHidden: boolean;
-  isCompleted: boolean;
   title: string;
   icon: React.ReactNode;
   label: string;
@@ -19,7 +17,6 @@ interface StartCardProps {
 
 export const StartCard = ({
   isHidden,
-  isCompleted,
   title,
   icon,
   label,
@@ -39,7 +36,6 @@ export const StartCard = ({
       aria-label={ariaLabel}
     >
       <div className="flex items-start gap-3">
-        <CheckBoxLeft isCompleted={isCompleted} className="mt-1" />
         <div className={hasImage ? "flex-1" : ""}>
           <h4 className={cardTitle}>{title}</h4>
           <div className={`flex items-center gap-2 ${cardTitleSmall} mt-2`}>
