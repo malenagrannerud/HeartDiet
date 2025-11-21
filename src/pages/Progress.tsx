@@ -3,10 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { Calendar } from "@/components/ui/calendar";
 import { format, startOfMonth, endOfMonth, isSameDay } from "date-fns";
 import { sv } from "date-fns/locale";
-import { Trash2, Settings } from "lucide-react";
+import { Trash2, Settings, Heart, Pill } from "lucide-react";
 import { tips } from "@/data/tips";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from "@/components/ui/dialog";
-import { pageTitle, pageSubtitle, iconButton, pageContainer, pagePadding } from "@/lib/design-tokens";
+import { pageTitle, pageSubtitle, iconButton, pageContainer, pagePadding, interactiveCard, cardTitle, cardText } from "@/lib/design-tokens";
+import { Card } from "@/components/ui/card";
+import { getStorageItem } from "@/lib/storage";
+import { healthPrioritiesSchema } from "@/lib/schemas";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -22,6 +25,24 @@ interface DayLog {
     tipId?: number;
   }[];
 }
+
+const healthPriorityLabels: Record<string, string> = {
+  cholesterol: "Sänk mitt kolesterol",
+  bloodPressure: "Sänk mitt blodtryck",
+  diabetes: "Minska risken för diabetes typ 2",
+  weight: "Viktbalans",
+  general: "Förebygga hjärt- och kärlsjukdom"
+};
+
+const medicationLabels: Record<string, string> = {
+  warfarin: "Waran (Warfarin)",
+  doac: "DOAC (blodförtunnande)",
+  bloodPressureMeds: "Blodtrycksmedicin",
+  ace: "ACE-hämmare",
+  diuretics: "Vattenburna tabletter",
+  statins: "Kolesterolmedicin",
+  metformin: "Metformin"
+};
 
 const Progress = () => {
   const navigate = useNavigate();
@@ -39,8 +60,10 @@ const Progress = () => {
   const [systolicInput, setSystolicInput] = useState("");
   const [diastolicInput, setDiastolicInput] = useState("");
   const [highestStreak, setHighestStreak] = useState(0);
+  const [priorities, setPriorities] = useState<string[]>([]);
+  const [medications, setMedications] = useState<string[]>([]);
   
-  // Load day logs and highest streak from localStorage
+  // Load day logs, highest streak, and health priorities from localStorage
   useEffect(() => {
     const savedLogs = localStorage.getItem('dayLogs');
     if (savedLogs) {
@@ -51,6 +74,12 @@ const Progress = () => {
     const savedHighestStreak = localStorage.getItem('highestStreak');
     if (savedHighestStreak) {
       setHighestStreak(parseInt(savedHighestStreak));
+    }
+
+    const data = getStorageItem('healthPriorities', healthPrioritiesSchema);
+    if (data) {
+      setPriorities(data.priorities || []);
+      setMedications(data.medications || []);
     }
   }, []);
 
@@ -539,6 +568,62 @@ const Progress = () => {
           </div>
         </div>
       </div>
+
+      {/* Health Goals and Medications Cards */}
+      <div className="space-y-6 pt-6">
+        {/* Health Priorities Card */}
+        <Card 
+          className={interactiveCard}
+          onClick={() => navigate('/app/health-priorities')}
+        >
+          <div className="flex items-start gap-4">
+            <div className="p-3 bg-primary/10 rounded-lg">
+              <Heart size={24} className="text-primary" />
+            </div>
+            <div className="flex-1">
+              <h3 className={`${cardTitle} mb-2`}>Mina hälsomål</h3>
+              {priorities.length > 0 ? (
+                <div className="space-y-1">
+                  {priorities.map((id) => (
+                    <p key={id} className={cardText}>
+                      • {healthPriorityLabels[id]}
+                    </p>
+                  ))}
+                </div>
+              ) : (
+                <p className={cardText}>Inga mål valda ännu</p>
+              )}
+            </div>
+          </div>
+        </Card>
+
+        {/* Medications Card */}
+        <Card 
+          className={interactiveCard}
+          onClick={() => navigate('/app/health-priorities')}
+        >
+          <div className="flex items-start gap-4">
+            <div className="p-3 bg-primary/10 rounded-lg">
+              <Pill size={24} className="text-primary" />
+            </div>
+            <div className="flex-1">
+              <h3 className={`${cardTitle} mb-2`}>Mina läkemedel</h3>
+              {medications.length > 0 ? (
+                <div className="space-y-1">
+                  {medications.map((id) => (
+                    <p key={id} className={cardText}>
+                      • {medicationLabels[id]}
+                    </p>
+                  ))}
+                </div>
+              ) : (
+                <p className={cardText}>Inga läkemedel valda ännu</p>
+              )}
+            </div>
+          </div>
+        </Card>
+      </div>
+
       {/* TEMPORARY DEBUG - REMOVE LATER */}
       <div className="fixed bottom-4 left-4 bg-black text-white p-2 text-xs z-50">
         Tips: {dayLogs.filter(log => log.entries.some(entry => entry.type === 'tip')).length} days
