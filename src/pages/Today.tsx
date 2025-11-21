@@ -16,7 +16,9 @@ import {
   type CardId 
 } from "@/lib/card-completion";
 import { Button } from "@/components/ui/button";
-import { CheckBoxLeft } from "@/components/CheckBoxLeft"; 
+import { CheckBoxLeft } from "@/components/CheckBoxLeft";
+import { isTipCompletedToday, toggleTipCompletion } from "@/lib/tip-completion";
+import { Checkbox } from "@/components/ui/checkbox";
 
 interface MarkedTip {
   id: number;
@@ -37,6 +39,7 @@ const Today = () => {
     healthPriorities: false,
     healthMetrics: false
   });
+  const [tipCompletions, setTipCompletions] = useState<Record<number, boolean>>({});
 
   useEffect(() => {
     // Load marked tips
@@ -44,6 +47,13 @@ const Today = () => {
     if (savedTips) {
       setMarkedTips(savedTips as MarkedTip[]);
     }
+    
+    // Load tip completions for today
+    const completions: Record<number, boolean> = {};
+    tips.forEach(tip => {
+      completions[tip.id] = isTipCompletedToday(tip.id);
+    });
+    setTipCompletions(completions);
     
     // Clean up old completion records
     cleanupOldCompletions();
@@ -106,6 +116,15 @@ const Today = () => {
     if (route) {
       navigate(route);
     }
+  };
+
+  const handleTipCheckboxToggle = (tipId: number, e: React.MouseEvent) => {
+    e.stopPropagation();
+    const newStatus = toggleTipCompletion(tipId);
+    setTipCompletions(prev => ({
+      ...prev,
+      [tipId]: newStatus
+    }));
   };
 
   // Check if all start cards are hidden
@@ -181,60 +200,107 @@ const Today = () => {
               {allStartCardsHidden ? (
                 <p className={sectionSubheading2}>Alla dina kurser är avklarade. Fokusera på att implementera en ny hälsosam vana!</p>
               ) : (
-                <>
-                  <StartCard
-                    isHidden={hiddenCards.tutorial}
-                    isCompleted={completionStatus.tutorial}
-                    title="Så fungerar appen"
-                    icon={<BookOpen size={12} strokeWidth={2.5} />}
-                    label="Kurs"
-                    time="5 min"
-                    onClick={() => handleCardNavigation('tutorial', '/app/tutorial')}
-                    ariaLabel="Gå till tutorial"
-                  />
+                <div className="space-y-4">
+                  {!hiddenCards.tutorial && (
+                    <div className="flex gap-4 items-center">
+                      <CheckBoxLeft isCompleted={completionStatus.tutorial} />
+                      <div className="flex-1">
+                        <StartCard
+                          isHidden={false}
+                          title="Så fungerar appen"
+                          icon={<BookOpen size={12} strokeWidth={2.5} />}
+                          label="Kurs"
+                          time="5 min"
+                          onClick={() => handleCardNavigation('tutorial', '/app/tutorial')}
+                          ariaLabel="Gå till tutorial"
+                        />
+                      </div>
+                    </div>
+                  )}
+                  
+                  {!hiddenCards.tutorial && !hiddenCards.healthPriorities && (
+                    <div className="flex gap-4">
+                      <div className="w-5 flex justify-center">
+                        <div className="w-0.5 h-4 border-l-2 border-dashed border-gray-300" />
+                      </div>
+                    </div>
+                  )}
 
-                  <StartCard
-                    isHidden={hiddenCards.healthPriorities}
-                    isCompleted={completionStatus.healthPriorities}
-                    title="Mina mål"
-                    icon={<FileEdit size={12} strokeWidth={2.5} />}
-                    label="Formulär"
-                    time="3 min"
-                    onClick={() => handleCardNavigation('health-priorities', '/app/health-priorities')}
-                    ariaLabel="Gå till mina hälsoprioriteringar"
-                    hasImage={true}
-                    imageSrc={HealthPrioritiesImage}
-                    imageAlt="Health goals illustration"
-                  />
+                  {!hiddenCards.healthPriorities && (
+                    <div className="flex gap-4 items-center">
+                      <CheckBoxLeft isCompleted={completionStatus.healthPriorities} />
+                      <div className="flex-1">
+                        <StartCard
+                          isHidden={false}
+                          title="Mina mål"
+                          icon={<FileEdit size={12} strokeWidth={2.5} />}
+                          label="Formulär"
+                          time="3 min"
+                          onClick={() => handleCardNavigation('health-priorities', '/app/health-priorities')}
+                          ariaLabel="Gå till mina hälsoprioriteringar"
+                          hasImage={true}
+                          imageSrc={HealthPrioritiesImage}
+                          imageAlt="Health goals illustration"
+                        />
+                      </div>
+                    </div>
+                  )}
+                  
+                  {!hiddenCards.healthPriorities && !hiddenCards.healthMetrics && (
+                    <div className="flex gap-4">
+                      <div className="w-5 flex justify-center">
+                        <div className="w-0.5 h-4 border-l-2 border-dashed border-gray-300" />
+                      </div>
+                    </div>
+                  )}
 
-                  <StartCard
-                    isHidden={hiddenCards.healthMetrics}
-                    isCompleted={completionStatus.healthMetrics}
-                    title="Vikt och blodtryck"
-                    icon={<FileEdit size={12} strokeWidth={2.5} />}
-                    label="Formulär"
-                    time="5 min"
-                    onClick={() => handleCardNavigation('health-metrics', '/app/health-metrics')}
-                    ariaLabel="Gå till hälsomätningar"
-                  />
-                </>
+                  {!hiddenCards.healthMetrics && (
+                    <div className="flex gap-4 items-center">
+                      <CheckBoxLeft isCompleted={completionStatus.healthMetrics} />
+                      <div className="flex-1">
+                        <StartCard
+                          isHidden={false}
+                          title="Vikt och blodtryck"
+                          icon={<FileEdit size={12} strokeWidth={2.5} />}
+                          label="Formulär"
+                          time="5 min"
+                          onClick={() => handleCardNavigation('health-metrics', '/app/health-metrics')}
+                          ariaLabel="Gå till hälsomätningar"
+                        />
+                      </div>
+                    </div>
+                  )}
+                </div>
               )}
             </section>
 
             <section className={standardSpacing.sectionContent}>
               <h3 className={bodyTextBald}>Mina tips</h3>
               {markedTipsList.length > 0 ? (
-                  markedTipsList.map((tip) => (
-                      <TipCard
-                          key={tip.id}
+                <div className="space-y-4">
+                  {markedTipsList.map((tip) => (
+                    <div key={tip.id} className="flex gap-4 items-center">
+                      <div className="flex-1">
+                        <TipCard
                           tip={tip}
-                          isMarked={false}
-                          onToggleMark={(e) => e.stopPropagation()}
                           onClick={() => handleTipClick(tip.id)}
-                      />
-                  ))
+                          isCompleted={tipCompletions[tip.id]}
+                        />
+                      </div>
+                      <div 
+                        onClick={(e) => handleTipCheckboxToggle(tip.id, e)}
+                        className="cursor-pointer"
+                      >
+                        <Checkbox 
+                          checked={tipCompletions[tip.id] || false}
+                          className="h-5 w-5"
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
               ) : (
-                  <p className={sectionSubheading2}>Välj vilka tips du vill göra under "Tips"</p>
+                <p className={sectionSubheading2}>Välj vilka tips du vill göra under "Tips"</p>
               )}
           </section>
         </div>
