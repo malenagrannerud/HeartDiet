@@ -228,8 +228,6 @@ const Today = () => {
                       <TipCard
                           key={tip.id}
                           tip={tip}
-                          isMarked={false}
-                          onToggleMark={(e) => e.stopPropagation()}
                           onClick={() => handleTipClick(tip.id)}
                       />
                   ))
