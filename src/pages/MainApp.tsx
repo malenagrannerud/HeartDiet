@@ -8,7 +8,8 @@ import FishPage from "./TipPages/fish";
 import Progress from "./Progress";
 import Help from "./Help";
 import Tutorial from "./Tutorial";
-import HealthPriorities from "./HealthPriorities";
+import HealthGoals from "./HealthGoals";
+import Medications from "./Medications";
 import HealthMetrics from "./HealthMetrics";
 import Settings from "./Settings";
 
@@ -31,7 +32,8 @@ const MainApp = () => {
           <Route path="/progress" element={<Progress />} />
           <Route path="/help" element={<Help />} />
           <Route path="/tutorial" element={<Tutorial />} />
-          <Route path="/health-priorities" element={<HealthPriorities />} />
+          <Route path="/health-goals" element={<HealthGoals />} />
+          <Route path="/medications" element={<Medications />} />
           <Route path="/health-metrics" element={<HealthMetrics />} />
           <Route path="/settings" element={<Settings />} />
         </Routes>
