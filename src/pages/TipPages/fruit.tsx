@@ -157,26 +157,14 @@ const FruitPage = () => {
 
         <div>
           <div className="mt-8 pt-6 border-t border-border">
-            <div className="flex items-center justify-between mb-4">
-              <div>
-                <h2 className={sectionHeading2}>Mina planer</h2>
-                <p className={bodyText}>
-                  Ändra planen eller delplaner så många gånger du behöver tills den fungerar för dej
-                </p>
-              </div>
-              {!isEditing && canAddMorePlans && (
-                <Button
-                  onClick={handleAddNewPlan}
-                  className="flex items-center gap-2"
-                  size="sm"
-                >
-                  <Plus size={16} />
-                  Lägg till plan
-                </Button>
-              )}
+            <div className="mb-4">
+              <h2 className={sectionHeading2}>Mina planer</h2>
+              <p className={bodyText}>
+                Ändra planen eller delplaner så många gånger du behöver tills den fungerar för dej
+              </p>
             </div>
 
-            {userPlans.length > 0 && !isEditing && (
+            {userPlans.length > 0 && (
               <UserPlanDisplay
                 plans={userPlans}
                 onEdit={handleEditPlan}
@@ -196,18 +184,22 @@ const FruitPage = () => {
             {userPlans.length === 0 && !isEditing && (
               <div className="text-center py-8">
                 <p className={bodyText}>Du har inga sparade planer än</p>
-                <Button
-                  onClick={handleAddNewPlan}
-                  className="mt-4 flex items-center gap-2 mx-auto"
-                >
-                  <Plus size={16} />
-                  Skapa din första plan
-                </Button>
               </div>
             )}
 
-            {!canAddMorePlans && !isEditing && (
-              <p className="text-sm text-muted-foreground mt-4 text-center">
+            {canAddMorePlans && (
+              <Button
+                onClick={handleAddNewPlan}
+                className="flex items-center gap-2 mt-6"
+                variant={userPlans.length === 0 ? "default" : "outline"}
+              >
+                <Plus size={16} />
+                Lägg till plan
+              </Button>
+            )}
+
+            {!canAddMorePlans && (
+              <p className="text-sm text-muted-foreground mt-4">
                 Du har nått max antal planer (10)
               </p>
             )}

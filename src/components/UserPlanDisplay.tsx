@@ -43,7 +43,7 @@ export const UserPlanDisplay: React.FC<UserPlanDisplayProps> = ({
             </div>
           </div>
 
-          <div className="space-y-3 font-handwritten text-xl">
+          <div className="space-y-3">
             <div>
               <span className={bodyTextBald}>Mål: </span>
               <span className="font-handwritten text-xl">{plan.goal}</span>
