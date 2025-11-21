@@ -374,7 +374,7 @@ const Progress = () => {
                         className="h-8 w-8 p-0 rounded-none"
                       >
                         {hasWeight ? (
-                          <Weight className="h-4 w-4 text-black" />
+                          <Weight className="h-4 w-4 text-black fill-black" />
                         ) : (
                           <Plus className="h-4 w-4" />
                         )}
@@ -400,7 +400,7 @@ const Progress = () => {
                         className="h-8 w-8 p-0 rounded-none"
                       >
                         {hasBP ? (
-                          <Heart className="h-4 w-4 text-red-500" />
+                          <Heart className="h-4 w-4 text-red-500 fill-red-500" />
                         ) : (
                           <Plus className="h-4 w-4" />
                         )}
