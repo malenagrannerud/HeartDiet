@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { format, startOfWeek, addDays, startOfMonth, endOfMonth } from "date-fns";
 import { sv } from "date-fns/locale";
-import { ChevronLeft, ChevronRight, Plus, Heart, Pill } from "lucide-react";
+import { ChevronLeft, ChevronRight, Plus, Heart, Pill, Weight } from "lucide-react";
 import { tips } from "@/data/tips";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
@@ -150,9 +150,9 @@ const Progress = () => {
     localStorage.setItem('dayLogs', JSON.stringify(updatedLogs));
   };
 
-  const openAddDataDialog = (date: Date) => {
+  const openAddDataDialog = (date: Date, type: 'weight' | 'bloodPressure') => {
     setSelectedDate(date);
-    setEntryType('weight');
+    setEntryType(type);
     setWeightInput("");
     setSystolicInput("");
     setDiastolicInput("");
@@ -252,10 +252,16 @@ const Progress = () => {
     return days[date.getDay()];
   };
 
-  const hasWeightOrBPOnDate = (date: Date): boolean => {
+  const hasWeightOnDate = (date: Date): boolean => {
     const dateStr = format(date, 'yyyy-MM-dd');
     const log = dayLogs.find(l => l.date === dateStr);
-    return log?.entries.some(entry => entry.type === 'weight' || entry.type === 'bloodPressure') || false;
+    return log?.entries.some(entry => entry.type === 'weight') || false;
+  };
+
+  const hasBloodPressureOnDate = (date: Date): boolean => {
+    const dateStr = format(date, 'yyyy-MM-dd');
+    const log = dayLogs.find(l => l.date === dateStr);
+    return log?.entries.some(entry => entry.type === 'bloodPressure') || false;
   };
 
   const daysThisMonth = getDaysWithGoalThisMonth();
@@ -357,18 +363,25 @@ const Progress = () => {
                 <td className="py-2 px-4">
                   <span className="text-sm font-medium text-muted-foreground">Vikt</span>
                 </td>
-                {weekDates.map((date, dayIndex) => (
-                  <td key={dayIndex} className="text-center py-2 px-2">
-                    <Button
-                      variant={hasWeightOrBPOnDate(date) ? "default" : "outline"}
-                      size="sm"
-                      onClick={() => openAddDataDialog(date)}
-                      className="h-8 w-8 p-0"
-                    >
-                      <Plus className="h-4 w-4" />
-                    </Button>
-                  </td>
-                ))}
+                {weekDates.map((date, dayIndex) => {
+                  const hasWeight = hasWeightOnDate(date);
+                  return (
+                    <td key={dayIndex} className="text-center py-2 px-2">
+                      <Button
+                        variant={hasWeight ? "default" : "outline"}
+                        size="sm"
+                        onClick={() => openAddDataDialog(date, 'weight')}
+                        className="h-8 w-8 p-0 rounded-none"
+                      >
+                        {hasWeight ? (
+                          <Weight className="h-4 w-4 text-black" />
+                        ) : (
+                          <Plus className="h-4 w-4" />
+                        )}
+                      </Button>
+                    </td>
+                  );
+                })}
               </tr>
 
               {/* Row for blood pressure */}
@@ -376,18 +389,25 @@ const Progress = () => {
                 <td className="py-2 px-4">
                   <span className="text-sm font-medium text-muted-foreground">Blodtryck</span>
                 </td>
-                {weekDates.map((date, dayIndex) => (
-                  <td key={dayIndex} className="text-center py-2 px-2">
-                    <Button
-                      variant={hasWeightOrBPOnDate(date) ? "default" : "outline"}
-                      size="sm"
-                      onClick={() => openAddDataDialog(date)}
-                      className="h-8 w-8 p-0"
-                    >
-                      <Plus className="h-4 w-4" />
-                    </Button>
-                  </td>
-                ))}
+                {weekDates.map((date, dayIndex) => {
+                  const hasBP = hasBloodPressureOnDate(date);
+                  return (
+                    <td key={dayIndex} className="text-center py-2 px-2">
+                      <Button
+                        variant={hasBP ? "default" : "outline"}
+                        size="sm"
+                        onClick={() => openAddDataDialog(date, 'bloodPressure')}
+                        className="h-8 w-8 p-0 rounded-none"
+                      >
+                        {hasBP ? (
+                          <Heart className="h-4 w-4 text-red-500" />
+                        ) : (
+                          <Plus className="h-4 w-4" />
+                        )}
+                      </Button>
+                    </td>
+                  );
+                })}
               </tr>
             </tbody>
           </table>
