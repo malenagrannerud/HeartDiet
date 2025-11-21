@@ -368,7 +368,7 @@ const Progress = () => {
                   return (
                     <td key={dayIndex} className="text-center py-2 px-2">
                       <Button
-                        variant={hasWeight ? "default" : "outline"}
+                        variant="outline"
                         size="sm"
                         onClick={() => openAddDataDialog(date, 'weight')}
                         className="h-8 w-8 p-0 rounded-none"
@@ -394,7 +394,7 @@ const Progress = () => {
                   return (
                     <td key={dayIndex} className="text-center py-2 px-2">
                       <Button
-                        variant={hasBP ? "default" : "outline"}
+                        variant="outline"
                         size="sm"
                         onClick={() => openAddDataDialog(date, 'bloodPressure')}
                         className="h-8 w-8 p-0 rounded-none"
