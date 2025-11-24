@@ -1,7 +1,7 @@
 // pages/TipPages/fish.tsx
 import { useState, useEffect } from "react";
 import { UserPlan } from "@/data/tips";
-import { pageContainer, headerContainer, pagePadding, sectionHeading, sectionHeading2, bodyText } from "@/lib/design-tokens";
+import { pageContainer, headerContainer, pagePadding, sectionHeading, sectionHeading2, bodyText, tipCardColors, standardSpacing } from "@/lib/design-tokens";
 import { BackToTodayButton } from "@/components/BackToTodayButton";
 import { UserPlanForm } from "@/components/UserPlanForm";
 import { UserPlanDisplay } from "@/components/UserPlanDisplay";
@@ -63,12 +63,12 @@ const FishPage = () => {
 
   return (
     <div className={pageContainer}>
-      <header className={headerContainer}>
+      <header className={`${headerContainer} ${tipCardColors.cyan}`}>
         <BackToTodayButton />
         <h1 className={sectionHeading}>Fisk och skaldjur</h1>
       </header>
 
-      <main className={pagePadding}>
+      <main className={`${pagePadding} ${standardSpacing.pageContent}`}>
         <h2 className={sectionHeading2}>Varför fisk och skaldjur?</h2>
         <p className={bodyText}>
           Fisk och skaldjur är rika på omega-3-fettsyror, protein och viktiga vitaminer som stödjer hjärthälsa och hjärnfunktion.
