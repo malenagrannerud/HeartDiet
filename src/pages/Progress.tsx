@@ -360,6 +360,11 @@ const Progress = () => {
     return log?.entries.some(entry => entry.type === 'bloodPressure') || false;
   };
 
+  const isToday = (date: Date): boolean => {
+    const today = new Date();
+    return format(date, 'yyyy-MM-dd') === format(today, 'yyyy-MM-dd');
+  };
+
   const daysThisMonth = getDaysWithGoalThisMonth();
   const currentStreak = getCurrentStreak();
 
@@ -414,15 +419,29 @@ const Progress = () => {
             <thead>
               <tr className="border-b bg-muted/50">
                 <th className="text-left py-2 px-2 font-semibold text-foreground w-[200px]">Tips</th>
-                {weekDates.map((date, index) => (
-                  <th key={index} className="text-center py-2 px-0 font-semibold text-foreground min-w-[50px]">
-                    <div className="flex flex-col items-center gap-0">
-                      <span className="text-[8px] text-muted-foreground leading-tight">{capitalizeMonth(format(date, 'MMM', { locale: sv }))}</span>
-                      <span className="text-[12px] font-bold leading-tight">{format(date, 'd')}</span>
-                      <span className="text-[8px] text-muted-foreground leading-tight">{getDayInitial(date)}</span>
-                    </div>
-                  </th>
-                ))}
+                {weekDates.map((date, index) => {
+                  const todayHighlight = isToday(date);
+                  return (
+                    <th 
+                      key={index} 
+                      className={`text-center py-2 px-0 font-semibold min-w-[50px] ${
+                        todayHighlight ? 'bg-primary/20 border-l-2 border-r-2 border-primary' : 'text-foreground'
+                      }`}
+                    >
+                      <div className="flex flex-col items-center gap-0">
+                        <span className={`text-[8px] leading-tight ${todayHighlight ? 'text-primary font-bold' : 'text-muted-foreground'}`}>
+                          {capitalizeMonth(format(date, 'MMM', { locale: sv }))}
+                        </span>
+                        <span className={`text-[12px] font-bold leading-tight ${todayHighlight ? 'text-primary' : ''}`}>
+                          {format(date, 'd')}
+                        </span>
+                        <span className={`text-[8px] leading-tight ${todayHighlight ? 'text-primary font-bold' : 'text-muted-foreground'}`}>
+                          {getDayInitial(date)}
+                        </span>
+                      </div>
+                    </th>
+                  );
+                })}
               </tr>
             </thead>
             <tbody>
@@ -436,21 +455,29 @@ const Progress = () => {
                     <td className="py-1 px-2">
                       <span className="text-sm font-medium">{tip.title}</span>
                     </td>
-                    {weekDates.map((date, dayIndex) => (
-                      <td key={dayIndex} className="text-center py-1 px-0">
-                        <div className="flex justify-center">
-                          <Checkbox
-                            checked={isTipCompletedOnDate(tip.id, date)}
-                            onCheckedChange={() => handleTipToggle(tip.id, date)}
-                            className="h-7 w-7 rounded-none transition-all duration-200"
-                            style={isTipCompletedOnDate(tip.id, date) ? {
-                              backgroundColor: tipColor,
-                              borderColor: tipColor
-                            } : undefined}
-                          />
-                        </div>
-                      </td>
-                    ))}
+                    {weekDates.map((date, dayIndex) => {
+                      const todayHighlight = isToday(date);
+                      return (
+                        <td 
+                          key={dayIndex} 
+                          className={`text-center py-1 px-0 ${
+                            todayHighlight ? 'bg-primary/10 border-l-2 border-r-2 border-primary' : ''
+                          }`}
+                        >
+                          <div className="flex justify-center">
+                            <Checkbox
+                              checked={isTipCompletedOnDate(tip.id, date)}
+                              onCheckedChange={() => handleTipToggle(tip.id, date)}
+                              className="h-7 w-7 rounded-none transition-all duration-200"
+                              style={isTipCompletedOnDate(tip.id, date) ? {
+                                backgroundColor: tipColor,
+                                borderColor: tipColor
+                              } : undefined}
+                            />
+                          </div>
+                        </td>
+                      );
+                    })}
                   </tr>
                 );
               })}
@@ -462,8 +489,14 @@ const Progress = () => {
                 </td>
                 {weekDates.map((date, dayIndex) => {
                   const hasWeight = hasWeightOnDate(date);
+                  const todayHighlight = isToday(date);
                   return (
-                    <td key={dayIndex} className="text-center py-1 px-0">
+                    <td 
+                      key={dayIndex} 
+                      className={`text-center py-1 px-0 ${
+                        todayHighlight ? 'bg-primary/10 border-l-2 border-r-2 border-primary' : ''
+                      }`}
+                    >
                       <Button
                         variant="outline"
                         size="sm"
@@ -488,8 +521,14 @@ const Progress = () => {
                 </td>
                 {weekDates.map((date, dayIndex) => {
                   const hasBP = hasBloodPressureOnDate(date);
+                  const todayHighlight = isToday(date);
                   return (
-                    <td key={dayIndex} className="text-center py-1 px-0">
+                    <td 
+                      key={dayIndex} 
+                      className={`text-center py-1 px-0 ${
+                        todayHighlight ? 'bg-primary/10 border-l-2 border-r-2 border-primary' : ''
+                      }`}
+                    >
                       <Button
                         variant="outline"
                         size="sm"
