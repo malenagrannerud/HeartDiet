@@ -18,6 +18,7 @@ import { ChartContainer } from "@/components/ui/chart";
 import { getStorageItem } from "@/lib/storage";
 import { healthPrioritiesSchema } from "@/lib/schemas";
 import { StatsBox } from "@/components/StatsBox";
+import { getCurrentDate } from "@/lib/simulated-date";
 
 interface DayLog {
   date: string;
@@ -51,7 +52,7 @@ const Progress = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [currentWeekStart, setCurrentWeekStart] = useState<Date>(
-    startOfWeek(new Date(), { weekStartsOn: 1 })
+    startOfWeek(getCurrentDate(), { weekStartsOn: 1 })
   );
   const [dayLogs, setDayLogs] = useState<DayLog[]>([]);
   const [weightDialogOpen, setWeightDialogOpen] = useState(false);
@@ -98,7 +99,7 @@ const Progress = () => {
   };
 
   const goToCurrentWeek = () => {
-    setCurrentWeekStart(startOfWeek(new Date(), { weekStartsOn: 1 }));
+    setCurrentWeekStart(startOfWeek(getCurrentDate(), { weekStartsOn: 1 }));
   };
 
   const isTipCompletedOnDate = (tipId: number, date: Date): boolean => {
@@ -304,8 +305,8 @@ const Progress = () => {
   };
 
   const getDaysWithGoalThisMonth = () => {
-    const monthStart = startOfMonth(new Date());
-    const monthEnd = endOfMonth(new Date());
+    const monthStart = startOfMonth(getCurrentDate());
+    const monthEnd = endOfMonth(getCurrentDate());
     return dayLogs.filter(log => {
       const logDate = new Date(log.date);
       return logDate >= monthStart && logDate <= monthEnd && 
@@ -317,7 +318,7 @@ const Progress = () => {
     if (dayLogs.length === 0) return 0;
     
     let streak = 0;
-    let currentDate = new Date();
+    let currentDate = getCurrentDate();
     currentDate.setHours(0, 0, 0, 0);
     
     // Check each day going backwards from today
@@ -361,7 +362,7 @@ const Progress = () => {
   };
 
   const isToday = (date: Date): boolean => {
-    const today = new Date();
+    const today = getCurrentDate();
     return format(date, 'yyyy-MM-dd') === format(today, 'yyyy-MM-dd');
   };
 
