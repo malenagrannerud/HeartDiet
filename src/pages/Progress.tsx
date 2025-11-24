@@ -315,11 +315,19 @@ const Progress = () => {
   };
 
   const getCurrentStreak = () => {
-    if (dayLogs.length === 0) return 0;
+    console.log('🔥 getCurrentStreak - Starting streak calculation');
+    console.log('🔥 dayLogs:', dayLogs);
+    
+    if (dayLogs.length === 0) {
+      console.log('🔥 No dayLogs found, returning 0');
+      return 0;
+    }
     
     let streak = 0;
     let currentDate = getCurrentDate();
     currentDate.setHours(0, 0, 0, 0);
+    
+    console.log('🔥 Starting from date:', format(currentDate, 'yyyy-MM-dd'));
     
     // Check each day going backwards from today
     while (true) {
@@ -327,16 +335,27 @@ const Progress = () => {
       const log = dayLogs.find(l => l.date === dateStr);
       const hasTipsOnThisDay = log?.entries.some(entry => entry.type === 'tip');
       
+      console.log(`🔥 Checking ${dateStr}: log=${!!log}, hasTips=${hasTipsOnThisDay}`);
+      
       if (hasTipsOnThisDay) {
         streak++;
+        console.log(`🔥 Streak increased to ${streak}`);
         // Move to previous day
         currentDate.setDate(currentDate.getDate() - 1);
       } else {
+        console.log(`🔥 Streak broken at ${dateStr}`);
         // Streak broken
+        break;
+      }
+      
+      // Safety check to prevent infinite loop
+      if (streak > 365) {
+        console.log('🔥 Safety break at 365 days');
         break;
       }
     }
     
+    console.log('🔥 Final streak:', streak);
     return streak;
   };
 
