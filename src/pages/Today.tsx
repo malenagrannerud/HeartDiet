@@ -165,6 +165,7 @@ const Today = () => {
               <Button 
                 onClick={() => {
                   const completedCards = JSON.parse(localStorage.getItem('completedCards') || '[]');
+                  const dayLogs = JSON.parse(localStorage.getItem('dayLogs') || '[]');
                   const today = new Date().toISOString().split('T')[0];
                   const yesterday = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString().split('T')[0];
                   
@@ -179,7 +180,16 @@ const Today = () => {
                     return card;
                   });
                   
+                  // Move today's tip completions to yesterday
+                  const updatedLogs = dayLogs.map((log: any) => {
+                    if (log.date === today) {
+                      return { ...log, date: yesterday };
+                    }
+                    return log;
+                  });
+                  
                   localStorage.setItem('completedCards', JSON.stringify(updatedCards));
+                  localStorage.setItem('dayLogs', JSON.stringify(updatedLogs));
                   console.log('After (today is now yesterday):', updatedCards);
                   
                   // Now check which cards should be hidden (completed yesterday)
@@ -201,6 +211,13 @@ const Today = () => {
                     medications: false,
                     healthMetrics: false
                   });
+                  
+                  // Reset tip completions to show all as unchecked
+                  const resetCompletions: Record<number, boolean> = {};
+                  tips.forEach(tip => {
+                    resetCompletions[tip.id] = false;
+                  });
+                  setTipCompletions(resetCompletions);
                 }}
                 className="bg-blue-500 text-white p-2 text-sm"
               >
