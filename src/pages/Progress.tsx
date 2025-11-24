@@ -17,6 +17,7 @@ import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, LabelList } from 'rec
 import { ChartContainer } from "@/components/ui/chart";
 import { getStorageItem } from "@/lib/storage";
 import { healthPrioritiesSchema } from "@/lib/schemas";
+import { StatsBox } from "@/components/StatsBox";
 
 interface DayLog {
   date: string;
@@ -551,7 +552,7 @@ const Progress = () => {
 
       {/* Stats */}
       <div className="grid grid-cols-2 gap-6">
-        <div className="p-6 border bg-background">
+        <StatsBox>
           <div className="flex flex-col gap-4">
             <div>
               <div className="text-base font-bold text-foreground">Klarade dagar</div>
@@ -563,9 +564,9 @@ const Progress = () => {
               </div>
             </div>
           </div>
-        </div>
+        </StatsBox>
 
-        <div className="p-6 border bg-background">
+        <StatsBox>
           <div className="flex flex-col gap-4">
             <div>
               <div className="text-base font-bold text-foreground">Klarade dagar i rad</div>
@@ -577,12 +578,12 @@ const Progress = () => {
               </div>
             </div>
           </div>
-        </div>
+        </StatsBox>
       </div>
 
       {/* Charts */}
       <div className="grid grid-cols-2 gap-6">
-        <div className="p-6 border bg-background">
+        <StatsBox>
           <div className="flex flex-col gap-4">
             <div>
               <div className="text-base font-bold text-foreground">Vikt</div>
@@ -629,9 +630,9 @@ const Progress = () => {
               </ResponsiveContainer>
             </ChartContainer>
           </div>
-        </div>
+        </StatsBox>
 
-        <div className="p-6 border bg-background">
+        <StatsBox>
           <div className="flex flex-col gap-4">
             <div>
               <div className="text-base font-bold text-foreground">Blodtryck</div>
@@ -679,15 +680,12 @@ const Progress = () => {
               </ResponsiveContainer>
             </ChartContainer>
           </div>
-        </div>
+        </StatsBox>
       </div>
 
       {/* Health Goals and Medications Cards */}
       <div className="grid grid-cols-2 gap-6">
-        <div 
-          className="p-6 border bg-background cursor-pointer hover:border-primary/50 transition-colors"
-          onClick={() => navigate('/app/health-priorities')}
-        >
+        <StatsBox onClick={() => navigate('/app/health-priorities')}>
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-3">
               <div className="p-2 bg-primary/10 rounded">
@@ -709,12 +707,9 @@ const Progress = () => {
               <p className="text-sm text-muted-foreground">Inga mål valda ännu</p>
             )}
           </div>
-        </div>
+        </StatsBox>
 
-        <div 
-          className="p-6 border bg-background cursor-pointer hover:border-primary/50 transition-colors"
-          onClick={() => navigate('/app/health-priorities')}
-        >
+        <StatsBox onClick={() => navigate('/app/health-priorities')}>
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-3">
               <div className="p-2 bg-primary/10 rounded">
@@ -736,7 +731,7 @@ const Progress = () => {
               <p className="text-sm text-muted-foreground">Inga läkemedel valda ännu</p>
             )}
           </div>
-        </div>
+        </StatsBox>
       </div>
 
       {/* Dialog for weight */}
