@@ -424,7 +424,7 @@ const Progress = () => {
                   return (
                     <th 
                       key={index} 
-                      className={`text-center py-2 px-0 font-semibold min-w-[50px] ${
+                      className={`text-center py-2 px-0 font-semibold min-w-[40px] ${
                         todayHighlight ? 'bg-primary/20 border-l-2 border-r-2 border-primary' : 'text-foreground'
                       }`}
                     >
