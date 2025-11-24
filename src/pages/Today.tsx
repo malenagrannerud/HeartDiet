@@ -20,6 +20,7 @@ import { CheckBoxLeft } from "@/components/CheckBoxLeft";
 import { isTipCompletedToday, toggleTipCompletion } from "@/lib/tip-completion";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
+import { getCurrentDate, advanceDay } from "@/lib/simulated-date";
 
 interface MarkedTip {
   id: number;
@@ -80,7 +81,7 @@ const Today = () => {
     });
     
     // Set up midnight check to hide completed cards
-    const now = new Date();
+    const now = getCurrentDate();
     const midnight = new Date(now);
     midnight.setHours(24, 0, 0, 0);
     const timeUntilMidnight = midnight.getTime() - now.getTime();
@@ -164,60 +165,13 @@ const Today = () => {
                 {/* TEMPORARY TEST BUTTON - REMOVE LATER */}
               <Button 
                 onClick={() => {
-                  const completedCards = JSON.parse(localStorage.getItem('completedCards') || '[]');
-                  const dayLogs = JSON.parse(localStorage.getItem('dayLogs') || '[]');
-                  const today = new Date().toISOString().split('T')[0];
-                  const yesterday = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+                  // Advance the simulated date by one day
+                  advanceDay();
                   
-                  console.log('Simulating next day - moving completions from today to yesterday');
-                  console.log('Before:', completedCards);
+                  console.log('Advanced to next day');
                   
-                  // Change today's completions to yesterday's date to simulate passage of time
-                  const updatedCards = completedCards.map((card: any) => {
-                    if (card.completedDate === today) {
-                      return { ...card, completedDate: yesterday };
-                    }
-                    return card;
-                  });
-                  
-                  // Move today's tip completions to yesterday
-                  const updatedLogs = dayLogs.map((log: any) => {
-                    if (log.date === today) {
-                      return { ...log, date: yesterday };
-                    }
-                    return log;
-                  });
-                  
-                  localStorage.setItem('completedCards', JSON.stringify(updatedCards));
-                  localStorage.setItem('dayLogs', JSON.stringify(updatedLogs));
-                  console.log('After (today is now yesterday):', updatedCards);
-                  
-                  // Now check which cards should be hidden (completed yesterday)
-                  const cardsToHide = getCardsToHide();
-                  const newCardsToHide = {
-                    tutorial: cardsToHide['tutorial'],
-                    healthGoals: cardsToHide['health-goals'],
-                    medications: cardsToHide['medications'],
-                    healthMetrics: cardsToHide['health-metrics'],
-                  };
-                  
-                  console.log('Cards to hide (completed yesterday):', newCardsToHide);
-                  
-                  setHiddenCards(newCardsToHide);
-                  // Reset completion status for the new "today"
-                  setCompletionStatus({
-                    tutorial: false,
-                    healthGoals: false,
-                    medications: false,
-                    healthMetrics: false
-                  });
-                  
-                  // Reset tip completions to show all as unchecked
-                  const resetCompletions: Record<number, boolean> = {};
-                  tips.forEach(tip => {
-                    resetCompletions[tip.id] = false;
-                  });
-                  setTipCompletions(resetCompletions);
+                  // Reload the page to reflect the new "today"
+                  window.location.reload();
                 }}
                 className="bg-blue-500 text-white p-2 text-sm"
               >

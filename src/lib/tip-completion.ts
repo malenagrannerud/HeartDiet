@@ -1,4 +1,5 @@
 import { format } from "date-fns";
+import { getCurrentDate } from "./simulated-date";
 
 interface TipEntry {
   type: 'tip' | 'weight' | 'bloodPressure';
@@ -42,7 +43,7 @@ const saveDayLogs = (logs: DayLog[]): void => {
  * Check if a tip is completed today
  */
 export const isTipCompletedToday = (tipId: number): boolean => {
-  const today = format(new Date(), 'yyyy-MM-dd');
+  const today = format(getCurrentDate(), 'yyyy-MM-dd');
   const logs = getDayLogs();
   const todayLog = logs.find(log => log.date === today);
   
@@ -57,7 +58,7 @@ export const isTipCompletedToday = (tipId: number): boolean => {
  * Mark a tip as completed for today
  */
 export const markTipCompleted = (tipId: number): void => {
-  const today = format(new Date(), 'yyyy-MM-dd');
+  const today = format(getCurrentDate(), 'yyyy-MM-dd');
   const logs = getDayLogs();
   const existingLogIndex = logs.findIndex(log => log.date === today);
   
@@ -93,7 +94,7 @@ export const markTipCompleted = (tipId: number): void => {
  * Unmark a tip as completed for today
  */
 export const unmarkTipCompleted = (tipId: number): void => {
-  const today = format(new Date(), 'yyyy-MM-dd');
+  const today = format(getCurrentDate(), 'yyyy-MM-dd');
   const logs = getDayLogs();
   const existingLogIndex = logs.findIndex(log => log.date === today);
   

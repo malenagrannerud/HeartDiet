@@ -1,5 +1,6 @@
 import { getStorageItem, setStorageItem } from './storage';
 import { cardCompletionsSchema, type CardId, type CardCompletion } from './schemas';
+import { getCurrentDate } from './simulated-date';
 
 // Re-export types
 export type { CardId, CardCompletion };
@@ -13,7 +14,7 @@ export const getCompletedCards = (): CardCompletion[] => {
 export const markCardCompleted = (cardId: CardId): boolean => {
   console.log('markCardCompleted called with:', cardId);
   const completedCards = getCompletedCards();
-  const today = new Date().toISOString().split('T')[0];
+  const today = getCurrentDate().toISOString().split('T')[0];
   
   console.log('Current completedCards:', completedCards);
   console.log('Today:', today);
@@ -37,20 +38,20 @@ export const markCardCompleted = (cardId: CardId): boolean => {
 
 export const isCardCompletedToday = (cardId: CardId): boolean => {
   const completedCards = getCompletedCards();
-  const today = new Date().toISOString().split('T')[0];
+  const today = getCurrentDate().toISOString().split('T')[0];
   return completedCards.some(card => card.cardId === cardId && card.completedDate === today);
 };
 
 export const wasCardCompletedOnDifferentDay = (cardId: CardId): boolean => {
   const completedCards = getCompletedCards();
-  const today = new Date().toISOString().split('T')[0];
+  const today = getCurrentDate().toISOString().split('T')[0];
   const completion = completedCards.find(card => card.cardId === cardId);
   return completion ? completion.completedDate !== today : false;
 };
 
 export const cleanupOldCompletions = (): void => {
   const completedCards = getCompletedCards();
-  const sevenDaysAgo = new Date();
+  const sevenDaysAgo = getCurrentDate();
   sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
   const sevenDaysAgoString = sevenDaysAgo.toISOString().split('T')[0];
   
@@ -65,7 +66,7 @@ export const cleanupOldCompletions = (): void => {
 
 export const getCardsToHide = (): Record<CardId, boolean> => {
   const completedCards = getCompletedCards();
-  const today = new Date().toISOString().split('T')[0];
+  const today = getCurrentDate().toISOString().split('T')[0];
   
   console.log('🕵️ getCardsToHide - Today:', today);
   console.log('🕵️ getCardsToHide - All completed cards:', completedCards);
