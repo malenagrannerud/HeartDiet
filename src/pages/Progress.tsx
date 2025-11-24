@@ -685,7 +685,7 @@ const Progress = () => {
 
       {/* Health Goals and Medications Cards */}
       <div className="grid grid-cols-2 gap-6">
-        <StatsBox onClick={() => navigate('/app/health-priorities')}>
+        <StatsBox onClick={() => navigate('/app/health-goals')}>
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-3">
               <div className="p-2 bg-primary/10 rounded">
@@ -709,7 +709,7 @@ const Progress = () => {
           </div>
         </StatsBox>
 
-        <StatsBox onClick={() => navigate('/app/health-priorities')}>
+        <StatsBox onClick={() => navigate('/app/medications')}>
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-3">
               <div className="p-2 bg-primary/10 rounded">
