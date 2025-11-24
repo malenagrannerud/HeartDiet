@@ -323,42 +323,33 @@ const Progress = () => {
       return 0;
     }
     
-    // Find all days with tips and sort by date (newest first)
-    const daysWithTips = dayLogs
-      .filter(log => log.entries.some(entry => entry.type === 'tip'))
-      .map(log => new Date(log.date))
-      .sort((a, b) => b.getTime() - a.getTime());
+    let streak = 0;
+    let currentDate = new Date(getCurrentDate());
+    currentDate.setHours(0, 0, 0, 0);
     
-    if (daysWithTips.length === 0) {
-      console.log('🔥 No days with tips found');
-      return 0;
-    }
+    console.log('🔥 Starting from today:', format(currentDate, 'yyyy-MM-dd'));
     
-    // Start from the most recent day with tips
-    let streak = 1;
-    const mostRecentDay = new Date(daysWithTips[0]);
-    mostRecentDay.setHours(0, 0, 0, 0);
-    
-    console.log('🔥 Most recent day with tips:', format(mostRecentDay, 'yyyy-MM-dd'));
-    
-    // Count consecutive days backward from the most recent day
-    for (let i = 1; i < 365; i++) {
-      const checkDate = new Date(mostRecentDay);
-      checkDate.setDate(checkDate.getDate() - i);
-      const dateStr = format(checkDate, 'yyyy-MM-dd');
+    // Check each day going backwards from today
+    while (true) {
+      const dateStr = format(currentDate, 'yyyy-MM-dd');
+      const log = dayLogs.find(l => l.date === dateStr);
+      const hasTipsOnThisDay = log?.entries.some(entry => entry.type === 'tip');
       
-      const hasDay = daysWithTips.some(day => {
-        const d = new Date(day);
-        d.setHours(0, 0, 0, 0);
-        return d.getTime() === checkDate.getTime();
-      });
+      console.log(`🔥 Checking ${dateStr}: log=${!!log}, hasTips=${hasTipsOnThisDay}`);
       
-      console.log(`🔥 Checking ${dateStr}: hasDay=${hasDay}`);
-      
-      if (hasDay) {
+      if (hasTipsOnThisDay) {
         streak++;
+        console.log(`🔥 Streak increased to ${streak}`);
+        // Move to previous day
+        currentDate.setDate(currentDate.getDate() - 1);
       } else {
         console.log(`🔥 Streak broken at ${dateStr}`);
+        break;
+      }
+      
+      // Safety check to prevent infinite loop
+      if (streak > 365) {
+        console.log('🔥 Safety break at 365 days');
         break;
       }
     }
