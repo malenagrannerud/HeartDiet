@@ -6,8 +6,7 @@ import { ChevronLeft, ChevronRight, Plus, Heart, Pill, Weight } from "lucide-rea
 import { tips } from "@/data/tips";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
-import { pageTitle, pageSubtitle, pageContainer, pagePadding, interactiveCard, cardTitle, cardText } from "@/lib/design-tokens";
-import { Card } from "@/components/ui/card";
+import { pageTitle, pageSubtitle, pageContainer, pagePadding } from "@/lib/design-tokens";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -582,10 +581,10 @@ const Progress = () => {
       </div>
 
       {/* Charts */}
-      <div className="grid grid-cols-2 gap-0 pt-0">
-        <div className="py-6 pr-6 pl-0 border-r border-t">
-          <div className="flex flex-col h-full">
-            <div className="flex-1 mb-4">
+      <div className="grid grid-cols-2 gap-6">
+        <div className="p-6 border bg-background">
+          <div className="flex flex-col gap-4">
+            <div>
               <div className="text-base font-bold text-foreground">Vikt</div>
               <div className="text-sm text-muted-foreground font-normal">Loggade vikter (kg)</div>
             </div>
@@ -632,9 +631,9 @@ const Progress = () => {
           </div>
         </div>
 
-        <div className="py-6 pr-0 pl-6 border-t">
-          <div className="flex flex-col h-full">
-            <div className="flex-1 mb-4">
+        <div className="p-6 border bg-background">
+          <div className="flex flex-col gap-4">
+            <div>
               <div className="text-base font-bold text-foreground">Blodtryck</div>
               <div className="text-sm text-muted-foreground font-normal">Loggade blodtryck (mmHg)</div>
             </div>
@@ -684,56 +683,60 @@ const Progress = () => {
       </div>
 
       {/* Health Goals and Medications Cards */}
-      <div className="space-y-6 pt-6">
-        <Card 
-          className={interactiveCard}
+      <div className="grid grid-cols-2 gap-6">
+        <div 
+          className="p-6 border bg-background cursor-pointer hover:border-primary/50 transition-colors"
           onClick={() => navigate('/app/health-priorities')}
         >
-          <div className="flex items-start gap-4">
-            <div className="p-3 bg-primary/10">
-              <Heart size={24} className="text-primary" />
+          <div className="flex flex-col gap-4">
+            <div className="flex items-center gap-3">
+              <div className="p-2 bg-primary/10 rounded">
+                <Heart size={20} className="text-primary" />
+              </div>
+              <div>
+                <div className="text-base font-bold text-foreground">Mina hälsomål</div>
+              </div>
             </div>
-            <div className="flex-1">
-              <h3 className={`${cardTitle} mb-2`}>Mina hälsomål</h3>
-              {priorities.length > 0 ? (
-                <div className="space-y-1">
-                  {priorities.map((id) => (
-                    <p key={id} className={cardText}>
-                      • {healthPriorityLabels[id]}
-                    </p>
-                  ))}
-                </div>
-              ) : (
-                <p className={cardText}>Inga mål valda ännu</p>
-              )}
-            </div>
+            {priorities.length > 0 ? (
+              <div className="space-y-1">
+                {priorities.map((id) => (
+                  <p key={id} className="text-sm text-foreground">
+                    • {healthPriorityLabels[id]}
+                  </p>
+                ))}
+              </div>
+            ) : (
+              <p className="text-sm text-muted-foreground">Inga mål valda ännu</p>
+            )}
           </div>
-        </Card>
+        </div>
 
-        <Card 
-          className={interactiveCard}
+        <div 
+          className="p-6 border bg-background cursor-pointer hover:border-primary/50 transition-colors"
           onClick={() => navigate('/app/health-priorities')}
         >
-          <div className="flex items-start gap-4">
-            <div className="p-3 bg-primary/10">
-              <Pill size={24} className="text-primary" />
+          <div className="flex flex-col gap-4">
+            <div className="flex items-center gap-3">
+              <div className="p-2 bg-primary/10 rounded">
+                <Pill size={20} className="text-primary" />
+              </div>
+              <div>
+                <div className="text-base font-bold text-foreground">Mina läkemedel</div>
+              </div>
             </div>
-            <div className="flex-1">
-              <h3 className={`${cardTitle} mb-2`}>Mina läkemedel</h3>
-              {medications.length > 0 ? (
-                <div className="space-y-1">
-                  {medications.map((id) => (
-                    <p key={id} className={cardText}>
-                      • {medicationLabels[id]}
-                    </p>
-                  ))}
-                </div>
-              ) : (
-                <p className={cardText}>Inga läkemedel valda ännu</p>
-              )}
-            </div>
+            {medications.length > 0 ? (
+              <div className="space-y-1">
+                {medications.map((id) => (
+                  <p key={id} className="text-sm text-foreground">
+                    • {medicationLabels[id]}
+                  </p>
+                ))}
+              </div>
+            ) : (
+              <p className="text-sm text-muted-foreground">Inga läkemedel valda ännu</p>
+            )}
           </div>
-        </Card>
+        </div>
       </div>
 
       {/* Dialog for weight */}
