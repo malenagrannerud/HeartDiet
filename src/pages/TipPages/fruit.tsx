@@ -78,7 +78,8 @@ const FruitPage = () => {
 
         <div> 
           <h2 className={sectionHeading2}>Hur mycket är fem nävar om dagen?</h2>
-          <p className={bodyText}>Till dina fem om dagen räknas:</p>
+          <p className={bodyText}>Till dina fem om dagen räknas
+          </p>
           <DottedList items={[
             "Rotfrukter",
             "Frukt - färska och frysta",
@@ -100,7 +101,7 @@ const FruitPage = () => {
         </div>
 
         <div> 
-          <h2 className={sectionHeading2}>Skydd mot hjärtsjukdom</h2>
+          <h2 className={sectionHeading2}>Skydd mot sjukdom</h2>
           <p className={bodyText}>
             Frukt och grönt minskar risken för hjärtsjukdom eftersom de:
           </p>
@@ -159,9 +160,9 @@ const FruitPage = () => {
         <div>
           <div className="mt-8 pt-6 border-t border-border">
             <div className="mb-4">
-              <h2 className={sectionHeading2}>Mina planer</h2>
+              <h2 className={sectionHeading2}>Min plan</h2>
               <p className={bodyText}>
-                Ändra planen eller delplaner så många gånger du behöver tills den fungerar för dej
+              Ändra din plan så många gånger du behöver tills den fungerar för dej
               </p>
             </div>
 

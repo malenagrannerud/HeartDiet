@@ -1,7 +1,7 @@
 // pages/TipPages/fullkorn.tsx
 import { useState, useEffect } from "react";
 import { UserPlan } from "@/data/tips";
-import { pageContainer, headerContainer, pagePadding, sectionHeading, sectionHeading2, bodyText, tipCardColors, standardSpacing } from "@/lib/design-tokens";
+import { pageContainer, headerContainer, pagePadding, sectionHeading, sectionHeading2, sectionSubheading2, bodyText, tipCardColors, standardSpacing } from "@/lib/design-tokens";
 import { BackToTodayButton } from "@/components/BackToTodayButton";
 import { UserPlanForm } from "@/components/UserPlanForm";
 import { UserPlanDisplay } from "@/components/UserPlanDisplay";
@@ -69,31 +69,77 @@ const FullkornPage = () => {
       </header>
 
       <main className={`${pagePadding} ${standardSpacing.pageContent}`}>
-        <h2 className={sectionHeading2}>Varför fullkorn?</h2>
-        <p className={bodyText}>
-          Fullkorn innehåller hela spannmålskornet med fibrer, vitaminer och mineraler som ger långvarig mättnadskänsla och jämn energi.
+        <p className={sectionSubheading2}>
+          Att äta minst 90 g fullkorn varje dag hjälper dig att må bättre samtidigt som det minskar risken för hjärt-kärlsjukdomar, vissa typer av cancer samt typ2-diabetes
         </p>
-        <DottedList items={[
-          "Sänker risken för hjärt-kärlsjukdomar",
-          "Förbättrar blodsockerbalansen",
-          "Bidrar till en hälsosam tarmflora",
-          "Ger långvarig mättnad"
-        ]} />
 
-        <h2 className={sectionHeading2}>Exempel på fullkornsprodukter</h2>
-        <DottedList items={[
-          "Fullkornsbröd och knäckebröd",
-          "Havregryn och müsli",
-          "Fullkornsris och bulgur",
-          "Fullkornspasta",
-          "Quinoa och råg"
-        ]} />
+        <div> 
+        <h2 className={sectionHeading2}>Vad är fullkorn? </h2>
+          <p className={bodyText}>Fullkorn är ett sädeskorn som innehåller alla sina tre delar: kli, grodd och frövita. Detta gäller även om kornet har krossats eller malts till ett fullkornsmjöl. Till skillnad från vitt mjöl, där de näringsrika delarna kli och grodd har tagits bort, innehåller fullkornsprodukter mer fibrer, vitaminer och mineraler.</p>
+          <p> Fullkorn kommer ifrån bland annat</p>
+          <DottedList items={[
+                            "Vete, råg, korn och havre",
+                            "Ris",
+                            "Majs", 
+                            "Hirs, teff och durra",
+            ]} />
+        </div>
+
+        <div>
+          <h2 className={sectionHeading2}>Fullkornsprodukter</h2>
+          <p> För att äta 90 g fullkorn kan du till exempel äta: </p>
+          <DottedList items={[
+            "Havregryn (100% fullkorn). En portion är ca 35 g",
+            "Knäckebröd (100% fullkorn). 2 skivor är ca 24 g",
+            "Musli (55% fullkorn)",
+            "Fullkornsbröd (20 - 70%) fullkorn ",
+            "Fullkornspasta (55% fullkorn). En portion är ca 40 g", 
+            "Mathavre (55% fullkorn). En portion är ca 40 g", 
+            "Mjöl (100% fullkorn)." 
+          ]} />
+        </div>
+    
+        <div>
+          <h2 className={sectionHeading2}>Må bättre</h2>
+          <p>Du mår bättre av fullkorn eftersom det bidrar till</p>
+          <DottedList items={[
+            "Stärkt immunförsvar: C-vitamin och zink stärker skyddet mot infektioner",
+            "Reglerat blodtryck: Kalium reglerar blodtrycket och hjärtats funktion",
+            "Mer energi: B-vitaminer omvandlar mat till energi och bekämpar trötthet",
+            "Muskelfunktionen: Magnesium är viktigt för muskelavslappning och energiproduktion",
+            "Benhälsa: Vitamin K stärker skelettet och förbättrar blodkoagulering",
+            "Syretransport: Järn förhindrar trötthet genom att transportera syre i blodet"
+          ]} />
+        </div>
+
+        <div>
+          <h2 className={sectionHeading2}>Skydd mot sjukdom</h2>
+          <p>Fullkorn skyddar mot sjukdom eftersom det bidrar till</p>
+          <DottedList items={[
+            "Sänkt blodtryck: Kalium och magnesium i fullkorn hjälper blodkärlen att slappna av",
+            "Lägre kolesterol: Lösliga fibrer binder sig med gallsyror och sänker LDL-kolesterolet",
+            "Minskad inflammation: Antioxidanter i fullkorn skyddar kärlväggarna från skador",
+            "Förbättrad blodsockerreglering: Långsamma kolhydrater förhindrar blodsockertoppar som skadar kärlen",
+            "Hälsosam vikt: Fibrer (betaglukaner) mättar och hjälper dig att upprätthålla en normal vikt",
+            "Bättre blodfetter: Omega-3-fettsyror i vissa fullkornsprodukter gynnar hjärtat"
+          ]} />
+        </div>
+
+        <div>
+          <h2 className={sectionHeading2}>Ät dina 90g om dagen</h2>
+          <p className={bodyText}>
+            Genom att tänka ut när och hur du ska få i dej dina fem om dagen, kan du lättare modifiera en plan som passar dej. Några exempel:
+          </p>
+        </div>
+
+
+
 
         <div className="mt-8 pt-6 border-t border-gray-200">
           <div className="mb-4">
-            <h2 className={sectionHeading2}>Mina planer</h2>
+            <h2 className={sectionHeading2}>Min plan</h2>
             <p className={bodyText}>
-              Ändra planen eller delplaner så många gånger du behöver tills den fungerar för dej
+              Ändra din plan så många gånger du behöver tills den fungerar för dej
             </p>
           </div>
 
