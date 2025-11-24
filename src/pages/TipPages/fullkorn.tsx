@@ -1,7 +1,7 @@
 // pages/TipPages/fullkorn.tsx
 import { useState, useEffect } from "react";
 import { UserPlan } from "@/data/tips";
-import { pageContainer, headerContainer, pagePadding, sectionHeading2, bodyText, tipCardColors } from "@/lib/design-tokens";
+import { pageContainer, headerContainer, pagePadding, sectionHeading, sectionHeading2, bodyText, tipCardColors, standardSpacing } from "@/lib/design-tokens";
 import { BackToTodayButton } from "@/components/BackToTodayButton";
 import { UserPlanForm } from "@/components/UserPlanForm";
 import { UserPlanDisplay } from "@/components/UserPlanDisplay";
@@ -65,10 +65,10 @@ const FullkornPage = () => {
     <div className={pageContainer}>
       <header className={`${headerContainer} ${tipCardColors.amber}`}>
         <BackToTodayButton />
-        <h1 className="text-3xl font-bold text-foreground">Fyll på med fullkorn</h1>
+        <h1 className={sectionHeading}>Fyll på med fullkorn</h1>
       </header>
 
-      <main className={pagePadding}>
+      <main className={`${pagePadding} ${standardSpacing.pageContent}`}>
         <h2 className={sectionHeading2}>Varför fullkorn?</h2>
         <p className={bodyText}>
           Fullkorn innehåller hela spannmålskornet med fibrer, vitaminer och mineraler som ger långvarig mättnadskänsla och jämn energi.
