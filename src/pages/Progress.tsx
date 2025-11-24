@@ -314,32 +314,24 @@ const Progress = () => {
   };
 
   const getCurrentStreak = () => {
-    const daysWithTips = dayLogs
-      .filter(log => log.entries.some(entry => entry.type === 'tip'))
-      .map(log => new Date(log.date))
-      .sort((a, b) => b.getTime() - a.getTime());
+    if (dayLogs.length === 0) return 0;
     
-    if (daysWithTips.length === 0) return 0;
+    let streak = 0;
+    let currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0);
     
-    // Start from the most recent day with tips (which might not be today)
-    let streak = 1;
-    const mostRecentDay = new Date(daysWithTips[0]);
-    mostRecentDay.setHours(0, 0, 0, 0);
-    
-    // Count consecutive days backward from the most recent day
-    for (let i = 1; i < daysWithTips.length; i++) {
-      const expectedDate = new Date(mostRecentDay);
-      expectedDate.setDate(expectedDate.getDate() - i);
+    // Check each day going backwards from today
+    while (true) {
+      const dateStr = format(currentDate, 'yyyy-MM-dd');
+      const log = dayLogs.find(l => l.date === dateStr);
+      const hasTipsOnThisDay = log?.entries.some(entry => entry.type === 'tip');
       
-      const hasDay = daysWithTips.some(day => {
-        const d = new Date(day);
-        d.setHours(0, 0, 0, 0);
-        return d.getTime() === expectedDate.getTime();
-      });
-      
-      if (hasDay) {
+      if (hasTipsOnThisDay) {
         streak++;
+        // Move to previous day
+        currentDate.setDate(currentDate.getDate() - 1);
       } else {
+        // Streak broken
         break;
       }
     }
