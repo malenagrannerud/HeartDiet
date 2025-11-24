@@ -6,6 +6,7 @@ import { BackToTodayButton } from "@/components/BackToTodayButton";
 import { UserPlanForm } from "@/components/UserPlanForm";
 import { UserPlanDisplay } from "@/components/UserPlanDisplay";
 import DottedList from "@/components/DottedList";
+import ExampleCard from "@/components/exCard";
 import { Button } from "@/components/ui/button";
 
 import { Plus } from "lucide-react";
@@ -128,12 +129,25 @@ const FullkornPage = () => {
         <div>
           <h2 className={sectionHeading2}>Ät dina 90g om dagen</h2>
           <p className={bodyText}>
-            Genom att tänka ut när och hur du ska få i dej dina fem om dagen, kan du lättare modifiera en plan som passar dej. Några exempel:
+            Genom att tänka ut när och hur du ska äta dina 90g / dag, kan du lättare modifiera en plan som passar dej. Några exempel:
           </p>
         </div>
 
-
-
+        <div className="mt-2 space-y-2">
+                <ExampleCard 
+                  goal="Äta en tallrik gröt"
+                  when="Frukost måndag-fredag"
+                  how="Har goda toppings redo i kylskåpet"
+                  reminder="Ställer fram havregrynen varje kväll"
+                />
+                
+                <ExampleCard 
+                  goal="Äta en näve sallad varje dag (2/5)"
+                  when="Lunch"
+                  how="Jag har en råkostsallad med vinjägrett redo i kylskåpet"
+                  reminder="Påminnelse i min kalender i köket"
+                />
+        </div>
 
         <div className="mt-8 pt-6 border-t border-gray-200">
           <div className="mb-4">
