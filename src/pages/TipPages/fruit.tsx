@@ -77,7 +77,6 @@ const FruitPage = () => {
         </p>
 
         <div> 
-          <h2 className={sectionHeading2}>Hur mycket är fem nävar om dagen?</h2>
           <p className={bodyText}>Till dina fem om dagen räknas
           </p>
           <DottedList items={[

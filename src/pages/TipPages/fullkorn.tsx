@@ -74,7 +74,6 @@ const FullkornPage = () => {
         </p>
 
         <div> 
-        <h2 className={sectionHeading2}>Vad är fullkorn? </h2>
           <p className={bodyText}>Fullkorn är ett sädeskorn som innehåller alla sina tre delar: kli, grodd och frövita. Detta gäller även om kornet har krossats eller malts till ett fullkornsmjöl. Till skillnad från vitt mjöl, där de näringsrika delarna kli och grodd har tagits bort, innehåller fullkornsprodukter mer fibrer, vitaminer och mineraler.</p>
           <p> Fullkorn kommer ifrån bland annat</p>
           <DottedList items={[
@@ -104,7 +103,6 @@ const FullkornPage = () => {
           <p>Du mår bättre av fullkorn eftersom det bidrar till</p>
           <DottedList items={[
             "Stärkt immunförsvar: C-vitamin och zink stärker skyddet mot infektioner",
-            "Reglerat blodtryck: Kalium reglerar blodtrycket och hjärtats funktion",
             "Mer energi: B-vitaminer omvandlar mat till energi och bekämpar trötthet",
             "Muskelfunktion: Magnesium är viktigt för muskelavslappning och energiproduktion",
             "Benhälsa: Vitamin K stärker skelettet och förbättrar blodkoagulering",
