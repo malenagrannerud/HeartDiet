@@ -8,7 +8,6 @@ import { UserPlanDisplay } from "@/components/UserPlanDisplay";
 import DottedList from "@/components/DottedList";
 import ExampleCard from "@/components/exCard";
 import { Button } from "@/components/ui/button";
-
 import { Plus } from "lucide-react";
 
 const FullkornPage = () => {
@@ -107,7 +106,7 @@ const FullkornPage = () => {
             "Stärkt immunförsvar: C-vitamin och zink stärker skyddet mot infektioner",
             "Reglerat blodtryck: Kalium reglerar blodtrycket och hjärtats funktion",
             "Mer energi: B-vitaminer omvandlar mat till energi och bekämpar trötthet",
-            "Muskelfunktionen: Magnesium är viktigt för muskelavslappning och energiproduktion",
+            "Muskelfunktion: Magnesium är viktigt för muskelavslappning och energiproduktion",
             "Benhälsa: Vitamin K stärker skelettet och förbättrar blodkoagulering",
             "Syretransport: Järn förhindrar trötthet genom att transportera syre i blodet"
           ]} />
