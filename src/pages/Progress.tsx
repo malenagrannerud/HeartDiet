@@ -315,47 +315,46 @@ const Progress = () => {
   };
 
   const getCurrentStreak = () => {
-    console.log('🔥 getCurrentStreak - Starting streak calculation');
-    console.log('🔥 dayLogs:', dayLogs);
-    
     if (dayLogs.length === 0) {
-      console.log('🔥 No dayLogs found, returning 0');
       return 0;
     }
     
-    let streak = 0;
-    let currentDate = new Date(getCurrentDate());
-    currentDate.setHours(0, 0, 0, 0);
+    // Get all days with tips, sorted chronologically
+    const daysWithTips = dayLogs
+      .filter(log => log.entries.some(entry => entry.type === 'tip'))
+      .map(log => log.date)
+      .sort();
     
-    console.log('🔥 Starting from today:', format(currentDate, 'yyyy-MM-dd'));
+    if (daysWithTips.length === 0) {
+      return 0;
+    }
     
-    // Check each day going backwards from today
-    while (true) {
-      const dateStr = format(currentDate, 'yyyy-MM-dd');
-      const log = dayLogs.find(l => l.date === dateStr);
-      const hasTipsOnThisDay = log?.entries.some(entry => entry.type === 'tip');
+    let maxStreak = 0;
+    let currentStreak = 1;
+    
+    // Go through all days and find the longest consecutive sequence
+    for (let i = 1; i < daysWithTips.length; i++) {
+      const prevDate = new Date(daysWithTips[i - 1]);
+      const currDate = new Date(daysWithTips[i]);
       
-      console.log(`🔥 Checking ${dateStr}: log=${!!log}, hasTips=${hasTipsOnThisDay}`);
+      // Calculate difference in days
+      const diffTime = currDate.getTime() - prevDate.getTime();
+      const diffDays = diffTime / (1000 * 60 * 60 * 24);
       
-      if (hasTipsOnThisDay) {
-        streak++;
-        console.log(`🔥 Streak increased to ${streak}`);
-        // Move to previous day
-        currentDate.setDate(currentDate.getDate() - 1);
+      if (diffDays === 1) {
+        // Consecutive day
+        currentStreak++;
       } else {
-        console.log(`🔥 Streak broken at ${dateStr}`);
-        break;
-      }
-      
-      // Safety check to prevent infinite loop
-      if (streak > 365) {
-        console.log('🔥 Safety break at 365 days');
-        break;
+        // Streak broken, check if current was the longest
+        maxStreak = Math.max(maxStreak, currentStreak);
+        currentStreak = 1;
       }
     }
     
-    console.log('🔥 Final streak:', streak);
-    return streak;
+    // Don't forget to check the last streak
+    maxStreak = Math.max(maxStreak, currentStreak);
+    
+    return maxStreak;
   };
 
   const getDayInitial = (date: Date) => {
