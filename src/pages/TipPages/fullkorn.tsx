@@ -165,17 +165,12 @@ const FullkornPage = () => {
           )}
 
           {isEditing && (
-            <div className="mb-6 p-6 border border-border rounded-lg bg-card">
-              <h3 className="text-lg font-semibold mb-4">
-                {editingIndex !== null ? 'Redigera plan' : 'Skapa ny plan'}
-              </h3>
-              <UserPlanForm
-                tipId={2}
-                initialPlan={editingIndex !== null ? userPlans[editingIndex] : undefined}
-                onSave={handleSavePlan}
-                onCancel={handleCancelEdit}
-              />
-            </div>
+            <UserPlanForm
+              tipId={2}
+              initialPlan={editingIndex !== null ? userPlans[editingIndex] : undefined}
+              onSave={handleSavePlan}
+              onCancel={handleCancelEdit}
+            />
           )}
 
           {canAddMorePlans && (
