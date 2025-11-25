@@ -119,14 +119,14 @@ const FishPage = () => {
                   goal="Fet fisk en gång (1 gång)"
                   when="Lunch - Tisdagar"
                   how="Laga nytt recept på lax"
-                  reminder="Påminnelse kalender"
+                  reminder="Kalender"
                 />
 
                 <ExampleCard 
                   goal="Äta makrill en gång / v."
                   when="Frukost - Måndagar"
                   how="Makrill på burk på toast"
-                  reminder="Påminnelse kalender"
+                  reminder="Kalender"
                 />
 
                 <ExampleCard 
