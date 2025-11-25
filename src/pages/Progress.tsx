@@ -502,7 +502,7 @@ const Progress = () => {
               
               {/* Row for weight */}
               <tr className="border-b bg-muted/20">
-                <td className="py-1 px-2">
+                <td className="py-1 px-1">
                   <span className="text-sm font-medium text-muted-foreground">Vikt</span>
                 </td>
                 {weekDates.map((date, dayIndex) => {
@@ -534,7 +534,7 @@ const Progress = () => {
 
               {/* Row for blood pressure */}
               <tr className="border-b bg-muted/20">
-                <td className="py-1 px-2">
+                <td className="py-1 px-1">
                   <span className="text-sm font-medium text-muted-foreground">Blodtryck</span>
                 </td>
                 {weekDates.map((date, dayIndex) => {
@@ -573,7 +573,7 @@ const Progress = () => {
         <StatsBox>
           <div className="flex flex-col gap-4">
             <div>
-              <div className="text-base font-bold text-foreground">Klarade dagar</div>
+              <div className={`${bodyTextBald} text-foreground`}>Klarade dagar</div>
               <div className="text-sm text-muted-foreground font-normal">Antal dagar du följt dina Tips</div>
             </div>
             <div className="flex items-center justify-end">
