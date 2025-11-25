@@ -5,7 +5,7 @@ import { BackToTodayButton } from "@/components/BackToTodayButton";
 import { UserPlanForm } from "@/components/UserPlanForm";
 import { UserPlanDisplay } from "@/components/UserPlanDisplay";
 import DottedList from "@/components/DottedList";
-import exCard from "@/components/exCard"; 
+import ExampleCard from "@/components/exCard";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 
