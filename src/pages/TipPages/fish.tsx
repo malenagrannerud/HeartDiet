@@ -70,13 +70,23 @@ const FishPage = () => {
 
       <main className={`${pagePadding} ${standardSpacing.pageContent}`}>
         <p className={sectionSubheading2}>
-          Att äta fisk och skaldjur 2-3 gånger i veckan minskar risken för flera folksjukdomar. De innehåller många näringsämnen som det kan vara svårt att få tillräckligt av        
+          Att äta fisk och skaldjur 3 gånger i veckan minskar risken för flera folksjukdomar. De innehåller många näringsämnen som det kan vara svårt att få tillräckligt av        
         </p>
+        
+        <div> 
+          <p className={bodyText}>För att äta fisk och skaldjur kan du till exempel äta </p>
+          <DottedList items={[
+            "Smörgåspålägg. Till exempel: makrill i tomat, sill eller tonfisk på burk",
+            "Soppor och grytor",
+            "Hel, grillad fisk",
+            "Burgare och panerad fisk",
+            "Sallader",
+            "Sushi"
+          ]} />
+        </div>
 
         <div>  
-          <p className={bodyText}>
-            Ät fisk 2-3 gånger per vecka, varav minst en gång fet fisk som lax, makrill eller sill.
-          </p>
+          <p className={bodyText}>Ät fet fisk minst en gång av dina tre </p>
           <DottedList items={[
             "Fet fisk: Lax, makrill, sill, sardiner",
             "Mager fisk: Torsk, kolja, rödspätta",
@@ -85,7 +95,7 @@ const FishPage = () => {
         </div>
 
         <div> 
-          <h2 className={sectionHeading2}>Varför fisk och skaldjur 2-3 gånger?</h2>
+          <h2 className={sectionHeading2}>Varför fisk och skaldjur?</h2>
           <p className={bodyText}>
             Fisk och skaldjur är rika på omega-3-fettsyror, protein och viktiga vitaminer som stödjer hjärthälsa och hjärnfunktion.
           </p>
@@ -98,11 +108,41 @@ const FishPage = () => {
           ]} />
         </div>
 
+         <div>
+          <h2 className={sectionHeading2}>Nå ditt mål</h2>
+          <p className={bodyText}>
+            Genom att tänka ut när och hur du ska äta fisk och skaldjur tre gånger per vecka, kan du lättare modifiera en plan som passar dej.
+          </p>
+        </div>
+       
+        <div className="mt-2 space-y-2">
+                <ExampleCard 
+                  goal="Fet fisk en gång (1 gång)"
+                  when="Lunch - Tisdagar"
+                  how="Laga nytt recept på lax"
+                  reminder="Påminnelse kalender"
+                />
+
+                <ExampleCard 
+                  goal="Äta makrill en gång / v."
+                  when="Frukost - Måndagar"
+                  how="Makrill på burk på toast"
+                  reminder="Påminnelse kalender"
+                />
+
+                <ExampleCard 
+                  goal="Skaldjur en gång / v."
+                  when="Middag-fredagar"
+                  how="Moule marinere, pommes frites, aioli"
+                  reminder="-"
+                />
+        </div>
+
         <div className="mt-8 pt-6 border-t border-gray-200">
           <div className="mb-4">
             <h2 className={sectionHeading2}>Mina planer</h2>
             <p className={bodyText}>
-              Ändra planen eller delplaner så många gånger du behöver tills den fungerar för dej
+              Ändra din plan så många gånger du behöver tills den fungerar för dej            
             </p>
           </div>
 
