@@ -119,7 +119,7 @@ const FruitPage = () => {
         </div>
        
         <div>
-          <p className={bodyWhen}>Frukost</p>
+          <p><span className={bodyWhen}>Frukost</span></p>
           
           <p><span className={bodyHow}>Topping till gröt/musli/yoghurt/flingor</span></p>
           <p className={bodyText}>Toppa med blåbär, hallon, banan eller äppelskivor. Addera någon krydda för lite smak såsom kanel eller kardemumma.</p>
@@ -136,7 +136,6 @@ const FruitPage = () => {
           <p><span className={bodyHow}>Smoothie-bowl</span></p>
           <p className={bodyText}>Istället för att dricka smoothie - servera i en skål och toppa därefter med bär, nötter eller granola.</p>
         </div>
-
 
         <div>
           <div className="mt-8 pt-6 border-t border-border">
