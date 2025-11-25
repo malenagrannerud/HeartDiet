@@ -13,7 +13,7 @@ import { Plus } from "lucide-react";
 
 const FruitPage = () => {
   const [userPlans, setUserPlans] = useState<UserPlan[]>([]);
-  const [isEditing, setIsEditing] = useState(false);
+  const [isEditing, setIsEditing] = useState(true);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
 
   useEffect(() => {
