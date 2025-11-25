@@ -120,23 +120,21 @@ const FruitPage = () => {
        
         <div>
           <p className={bodyWhen}>Frukost</p>
+          
           <p className={bodyHow}>Topping till gröt/musli/yoghurt/flingor</p>
-          Toppa med blåbär, hallon, banan eller äppelskivor. Addera någon krydda för lite smak såsom kanel eller kardemumma.
+          <p className={bodyText}>Toppa med blåbär, hallon, banan eller äppelskivor. Addera någon krydda för lite smak såsom kanel eller kardemumma.</p>
 
           <p className={bodyHow}>Smörgåspålägg</p>
-          Lägg till gurkskiva eller paprika.
-          
-          <p className={bodyHow}>Bananpannkaka </p>         
-          Mosa en banan och blanda med två ägg och stek.
+          <p className={bodyText}>Lägg till gurkskiva eller paprika.</p>
 
-          Smoothie 
-          Blanda yoghurt eller kvarg och en skvätt mjölk men olika frukter och bär, lägg även till spenat - det kommer inte smaka något. Tips på grönsaker och frukt som är goda i smoothies kan vara grönkål, avokado, citron, banan, apelsin, eller mango.
+          <p className={bodyHow}>Bananpannkaka</p>
+          <p className={bodyText}>Mosa en banan och blanda med två ägg och stek.</p>
 
-          Smoothie-bowl 
-          Istället för att dricka smoothie - servera i en skål och toppa därefter med bär, nötter eller granola.
+          <p className={bodyHow}>Smoothie</p>
+          <p className={bodyText}>Blanda yoghurt eller kvarg och en skvätt mjölk med olika frukter och bär, lägg även till spenat - det kommer inte smaka något. Tips på grönsaker och frukt som är goda i smoothies kan vara grönkål, avokado, citron, banan, apelsin, eller mango.</p>
 
-
-
+          <p className={bodyHow}>Smoothie-bowl</p>
+          <p className={bodyText}>Istället för att dricka smoothie - servera i en skål och toppa därefter med bär, nötter eller granola.</p>
         </div>
 
 
