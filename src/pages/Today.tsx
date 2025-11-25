@@ -188,7 +188,7 @@ const Today = () => {
               {allStartCardsHidden ? (
                 <p className={bodyBaldSub}>Alla dina kurser är avklarade. Fokusera på att implementera en ny hälsosam vana!</p>
               ) : (
-                <div className="space-y-4">
+                <div className="space-y-1">
                   {!hiddenCards.tutorial && (
                     <div className="flex gap-4 items-center">
                       <CheckBoxLeft isCompleted={completionStatus.tutorial} />
