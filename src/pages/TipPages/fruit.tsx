@@ -113,7 +113,7 @@ const FruitPage = () => {
         </div>
 
         <div>
-          <h2 className={sectionHeading2}>Ät dina fem om dagen</h2>
+          <h2 className={sectionHeading2}>Nå ditt mål</h2>
           <p className={bodyText}>
             Genom att tänka ut när och hur du ska äta dina fem om dagen, kan du lättare modifiera en plan som passar dej. Några exempel:
           </p>
