@@ -6,8 +6,8 @@ import { BackToTodayButton } from "@/components/BackToTodayButton";
 import { UserPlanForm } from "@/components/UserPlanForm";
 import { UserPlanDisplay } from "@/components/UserPlanDisplay";
 import DottedList from "@/components/DottedList";
+import ExampleCard from "@/components/ExampleCard"; // or the correct path
 import { Button } from "@/components/ui/button";
-
 import { Plus } from "lucide-react";
 
 const FishPage = () => {
