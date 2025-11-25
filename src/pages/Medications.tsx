@@ -134,6 +134,9 @@ const Medications = () => {
       <main className={pagePadding}>
         <div className={standardSpacing.pageContent}>
           <section className={standardSpacing.sectionContent}>
+            <p className="text-destructive font-semibold text-lg mb-4">
+              Använd ej just nu
+            </p>
             <p className={bodyText}>
               Markera läkemedel du tar regelbundet. Då kan vi påminna dej om livsmedel som du evenutellt bör undvika.
             </p>
