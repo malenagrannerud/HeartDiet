@@ -77,8 +77,7 @@ const FruitPage = () => {
         </p>
 
         <div> 
-          <p className={bodyText}>Till dina fem om dagen räknas
-          </p>
+          <p className={bodyText}>Till dina fem om dagen räknas</p>
           <DottedList items={[
             "Rotfrukter",
             "Frukt - färska och frysta",
@@ -90,7 +89,7 @@ const FruitPage = () => {
         <div> 
           <h2 className={sectionHeading2}>Varför minst fem om dagen?</h2>
           <p className={bodyText}>
-            Du mår bättre med ett bättre humör och mindre trötthet eftersom frukt och grönt ger:
+            Du mår bättre med ett bättre humör och mindre trötthet eftersom frukt och grönt ger
           </p>
           <DottedList items={[
             "Stärkt immunförsvar: Vitaminer & mineraler boostar energi och immunförsvar",
@@ -118,13 +117,28 @@ const FruitPage = () => {
             Genom att tänka ut när och hur du ska äta dina fem om dagen, kan du lättare modifiera en plan som passar dej. 
           </p>
 
-          <p className={bodyTextBald}>När?</p>
+          <p className={bodyText}>
+            Exempel på <span style={{backgroundColor: "yellow"}}>"när"</span> och "hur"
+          </p>
 
+          
+          <p className={bodyText}>Exempel på "när" och "hur" </p>
+          <p className={bodyText}>Frukost</p>
+          <p className={bodyText}>En smoothe</p>
 
+          Gröt 
+          Toppa med blåbär, banan eller äppelskivor. Addera någon krydda för lite smak såsom kanel eller kardemumma.
 
-          <p className={bodyTextBald}>Hur?</p>
+          Yoghurt och flingor/müsli: 
+          Toppa även här med hallon, blåbär eller banan.
 
+          Smörgås: Lägg till någon gurkskiva eller paprika.
 
+          Bananpannkaka: mosa en banan och blanda med två ägg och stek.
+
+          Smoothie: blanda yoghurt eller kvarg och en skvätt mjölk men olika frukter och bär, lägg även till spenat - det kommer inte smaka något. Tips på grönsaker och frukt som är goda i smoothies kan vara grönkål, avokado, citron, banan, apelsin, eller mango.
+
+          Smoothie-bowl: istället för att dricka smoothie - servera i en skål och toppa därefter med bär, nötter eller granola.
 
 
 
