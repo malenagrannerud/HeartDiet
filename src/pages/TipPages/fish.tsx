@@ -1,4 +1,3 @@
-// pages/TipPages/fish.tsx
 import { useState, useEffect } from "react";
 import { UserPlan } from "@/data/tips";
 import { pageContainer, headerContainer, pagePadding, sectionHeading, sectionHeading2,  sectionSubheading2, bodyText, tipCardColors, standardSpacing } from "@/lib/design-tokens";
@@ -6,7 +5,7 @@ import { BackToTodayButton } from "@/components/BackToTodayButton";
 import { UserPlanForm } from "@/components/UserPlanForm";
 import { UserPlanDisplay } from "@/components/UserPlanDisplay";
 import DottedList from "@/components/DottedList";
-import ExampleCard from "@/components/ExampleCard"; // or the correct path
+import exCard from "@/components/exCard"; 
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 
