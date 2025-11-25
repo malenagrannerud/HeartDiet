@@ -180,6 +180,17 @@ export const bodyText = "text-base text-[#212658]";
  */
 export const bodyTextBald = "text-base font-bold text-[#212658]";
 
+/**
+ * BODY TEXT when
+ * Used for body text within cards 16 px
+ */
+export const bodyWhen = "text-base text-[#212658] bg-[#ffeb3b]";
+
+/**
+ * BODY TEXT how
+ * Used for body text within cards 16 px
+ */
+export const bodyHow = "text-base text-[#212658] bg-[#bbdefb]";
 
 /**
  * CARD TITLES - 16px
