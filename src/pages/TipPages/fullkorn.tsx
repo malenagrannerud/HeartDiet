@@ -99,7 +99,7 @@ const FullkornPage = () => {
         </div>
     
         <div>
-          <h2 className={sectionHeading2}>Må bättre</h2>
+          <h2 className={sectionHeading2}>Varför minst 90 g om dagen?</h2>
           <p>Du mår bättre av fullkorn eftersom det bidrar till</p>
           <DottedList items={[
             "Stärkt immunförsvar: C-vitamin och zink stärker skyddet mot infektioner",
@@ -111,7 +111,6 @@ const FullkornPage = () => {
         </div>
 
         <div>
-          <h2 className={sectionHeading2}>Skydd mot sjukdom</h2>
           <p>Fullkorn skyddar mot sjukdom eftersom det bidrar till</p>
           <DottedList items={[
             "Sänkt blodtryck: Kalium och magnesium i fullkorn hjälper blodkärlen att slappna av",
@@ -124,7 +123,7 @@ const FullkornPage = () => {
         </div>
 
         <div>
-          <h2 className={sectionHeading2}>Ät dina 90g om dagen</h2>
+          <h2 className={sectionHeading2}>Nå ditt mål</h2>
           <p className={bodyText}>
             Genom att tänka ut när och hur du ska äta dina 90g / dag, kan du lättare modifiera en plan som passar dej. Några exempel:
           </p>
