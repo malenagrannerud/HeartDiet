@@ -119,7 +119,7 @@ const FruitPage = () => {
         </div>
        
         <div>
-          <p className={bodyWhen}>Frukost</p>
+          <span className={bodyWhen}>Frukost</span> 
           
           <p className={bodyHow}>Topping till gröt/musli/yoghurt/flingor</p>
           <p className={bodyText}>Toppa med blåbär, hallon, banan eller äppelskivor. Addera någon krydda för lite smak såsom kanel eller kardemumma.</p>
