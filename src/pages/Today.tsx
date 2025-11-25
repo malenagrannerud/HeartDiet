@@ -5,7 +5,7 @@ import { Card } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
 import { tips } from "@/data/tips";
 import TipCard from "@/components/TipCard";
-import { pageTitle, sectionHeading, cardTitle, interactiveCard, pageContainer, headerContainer, pagePadding, standardSpacing, cardTitleSmall, pageSubtitle, sectionSubheading2, bodyTextBald } from "@/lib/design-tokens";
+import { pageTitle, sectionHeading, cardTitle, interactiveCard, pageContainer, headerContainer, pagePadding, standardSpacing, cardTitleSmall, pageSubtitle, sectionSubheading2, bodyTextBald, bodyBaldSub} from "@/lib/design-tokens";
 import { getStorageItem } from "@/lib/storage";
 import { markedTipsSchema } from "@/lib/schemas";
 import HealthPrioritiesImage from "@/assets/fill.png"; 
@@ -184,9 +184,9 @@ const Today = () => {
          <div className={standardSpacing.pageContent}>
             <section className={standardSpacing.sectionContent}>
               <h3 className={bodyTextBald}>Starta här</h3>
-              
+        
               {allStartCardsHidden ? (
-                <p className={sectionSubheading2}>Alla dina kurser är avklarade. Fokusera på att implementera en ny hälsosam vana!</p>
+                <p className={bodyBaldSub}>Alla dina kurser är avklarade. Fokusera på att implementera en ny hälsosam vana!</p>
               ) : (
                 <div className="space-y-4">
                   {!hiddenCards.tutorial && (
@@ -313,7 +313,7 @@ const Today = () => {
                   ))}
                 </div>
               ) : (
-                <p className={sectionSubheading2}>Välj vilka tips du vill göra under "Tips"</p>
+                <p className={bodyBaldSub}>Välj vilka tips du vill göra under "Tips"</p>
               )}
           </section>
         </div>
