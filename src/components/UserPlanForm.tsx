@@ -38,7 +38,7 @@ export const UserPlanForm: React.FC<UserPlanFormProps> = ({
             value={plan.goal}
             onChange={(e) => setPlan({ ...plan, goal: e.target.value })}
             placeholder="Ex: Äta två nävar bär, äta en frukt, äta en näve sallad..."
-            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full p-3 border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
         </div>
         
