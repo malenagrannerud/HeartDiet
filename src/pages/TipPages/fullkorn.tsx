@@ -132,14 +132,21 @@ const FullkornPage = () => {
 
         <div className="mt-2 space-y-2">
                 <ExampleCard 
-                  goal="Äta en tallrik gröt / dag"
+                  goal="Äta en tallrik gröt / dag (ca 35 g)"
                   when="Frukost: måndag-fredag"
                   how="Har goda toppings redo i kylskåpet"
                   reminder="Ställer fram havregrynen varje kväll"
                 />
+
+                <ExampleCard 
+                  goal="Äta två knäckebröd / dag (ca 25 g)"
+                  when="Lunch: måndag-fredag"
+                  how=" Har knäckebrödkorg på bordet"
+                  reminder="Skriver på inköpslistan"
+                />
                 
                 <ExampleCard 
-                  goal="Blanda pastan med hälften fullkornspasta"
+                  goal="Blanda pasta med fullkornspasta (ca 30 g )"
                   when="Middag: varje dag"
                   how="Blandar en färdig blandning i skafferiet"
                   reminder="-"
