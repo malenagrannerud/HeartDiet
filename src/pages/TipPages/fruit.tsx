@@ -88,7 +88,7 @@ const FruitPage = () => {
         </div>
 
         <div> 
-          <h2 className={sectionHeading2}>Må bättre</h2>
+          <h2 className={sectionHeading2}>Varför minst fem om dagen?</h2>
           <p className={bodyText}>
             Du mår bättre med ett bättre humör och mindre trötthet eftersom frukt och grönt ger:
           </p>
@@ -100,9 +100,8 @@ const FruitPage = () => {
         </div>
 
         <div> 
-          <h2 className={sectionHeading2}>Skydd mot sjukdom</h2>
           <p className={bodyText}>
-            Frukt och grönt minskar risken för hjärtsjukdom eftersom de:
+            Frukt och grönt minskar risken för hjärtsjukdom eftersom de
           </p>
           <DottedList items={[
             "Sänker blodtrycket: Kalium och nitrater vidgar blodkärlen",
