@@ -9,7 +9,6 @@ import DottedList from "@/components/DottedList";
 import ExampleCard from "@/components/exCard";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
-import { CollapsibleList } from "@/components/CollapsibleList";
 
 const FullkornPage = () => {
   const [userPlans, setUserPlans] = useState<UserPlan[]>([]);
@@ -100,65 +99,31 @@ const FullkornPage = () => {
         </div>
     
         <div>
-          <h2 className={sectionHeading2}>Må bättre</h2>
-          <p className="mb-4">Du mår bättre av fullkorn eftersom det bidrar till</p>
-          <CollapsibleList items={[
-            {
-              title: "Stärkt immunförsvar:",
-              content: "C-vitamin och zink stärker skyddet mot infektioner"
-            },
-            {
-              title: "Mer energi:",
-              content: "B-vitaminer omvandlar mat till energi och bekämpar trötthet"
-            },
-            {
-              title: "Muskelfunktion:",
-              content: "Magnesium är viktigt för muskelavslappning och energiproduktion"
-            },
-            {
-              title: "Benhälsa:",
-              content: "Vitamin K stärker skelettet och förbättrar blodkoagulering"
-            },
-            {
-              title: "Syretransport:",
-              content: "Järn förhindrar trötthet genom att transportera syre i blodet"
-            }
+          <h2 className={sectionHeading2}>Varför minst 90 g om dagen?</h2>
+          <p>Du mår bättre av fullkorn eftersom det bidrar till</p>
+          <DottedList items={[
+            "Stärkt immunförsvar: C-vitamin och zink stärker skyddet mot infektioner",
+            "Mer energi: B-vitaminer omvandlar mat till energi och bekämpar trötthet",
+            "Muskelfunktion: Magnesium är viktigt för muskelavslappning och energiproduktion",
+            "Benhälsa: Vitamin K stärker skelettet och förbättrar blodkoagulering",
+            "Syretransport: Järn förhindrar trötthet genom att transportera syre i blodet"
           ]} />
         </div>
 
         <div>
-          <h2 className={sectionHeading2}>Skydd mot sjukdom</h2>
-          <p className="mb-4">Fullkorn skyddar mot sjukdom eftersom det bidrar till</p>
-          <CollapsibleList items={[
-            {
-              title: "Sänkt blodtryck:",
-              content: "Kalium och magnesium i fullkorn hjälper blodkärlen att slappna av"
-            },
-            {
-              title: "Lägre kolesterol:",
-              content: "Lösliga fibrer binder sig med gallsyror och sänker LDL-kolesterolet"
-            },
-            {
-              title: "Minskad inflammation:",
-              content: "Antioxidanter i fullkorn skyddar kärlväggarna från skador"
-            },
-            {
-              title: "Förbättrad blodsockerreglering:",
-              content: "Långsamma kolhydrater förhindrar blodsockertoppar som skadar kärlen"
-            },
-            {
-              title: "Hälsosam vikt:",
-              content: "Fibrer (betaglukaner) mättar och hjälper dig att upprätthålla en normal vikt"
-            },
-            {
-              title: "Bättre blodfetter:",
-              content: "Omega-3-fettsyror i vissa fullkornsprodukter gynnar hjärtat"
-            }
+          <p>Fullkorn skyddar mot sjukdom eftersom det bidrar till</p>
+          <DottedList items={[
+            "Sänkt blodtryck: Kalium och magnesium i fullkorn hjälper blodkärlen att slappna av",
+            "Lägre kolesterol: Lösliga fibrer binder sig med gallsyror och sänker LDL-kolesterolet",
+            "Minskad inflammation: Antioxidanter i fullkorn skyddar kärlväggarna från skador",
+            "Förbättrad blodsockerreglering: Långsamma kolhydrater förhindrar blodsockertoppar som skadar kärlen",
+            "Hälsosam vikt: Fibrer (betaglukaner) mättar och hjälper dig att upprätthålla en normal vikt",
+            "Bättre blodfetter: Omega-3-fettsyror i vissa fullkornsprodukter gynnar hjärtat"
           ]} />
         </div>
 
         <div>
-          <h2 className={sectionHeading2}>Ät dina 90g om dagen</h2>
+          <h2 className={sectionHeading2}>Nå ditt mål</h2>
           <p className={bodyText}>
             Genom att tänka ut när och hur du ska äta dina 90g / dag, kan du lättare modifiera en plan som passar dej. Några exempel:
           </p>
@@ -166,14 +131,21 @@ const FullkornPage = () => {
 
         <div className="mt-2 space-y-2">
                 <ExampleCard 
-                  goal="Äta en tallrik gröt / dag"
+                  goal="Äta en tallrik gröt / dag (ca 35 g)"
                   when="Frukost: måndag-fredag"
                   how="Har goda toppings redo i kylskåpet"
                   reminder="Ställer fram havregrynen varje kväll"
                 />
+
+                <ExampleCard 
+                  goal="Äta två knäckebröd / dag (ca 25 g)"
+                  when="Lunch: måndag-fredag"
+                  how=" Har knäckebrödkorg på bordet"
+                  reminder="Skriver på inköpslistan"
+                />
                 
                 <ExampleCard 
-                  goal="Blanda pastan med hälften fullkornspasta"
+                  goal="Blanda pasta med fullkornspasta (ca 30 g )"
                   when="Middag: varje dag"
                   how="Blandar en färdig blandning i skafferiet"
                   reminder="-"
