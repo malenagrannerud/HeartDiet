@@ -73,7 +73,7 @@ const FruitPage = () => {
 
       <main className={`${pagePadding} ${standardSpacing.pageContent}`}>
         <p className={sectionSubheading2}>
-          Att äta minst fem nävar frukter och grönsaker varje dag hjälper dig att må bättre och minska risken för hjärt-kärlsjukdom. Välj olika sorter och färger! 
+          Att äta minst fem nävar frukter och grönsaker varje dag hjälper dig att må bättre och minska risken för hjärt-kärlsjukdom. Välj olika sorter och färger för att få i dej alla näringsämnen 
         </p>
 
         <div> 
