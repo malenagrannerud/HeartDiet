@@ -49,7 +49,7 @@ export const UserPlanForm: React.FC<UserPlanFormProps> = ({
             value={plan.when}
             onChange={(e) => setPlan({ ...plan, when: e.target.value })}
             placeholder="Ex: Frukost, lunch, mellanmål, middag..."
-            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full p-3 border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
         </div>
 
@@ -62,7 +62,7 @@ export const UserPlanForm: React.FC<UserPlanFormProps> = ({
             onChange={(e) => setPlan({ ...plan, how: e.target.value })}
             placeholder="Ex: Jag ska handla grönsaker på söndag och förbereda fruktsallad till hela veckan..."
             rows={4}
-            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full p-3 border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
         </div>
 
@@ -73,7 +73,7 @@ export const UserPlanForm: React.FC<UserPlanFormProps> = ({
             value={plan.reminder}
             onChange={(e) => setPlan({ ...plan, reminder: e.target.value })}
             placeholder="Ex: Sätt alarm, handla på söndag, förbereda kvällen innan..."
-            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full p-3 border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
         </div>
 
