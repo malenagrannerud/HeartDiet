@@ -29,7 +29,7 @@ export const UserPlanForm: React.FC<UserPlanFormProps> = ({
   };
 
   return (
-    <div className="bg-white rounded-md border border-gray-200 p-6 mt-6">
+    <div className="bg-white border-gray-200 p-6 mt-6">
       <form onSubmit={handleSubmit} className="space-y-4 mt-4">
         <div>
           <label className={`${bodyTextBald} block mb-2`}>Mål</label>
