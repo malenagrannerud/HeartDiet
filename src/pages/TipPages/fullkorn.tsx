@@ -9,7 +9,6 @@ import DottedList from "@/components/DottedList";
 import ExampleCard from "@/components/exCard";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
-import { CollapsibleList } from "@/components/CollapsibleList";
 
 const FullkornPage = () => {
   const [userPlans, setUserPlans] = useState<UserPlan[]>([]);
@@ -102,32 +101,12 @@ const FullkornPage = () => {
         <div>
           <h2 className={sectionHeading2}>Må bättre</h2>
           <p>Du mår bättre av fullkorn eftersom det bidrar till</p>
-          <CollapsibleList items={[
-            {
-              title: "Stärkt immunförsvar:",
-              content: "C-vitamin och zink stärker skyddet mot infektioner",
-              defaultOpen: true
-            },
-            {
-              title: "Mer energi:",
-              content: "B-vitaminer omvandlar mat till energi och bekämpar trötthet",
-              defaultOpen: true
-            },
-            {
-              title: "Muskelfunktion:",
-              content: "Magnesium är viktigt för muskelavslappning och energiproduktion",
-              defaultOpen: true
-            },
-            {
-              title: "Benhälsa:",
-              content: "Vitamin K stärker skelettet och förbättrar blodkoagulering",
-              defaultOpen: true
-            },
-            {
-              title: "Syretransport:",
-              content: "Järn förhindrar trötthet genom att transportera syre i blodet",
-              defaultOpen: true
-            }
+          <DottedList items={[
+            "Stärkt immunförsvar: C-vitamin och zink stärker skyddet mot infektioner",
+            "Mer energi: B-vitaminer omvandlar mat till energi och bekämpar trötthet",
+            "Muskelfunktion: Magnesium är viktigt för muskelavslappning och energiproduktion",
+            "Benhälsa: Vitamin K stärker skelettet och förbättrar blodkoagulering",
+            "Syretransport: Järn förhindrar trötthet genom att transportera syre i blodet"
           ]} />
         </div>
 
