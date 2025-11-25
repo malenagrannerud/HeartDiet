@@ -9,6 +9,7 @@ import DottedList from "@/components/DottedList";
 import ExampleCard from "@/components/exCard";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
+import { CollapsibleList } from "@/components/CollapsibleList";
 
 const FullkornPage = () => {
   const [userPlans, setUserPlans] = useState<UserPlan[]>([]);
@@ -100,13 +101,28 @@ const FullkornPage = () => {
     
         <div>
           <h2 className={sectionHeading2}>Må bättre</h2>
-          <p>Du mår bättre av fullkorn eftersom det bidrar till</p>
-          <DottedList items={[
-            "Stärkt immunförsvar: C-vitamin och zink stärker skyddet mot infektioner",
-            "Mer energi: B-vitaminer omvandlar mat till energi och bekämpar trötthet",
-            "Muskelfunktion: Magnesium är viktigt för muskelavslappning och energiproduktion",
-            "Benhälsa: Vitamin K stärker skelettet och förbättrar blodkoagulering",
-            "Syretransport: Järn förhindrar trötthet genom att transportera syre i blodet"
+          <p className="mb-4">Du mår bättre av fullkorn eftersom det bidrar till</p>
+          <CollapsibleList items={[
+            {
+              title: "Stärkt immunförsvar:",
+              content: "C-vitamin och zink stärker skyddet mot infektioner"
+            },
+            {
+              title: "Mer energi:",
+              content: "B-vitaminer omvandlar mat till energi och bekämpar trötthet"
+            },
+            {
+              title: "Muskelfunktion:",
+              content: "Magnesium är viktigt för muskelavslappning och energiproduktion"
+            },
+            {
+              title: "Benhälsa:",
+              content: "Vitamin K stärker skelettet och förbättrar blodkoagulering"
+            },
+            {
+              title: "Syretransport:",
+              content: "Järn förhindrar trötthet genom att transportera syre i blodet"
+            }
           ]} />
         </div>
 
