@@ -68,7 +68,7 @@ const FruitPage = () => {
     <div className={pageContainer}>
       <header className={`${headerContainer} ${tipCardColors.green}`}>
         <BackToTodayButton />
-        <h1 className={sectionHeading}>FEM OM DAGEN</h1>
+        <h1 className={sectionHeading}>Fem om dagen</h1>
       </header>
 
       <main className={`${pagePadding} ${standardSpacing.pageContent}`}>
