@@ -180,7 +180,7 @@ export const bodyTextBald = "text-base font-bold text-[#212658]";
 /**
  * BODY SUB - Under body bald 16 px
  */
-export const bodyBaldSub = "text-base font-bold text-[#212658]/70";
+export const bodyBaldSub = "text-base text-[#212658]/70";
 
 /**
  * BODY TEXT when
