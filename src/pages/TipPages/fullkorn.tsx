@@ -128,14 +128,32 @@ const FullkornPage = () => {
 
         <div>
           <h2 className={sectionHeading2}>Skydd mot sjukdom</h2>
-          <p>Fullkorn skyddar mot sjukdom eftersom det bidrar till</p>
-          <DottedList items={[
-            "Sänkt blodtryck: Kalium och magnesium i fullkorn hjälper blodkärlen att slappna av",
-            "Lägre kolesterol: Lösliga fibrer binder sig med gallsyror och sänker LDL-kolesterolet",
-            "Minskad inflammation: Antioxidanter i fullkorn skyddar kärlväggarna från skador",
-            "Förbättrad blodsockerreglering: Långsamma kolhydrater förhindrar blodsockertoppar som skadar kärlen",
-            "Hälsosam vikt: Fibrer (betaglukaner) mättar och hjälper dig att upprätthålla en normal vikt",
-            "Bättre blodfetter: Omega-3-fettsyror i vissa fullkornsprodukter gynnar hjärtat"
+          <p className="mb-4">Fullkorn skyddar mot sjukdom eftersom det bidrar till</p>
+          <CollapsibleList items={[
+            {
+              title: "Sänkt blodtryck:",
+              content: "Kalium och magnesium i fullkorn hjälper blodkärlen att slappna av"
+            },
+            {
+              title: "Lägre kolesterol:",
+              content: "Lösliga fibrer binder sig med gallsyror och sänker LDL-kolesterolet"
+            },
+            {
+              title: "Minskad inflammation:",
+              content: "Antioxidanter i fullkorn skyddar kärlväggarna från skador"
+            },
+            {
+              title: "Förbättrad blodsockerreglering:",
+              content: "Långsamma kolhydrater förhindrar blodsockertoppar som skadar kärlen"
+            },
+            {
+              title: "Hälsosam vikt:",
+              content: "Fibrer (betaglukaner) mättar och hjälper dig att upprätthålla en normal vikt"
+            },
+            {
+              title: "Bättre blodfetter:",
+              content: "Omega-3-fettsyror i vissa fullkornsprodukter gynnar hjärtat"
+            }
           ]} />
         </div>
 
