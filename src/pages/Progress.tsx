@@ -390,7 +390,7 @@ const Progress = () => {
     <div className={`${pageContainer} ${pagePadding} space-y-6`}>
       <header className="flex items-start justify-between">
         <div>
-          <h1 className={pageTitle}>Veckoöversikt</h1>
+          <h1 className={pageTitle}>Mina sidor</h1>
           <p className={pageSubtitle}>Följ dina framsteg och logga data</p>
         </div>
       </header>
@@ -436,7 +436,7 @@ const Progress = () => {
           <table className="w-full border-collapse">
             <thead>
               <tr className="border-b bg-muted/50">
-                <th className="text-left py-2 px-2 font-semibold text-foreground w-[200px]">Tips</th>
+                <th className="text-left py-1 px-1 font-semibold text-foreground w-[200px]"></th>
                 {weekDates.map((date, index) => {
                   const todayHighlight = isToday(date);
                   return (
