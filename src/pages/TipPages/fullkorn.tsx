@@ -9,6 +9,7 @@ import DottedList from "@/components/DottedList";
 import ExampleCard from "@/components/exCard";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
+import { CollapsibleList } from "@/components/CollapsibleList";
 
 const FullkornPage = () => {
   const [userPlans, setUserPlans] = useState<UserPlan[]>([]);
@@ -100,14 +101,17 @@ const FullkornPage = () => {
     
         <div>
           <h2 className={sectionHeading2}>Varför minst 90 g om dagen?</h2>
-          <p>Du mår bättre av fullkorn eftersom det bidrar till</p>
-          <DottedList items={[
-            "Stärkt immunförsvar: C-vitamin och zink stärker skyddet mot infektioner",
-            "Mer energi: B-vitaminer omvandlar mat till energi och bekämpar trötthet",
-            "Muskelfunktion: Magnesium är viktigt för muskelavslappning och energiproduktion",
-            "Benhälsa: Vitamin K stärker skelettet och förbättrar blodkoagulering",
-            "Syretransport: Järn förhindrar trötthet genom att transportera syre i blodet"
-          ]} />
+          <CollapsibleList 
+            title="Du mår bättre av fullkorn eftersom det bidrar till"
+            items={[
+              "Stärkt immunförsvar: C-vitamin och zink stärker skyddet mot infektioner",
+              "Mer energi: B-vitaminer omvandlar mat till energi och bekämpar trötthet",
+              "Muskelfunktion: Magnesium är viktigt för muskelavslappning och energiproduktion",
+              "Benhälsa: Vitamin K stärker skelettet och förbättrar blodkoagulering",
+              "Syretransport: Järn förhindrar trötthet genom att transportera syre i blodet"
+            ]}
+            defaultOpen={true}
+          />
         </div>
 
         <div>
