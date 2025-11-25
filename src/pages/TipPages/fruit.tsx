@@ -114,74 +114,78 @@ const FruitPage = () => {
         <div>
           <h2 className={sectionHeading2}>Nå ditt mål</h2>
           <p className={bodyText}>
-            Genom att tänka ut när och hur du ska äta dina fem om dagen, kan du lättare modifiera en plan som passar dej.
+            Genom att tänka ut <span className={bodyWhen}>när</span> och <span className={bodyHow}>hur</span> du ska äta dina fem om dagen, kan du lättare modifiera en plan som passar dej.
           </p>
         </div>
        
-        <div className="mt-2 space-y-2">
-                <ExampleCard 
-                  goal="En smoothie/dag (ca 2 nävar)"
-                  when="Frukost: måndag-fredag"
-                  how="Har goda toppings redo i kylskåpet"
-                  reminder="Påminnelse kalender"
-                />
+        <div>
+          <p className={bodyWhen}>Frukost</p>
+          
+          <p className={bodyHow}>Topping till gröt/musli/yoghurt/flingor</p>
+          <p className={bodyText}>Toppa med blåbär, hallon, banan eller äppelskivor. Addera någon krydda för lite smak såsom kanel eller kardemumma.</p>
 
-                <ExampleCard 
-                  goal="Grönt på smörgåsen / dag (ca 1 näve)"
-                  when="Frukost"
-                  how="Skivar gurka / tomat / paprika"
-                  reminder="Bild på grönsaker på kylskåpet"
-                />
+          <p className={bodyHow}>Smörgåspålägg</p>
+          <p className={bodyText}>Lägg till gurkskiva eller paprika.</p>
 
-                <ExampleCard 
-                  goal="Sallad varje dag (ca 2 nävar)"
-                  when="Lunch och middag"
-                  how="Förbereder råkostsallad för hela veckan"
-                  reminder="-"
-                />
+          <p className={bodyHow}>Bananpannkaka</p>
+          <p className={bodyText}>Mosa en banan och blanda med två ägg och stek.</p>
+
+          <p className={bodyHow}>Smoothie</p>
+          <p className={bodyText}>Blanda yoghurt eller kvarg och en skvätt mjölk med olika frukter och bär, lägg även till spenat - det kommer inte smaka något. Tips på grönsaker och frukt som är goda i smoothies kan vara grönkål, avokado, citron, banan, apelsin, eller mango.</p>
+
+          <p className={bodyHow}>Smoothie-bowl</p>
+          <p className={bodyText}>Istället för att dricka smoothie - servera i en skål och toppa därefter med bär, nötter eller granola.</p>
         </div>
 
-        <div className="mt-8 pt-6 border-t border-gray-200">
-          <div className="mb-4">
-            <h2 className={sectionHeading2}>Min plan</h2>
-            <p className={bodyText}>
+
+        <div>
+          <div className="mt-8 pt-6 border-t border-border">
+            <div className="mb-4">
+              <h2 className={sectionHeading2}>Min plan</h2>
+              <p className={bodyText}>
               Ändra din plan så många gånger du behöver tills den fungerar för dej
-            </p>
+              </p>
+            </div>
+
+            {userPlans.length > 0 && (
+              <UserPlanDisplay
+                plans={userPlans}
+                onEdit={handleEditPlan}
+                onDelete={handleDeletePlan}
+              />
+            )}
+
+            {isEditing && (
+              <div className="mb-6 p-6 border border-border rounded-lg bg-card">
+                <h3 className="text-lg font-semibold mb-4">
+                  {editingIndex !== null ? 'Redigera plan' : 'Skapa ny plan'}
+                </h3>
+                <UserPlanForm
+                  tipId={1}
+                  initialPlan={editingIndex !== null ? userPlans[editingIndex] : undefined}
+                  onSave={handleSavePlan}
+                  onCancel={handleCancelEdit}
+                />
+              </div>
+            )}
+
+            {canAddMorePlans && (
+              <Button
+                onClick={handleAddNewPlan}
+                className="flex items-center gap-2 mt-6"
+                variant={userPlans.length === 0 ? "default" : "outline"}
+              >
+                <Plus size={16} />
+                Lägg till plan
+              </Button>
+            )}
+
+            {!canAddMorePlans && (
+              <p className="text-sm text-muted-foreground mt-4">
+                Du har nått max antal planer (10)
+              </p>
+            )}
           </div>
-
-          {userPlans.length > 0 && (
-            <UserPlanDisplay
-              plans={userPlans}
-              onEdit={handleEditPlan}
-              onDelete={handleDeletePlan}
-            />
-          )}
-
-          {isEditing && (
-            <UserPlanForm
-              tipId={2}
-              initialPlan={editingIndex !== null ? userPlans[editingIndex] : undefined}
-              onSave={handleSavePlan}
-              onCancel={handleCancelEdit}
-            />
-          )}
-
-          {canAddMorePlans && (
-            <Button
-              onClick={handleAddNewPlan}
-              className="flex items-center gap-2 mt-6"
-              variant={userPlans.length === 0 ? "default" : "outline"}
-            >
-              <Plus size={16} />
-              Lägg till plan
-            </Button>
-          )}
-
-          {!canAddMorePlans && (
-            <p className="text-sm text-muted-foreground mt-4">
-              Du har nått max antal planer (10)
-            </p>
-          )}
         </div>
       </main>
     </div>

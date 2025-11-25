@@ -1,7 +1,7 @@
 // pages/TipPages/fish.tsx
 import { useState, useEffect } from "react";
 import { UserPlan } from "@/data/tips";
-import { pageContainer, headerContainer, pagePadding, sectionHeading, sectionHeading2,  sectionSubheading2, bodyText, tipCardColors, standardSpacing } from "@/lib/design-tokens";
+import { pageContainer, headerContainer, pagePadding, sectionHeading, sectionHeading2, bodyText, tipCardColors, standardSpacing } from "@/lib/design-tokens";
 import { BackToTodayButton } from "@/components/BackToTodayButton";
 import { UserPlanForm } from "@/components/UserPlanForm";
 import { UserPlanDisplay } from "@/components/UserPlanDisplay";
@@ -69,34 +69,27 @@ const FishPage = () => {
       </header>
 
       <main className={`${pagePadding} ${standardSpacing.pageContent}`}>
-        <p className={sectionSubheading2}>
-          Att äta fisk och skaldjur 2-3 gånger i veckan minskar risken för flera folksjukdomar. De innehåller många näringsämnen som det kan vara svårt att få tillräckligt av        
+        <h2 className={sectionHeading2}>Varför fisk och skaldjur?</h2>
+        <p className={bodyText}>
+          Fisk och skaldjur är rika på omega-3-fettsyror, protein och viktiga vitaminer som stödjer hjärthälsa och hjärnfunktion.
         </p>
+        <DottedList items={[
+          "Minskar risk för hjärtinfarkt och stroke",
+          "Stödjer hjärnans utveckling och funktion",
+          "Rik källa till D-vitamin och jod",
+          "Innehåller högkvalitativt protein",
+          "Anti-inflammatoriska egenskaper"
+        ]} />
 
-        <div>  
-          <p className={bodyText}>
-            Ät fisk 2-3 gånger per vecka, varav minst en gång fet fisk som lax, makrill eller sill.
-          </p>
-          <DottedList items={[
-            "Fet fisk: Lax, makrill, sill, sardiner",
-            "Mager fisk: Torsk, kolja, rödspätta",
-            "Skaldjur: Räkor, musslor, kräftor"
-          ]} />
-        </div>
-
-        <div> 
-          <h2 className={sectionHeading2}>Varför fisk och skaldjur 2-3 gånger?</h2>
-          <p className={bodyText}>
-            Fisk och skaldjur är rika på omega-3-fettsyror, protein och viktiga vitaminer som stödjer hjärthälsa och hjärnfunktion.
-          </p>
-          <DottedList items={[
-            "Minskar risk för hjärtinfarkt och stroke",
-            "Stödjer hjärnans utveckling och funktion",
-            "Rik källa till D-vitamin och jod",
-            "Innehåller högkvalitativt protein",
-            "Anti-inflammatoriska egenskaper"
-          ]} />
-        </div>
+        <h2 className={sectionHeading2}>Rekommendation</h2>
+        <p className={bodyText}>
+          Ät fisk 2-3 gånger per vecka, varav minst en gång fet fisk som lax, makrill eller sill.
+        </p>
+        <DottedList items={[
+          "Fet fisk: Lax, makrill, sill, sardiner",
+          "Mager fisk: Torsk, kolja, rödspätta",
+          "Skaldjur: Räkor, musslor, kräftor"
+        ]} />
 
         <div className="mt-8 pt-6 border-t border-gray-200">
           <div className="mb-4">
