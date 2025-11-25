@@ -168,17 +168,19 @@ export const sectionHeading2 = "text-xl font-bold text-[#212658] mt-2";
 export const sectionSubheading2 = "text-lg font-normal text-[#212658]/70 ";
 
 /**
- * BODY TEXT 
- * 16 px Used for body text within cards 16 px
+ * BODY TEXT-16 px Used for body text within cards 16 px
  */
 export const bodyText = "text-base text-[#212658]";
 
-
 /**
- * BODY TEXT 
- * Used for body text within cards 16 px
+ * BODY TEXT- 16 px
  */
 export const bodyTextBald = "text-base font-bold text-[#212658]";
+
+/**
+ * BODY SUB - Under body bald 16 px
+ */
+export const bodyBaldSub = "text-base font-bold text-[#212658]/70";
 
 /**
  * BODY TEXT when
