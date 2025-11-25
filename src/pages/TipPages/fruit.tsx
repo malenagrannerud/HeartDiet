@@ -116,26 +116,24 @@ const FruitPage = () => {
           <p className={bodyText}>
             Genom att tänka ut <span className={bodyWhen}>när</span> och <span className={bodyHow}>hur</span> du ska äta dina fem om dagen, kan du lättare modifiera en plan som passar dej.
           </p>
+        </div>
        
+        <div>
+          <p className={bodyWhen}>Frukost</p>
+          <p className={bodyHow}>Topping till gröt/musli/yoghurt/flingor</p>
+          Toppa med blåbär, hallon, banan eller äppelskivor. Addera någon krydda för lite smak såsom kanel eller kardemumma.
 
-         
-          <p className={bodyText}>Exempel på "när" och "hur" </p>
-          <p className={bodyText}>Frukost</p>
-          <p className={bodyText}>En smoothe</p>
+          <p className={bodyHow}>Smörgåspålägg</p>
+          Lägg till gurkskiva eller paprika.
+          
+          <p className={bodyHow}>Bananpannkaka </p>         
+          Mosa en banan och blanda med två ägg och stek.
 
-          Gröt 
-          Toppa med blåbär, banan eller äppelskivor. Addera någon krydda för lite smak såsom kanel eller kardemumma.
+          Smoothie 
+          Blanda yoghurt eller kvarg och en skvätt mjölk men olika frukter och bär, lägg även till spenat - det kommer inte smaka något. Tips på grönsaker och frukt som är goda i smoothies kan vara grönkål, avokado, citron, banan, apelsin, eller mango.
 
-          Yoghurt och flingor/müsli: 
-          Toppa även här med hallon, blåbär eller banan.
-
-          Smörgås: Lägg till någon gurkskiva eller paprika.
-
-          Bananpannkaka: mosa en banan och blanda med två ägg och stek.
-
-          Smoothie: blanda yoghurt eller kvarg och en skvätt mjölk men olika frukter och bär, lägg även till spenat - det kommer inte smaka något. Tips på grönsaker och frukt som är goda i smoothies kan vara grönkål, avokado, citron, banan, apelsin, eller mango.
-
-          Smoothie-bowl: istället för att dricka smoothie - servera i en skål och toppa därefter med bär, nötter eller granola.
+          Smoothie-bowl 
+          Istället för att dricka smoothie - servera i en skål och toppa därefter med bär, nötter eller granola.
 
 
 
