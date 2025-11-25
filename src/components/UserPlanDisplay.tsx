@@ -17,7 +17,7 @@ export const UserPlanDisplay: React.FC<UserPlanDisplayProps> = ({
   return (
     <div className="space-y-4 mt-6">
       {plans.map((plan, index) => (
-        <div key={index} className="bg-green-50 border border-green-200 rounded-lg p-6 relative">
+        <div key={index} className="bg-green-50 border border-green-200 p-6 relative">
           <div className="flex justify-between items-start mb-4">
             <h3 className={`${bodyTextBald} flex items-center gap-2`}>
               Min sparade plan {plans.length > 1 && `${index + 1}`} ✅
