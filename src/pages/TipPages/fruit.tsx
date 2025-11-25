@@ -114,14 +114,10 @@ const FruitPage = () => {
         <div>
           <h2 className={sectionHeading2}>Nå ditt mål</h2>
           <p className={bodyText}>
-            Genom att tänka ut när och hur du ska äta dina fem om dagen, kan du lättare modifiera en plan som passar dej. 
+            Genom att tänka ut <span style={{backgroundColor: "yellow"}}>"när"</span> och "<span style={{backgroundColor: "#bbdefb"}}>hur</span>" du ska äta dina fem om dagen, kan du lättare modifiera en plan som passar dej. 
           </p>
 
-          <p className={bodyText}>
-            Exempel på <span style={{backgroundColor: "yellow"}}>"när"</span> och "hur"
-          </p>
-
-          
+         
           <p className={bodyText}>Exempel på "när" och "hur" </p>
           <p className={bodyText}>Frukost</p>
           <p className={bodyText}>En smoothe</p>
