@@ -470,8 +470,8 @@ const Progress = () => {
                 
                 return (
                   <tr key={tip.id} className="border-b hover:bg-muted/30 transition-colors">
-                    <td className="py-1 px-2">
-                      <span className="text-sm font-medium">{tip.title}</span>
+                    <td className="py-1 px-1">
+                      <span className={`${bodyTextBald}`}>{tip.title}</span>
                     </td>
                     {weekDates.map((date, dayIndex) => {
                       const todayHighlight = isToday(date);
