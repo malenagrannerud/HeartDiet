@@ -65,7 +65,7 @@ export const ProgressChart: React.FC<ProgressChartProps> = ({ type, dayLogs }) =
               const dateB = new Date(b.date).getTime();
               return dateA - dateB;
             })}
-            margin={{ top: 30, right: 10, left: 0, bottom: 2 }}
+            margin={{ top: 10, right: 10, left: 10, bottom: 10 }}
           >
             <XAxis 
               dataKey="date" 
