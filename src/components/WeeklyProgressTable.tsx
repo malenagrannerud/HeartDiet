@@ -154,7 +154,7 @@ export const WeeklyProgressTable = ({
                               <Checkbox
                                 checked={isTipCompletedOnDate(tip.id, date)}
                                 onCheckedChange={() => onTipToggle(tip.id, date)}
-                                className="h-8 w-8 p-0 rounded-none border-gray-300 transition-all duration-200"
+                                className="h-8 w-8 p-0 rounded-none border-gray-300 transition-all duration-200 [&[data-state=checked]>svg]:hidden"
                                 style={isTipCompletedOnDate(tip.id, date) ? {
                                   backgroundColor: tipColor,
                                   borderColor: tipColor
