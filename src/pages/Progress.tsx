@@ -389,10 +389,11 @@ const Progress = () => {
   return (
     <div className={pageContainer}>
       <header className={headerContainer}>
+        
           <h1 className={pageTitle}>Mina sidor</h1>
           <p className={pageSubtitle}>Följ dina framsteg och logga data</p>
+        
       </header>
-
       <main className={pagePadding}>
         <div className={standardSpacing.pageContent}>
 
@@ -429,8 +430,10 @@ const Progress = () => {
             >
               <ChevronRight className="h-5 w-5" />
             </Button>
-          
+          </div>
+
           {/* Weekly Table */}
+          <div className={standardSpacing.sectionContent}>
             <div className="bg-background border overflow-hidden">
               <div className="overflow-x-auto">
                 <table className="w-full border-collapse">
@@ -503,7 +506,7 @@ const Progress = () => {
                     {/* Row for weight */}
                     <tr className="border-b bg-muted/20">
                       <td className="py-1 px-1">
-                        <span className={bodyText}>Vikt</span>
+                        <span className={bodyTextBald}>Vikt</span>
                       </td>
                       {weekDates.map((date, dayIndex) => {
                         const hasWeight = hasWeightOnDate(date);
