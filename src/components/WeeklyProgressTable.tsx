@@ -235,7 +235,6 @@ export const WeeklyProgressTable = ({
             </table>
           </div>
         </div>
-     
     </>
   );
 };
