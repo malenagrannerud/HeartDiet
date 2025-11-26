@@ -102,7 +102,8 @@ export const WeeklyProgressTable = ({
           <div className="overflow-x-auto">
             <table className="w-full border-collapse">
               <thead>
-                <tr className="border-b bg-muted/50">
+              
+                <tr className="border-b bg-muted/20">
                   <th className="text-left py-1 px-1 font-semibold text-foreground w-[200px]"></th> 
                   {weekDates.map((date, index) => {
                     const todayHighlight = isToday(date);
