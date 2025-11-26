@@ -55,7 +55,7 @@ export const WeeklyProgressTable = ({
   return (
     <>
       {/* Week Navigation */}
-      <div className="flex flex-col gap-2"> 
+      <div className="flex flex-col gap-1"> 
         {/* Top row: arrows and date */}
         <div className="flex items-center justify-between">
           <Button
@@ -102,7 +102,6 @@ export const WeeklyProgressTable = ({
           <div className="overflow-x-auto">
             <table className="w-full border-collapse">
               <thead>
-              
                 <tr className="border-b bg-muted/20">
                   <th className="text-left py-1 px-1 font-semibold text-foreground w-[200px]"></th> 
                   {weekDates.map((date, index) => {
