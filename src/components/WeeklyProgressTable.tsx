@@ -154,7 +154,7 @@ export const WeeklyProgressTable = ({
                               {/* Tip box color*/}
                                     <div
                                       onClick={() => onTipToggle(tip.id, date)}
-                                      className={`h-8 w-8 border border-gray-400 rounded-none transition-all duration-200 cursor-pointer ${
+                                      className={`h-8 w-8 border border-gray-100 rounded-none transition-all duration-200 cursor-pointer ${
                                         isTipCompletedOnDate(tip.id, date) ? '' : 'bg-white'
                                       }`}
                                       style={isTipCompletedOnDate(tip.id, date) ? {
