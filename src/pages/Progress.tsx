@@ -2,23 +2,23 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { format, startOfWeek, addDays, startOfMonth, endOfMonth } from "date-fns";
 import { sv } from "date-fns/locale";
-import { ChevronLeft, ChevronRight, Plus, Heart, Pill, Weight } from "lucide-react";
+import { Heart, Pill } from "lucide-react";
 import { tips } from "@/data/tips";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
-import { pageTitle, pageSubtitle, pageContainer, headerContainer, pagePadding, standardSpacing, bodyText, bodyTextBald, cardTextSmall, cardTextSmallBold, tableHeaderSmall, tableHeaderMedium } from "@/lib/design-tokens";
+import { pageTitle, pageSubtitle, pageContainer, headerContainer, pagePadding, standardSpacing, cardTextSmall, bodyTextBald } from "@/lib/design-tokens";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { getDayLogs } from "@/lib/tip-completion";
-import { Checkbox } from "@/components/ui/checkbox";
 import { getStorageItem } from "@/lib/storage";
 import { healthPrioritiesSchema } from "@/lib/schemas";
 import { StatsBox } from "@/components/StatsBox";
 import { HealthInfoCard } from "@/components/HealthInfoCard";
 import { getCurrentDate } from "@/lib/simulated-date";
 import { ProgressChart } from "@/components/ProgressChart";
+import { WeeklyProgressTable } from "@/components/WeeklyProgressTable";
 
 interface DayLog {
   date: string;
@@ -357,14 +357,6 @@ const Progress = () => {
     return maxStreak;
   };
 
-  const getDayInitial = (date: Date) => {
-    const days = ['Sön', 'Mån', 'Tis', 'Ons', 'Tor', 'Fre', 'Lör'];
-    return days[date.getDay()];
-  };
-
-  const capitalizeMonth = (dateStr: string) => {
-    return dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
-  };
 
   const hasWeightOnDate = (date: Date): boolean => {
     const dateStr = format(date, 'yyyy-MM-dd');
@@ -397,180 +389,19 @@ const Progress = () => {
       <main className={pagePadding}>
         <div className={standardSpacing.pageContent}>
 
-          {/* Week Navigation */}
-          <div className={standardSpacing.sectionContent}>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={goToPreviousWeek}
-              className="h-10"
-            >
-              <ChevronLeft className="h-5 w-5" />
-            </Button>
-            
-            <div className="text-center">
-              <div className="text-lg font-semibold">
-                {format(weekDates[0], 'd MMM', { locale: sv })} - {format(weekDates[6], 'd MMM', { locale: sv })}
-              </div>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={goToCurrentWeek}
-                className="text-xs text-muted-foreground hover:text-foreground"
-              >
-                Gå till idag
-              </Button>
-            </div>
-
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={goToNextWeek}
-              className="h-10"
-            >
-              <ChevronRight className="h-5 w-5" />
-            </Button>
-          </div>
-
-          {/* Weekly Table */}
-          <div className={standardSpacing.sectionContent}>
-            <div className="bg-background border overflow-hidden">
-              <div className="overflow-x-auto">
-                <table className="w-full border-collapse">
-                  <thead>
-                    <tr className="border-b bg-muted/50">
-                      <th className="text-left py-1 px-1 font-semibold text-foreground w-[200px]"></th> 
-                      {weekDates.map((date, index) => {
-                        const todayHighlight = isToday(date);
-                        return (
-                          <th 
-                            key={index} 
-                            className={`text-center py-2 px-0 font-semibold min-w-[40px] ${
-                              todayHighlight ? 'bg-primary/20 border-l-2 border-r-2 border-primary' : 'text-foreground'
-                            }`}
-                          >
-                            <div className="flex flex-col items-center gap-0">
-                              <span className={`${tableHeaderSmall} leading-tight ${todayHighlight ? 'text-primary font-bold' : 'text-muted-foreground'}`}>
-                                {capitalizeMonth(format(date, 'MMM', { locale: sv }))}
-                              </span>
-                              <span className={`${tableHeaderSmall} font-bold leading-tight ${todayHighlight ? 'text-primary' : ''}`}>
-                                {format(date, 'd')}
-                              </span>
-                              <span className={`${tableHeaderSmall} leading-tight ${todayHighlight ? 'text-primary font-bold' : 'text-muted-foreground'}`}>
-                                {getDayInitial(date)}
-                              </span>
-                            </div>
-                          </th>
-                        );
-                      })}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {tips.map((tip) => {
-                      const tipColor = tip.color.includes('bg-[') 
-                        ? tip.color.replace('bg-[', '').replace(']', '')
-                        : '#A8CC7D';
-                      
-                      return (
-                        <tr key={tip.id} className="border-b hover:bg-muted/30 transition-colors">
-                          <td className="py-1 px-1">
-                            <span className={bodyText}>{tip.title}</span>
-                          </td>
-                          {weekDates.map((date, dayIndex) => {
-                            const todayHighlight = isToday(date);
-                            return (
-                              <td 
-                                key={dayIndex} 
-                                className={`text-center py-1 px-0 ${
-                                  todayHighlight ? 'bg-primary/10 border-l-2 border-r-2 border-primary' : ''
-                                }`}
-                              >
-                                <div className="flex justify-center">
-                                  <Checkbox
-                                    checked={isTipCompletedOnDate(tip.id, date)}
-                                    onCheckedChange={() => handleTipToggle(tip.id, date)}
-                                    className="h-7 w-7 rounded-none transition-all duration-200"
-                                    style={isTipCompletedOnDate(tip.id, date) ? {
-                                      backgroundColor: tipColor,
-                                      borderColor: tipColor
-                                    } : undefined}
-                                  />
-                                </div>
-                              </td>
-                            );
-                          })}
-                        </tr>
-                      );
-                    })}
-                    
-                    {/* Row for weight */}
-                    <tr className="border-b bg-muted/20">
-                      <td className="py-1 px-1">
-                        <span className={bodyTextBald}>Vikt</span>
-                      </td>
-                      {weekDates.map((date, dayIndex) => {
-                        const hasWeight = hasWeightOnDate(date);
-                        const todayHighlight = isToday(date);
-                        return (
-                          <td 
-                            key={dayIndex} 
-                            className={`text-center py-1 px-0 ${
-                              todayHighlight ? 'bg-primary/10 border-l-2 border-r-2 border-primary' : ''
-                            }`}
-                          >
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              onClick={() => openAddDataDialog(date, 'weight')}
-                              className="h-8 w-8 p-0 rounded-none"
-                            >
-                              {hasWeight ? (
-                                <Weight className="h-4 w-4 text-black fill-black" />
-                              ) : (
-                                <Plus className="h-4 w-4" />
-                              )}
-                            </Button>
-                          </td>
-                        );
-                      })}
-                    </tr>
-
-                    {/* Row for blood pressure */}
-                    <tr className="border-b bg-muted/20">
-                      <td className="py-1 px-1">
-                        <span className={bodyText}>Blodtryck</span>
-                      </td>
-                      {weekDates.map((date, dayIndex) => {
-                        const hasBP = hasBloodPressureOnDate(date);
-                        const todayHighlight = isToday(date);
-                        return (
-                          <td 
-                            key={dayIndex} 
-                            className={`text-center py-1 px-0 ${
-                              todayHighlight ? 'bg-primary/10 border-l-2 border-r-2 border-primary' : ''
-                            }`}
-                          >
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              onClick={() => openAddDataDialog(date, 'bloodPressure')}
-                              className="h-8 w-8 p-0 rounded-none"
-                            >
-                              {hasBP ? (
-                                <Heart className="h-4 w-4 text-red-500 fill-red-500" />
-                              ) : (
-                                <Plus className="h-4 w-4" />
-                              )}
-                            </Button>
-                          </td>
-                        );
-                      })}
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
+          <WeeklyProgressTable
+            weekDates={weekDates}
+            dayLogs={dayLogs}
+            onPreviousWeek={goToPreviousWeek}
+            onNextWeek={goToNextWeek}
+            onCurrentWeek={goToCurrentWeek}
+            onTipToggle={handleTipToggle}
+            onOpenDialog={openAddDataDialog}
+            isTipCompletedOnDate={isTipCompletedOnDate}
+            hasWeightOnDate={hasWeightOnDate}
+            hasBloodPressureOnDate={hasBloodPressureOnDate}
+            isToday={isToday}
+          />
 
           {/* Stats */}
           <div className="grid grid-cols-2 gap-6">
