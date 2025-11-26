@@ -437,8 +437,7 @@ const Progress = () => {
           <table className="w-full border-collapse">
             <thead>
               <tr className="border-b bg-muted/50">
-                <th className="text-left py-1 px-1 w-[200px]"></th>
-                {/* <th className="text-left py-1 px-1 font-semibold text-foreground w-[200px]"></th> */}
+                <th className="text-left py-1 px-1 font-semibold text-foreground w-[200px]"></th> 
                 {weekDates.map((date, index) => {
                   const todayHighlight = isToday(date);
                   return (
