@@ -55,7 +55,7 @@ export const WeeklyProgressTable = ({
   return (
     <>
       {/* Week Navigation */}
-      <div className="flex flex-col gap-1"> 
+      <div className="flex flex-col"> 
         {/* Top row: arrows and date */}
         <div className="flex items-center justify-between">
           <Button
