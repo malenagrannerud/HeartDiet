@@ -381,27 +381,26 @@ const Progress = () => {
   return (
     <div className={pageContainer}>
       <header className={headerContainer}>
-        
           <h1 className={pageTitle}>Mina sidor</h1>
           <p className={pageSubtitle}>Följ dina framsteg och logga data</p>
-        
       </header>
       <main className={pagePadding}>
         <div className={standardSpacing.pageContent}>
-
-          <WeeklyProgressTable
-            weekDates={weekDates}
-            dayLogs={dayLogs}
-            onPreviousWeek={goToPreviousWeek}
-            onNextWeek={goToNextWeek}
-            onCurrentWeek={goToCurrentWeek}
-            onTipToggle={handleTipToggle}
-            onOpenDialog={openAddDataDialog}
-            isTipCompletedOnDate={isTipCompletedOnDate}
-            hasWeightOnDate={hasWeightOnDate}
-            hasBloodPressureOnDate={hasBloodPressureOnDate}
-            isToday={isToday}
-          />
+          <section className={standardSpacing.sectionContent}>
+            <WeeklyProgressTable
+              weekDates={weekDates}
+              dayLogs={dayLogs}
+              onPreviousWeek={goToPreviousWeek}
+              onNextWeek={goToNextWeek}
+              onCurrentWeek={goToCurrentWeek}
+              onTipToggle={handleTipToggle}
+              onOpenDialog={openAddDataDialog}
+              isTipCompletedOnDate={isTipCompletedOnDate}
+              hasWeightOnDate={hasWeightOnDate}
+              hasBloodPressureOnDate={hasBloodPressureOnDate}
+              isToday={isToday}
+            />
+          </section>
 
           {/* Stats */}
           <div className="grid grid-cols-2 gap-6">
@@ -458,165 +457,165 @@ const Progress = () => {
               onClick={() => navigate('/app/medications')}
             />
           </div>
+        </div> {/* This closes the standardSpacing.pageContent div */}
 
-          {/* Dialog for weight */}
-          <Dialog open={weightDialogOpen} onOpenChange={setWeightDialogOpen}>
-            <DialogContent className="max-w-md">
-              <DialogHeader>
-                <DialogTitle>
-                  {existingWeightEntry ? 'Ändra vikt' : 'Lägg till vikt'} för {selectedDate && format(selectedDate, 'd MMMM yyyy', { locale: sv })}
-                </DialogTitle>
-              </DialogHeader>
+        {/* Dialog for weight */}
+        <Dialog open={weightDialogOpen} onOpenChange={setWeightDialogOpen}>
+          <DialogContent className="max-w-md">
+            <DialogHeader>
+              <DialogTitle>
+                {existingWeightEntry ? 'Ändra vikt' : 'Lägg till vikt'} för {selectedDate && format(selectedDate, 'd MMMM yyyy', { locale: sv })}
+              </DialogTitle>
+            </DialogHeader>
+            
+            <div className="space-y-4 py-4">
+              {existingWeightEntry && (
+                <div className="p-3 bg-muted/50">
+                  <p className="text-sm text-muted-foreground mb-1">Nuvarande värde:</p>
+                  <p className="text-lg font-semibold">{existingWeightEntry} kg</p>
+                </div>
+              )}
               
-              <div className="space-y-4 py-4">
-                {existingWeightEntry && (
-                  <div className="p-3 bg-muted/50">
-                    <p className="text-sm text-muted-foreground mb-1">Nuvarande värde:</p>
-                    <p className="text-lg font-semibold">{existingWeightEntry} kg</p>
-                  </div>
-                )}
-                
+              <div>
+                <Label htmlFor="weight-input" className="text-base mb-2 block">Vikt (kg)</Label>
+                <Input
+                  id="weight-input"
+                  type="number"
+                  step="0.1"
+                  value={weightInput}
+                  onChange={(e) => setWeightInput(e.target.value)}
+                  placeholder="Ange vikt i kg"
+                  className="w-full"
+                />
+              </div>
+            </div> {/* Added missing closing div */}
+
+            <DialogFooter className="gap-3">
+              {existingWeightEntry && (
+                <Button 
+                  variant="destructive" 
+                  onClick={handleDeleteWeight} 
+                  className="text-base py-6"
+                >
+                  Radera
+                </Button>
+              )}
+              <Button variant="outline" onClick={() => setWeightDialogOpen(false)} className="text-base py-6">
+                Avbryt
+              </Button>
+              <Button onClick={handleSaveWeight} className="text-base py-6">
+                Spara
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
+        {/* Dialog for blood pressure */}
+        <Dialog open={bpDialogOpen} onOpenChange={setBpDialogOpen}>
+          <DialogContent className="max-w-md">
+            <DialogHeader>
+              <DialogTitle>
+                {existingBPEntry ? 'Ändra blodtryck' : 'Lägg till blodtryck'} för {selectedDate && format(selectedDate, 'd MMMM yyyy', { locale: sv })}
+              </DialogTitle>
+            </DialogHeader>
+            
+            <div className="space-y-4 py-4">
+              {existingBPEntry && (
+                <div className="p-3 bg-muted/50">
+                  <p className="text-sm text-muted-foreground mb-1">Nuvarande värde:</p>
+                  <p className="text-lg font-semibold">{existingBPEntry.systolic}/{existingBPEntry.diastolic} mmHg</p>
+                </div>
+              )}
+              
+              <div className="space-y-3">
                 <div>
-                  <Label htmlFor="weight-input" className="text-base mb-2 block">Vikt (kg)</Label>
+                  <Label htmlFor="systolic-input" className="text-base mb-2 block">Systoliskt (övre värde)</Label>
                   <Input
-                    id="weight-input"
+                    id="systolic-input"
                     type="number"
-                    step="0.1"
-                    value={weightInput}
-                    onChange={(e) => setWeightInput(e.target.value)}
-                    placeholder="Ange vikt i kg"
+                    value={systolicInput}
+                    onChange={(e) => setSystolicInput(e.target.value)}
+                    placeholder="T.ex. 120"
+                    className="w-full"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="diastolic-input" className="text-base mb-2 block">Diastoliskt (nedre värde)</Label>
+                  <Input
+                    id="diastolic-input"
+                    type="number"
+                    value={diastolicInput}
+                    onChange={(e) => setDiastolicInput(e.target.value)}
+                    placeholder="T.ex. 80"
                     className="w-full"
                   />
                 </div>
               </div>
+            </div>
 
-              <DialogFooter className="gap-3">
-                {existingWeightEntry && (
-                  <Button 
-                    variant="destructive" 
-                    onClick={handleDeleteWeight} 
-                    className="text-base py-6"
-                  >
-                    Radera
-                  </Button>
-                )}
-                <Button variant="outline" onClick={() => setWeightDialogOpen(false)} className="text-base py-6">
-                  Avbryt
+            <DialogFooter className="gap-3">
+              {existingBPEntry && (
+                <Button 
+                  variant="destructive" 
+                  onClick={handleDeleteBloodPressure} 
+                  className="text-base py-6"
+                >
+                  Radera
                 </Button>
-                <Button onClick={handleSaveWeight} className="text-base py-6">
-                  Spara
-                </Button>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
-
-          {/* Dialog for blood pressure */}
-          <Dialog open={bpDialogOpen} onOpenChange={setBpDialogOpen}>
-            <DialogContent className="max-w-md">
-              <DialogHeader>
-                <DialogTitle>
-                  {existingBPEntry ? 'Ändra blodtryck' : 'Lägg till blodtryck'} för {selectedDate && format(selectedDate, 'd MMMM yyyy', { locale: sv })}
-                </DialogTitle>
-              </DialogHeader>
-              
-              <div className="space-y-4 py-4">
-                {existingBPEntry && (
-                  <div className="p-3 bg-muted/50">
-                    <p className="text-sm text-muted-foreground mb-1">Nuvarande värde:</p>
-                    <p className="text-lg font-semibold">{existingBPEntry.systolic}/{existingBPEntry.diastolic} mmHg</p>
-                  </div>
-                )}
-                
-                <div className="space-y-3">
-                  <div>
-                    <Label htmlFor="systolic-input" className="text-base mb-2 block">Systoliskt (övre värde)</Label>
-                    <Input
-                      id="systolic-input"
-                      type="number"
-                      value={systolicInput}
-                      onChange={(e) => setSystolicInput(e.target.value)}
-                      placeholder="T.ex. 120"
-                      className="w-full"
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="diastolic-input" className="text-base mb-2 block">Diastoliskt (nedre värde)</Label>
-                    <Input
-                      id="diastolic-input"
-                      type="number"
-                      value={diastolicInput}
-                      onChange={(e) => setDiastolicInput(e.target.value)}
-                      placeholder="T.ex. 80"
-                      className="w-full"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <DialogFooter className="gap-3">
-                {existingBPEntry && (
-                  <Button 
-                    variant="destructive" 
-                    onClick={handleDeleteBloodPressure} 
-                    className="text-base py-6"
-                  >
-                    Radera
-                  </Button>
-                )}
-                <Button variant="outline" onClick={() => setBpDialogOpen(false)} className="text-base py-6">
-                  Avbryt
-                </Button>
-                <Button onClick={handleSaveBloodPressure} className="text-base py-6">
-                  Spara
-                </Button>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
-
-          {/* Save Confirmation Alert */}
-          <AlertDialog open={saveAlertOpen} onOpenChange={setSaveAlertOpen}>
-            <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle>Granska innan du sparar</AlertDialogTitle>
-                <AlertDialogDescription>
-                  Kontrollera att uppgifterna stämmer:
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              {pendingEntry && selectedDate && (
-                <div className="my-4 space-y-3 bg-muted/50 p-4">
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-muted-foreground">Datum:</span>
-                    <span className="text-sm font-medium">{format(selectedDate, 'd MMMM yyyy', { locale: sv })}</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-muted-foreground">Typ:</span>
-                    <span className="text-sm font-medium">
-                      {pendingEntry.type === 'weight' ? 'Vikt' : 'Blodtryck'}
-                    </span>
-                  </div>
-                  {pendingEntry.type === 'weight' && (
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-muted-foreground">Värde:</span>
-                      <span className="text-sm font-medium">{pendingEntry.weight} kg</span>
-                    </div>
-                  )}
-                  {pendingEntry.type === 'bloodPressure' && (
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-muted-foreground">Värde:</span>
-                      <span className="text-sm font-medium">{pendingEntry.systolic}/{pendingEntry.diastolic} mmHg</span>
-                    </div>
-                  )}
-                </div>
               )}
-              <AlertDialogFooter>
-                <AlertDialogCancel onClick={() => setPendingEntry(null)}>Avbryt</AlertDialogCancel>
-                <AlertDialogAction onClick={confirmSaveEntry}>
-                  Spara
-                </AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
-        </div>  
+              <Button variant="outline" onClick={() => setBpDialogOpen(false)} className="text-base py-6">
+                Avbryt
+              </Button>
+              <Button onClick={handleSaveBloodPressure} className="text-base py-6">
+                Spara
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
+        {/* Save Confirmation Alert */}
+        <AlertDialog open={saveAlertOpen} onOpenChange={setSaveAlertOpen}>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Granska innan du sparar</AlertDialogTitle>
+              <AlertDialogDescription>
+                Kontrollera att uppgifterna stämmer:
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            {pendingEntry && selectedDate && (
+              <div className="my-4 space-y-3 bg-muted/50 p-4">
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-muted-foreground">Datum:</span>
+                  <span className="text-sm font-medium">{format(selectedDate, 'd MMMM yyyy', { locale: sv })}</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-muted-foreground">Typ:</span>
+                  <span className="text-sm font-medium">
+                    {pendingEntry.type === 'weight' ? 'Vikt' : 'Blodtryck'}
+                  </span>
+                </div>
+                {pendingEntry.type === 'weight' && (
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-muted-foreground">Värde:</span>
+                    <span className="text-sm font-medium">{pendingEntry.weight} kg</span>
+                  </div>
+                )}
+                {pendingEntry.type === 'bloodPressure' && (
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-muted-foreground">Värde:</span>
+                    <span className="text-sm font-medium">{pendingEntry.systolic}/{pendingEntry.diastolic} mmHg</span>
+                  </div>
+                )}
+              </div>
+            )}
+            <AlertDialogFooter>
+              <AlertDialogCancel onClick={() => setPendingEntry(null)}>Avbryt</AlertDialogCancel>
+              <AlertDialogAction onClick={confirmSaveEntry}>
+                Spara
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </main>
     </div>
   );
