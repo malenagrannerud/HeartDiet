@@ -97,7 +97,6 @@ export const WeeklyProgressTable = ({
       </div>
 
       {/* Weekly Table */}
-      <div className={standardSpacing.sectionContent}>
         <div className="bg-background border overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full border-collapse">
@@ -236,7 +235,7 @@ export const WeeklyProgressTable = ({
             </table>
           </div>
         </div>
-      </div>
+     
     </>
   );
 };
