@@ -289,6 +289,7 @@ const Today = () => {
 
             <section className={standardSpacing.sectionContent}>
               <h3 className={bodyTextBald}>Mina tips</h3>
+              <p className={bodyBaldSub}>Markera ett tips som färdigt genom att klicka i boxen</p>
               {markedTipsList.length > 0 ? (
                 <div className="space-y-4">
                   {markedTipsList.map((tip) => (
