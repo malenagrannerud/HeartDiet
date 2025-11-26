@@ -166,7 +166,40 @@ export const WeeklyProgressTable = ({
                 );
               })}
               
-              {/* Row for weight */}
+             
+
+              {/* Row for blood pressure */}
+              <tr className="border-b bg-muted/20">
+                <td className="py-1 px-1">
+                  <span className={bodyText}>Blodtryck</span>
+                </td>
+                {weekDates.map((date, dayIndex) => {
+                  const hasBP = hasBloodPressureOnDate(date);
+                  const todayHighlight = isToday(date);
+                  return (
+                    <td 
+                      key={dayIndex} 
+                      className={`text-center py-1 px-0 ${
+                        todayHighlight ? 'bg-primary/10 border-l-2 border-r-2 border-primary' : ''
+                      }`}
+                    >
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => onOpenDialog(date, 'bloodPressure')}
+                        className="h-8 w-8 p-0 rounded-none"
+                      >
+                        {hasBP ? (
+                            <Heart className="h-4 w-4 text-[hsla(332,52%,52%,1.00)] fill-[hsla(332,52%,52%,1.00)]" />                        ) : (
+                          <Plus className="h-4 w-4" />
+                        )}
+                      </Button>
+                    </td>
+                  );
+                })}
+              </tr>
+
+               {/* Row for weight */}
               <tr className="border-b bg-muted/20">
                 <td className="py-1 px-1">
                   <span className={bodyText}>Vikt</span>
@@ -198,37 +231,8 @@ export const WeeklyProgressTable = ({
                 })}
               </tr>
 
-              {/* Row for blood pressure */}
-              <tr className="border-b bg-muted/20">
-                <td className="py-1 px-1">
-                  <span className={bodyText}>Blodtryck</span>
-                </td>
-                {weekDates.map((date, dayIndex) => {
-                  const hasBP = hasBloodPressureOnDate(date);
-                  const todayHighlight = isToday(date);
-                  return (
-                    <td 
-                      key={dayIndex} 
-                      className={`text-center py-1 px-0 ${
-                        todayHighlight ? 'bg-primary/10 border-l-2 border-r-2 border-primary' : ''
-                      }`}
-                    >
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => onOpenDialog(date, 'bloodPressure')}
-                        className="h-8 w-8 p-0 rounded-none"
-                      >
-                        {hasBP ? (
-                          <Heart className="h-4 w-4 text-red-500 fill-red-500" />
-                        ) : (
-                          <Plus className="h-4 w-4" />
-                        )}
-                      </Button>
-                    </td>
-                  );
-                })}
-              </tr>
+
+
             </tbody>
           </table>
         </div>
