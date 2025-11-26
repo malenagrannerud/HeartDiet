@@ -7,8 +7,7 @@ import { UserPlanForm } from "@/components/UserPlanForm";
 import { UserPlanDisplay } from "@/components/UserPlanDisplay";
 import DottedList from "@/components/DottedList";
 import ExampleCard from "@/components/exCard";
-import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
+import { AddPlanButton } from "@/components/AddPlanButton";
 
 const FullkornPage = () => {
   const [userPlans, setUserPlans] = useState<UserPlan[]>([]);
@@ -42,6 +41,10 @@ const FullkornPage = () => {
     const updatedPlans = userPlans.filter((_, i) => i !== index);
     setUserPlans(updatedPlans);
     localStorage.setItem('userPlans-fullkorn', JSON.stringify(updatedPlans));
+    
+    if (updatedPlans.length === 0) {
+      setIsEditing(true);
+    }
   };
 
   const handleEditPlan = (index: number) => {
@@ -177,22 +180,10 @@ const FullkornPage = () => {
             />
           )}
 
-          {canAddMorePlans && (
-            <Button
-              onClick={handleAddNewPlan}
-              className="flex items-center gap-2 mt-6"
-              variant={userPlans.length === 0 ? "default" : "outline"}
-            >
-              <Plus size={16} />
-              Lägg till plan
-            </Button>
-          )}
-
-          {!canAddMorePlans && (
-            <p className="text-sm text-muted-foreground mt-4">
-              Du har nått max antal planer (10)
-            </p>
-          )}
+          <AddPlanButton 
+            onClick={handleAddNewPlan} 
+            canAddMorePlans={canAddMorePlans} 
+          />
         </div>
       </main>
     </div>
