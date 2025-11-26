@@ -6,7 +6,7 @@ import { ChevronLeft, ChevronRight, Plus, Heart, Pill, Weight } from "lucide-rea
 import { tips } from "@/data/tips";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
-import { pageTitle, pageSubtitle, pageContainer, pagePadding, bodyTextBald, cardTextSmall, cardTextSmallBold, tableHeaderSmall, tableHeaderMedium } from "@/lib/design-tokens";
+import { pageTitle, pageSubtitle, pageContainer, pagePadding, bodyText, bodyTextBald, cardTextSmall, cardTextSmallBold, tableHeaderSmall, tableHeaderMedium } from "@/lib/design-tokens";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -536,7 +536,7 @@ const Progress = () => {
               {/* Row for blood pressure */}
               <tr className="border-b bg-muted/20">
                 <td className="py-1 px-1">
-                  <span className={bodyTextBald}>Blodtryck</span>
+                  <span className={bodyText}>Blodtryck</span>
                 </td>
                 {weekDates.map((date, dayIndex) => {
                   const hasBP = hasBloodPressureOnDate(date);
