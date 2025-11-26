@@ -51,7 +51,7 @@ export const ProgressChart: React.FC<ProgressChartProps> = ({ type, dayLogs }) =
 
   return (
     <StatsBox>
-     <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4">
       <div>
         <div className={bodyTextBald}>{title}</div>
         <div className={cardTextSmall}>{subtitle}</div>
@@ -59,8 +59,13 @@ export const ProgressChart: React.FC<ProgressChartProps> = ({ type, dayLogs }) =
       <ChartContainer config={chartConfig} className="h-48 w-full">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart 
-            data={[...chartData].reverse()} // Only one data attribute - reversed for left-to-right chronological
-            margin={{ top: 30, right: 10, left: 10, bottom: 10 }}
+            data={[...chartData].sort((a, b) => {
+              // Safe date comparison
+              const dateA = new Date(a.date).getTime();
+              const dateB = new Date(b.date).getTime();
+              return dateA - dateB;
+            })}
+            margin={{ top: 30, right: 10, left: 0, bottom: 10 }}
           >
             <XAxis 
               dataKey="date" 
