@@ -6,7 +6,7 @@ import { ChevronLeft, ChevronRight, Plus, Heart, Pill, Weight } from "lucide-rea
 import { tips } from "@/data/tips";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
-import { pageTitle, pageSubtitle, pageContainer, pagePadding } from "@/lib/design-tokens";
+import { pageTitle, pageSubtitle, pageContainer, pagePadding, bodyTextBald } from "@/lib/design-tokens";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
