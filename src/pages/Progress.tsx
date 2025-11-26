@@ -381,34 +381,35 @@ const Progress = () => {
   return (
     <div className={pageContainer}>
       <header className={headerContainer}>
-        
           <h1 className={pageTitle}>Mina sidor</h1>
           <p className={pageSubtitle}>Följ dina framsteg och logga data</p>
-        
       </header>
+
       <main className={pagePadding}>
         <div className={standardSpacing.pageContent}>
 
-          <WeeklyProgressTable
-            weekDates={weekDates}
-            dayLogs={dayLogs}
-            onPreviousWeek={goToPreviousWeek}
-            onNextWeek={goToNextWeek}
-            onCurrentWeek={goToCurrentWeek}
-            onTipToggle={handleTipToggle}
-            onOpenDialog={openAddDataDialog}
-            isTipCompletedOnDate={isTipCompletedOnDate}
-            hasWeightOnDate={hasWeightOnDate}
-            hasBloodPressureOnDate={hasBloodPressureOnDate}
-            isToday={isToday}
-          />
+          <section className={standardSpacing.sectionContent}>
+            <WeeklyProgressTable
+              weekDates={weekDates}
+              dayLogs={dayLogs}
+              onPreviousWeek={goToPreviousWeek}
+              onNextWeek={goToNextWeek}
+              onCurrentWeek={goToCurrentWeek}
+              onTipToggle={handleTipToggle}
+              onOpenDialog={openAddDataDialog}
+              isTipCompletedOnDate={isTipCompletedOnDate}
+              hasWeightOnDate={hasWeightOnDate}
+              hasBloodPressureOnDate={hasBloodPressureOnDate}
+              isToday={isToday}
+            />
+          </section>
 
           {/* Stats */}
           <div className="grid grid-cols-2 gap-6">
             <StatsBox>
               <div className="flex flex-col gap-4">
                 <div>
-                  <div className={bodyTextBald}>Klarade dagar</div>
+                  <div className={bodyTextBald}>Loggade dagar totalt</div>
                   <div className={cardTextSmall}>Antal dagar du loggat tips</div>
                 </div>
                 <div className="flex items-center justify-end">
@@ -422,7 +423,7 @@ const Progress = () => {
             <StatsBox>
               <div className="flex flex-col gap-4">
                 <div>
-                  <div className={bodyTextBald}>Klarade dagar i rad</div>
+                  <div className={bodyTextBald}>Loggade dagar i rad</div>
                   <div className={cardTextSmall}>Antal dagar i rad du loggat tips</div>
                 </div>
                 <div className="flex items-center justify-end">
