@@ -51,41 +51,45 @@ export const ProgressChart: React.FC<ProgressChartProps> = ({ type, dayLogs }) =
 
   return (
     <StatsBox>
-      <div className="flex flex-col gap-4">
-        <div>
-          <div className={bodyTextBald}>{title}</div>
-          <div className={cardTextSmall}>{subtitle}</div>
-        </div>
-        <ChartContainer config={chartConfig} className="h-48 w-full">
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart 
-              data={chartData} 
-              margin={{ top: 20, bottom: 20 }}
-            >
-              <XAxis 
-                dataKey="date" 
-                axisLine={false}
-                tickLine={false}
-                tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }}
-              />
-              <YAxis hide />
-              <Bar 
-                dataKey={dataKey} 
-                fill={barColor} 
-                radius={[0, 0, 0, 0]}
-                maxBarSize={20}
-              >
-                <LabelList 
-                  dataKey={dataKey} 
-                  position="top" 
-                  style={{ fontSize: 12, fill: 'hsl(var(--foreground))' }}
-                  formatter={formatter}
-                />
-              </Bar>
-            </BarChart>
-          </ResponsiveContainer>
-        </ChartContainer>
+    <div className="flex flex-col gap-4">
+      <div>
+        <div className={bodyTextBald}>{title}</div>
+        <div className={cardTextSmall}>{subtitle}</div>
       </div>
-    </StatsBox>
+      <ChartContainer config={chartConfig} className="h-48 w-full">
+        <ResponsiveContainer width="100%" height="100%">
+          <BarChart 
+            data={chartData} 
+            margin={{ top: 30, right: 10, left: 10, bottom: 10 }} // Reduced bottom margin
+            barCategoryGap="20%" // Space between bars
+          >
+            <XAxis 
+              dataKey="date" 
+              axisLine={false}
+              tickLine={false}
+              tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }}
+              interval={0} // Show all labels
+            />
+            <YAxis hide />
+            <Bar 
+              dataKey={dataKey} 
+              fill={barColor} 
+              radius={[2, 2, 0, 0]} // Slight top radius only
+              maxBarSize={30} // Thinner bars
+            >
+              <LabelList 
+                dataKey={dataKey} 
+                position="top" 
+                style={{ fontSize: 10, fill: 'hsl(var(--foreground))' }} // Smaller font
+                formatter={formatter}
+                offset={10} // Space between bar and label
+              />
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
+      </ChartContainer>
+    </div>
+  </StatsBox>
+    
   );
 };
