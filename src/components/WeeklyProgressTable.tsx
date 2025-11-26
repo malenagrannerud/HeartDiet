@@ -89,7 +89,7 @@ export const WeeklyProgressTable = ({
             variant="ghost"
             size="sm"
             onClick={onCurrentWeek}
-            className="text-xs text-muted-foreground hover:text-foreground"
+           className="text-xs text-red-500 hover:text-foreground" // Changed to red
           >
             Gå till idag
           </Button>
