@@ -13,13 +13,12 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { getDayLogs } from "@/lib/tip-completion";
 import { Checkbox } from "@/components/ui/checkbox";
-import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, LabelList } from 'recharts';
-import { ChartContainer } from "@/components/ui/chart";
 import { getStorageItem } from "@/lib/storage";
 import { healthPrioritiesSchema } from "@/lib/schemas";
 import { StatsBox } from "@/components/StatsBox";
 import { HealthInfoCard } from "@/components/HealthInfoCard";
 import { getCurrentDate } from "@/lib/simulated-date";
+import { ProgressChart } from "@/components/ProgressChart";
 
 interface DayLog {
   date: string;
@@ -606,104 +605,8 @@ const Progress = () => {
 
           {/* Charts */}
           <div className="grid grid-cols-2 gap-6">
-            <StatsBox>
-              <div className="flex flex-col gap-4">
-                <div>
-                  <div className={bodyTextBald}>Vikt</div>
-                  <div className={cardTextSmall}>Loggade vikter (kg)</div>
-                </div>
-                <ChartContainer config={{ weight: { label: "Vikt", color: "hsl(217, 91%, 60%)" } }} className="h-48 w-full">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart 
-                      data={dayLogs
-                        .flatMap(log => 
-                          log.entries
-                            .filter(e => e.type === 'weight')
-                            .map(e => ({ 
-                              date: format(new Date(log.date), 'd MMM', { locale: sv }),
-                              weight: e.value,
-                              fullDate: log.date
-                            }))
-                        )
-                        .sort((a, b) => new Date(a.fullDate).getTime() - new Date(b.fullDate).getTime())
-                        .slice(-10)} 
-                      margin={{ top: 20, bottom: 20 }}
-                    >
-                      <XAxis 
-                        dataKey="date" 
-                        axisLine={false}
-                        tickLine={false}
-                        tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }}
-                      />
-                      <YAxis hide />
-                      <Bar 
-                        dataKey="weight" 
-                        fill="hsl(217, 91%, 60%)" 
-                        radius={[0, 0, 0, 0]}
-                        maxBarSize={20}
-                      >
-                        <LabelList 
-                          dataKey="weight" 
-                          position="top" 
-                          style={{ fontSize: 12, fill: 'hsl(var(--foreground))' }}
-                          formatter={(value: number) => `${value} kg`}
-                        />
-                      </Bar>
-                    </BarChart>
-                  </ResponsiveContainer>
-                </ChartContainer>
-              </div>
-            </StatsBox>
-
-            <StatsBox>
-              <div className="flex flex-col gap-4">
-                <div>
-                  <div className={bodyTextBald}>Blodtryck</div>
-                  <div className={cardTextSmall}>Loggade blodtryck (mmHg)</div>
-                </div>
-                <ChartContainer config={{ systolic: { label: "Systoliskt", color: "hsl(350, 89%, 60%)" } }} className="h-48 w-full">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart 
-                      data={dayLogs
-                        .flatMap(log => 
-                          log.entries
-                            .filter(e => e.type === 'bloodPressure')
-                            .map(e => ({ 
-                              date: format(new Date(log.date), 'd MMM', { locale: sv }),
-                              systolic: e.value,
-                              diastolic: e.value2,
-                              fullDate: log.date
-                            }))
-                        )
-                        .sort((a, b) => new Date(a.fullDate).getTime() - new Date(b.fullDate).getTime())
-                        .slice(-10)} 
-                      margin={{ top: 20, bottom: 20 }}
-                    >
-                      <XAxis 
-                        dataKey="date" 
-                        axisLine={false}
-                        tickLine={false}
-                        tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }}
-                      />
-                      <YAxis hide />
-                      <Bar 
-                        dataKey="systolic" 
-                        fill="hsl(350, 89%, 60%)" 
-                        radius={[0, 0, 0, 0]}
-                        maxBarSize={20}
-                      >
-                        <LabelList 
-                          dataKey="systolic" 
-                          position="top" 
-                          style={{ fontSize: 12, fill: 'hsl(var(--foreground))' }}
-                          formatter={(value: number) => `${value}`}
-                        />
-                      </Bar>
-                    </BarChart>
-                  </ResponsiveContainer>
-                </ChartContainer>
-              </div>
-            </StatsBox>
+            <ProgressChart type="weight" dayLogs={dayLogs} />
+            <ProgressChart type="bloodPressure" dayLogs={dayLogs} />
           </div>
 
           {/* Health Goals and Medications Cards */}
