@@ -380,28 +380,30 @@ const Progress = () => {
 
   return (
     <div className={pageContainer}>
+      
       <header className={headerContainer}>
-        
           <h1 className={pageTitle}>Mina sidor</h1>
           <p className={pageSubtitle}>Följ dina framsteg och logga data</p>
-        
       </header>
+      
       <main className={pagePadding}>
         <div className={standardSpacing.pageContent}>
 
-          <WeeklyProgressTable
-            weekDates={weekDates}
-            dayLogs={dayLogs}
-            onPreviousWeek={goToPreviousWeek}
-            onNextWeek={goToNextWeek}
-            onCurrentWeek={goToCurrentWeek}
-            onTipToggle={handleTipToggle}
-            onOpenDialog={openAddDataDialog}
-            isTipCompletedOnDate={isTipCompletedOnDate}
-            hasWeightOnDate={hasWeightOnDate}
-            hasBloodPressureOnDate={hasBloodPressureOnDate}
-            isToday={isToday}
-          />
+          <div
+            <WeeklyProgressTable
+              weekDates={weekDates}
+              dayLogs={dayLogs}
+              onPreviousWeek={goToPreviousWeek}
+              onNextWeek={goToNextWeek}
+              onCurrentWeek={goToCurrentWeek}
+              onTipToggle={handleTipToggle}
+              onOpenDialog={openAddDataDialog}
+              isTipCompletedOnDate={isTipCompletedOnDate}
+              hasWeightOnDate={hasWeightOnDate}
+              hasBloodPressureOnDate={hasBloodPressureOnDate}
+              isToday={isToday}
+            />
+          </div>
 
           {/* Stats */}
           <div className="grid grid-cols-2 gap-6">
