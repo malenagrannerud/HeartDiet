@@ -188,7 +188,7 @@ export const WeeklyProgressTable = ({
                         className="h-8 w-8 p-0 rounded-none"
                       >
                         {hasWeight ? (
-                          <Weight className="h-4 w-4 text-black fill-black" />
+                          <Weight className="h-4 w-4 text-[hsla(204,37%,48%,1.00)] fill-[hsla(204,37%,48%,1.00)]" />
                         ) : (
                           <Plus className="h-4 w-4" />
                         )}
