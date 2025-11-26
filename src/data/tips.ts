@@ -34,36 +34,36 @@ export const tips: Tip[] = [
     color: tipCardColors.cyan,
     freq: `Veckovis`
   },
-//  {
-//    id: 4,
-//    title: "Rätt fett",
-//    color: tipCardColors.yellow,
-//    freq: `Dagligen`
-//  },
-//  {
-//    id: 5,
-//    title: "Mer magra mejerier",
-//    color: tipCardColors.lightblue,
-//    freq: `Dagligen`
-//  },
-//  {
-//    id: 6,
-//    title: "Rött och bearbetat kött",
-//    color: tipCardColors.darkrose,
-//    freq: `Veckovis`
-//  },
-//  {
-//    id: 7,
-//    title: "Salt-halt",
-//    color: tipCardColors.graygreen,
-//    freq: `Dagligen`
-//  },
- // {
-  //  id: 8,
-   // title: "Lagom är bäst",
-  //  color: tipCardColors.lightpurple,
-  //  freq: `Dagligen`  
-  //},
+ {
+    id: 4,
+    title: "Rätt fett",
+    color: tipCardColors.yellow,
+    freq: `Dagligen`
+  },
+  {
+    id: 5,
+    title: "Mer magra mejerier",
+    color: tipCardColors.lightblue,
+    freq: `Dagligen`
+  },
+  {
+    id: 6,
+    title: "Rött och bearbetat kött",
+    color: tipCardColors.darkrose,
+    freq: `Veckovis`
+  },
+  {
+    id: 7,
+    title: "Salt-halt",
+    color: tipCardColors.graygreen,
+    freq: `Dagligen`
+  },
+  {
+    id: 8,
+    title: "Lagom är bäst",
+    color: tipCardColors.lightpurple,
+    freq: `Dagligen`  
+  },
  {
     id: 9,
     title: "30 min om dagen",
