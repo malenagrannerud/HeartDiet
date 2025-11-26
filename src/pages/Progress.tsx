@@ -436,8 +436,8 @@ const Progress = () => {
 
           {/* Charts */}
           <div className="grid grid-cols-2 gap-6">
-            <ProgressChart type="bloodPressure" dayLogs={dayLogs} />
             <ProgressChart type="weight" dayLogs={dayLogs} />
+            <ProgressChart type="bloodPressure" dayLogs={dayLogs} />
           </div>
 
           {/* Health Goals and Medications Cards */}
