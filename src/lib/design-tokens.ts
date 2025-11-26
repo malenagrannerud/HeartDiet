@@ -217,6 +217,24 @@ export const cardText = "text-xs text-[#212658]";
 export const cardTextSmall = "text-sm text-[#212658]/70";
 
 /**
+ * SMALL CARD TEXT (no opacity)
+ * Used for secondary text in cards 14 px without opacity
+ */
+export const cardTextSmallBold = "text-sm text-[#212658]";
+
+/**
+ * TABLE HEADER TEXT SMALL
+ * Used for very small text in table headers 12 px
+ */
+export const tableHeaderSmall = "text-xs text-[#212658]";
+
+/**
+ * TABLE HEADER TEXT MEDIUM
+ * Used for medium text in table headers with bold 14 px
+ */
+export const tableHeaderMedium = "text-sm font-medium text-[#212658]/70";
+
+/**
  * Placeholder TEXT
  * Gray, 16 px
  */

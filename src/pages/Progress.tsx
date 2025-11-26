@@ -6,7 +6,7 @@ import { ChevronLeft, ChevronRight, Plus, Heart, Pill, Weight } from "lucide-rea
 import { tips } from "@/data/tips";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
-import { pageTitle, pageSubtitle, pageContainer, pagePadding, bodyTextBald } from "@/lib/design-tokens";
+import { pageTitle, pageSubtitle, pageContainer, pagePadding, bodyTextBald, cardTextSmall, cardTextSmallBold, tableHeaderSmall, tableHeaderMedium } from "@/lib/design-tokens";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -18,6 +18,7 @@ import { ChartContainer } from "@/components/ui/chart";
 import { getStorageItem } from "@/lib/storage";
 import { healthPrioritiesSchema } from "@/lib/schemas";
 import { StatsBox } from "@/components/StatsBox";
+import { HealthInfoCard } from "@/components/HealthInfoCard";
 import { getCurrentDate } from "@/lib/simulated-date";
 
 interface DayLog {
@@ -447,13 +448,13 @@ const Progress = () => {
                       }`}
                     >
                       <div className="flex flex-col items-center gap-0">
-                        <span className={`text-[8px] leading-tight ${todayHighlight ? 'text-primary font-bold' : 'text-muted-foreground'}`}>
+                        <span className={`${tableHeaderSmall} leading-tight ${todayHighlight ? 'text-primary font-bold' : 'text-muted-foreground'}`}>
                           {capitalizeMonth(format(date, 'MMM', { locale: sv }))}
                         </span>
-                        <span className={`text-[12px] font-bold leading-tight ${todayHighlight ? 'text-primary' : ''}`}>
+                        <span className={`${tableHeaderSmall} font-bold leading-tight ${todayHighlight ? 'text-primary' : ''}`}>
                           {format(date, 'd')}
                         </span>
-                        <span className={`text-[8px] leading-tight ${todayHighlight ? 'text-primary font-bold' : 'text-muted-foreground'}`}>
+                        <span className={`${tableHeaderSmall} leading-tight ${todayHighlight ? 'text-primary font-bold' : 'text-muted-foreground'}`}>
                           {getDayInitial(date)}
                         </span>
                       </div>
@@ -535,7 +536,7 @@ const Progress = () => {
               {/* Row for blood pressure */}
               <tr className="border-b bg-muted/20">
                 <td className="py-1 px-1">
-                  <span className="text-sm font-medium text-muted-foreground">Blodtryck</span>
+                  <span className={bodyTextBald}>Blodtryck</span>
                 </td>
                 {weekDates.map((date, dayIndex) => {
                   const hasBP = hasBloodPressureOnDate(date);
@@ -573,8 +574,8 @@ const Progress = () => {
         <StatsBox>
           <div className="flex flex-col gap-4">
             <div>
-              <div className={`${bodyTextBald} text-foreground`}>Klarade dagar</div>
-              <div className="text-sm text-muted-foreground font-normal">Antal dagar du följt dina Tips</div>
+              <div className={bodyTextBald}>Klarade dagar</div>
+              <div className={cardTextSmall}>Antal dagar du följt dina Tips</div>
             </div>
             <div className="flex items-center justify-end">
               <div className="w-16 h-16 bg-emerald-500 flex items-center justify-center">
@@ -587,8 +588,8 @@ const Progress = () => {
         <StatsBox>
           <div className="flex flex-col gap-4">
             <div>
-              <div className="text-base font-bold text-foreground">Klarade dagar i rad</div>
-              <div className="text-sm text-muted-foreground font-normal">Antal dagar i rad du följt dina Tips</div>
+              <div className={bodyTextBald}>Klarade dagar i rad</div>
+              <div className={cardTextSmall}>Antal dagar i rad du följt dina Tips</div>
             </div>
             <div className="flex items-center justify-end">
               <div className="w-16 h-16 bg-blue-100 flex items-center justify-center">
@@ -604,8 +605,8 @@ const Progress = () => {
         <StatsBox>
           <div className="flex flex-col gap-4">
             <div>
-              <div className="text-base font-bold text-foreground">Vikt</div>
-              <div className="text-sm text-muted-foreground font-normal">Loggade vikter (kg)</div>
+              <div className={bodyTextBald}>Vikt</div>
+              <div className={cardTextSmall}>Loggade vikter (kg)</div>
             </div>
             <ChartContainer config={{ weight: { label: "Vikt", color: "hsl(217, 91%, 60%)" } }} className="h-48 w-full">
               <ResponsiveContainer width="100%" height="100%">
@@ -653,8 +654,8 @@ const Progress = () => {
         <StatsBox>
           <div className="flex flex-col gap-4">
             <div>
-              <div className="text-base font-bold text-foreground">Blodtryck</div>
-              <div className="text-sm text-muted-foreground font-normal">Loggade blodtryck (mmHg)</div>
+              <div className={bodyTextBald}>Blodtryck</div>
+              <div className={cardTextSmall}>Loggade blodtryck (mmHg)</div>
             </div>
             <ChartContainer config={{ systolic: { label: "Systoliskt", color: "hsl(350, 89%, 60%)" } }} className="h-48 w-full">
               <ResponsiveContainer width="100%" height="100%">
@@ -703,53 +704,21 @@ const Progress = () => {
 
       {/* Health Goals and Medications Cards */}
       <div className="grid grid-cols-2 gap-6">
-        <StatsBox onClick={() => navigate('/app/health-goals')}>
-          <div className="flex flex-col gap-4">
-            <div className="flex items-center gap-3">
-              <div className="p-2 bg-primary/10 rounded">
-                <Heart size={20} className="text-primary" />
-              </div>
-              <div>
-                <div className="text-base font-bold text-foreground">Mina hälsomål</div>
-              </div>
-            </div>
-            {priorities.length > 0 ? (
-              <div className="space-y-1">
-                {priorities.map((id) => (
-                  <p key={id} className="text-sm text-foreground">
-                    • {healthPriorityLabels[id]}
-                  </p>
-                ))}
-              </div>
-            ) : (
-              <p className="text-sm text-muted-foreground">Inga mål valda ännu</p>
-            )}
-          </div>
-        </StatsBox>
+        <HealthInfoCard
+          icon={Heart}
+          title="Mina hälsomål"
+          items={priorities.map((id) => ({ id, label: healthPriorityLabels[id] }))}
+          emptyMessage="Inga mål valda ännu"
+          onClick={() => navigate('/app/health-goals')}
+        />
 
-        <StatsBox onClick={() => navigate('/app/medications')}>
-          <div className="flex flex-col gap-4">
-            <div className="flex items-center gap-3">
-              <div className="p-2 bg-primary/10 rounded">
-                <Pill size={20} className="text-primary" />
-              </div>
-              <div>
-                <div className="text-base font-bold text-foreground">Mina läkemedel</div>
-              </div>
-            </div>
-            {medications.length > 0 ? (
-              <div className="space-y-1">
-                {medications.map((id) => (
-                  <p key={id} className="text-sm text-foreground">
-                    • {medicationLabels[id]}
-                  </p>
-                ))}
-              </div>
-            ) : (
-              <p className="text-sm text-muted-foreground">Inga läkemedel valda ännu</p>
-            )}
-          </div>
-        </StatsBox>
+        <HealthInfoCard
+          icon={Pill}
+          title="Mina läkemedel"
+          items={medications.map((id) => ({ id, label: medicationLabels[id] }))}
+          emptyMessage="Inga läkemedel valda ännu"
+          onClick={() => navigate('/app/medications')}
+        />
       </div>
 
       {/* Dialog for weight */}
