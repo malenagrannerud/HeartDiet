@@ -29,10 +29,10 @@ export const UserPlanForm: React.FC<UserPlanFormProps> = ({
   };
 
   return (
-    <div className="bg-white border-gray-200 p-6 mt-6">
+    <div className="bg-white border border-gray-200 p-6 mt-6 rounded-none">
       <form onSubmit={handleSubmit} className="space-y-4 mt-4">
         <div>
-          <label className={`${bodyTextBald} block mb-2`}>Mål</label>
+          <label className={bodyTextBald}>Mål</label>
           <input
             type="text"
             value={plan.goal}
@@ -43,7 +43,7 @@ export const UserPlanForm: React.FC<UserPlanFormProps> = ({
         </div>
         
         <div>
-          <label className={`${bodyTextBald} block mb-2`}>När?</label>
+          <label className={bodyTextBald}>När?</label>
           <input
             type="text"
             value={plan.when}
@@ -54,7 +54,7 @@ export const UserPlanForm: React.FC<UserPlanFormProps> = ({
         </div>
 
         <div>
-          <label className={`${bodyTextBald} block mb-2`}>
+          <label className={bodyTextBald}>
             Hur?
           </label>
           <textarea
@@ -67,7 +67,7 @@ export const UserPlanForm: React.FC<UserPlanFormProps> = ({
         </div>
 
         <div>
-          <label className={`${bodyTextBald} block mb-2`}>Påminnelse</label>
+          <label className={bodyTextBald}>Påminnelse</label>
           <input
             type="text"
             value={plan.reminder}
