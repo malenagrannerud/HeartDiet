@@ -209,7 +209,7 @@ const Today = () => {
                   {!hiddenCards.tutorial && !hiddenCards.healthGoals && (
                     <div className="flex gap-4">
                       <div className="w-5 flex justify-center">
-                        <div className="w-0.5 h-4 border-l-2 border-dashed border-gray-300" />
+                        <div className="w-0.5 h-2 border-l-2 border-dashed border-gray-300" />
                       </div>
                     </div>
                   )}
@@ -237,7 +237,7 @@ const Today = () => {
                   {!hiddenCards.healthGoals && !hiddenCards.medications && (
                     <div className="flex gap-4">
                       <div className="w-5 flex justify-center">
-                        <div className="w-0.5 h-4 border-l-2 border-dashed border-gray-300" />
+                        <div className="w-0.5 h-2 border-l-2 border-dashed border-gray-300" />
                       </div>
                     </div>
                   )}
@@ -262,7 +262,7 @@ const Today = () => {
                   {!hiddenCards.medications && !hiddenCards.healthMetrics && (
                     <div className="flex gap-4">
                       <div className="w-5 flex justify-center">
-                        <div className="w-0.5 h-4 border-l-2 border-dashed border-gray-300" />
+                        <div className="w-0.5 h-2 border-l-2 border-dashed border-gray-300" />
                       </div>
                     </div>
                   )}
