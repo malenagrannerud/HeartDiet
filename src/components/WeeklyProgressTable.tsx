@@ -55,7 +55,7 @@ export const WeeklyProgressTable = ({
   return (
     <>
       {/* Week Navigation */}
-      <div className="flex flex-col"> 
+      
         {/* Top row: arrows and date */}
         <div className="flex items-center justify-between">
           <Button
@@ -94,7 +94,7 @@ export const WeeklyProgressTable = ({
             Gå till idag
           </Button>
         </div>
-      </div>
+      
 
       {/* Weekly Table */}
         <div className="bg-background border overflow-hidden">
