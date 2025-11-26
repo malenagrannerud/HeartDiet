@@ -6,7 +6,7 @@ import { ChevronLeft, ChevronRight, Plus, Heart, Pill, Weight } from "lucide-rea
 import { tips } from "@/data/tips";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
-import { pageTitle, pageSubtitle, pageContainer, pagePadding, bodyText, bodyTextBald, cardTextSmall, cardTextSmallBold, tableHeaderSmall, tableHeaderMedium } from "@/lib/design-tokens";
+import { pageTitle, pageSubtitle, pageContainer, headerContainer, pagePadding, standardSpacing, bodyText, bodyTextBald, cardTextSmall, cardTextSmallBold, tableHeaderSmall, tableHeaderMedium } from "@/lib/design-tokens";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -388,93 +388,128 @@ const Progress = () => {
   const currentStreak = getCurrentStreak();
 
   return (
-    <div className={`${pageContainer} ${pagePadding} space-y-6`}>
-      <header className="flex items-start justify-between">
-        <div>
+    <div className={pageContainer}>
+      <header className={headerContainer}>
+        
           <h1 className={pageTitle}>Mina sidor</h1>
           <p className={pageSubtitle}>Följ dina framsteg och logga data</p>
-        </div>
-      </header>
-
-      {/* Week Navigation */}
-      <div className="flex items-center justify-between py-4">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={goToPreviousWeek}
-          className="h-10"
-        >
-          <ChevronLeft className="h-5 w-5" />
-        </Button>
         
-        <div className="text-center">
-          <div className="text-lg font-semibold">
-            {format(weekDates[0], 'd MMM', { locale: sv })} - {format(weekDates[6], 'd MMM', { locale: sv })}
-          </div>
+      </header>
+      <main className={pagePadding}>
+
+        {/* Week Navigation */}
+        <div className={standardSpacing.pageContent}>
           <Button
-            variant="ghost"
+            variant="outline"
             size="sm"
-            onClick={goToCurrentWeek}
-            className="text-xs text-muted-foreground hover:text-foreground"
+            onClick={goToPreviousWeek}
+            className="h-10"
           >
-            Gå till idag
+            <ChevronLeft className="h-5 w-5" />
+          </Button>
+          
+          <div className="text-center">
+            <div className="text-lg font-semibold">
+              {format(weekDates[0], 'd MMM', { locale: sv })} - {format(weekDates[6], 'd MMM', { locale: sv })}
+            </div>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={goToCurrentWeek}
+              className="text-xs text-muted-foreground hover:text-foreground"
+            >
+              Gå till idag
+            </Button>
+          </div>
+
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={goToNextWeek}
+            className="h-10"
+          >
+            <ChevronRight className="h-5 w-5" />
           </Button>
         </div>
 
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={goToNextWeek}
-          className="h-10"
-        >
-          <ChevronRight className="h-5 w-5" />
-        </Button>
-      </div>
-
-      {/* Weekly Table */}
-      <div className="bg-background border overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full border-collapse">
-            <thead>
-              <tr className="border-b bg-muted/50">
-                <th className="text-left py-1 px-1 font-semibold text-foreground w-[200px]"></th> 
-                {weekDates.map((date, index) => {
-                  const todayHighlight = isToday(date);
-                  return (
-                    <th 
-                      key={index} 
-                      className={`text-center py-2 px-0 font-semibold min-w-[40px] ${
-                        todayHighlight ? 'bg-primary/20 border-l-2 border-r-2 border-primary' : 'text-foreground'
-                      }`}
-                    >
-                      <div className="flex flex-col items-center gap-0">
-                        <span className={`${tableHeaderSmall} leading-tight ${todayHighlight ? 'text-primary font-bold' : 'text-muted-foreground'}`}>
-                          {capitalizeMonth(format(date, 'MMM', { locale: sv }))}
-                        </span>
-                        <span className={`${tableHeaderSmall} font-bold leading-tight ${todayHighlight ? 'text-primary' : ''}`}>
-                          {format(date, 'd')}
-                        </span>
-                        <span className={`${tableHeaderSmall} leading-tight ${todayHighlight ? 'text-primary font-bold' : 'text-muted-foreground'}`}>
-                          {getDayInitial(date)}
-                        </span>
-                      </div>
-                    </th>
-                  );
-                })}
-              </tr>
-            </thead>
-            <tbody>
-              {tips.map((tip) => {
-                const tipColor = tip.color.includes('bg-[') 
-                  ? tip.color.replace('bg-[', '').replace(']', '')
-                  : '#A8CC7D';
-                
-                return (
-                  <tr key={tip.id} className="border-b hover:bg-muted/30 transition-colors">
+        {/* Weekly Table */}
+        <div className={standardSpacing.pageContent}>
+          <div className="bg-background border overflow-hidden">
+            <div className="overflow-x-auto">
+              <table className="w-full border-collapse">
+                <thead>
+                  <tr className="border-b bg-muted/50">
+                    <th className="text-left py-1 px-1 font-semibold text-foreground w-[200px]"></th> 
+                    {weekDates.map((date, index) => {
+                      const todayHighlight = isToday(date);
+                      return (
+                        <th 
+                          key={index} 
+                          className={`text-center py-2 px-0 font-semibold min-w-[40px] ${
+                            todayHighlight ? 'bg-primary/20 border-l-2 border-r-2 border-primary' : 'text-foreground'
+                          }`}
+                        >
+                          <div className="flex flex-col items-center gap-0">
+                            <span className={`${tableHeaderSmall} leading-tight ${todayHighlight ? 'text-primary font-bold' : 'text-muted-foreground'}`}>
+                              {capitalizeMonth(format(date, 'MMM', { locale: sv }))}
+                            </span>
+                            <span className={`${tableHeaderSmall} font-bold leading-tight ${todayHighlight ? 'text-primary' : ''}`}>
+                              {format(date, 'd')}
+                            </span>
+                            <span className={`${tableHeaderSmall} leading-tight ${todayHighlight ? 'text-primary font-bold' : 'text-muted-foreground'}`}>
+                              {getDayInitial(date)}
+                            </span>
+                          </div>
+                        </th>
+                      );
+                    })}
+                  </tr>
+                </thead>
+                <tbody>
+                  {tips.map((tip) => {
+                    const tipColor = tip.color.includes('bg-[') 
+                      ? tip.color.replace('bg-[', '').replace(']', '')
+                      : '#A8CC7D';
+                    
+                    return (
+                      <tr key={tip.id} className="border-b hover:bg-muted/30 transition-colors">
+                        <td className="py-1 px-1">
+                          <span className={bodyText}>{tip.title}</span>
+                        </td>
+                        {weekDates.map((date, dayIndex) => {
+                          const todayHighlight = isToday(date);
+                          return (
+                            <td 
+                              key={dayIndex} 
+                              className={`text-center py-1 px-0 ${
+                                todayHighlight ? 'bg-primary/10 border-l-2 border-r-2 border-primary' : ''
+                              }`}
+                            >
+                              <div className="flex justify-center">
+                                <Checkbox
+                                  checked={isTipCompletedOnDate(tip.id, date)}
+                                  onCheckedChange={() => handleTipToggle(tip.id, date)}
+                                  className="h-7 w-7 rounded-none transition-all duration-200"
+                                  style={isTipCompletedOnDate(tip.id, date) ? {
+                                    backgroundColor: tipColor,
+                                    borderColor: tipColor
+                                  } : undefined}
+                                />
+                              </div>
+                            </td>
+                          );
+                        })}
+                      </tr>
+                    );
+                  })}
+                  
+                  {/* Row for weight */}
+                  <tr className="border-b bg-muted/20">
                     <td className="py-1 px-1">
-                      <span className={bodyText}>{tip.title}</span>
+                      <span className={`${bodyTextBald}`}>Vikt</span>
                     </td>
                     {weekDates.map((date, dayIndex) => {
+                      const hasWeight = hasWeightOnDate(date);
                       const todayHighlight = isToday(date);
                       return (
                         <td 
@@ -483,401 +518,370 @@ const Progress = () => {
                             todayHighlight ? 'bg-primary/10 border-l-2 border-r-2 border-primary' : ''
                           }`}
                         >
-                          <div className="flex justify-center">
-                            <Checkbox
-                              checked={isTipCompletedOnDate(tip.id, date)}
-                              onCheckedChange={() => handleTipToggle(tip.id, date)}
-                              className="h-7 w-7 rounded-none transition-all duration-200"
-                              style={isTipCompletedOnDate(tip.id, date) ? {
-                                backgroundColor: tipColor,
-                                borderColor: tipColor
-                              } : undefined}
-                            />
-                          </div>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => openAddDataDialog(date, 'weight')}
+                            className="h-8 w-8 p-0 rounded-none"
+                          >
+                            {hasWeight ? (
+                              <Weight className="h-4 w-4 text-black fill-black" />
+                            ) : (
+                              <Plus className="h-4 w-4" />
+                            )}
+                          </Button>
                         </td>
                       );
                     })}
                   </tr>
-                );
-              })}
-              
-              {/* Row for weight */}
-              <tr className="border-b bg-muted/20">
-                <td className="py-1 px-1">
-                  <span className={`${bodyTextBald}`}>Vikt</span>
-                </td>
-                {weekDates.map((date, dayIndex) => {
-                  const hasWeight = hasWeightOnDate(date);
-                  const todayHighlight = isToday(date);
-                  return (
-                    <td 
-                      key={dayIndex} 
-                      className={`text-center py-1 px-0 ${
-                        todayHighlight ? 'bg-primary/10 border-l-2 border-r-2 border-primary' : ''
-                      }`}
-                    >
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => openAddDataDialog(date, 'weight')}
-                        className="h-8 w-8 p-0 rounded-none"
-                      >
-                        {hasWeight ? (
-                          <Weight className="h-4 w-4 text-black fill-black" />
-                        ) : (
-                          <Plus className="h-4 w-4" />
-                        )}
-                      </Button>
-                    </td>
-                  );
-                })}
-              </tr>
 
-              {/* Row for blood pressure */}
-              <tr className="border-b bg-muted/20">
-                <td className="py-1 px-1">
-                  <span className={bodyText}>Blodtryck</span>
-                </td>
-                {weekDates.map((date, dayIndex) => {
-                  const hasBP = hasBloodPressureOnDate(date);
-                  const todayHighlight = isToday(date);
-                  return (
-                    <td 
-                      key={dayIndex} 
-                      className={`text-center py-1 px-0 ${
-                        todayHighlight ? 'bg-primary/10 border-l-2 border-r-2 border-primary' : ''
-                      }`}
-                    >
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => openAddDataDialog(date, 'bloodPressure')}
-                        className="h-8 w-8 p-0 rounded-none"
-                      >
-                        {hasBP ? (
-                          <Heart className="h-4 w-4 text-red-500 fill-red-500" />
-                        ) : (
-                          <Plus className="h-4 w-4" />
-                        )}
-                      </Button>
+                  {/* Row for blood pressure */}
+                  <tr className="border-b bg-muted/20">
+                    <td className="py-1 px-1">
+                      <span className={bodyText}>Blodtryck</span>
                     </td>
-                  );
-                })}
-              </tr>
-            </tbody>
-          </table>
+                    {weekDates.map((date, dayIndex) => {
+                      const hasBP = hasBloodPressureOnDate(date);
+                      const todayHighlight = isToday(date);
+                      return (
+                        <td 
+                          key={dayIndex} 
+                          className={`text-center py-1 px-0 ${
+                            todayHighlight ? 'bg-primary/10 border-l-2 border-r-2 border-primary' : ''
+                          }`}
+                        >
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => openAddDataDialog(date, 'bloodPressure')}
+                            className="h-8 w-8 p-0 rounded-none"
+                          >
+                            {hasBP ? (
+                              <Heart className="h-4 w-4 text-red-500 fill-red-500" />
+                            ) : (
+                              <Plus className="h-4 w-4" />
+                            )}
+                          </Button>
+                        </td>
+                      );
+                    })}
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
-      </div>
 
-      {/* Stats */}
-      <div className="grid grid-cols-2 gap-6">
-        <StatsBox>
-          <div className="flex flex-col gap-4">
-            <div>
-              <div className={bodyTextBald}>Klarade dagar</div>
-              <div className={cardTextSmall}>Antal dagar du följt dina Tips</div>
-            </div>
-            <div className="flex items-center justify-end">
-              <div className="w-16 h-16 bg-emerald-500 flex items-center justify-center">
-                <span className="text-3xl font-bold text-blue-900">{daysThisMonth}</span>
+        {/* Stats */}
+        <div className="grid grid-cols-2 gap-6">
+          <StatsBox>
+            <div className="flex flex-col gap-4">
+              <div>
+                <div className={bodyTextBald}>Klarade dagar</div>
+                <div className={cardTextSmall}>Antal dagar du följt dina Tips</div>
+              </div>
+              <div className="flex items-center justify-end">
+                <div className="w-16 h-16 bg-emerald-500 flex items-center justify-center">
+                  <span className="text-3xl font-bold text-blue-900">{daysThisMonth}</span>
+                </div>
               </div>
             </div>
-          </div>
-        </StatsBox>
+          </StatsBox>
 
-        <StatsBox>
-          <div className="flex flex-col gap-4">
-            <div>
-              <div className={bodyTextBald}>Klarade dagar i rad</div>
-              <div className={cardTextSmall}>Antal dagar i rad du följt dina Tips</div>
-            </div>
-            <div className="flex items-center justify-end">
-              <div className="w-16 h-16 bg-blue-100 flex items-center justify-center">
-                <span className="text-3xl font-bold text-blue-900">{currentStreak}</span>
+          <StatsBox>
+            <div className="flex flex-col gap-4">
+              <div>
+                <div className={bodyTextBald}>Klarade dagar i rad</div>
+                <div className={cardTextSmall}>Antal dagar i rad du följt dina Tips</div>
+              </div>
+              <div className="flex items-center justify-end">
+                <div className="w-16 h-16 bg-blue-100 flex items-center justify-center">
+                  <span className="text-3xl font-bold text-blue-900">{currentStreak}</span>
+                </div>
               </div>
             </div>
-          </div>
-        </StatsBox>
-      </div>
+          </StatsBox>
+        </div>
 
-      {/* Charts */}
-      <div className="grid grid-cols-2 gap-6">
-        <StatsBox>
-          <div className="flex flex-col gap-4">
-            <div>
-              <div className={bodyTextBald}>Vikt</div>
-              <div className={cardTextSmall}>Loggade vikter (kg)</div>
-            </div>
-            <ChartContainer config={{ weight: { label: "Vikt", color: "hsl(217, 91%, 60%)" } }} className="h-48 w-full">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart 
-                  data={dayLogs
-                    .flatMap(log => 
-                      log.entries
-                        .filter(e => e.type === 'weight')
-                        .map(e => ({ 
-                          date: format(new Date(log.date), 'd MMM', { locale: sv }),
-                          weight: e.value,
-                          fullDate: log.date
-                        }))
-                    )
-                    .sort((a, b) => new Date(a.fullDate).getTime() - new Date(b.fullDate).getTime())
-                    .slice(-10)} 
-                  margin={{ top: 20, bottom: 20 }}
-                >
-                  <XAxis 
-                    dataKey="date" 
-                    axisLine={false}
-                    tickLine={false}
-                    tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }}
-                  />
-                  <YAxis hide />
-                  <Bar 
-                    dataKey="weight" 
-                    fill="hsl(217, 91%, 60%)" 
-                    radius={[0, 0, 0, 0]}
-                    maxBarSize={20}
+        {/* Charts */}
+        <div className="grid grid-cols-2 gap-6">
+          <StatsBox>
+            <div className="flex flex-col gap-4">
+              <div>
+                <div className={bodyTextBald}>Vikt</div>
+                <div className={cardTextSmall}>Loggade vikter (kg)</div>
+              </div>
+              <ChartContainer config={{ weight: { label: "Vikt", color: "hsl(217, 91%, 60%)" } }} className="h-48 w-full">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart 
+                    data={dayLogs
+                      .flatMap(log => 
+                        log.entries
+                          .filter(e => e.type === 'weight')
+                          .map(e => ({ 
+                            date: format(new Date(log.date), 'd MMM', { locale: sv }),
+                            weight: e.value,
+                            fullDate: log.date
+                          }))
+                      )
+                      .sort((a, b) => new Date(a.fullDate).getTime() - new Date(b.fullDate).getTime())
+                      .slice(-10)} 
+                    margin={{ top: 20, bottom: 20 }}
                   >
-                    <LabelList 
+                    <XAxis 
+                      dataKey="date" 
+                      axisLine={false}
+                      tickLine={false}
+                      tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }}
+                    />
+                    <YAxis hide />
+                    <Bar 
                       dataKey="weight" 
-                      position="top" 
-                      style={{ fontSize: 12, fill: 'hsl(var(--foreground))' }}
-                      formatter={(value: number) => `${value} kg`}
-                    />
-                  </Bar>
-                </BarChart>
-              </ResponsiveContainer>
-            </ChartContainer>
-          </div>
-        </StatsBox>
-
-        <StatsBox>
-          <div className="flex flex-col gap-4">
-            <div>
-              <div className={bodyTextBald}>Blodtryck</div>
-              <div className={cardTextSmall}>Loggade blodtryck (mmHg)</div>
+                      fill="hsl(217, 91%, 60%)" 
+                      radius={[0, 0, 0, 0]}
+                      maxBarSize={20}
+                    >
+                      <LabelList 
+                        dataKey="weight" 
+                        position="top" 
+                        style={{ fontSize: 12, fill: 'hsl(var(--foreground))' }}
+                        formatter={(value: number) => `${value} kg`}
+                      />
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </ChartContainer>
             </div>
-            <ChartContainer config={{ systolic: { label: "Systoliskt", color: "hsl(350, 89%, 60%)" } }} className="h-48 w-full">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart 
-                  data={dayLogs
-                    .flatMap(log => 
-                      log.entries
-                        .filter(e => e.type === 'bloodPressure')
-                        .map(e => ({ 
-                          date: format(new Date(log.date), 'd MMM', { locale: sv }),
-                          systolic: e.value,
-                          diastolic: e.value2,
-                          fullDate: log.date
-                        }))
-                    )
-                    .sort((a, b) => new Date(a.fullDate).getTime() - new Date(b.fullDate).getTime())
-                    .slice(-10)} 
-                  margin={{ top: 20, bottom: 20 }}
-                >
-                  <XAxis 
-                    dataKey="date" 
-                    axisLine={false}
-                    tickLine={false}
-                    tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }}
-                  />
-                  <YAxis hide />
-                  <Bar 
-                    dataKey="systolic" 
-                    fill="hsl(350, 89%, 60%)" 
-                    radius={[0, 0, 0, 0]}
-                    maxBarSize={20}
+          </StatsBox>
+
+          <StatsBox>
+            <div className="flex flex-col gap-4">
+              <div>
+                <div className={bodyTextBald}>Blodtryck</div>
+                <div className={cardTextSmall}>Loggade blodtryck (mmHg)</div>
+              </div>
+              <ChartContainer config={{ systolic: { label: "Systoliskt", color: "hsl(350, 89%, 60%)" } }} className="h-48 w-full">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart 
+                    data={dayLogs
+                      .flatMap(log => 
+                        log.entries
+                          .filter(e => e.type === 'bloodPressure')
+                          .map(e => ({ 
+                            date: format(new Date(log.date), 'd MMM', { locale: sv }),
+                            systolic: e.value,
+                            diastolic: e.value2,
+                            fullDate: log.date
+                          }))
+                      )
+                      .sort((a, b) => new Date(a.fullDate).getTime() - new Date(b.fullDate).getTime())
+                      .slice(-10)} 
+                    margin={{ top: 20, bottom: 20 }}
                   >
-                    <LabelList 
-                      dataKey="systolic" 
-                      position="top" 
-                      style={{ fontSize: 12, fill: 'hsl(var(--foreground))' }}
-                      formatter={(value: number) => `${value}`}
+                    <XAxis 
+                      dataKey="date" 
+                      axisLine={false}
+                      tickLine={false}
+                      tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }}
                     />
-                  </Bar>
-                </BarChart>
-              </ResponsiveContainer>
-            </ChartContainer>
-          </div>
-        </StatsBox>
-      </div>
-
-      {/* Health Goals and Medications Cards */}
-      <div className="grid grid-cols-2 gap-6">
-        <HealthInfoCard
-          icon={Heart}
-          title="Mina hälsomål"
-          items={priorities.map((id) => ({ id, label: healthPriorityLabels[id] }))}
-          emptyMessage="Inga mål valda ännu"
-          onClick={() => navigate('/app/health-goals')}
-        />
-
-        <HealthInfoCard
-          icon={Pill}
-          title="Mina läkemedel"
-          items={medications.map((id) => ({ id, label: medicationLabels[id] }))}
-          emptyMessage="Inga läkemedel valda ännu"
-          onClick={() => navigate('/app/medications')}
-        />
-      </div>
-
-      {/* Dialog for weight */}
-      <Dialog open={weightDialogOpen} onOpenChange={setWeightDialogOpen}>
-        <DialogContent className="max-w-md">
-          <DialogHeader>
-            <DialogTitle>
-              {existingWeightEntry ? 'Ändra vikt' : 'Lägg till vikt'} för {selectedDate && format(selectedDate, 'd MMMM yyyy', { locale: sv })}
-            </DialogTitle>
-          </DialogHeader>
-          
-          <div className="space-y-4 py-4">
-            {existingWeightEntry && (
-              <div className="p-3 bg-muted/50">
-                <p className="text-sm text-muted-foreground mb-1">Nuvarande värde:</p>
-                <p className="text-lg font-semibold">{existingWeightEntry} kg</p>
-              </div>
-            )}
-            
-            <div>
-              <Label htmlFor="weight-input" className="text-base mb-2 block">Vikt (kg)</Label>
-              <Input
-                id="weight-input"
-                type="number"
-                step="0.1"
-                value={weightInput}
-                onChange={(e) => setWeightInput(e.target.value)}
-                placeholder="Ange vikt i kg"
-                className="w-full"
-              />
+                    <YAxis hide />
+                    <Bar 
+                      dataKey="systolic" 
+                      fill="hsl(350, 89%, 60%)" 
+                      radius={[0, 0, 0, 0]}
+                      maxBarSize={20}
+                    >
+                      <LabelList 
+                        dataKey="systolic" 
+                        position="top" 
+                        style={{ fontSize: 12, fill: 'hsl(var(--foreground))' }}
+                        formatter={(value: number) => `${value}`}
+                      />
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </ChartContainer>
             </div>
-          </div>
+          </StatsBox>
+        </div>
 
-          <DialogFooter className="gap-3">
-            {existingWeightEntry && (
-              <Button 
-                variant="destructive" 
-                onClick={handleDeleteWeight} 
-                className="text-base py-6"
-              >
-                Radera
-              </Button>
-            )}
-            <Button variant="outline" onClick={() => setWeightDialogOpen(false)} className="text-base py-6">
-              Avbryt
-            </Button>
-            <Button onClick={handleSaveWeight} className="text-base py-6">
-              Spara
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+        {/* Health Goals and Medications Cards */}
+        <div className="grid grid-cols-2 gap-6">
+          <HealthInfoCard
+            icon={Heart}
+            title="Mina hälsomål"
+            items={priorities.map((id) => ({ id, label: healthPriorityLabels[id] }))}
+            emptyMessage="Inga mål valda ännu"
+            onClick={() => navigate('/app/health-goals')}
+          />
 
-      {/* Dialog for blood pressure */}
-      <Dialog open={bpDialogOpen} onOpenChange={setBpDialogOpen}>
-        <DialogContent className="max-w-md">
-          <DialogHeader>
-            <DialogTitle>
-              {existingBPEntry ? 'Ändra blodtryck' : 'Lägg till blodtryck'} för {selectedDate && format(selectedDate, 'd MMMM yyyy', { locale: sv })}
-            </DialogTitle>
-          </DialogHeader>
-          
-          <div className="space-y-4 py-4">
-            {existingBPEntry && (
-              <div className="p-3 bg-muted/50">
-                <p className="text-sm text-muted-foreground mb-1">Nuvarande värde:</p>
-                <p className="text-lg font-semibold">{existingBPEntry.systolic}/{existingBPEntry.diastolic} mmHg</p>
-              </div>
-            )}
+          <HealthInfoCard
+            icon={Pill}
+            title="Mina läkemedel"
+            items={medications.map((id) => ({ id, label: medicationLabels[id] }))}
+            emptyMessage="Inga läkemedel valda ännu"
+            onClick={() => navigate('/app/medications')}
+          />
+        </div>
+
+        {/* Dialog for weight */}
+        <Dialog open={weightDialogOpen} onOpenChange={setWeightDialogOpen}>
+          <DialogContent className="max-w-md">
+            <DialogHeader>
+              <DialogTitle>
+                {existingWeightEntry ? 'Ändra vikt' : 'Lägg till vikt'} för {selectedDate && format(selectedDate, 'd MMMM yyyy', { locale: sv })}
+              </DialogTitle>
+            </DialogHeader>
             
-            <div className="space-y-3">
+            <div className="space-y-4 py-4">
+              {existingWeightEntry && (
+                <div className="p-3 bg-muted/50">
+                  <p className="text-sm text-muted-foreground mb-1">Nuvarande värde:</p>
+                  <p className="text-lg font-semibold">{existingWeightEntry} kg</p>
+                </div>
+              )}
+              
               <div>
-                <Label htmlFor="systolic-input" className="text-base mb-2 block">Systoliskt (övre värde)</Label>
+                <Label htmlFor="weight-input" className="text-base mb-2 block">Vikt (kg)</Label>
                 <Input
-                  id="systolic-input"
+                  id="weight-input"
                   type="number"
-                  value={systolicInput}
-                  onChange={(e) => setSystolicInput(e.target.value)}
-                  placeholder="T.ex. 120"
-                  className="w-full"
-                />
-              </div>
-              <div>
-                <Label htmlFor="diastolic-input" className="text-base mb-2 block">Diastoliskt (nedre värde)</Label>
-                <Input
-                  id="diastolic-input"
-                  type="number"
-                  value={diastolicInput}
-                  onChange={(e) => setDiastolicInput(e.target.value)}
-                  placeholder="T.ex. 80"
+                  step="0.1"
+                  value={weightInput}
+                  onChange={(e) => setWeightInput(e.target.value)}
+                  placeholder="Ange vikt i kg"
                   className="w-full"
                 />
               </div>
             </div>
-          </div>
 
-          <DialogFooter className="gap-3">
-            {existingBPEntry && (
-              <Button 
-                variant="destructive" 
-                onClick={handleDeleteBloodPressure} 
-                className="text-base py-6"
-              >
-                Radera
+            <DialogFooter className="gap-3">
+              {existingWeightEntry && (
+                <Button 
+                  variant="destructive" 
+                  onClick={handleDeleteWeight} 
+                  className="text-base py-6"
+                >
+                  Radera
+                </Button>
+              )}
+              <Button variant="outline" onClick={() => setWeightDialogOpen(false)} className="text-base py-6">
+                Avbryt
               </Button>
-            )}
-            <Button variant="outline" onClick={() => setBpDialogOpen(false)} className="text-base py-6">
-              Avbryt
-            </Button>
-            <Button onClick={handleSaveBloodPressure} className="text-base py-6">
-              Spara
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+              <Button onClick={handleSaveWeight} className="text-base py-6">
+                Spara
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
 
-      {/* Save Confirmation Alert */}
-      <AlertDialog open={saveAlertOpen} onOpenChange={setSaveAlertOpen}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Granska innan du sparar</AlertDialogTitle>
-            <AlertDialogDescription>
-              Kontrollera att uppgifterna stämmer:
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          {pendingEntry && selectedDate && (
-            <div className="my-4 space-y-3 bg-muted/50 p-4">
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-muted-foreground">Datum:</span>
-                <span className="text-sm font-medium">{format(selectedDate, 'd MMMM yyyy', { locale: sv })}</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-muted-foreground">Typ:</span>
-                <span className="text-sm font-medium">
-                  {pendingEntry.type === 'weight' ? 'Vikt' : 'Blodtryck'}
-                </span>
-              </div>
-              {pendingEntry.type === 'weight' && (
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-muted-foreground">Värde:</span>
-                  <span className="text-sm font-medium">{pendingEntry.weight} kg</span>
+        {/* Dialog for blood pressure */}
+        <Dialog open={bpDialogOpen} onOpenChange={setBpDialogOpen}>
+          <DialogContent className="max-w-md">
+            <DialogHeader>
+              <DialogTitle>
+                {existingBPEntry ? 'Ändra blodtryck' : 'Lägg till blodtryck'} för {selectedDate && format(selectedDate, 'd MMMM yyyy', { locale: sv })}
+              </DialogTitle>
+            </DialogHeader>
+            
+            <div className="space-y-4 py-4">
+              {existingBPEntry && (
+                <div className="p-3 bg-muted/50">
+                  <p className="text-sm text-muted-foreground mb-1">Nuvarande värde:</p>
+                  <p className="text-lg font-semibold">{existingBPEntry.systolic}/{existingBPEntry.diastolic} mmHg</p>
                 </div>
               )}
-              {pendingEntry.type === 'bloodPressure' && (
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-muted-foreground">Värde:</span>
-                  <span className="text-sm font-medium">{pendingEntry.systolic}/{pendingEntry.diastolic} mmHg</span>
+              
+              <div className="space-y-3">
+                <div>
+                  <Label htmlFor="systolic-input" className="text-base mb-2 block">Systoliskt (övre värde)</Label>
+                  <Input
+                    id="systolic-input"
+                    type="number"
+                    value={systolicInput}
+                    onChange={(e) => setSystolicInput(e.target.value)}
+                    placeholder="T.ex. 120"
+                    className="w-full"
+                  />
                 </div>
-              )}
+                <div>
+                  <Label htmlFor="diastolic-input" className="text-base mb-2 block">Diastoliskt (nedre värde)</Label>
+                  <Input
+                    id="diastolic-input"
+                    type="number"
+                    value={diastolicInput}
+                    onChange={(e) => setDiastolicInput(e.target.value)}
+                    placeholder="T.ex. 80"
+                    className="w-full"
+                  />
+                </div>
+              </div>
             </div>
-          )}
-          <AlertDialogFooter>
-            <AlertDialogCancel onClick={() => setPendingEntry(null)}>Avbryt</AlertDialogCancel>
-            <AlertDialogAction onClick={confirmSaveEntry}>
-              Spara
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+
+            <DialogFooter className="gap-3">
+              {existingBPEntry && (
+                <Button 
+                  variant="destructive" 
+                  onClick={handleDeleteBloodPressure} 
+                  className="text-base py-6"
+                >
+                  Radera
+                </Button>
+              )}
+              <Button variant="outline" onClick={() => setBpDialogOpen(false)} className="text-base py-6">
+                Avbryt
+              </Button>
+              <Button onClick={handleSaveBloodPressure} className="text-base py-6">
+                Spara
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
+        {/* Save Confirmation Alert */}
+        <AlertDialog open={saveAlertOpen} onOpenChange={setSaveAlertOpen}>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Granska innan du sparar</AlertDialogTitle>
+              <AlertDialogDescription>
+                Kontrollera att uppgifterna stämmer:
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            {pendingEntry && selectedDate && (
+              <div className="my-4 space-y-3 bg-muted/50 p-4">
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-muted-foreground">Datum:</span>
+                  <span className="text-sm font-medium">{format(selectedDate, 'd MMMM yyyy', { locale: sv })}</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-muted-foreground">Typ:</span>
+                  <span className="text-sm font-medium">
+                    {pendingEntry.type === 'weight' ? 'Vikt' : 'Blodtryck'}
+                  </span>
+                </div>
+                {pendingEntry.type === 'weight' && (
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-muted-foreground">Värde:</span>
+                    <span className="text-sm font-medium">{pendingEntry.weight} kg</span>
+                  </div>
+                )}
+                {pendingEntry.type === 'bloodPressure' && (
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-muted-foreground">Värde:</span>
+                    <span className="text-sm font-medium">{pendingEntry.systolic}/{pendingEntry.diastolic} mmHg</span>
+                  </div>
+                )}
+              </div>
+            )}
+            <AlertDialogFooter>
+              <AlertDialogCancel onClick={() => setPendingEntry(null)}>Avbryt</AlertDialogCancel>
+              <AlertDialogAction onClick={confirmSaveEntry}>
+                Spara
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      </main>
     </div>
   );
 };
