@@ -503,7 +503,7 @@ const Progress = () => {
               {/* Row for weight */}
               <tr className="border-b bg-muted/20">
                 <td className="py-1 px-1">
-                  <span className="text-sm font-medium text-muted-foreground">Vikt</span>
+                  <span className={bodyTextBald}>Vikt</span>
                 </td>
                 {weekDates.map((date, dayIndex) => {
                   const hasWeight = hasWeightOnDate(date);
