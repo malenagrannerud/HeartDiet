@@ -1,4 +1,4 @@
-import { Circle, Check } from "lucide-react";
+import { Check } from "lucide-react";
 
 interface CheckBoxLeftProps {
   isCompleted: boolean;
