@@ -38,10 +38,10 @@ export const ProgressChart: React.FC<ProgressChartProps> = ({ type, dayLogs }) =
     .slice(-10);
 
   const chartConfig = isWeight
-    ? { weight: { label: "Vikt", color: "hsl(217, 91%, 60%)" } }
-    : { systolic: { label: "Systoliskt", color: "hsl(350, 89%, 60%)" } };
+    ? { weight: { label: "Vikt", color: "hsla(204, 37%, 48%, 1.00)" } }
+    : { systolic: { label: "Systoliskt", color: "hsla(332, 52%, 52%, 1.00)" } };
 
-  const barColor = isWeight ? "hsl(217, 91%, 60%)" : "hsl(350, 89%, 60%)";
+  const barColor = isWeight ? "hsla(204, 37%, 48%, 1.00)" : "hsla(332, 52%, 52%, 1.00)";
   const dataKey = isWeight ? "value" : "value";
   const title = isWeight ? "Vikt" : "Blodtryck";
   const subtitle = isWeight ? "Loggade vikter (kg)" : "Loggade blodtryck (mmHg)";
