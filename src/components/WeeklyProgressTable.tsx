@@ -55,7 +55,6 @@ export const WeeklyProgressTable = ({
   return (
     <>
       {/* Week Navigation */}
-      <div className={standardSpacing.sectionContent}>
         <Button
           variant="outline"
           size="sm"
@@ -87,10 +86,8 @@ export const WeeklyProgressTable = ({
         >
           <ChevronRight className="h-5 w-5" />
         </Button>
-      </div>
-
+      
       {/* Weekly Table */}
-      <div className={standardSpacing.sectionContent}>
         <div className="bg-background border overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full border-collapse">
@@ -227,7 +224,7 @@ export const WeeklyProgressTable = ({
             </table>
           </div>
         </div>
-      </div>
+      
     </>
   );
 };
