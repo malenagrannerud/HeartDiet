@@ -84,12 +84,12 @@ export const WeeklyProgressTable = ({
         </div>
 
         {/* "Gå till idag" button centered below */}
-        <div className="flex justify-center">
+        <div className="flex justify-center -mt-1">
           <Button
             variant="ghost"
             size="sm"
             onClick={onCurrentWeek}
-           className="text-xs text-red-500 hover:text-foreground" // Changed to red
+            className="text-xs text-muted-foreground hover:text-foreground"
           >
             Gå till idag
           </Button>
