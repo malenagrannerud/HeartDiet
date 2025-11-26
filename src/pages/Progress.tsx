@@ -435,7 +435,7 @@ const Progress = () => {
           </div>
 
           {/* Charts */}
-          <div className="grid grid-cols-2 gap-6">
+          <div className="flex flex-col gap-6">
             <ProgressChart type="bloodPressure" dayLogs={dayLogs} />
             <ProgressChart type="weight" dayLogs={dayLogs} />
           </div>
