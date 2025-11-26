@@ -389,21 +389,19 @@ const Progress = () => {
       <main className={pagePadding}>
         <div className={standardSpacing.pageContent}>
 
-          <div
-            <WeeklyProgressTable
-              weekDates={weekDates}
-              dayLogs={dayLogs}
-              onPreviousWeek={goToPreviousWeek}
-              onNextWeek={goToNextWeek}
-              onCurrentWeek={goToCurrentWeek}
-              onTipToggle={handleTipToggle}
-              onOpenDialog={openAddDataDialog}
-              isTipCompletedOnDate={isTipCompletedOnDate}
-              hasWeightOnDate={hasWeightOnDate}
-              hasBloodPressureOnDate={hasBloodPressureOnDate}
-              isToday={isToday}
-            />
-          </div>
+          <WeeklyProgressTable
+            weekDates={weekDates}
+            dayLogs={dayLogs}
+            onPreviousWeek={goToPreviousWeek}
+            onNextWeek={goToNextWeek}
+            onCurrentWeek={goToCurrentWeek}
+            onTipToggle={handleTipToggle}
+            onOpenDialog={openAddDataDialog}
+            isTipCompletedOnDate={isTipCompletedOnDate}
+            hasWeightOnDate={hasWeightOnDate}
+            hasBloodPressureOnDate={hasBloodPressureOnDate}
+            isToday={isToday}
+          />
 
           {/* Stats */}
           <div className="grid grid-cols-2 gap-6">
