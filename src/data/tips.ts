@@ -30,7 +30,7 @@ export const tips: Tip[] = [
   },
   {
     id: 3,
-    title: "Fisk och skaldjur",
+    title: "Fisk & skaldjur",
     color: tipCardColors.cyan,
     freq: `Veckovis`
   },
@@ -64,12 +64,12 @@ export const tips: Tip[] = [
   //  color: tipCardColors.lightpurple,
   //  freq: `Dagligen`  
   //},
- // {
- //   id: 9,
- //   title: "30 min om dagen",
- //   color: tipCardColors.lightgreen,
- //   freq: `Dagligen`
- // },
+ {
+    id: 9,
+    title: "30 min om dagen",
+    color: tipCardColors.lightgreen,
+    freq: `Dagligen`
+  },
   //{
   //  id: 10,
   //  title: "Ät mer baljväxter",
