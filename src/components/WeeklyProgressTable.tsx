@@ -55,7 +55,7 @@ export const WeeklyProgressTable = ({
   return (
     <>
       {/* Week Navigation */}
-      
+      <div className="flex items-center justify-between mb-4"> {/* Added wrapper div */}
         <Button
           variant="outline"
           size="sm"
@@ -87,10 +87,10 @@ export const WeeklyProgressTable = ({
         >
           <ChevronRight className="h-5 w-5" />
         </Button>
-     
+      </div> {/* Closing wrapper div */}
 
       {/* Weekly Table */}
-      
+      <div className={standardSpacing.sectionContent}> {/* Added wrapper div */}
         <div className="bg-background border overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full border-collapse">
@@ -227,7 +227,7 @@ export const WeeklyProgressTable = ({
             </table>
           </div>
         </div>
-      
+      </div> {/* Closing wrapper div */}
     </>
   );
 };
