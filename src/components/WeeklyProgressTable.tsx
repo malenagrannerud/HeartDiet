@@ -55,20 +55,36 @@ export const WeeklyProgressTable = ({
   return (
     <>
       {/* Week Navigation */}
-      <div className="flex items-center justify-between mb-4"> {/* Added wrapper div */}
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={onPreviousWeek}
-          className="h-10"
-        >
-          <ChevronLeft className="h-5 w-5" />
-        </Button>
-        
-        <div className="text-center">
-          <div className="text-lg font-semibold">
-            {format(weekDates[0], 'd MMM', { locale: sv })} - {format(weekDates[6], 'd MMM', { locale: sv })}
+      <div className="flex flex-col gap-2"> {/* Changed to column layout */}
+        {/* Top row: arrows and date */}
+        <div className="flex items-center justify-between">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={onPreviousWeek}
+            className="h-10"
+          >
+            <ChevronLeft className="h-5 w-5" />
+          </Button>
+          
+          <div className="text-center">
+            <div className="text-lg font-semibold">
+              {format(weekDates[0], 'd MMM', { locale: sv })} - {format(weekDates[6], 'd MMM', { locale: sv })}
+            </div>
           </div>
+
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={onNextWeek}
+            className="h-10"
+          >
+            <ChevronRight className="h-5 w-5" />
+          </Button>
+        </div>
+
+        {/* "Gå till idag" button centered below */}
+        <div className="flex justify-center">
           <Button
             variant="ghost"
             size="sm"
@@ -78,19 +94,10 @@ export const WeeklyProgressTable = ({
             Gå till idag
           </Button>
         </div>
-
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={onNextWeek}
-          className="h-10"
-        >
-          <ChevronRight className="h-5 w-5" />
-        </Button>
-      </div> {/* Closing wrapper div */}
+      </div>
 
       {/* Weekly Table */}
-      <div className={standardSpacing.sectionContent}> {/* Added wrapper div */}
+      <div className={standardSpacing.sectionContent}>
         <div className="bg-background border overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full border-collapse">
@@ -227,7 +234,7 @@ export const WeeklyProgressTable = ({
             </table>
           </div>
         </div>
-      </div> {/* Closing wrapper div */}
+      </div>
     </>
   );
 };
