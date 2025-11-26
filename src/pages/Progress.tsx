@@ -386,6 +386,7 @@ const Progress = () => {
       </header>
       <main className={pagePadding}>
         <div className={standardSpacing.pageContent}>
+          
           <section className={standardSpacing.sectionContent}>
             <WeeklyProgressTable
               weekDates={weekDates}
