@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { UserPlan } from "@/data/tips";
 import { pageContainer, headerContainer, pagePadding, sectionHeading, sectionHeading2, sectionSubheading2, bodyText, tipCardColors, standardSpacing } from "@/lib/design-tokens";
 import { BackToTodayButton } from "@/components/BackToTodayButton";
-import { UserPlanForm } from "@/components/UserPlanForm";
+import { UserPlanFormDialog } from "@/components/UserPlanFormDialog";
 import { UserPlanDisplay } from "@/components/UserPlanDisplay";
 import DottedList from "@/components/DottedList";
 import ExampleCard from "@/components/exCard";
@@ -171,14 +171,14 @@ const FullkornPage = () => {
             />
           )}
 
-          {isEditing && (
-            <UserPlanForm
-              tipId={2}
-              initialPlan={editingIndex !== null ? userPlans[editingIndex] : undefined}
-              onSave={handleSavePlan}
-              onCancel={handleCancelEdit}
-            />
-          )}
+          <UserPlanFormDialog
+            open={isEditing}
+            onOpenChange={setIsEditing}
+            tipId={2}
+            initialPlan={editingIndex !== null ? userPlans[editingIndex] : undefined}
+            onSave={handleSavePlan}
+            onCancel={handleCancelEdit}
+          />
 
           <AddPlanButton 
             onClick={handleAddNewPlan} 
