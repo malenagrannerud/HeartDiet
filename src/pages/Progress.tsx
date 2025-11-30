@@ -217,10 +217,20 @@ const Progress = () => {
     localStorage.setItem('dayLogs', JSON.stringify(updatedLogs));
   };
 
-  const openAddDataDialog = (date: Date, type: 'weight' | 'bloodPressure') => {
+  const openAddDataDialog = (date: Date, type: 'weight' | 'bloodPressure' | 'bloodFats' | 'bloodGlucose') => {
     setSelectedDate(date);
     const dateStr = format(date, 'yyyy-MM-dd');
     const log = dayLogs.find(l => l.date === dateStr);
+    
+    if (type === 'bloodFats') {
+      openBloodFatsDialog(date);
+      return;
+    }
+    
+    if (type === 'bloodGlucose') {
+      openBloodGlucoseDialog(date);
+      return;
+    }
     
     if (type === 'weight') {
       const weightEntry = log?.entries.find(e => e.type === 'weight');
@@ -652,6 +662,8 @@ const Progress = () => {
             isTipCompletedOnDate={isTipCompletedOnDate}
             hasWeightOnDate={hasWeightOnDate}
             hasBloodPressureOnDate={hasBloodPressureOnDate}
+            hasBloodFatsOnDate={hasBloodFatsOnDate}
+            hasBloodGlucoseOnDate={hasBloodGlucoseOnDate}
             isToday={isToday}
             markedTipIds={markedTipIds}
           />
