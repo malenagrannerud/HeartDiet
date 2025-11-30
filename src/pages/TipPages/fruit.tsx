@@ -13,7 +13,7 @@ import { Apple } from "lucide-react";
 import { useMedicationInteractions } from "@/hooks/use-medication-interactions";
 import { MedCardCompact } from "@/components/MedCardCompact";
 import { useHealthGoalTips } from "@/hooks/use-health-goal-tips";
-import { HealthGoalCard } from "@/components/HealthGoalCard";
+import { HealthGoalCardCompact } from "@/components/HealthGoalCardCompact";
 
 const FruitPage = () => {
   const [userPlans, setUserPlans] = useState<UserPlan[]>([]);
@@ -78,16 +78,6 @@ const FruitPage = () => {
       </header>
 
       <main className={`${pagePadding} ${standardSpacing.pageContent}`}>
-        {/* Health goal tips */}
-        {healthGoalTips.length > 0 && (
-          <div className="space-y-3 mb-6">
-            <h3 className={sectionHeading2}>Personliga tips baserat på dina hälsomål</h3>
-            {healthGoalTips.map((tip) => (
-              <HealthGoalCard key={`${tip.goalId}-${tip.tipId}`} tip={tip} />
-            ))}
-          </div>
-        )}
-
         <p className={sectionSubheading2}>
           Att äta minst fem nävar frukter och grönsaker varje dag hjälper dig att må bättre och minska risken för hjärt-kärlsjukdom. Välj olika sorter och färger för att få i dej alla näringsämnen 
         </p>
@@ -111,6 +101,15 @@ const FruitPage = () => {
                 medication={medication}
                 interaction={interaction}
               />
+            ))}
+          </div>
+        )}
+
+        {/* Health goal tips */}
+        {healthGoalTips.length > 0 && (
+          <div className="space-y-2 mt-2">
+            {healthGoalTips.map((tip) => (
+              <HealthGoalCardCompact key={`${tip.goalId}-${tip.tipId}`} tip={tip} />
             ))}
           </div>
         )}
