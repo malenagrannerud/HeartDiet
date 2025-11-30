@@ -8,6 +8,7 @@ import { UserPlanDisplay } from "@/components/UserPlanDisplay";
 import DottedList from "@/components/DottedList";
 import ExampleCard from "@/components/exCard";
 import { AddPlanButton } from "@/components/AddPlanButton";
+import { Sprout } from "lucide-react";
 
 const BaljvaxterPage = () => {
   const [userPlans, setUserPlans] = useState<UserPlan[]>([]);
@@ -61,7 +62,10 @@ const BaljvaxterPage = () => {
     <div className={pageContainer}>
       <header className={`${headerContainer} ${tipCardColors.orange}`}>
         <BackToTodayButton />
-        <h1 className={sectionHeading}>Ät mer baljväxter</h1>
+        <div className="flex items-center justify-between">
+          <h1 className={sectionHeading}>Ät mer baljväxter</h1>
+          <Sprout className="h-8 w-8" />
+        </div>
       </header>
 
       <main className={`${pagePadding} ${standardSpacing.pageContent}`}>

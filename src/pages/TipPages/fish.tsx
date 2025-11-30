@@ -8,6 +8,7 @@ import { UserPlanDisplay } from "@/components/UserPlanDisplay";
 import DottedList from "@/components/DottedList";
 import ExampleCard from "@/components/exCard";
 import { AddPlanButton } from "@/components/AddPlanButton";
+import { Fish } from "lucide-react";
 
 const FishPage = () => {
   const [userPlans, setUserPlans] = useState<UserPlan[]>([]);
@@ -61,7 +62,10 @@ const FishPage = () => {
     <div className={pageContainer}>
       <header className={`${headerContainer} ${tipCardColors.cyan}`}>
         <BackToTodayButton />
-        <h1 className={sectionHeading}>Fisk och skaldjur</h1>
+        <div className="flex items-center justify-between">
+          <h1 className={sectionHeading}>Fisk och skaldjur</h1>
+          <Fish className="h-8 w-8" />
+        </div>
       </header>
 
       <main className={`${pagePadding} ${standardSpacing.pageContent}`}>

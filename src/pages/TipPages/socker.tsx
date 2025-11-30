@@ -8,6 +8,7 @@ import { UserPlanDisplay } from "@/components/UserPlanDisplay";
 import DottedList from "@/components/DottedList";
 import ExampleCard from "@/components/exCard";
 import { AddPlanButton } from "@/components/AddPlanButton";
+import { Candy } from "lucide-react";
 
 const SockerPage = () => {
   const [userPlans, setUserPlans] = useState<UserPlan[]>([]);
@@ -61,7 +62,10 @@ const SockerPage = () => {
     <div className={pageContainer}>
       <header className={`${headerContainer} ${tipCardColors.purple}`}>
         <BackToTodayButton />
-        <h1 className={sectionHeading}>Minska på sockret</h1>
+        <div className="flex items-center justify-between">
+          <h1 className={sectionHeading}>Minska på sockret</h1>
+          <Candy className="h-8 w-8" />
+        </div>
       </header>
 
       <main className={`${pagePadding} ${standardSpacing.pageContent}`}>

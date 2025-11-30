@@ -8,6 +8,7 @@ import { UserPlanDisplay } from "@/components/UserPlanDisplay";
 import DottedList from "@/components/DottedList";
 import ExampleCard from "@/components/exCard";
 import { AddPlanButton } from "@/components/AddPlanButton";
+import { Milk } from "lucide-react";
 
 const MejerierPage = () => {
   const [userPlans, setUserPlans] = useState<UserPlan[]>([]);
@@ -61,7 +62,10 @@ const MejerierPage = () => {
     <div className={pageContainer}>
       <header className={`${headerContainer} ${tipCardColors.lightblue}`}>
         <BackToTodayButton />
-        <h1 className={sectionHeading}>Mer magra mejerier</h1>
+        <div className="flex items-center justify-between">
+          <h1 className={sectionHeading}>Mer magra mejerier</h1>
+          <Milk className="h-8 w-8" />
+        </div>
       </header>
 
       <main className={`${pagePadding} ${standardSpacing.pageContent}`}>
