@@ -92,6 +92,13 @@ const Progress = () => {
   const [bloodGlucoseDateInput, setBloodGlucoseDateInput] = useState("");
   const [existingBloodGlucoseEntry, setExistingBloodGlucoseEntry] = useState<{hba1c?: number, fastingGlucose?: number} | null>(null);
 
+  // Goal editing dialog state
+  const [goalEditDialogOpen, setGoalEditDialogOpen] = useState(false);
+  const [goalEditType, setGoalEditType] = useState<'weight' | 'bloodPressure' | null>(null);
+  const [goalWeightInput, setGoalWeightInput] = useState("");
+  const [goalSystolicInput, setGoalSystolicInput] = useState("");
+  const [goalDiastolicInput, setGoalDiastolicInput] = useState("");
+
   // Load day logs and health priorities from localStorage
   useEffect(() => {
     const logs = getDayLogs();
@@ -637,6 +644,60 @@ const Progress = () => {
     return format(date, 'yyyy-MM-dd') === format(today, 'yyyy-MM-dd');
   };
 
+  const openGoalEditDialog = (type: 'weight' | 'bloodPressure') => {
+    setGoalEditType(type);
+    if (type === 'weight') {
+      setGoalWeightInput(goalWeight?.toString() || "");
+    } else {
+      setGoalSystolicInput(goalBloodPressure?.systolic.toString() || "");
+      setGoalDiastolicInput(goalBloodPressure?.diastolic.toString() || "");
+    }
+    setGoalEditDialogOpen(true);
+  };
+
+  const handleSaveGoal = () => {
+    const metrics = getStorageItem('healthMetrics', healthMetricsSchema) || {};
+    
+    if (goalEditType === 'weight') {
+      const weight = parseFloat(goalWeightInput);
+      if (!weight || weight <= 0) {
+        toast({
+          title: "Ogiltigt värde",
+          description: "Ange ett giltigt målvikt",
+          variant: "destructive"
+        });
+        return;
+      }
+      metrics.goalWeight = goalWeightInput;
+      setGoalWeight(weight);
+      toast({
+        title: "Målvikt uppdaterad",
+        description: `Ny målvikt: ${weight} kg`,
+      });
+    } else if (goalEditType === 'bloodPressure') {
+      const systolic = parseInt(goalSystolicInput);
+      const diastolic = parseInt(goalDiastolicInput);
+      if (!systolic || systolic <= 0 || !diastolic || diastolic <= 0) {
+        toast({
+          title: "Ogiltigt värde",
+          description: "Ange giltiga blodtrycksvärden",
+          variant: "destructive"
+        });
+        return;
+      }
+      metrics.goalSystolic = goalSystolicInput;
+      metrics.goalDiastolic = goalDiastolicInput;
+      setGoalBloodPressure({ systolic, diastolic });
+      toast({
+        title: "Målblodtryck uppdaterat",
+        description: `Nytt målblodtryck: ${systolic}/${diastolic} mmHg`,
+      });
+    }
+    
+    localStorage.setItem('healthMetrics', JSON.stringify(metrics));
+    setGoalEditDialogOpen(false);
+  };
+
   const daysThisMonth = getDaysWithGoalThisMonth();
   const currentStreak = getCurrentStreak();
 
@@ -701,33 +762,23 @@ const Progress = () => {
 
           {/* Charts */}
           <div className="flex flex-col gap-6">
-            <ProgressChart type="bloodPressure" dayLogs={dayLogs} goalBloodPressure={goalBloodPressure} />
-            <ProgressChart type="weight" dayLogs={dayLogs} goalWeight={goalWeight} />
+            <ProgressChart 
+              type="bloodPressure" 
+              dayLogs={dayLogs} 
+              goalBloodPressure={goalBloodPressure}
+              onClick={() => openGoalEditDialog('bloodPressure')}
+            />
+            <ProgressChart 
+              type="weight" 
+              dayLogs={dayLogs} 
+              goalWeight={goalWeight}
+              onClick={() => openGoalEditDialog('weight')}
+            />
             {showBloodFats && (
-              <div className="relative">
-                <ProgressChart type="bloodFats" dayLogs={dayLogs} />
-                <Button 
-                  variant="outline" 
-                  size="sm" 
-                  className="absolute top-4 right-4 z-10"
-                  onClick={() => openBloodFatsDialog()}
-                >
-                  <Plus className="h-4 w-4 mr-1" /> Lägg till
-                </Button>
-              </div>
+              <ProgressChart type="bloodFats" dayLogs={dayLogs} />
             )}
             {showBloodGlucose && (
-              <div className="relative">
-                <ProgressChart type="bloodGlucose" dayLogs={dayLogs} />
-                <Button 
-                  variant="outline" 
-                  size="sm" 
-                  className="absolute top-4 right-4 z-10"
-                  onClick={() => openBloodGlucoseDialog()}
-                >
-                  <Plus className="h-4 w-4 mr-1" /> Lägg till
-                </Button>
-              </div>
+              <ProgressChart type="bloodGlucose" dayLogs={dayLogs} />
             )}
           </div>
 
@@ -1009,6 +1060,68 @@ const Progress = () => {
                 </Button>
                 <Button onClick={handleSaveBloodGlucose} className="text-base py-6">
                   Spara
+                </Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+
+          {/* Goal Edit Dialog */}
+          <Dialog open={goalEditDialogOpen} onOpenChange={setGoalEditDialogOpen}>
+            <DialogContent className="max-w-md">
+              <DialogHeader>
+                <DialogTitle>
+                  {goalEditType === 'weight' ? 'Ändra målvikt' : 'Ändra målblodtryck'}
+                </DialogTitle>
+              </DialogHeader>
+              
+              <div className="space-y-4 py-4">
+                {goalEditType === 'weight' ? (
+                  <div>
+                    <Label htmlFor="goal-weight-input" className="text-base mb-2 block">Målvikt (kg)</Label>
+                    <Input
+                      id="goal-weight-input"
+                      type="number"
+                      step="0.1"
+                      value={goalWeightInput}
+                      onChange={(e) => setGoalWeightInput(e.target.value)}
+                      placeholder="Ange målvikt i kg"
+                      className="w-full"
+                    />
+                  </div>
+                ) : (
+                  <div className="space-y-3">
+                    <div>
+                      <Label htmlFor="goal-systolic-input" className="text-base mb-2 block">Systoliskt målvärde (övre)</Label>
+                      <Input
+                        id="goal-systolic-input"
+                        type="number"
+                        value={goalSystolicInput}
+                        onChange={(e) => setGoalSystolicInput(e.target.value)}
+                        placeholder="T.ex. 120"
+                        className="w-full"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="goal-diastolic-input" className="text-base mb-2 block">Diastoliskt målvärde (nedre)</Label>
+                      <Input
+                        id="goal-diastolic-input"
+                        type="number"
+                        value={goalDiastolicInput}
+                        onChange={(e) => setGoalDiastolicInput(e.target.value)}
+                        placeholder="T.ex. 80"
+                        className="w-full"
+                      />
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <DialogFooter className="gap-3">
+                <Button variant="outline" onClick={() => setGoalEditDialogOpen(false)} className="text-base py-6">
+                  Avbryt
+                </Button>
+                <Button onClick={handleSaveGoal} className="text-base py-6">
+                  Spara mål
                 </Button>
               </DialogFooter>
             </DialogContent>
