@@ -8,7 +8,7 @@ import { UserPlanDisplay } from "@/components/UserPlanDisplay";
 import DottedList from "@/components/DottedList";
 import ExampleCard from "@/components/exCard";
 import { AddPlanButton } from "@/components/AddPlanButton";
-import { Salad } from "lucide-react";
+import { PackageOpen } from "lucide-react";
 
 const SaltPage = () => {
   const [userPlans, setUserPlans] = useState<UserPlan[]>([]);
@@ -64,7 +64,7 @@ const SaltPage = () => {
         <BackToTodayButton />
         <div className="flex items-center justify-between">
           <h1 className={sectionHeading}>Salt-halt</h1>
-          <Salad className="h-8 w-8" />
+          <PackageOpen className="h-8 w-8" />
         </div>
       </header>
 
