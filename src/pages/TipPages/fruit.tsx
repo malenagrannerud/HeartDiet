@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { UserPlan } from "@/data/tips";
 import { pageContainer, headerContainer, pagePadding, sectionHeading, sectionHeading2, bodyText, bodyTextBald, tipCardColors, sectionSubheading2, standardSpacing, bodyWhen, bodyHow} from "@/lib/design-tokens";
 import { BackToTodayButton } from "@/components/BackToTodayButton";
-import { UserPlanFormDialog } from "@/components/UserPlanFormDialog";
+import { UserPlanForm } from "@/components/UserPlanForm";
 import { UserPlanDisplay } from "@/components/UserPlanDisplay";
 import DottedList from "@/components/DottedList";
 import ExampleCard from "@/components/exCard";
@@ -159,19 +159,21 @@ const FruitPage = () => {
             />
           )}
 
-          <UserPlanFormDialog
-            open={isEditing}
-            onOpenChange={setIsEditing}
-            tipId={2}
-            initialPlan={editingIndex !== null ? userPlans[editingIndex] : undefined}
-            onSave={handleSavePlan}
-            onCancel={handleCancelEdit}
-          />
+          {isEditing && (
+            <UserPlanForm
+              tipId={1}
+              initialPlan={editingIndex !== null ? userPlans[editingIndex] : undefined}
+              onSave={handleSavePlan}
+              onCancel={handleCancelEdit}
+            />
+          )}
 
-          <AddPlanButton 
-            onClick={handleAddNewPlan} 
-            canAddMorePlans={canAddMorePlans} 
-          />
+          {!isEditing && (
+            <AddPlanButton 
+              onClick={handleAddNewPlan} 
+              canAddMorePlans={canAddMorePlans} 
+            />
+          )}
         </div>
       </main>
     </div>
