@@ -14,6 +14,7 @@ import { useMedicationInteractions } from "@/hooks/use-medication-interactions";
 import { MedCardCompact } from "@/components/MedCardCompact";
 import { useHealthGoalTips } from "@/hooks/use-health-goal-tips";
 import { HealthGoalCardCompact } from "@/components/HealthGoalCardCompact";
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 
 const FullkornPage = () => {
   const [userPlans, setUserPlans] = useState<UserPlan[]>([]);
@@ -149,6 +150,27 @@ const FullkornPage = () => {
             "Hälsosam vikt: Fibrer (betaglukaner) mättar och hjälper dig att upprätthålla en normal vikt",
             "Bättre blodfetter: Omega-3-fettsyror i vissa fullkornsprodukter gynnar hjärtat"
           ]} />
+          
+          <Accordion type="single" collapsible className="mt-4">
+            <AccordionItem value="fiber">
+              <AccordionTrigger className={bodyText}>Hur minskar fibrer från fullkorn kolesterolet?</AccordionTrigger>
+              <AccordionContent className={bodyText}>
+                Fullkorn innehåller betaglukaner, lösliga fibrer som binder kolesterol och gallsyror i tarmen. Detta tvingar kroppen att använda mer kolesterol från blodet för att producera nya gallsyror. Studier visar att 3 gram betaglukaner per dag (ca 90 g havregryn) kan sänka LDL-kolesterolet med 5-10%.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="blood-sugar">
+              <AccordionTrigger className={bodyText}>Varför ger fullkorn stabil blodsockernivå?</AccordionTrigger>
+              <AccordionContent className={bodyText}>
+                Fullkornsprodukter har ett lågt glykemiskt index (GI), vilket betyder att de bryts ner långsamt och ger en jämn blodsockerkurva. Detta förhindrar blodsockertoppar och dalar som skadar blodkärlen och ökar risken för diabetes. Fibrer och hela kornets struktur bromsar nedbrytningen av kolhydrater.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="nutrients">
+              <AccordionTrigger className={bodyText}>Vilka näringsämnen finns i fullkorn?</AccordionTrigger>
+              <AccordionContent className={bodyText}>
+                Fullkorn innehåller B-vitaminer (energiomsättning), järn (syretransport), magnesium (muskel- och nervfunktion), zink (immunförsvar), selen (antioxidant) och vitamin E. Kliet (yttre skalet) innehåller fibrer och mineraler, medan grodden innehåller nyttiga fetter och vitaminer. Dessa näringsämnen försvinner när kornet raffineras till vitt mjöl.
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
         </div>
 
         <div>

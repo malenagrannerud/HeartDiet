@@ -13,6 +13,7 @@ import { useMedicationInteractions } from "@/hooks/use-medication-interactions";
 import { MedCardCompact } from "@/components/MedCardCompact";
 import { useHealthGoalTips } from "@/hooks/use-health-goal-tips";
 import { HealthGoalCardCompact } from "@/components/HealthGoalCardCompact";
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 
 const MejerierPage = () => {
   const [userPlans, setUserPlans] = useState<UserPlan[]>([]);
@@ -135,6 +136,27 @@ const MejerierPage = () => {
             "Muskelunderhåll: Högkvalitativt protein bevarar muskelmassa",
             "Blodtrycksreglering: Kalcium kan hjälpa sänka blodtrycket"
           ]} />
+          
+          <Accordion type="single" collapsible className="mt-4">
+            <AccordionItem value="calcium">
+              <AccordionTrigger className={bodyText}>Varför är kalcium så viktigt för benhälsan?</AccordionTrigger>
+              <AccordionContent className={bodyText}>
+                99% av kroppens kalcium finns i skelettet och tänderna. Kalcium bygger och stärker benstrukturen, särskilt viktigt under uppväxten och för att förhindra benskörhet senare i livet. Om du inte får tillräckligt med kalcium från kosten tar kroppen kalcium från skelettet, vilket försvagar benen. Mejeriproukter är den bästa källan eftersom kalciumet är lättupptagligt.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="protein">
+              <AccordionTrigger className={bodyText}>Hur hjälper mjölkprotein musklerna?</AccordionTrigger>
+              <AccordionContent className={bodyText}>
+                Mjölkprotein innehåller alla essentiella aminosyror som kroppen behöver för att bygga och reparera muskler. Vassleprotein är snabbt upptaget och idealiskt efter träning, medan kasein frisätts långsamt och ger långvarig mättnad. Med stigande ålder blir protein extra viktigt för att behålla muskelmassa och förhindra sarkopeni (muskelförlust).
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="low-fat">
+              <AccordionTrigger className={bodyText}>Varför välja magra mejerier?</AccordionTrigger>
+              <AccordionContent className={bodyText}>
+                Magra mejeriprodukte ger samma mängd kalcium, protein och vitaminer som feta varianter men med mindre mättat fett och kalorier. Mättat fett höjer LDL-kolesterol och ökar risken för hjärtsjukdom. Genom att välja lättmjölk, lättfil och magert ost får du all näring utan negativa effekter på kolesterolet. Detta hjälper också viktkontroll.
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
         </div>
 
         <div>
