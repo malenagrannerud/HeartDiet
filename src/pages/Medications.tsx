@@ -2,88 +2,66 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { BackToTodayButton } from "@/components/BackToTodayButton";
 import { Card } from "@/components/ui/card";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
-import { sectionHeading, cardTitle, cardText, standardCard, headerContainer, primaryButton, pageContainer, pagePadding, bodyText } from "@/lib/design-tokens";
+import { sectionHeading, cardTitle, cardText, standardCard, headerContainer, primaryButton, pageContainer, pagePadding, bodyText, standardSpacing } from "@/lib/design-tokens";
 import { getStorageItem, setStorageItem } from "@/lib/storage";
-import { healthPrioritiesSchema, completedActivitiesSchema } from "@/lib/schemas";
-import { markCardCompleted } from "@/lib/card-completion"; 
-import { standardSpacing } from "@/lib/design-tokens";
-
-interface Medication {
-  id: string;
-  label: string;
-  description: string;
-  subOptions?: { id: string; label: string; description: string }[];
-}
-
-const medications: Medication[] = [
-  {
-    id: "warfarin",
-    label: "Waran (Warfarin)",
-    description: "Blodförtunnande medicin"
-  },
-  {
-    id: "doac",
-    label: "DOAC (blodförtunnande)",
-    description: "Till exempel: Eliquis, Xarelto"
-  },
-  {
-    id: "bloodPressureMeds",
-    label: "Blodtrycksmedicin",
-    description: "",
-    subOptions: [
-      {
-        id: "ace",
-        label: "ACE-hämmare",
-        description: "Till exempel: Ramipril, Enalapril"
-      },
-      {
-        id: "diuretics",
-        label: "Diuretika",
-        description: "Till exempel: Hydroklorotiazid"
-      }
-    ]
-  },
-  {
-    id: "statins",
-    label: "Kolesterolmedicin",
-    description: "Till exempel: Atorvastatin, Simvastatin"
-  },
-  {
-    id: "metformin",
-    label: "Metformin",
-    description: "Blodsockermedicin"
-  }
-];
+import { healthPrioritiesSchema, completedActivitiesSchema, selectedMedicationsSchema } from "@/lib/schemas";
+import { markCardCompleted } from "@/lib/card-completion";
+import { medications, searchMedications } from "@/data/medications";
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
+import { Pill, Search, X } from "lucide-react";
 
 const Medications = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const [selectedMedications, setSelectedMedications] = useState<string[]>([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedMedications, setSelectedMedications] = useState<Array<{ id: string; name: string; addedDate: string }>>([]);
   const [saveAlertOpen, setSaveAlertOpen] = useState(false);
   const [hasExistingData, setHasExistingData] = useState(false);
 
   useEffect(() => {
-    const data = getStorageItem('healthPriorities', healthPrioritiesSchema);
-    if (data) {
-      setSelectedMedications(data.medications || []);
-      setHasExistingData(data.medications && data.medications.length > 0);
+    // Load existing selected medications
+    const savedMeds = getStorageItem('selectedMedications', selectedMedicationsSchema);
+    if (savedMeds && savedMeds.length > 0) {
+      // Filter out any invalid entries
+      const validMeds = savedMeds.filter(m => m.id && m.name && m.addedDate);
+      setSelectedMedications(validMeds as Array<{ id: string; name: string; addedDate: string }>);
+      setHasExistingData(true);
     }
   }, []);
 
-  const handleMedicationToggle = (id: string) => {
-    setSelectedMedications(prev => 
-      prev.includes(id) 
-        ? prev.filter(m => m !== id)
-        : [...prev, id]
-    );
+  const handleMedicationSelect = (medId: string) => {
+    // Check if already selected
+    if (selectedMedications.some(m => m.id === medId)) {
+      toast({
+        title: "Redan tillagt",
+        description: "Detta läkemedel finns redan i din lista.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    const medication = medications.find(m => m.id === medId);
+    if (!medication) return;
+
+    const newMed = {
+      id: medication.id,
+      name: medication.name,
+      addedDate: new Date().toISOString()
+    };
+
+    setSelectedMedications(prev => [...prev, newMed]);
+    setSearchQuery(""); // Clear search after selection
+  };
+
+  const handleRemoveMedication = (medId: string) => {
+    setSelectedMedications(prev => prev.filter(m => m.id !== medId));
   };
 
   const handleSaveClick = () => {
-    if (hasExistingData) {
+    if (hasExistingData && selectedMedications.length > 0) {
       setSaveAlertOpen(true);
     } else {
       confirmSave();
@@ -91,11 +69,15 @@ const Medications = () => {
   };
 
   const confirmSave = () => {
-    // Load existing data and update only medications
+    // Save selected medications
+    setStorageItem('selectedMedications', selectedMedications, selectedMedicationsSchema);
+    
+    // Also update healthPriorities for backward compatibility
     const existingData = getStorageItem('healthPriorities', healthPrioritiesSchema) || { priorities: [], medications: [] };
+    const medicationIds = selectedMedications.map(m => m.id);
     const data = {
       priorities: existingData.priorities || [],
-      medications: selectedMedications
+      medications: medicationIds
     };
     setStorageItem('healthPriorities', data, healthPrioritiesSchema);
     
@@ -124,6 +106,11 @@ const Medications = () => {
     navigate('/app/today');
   };
 
+  // Filter medications based on search query
+  const filteredMedications = searchQuery.length > 0 
+    ? searchMedications(searchQuery)
+    : medications;
+
   return (
     <div className={pageContainer}>
       <div className={headerContainer}>
@@ -135,55 +122,91 @@ const Medications = () => {
         <div className={standardSpacing.pageContent}>
           <section className={standardSpacing.sectionContent}>
             <p className={bodyText}>
-              Markera läkemedel du tar regelbundet. Då kan vi påminna dej om livsmedel som du evenutellt bör undvika.
+              Sök och välj läkemedel du tar regelbundet. Vi visar dig vilka livsmedel du eventuellt bör undvika eller vara försiktig med.
             </p>
-            <div className={standardSpacing.cardList}>
-              {medications.map((medication) => (
-                <Card key={medication.id} className={standardCard}>
-                  <label className="flex items-start gap-4 cursor-pointer">
-                    <Checkbox
-                      checked={selectedMedications.includes(medication.id)}
-                      onCheckedChange={() => handleMedicationToggle(medication.id)}
-                      className="mt-1 h-6 w-6 flex-shrink-0"
-                      aria-label={medication.label}
-                    />
-                    <div className="flex-1">
-                      <div className={`${cardTitle} text-lg mb-1`}>
-                        {medication.label}
-                      </div>
-                      {medication.description && (
-                        <p className={cardText}>
-                          {medication.description}
-                        </p>
-                      )}
-                    </div>
-                  </label>
-                  
-                  {medication.subOptions && selectedMedications.includes(medication.id) && (
-                    <div className="ml-10 mt-4 space-y-3">
-                      {medication.subOptions.map((subOption) => (
-                        <label key={subOption.id} className="flex items-start gap-3 cursor-pointer">
-                          <Checkbox
-                            checked={selectedMedications.includes(subOption.id)}
-                            onCheckedChange={() => handleMedicationToggle(subOption.id)}
-                            className="mt-1 h-5 w-5 flex-shrink-0"
-                            aria-label={subOption.label}
-                          />
-                          <div className="flex-1">
-                            <div className="font-semibold text-base text-foreground">
-                              {subOption.label}
-                            </div>
-                            <p className="text-sm text-muted-foreground">
-                              {subOption.description}
-                            </p>
+
+            {/* Search box */}
+            <Card className={`${standardCard} p-4`}>
+              <Command className="border-0 shadow-none">
+                <div className="flex items-center border-b px-3">
+                  <Search className="mr-2 h-4 w-4 shrink-0 opacity-50" />
+                  <CommandInput 
+                    placeholder="Sök läkemedel..." 
+                    value={searchQuery}
+                    onValueChange={setSearchQuery}
+                    className="border-0 focus:ring-0"
+                  />
+                </div>
+                {searchQuery.length > 0 && (
+                  <CommandList className="max-h-[300px]">
+                    <CommandEmpty>Inget läkemedel hittades.</CommandEmpty>
+                    <CommandGroup>
+                      {filteredMedications.map((med) => (
+                        <CommandItem
+                          key={med.id}
+                          value={med.id}
+                          onSelect={() => handleMedicationSelect(med.id)}
+                          className="cursor-pointer"
+                        >
+                          <div className="flex flex-col">
+                            <span className="font-semibold">{med.name}</span>
+                            <span className="text-sm text-muted-foreground">{med.category}</span>
                           </div>
-                        </label>
+                        </CommandItem>
                       ))}
-                    </div>
-                  )}
-                </Card>
-              ))}
-            </div>
+                    </CommandGroup>
+                  </CommandList>
+                )}
+              </Command>
+            </Card>
+
+            {/* Selected medications list */}
+            {selectedMedications.length > 0 && (
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <h2 className="text-lg font-semibold text-foreground">
+                    Mina läkemedel ({selectedMedications.length})
+                  </h2>
+                </div>
+                
+                <div className="space-y-2">
+                  {selectedMedications.map((med) => {
+                    const fullMed = medications.find(m => m.id === med.id);
+                    return (
+                      <Card key={med.id} className={`${standardCard} p-4`}>
+                        <div className="flex items-center justify-between gap-4">
+                          <div className="flex items-center gap-3 flex-1">
+                            <Pill className="h-5 w-5 text-primary flex-shrink-0" />
+                            <div className="flex-1">
+                              <div className={cardTitle}>
+                                {med.name}
+                              </div>
+                              {fullMed && (
+                                <p className={cardText}>
+                                  {fullMed.category}
+                                  {fullMed.foodInteractions.length > 0 && 
+                                    ` • ${fullMed.foodInteractions.length} livsmedelsinteraktion${fullMed.foodInteractions.length > 1 ? 'er' : ''}`
+                                  }
+                                </p>
+                              )}
+                            </div>
+                          </div>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => handleRemoveMedication(med.id)}
+                            className="flex-shrink-0"
+                            aria-label={`Ta bort ${med.name}`}
+                          >
+                            <X className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </Card>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
           </section>
 
           <section className={standardSpacing.sectionContent}>

@@ -9,11 +9,14 @@ import DottedList from "@/components/DottedList";
 import ExampleCard from "@/components/exCard";
 import { AddPlanButton } from "@/components/AddPlanButton";
 import { Milk } from "lucide-react";
+import { useMedicationInteractions } from "@/hooks/use-medication-interactions";
+import { MedCard } from "@/components/MedCard";
 
 const MejerierPage = () => {
   const [userPlans, setUserPlans] = useState<UserPlan[]>([]);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const medicationInteractions = useMedicationInteractions(5); // tipId: 5
 
   useEffect(() => {
     const savedPlans = localStorage.getItem('userPlans-mejerier');
@@ -69,6 +72,13 @@ const MejerierPage = () => {
       </header>
 
       <main className={`${pagePadding} ${standardSpacing.pageContent}`}>
+        {medicationInteractions.length > 0 && (
+          <div className="space-y-3 mb-6">
+            {medicationInteractions.map(({ medication, interaction }) => (
+              <MedCard key={`${medication.id}-${interaction.tipId}`} medication={medication} interaction={interaction} />
+            ))}
+          </div>
+        )}
         <p className={sectionSubheading2}>
           Att äta 5 dl mjölk eller yoghurt och 2-3 skivor ost varje dag ger dig viktiga näringsämnen samtidigt som magra alternativ minskar mättat fett
         </p>

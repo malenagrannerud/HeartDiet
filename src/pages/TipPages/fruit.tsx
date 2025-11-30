@@ -10,11 +10,14 @@ import DottedList from "@/components/DottedList";
 import ExampleCard from "@/components/exCard";
 import { AddPlanButton } from "@/components/AddPlanButton";
 import { Apple } from "lucide-react";
+import { useMedicationInteractions } from "@/hooks/use-medication-interactions";
+import { MedCard } from "@/components/MedCard";
 
 const FruitPage = () => {
   const [userPlans, setUserPlans] = useState<UserPlan[]>([]);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const medicationInteractions = useMedicationInteractions(1); // tipId: 1 for Fruit
 
   useEffect(() => {
     const savedPlans = localStorage.getItem('userPlans-fruit');
@@ -72,6 +75,19 @@ const FruitPage = () => {
       </header>
 
       <main className={`${pagePadding} ${standardSpacing.pageContent}`}>
+        {/* Medication warnings */}
+        {medicationInteractions.length > 0 && (
+          <div className="space-y-3 mb-6">
+            {medicationInteractions.map(({ medication, interaction }) => (
+              <MedCard 
+                key={`${medication.id}-${interaction.tipId}`}
+                medication={medication}
+                interaction={interaction}
+              />
+            ))}
+          </div>
+        )}
+
         <p className={sectionSubheading2}>
           Att äta minst fem nävar frukter och grönsaker varje dag hjälper dig att må bättre och minska risken för hjärt-kärlsjukdom. Välj olika sorter och färger för att få i dej alla näringsämnen 
         </p>

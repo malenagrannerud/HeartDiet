@@ -10,11 +10,14 @@ import DottedList from "@/components/DottedList";
 import ExampleCard from "@/components/exCard";
 import { AddPlanButton } from "@/components/AddPlanButton";
 import { Wheat } from "lucide-react";
+import { useMedicationInteractions } from "@/hooks/use-medication-interactions";
+import { MedCard } from "@/components/MedCard";
 
 const FullkornPage = () => {
   const [userPlans, setUserPlans] = useState<UserPlan[]>([]);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const medicationInteractions = useMedicationInteractions(2); // tipId: 2 for Fullkorn
 
   useEffect(() => {
     const savedPlans = localStorage.getItem('userPlans-fullkorn');
@@ -70,6 +73,19 @@ const FullkornPage = () => {
       </header>
 
       <main className={`${pagePadding} ${standardSpacing.pageContent}`}>
+        {/* Medication warnings */}
+        {medicationInteractions.length > 0 && (
+          <div className="space-y-3 mb-6">
+            {medicationInteractions.map(({ medication, interaction }) => (
+              <MedCard 
+                key={`${medication.id}-${interaction.tipId}`}
+                medication={medication}
+                interaction={interaction}
+              />
+            ))}
+          </div>
+        )}
+
         <p className={sectionSubheading2}>
           Att äta minst 90 g fullkorn varje dag hjälper dig att må bättre samtidigt som det minskar risken för hjärt-kärlsjukdomar, vissa typer av cancer samt typ2-diabetes
         </p>

@@ -9,11 +9,14 @@ import DottedList from "@/components/DottedList";
 import ExampleCard from "@/components/exCard";
 import { AddPlanButton } from "@/components/AddPlanButton";
 import { Candy } from "lucide-react";
+import { useMedicationInteractions } from "@/hooks/use-medication-interactions";
+import { MedCard } from "@/components/MedCard";
 
 const SockerPage = () => {
   const [userPlans, setUserPlans] = useState<UserPlan[]>([]);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const medicationInteractions = useMedicationInteractions(11); // tipId: 11 for Socker
 
   useEffect(() => {
     const savedPlans = localStorage.getItem('userPlans-socker');
@@ -69,6 +72,19 @@ const SockerPage = () => {
       </header>
 
       <main className={`${pagePadding} ${standardSpacing.pageContent}`}>
+        {/* Medication warnings */}
+        {medicationInteractions.length > 0 && (
+          <div className="space-y-3 mb-6">
+            {medicationInteractions.map(({ medication, interaction }) => (
+              <MedCard 
+                key={`${medication.id}-${interaction.tipId}`}
+                medication={medication}
+                interaction={interaction}
+              />
+            ))}
+          </div>
+        )}
+
         <p className={sectionSubheading2}>
           Att begränsa tillsatt socker hjälper dig att undvika viktökning, karies och minska risken för typ 2-diabetes och hjärt-kärlsjukdom
         </p>
