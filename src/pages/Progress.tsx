@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { format, startOfWeek, addDays, startOfMonth, endOfMonth } from "date-fns";
 import { sv } from "date-fns/locale";
-import { Heart, Pill } from "lucide-react";
+import { Heart, Pill, Plus } from "lucide-react";
 import { tips } from "@/data/tips";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
@@ -58,10 +58,16 @@ const Progress = () => {
   const [existingBPEntry, setExistingBPEntry] = useState<{systolic: number, diastolic: number} | null>(null);
   const [saveAlertOpen, setSaveAlertOpen] = useState(false);
   const [pendingEntry, setPendingEntry] = useState<{
-    type: 'weight' | 'bloodPressure';
+    type: 'weight' | 'bloodPressure' | 'bloodFats' | 'bloodGlucose';
     weight?: string;
     systolic?: string;
     diastolic?: string;
+    ldl?: string;
+    hdl?: string;
+    triglycerides?: string;
+    hba1c?: string;
+    fastingGlucose?: string;
+    date?: string;
   } | null>(null);
   const [priorities, setPriorities] = useState<string[]>([]);
   const [selectedMedications, setSelectedMedications] = useState<Array<{ id?: string; name?: string; addedDate?: string }>>([]);
@@ -70,6 +76,21 @@ const Progress = () => {
   const [goalBloodPressure, setGoalBloodPressure] = useState<{ systolic: number; diastolic: number } | undefined>();
   const [showBloodFats, setShowBloodFats] = useState(false);
   const [showBloodGlucose, setShowBloodGlucose] = useState(false);
+  
+  // Blood fats dialog state
+  const [bloodFatsDialogOpen, setBloodFatsDialogOpen] = useState(false);
+  const [ldlInput, setLdlInput] = useState("");
+  const [hdlInput, setHdlInput] = useState("");
+  const [triglyceridesInput, setTriglyceridesInput] = useState("");
+  const [bloodFatsDateInput, setBloodFatsDateInput] = useState("");
+  const [existingBloodFatsEntry, setExistingBloodFatsEntry] = useState<{ldl: number, hdl?: number, triglycerides?: number} | null>(null);
+  
+  // Blood glucose dialog state
+  const [bloodGlucoseDialogOpen, setBloodGlucoseDialogOpen] = useState(false);
+  const [hba1cInput, setHba1cInput] = useState("");
+  const [fastingGlucoseInput, setFastingGlucoseInput] = useState("");
+  const [bloodGlucoseDateInput, setBloodGlucoseDateInput] = useState("");
+  const [existingBloodGlucoseEntry, setExistingBloodGlucoseEntry] = useState<{hba1c?: number, fastingGlucose?: number} | null>(null);
 
   // Load day logs and health priorities from localStorage
   useEffect(() => {
@@ -309,12 +330,159 @@ const Progress = () => {
     setExistingBPEntry(null);
   };
 
-  const confirmSaveEntry = () => {
-    if (!selectedDate || !pendingEntry) return;
+  const openBloodFatsDialog = (date?: Date) => {
+    const targetDate = date || getCurrentDate();
+    setSelectedDate(targetDate);
+    setBloodFatsDateInput(format(targetDate, 'yyyy-MM-dd'));
     
+    const dateStr = format(targetDate, 'yyyy-MM-dd');
+    const log = dayLogs.find(l => l.date === dateStr);
+    const bloodFatsEntry = log?.entries.find(e => e.type === 'bloodFats');
+    
+    if (bloodFatsEntry) {
+      setLdlInput(bloodFatsEntry.value.toString());
+      setHdlInput(bloodFatsEntry.value2?.toString() || "");
+      setTriglyceridesInput(bloodFatsEntry.value3?.toString() || "");
+      setExistingBloodFatsEntry({
+        ldl: bloodFatsEntry.value,
+        hdl: bloodFatsEntry.value2,
+        triglycerides: bloodFatsEntry.value3
+      });
+    } else {
+      setLdlInput("");
+      setHdlInput("");
+      setTriglyceridesInput("");
+      setExistingBloodFatsEntry(null);
+    }
+    setBloodFatsDialogOpen(true);
+  };
+
+  const handleSaveBloodFats = () => {
+    const ldl = parseFloat(ldlInput);
+    if (!ldl || ldl <= 0) {
+      toast({
+        title: "Ogiltigt värde",
+        description: "Ange minst LDL-kolesterol",
+        variant: "destructive"
+      });
+      return;
+    }
+    setPendingEntry({ 
+      type: 'bloodFats', 
+      ldl: ldlInput,
+      hdl: hdlInput || undefined,
+      triglycerides: triglyceridesInput || undefined,
+      date: bloodFatsDateInput
+    });
+    setSaveAlertOpen(true);
+  };
+
+  const handleDeleteBloodFats = () => {
+    if (!selectedDate) return;
     const dateStr = format(selectedDate, 'yyyy-MM-dd');
     const existingLog = dayLogs.find(log => log.date === dateStr);
-    const newEntries = existingLog ? [...existingLog.entries] : [];
+    
+    if (existingLog) {
+      const updatedEntries = existingLog.entries.filter(e => e.type !== 'bloodFats');
+      const updatedLogs = dayLogs.filter(log => log.date !== dateStr);
+      
+      if (updatedEntries.length > 0) {
+        updatedLogs.push({ date: dateStr, entries: updatedEntries });
+      }
+      
+      setDayLogs(updatedLogs);
+      localStorage.setItem('dayLogs', JSON.stringify(updatedLogs));
+      
+      toast({
+        title: "Kolesterolvärden raderade",
+        description: `Kolesterol för ${format(selectedDate, 'd MMMM', { locale: sv })} har raderats`,
+      });
+    }
+    
+    setBloodFatsDialogOpen(false);
+    setExistingBloodFatsEntry(null);
+  };
+
+  const openBloodGlucoseDialog = (date?: Date) => {
+    const targetDate = date || getCurrentDate();
+    setSelectedDate(targetDate);
+    setBloodGlucoseDateInput(format(targetDate, 'yyyy-MM-dd'));
+    
+    const dateStr = format(targetDate, 'yyyy-MM-dd');
+    const log = dayLogs.find(l => l.date === dateStr);
+    const bloodGlucoseEntry = log?.entries.find(e => e.type === 'bloodGlucose');
+    
+    if (bloodGlucoseEntry) {
+      setHba1cInput(bloodGlucoseEntry.value.toString());
+      setFastingGlucoseInput(bloodGlucoseEntry.value2?.toString() || "");
+      setExistingBloodGlucoseEntry({
+        hba1c: bloodGlucoseEntry.value,
+        fastingGlucose: bloodGlucoseEntry.value2
+      });
+    } else {
+      setHba1cInput("");
+      setFastingGlucoseInput("");
+      setExistingBloodGlucoseEntry(null);
+    }
+    setBloodGlucoseDialogOpen(true);
+  };
+
+  const handleSaveBloodGlucose = () => {
+    const hba1c = parseFloat(hba1cInput);
+    const fasting = parseFloat(fastingGlucoseInput);
+    if ((!hba1c || hba1c <= 0) && (!fasting || fasting <= 0)) {
+      toast({
+        title: "Ogiltigt värde",
+        description: "Ange minst ett blodsockervärde",
+        variant: "destructive"
+      });
+      return;
+    }
+    setPendingEntry({ 
+      type: 'bloodGlucose',
+      hba1c: hba1cInput || undefined,
+      fastingGlucose: fastingGlucoseInput || undefined,
+      date: bloodGlucoseDateInput
+    });
+    setSaveAlertOpen(true);
+  };
+
+  const handleDeleteBloodGlucose = () => {
+    if (!selectedDate) return;
+    const dateStr = format(selectedDate, 'yyyy-MM-dd');
+    const existingLog = dayLogs.find(log => log.date === dateStr);
+    
+    if (existingLog) {
+      const updatedEntries = existingLog.entries.filter(e => e.type !== 'bloodGlucose');
+      const updatedLogs = dayLogs.filter(log => log.date !== dateStr);
+      
+      if (updatedEntries.length > 0) {
+        updatedLogs.push({ date: dateStr, entries: updatedEntries });
+      }
+      
+      setDayLogs(updatedLogs);
+      localStorage.setItem('dayLogs', JSON.stringify(updatedLogs));
+      
+      toast({
+        title: "Blodsockervärden raderade",
+        description: `Blodsocker för ${format(selectedDate, 'd MMMM', { locale: sv })} har raderats`,
+      });
+    }
+    
+    setBloodGlucoseDialogOpen(false);
+    setExistingBloodGlucoseEntry(null);
+  };
+
+  const confirmSaveEntry = () => {
+    if (!pendingEntry) return;
+    
+    // Use the custom date from pendingEntry if available (for blood fats/glucose), otherwise use selectedDate
+    const targetDate = pendingEntry.date ? new Date(pendingEntry.date) : selectedDate;
+    if (!targetDate) return;
+    
+    const dateStr = format(targetDate, 'yyyy-MM-dd');
+    const existingLog = dayLogs.find(log => log.date === dateStr);
+    const newEntries = existingLog ? [...existingLog.entries].filter(e => e.type !== pendingEntry.type) : [];
 
     if (pendingEntry.type === 'weight' && pendingEntry.weight) {
       const kg = parseFloat(pendingEntry.weight);
@@ -327,6 +495,24 @@ const Progress = () => {
         value: systolic, 
         value2: diastolic 
       });
+    } else if (pendingEntry.type === 'bloodFats' && pendingEntry.ldl) {
+      const ldl = parseFloat(pendingEntry.ldl);
+      const hdl = pendingEntry.hdl ? parseFloat(pendingEntry.hdl) : undefined;
+      const triglycerides = pendingEntry.triglycerides ? parseFloat(pendingEntry.triglycerides) : undefined;
+      newEntries.push({ 
+        type: 'bloodFats', 
+        value: ldl,
+        value2: hdl,
+        value3: triglycerides
+      });
+    } else if (pendingEntry.type === 'bloodGlucose') {
+      const hba1c = pendingEntry.hba1c ? parseFloat(pendingEntry.hba1c) : undefined;
+      const fasting = pendingEntry.fastingGlucose ? parseFloat(pendingEntry.fastingGlucose) : undefined;
+      newEntries.push({ 
+        type: 'bloodGlucose', 
+        value: hba1c || fasting || 0,
+        value2: fasting
+      });
     }
     
     const updatedLogs = dayLogs.filter(log => log.date !== dateStr);
@@ -334,17 +520,28 @@ const Progress = () => {
     setDayLogs(updatedLogs);
     localStorage.setItem('dayLogs', JSON.stringify(updatedLogs));
     
+    const typeLabels = {
+      weight: 'Vikt',
+      bloodPressure: 'Blodtryck',
+      bloodFats: 'Kolesterolvärden',
+      bloodGlucose: 'Blodsockervärden'
+    };
+    
     toast({
       title: "Data sparad",
-      description: `${pendingEntry.type === 'weight' ? 'Vikt' : 'Blodtryck'} har sparats för ${format(selectedDate, 'd MMMM', { locale: sv })}`,
+      description: `${typeLabels[pendingEntry.type]} har sparats för ${format(targetDate, 'd MMMM', { locale: sv })}`,
     });
     
     setWeightDialogOpen(false);
     setBpDialogOpen(false);
+    setBloodFatsDialogOpen(false);
+    setBloodGlucoseDialogOpen(false);
     setSaveAlertOpen(false);
     setPendingEntry(null);
     setExistingWeightEntry(null);
     setExistingBPEntry(null);
+    setExistingBloodFatsEntry(null);
+    setExistingBloodGlucoseEntry(null);
   };
 
   const getDaysWithGoalThisMonth = () => {
@@ -411,6 +608,18 @@ const Progress = () => {
     const dateStr = format(date, 'yyyy-MM-dd');
     const log = dayLogs.find(l => l.date === dateStr);
     return log?.entries.some(entry => entry.type === 'bloodPressure') || false;
+  };
+
+  const hasBloodFatsOnDate = (date: Date): boolean => {
+    const dateStr = format(date, 'yyyy-MM-dd');
+    const log = dayLogs.find(l => l.date === dateStr);
+    return log?.entries.some(entry => entry.type === 'bloodFats') || false;
+  };
+
+  const hasBloodGlucoseOnDate = (date: Date): boolean => {
+    const dateStr = format(date, 'yyyy-MM-dd');
+    const log = dayLogs.find(l => l.date === dateStr);
+    return log?.entries.some(entry => entry.type === 'bloodGlucose') || false;
   };
 
   const isToday = (date: Date): boolean => {
@@ -482,8 +691,32 @@ const Progress = () => {
           <div className="flex flex-col gap-6">
             <ProgressChart type="bloodPressure" dayLogs={dayLogs} goalBloodPressure={goalBloodPressure} />
             <ProgressChart type="weight" dayLogs={dayLogs} goalWeight={goalWeight} />
-            {showBloodFats && <ProgressChart type="bloodFats" dayLogs={dayLogs} />}
-            {showBloodGlucose && <ProgressChart type="bloodGlucose" dayLogs={dayLogs} />}
+            {showBloodFats && (
+              <div className="relative">
+                <ProgressChart type="bloodFats" dayLogs={dayLogs} />
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="absolute top-4 right-4 z-10"
+                  onClick={() => openBloodFatsDialog()}
+                >
+                  <Plus className="h-4 w-4 mr-1" /> Lägg till
+                </Button>
+              </div>
+            )}
+            {showBloodGlucose && (
+              <div className="relative">
+                <ProgressChart type="bloodGlucose" dayLogs={dayLogs} />
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="absolute top-4 right-4 z-10"
+                  onClick={() => openBloodGlucoseDialog()}
+                >
+                  <Plus className="h-4 w-4 mr-1" /> Lägg till
+                </Button>
+              </div>
+            )}
           </div>
 
           {/* Health Goals and Medications Cards */}
@@ -619,6 +852,156 @@ const Progress = () => {
             </DialogContent>
           </Dialog>
 
+          {/* Dialog for blood fats */}
+          <Dialog open={bloodFatsDialogOpen} onOpenChange={setBloodFatsDialogOpen}>
+            <DialogContent className="max-w-md">
+              <DialogHeader>
+                <DialogTitle>
+                  {existingBloodFatsEntry ? 'Ändra kolesterolvärden' : 'Lägg till kolesterolvärden'}
+                </DialogTitle>
+              </DialogHeader>
+              
+              <div className="space-y-4 py-4">
+                <div>
+                  <Label htmlFor="bloodfats-date-input" className="text-base mb-2 block">Datum för mätning</Label>
+                  <Input
+                    id="bloodfats-date-input"
+                    type="date"
+                    value={bloodFatsDateInput}
+                    onChange={(e) => setBloodFatsDateInput(e.target.value)}
+                    className="w-full"
+                  />
+                </div>
+                
+                <div>
+                  <Label htmlFor="ldl-input" className="text-base mb-2 block">LDL-kolesterol (mmol/L) *</Label>
+                  <Input
+                    id="ldl-input"
+                    type="number"
+                    step="0.1"
+                    value={ldlInput}
+                    onChange={(e) => setLdlInput(e.target.value)}
+                    placeholder="T.ex. 3.5"
+                    className="w-full"
+                  />
+                </div>
+                
+                <div>
+                  <Label htmlFor="hdl-input" className="text-base mb-2 block">HDL-kolesterol (mmol/L)</Label>
+                  <Input
+                    id="hdl-input"
+                    type="number"
+                    step="0.1"
+                    value={hdlInput}
+                    onChange={(e) => setHdlInput(e.target.value)}
+                    placeholder="T.ex. 1.3"
+                    className="w-full"
+                  />
+                </div>
+                
+                <div>
+                  <Label htmlFor="triglycerides-input" className="text-base mb-2 block">Triglycerider (mmol/L)</Label>
+                  <Input
+                    id="triglycerides-input"
+                    type="number"
+                    step="0.1"
+                    value={triglyceridesInput}
+                    onChange={(e) => setTriglyceridesInput(e.target.value)}
+                    placeholder="T.ex. 1.7"
+                    className="w-full"
+                  />
+                </div>
+              </div>
+              
+              <DialogFooter className="gap-3">
+                {existingBloodFatsEntry && (
+                  <Button 
+                    variant="destructive" 
+                    onClick={handleDeleteBloodFats} 
+                    className="text-base py-6"
+                  >
+                    Radera
+                  </Button>
+                )}
+                <Button variant="outline" onClick={() => setBloodFatsDialogOpen(false)} className="text-base py-6">
+                  Avbryt
+                </Button>
+                <Button onClick={handleSaveBloodFats} className="text-base py-6">
+                  Spara
+                </Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+
+          {/* Dialog for blood glucose */}
+          <Dialog open={bloodGlucoseDialogOpen} onOpenChange={setBloodGlucoseDialogOpen}>
+            <DialogContent className="max-w-md">
+              <DialogHeader>
+                <DialogTitle>
+                  {existingBloodGlucoseEntry ? 'Ändra blodsockervärden' : 'Lägg till blodsockervärden'}
+                </DialogTitle>
+              </DialogHeader>
+              
+              <div className="space-y-4 py-4">
+                <div>
+                  <Label htmlFor="bloodglucose-date-input" className="text-base mb-2 block">Datum för mätning</Label>
+                  <Input
+                    id="bloodglucose-date-input"
+                    type="date"
+                    value={bloodGlucoseDateInput}
+                    onChange={(e) => setBloodGlucoseDateInput(e.target.value)}
+                    className="w-full"
+                  />
+                </div>
+                
+                <div>
+                  <Label htmlFor="hba1c-input" className="text-base mb-2 block">HbA1c (mmol/mol)</Label>
+                  <Input
+                    id="hba1c-input"
+                    type="number"
+                    step="1"
+                    value={hba1cInput}
+                    onChange={(e) => setHba1cInput(e.target.value)}
+                    placeholder="T.ex. 48"
+                    className="w-full"
+                  />
+                  <p className="text-xs text-muted-foreground mt-1">Målvärde är vanligtvis under 52 mmol/mol</p>
+                </div>
+                
+                <div>
+                  <Label htmlFor="fasting-glucose-input" className="text-base mb-2 block">Fasteblodsocker (mmol/L)</Label>
+                  <Input
+                    id="fasting-glucose-input"
+                    type="number"
+                    step="0.1"
+                    value={fastingGlucoseInput}
+                    onChange={(e) => setFastingGlucoseInput(e.target.value)}
+                    placeholder="T.ex. 5.5"
+                    className="w-full"
+                  />
+                </div>
+              </div>
+              
+              <DialogFooter className="gap-3">
+                {existingBloodGlucoseEntry && (
+                  <Button 
+                    variant="destructive" 
+                    onClick={handleDeleteBloodGlucose} 
+                    className="text-base py-6"
+                  >
+                    Radera
+                  </Button>
+                )}
+                <Button variant="outline" onClick={() => setBloodGlucoseDialogOpen(false)} className="text-base py-6">
+                  Avbryt
+                </Button>
+                <Button onClick={handleSaveBloodGlucose} className="text-base py-6">
+                  Spara
+                </Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+
           {/* Save Confirmation Alert */}
           <AlertDialog open={saveAlertOpen} onOpenChange={setSaveAlertOpen}>
             <AlertDialogContent>
@@ -628,16 +1011,24 @@ const Progress = () => {
                   Kontrollera att uppgifterna stämmer:
                 </AlertDialogDescription>
               </AlertDialogHeader>
-              {pendingEntry && selectedDate && (
+              {pendingEntry && (
                 <div className="my-4 space-y-3 bg-muted/50 p-4">
                   <div className="flex justify-between items-center">
                     <span className="text-sm text-muted-foreground">Datum:</span>
-                    <span className="text-sm font-medium">{format(selectedDate, 'd MMMM yyyy', { locale: sv })}</span>
+                    <span className="text-sm font-medium">
+                      {pendingEntry.date 
+                        ? format(new Date(pendingEntry.date), 'd MMMM yyyy', { locale: sv })
+                        : selectedDate && format(selectedDate, 'd MMMM yyyy', { locale: sv })
+                      }
+                    </span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-sm text-muted-foreground">Typ:</span>
                     <span className="text-sm font-medium">
-                      {pendingEntry.type === 'weight' ? 'Vikt' : 'Blodtryck'}
+                      {pendingEntry.type === 'weight' && 'Vikt'}
+                      {pendingEntry.type === 'bloodPressure' && 'Blodtryck'}
+                      {pendingEntry.type === 'bloodFats' && 'Kolesterolvärden'}
+                      {pendingEntry.type === 'bloodGlucose' && 'Blodsockervärden'}
                     </span>
                   </div>
                   {pendingEntry.type === 'weight' && (
@@ -651,6 +1042,42 @@ const Progress = () => {
                       <span className="text-sm text-muted-foreground">Värde:</span>
                       <span className="text-sm font-medium">{pendingEntry.systolic}/{pendingEntry.diastolic} mmHg</span>
                     </div>
+                  )}
+                  {pendingEntry.type === 'bloodFats' && (
+                    <>
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm text-muted-foreground">LDL:</span>
+                        <span className="text-sm font-medium">{pendingEntry.ldl} mmol/L</span>
+                      </div>
+                      {pendingEntry.hdl && (
+                        <div className="flex justify-between items-center">
+                          <span className="text-sm text-muted-foreground">HDL:</span>
+                          <span className="text-sm font-medium">{pendingEntry.hdl} mmol/L</span>
+                        </div>
+                      )}
+                      {pendingEntry.triglycerides && (
+                        <div className="flex justify-between items-center">
+                          <span className="text-sm text-muted-foreground">Triglycerider:</span>
+                          <span className="text-sm font-medium">{pendingEntry.triglycerides} mmol/L</span>
+                        </div>
+                      )}
+                    </>
+                  )}
+                  {pendingEntry.type === 'bloodGlucose' && (
+                    <>
+                      {pendingEntry.hba1c && (
+                        <div className="flex justify-between items-center">
+                          <span className="text-sm text-muted-foreground">HbA1c:</span>
+                          <span className="text-sm font-medium">{pendingEntry.hba1c} mmol/mol</span>
+                        </div>
+                      )}
+                      {pendingEntry.fastingGlucose && (
+                        <div className="flex justify-between items-center">
+                          <span className="text-sm text-muted-foreground">Fasteblodsocker:</span>
+                          <span className="text-sm font-medium">{pendingEntry.fastingGlucose} mmol/L</span>
+                        </div>
+                      )}
+                    </>
                   )}
                 </div>
               )}

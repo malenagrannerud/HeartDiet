@@ -48,9 +48,10 @@ export const completedActivitiesSchema = z.array(completedActivitySchema);
 
 // Day log entry schema
 export const dayLogEntrySchema = z.object({
-  type: z.enum(['weight', 'bloodPressure', 'tip']),
+  type: z.enum(['weight', 'bloodPressure', 'bloodFats', 'bloodGlucose', 'tip']),
   value: z.number(),
   value2: z.number().optional(),
+  value3: z.number().optional(),
   tipId: z.number().optional(),
 });
 
