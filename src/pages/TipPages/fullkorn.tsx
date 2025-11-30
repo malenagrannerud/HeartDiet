@@ -12,12 +12,15 @@ import { AddPlanButton } from "@/components/AddPlanButton";
 import { Wheat } from "lucide-react";
 import { useMedicationInteractions } from "@/hooks/use-medication-interactions";
 import { MedCard } from "@/components/MedCard";
+import { useHealthGoalTips } from "@/hooks/use-health-goal-tips";
+import { HealthGoalCard } from "@/components/HealthGoalCard";
 
 const FullkornPage = () => {
   const [userPlans, setUserPlans] = useState<UserPlan[]>([]);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const medicationInteractions = useMedicationInteractions(2); // tipId: 2 for Fullkorn
+  const healthGoalTips = useHealthGoalTips(2);
 
   useEffect(() => {
     const savedPlans = localStorage.getItem('userPlans-fullkorn');
@@ -82,6 +85,16 @@ const FullkornPage = () => {
                 medication={medication}
                 interaction={interaction}
               />
+            ))}
+          </div>
+        )}
+
+        {/* Health goal tips */}
+        {healthGoalTips.length > 0 && (
+          <div className="space-y-3 mb-6">
+            <h3 className={sectionHeading2}>Personliga tips baserat på dina hälsomål</h3>
+            {healthGoalTips.map((tip) => (
+              <HealthGoalCard key={`${tip.goalId}-${tip.tipId}`} tip={tip} />
             ))}
           </div>
         )}

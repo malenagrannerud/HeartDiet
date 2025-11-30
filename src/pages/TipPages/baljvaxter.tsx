@@ -11,12 +11,15 @@ import { AddPlanButton } from "@/components/AddPlanButton";
 import { Sprout } from "lucide-react";
 import { useMedicationInteractions } from "@/hooks/use-medication-interactions";
 import { MedCard } from "@/components/MedCard";
+import { useHealthGoalTips } from "@/hooks/use-health-goal-tips";
+import { HealthGoalCard } from "@/components/HealthGoalCard";
 
 const BaljvaxterPage = () => {
   const [userPlans, setUserPlans] = useState<UserPlan[]>([]);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const medicationInteractions = useMedicationInteractions(10); // tipId: 10 for Baljväxter
+  const healthGoalTips = useHealthGoalTips(10);
 
   useEffect(() => {
     const savedPlans = localStorage.getItem('userPlans-baljvaxter');
@@ -81,6 +84,16 @@ const BaljvaxterPage = () => {
                 medication={medication}
                 interaction={interaction}
               />
+            ))}
+          </div>
+        )}
+
+        {/* Health goal tips */}
+        {healthGoalTips.length > 0 && (
+          <div className="space-y-3 mb-6">
+            <h3 className={sectionHeading2}>Personliga tips baserat på dina hälsomål</h3>
+            {healthGoalTips.map((tip) => (
+              <HealthGoalCard key={`${tip.goalId}-${tip.tipId}`} tip={tip} />
             ))}
           </div>
         )}

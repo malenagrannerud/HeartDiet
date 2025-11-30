@@ -11,12 +11,15 @@ import { AddPlanButton } from "@/components/AddPlanButton";
 import { UtensilsCrossed } from "lucide-react";
 import { useMedicationInteractions } from "@/hooks/use-medication-interactions";
 import { MedCard } from "@/components/MedCard";
+import { useHealthGoalTips } from "@/hooks/use-health-goal-tips";
+import { HealthGoalCard } from "@/components/HealthGoalCard";
 
 const LagomPage = () => {
   const [userPlans, setUserPlans] = useState<UserPlan[]>([]);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const medicationInteractions = useMedicationInteractions(8); // tipId: 8 for Lagom
+  const healthGoalTips = useHealthGoalTips(8);
 
   useEffect(() => {
     const savedPlans = localStorage.getItem('userPlans-lagom');
@@ -81,6 +84,16 @@ const LagomPage = () => {
                 medication={medication}
                 interaction={interaction}
               />
+            ))}
+          </div>
+        )}
+
+        {/* Health goal tips */}
+        {healthGoalTips.length > 0 && (
+          <div className="space-y-3 mb-6">
+            <h3 className={sectionHeading2}>Personliga tips baserat på dina hälsomål</h3>
+            {healthGoalTips.map((tip) => (
+              <HealthGoalCard key={`${tip.goalId}-${tip.tipId}`} tip={tip} />
             ))}
           </div>
         )}
