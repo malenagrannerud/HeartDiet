@@ -1,6 +1,6 @@
 import { format } from "date-fns";
 import { sv } from "date-fns/locale";
-import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, LabelList } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, LabelList, ReferenceLine } from 'recharts';
 import { ChartContainer } from "@/components/ui/chart";
 import { StatsBox } from "@/components/StatsBox";
 import { bodyTextBald, cardTextSmall } from "@/lib/design-tokens";
@@ -18,9 +18,11 @@ interface DayLog {
 interface ProgressChartProps {
   type: 'weight' | 'bloodPressure';
   dayLogs: DayLog[];
+  goalWeight?: number;
+  goalBloodPressure?: { systolic: number; diastolic: number };
 }
 
-export const ProgressChart: React.FC<ProgressChartProps> = ({ type, dayLogs }) => {
+export const ProgressChart: React.FC<ProgressChartProps> = ({ type, dayLogs, goalWeight, goalBloodPressure }) => {
   const isWeight = type === 'weight';
   
   const chartData = dayLogs
@@ -75,6 +77,24 @@ export const ProgressChart: React.FC<ProgressChartProps> = ({ type, dayLogs }) =
               interval={0}
             />
             <YAxis hide />
+            {isWeight && goalWeight && (
+              <ReferenceLine 
+                y={goalWeight} 
+                stroke="hsl(var(--primary))" 
+                strokeDasharray="3 3"
+                strokeWidth={2}
+                label={{ value: `Mål: ${goalWeight} kg`, position: 'right', fill: 'hsl(var(--primary))', fontSize: 10 }}
+              />
+            )}
+            {!isWeight && goalBloodPressure && (
+              <ReferenceLine 
+                y={goalBloodPressure.systolic} 
+                stroke="hsl(var(--primary))" 
+                strokeDasharray="3 3"
+                strokeWidth={2}
+                label={{ value: `Mål: ${goalBloodPressure.systolic}/${goalBloodPressure.diastolic}`, position: 'right', fill: 'hsl(var(--primary))', fontSize: 10 }}
+              />
+            )}
             <Bar 
               dataKey={dataKey} 
               fill={barColor} 

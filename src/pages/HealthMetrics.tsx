@@ -21,6 +21,8 @@ const HealthMetrics = () => {
   const [height, setHeight] = useState("");
   const [systolic, setSystolic] = useState("");
   const [diastolic, setDiastolic] = useState("");
+  const [goalSystolic, setGoalSystolic] = useState("");
+  const [goalDiastolic, setGoalDiastolic] = useState("");
   const [skipBloodPressure, setSkipBloodPressure] = useState(false);
   const [saveAlertOpen, setSaveAlertOpen] = useState(false);
   const [hasExistingData, setHasExistingData] = useState(false);
@@ -33,6 +35,8 @@ const HealthMetrics = () => {
       setHeight(metrics.height || "");
       setSystolic(metrics.systolic || "");
       setDiastolic(metrics.diastolic || "");
+      setGoalSystolic(metrics.goalSystolic || "");
+      setGoalDiastolic(metrics.goalDiastolic || "");
       setSkipBloodPressure(metrics.skipBloodPressure || false);
       setHasExistingData(true);
     }
@@ -50,7 +54,9 @@ const HealthMetrics = () => {
       goalWeight,
       height, 
       systolic: skipBloodPressure ? "" : systolic, 
-      diastolic: skipBloodPressure ? "" : diastolic, 
+      diastolic: skipBloodPressure ? "" : diastolic,
+      goalSystolic: skipBloodPressure ? "" : goalSystolic,
+      goalDiastolic: skipBloodPressure ? "" : goalDiastolic,
       skipBloodPressure,
       date: new Date().toISOString() 
     };
@@ -131,6 +137,8 @@ const HealthMetrics = () => {
     setSkipBloodPressure(true);
     setSystolic("");
     setDiastolic("");
+    setGoalSystolic("");
+    setGoalDiastolic("");
   };
 
   const isValid = weight !== "" && height !== "" && (skipBloodPressure || (systolic !== "" && diastolic !== ""));
@@ -248,6 +256,34 @@ const HealthMetrics = () => {
                         max="150"
                       />
                     </div>
+
+                    <div className={standardSpacing.formFields}>
+                      <Label htmlFor="goalSystolic" className={bodyText}>Målvärde övertryck (systoliskt)</Label>
+                      <Input 
+                        id="goalSystolic" 
+                        type="number" 
+                        placeholder="Ex: 120" 
+                        value={goalSystolic} 
+                        onChange={(e) => setGoalSystolic(e.target.value)} 
+                        className={placeholderText}
+                        min="70"
+                        max="250"
+                      />
+                    </div>
+
+                    <div className={standardSpacing.formFields}>
+                      <Label htmlFor="goalDiastolic" className={bodyText}>Målvärde undertryck (diastoliskt)</Label>
+                      <Input 
+                        id="goalDiastolic" 
+                        type="number" 
+                        placeholder="Ex: 80" 
+                        value={goalDiastolic} 
+                        onChange={(e) => setGoalDiastolic(e.target.value)} 
+                        className={placeholderText}
+                        min="40"
+                        max="150"
+                      />
+                    </div>
                     <p className={`text-sm ${cardText}`}>Blodtryck mäts i mmHg och anges som övertryck/undertryck</p>
                   </>
                 ) : (
@@ -308,6 +344,12 @@ const HealthMetrics = () => {
               <div className="flex justify-between items-center">
                 <span className={bodyText}>Blodtryck:</span>
                 <span className={bodyTextBald}>{systolic}/{diastolic} mmHg</span>
+              </div>
+            )}
+            {!skipBloodPressure && goalSystolic && goalDiastolic && (
+              <div className="flex justify-between items-center">
+                <span className={bodyText}>Målblodtryck:</span>
+                <span className={bodyTextBald}>{goalSystolic}/{goalDiastolic} mmHg</span>
               </div>
             )}
             {skipBloodPressure && (

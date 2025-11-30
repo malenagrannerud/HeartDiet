@@ -30,6 +30,8 @@ export const healthMetricsSchema = z.object({
   height: z.string(),
   systolic: z.string(),
   diastolic: z.string(),
+  goalSystolic: z.string().optional(),
+  goalDiastolic: z.string().optional(),
   skipBloodPressure: z.boolean(),
   date: z.string(),
 });
