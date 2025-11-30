@@ -64,21 +64,21 @@ export const tips: Tip[] = [
     title: "Salt-halt",
     color: tipCardColors.graygreen,
     freq: `Dagligen`,
-    icon: "Salad"
+    icon: "PackageOpen"
   },
   {
     id: 8,
     title: "Lagom är bäst",
     color: tipCardColors.lightpurple,
     freq: `Dagligen`,
-    icon: "Scale"
+    icon: "UtensilsCrossed"
   },
  {
     id: 9,
     title: "30 min om dagen",
     color: tipCardColors.lightgreen,
     freq: `Dagligen`,
-    icon: "Activity"
+    icon: "Footprints"
   },
  {
   id: 10,

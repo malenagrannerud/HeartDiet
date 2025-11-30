@@ -8,7 +8,7 @@ import { UserPlanDisplay } from "@/components/UserPlanDisplay";
 import DottedList from "@/components/DottedList";
 import ExampleCard from "@/components/exCard";
 import { AddPlanButton } from "@/components/AddPlanButton";
-import { Scale } from "lucide-react";
+import { UtensilsCrossed } from "lucide-react";
 
 const LagomPage = () => {
   const [userPlans, setUserPlans] = useState<UserPlan[]>([]);
@@ -64,7 +64,7 @@ const LagomPage = () => {
         <BackToTodayButton />
         <div className="flex items-center justify-between">
           <h1 className={sectionHeading}>Lagom är bäst</h1>
-          <Scale className="h-8 w-8" />
+          <UtensilsCrossed className="h-8 w-8" />
         </div>
       </header>
 
