@@ -3,6 +3,7 @@ import { UserPlan } from "@/data/tips";
 import { pageContainer, headerContainer, pagePadding, sectionHeading, sectionHeading2, sectionSubheading2, bodyText, tipCardColors, standardSpacing } from "@/lib/design-tokens";
 import { BackToTodayButton } from "@/components/BackToTodayButton";
 import { UserPlanFormDialog } from "@/components/UserPlanFormDialog";
+import { UserPlanForm } from "@/components/UserPlanForm";
 import { UserPlanDisplay } from "@/components/UserPlanDisplay";
 import DottedList from "@/components/DottedList";
 import ExampleCard from "@/components/exCard";
@@ -170,27 +171,34 @@ const BaljvaxterPage = () => {
             </p>
           </div>
 
-          {userPlans.length > 0 && (
-            <UserPlanDisplay
-              plans={userPlans}
-              onEdit={handleEditPlan}
-              onDelete={handleDeletePlan}
+          {userPlans.length > 0 ? (
+            <>
+              <UserPlanDisplay
+                plans={userPlans}
+                onEdit={handleEditPlan}
+                onDelete={handleDeletePlan}
+              />
+              <AddPlanButton
+                onClick={handleAddPlan}
+                canAddMorePlans={userPlans.length < 10}
+              />
+              <UserPlanFormDialog
+                open={isDialogOpen}
+                onOpenChange={setIsDialogOpen}
+                tipId={10}
+                initialPlan={editingIndex !== null ? userPlans[editingIndex] : undefined}
+                onSave={handleSavePlan}
+                onCancel={handleCancelEdit}
+              />
+            </>
+          ) : (
+            <UserPlanForm
+              tipId={10}
+              initialPlan={undefined}
+              onSave={handleSavePlan}
+              onCancel={handleCancelEdit}
             />
           )}
-
-          <AddPlanButton
-            onClick={handleAddPlan}
-            canAddMorePlans={userPlans.length < 10}
-          />
-
-          <UserPlanFormDialog
-            open={isDialogOpen}
-            onOpenChange={setIsDialogOpen}
-            tipId={10}
-            initialPlan={editingIndex !== null ? userPlans[editingIndex] : undefined}
-            onSave={handleSavePlan}
-            onCancel={handleCancelEdit}
-          />
         </div>
       </main>
     </div>
