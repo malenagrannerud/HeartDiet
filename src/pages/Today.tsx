@@ -307,7 +307,7 @@ const Today = () => {
                       >
                         <Checkbox 
                           checked={tipCompletions[tip.id] || false}
-                          className="h-7 w-7 data-[state=checked]:bg-emerald-500 data-[state=checked]:border-emerald-500 transition-all duration-200"
+                          className="h-7 w-7 data-[state=checked]:bg-blue-900 data-[state=checked]:border-blue-900 transition-all duration-200"
                         />
                       </div>
                     </div>
