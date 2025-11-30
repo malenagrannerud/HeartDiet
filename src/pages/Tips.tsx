@@ -1,5 +1,4 @@
-
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { tips } from "@/data/tips";
 import TipCard from "@/components/TipCard";
@@ -95,6 +94,13 @@ const Tips = () => {
     }
   };
 
+  // Sort tips: marked tips first, then unmarked tips
+  const sortedTips = useMemo(() => {
+    const marked = tips.filter(tip => isMarked(tip.id));
+    const unmarked = tips.filter(tip => !isMarked(tip.id));
+    return [...marked, ...unmarked];
+  }, [markedTips]);
+
   return (
     <div className={pageContainer}>
       <header className={headerContainer}>
@@ -105,7 +111,7 @@ const Tips = () => {
       <main className={pagePadding}>
         <div className={standardSpacing.pageContent}>
           <div className={standardSpacing.cardList}>
-            {tips.map((tip) => (
+            {sortedTips.map((tip) => (
               <div key={tip.id} className="flex items-center gap-3">
                 <div className="flex-1">
                   <TipCard

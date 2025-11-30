@@ -28,6 +28,7 @@ interface WeeklyProgressTableProps {
   hasWeightOnDate: (date: Date) => boolean;
   hasBloodPressureOnDate: (date: Date) => boolean;
   isToday: (date: Date) => boolean;
+  markedTipIds?: number[];
 }
 
 export const WeeklyProgressTable = ({
@@ -41,7 +42,8 @@ export const WeeklyProgressTable = ({
   isTipCompletedOnDate,
   hasWeightOnDate,
   hasBloodPressureOnDate,
-  isToday
+  isToday,
+  markedTipIds = []
 }: WeeklyProgressTableProps) => {
   const getDayInitial = (date: Date) => {
     const days = ['Sön', 'Mån', 'Tis', 'Ons', 'Tor', 'Fre', 'Lör'];
@@ -51,6 +53,15 @@ export const WeeklyProgressTable = ({
   const capitalizeMonth = (dateStr: string) => {
     return dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
   };
+
+  // Sort tips: marked tips first, then unmarked tips
+  const sortedTips = [...tips].sort((a, b) => {
+    const aMarked = markedTipIds.includes(a.id);
+    const bMarked = markedTipIds.includes(b.id);
+    if (aMarked && !bMarked) return -1;
+    if (!aMarked && bMarked) return 1;
+    return 0;
+  });
 
   return (
     <>
@@ -127,7 +138,7 @@ export const WeeklyProgressTable = ({
               </tr>
             </thead>
             <tbody>
-              {tips.map((tip) => {
+              {sortedTips.map((tip) => {
                 const tipColor = tip.color.includes('bg-[') 
                   ? tip.color.replace('bg-[', '').replace(']', '')
                   : '#A8CC7D';

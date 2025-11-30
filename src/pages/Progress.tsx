@@ -13,7 +13,7 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { getDayLogs } from "@/lib/tip-completion";
 import { getStorageItem } from "@/lib/storage";
-import { healthPrioritiesSchema } from "@/lib/schemas";
+import { healthPrioritiesSchema, markedTipsSchema } from "@/lib/schemas";
 import { StatsBox } from "@/components/StatsBox";
 import { HealthInfoCard } from "@/components/HealthInfoCard";
 import { getCurrentDate } from "@/lib/simulated-date";
@@ -72,6 +72,7 @@ const Progress = () => {
   } | null>(null);
   const [priorities, setPriorities] = useState<string[]>([]);
   const [medications, setMedications] = useState<string[]>([]);
+  const [markedTipIds, setMarkedTipIds] = useState<number[]>([]);
 
   // Load day logs and health priorities from localStorage
   useEffect(() => {
@@ -82,6 +83,11 @@ const Progress = () => {
     if (data) {
       setPriorities(data.priorities || []);
       setMedications(data.medications || []);
+    }
+
+    const markedTips = getStorageItem('markedTips', markedTipsSchema);
+    if (markedTips) {
+      setMarkedTipIds(markedTips.map(tip => tip.id));
     }
   }, []);
 
@@ -401,6 +407,7 @@ const Progress = () => {
             hasWeightOnDate={hasWeightOnDate}
             hasBloodPressureOnDate={hasBloodPressureOnDate}
             isToday={isToday}
+            markedTipIds={markedTipIds}
           />
 
           {/* Stats */}
