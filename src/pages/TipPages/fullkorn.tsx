@@ -11,7 +11,7 @@ import ExampleCard from "@/components/exCard";
 import { AddPlanButton } from "@/components/AddPlanButton";
 import { Wheat } from "lucide-react";
 import { useMedicationInteractions } from "@/hooks/use-medication-interactions";
-import { MedCard } from "@/components/MedCard";
+import { MedCardCompact } from "@/components/MedCardCompact";
 import { useHealthGoalTips } from "@/hooks/use-health-goal-tips";
 import { HealthGoalCard } from "@/components/HealthGoalCard";
 
@@ -76,19 +76,6 @@ const FullkornPage = () => {
       </header>
 
       <main className={`${pagePadding} ${standardSpacing.pageContent}`}>
-        {/* Medication warnings */}
-        {medicationInteractions.length > 0 && (
-          <div className="space-y-3 mb-6">
-            {medicationInteractions.map(({ medication, interaction }) => (
-              <MedCard 
-                key={`${medication.id}-${interaction.tipId}`}
-                medication={medication}
-                interaction={interaction}
-              />
-            ))}
-          </div>
-        )}
-
         {/* Health goal tips */}
         {healthGoalTips.length > 0 && (
           <div className="space-y-3 mb-6">
@@ -113,6 +100,19 @@ const FullkornPage = () => {
                             "Hirs, teff och durra",
             ]} />
         </div>
+
+        {/* Medication warnings */}
+        {medicationInteractions.length > 0 && (
+          <div className="space-y-2 mt-4">
+            {medicationInteractions.map(({ medication, interaction }) => (
+              <MedCardCompact 
+                key={`${medication.id}-${interaction.tipId}`}
+                medication={medication}
+                interaction={interaction}
+              />
+            ))}
+          </div>
+        )}
 
         <div>
           <h2 className={sectionHeading2}>Fullkornsprodukter</h2>
