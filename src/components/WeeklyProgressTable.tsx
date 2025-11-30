@@ -5,6 +5,9 @@ import { tips } from "@/data/tips";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { standardSpacing, bodyText, bodyTextBald, tableHeaderSmall } from "@/lib/design-tokens";
+import { getStorageItem } from "@/lib/storage";
+import { healthPrioritiesSchema } from "@/lib/schemas";
+import { healthGoalTips } from "@/data/health-goal-tips";
 
 interface DayLog {
   date: string;
@@ -54,14 +57,24 @@ export const WeeklyProgressTable = ({
     return dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
   };
 
-  // Sort tips: marked tips first, then unmarked tips
-  const sortedTips = [...tips].sort((a, b) => {
-    const aMarked = markedTipIds.includes(a.id);
-    const bMarked = markedTipIds.includes(b.id);
-    if (aMarked && !bMarked) return -1;
-    if (!aMarked && bMarked) return 1;
-    return 0;
-  });
+  // Load user's selected health goals
+  const healthData = getStorageItem('healthPriorities', healthPrioritiesSchema);
+  const selectedGoals = healthData?.priorities || [];
+  
+  // Helper function to check if a tip has relevant health goals
+  const hasRelevantHealthGoals = (tipId: number) => {
+    if (selectedGoals.length === 0) return false;
+    return healthGoalTips.some(
+      tip => tip.tipId === tipId && selectedGoals.includes(tip.goalId)
+    );
+  };
+  
+  // Sort tips: marked first, then unmarked with health goals, then unmarked without goals
+  const marked = tips.filter(tip => markedTipIds.includes(tip.id));
+  const unmarkedWithGoals = tips.filter(tip => !markedTipIds.includes(tip.id) && hasRelevantHealthGoals(tip.id));
+  const unmarkedWithoutGoals = tips.filter(tip => !markedTipIds.includes(tip.id) && !hasRelevantHealthGoals(tip.id));
+  
+  const sortedTips = [...marked, ...unmarkedWithGoals, ...unmarkedWithoutGoals];
 
   return (
     <>
