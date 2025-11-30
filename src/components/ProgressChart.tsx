@@ -8,15 +8,16 @@ import { bodyTextBald, cardTextSmall } from "@/lib/design-tokens";
 interface DayLog {
   date: string;
   entries: {
-    type: 'weight' | 'bloodPressure' | 'tip';
+    type: 'weight' | 'bloodPressure' | 'bloodFats' | 'bloodGlucose' | 'tip';
     value: number;
     value2?: number;
+    value3?: number;
     tipId?: number;
   }[];
 }
 
 interface ProgressChartProps {
-  type: 'weight' | 'bloodPressure';
+  type: 'weight' | 'bloodPressure' | 'bloodFats' | 'bloodGlucose';
   dayLogs: DayLog[];
   goalWeight?: number;
   goalBloodPressure?: { systolic: number; diastolic: number };
@@ -24,6 +25,9 @@ interface ProgressChartProps {
 
 export const ProgressChart: React.FC<ProgressChartProps> = ({ type, dayLogs, goalWeight, goalBloodPressure }) => {
   const isWeight = type === 'weight';
+  const isBloodPressure = type === 'bloodPressure';
+  const isBloodFats = type === 'bloodFats';
+  const isBloodGlucose = type === 'bloodGlucose';
   
   const chartData = dayLogs
     .flatMap(log => 
@@ -33,23 +37,54 @@ export const ProgressChart: React.FC<ProgressChartProps> = ({ type, dayLogs, goa
           date: format(new Date(log.date), 'd MMM', { locale: sv }),
           value: e.value,
           value2: e.value2,
+          value3: e.value3,
           fullDate: log.date
         }))
     )
     .sort((a, b) => new Date(a.fullDate).getTime() - new Date(b.fullDate).getTime())
     .slice(-10);
 
-  const chartConfig = isWeight
-    ? { weight: { label: "Vikt", color: "hsla(204, 37%, 48%, 1.00)" } }
-    : { systolic: { label: "Systoliskt", color: "hsla(332, 52%, 52%, 1.00)" } };
+  const getChartConfig = () => {
+    if (isWeight) return { weight: { label: "Vikt", color: "hsla(204, 37%, 48%, 1.00)" } };
+    if (isBloodPressure) return { systolic: { label: "Systoliskt", color: "hsla(332, 52%, 52%, 1.00)" } };
+    if (isBloodFats) return { ldl: { label: "LDL", color: "hsla(280, 65%, 60%, 1.00)" } };
+    return { glucose: { label: "Blodsocker", color: "hsla(160, 60%, 50%, 1.00)" } };
+  };
 
-  const barColor = isWeight ? "hsla(204, 37%, 48%, 1.00)" : "hsla(332, 52%, 52%, 1.00)";
-  const dataKey = isWeight ? "value" : "value";
-  const title = isWeight ? "Vikt" : "Blodtryck";
-  const subtitle = isWeight ? "Loggade vikter (kg)" : "Loggade blodtryck (mmHg)";
-  const formatter = isWeight 
-    ? (value: number) => `${value} kg`
-    : (value: number) => `${value}`;
+  const getBarColor = () => {
+    if (isWeight) return "hsla(204, 37%, 48%, 1.00)";
+    if (isBloodPressure) return "hsla(332, 52%, 52%, 1.00)";
+    if (isBloodFats) return "hsla(280, 65%, 60%, 1.00)";
+    return "hsla(160, 60%, 50%, 1.00)";
+  };
+
+  const getTitle = () => {
+    if (isWeight) return "Vikt";
+    if (isBloodPressure) return "Blodtryck";
+    if (isBloodFats) return "Kolesterol (LDL)";
+    return "Blodsocker";
+  };
+
+  const getSubtitle = () => {
+    if (isWeight) return "Loggade vikter (kg)";
+    if (isBloodPressure) return "Loggade blodtryck (mmHg)";
+    if (isBloodFats) return "Loggat LDL-kolesterol (mmol/L)";
+    return "Loggat blodsocker (mmol/mol eller mmol/L)";
+  };
+
+  const getFormatter = () => {
+    if (isWeight) return (value: number) => `${value} kg`;
+    if (isBloodPressure) return (value: number) => `${value}`;
+    if (isBloodFats) return (value: number) => `${value}`;
+    return (value: number) => `${value}`;
+  };
+
+  const chartConfig = getChartConfig();
+  const barColor = getBarColor();
+  const dataKey = "value"; // All chart types use 'value' as primary data key
+  const title = getTitle();
+  const subtitle = getSubtitle();
+  const formatter = getFormatter();
 
   return (
     <StatsBox>

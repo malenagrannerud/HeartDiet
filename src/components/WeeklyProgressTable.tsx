@@ -12,9 +12,10 @@ import { healthGoalTips } from "@/data/health-goal-tips";
 interface DayLog {
   date: string;
   entries: {
-    type: 'weight' | 'bloodPressure' | 'tip';
+    type: 'weight' | 'bloodPressure' | 'bloodFats' | 'bloodGlucose' | 'tip';
     value: number;
     value2?: number;
+    value3?: number;
     tipId?: number;
   }[];
 }
