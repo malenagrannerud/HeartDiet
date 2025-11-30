@@ -95,7 +95,7 @@ const Tips = () => {
     }
   };
 
-  // Sort tips: prioritize by health goals, then by marked status
+  // Sort tips: user marked tips first, then prioritize by health goals
   const sortedTips = useMemo(() => {
     // Load user's selected health goals
     const healthData = getStorageItem('healthPriorities', healthPrioritiesSchema);
@@ -109,13 +109,12 @@ const Tips = () => {
       );
     };
     
-    // Categorize tips
-    const markedWithGoals = tips.filter(tip => isMarked(tip.id) && hasRelevantHealthGoals(tip.id));
+    // Categorize tips: marked tips always first
+    const marked = tips.filter(tip => isMarked(tip.id));
     const unmarkedWithGoals = tips.filter(tip => !isMarked(tip.id) && hasRelevantHealthGoals(tip.id));
-    const markedWithoutGoals = tips.filter(tip => isMarked(tip.id) && !hasRelevantHealthGoals(tip.id));
     const unmarkedWithoutGoals = tips.filter(tip => !isMarked(tip.id) && !hasRelevantHealthGoals(tip.id));
     
-    return [...markedWithGoals, ...unmarkedWithGoals, ...markedWithoutGoals, ...unmarkedWithoutGoals];
+    return [...marked, ...unmarkedWithGoals, ...unmarkedWithoutGoals];
   }, [markedTips]);
 
   return (
