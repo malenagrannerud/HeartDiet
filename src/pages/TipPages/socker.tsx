@@ -2,14 +2,16 @@ import { useState, useEffect } from "react";
 import { UserPlan } from "@/data/tips";
 import { pageContainer, headerContainer, pagePadding, sectionHeading, sectionHeading2, sectionSubheading2, bodyText, tipCardColors, standardSpacing } from "@/lib/design-tokens";
 import { BackToTodayButton } from "@/components/BackToTodayButton";
-import { UserPlanForm } from "@/components/UserPlanForm";
+import { UserPlanFormDialog } from "@/components/UserPlanFormDialog";
 import { UserPlanDisplay } from "@/components/UserPlanDisplay";
 import DottedList from "@/components/DottedList";
 import ExampleCard from "@/components/exCard";
+import { AddPlanButton } from "@/components/AddPlanButton";
 
 const SockerPage = () => {
   const [userPlans, setUserPlans] = useState<UserPlan[]>([]);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   useEffect(() => {
     const savedPlans = localStorage.getItem('userPlans-socker');
@@ -41,10 +43,17 @@ const SockerPage = () => {
 
   const handleEditPlan = (index: number) => {
     setEditingIndex(index);
+    setIsDialogOpen(true);
+  };
+
+  const handleAddPlan = () => {
+    setEditingIndex(null);
+    setIsDialogOpen(true);
   };
 
   const handleCancelEdit = () => {
     setEditingIndex(null);
+    setIsDialogOpen(false);
   };
 
   return (
@@ -167,7 +176,14 @@ const SockerPage = () => {
             />
           )}
 
-          <UserPlanForm
+          <AddPlanButton
+            onClick={handleAddPlan}
+            canAddMorePlans={userPlans.length < 10}
+          />
+
+          <UserPlanFormDialog
+            open={isDialogOpen}
+            onOpenChange={setIsDialogOpen}
             tipId={11}
             initialPlan={editingIndex !== null ? userPlans[editingIndex] : undefined}
             onSave={handleSavePlan}
