@@ -6,7 +6,7 @@ import TipCard from "@/components/TipCard";
 import { pageTitle, pageSubtitle, pageContainer, headerContainer, pagePadding, standardSpacing } from "@/lib/design-tokens";
 import { getStorageItem, setStorageItem } from "@/lib/storage";
 import { markedTipsSchema } from "@/lib/schemas";
-import { CheckRight } from "@/components/CheckRight";
+import { BookmarkToggle } from "@/components/BookmarkToggle";
 import { useToast } from "@/hooks/use-toast";
 
 /**
@@ -113,8 +113,8 @@ const Tips = () => {
                     onClick={() => handleTipClick(tip.id)}
                   />
                 </div>
-                <CheckRight
-                  isChecked={isMarked(tip.id)}
+                <BookmarkToggle
+                  isSelected={isMarked(tip.id)}
                   onClick={() => toggleMark(tip.id)}
                   className="shrink-0"
                 />
