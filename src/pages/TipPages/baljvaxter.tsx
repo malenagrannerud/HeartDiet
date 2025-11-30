@@ -9,11 +9,14 @@ import DottedList from "@/components/DottedList";
 import ExampleCard from "@/components/exCard";
 import { AddPlanButton } from "@/components/AddPlanButton";
 import { Sprout } from "lucide-react";
+import { useMedicationInteractions } from "@/hooks/use-medication-interactions";
+import { MedCard } from "@/components/MedCard";
 
 const BaljvaxterPage = () => {
   const [userPlans, setUserPlans] = useState<UserPlan[]>([]);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const medicationInteractions = useMedicationInteractions(10); // tipId: 10 for Baljväxter
 
   useEffect(() => {
     const savedPlans = localStorage.getItem('userPlans-baljvaxter');
@@ -69,6 +72,19 @@ const BaljvaxterPage = () => {
       </header>
 
       <main className={`${pagePadding} ${standardSpacing.pageContent}`}>
+        {/* Medication warnings */}
+        {medicationInteractions.length > 0 && (
+          <div className="space-y-3 mb-6">
+            {medicationInteractions.map(({ medication, interaction }) => (
+              <MedCard 
+                key={`${medication.id}-${interaction.tipId}`}
+                medication={medication}
+                interaction={interaction}
+              />
+            ))}
+          </div>
+        )}
+
         <p className={sectionSubheading2}>
           Att äta baljväxter flera gånger per vecka ger dig protein, fibrer och viktiga näringsämnen samtidigt som det minskar risken för hjärt-kärlsjukdom och typ 2-diabetes
         </p>

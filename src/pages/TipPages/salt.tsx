@@ -9,11 +9,14 @@ import DottedList from "@/components/DottedList";
 import ExampleCard from "@/components/exCard";
 import { AddPlanButton } from "@/components/AddPlanButton";
 import { PackageOpen } from "lucide-react";
+import { useMedicationInteractions } from "@/hooks/use-medication-interactions";
+import { MedCard } from "@/components/MedCard";
 
 const SaltPage = () => {
   const [userPlans, setUserPlans] = useState<UserPlan[]>([]);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const medicationInteractions = useMedicationInteractions(7); // tipId: 7 for Salt
 
   useEffect(() => {
     const savedPlans = localStorage.getItem('userPlans-salt');
@@ -69,6 +72,19 @@ const SaltPage = () => {
       </header>
 
       <main className={`${pagePadding} ${standardSpacing.pageContent}`}>
+        {/* Medication warnings */}
+        {medicationInteractions.length > 0 && (
+          <div className="space-y-3 mb-6">
+            {medicationInteractions.map(({ medication, interaction }) => (
+              <MedCard 
+                key={`${medication.id}-${interaction.tipId}`}
+                medication={medication}
+                interaction={interaction}
+              />
+            ))}
+          </div>
+        )}
+
         <p className={sectionSubheading2}>
           Att begränsa salt till max 6 g per dag (ca 1 tesked) sänker blodtrycket och minskar risken för stroke och hjärtsjukdom
         </p>

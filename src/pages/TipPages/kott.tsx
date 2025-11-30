@@ -9,11 +9,14 @@ import DottedList from "@/components/DottedList";
 import ExampleCard from "@/components/exCard";
 import { AddPlanButton } from "@/components/AddPlanButton";
 import { Beef } from "lucide-react";
+import { useMedicationInteractions } from "@/hooks/use-medication-interactions";
+import { MedCard } from "@/components/MedCard";
 
 const KottPage = () => {
   const [userPlans, setUserPlans] = useState<UserPlan[]>([]);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const medicationInteractions = useMedicationInteractions(6); // tipId: 6
 
   useEffect(() => {
     const savedPlans = localStorage.getItem('userPlans-kott');
@@ -69,6 +72,13 @@ const KottPage = () => {
       </header>
 
       <main className={`${pagePadding} ${standardSpacing.pageContent}`}>
+        {medicationInteractions.length > 0 && (
+          <div className="space-y-3 mb-6">
+            {medicationInteractions.map(({ medication, interaction }) => (
+              <MedCard key={`${medication.id}-${interaction.tipId}`} medication={medication} interaction={interaction} />
+            ))}
+          </div>
+        )}
         <p className={sectionSubheading2}>
           Att begränsa rött och bearbetat kött till max 500 g per vecka minskar risken för hjärt-kärlsjukdom, typ 2-diabetes och vissa cancerformer
         </p>

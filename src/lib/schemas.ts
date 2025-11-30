@@ -78,3 +78,14 @@ export const cardCompletionsSchema = z.array(cardCompletionSchema);
 
 export type CardCompletion = z.infer<typeof cardCompletionSchema>;
 export type CardId = CardCompletion['cardId'];
+
+// Selected medication schema
+export const selectedMedicationSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  addedDate: z.string(), // ISO date string
+});
+
+export const selectedMedicationsSchema = z.array(selectedMedicationSchema);
+
+export type SelectedMedication = z.infer<typeof selectedMedicationSchema>;
