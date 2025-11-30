@@ -32,6 +32,10 @@ export const healthMetricsSchema = z.object({
   diastolic: z.string(),
   goalSystolic: z.string().optional(),
   goalDiastolic: z.string().optional(),
+  goalLDL: z.string().optional(),
+  goalHDL: z.string().optional(),
+  goalHbA1c: z.string().optional(),
+  goalFastingGlucose: z.string().optional(),
   skipBloodPressure: z.boolean(),
   date: z.string(),
 });

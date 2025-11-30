@@ -1,8 +1,10 @@
 import { format } from "date-fns";
 import { sv } from "date-fns/locale";
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, LabelList, ReferenceLine } from 'recharts';
+import { X } from "lucide-react";
 import { ChartContainer } from "@/components/ui/chart";
 import { StatsBox } from "@/components/StatsBox";
+import { Button } from "@/components/ui/button";
 import { bodyTextBald, cardTextSmall } from "@/lib/design-tokens";
 
 interface DayLog {
@@ -21,16 +23,30 @@ interface ProgressChartProps {
   dayLogs: DayLog[];
   goalWeight?: number;
   goalBloodPressure?: { systolic: number; diastolic: number };
+  goalBloodFats?: { ldl?: number; hdl?: number };
+  goalBloodGlucose?: { hba1c?: number; fastingGlucose?: number };
   onClick?: () => void;
+  isExpanded?: boolean;
+  onCollapse?: () => void;
 }
 
-export const ProgressChart: React.FC<ProgressChartProps> = ({ type, dayLogs, goalWeight, goalBloodPressure, onClick }) => {
+export const ProgressChart: React.FC<ProgressChartProps> = ({ 
+  type, 
+  dayLogs, 
+  goalWeight, 
+  goalBloodPressure, 
+  goalBloodFats,
+  goalBloodGlucose,
+  onClick, 
+  isExpanded = false,
+  onCollapse
+}) => {
   const isWeight = type === 'weight';
   const isBloodPressure = type === 'bloodPressure';
   const isBloodFats = type === 'bloodFats';
   const isBloodGlucose = type === 'bloodGlucose';
   
-  const chartData = dayLogs
+  const allChartData = dayLogs
     .flatMap(log => 
       log.entries
         .filter(e => e.type === type)
@@ -42,8 +58,9 @@ export const ProgressChart: React.FC<ProgressChartProps> = ({ type, dayLogs, goa
           fullDate: log.date
         }))
     )
-    .sort((a, b) => new Date(a.fullDate).getTime() - new Date(b.fullDate).getTime())
-    .slice(-10);
+    .sort((a, b) => new Date(a.fullDate).getTime() - new Date(b.fullDate).getTime());
+  
+  const chartData = isExpanded ? allChartData : allChartData.slice(-10);
 
   const getChartConfig = () => {
     if (isWeight) return { weight: { label: "Vikt", color: "hsla(204, 37%, 48%, 1.00)" } };
@@ -87,14 +104,64 @@ export const ProgressChart: React.FC<ProgressChartProps> = ({ type, dayLogs, goa
   const subtitle = getSubtitle();
   const formatter = getFormatter();
 
+  const getGoalValue = () => {
+    if (isWeight && goalWeight) return goalWeight;
+    if (isBloodPressure && goalBloodPressure) return goalBloodPressure.systolic;
+    if (isBloodFats && goalBloodFats?.ldl) return goalBloodFats.ldl;
+    if (isBloodGlucose && goalBloodGlucose?.hba1c) return goalBloodGlucose.hba1c;
+    return null;
+  };
+
+  const getGoalLabel = () => {
+    if (isWeight && goalWeight) return `Mål: ${goalWeight} kg`;
+    if (isBloodPressure && goalBloodPressure) return `Mål: ${goalBloodPressure.systolic}/${goalBloodPressure.diastolic}`;
+    if (isBloodFats && goalBloodFats?.ldl) return `Mål LDL: ${goalBloodFats.ldl}`;
+    if (isBloodGlucose && goalBloodGlucose?.hba1c) return `Mål HbA1c: ${goalBloodGlucose.hba1c}`;
+    return '';
+  };
+
+  const goalValue = getGoalValue();
+  const goalLabel = getGoalLabel();
+
   return (
-    <StatsBox onClick={onClick}>
+    <StatsBox onClick={!isExpanded ? onClick : undefined}>
     <div className="flex flex-col gap-4">
-      <div>
-        <div className={bodyTextBald}>{title}</div>
-        <div className={cardTextSmall}>{subtitle}</div>
+      <div className="flex justify-between items-start">
+        <div>
+          <div className={bodyTextBald}>{title}</div>
+          <div className={cardTextSmall}>{subtitle}</div>
+        </div>
+        {isExpanded && onCollapse && (
+          <Button 
+            variant="ghost" 
+            size="sm"
+            onClick={(e) => {
+              e.stopPropagation();
+              onCollapse();
+            }}
+            className="h-8 w-8 p-0"
+          >
+            <X className="h-4 w-4" />
+          </Button>
+        )}
       </div>
-      <ChartContainer config={chartConfig} className="h-48 w-full">
+      {isExpanded && chartData.length > 0 && (
+        <>
+          <div className="space-y-2 max-h-64 overflow-y-auto">
+            {chartData.map((entry, idx) => (
+              <div key={idx} className="flex justify-between items-center py-2 px-3 bg-muted/30 rounded">
+                <span className="text-sm font-medium">{format(new Date(entry.fullDate), 'd MMMM yyyy', { locale: sv })}</span>
+                <span className="text-sm font-semibold">{formatter(entry.value)}</span>
+              </div>
+            ))}
+          </div>
+          <Button onClick={onClick} variant="outline" className="w-full">
+            Ändra mål
+          </Button>
+        </>
+      )}
+      {!isExpanded && (
+        <ChartContainer config={chartConfig} className="h-48 w-full">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart 
             data={[...chartData].sort((a, b) => {
@@ -113,22 +180,13 @@ export const ProgressChart: React.FC<ProgressChartProps> = ({ type, dayLogs, goa
               interval={0}
             />
             <YAxis hide />
-            {isWeight && goalWeight && (
+            {goalValue && (
               <ReferenceLine 
-                y={goalWeight} 
+                y={goalValue} 
                 stroke="hsl(var(--primary))" 
                 strokeDasharray="3 3"
                 strokeWidth={2}
-                label={{ value: `Mål: ${goalWeight} kg`, position: 'right', fill: 'hsl(var(--primary))', fontSize: 10 }}
-              />
-            )}
-            {!isWeight && goalBloodPressure && (
-              <ReferenceLine 
-                y={goalBloodPressure.systolic} 
-                stroke="hsl(var(--primary))" 
-                strokeDasharray="3 3"
-                strokeWidth={2}
-                label={{ value: `Mål: ${goalBloodPressure.systolic}/${goalBloodPressure.diastolic}`, position: 'right', fill: 'hsl(var(--primary))', fontSize: 10 }}
+                label={{ value: goalLabel, position: 'right', fill: 'hsl(var(--primary))', fontSize: 10 }}
               />
             )}
             <Bar 
@@ -148,6 +206,7 @@ export const ProgressChart: React.FC<ProgressChartProps> = ({ type, dayLogs, goa
           </BarChart>
         </ResponsiveContainer>
       </ChartContainer>
+      )}
     </div>
   </StatsBox>
     

@@ -74,8 +74,11 @@ const Progress = () => {
   const [markedTipIds, setMarkedTipIds] = useState<number[]>([]);
   const [goalWeight, setGoalWeight] = useState<number | undefined>();
   const [goalBloodPressure, setGoalBloodPressure] = useState<{ systolic: number; diastolic: number } | undefined>();
+  const [goalBloodFats, setGoalBloodFats] = useState<{ ldl?: number; hdl?: number } | undefined>();
+  const [goalBloodGlucose, setGoalBloodGlucose] = useState<{ hba1c?: number; fastingGlucose?: number } | undefined>();
   const [showBloodFats, setShowBloodFats] = useState(false);
   const [showBloodGlucose, setShowBloodGlucose] = useState(false);
+  const [expandedChart, setExpandedChart] = useState<'weight' | 'bloodPressure' | 'bloodFats' | 'bloodGlucose' | null>(null);
   
   // Blood fats dialog state
   const [bloodFatsDialogOpen, setBloodFatsDialogOpen] = useState(false);
@@ -94,10 +97,14 @@ const Progress = () => {
 
   // Goal editing dialog state
   const [goalEditDialogOpen, setGoalEditDialogOpen] = useState(false);
-  const [goalEditType, setGoalEditType] = useState<'weight' | 'bloodPressure' | null>(null);
+  const [goalEditType, setGoalEditType] = useState<'weight' | 'bloodPressure' | 'bloodFats' | 'bloodGlucose' | null>(null);
   const [goalWeightInput, setGoalWeightInput] = useState("");
   const [goalSystolicInput, setGoalSystolicInput] = useState("");
   const [goalDiastolicInput, setGoalDiastolicInput] = useState("");
+  const [goalLDLInput, setGoalLDLInput] = useState("");
+  const [goalHDLInput, setGoalHDLInput] = useState("");
+  const [goalHbA1cInput, setGoalHbA1cInput] = useState("");
+  const [goalFastingGlucoseInput, setGoalFastingGlucoseInput] = useState("");
 
   // Load day logs and health priorities from localStorage
   useEffect(() => {
@@ -131,6 +138,18 @@ const Progress = () => {
           systolic: parseInt(metrics.goalSystolic),
           diastolic: parseInt(metrics.goalDiastolic)
         });
+      }
+      if (metrics.goalLDL) {
+        setGoalBloodFats(prev => ({ ...prev, ldl: parseFloat(metrics.goalLDL!) }));
+      }
+      if (metrics.goalHDL) {
+        setGoalBloodFats(prev => ({ ...prev, hdl: parseFloat(metrics.goalHDL!) }));
+      }
+      if (metrics.goalHbA1c) {
+        setGoalBloodGlucose(prev => ({ ...prev, hba1c: parseFloat(metrics.goalHbA1c!) }));
+      }
+      if (metrics.goalFastingGlucose) {
+        setGoalBloodGlucose(prev => ({ ...prev, fastingGlucose: parseFloat(metrics.goalFastingGlucose!) }));
       }
     }
 
@@ -644,13 +663,19 @@ const Progress = () => {
     return format(date, 'yyyy-MM-dd') === format(today, 'yyyy-MM-dd');
   };
 
-  const openGoalEditDialog = (type: 'weight' | 'bloodPressure') => {
+  const openGoalEditDialog = (type: 'weight' | 'bloodPressure' | 'bloodFats' | 'bloodGlucose') => {
     setGoalEditType(type);
     if (type === 'weight') {
       setGoalWeightInput(goalWeight?.toString() || "");
-    } else {
+    } else if (type === 'bloodPressure') {
       setGoalSystolicInput(goalBloodPressure?.systolic.toString() || "");
       setGoalDiastolicInput(goalBloodPressure?.diastolic.toString() || "");
+    } else if (type === 'bloodFats') {
+      setGoalLDLInput(goalBloodFats?.ldl?.toString() || "");
+      setGoalHDLInput(goalBloodFats?.hdl?.toString() || "");
+    } else if (type === 'bloodGlucose') {
+      setGoalHbA1cInput(goalBloodGlucose?.hba1c?.toString() || "");
+      setGoalFastingGlucoseInput(goalBloodGlucose?.fastingGlucose?.toString() || "");
     }
     setGoalEditDialogOpen(true);
   };
@@ -691,6 +716,42 @@ const Progress = () => {
       toast({
         title: "Målblodtryck uppdaterat",
         description: `Nytt målblodtryck: ${systolic}/${diastolic} mmHg`,
+      });
+    } else if (goalEditType === 'bloodFats') {
+      const ldl = goalLDLInput ? parseFloat(goalLDLInput) : undefined;
+      const hdl = goalHDLInput ? parseFloat(goalHDLInput) : undefined;
+      if (!ldl && !hdl) {
+        toast({
+          title: "Ogiltigt värde",
+          description: "Ange minst ett kolesterolvärde",
+          variant: "destructive"
+        });
+        return;
+      }
+      if (ldl) metrics.goalLDL = goalLDLInput;
+      if (hdl) metrics.goalHDL = goalHDLInput;
+      setGoalBloodFats({ ldl, hdl });
+      toast({
+        title: "Kolesterolmål uppdaterade",
+        description: ldl && hdl ? `LDL: ${ldl}, HDL: ${hdl}` : ldl ? `LDL: ${ldl}` : `HDL: ${hdl}`,
+      });
+    } else if (goalEditType === 'bloodGlucose') {
+      const hba1c = goalHbA1cInput ? parseFloat(goalHbA1cInput) : undefined;
+      const fasting = goalFastingGlucoseInput ? parseFloat(goalFastingGlucoseInput) : undefined;
+      if (!hba1c && !fasting) {
+        toast({
+          title: "Ogiltigt värde",
+          description: "Ange minst ett blodsockervärde",
+          variant: "destructive"
+        });
+        return;
+      }
+      if (hba1c) metrics.goalHbA1c = goalHbA1cInput;
+      if (fasting) metrics.goalFastingGlucose = goalFastingGlucoseInput;
+      setGoalBloodGlucose({ hba1c, fastingGlucose: fasting });
+      toast({
+        title: "Blodsockermål uppdaterade",
+        description: hba1c && fasting ? `HbA1c: ${hba1c}, Faste: ${fasting}` : hba1c ? `HbA1c: ${hba1c}` : `Faste: ${fasting}`,
       });
     }
     
@@ -766,19 +827,61 @@ const Progress = () => {
               type="bloodPressure" 
               dayLogs={dayLogs} 
               goalBloodPressure={goalBloodPressure}
-              onClick={() => openGoalEditDialog('bloodPressure')}
+              onClick={() => {
+                if (expandedChart === 'bloodPressure') {
+                  openGoalEditDialog('bloodPressure');
+                } else {
+                  setExpandedChart('bloodPressure');
+                }
+              }}
+              isExpanded={expandedChart === 'bloodPressure'}
+              onCollapse={() => setExpandedChart(null)}
             />
             <ProgressChart 
               type="weight" 
               dayLogs={dayLogs} 
               goalWeight={goalWeight}
-              onClick={() => openGoalEditDialog('weight')}
+              onClick={() => {
+                if (expandedChart === 'weight') {
+                  openGoalEditDialog('weight');
+                } else {
+                  setExpandedChart('weight');
+                }
+              }}
+              isExpanded={expandedChart === 'weight'}
+              onCollapse={() => setExpandedChart(null)}
             />
             {showBloodFats && (
-              <ProgressChart type="bloodFats" dayLogs={dayLogs} />
+              <ProgressChart 
+                type="bloodFats" 
+                dayLogs={dayLogs}
+                goalBloodFats={goalBloodFats}
+                onClick={() => {
+                  if (expandedChart === 'bloodFats') {
+                    openGoalEditDialog('bloodFats');
+                  } else {
+                    setExpandedChart('bloodFats');
+                  }
+                }}
+                isExpanded={expandedChart === 'bloodFats'}
+                onCollapse={() => setExpandedChart(null)}
+              />
             )}
             {showBloodGlucose && (
-              <ProgressChart type="bloodGlucose" dayLogs={dayLogs} />
+              <ProgressChart 
+                type="bloodGlucose" 
+                dayLogs={dayLogs}
+                goalBloodGlucose={goalBloodGlucose}
+                onClick={() => {
+                  if (expandedChart === 'bloodGlucose') {
+                    openGoalEditDialog('bloodGlucose');
+                  } else {
+                    setExpandedChart('bloodGlucose');
+                  }
+                }}
+                isExpanded={expandedChart === 'bloodGlucose'}
+                onCollapse={() => setExpandedChart(null)}
+              />
             )}
           </div>
 
@@ -1070,12 +1173,15 @@ const Progress = () => {
             <DialogContent className="max-w-md">
               <DialogHeader>
                 <DialogTitle>
-                  {goalEditType === 'weight' ? 'Ändra målvikt' : 'Ändra målblodtryck'}
+                  {goalEditType === 'weight' && 'Ändra målvikt'}
+                  {goalEditType === 'bloodPressure' && 'Ändra målblodtryck'}
+                  {goalEditType === 'bloodFats' && 'Ändra kolesterolmål'}
+                  {goalEditType === 'bloodGlucose' && 'Ändra blodsockermål'}
                 </DialogTitle>
               </DialogHeader>
               
               <div className="space-y-4 py-4">
-                {goalEditType === 'weight' ? (
+                {goalEditType === 'weight' && (
                   <div>
                     <Label htmlFor="goal-weight-input" className="text-base mb-2 block">Målvikt (kg)</Label>
                     <Input
@@ -1088,7 +1194,8 @@ const Progress = () => {
                       className="w-full"
                     />
                   </div>
-                ) : (
+                )}
+                {goalEditType === 'bloodPressure' && (
                   <div className="space-y-3">
                     <div>
                       <Label htmlFor="goal-systolic-input" className="text-base mb-2 block">Systoliskt målvärde (övre)</Label>
@@ -1111,6 +1218,66 @@ const Progress = () => {
                         placeholder="T.ex. 80"
                         className="w-full"
                       />
+                    </div>
+                  </div>
+                )}
+                {goalEditType === 'bloodFats' && (
+                  <div className="space-y-3">
+                    <div>
+                      <Label htmlFor="goal-ldl-input" className="text-base mb-2 block">LDL målvärde (mmol/L)</Label>
+                      <Input
+                        id="goal-ldl-input"
+                        type="number"
+                        step="0.1"
+                        value={goalLDLInput}
+                        onChange={(e) => setGoalLDLInput(e.target.value)}
+                        placeholder="T.ex. 2.5"
+                        className="w-full"
+                      />
+                      <p className="text-xs text-muted-foreground mt-1">Rekommenderat under 3.0 mmol/L</p>
+                    </div>
+                    <div>
+                      <Label htmlFor="goal-hdl-input" className="text-base mb-2 block">HDL målvärde (mmol/L) - Valfritt</Label>
+                      <Input
+                        id="goal-hdl-input"
+                        type="number"
+                        step="0.1"
+                        value={goalHDLInput}
+                        onChange={(e) => setGoalHDLInput(e.target.value)}
+                        placeholder="T.ex. 1.5"
+                        className="w-full"
+                      />
+                      <p className="text-xs text-muted-foreground mt-1">Rekommenderat över 1.0 mmol/L</p>
+                    </div>
+                  </div>
+                )}
+                {goalEditType === 'bloodGlucose' && (
+                  <div className="space-y-3">
+                    <div>
+                      <Label htmlFor="goal-hba1c-input" className="text-base mb-2 block">HbA1c målvärde (mmol/mol)</Label>
+                      <Input
+                        id="goal-hba1c-input"
+                        type="number"
+                        step="1"
+                        value={goalHbA1cInput}
+                        onChange={(e) => setGoalHbA1cInput(e.target.value)}
+                        placeholder="T.ex. 42"
+                        className="w-full"
+                      />
+                      <p className="text-xs text-muted-foreground mt-1">Rekommenderat under 52 mmol/mol</p>
+                    </div>
+                    <div>
+                      <Label htmlFor="goal-fasting-glucose-input" className="text-base mb-2 block">Fasteblodsocker målvärde (mmol/L) - Valfritt</Label>
+                      <Input
+                        id="goal-fasting-glucose-input"
+                        type="number"
+                        step="0.1"
+                        value={goalFastingGlucoseInput}
+                        onChange={(e) => setGoalFastingGlucoseInput(e.target.value)}
+                        placeholder="T.ex. 5.5"
+                        className="w-full"
+                      />
+                      <p className="text-xs text-muted-foreground mt-1">Rekommenderat under 6.0 mmol/L</p>
                     </div>
                   </div>
                 )}
