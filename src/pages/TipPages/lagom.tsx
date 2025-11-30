@@ -137,7 +137,7 @@ const LagomPage = () => {
             "Bättre relation till mat: Mindre skuldkänslor och mer glädje"
           ]} />
           
-          <Accordion type="single" collapsible className="mt-4">
+          <Accordion type="multiple" className="mt-4">
             <AccordionItem value="satiety">
               <AccordionTrigger className={bodyText}>Varför tar det 20 minuter att känna mättnad?</AccordionTrigger>
               <AccordionContent className={bodyText}>

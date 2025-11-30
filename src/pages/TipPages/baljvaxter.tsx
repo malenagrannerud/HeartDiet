@@ -140,7 +140,7 @@ const BaljvaxterPage = () => {
             "Hållbart: Bra för miljön jämfört med kött"
           ]} />
           
-          <Accordion type="single" collapsible className="mt-4">
+          <Accordion type="multiple" className="mt-4">
             <AccordionItem value="protein">
               <AccordionTrigger className={bodyText}>Hur bra är protein från baljväxter?</AccordionTrigger>
               <AccordionContent className={bodyText}>

@@ -139,7 +139,7 @@ const FruitPage = () => {
             "Håller vikten: På grund av låg energitäthet och mättande fibrer"
           ]} />
           
-          <Accordion type="single" collapsible className="mt-4">
+          <Accordion type="multiple" className="mt-4">
             <AccordionItem value="antioxidants">
               <AccordionTrigger className={bodyText}>Hur fungerar antioxidanter?</AccordionTrigger>
               <AccordionContent className={bodyText}>

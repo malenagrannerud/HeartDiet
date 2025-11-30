@@ -136,7 +136,7 @@ const FishPage = () => {
             "Anti-inflammatoriska egenskaper"
           ]} />
           
-          <Accordion type="single" collapsible className="mt-4">
+          <Accordion type="multiple" className="mt-4">
             <AccordionItem value="omega3-heart">
               <AccordionTrigger className={bodyText}>Hur skyddar omega-3 hjärtat?</AccordionTrigger>
               <AccordionContent className={bodyText}>

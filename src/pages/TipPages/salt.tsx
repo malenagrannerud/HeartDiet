@@ -139,7 +139,7 @@ const SaltPage = () => {
             "Benskörhet: För mycket salt ökar kalciumförlust"
           ]} />
           
-          <Accordion type="single" collapsible className="mt-4">
+          <Accordion type="multiple" className="mt-4">
             <AccordionItem value="blood-pressure">
               <AccordionTrigger className={bodyText}>Hur höjer salt blodtrycket?</AccordionTrigger>
               <AccordionContent className={bodyText}>

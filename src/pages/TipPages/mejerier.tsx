@@ -137,7 +137,7 @@ const MejerierPage = () => {
             "Blodtrycksreglering: Kalcium kan hjälpa sänka blodtrycket"
           ]} />
           
-          <Accordion type="single" collapsible className="mt-4">
+          <Accordion type="multiple" className="mt-4">
             <AccordionItem value="calcium">
               <AccordionTrigger className={bodyText}>Varför är kalcium så viktigt för benhälsan?</AccordionTrigger>
               <AccordionContent className={bodyText}>

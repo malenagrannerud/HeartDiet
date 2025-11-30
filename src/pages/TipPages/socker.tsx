@@ -139,7 +139,7 @@ const SockerPage = () => {
             "Ökad hunger: Socker ger ingen långvarig mättnad"
           ]} />
           
-          <Accordion type="single" collapsible className="mt-4">
+          <Accordion type="multiple" className="mt-4">
             <AccordionItem value="diabetes">
               <AccordionTrigger className={bodyText}>Hur leder socker till typ 2-diabetes?</AccordionTrigger>
               <AccordionContent className={bodyText}>
