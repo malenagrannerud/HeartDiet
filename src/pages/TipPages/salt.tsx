@@ -13,6 +13,7 @@ import { useMedicationInteractions } from "@/hooks/use-medication-interactions";
 import { MedCardCompact } from "@/components/MedCardCompact";
 import { useHealthGoalTips } from "@/hooks/use-health-goal-tips";
 import { HealthGoalCardCompact } from "@/components/HealthGoalCardCompact";
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 
 const SaltPage = () => {
   const [userPlans, setUserPlans] = useState<UserPlan[]>([]);
@@ -137,6 +138,27 @@ const SaltPage = () => {
             "Njurskador: Njurarna måste arbeta hårdare",
             "Benskörhet: För mycket salt ökar kalciumförlust"
           ]} />
+          
+          <Accordion type="single" collapsible className="mt-4">
+            <AccordionItem value="blood-pressure">
+              <AccordionTrigger className={bodyText}>Hur höjer salt blodtrycket?</AccordionTrigger>
+              <AccordionContent className={bodyText}>
+                Salt (natrium) får kroppen att behålla mer vätska för att späda ut saltet i blodet. Detta ökar blodvolymen, vilket tvingar hjärtat att pumpa hårdare och blodkärlen utsätts för högre tryck. Högt blodtryck skadar kärlväggarna över tid och ökar risken för hjärtinfarkt, stroke och njursjukdom. Att minska salt med 1 g/dag kan sänka blodtrycket med 1-2 mmHg.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="hidden-salt">
+              <AccordionTrigger className={bodyText}>Var finns det gömda saltet?</AccordionTrigger>
+              <AccordionContent className={bodyText}>
+                75% av vårt saltintag kommer inte från saltkaret utan från färdigmat och processade livsmedel. Bröd, ost, charkuterier, korv, färdigrätter, soppor och snacks innehåller ofta mycket salt. Många matvaror smakar inte ens salt trots högt innehåll. Läs näringsdeklarationen - välj produkter med mindre än 0,5 g salt per 100 g. Att laga mat från grunden ger dig kontrollen.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="taste">
+              <AccordionTrigger className={bodyText}>Kan smaksinnet anpassa sig till mindre salt?</AccordionTrigger>
+              <AccordionContent className={bodyText}>
+                Ja! Smaksinnet anpassar sig till lägre saltnivåer inom 2-4 veckor. Minska saltet gradvis så märker du knappt skillnaden, och snart smakar salt mat för salt. Använd kryddor, örter, citron, vitlök och lök för att förstärka smaken istället. Många upplever att mat smakar bättre när de inte överdrivet saltar - de naturliga smakerna kommer fram.
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
         </div>
 
         <div>

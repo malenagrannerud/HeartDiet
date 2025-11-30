@@ -13,6 +13,7 @@ import { useMedicationInteractions } from "@/hooks/use-medication-interactions";
 import { MedCardCompact } from "@/components/MedCardCompact";
 import { useHealthGoalTips } from "@/hooks/use-health-goal-tips";
 import { HealthGoalCardCompact } from "@/components/HealthGoalCardCompact";
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 
 const FettPage = () => {
   const [userPlans, setUserPlans] = useState<UserPlan[]>([]);
@@ -135,6 +136,27 @@ const FettPage = () => {
             "Sänker blodtryck: Bidrar till friskare blodkärl",
             "Hjärnhälsa: Omega-3 är viktigt för hjärnans funktion"
           ]} />
+          
+          <Accordion type="single" collapsible className="mt-4">
+            <AccordionItem value="ldl">
+              <AccordionTrigger className={bodyText}>Hur sänker omättat fett LDL-kolesterol?</AccordionTrigger>
+              <AccordionContent className={bodyText}>
+                Omättade fetter, särskilt fleromättade fetter som finns i fisk och nötter, hjälper levern att ta bort LDL-kolesterol från blodet. De ersätter också mättat fett i kosten, vilket i sig höjer LDL. Studier visar att ersätta mättat fett med omättat fett kan sänka LDL-kolesterolet med upp till 10%.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="hdl">
+              <AccordionTrigger className={bodyText}>Varför är HDL-kolesterol bra för hjärtat?</AccordionTrigger>
+              <AccordionContent className={bodyText}>
+                HDL-kolesterol kallas "det goda kolesterolet" eftersom det transporterar bort kolesterol från blodkärlen tillbaka till levern där det bryts ner. Detta minskar risken för plackbildning i artärerna. Omättade fetter, särskilt från olivolja och nötter, hjälper till att höja HDL-nivåerna.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="omega3">
+              <AccordionTrigger className={bodyText}>Vilken roll spelar Omega-3 för inflammation?</AccordionTrigger>
+              <AccordionContent className={bodyText}>
+                Omega-3-fettsyror, särskilt EPA och DHA från fet fisk, har kraftfulla anti-inflammatoriska egenskaper. De motverkar kronisk inflammation som kan skada blodkärl och öka risken för hjärtsjukdom. Omega-3 minskar också produktionen av inflammatoriska ämnen i kroppen.
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
         </div>
 
         <div>

@@ -13,6 +13,7 @@ import { useMedicationInteractions } from "@/hooks/use-medication-interactions";
 import { MedCardCompact } from "@/components/MedCardCompact";
 import { useHealthGoalTips } from "@/hooks/use-health-goal-tips";
 import { HealthGoalCardCompact } from "@/components/HealthGoalCardCompact";
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 
 const KottPage = () => {
   const [userPlans, setUserPlans] = useState<UserPlan[]>([]);
@@ -135,6 +136,27 @@ const KottPage = () => {
             "Övervikt: Ofta högt energiinnehåll",
             "Högt blodtryck: På grund av högt saltinnehåll i bearbetat kött"
           ]} />
+          
+          <Accordion type="single" collapsible className="mt-4">
+            <AccordionItem value="cancer">
+              <AccordionTrigger className={bodyText}>Varför ökar bearbetat kött risken för cancer?</AccordionTrigger>
+              <AccordionContent className={bodyText}>
+                WHO klassificerar bearbetat kött som cancerframkallande (grupp 1). När kött röks, saltas eller konserveras bildas cancerframkallande ämnen som nitrosaminer. Hemjärn i rött kött kan också skada tarmens slemhinna. Studier visar att varje 50 g bearbetat kött per dag ökar risken för tjocktarmscancer med 18%.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="heart">
+              <AccordionTrigger className={bodyText}>Hur påverkar rött kött hjärthälsan?</AccordionTrigger>
+              <AccordionContent className={bodyText}>
+                Rött kött innehåller mycket mättat fett som höjer LDL-kolesterolet. Bearbetat kött innehåller också mycket salt och nitriter som höjer blodtrycket. Dessutom producerar tarmbakterier TMAO från L-karnitin i rött kött, vilket ökar risken för åderförkalkning. Att ersätta rött kött med fisk, kyckling eller baljväxter minskar dessa risker.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="alternatives">
+              <AccordionTrigger className={bodyText}>Vilka är de bästa alternativen till rött kött?</AccordionTrigger>
+              <AccordionContent className={bodyText}>
+                Fisk ger omega-3 och skyddar hjärtat. Kyckling och kalkon innehåller protein utan mättat fett. Baljväxter som linser och bönor ger protein, fibrer och mineraler. Ägg är näringsrika och mångsidiga. Vegetariska alternativ som tofu och tempeh fungerar bra i många recept. Variera mellan dessa för bästa näringsintag.
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
         </div>
 
         <div>

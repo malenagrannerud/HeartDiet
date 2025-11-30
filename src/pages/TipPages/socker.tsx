@@ -13,6 +13,7 @@ import { useMedicationInteractions } from "@/hooks/use-medication-interactions";
 import { MedCardCompact } from "@/components/MedCardCompact";
 import { useHealthGoalTips } from "@/hooks/use-health-goal-tips";
 import { HealthGoalCardCompact } from "@/components/HealthGoalCardCompact";
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 
 const SockerPage = () => {
   const [userPlans, setUserPlans] = useState<UserPlan[]>([]);
@@ -137,6 +138,27 @@ const SockerPage = () => {
             "Energidippar: Blodsockertoppar följs av trötthet",
             "Ökad hunger: Socker ger ingen långvarig mättnad"
           ]} />
+          
+          <Accordion type="single" collapsible className="mt-4">
+            <AccordionItem value="diabetes">
+              <AccordionTrigger className={bodyText}>Hur leder socker till typ 2-diabetes?</AccordionTrigger>
+              <AccordionContent className={bodyText}>
+                När du äter mycket socker höjs blodsockret snabbt, vilket tvingar bukspottkörteln att producera mycket insulin. Över tid blir cellerna mindre känsliga för insulin (insulinresistens), och bukspottkörteln måste jobba hårdare. Tillslut kan den inte hänga med, blodsockret förblir högt, och typ 2-diabetes utvecklas. Socker i drycker är särskilt skadligt eftersom det inte ger mättnad.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="energy">
+              <AccordionTrigger className={bodyText}>Varför ger socker energidippar?</AccordionTrigger>
+              <AccordionContent className={bodyText}>
+                Socker ger en snabb energikick eftersom det snabbt tas upp i blodet. Men detta triggar en stor insulinfrisättning som snabbt sänker blodsockret igen - ofta till under nivån innan du åt. Detta ger trötthet, dålig koncentration och ökad hunger efter mer socker. Det blir en ond cirkel. Långsamma kolhydrater från fullkorn och baljväxter ger stabil energi utan dippar.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="cravings">
+              <AccordionTrigger className={bodyText}>Varför är socker så beroendeframkallande?</AccordionTrigger>
+              <AccordionContent className={bodyText}>
+                Socker aktiverar belöningssystemet i hjärnan och frisätter dopamin, precis som droger. Detta skapar en stark koppling mellan socker och välbefinnande. Ju mer socker du äter, desto mer behöver hjärnan för samma belöning. Socker påverkar också hunger- och mättnadshormon, vilket gör att du aldrig blir riktigt mätt. Genom att gradvis minska socker kan du bryta detta beroende.
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
         </div>
 
         <div>

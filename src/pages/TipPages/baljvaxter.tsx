@@ -13,6 +13,7 @@ import { useMedicationInteractions } from "@/hooks/use-medication-interactions";
 import { MedCardCompact } from "@/components/MedCardCompact";
 import { useHealthGoalTips } from "@/hooks/use-health-goal-tips";
 import { HealthGoalCardCompact } from "@/components/HealthGoalCardCompact";
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 
 const BaljvaxterPage = () => {
   const [userPlans, setUserPlans] = useState<UserPlan[]>([]);
@@ -138,6 +139,27 @@ const BaljvaxterPage = () => {
             "Viktminskning: Låg energitäthet men högt näringsvärde",
             "Hållbart: Bra för miljön jämfört med kött"
           ]} />
+          
+          <Accordion type="single" collapsible className="mt-4">
+            <AccordionItem value="protein">
+              <AccordionTrigger className={bodyText}>Hur bra är protein från baljväxter?</AccordionTrigger>
+              <AccordionContent className={bodyText}>
+                Baljväxter innehåller 15-25% protein, vilket är jämförbart med kött men utan mättat fett. Även om de är låga i metionin (en aminosyra), blir proteinintaget komplett när du kombinerar baljväxter med spannmål (ris, pasta, bröd) under dagen. Sojabönor och produkter som tofu innehåller alla essentiella aminosyror och är ett komplett protein.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="satiety">
+              <AccordionTrigger className={bodyText}>Varför mättar baljväxter så bra?</AccordionTrigger>
+              <AccordionContent className={bodyText}>
+                Kombinationen av protein, fibrer och långsamma kolhydrater gör att baljväxter håller dig mätt längre. Proteinet signalerar mättnad till hjärnan, fibrerna fyller magen och bromsar magtömningen, och det låga glykemiska indexet ger stabil blodsockernivå utan hunger-dippar. Detta gör baljväxter perfekta för viktkontroll.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="sustainability">
+              <AccordionTrigger className={bodyText}>Varför är baljväxter bra för miljön?</AccordionTrigger>
+              <AccordionContent className={bodyText}>
+                Baljväxter binder kväve från luften i jorden, vilket minskar behovet av gödsel. De kräver mycket mindre vatten, mark och energi än köttproduktion och ger betydligt lägre koldioxidutsläpp. Att ersätta kött med baljväxter några gånger i veckan är ett av de mest effektiva sätten att minska din klimatpåverkan.
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
         </div>
 
         <div>

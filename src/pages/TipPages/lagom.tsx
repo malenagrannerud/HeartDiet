@@ -13,6 +13,7 @@ import { useMedicationInteractions } from "@/hooks/use-medication-interactions";
 import { MedCardCompact } from "@/components/MedCardCompact";
 import { useHealthGoalTips } from "@/hooks/use-health-goal-tips";
 import { HealthGoalCardCompact } from "@/components/HealthGoalCardCompact";
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 
 const LagomPage = () => {
   const [userPlans, setUserPlans] = useState<UserPlan[]>([]);
@@ -135,6 +136,27 @@ const LagomPage = () => {
             "Minskar risk för sjukdom: Övervikt ökar risk för diabetes, hjärtsjukdom och cancer",
             "Bättre relation till mat: Mindre skuldkänslor och mer glädje"
           ]} />
+          
+          <Accordion type="single" collapsible className="mt-4">
+            <AccordionItem value="satiety">
+              <AccordionTrigger className={bodyText}>Varför tar det 20 minuter att känna mättnad?</AccordionTrigger>
+              <AccordionContent className={bodyText}>
+                Mättnadssignaler från magen och tarmen tar tid att nå hjärnan. Hormonet leptin som signalerar mättnad frigörs gradvis under måltiden. När du äter snabbt hinner du äta för mycket innan mättnadssignalerna når fram. Genom att äta långsamt och tugga ordentligt ger du kroppen tid att registrera mättnad och du äter därför mindre.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="plate-model">
+              <AccordionTrigger className={bodyText}>Hur fungerar tallriksmodellen?</AccordionTrigger>
+              <AccordionContent className={bodyText}>
+                Tallriksmodellen hjälper dig att få rätt proportioner: halva tallriken grönsaker ger fibrer och mättnad med låg energitäthet, en fjärdedel kolhydrater ger energi, och en fjärdedel protein bygger och reparerar vävnader. Denna fördelning ger balanserad näring, mättnad och hjälper viktkontrollen. Använd en mindre tallrik för automatiskt mindre portioner.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="mindful-eating">
+              <AccordionTrigger className={bodyText}>Vad är medvetet ätande?</AccordionTrigger>
+              <AccordionContent className={bodyText}>
+                Medvetet ätande innebär att fokusera helt på måltiden utan distraktion från TV, mobil eller dator. Du är uppmärksam på matens smak, lukt och konsistens, och lyssnar på kroppens hunger- och mättnadssignaler. Detta leder till mindre överätning, bättre matsmältning och en sundare relation till mat. Ät vid bordet och njut av varje tugga.
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
         </div>
 
         <div>

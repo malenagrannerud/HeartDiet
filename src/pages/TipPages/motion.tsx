@@ -13,6 +13,7 @@ import { useMedicationInteractions } from "@/hooks/use-medication-interactions";
 import { MedCardCompact } from "@/components/MedCardCompact";
 import { useHealthGoalTips } from "@/hooks/use-health-goal-tips";
 import { HealthGoalCardCompact } from "@/components/HealthGoalCardCompact";
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 
 const MotionPage = () => {
   const [userPlans, setUserPlans] = useState<UserPlan[]>([]);
@@ -126,6 +127,27 @@ const MotionPage = () => {
             "Bättre psykisk hälsa: Minskar stress, oro och depression",
             "Hjälper viktminskning: Ökar energiförbrukningen"
           ]} />
+          
+          <Accordion type="single" collapsible className="mt-4">
+            <AccordionItem value="heart">
+              <AccordionTrigger className={bodyText}>Hur stärker motion hjärtat?</AccordionTrigger>
+              <AccordionContent className={bodyText}>
+                Regelbunden fysisk aktivitet gör hjärtat starkare och effektivare - det pumpar mer blod per slag och behöver slå färre gånger. Motion vidgar blodkärlen, sänker blodtrycket, förbättrar kolesterolnivåerna och minskar inflammation. Allt detta minskar risken för åderförkalkning, hjärtinfarkt och stroke med 30-50%. Redan 30 minuter daglig aktivitet ger stora effekter.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="blood-sugar">
+              <AccordionTrigger className={bodyText}>Varför förbättrar motion blodsockret?</AccordionTrigger>
+              <AccordionContent className={bodyText}>
+                När du rör på dig använder musklerna glukos (socker) som energi, vilket sänker blodsockernivån naturligt. Motion gör också cellerna mer känsliga för insulin, vilket förbättrar blodsockerregleringen långsiktigt. Regelbunden fysisk aktivitet kan minska risken för typ 2-diabetes med upp till 50%. Även en kort promenad efter måltid hjälper blodsockret.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="mental">
+              <AccordionTrigger className={bodyText}>Hur påverkar motion den psykiska hälsan?</AccordionTrigger>
+              <AccordionContent className={bodyText}>
+                Motion frisätter endorfiner ("lyckohormon") som förbättrar humöret och minskar smärta. Det sänker stresshormonet kortisol, ökar produktionen av serotonin och dopamin (viktiga för välbefinnande), och förbättrar sömnkvaliteten. Studier visar att regelbunden motion är lika effektiv som läkemedel mot lindrig till måttlig depression. Utomhusmotion i naturen ger extra positiva effekter.
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
         </div>
 
         <div>
