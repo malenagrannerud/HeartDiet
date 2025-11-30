@@ -21,14 +21,14 @@ const TipCard = ({ tip, onClick, isCompleted = false }: TipCardProps) => {
       }`}
       onClick={onClick}
     >
-      <div className={standardSpacing.cardList}>
-        <div className="flex items-center justify-between gap-4">
+      <div className="flex items-center justify-between gap-4">
+        <div className={standardSpacing.cardList}>
           <h3 className={cardTitle}>{tip.title}</h3>
-          {IconComponent && <IconComponent className="w-8 h-8 shrink-0 opacity-70" />}
+          <div className={cardTitleSmall}>
+            {tip.freq} 
+          </div>
         </div>
-        <div className={cardTitleSmall}>
-          {tip.freq} 
-        </div>
+        {IconComponent && <IconComponent className="w-8 h-8 shrink-0 opacity-70" />}
       </div>
     </Card>
   );
