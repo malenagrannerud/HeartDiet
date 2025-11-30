@@ -85,6 +85,11 @@ export const colors = {
   completion: {
     primary: '#059669',  // Deep emerald green - vibrant and popping
   },
+  
+  // Selection/bookmark color
+  selection: {
+    primary: '#4C73D7',  // Blue - for selection/bookmark actions
+  },
 } as const;
 
 export const tipCardColors = {
@@ -106,6 +111,11 @@ export const tipCardColors = {
 export const completionColor = {
   bg: "bg-[#059669]",
   border: "border-[#059669]",
+} as const;
+
+export const selectionColor = {
+  bg: "bg-[#4C73D7]",
+  border: "border-[#4C73D7]",
 } as const;
 
 // ==========================================
