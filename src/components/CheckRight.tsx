@@ -1,4 +1,5 @@
 import { Check } from "lucide-react";
+import { colors } from "@/lib/design-tokens";
 
 interface CheckRightProps {
   isChecked: boolean;
@@ -13,7 +14,13 @@ export const CheckRight = ({ isChecked, onClick, className = "" }: CheckRightPro
       onClick={onClick}
     >
       {isChecked ? (
-        <div className="w-7 h-7 border-2 border-blue-900 rounded flex items-center justify-center bg-blue-900">
+        <div 
+          className="w-7 h-7 border-2 rounded flex items-center justify-center"
+          style={{ 
+            borderColor: colors.completion.primary, 
+            backgroundColor: colors.completion.primary 
+          }}
+        >
           <Check size={16} className="text-white" strokeWidth={3} />
         </div>
       ) : (

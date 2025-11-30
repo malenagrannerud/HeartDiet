@@ -5,7 +5,7 @@ import { Card } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
 import { tips } from "@/data/tips";
 import TipCard from "@/components/TipCard";
-import { pageTitle, sectionHeading, cardTitle, interactiveCard, pageContainer, headerContainer, pagePadding, standardSpacing, cardTitleSmall, pageSubtitle, sectionSubheading2, bodyTextBald, bodyBaldSub} from "@/lib/design-tokens";
+import { pageTitle, sectionHeading, cardTitle, interactiveCard, pageContainer, headerContainer, pagePadding, standardSpacing, cardTitleSmall, pageSubtitle, sectionSubheading2, bodyTextBald, bodyBaldSub, colors} from "@/lib/design-tokens";
 import { getStorageItem } from "@/lib/storage";
 import { markedTipsSchema } from "@/lib/schemas";
 import HealthPrioritiesImage from "@/assets/fill.png"; 
@@ -307,7 +307,11 @@ const Today = () => {
                       >
                         <Checkbox 
                           checked={tipCompletions[tip.id] || false}
-                          className="h-7 w-7 data-[state=checked]:bg-blue-900 data-[state=checked]:border-blue-900 transition-all duration-200"
+                          className="h-7 w-7 transition-all duration-200"
+                          style={{
+                            // @ts-ignore - Override primary color for this checkbox to use completion green
+                            '--primary': '162 95% 31%',
+                          } as React.CSSProperties}
                         />
                       </div>
                     </div>
