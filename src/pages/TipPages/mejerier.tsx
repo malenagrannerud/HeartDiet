@@ -12,7 +12,7 @@ import { Milk } from "lucide-react";
 import { useMedicationInteractions } from "@/hooks/use-medication-interactions";
 import { MedCardCompact } from "@/components/MedCardCompact";
 import { useHealthGoalTips } from "@/hooks/use-health-goal-tips";
-import { HealthGoalCard } from "@/components/HealthGoalCard";
+import { HealthGoalCardCompact } from "@/components/HealthGoalCardCompact";
 
 const MejerierPage = () => {
   const [userPlans, setUserPlans] = useState<UserPlan[]>([]);
@@ -75,16 +75,6 @@ const MejerierPage = () => {
       </header>
 
       <main className={`${pagePadding} ${standardSpacing.pageContent}`}>
-        {/* Health goal tips */}
-        {healthGoalTips.length > 0 && (
-          <div className="space-y-3 mb-6">
-            <h3 className={sectionHeading2}>Personliga tips baserat på dina hälsomål</h3>
-            {healthGoalTips.map((tip) => (
-              <HealthGoalCard key={`${tip.goalId}-${tip.tipId}`} tip={tip} />
-            ))}
-          </div>
-        )}
-
         <p className={sectionSubheading2}>
           Att äta 5 dl mjölk eller yoghurt och 2-3 skivor ost varje dag ger dig viktiga näringsämnen samtidigt som magra alternativ minskar mättat fett
         </p>
@@ -110,6 +100,15 @@ const MejerierPage = () => {
                 medication={medication}
                 interaction={interaction}
               />
+            ))}
+          </div>
+        )}
+
+        {/* Health goal tips */}
+        {healthGoalTips.length > 0 && (
+          <div className="space-y-2 mt-2">
+            {healthGoalTips.map((tip) => (
+              <HealthGoalCardCompact key={`${tip.goalId}-${tip.tipId}`} tip={tip} />
             ))}
           </div>
         )}
