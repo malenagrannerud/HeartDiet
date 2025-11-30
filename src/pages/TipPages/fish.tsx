@@ -10,7 +10,7 @@ import { AddPlanButton } from "@/components/AddPlanButton";
 
 const FishPage = () => {
   const [userPlans, setUserPlans] = useState<UserPlan[]>([]);
-  const [isEditing, setIsEditing] = useState(true);
+  const [isEditing, setIsEditing] = useState(false);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
 
   useEffect(() => {
