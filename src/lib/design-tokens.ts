@@ -80,6 +80,11 @@ export const colors = {
     lightpurple: '#E7D7F7',
     
   },
+  
+  // Completion/checkbox color
+  completion: {
+    primary: '#059669',  // Deep emerald green - vibrant and popping
+  },
 } as const;
 
 export const tipCardColors = {
@@ -96,6 +101,11 @@ export const tipCardColors = {
   rose: "bg-[#FDD8E5]",
   purple: "bg-[#B095CB]",
   lightpurple: "bg-[#E7D7F7]",
+} as const;
+
+export const completionColor = {
+  bg: "bg-[#059669]",
+  border: "border-[#059669]",
 } as const;
 
 // ==========================================
