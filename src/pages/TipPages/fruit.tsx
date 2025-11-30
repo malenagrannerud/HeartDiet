@@ -141,23 +141,36 @@ const FruitPage = () => {
           
           <Accordion type="multiple" className="mt-4">
             <AccordionItem value="antioxidants">
-              <AccordionTrigger className={bodyText}>Hur fungerar antioxidanter?</AccordionTrigger>
+              <AccordionTrigger className={bodyTextBald}>Sänker blodtrycket</AccordionTrigger>
               <AccordionContent className={bodyText}>
                 Antioxidanter som C-vitamin, E-vitamin och betakaroten skyddar kroppens celler mot skador från fria radikaler. Detta minskar inflammation och oxidativ stress, som är kopplade till hjärtsjukdom, cancer och åldrande. Färgrika grönsaker och frukt innehåller mest antioxidanter.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="fiber">
-              <AccordionTrigger className={bodyText}>Varför är fibrer viktiga för kolesterolet?</AccordionTrigger>
+              <AccordionTrigger className={bodyTextBald}>Minskar inflammation</AccordionTrigger>
               <AccordionContent className={bodyText}>
                 Lösliga fibrer från frukt, bär och grönsaker binder sig till kolesterol och gallsyror i tarmen och för ut dem ur kroppen. Detta tvingar levern att använda mer kolesterol för att producera nya gallsyror, vilket sänker kolesterolnivåerna i blodet. Äpplen, bär och havre är särskilt rika på lösliga fibrer.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="potassium">
-              <AccordionTrigger className={bodyText}>Hur hjälper kalium att sänka blodtrycket?</AccordionTrigger>
+              <AccordionTrigger className={bodyTextBald}>Sänker kolesterolet</AccordionTrigger>
               <AccordionContent className={bodyText}>
                 Kalium motverkar effekterna av natrium (salt) och hjälper blodkärlen att slappna av, vilket sänker blodtrycket. Bananer, apelsiner, spenat och potatis är rika på kalium. Ett högre kaliumintag är kopplat till lägre risk för stroke och hjärtsjukdom.
               </AccordionContent>
             </AccordionItem>
+            <AccordionItem value="potassium">
+              <AccordionTrigger className={bodyTextBald}>Förbättrar blodkärlens funktion</AccordionTrigger>
+              <AccordionContent className={bodyText}>
+                Kalium motverkar effekterna av natrium (salt) och hjälper blodkärlen att slappna av, vilket sänker blodtrycket. Bananer, apelsiner, spenat och potatis är rika på kalium. Ett högre kaliumintag är kopplat till lägre risk för stroke och hjärtsjukdom.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="potassium">
+              <AccordionTrigger className={bodyTextBald}>Håller vikten</AccordionTrigger>
+              <AccordionContent className={bodyText}>
+                Kalium motverkar effekterna av natrium (salt) och hjälper blodkärlen att slappna av, vilket sänker blodtrycket. Bananer, apelsiner, spenat och potatis är rika på kalium. Ett högre kaliumintag är kopplat till lägre risk för stroke och hjärtsjukdom.
+              </AccordionContent>
+            </AccordionItem>
+
           </Accordion>
         </div>
 
