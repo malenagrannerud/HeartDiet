@@ -13,7 +13,7 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { getDayLogs } from "@/lib/tip-completion";
 import { getStorageItem } from "@/lib/storage";
-import { healthPrioritiesSchema, markedTipsSchema, selectedMedicationsSchema } from "@/lib/schemas";
+import { healthPrioritiesSchema, markedTipsSchema, selectedMedicationsSchema, healthMetricsSchema } from "@/lib/schemas";
 import { StatsBox } from "@/components/StatsBox";
 import { HealthInfoCard } from "@/components/HealthInfoCard";
 import { getCurrentDate } from "@/lib/simulated-date";
@@ -64,6 +64,8 @@ const Progress = () => {
   const [priorities, setPriorities] = useState<string[]>([]);
   const [medications, setMedications] = useState<Array<{ id?: string; name?: string; addedDate?: string }>>([]);
   const [markedTipIds, setMarkedTipIds] = useState<number[]>([]);
+  const [goalWeight, setGoalWeight] = useState<number | undefined>();
+  const [goalBloodPressure, setGoalBloodPressure] = useState<{ systolic: number; diastolic: number } | undefined>();
 
   // Load day logs and health priorities from localStorage
   useEffect(() => {
@@ -84,6 +86,20 @@ const Progress = () => {
     const markedTips = getStorageItem('markedTips', markedTipsSchema);
     if (markedTips) {
       setMarkedTipIds(markedTips.map(tip => tip.id));
+    }
+
+    // Load health metrics for goals
+    const metrics = getStorageItem('healthMetrics', healthMetricsSchema);
+    if (metrics) {
+      if (metrics.goalWeight) {
+        setGoalWeight(parseFloat(metrics.goalWeight));
+      }
+      if (metrics.goalSystolic && metrics.goalDiastolic) {
+        setGoalBloodPressure({
+          systolic: parseInt(metrics.goalSystolic),
+          diastolic: parseInt(metrics.goalDiastolic)
+        });
+      }
     }
   }, []);
 
@@ -439,8 +455,8 @@ const Progress = () => {
 
           {/* Charts */}
           <div className="flex flex-col gap-6">
-            <ProgressChart type="bloodPressure" dayLogs={dayLogs} />
-            <ProgressChart type="weight" dayLogs={dayLogs} />
+            <ProgressChart type="bloodPressure" dayLogs={dayLogs} goalBloodPressure={goalBloodPressure} />
+            <ProgressChart type="weight" dayLogs={dayLogs} goalWeight={goalWeight} />
           </div>
 
           {/* Health Goals and Medications Cards */}
