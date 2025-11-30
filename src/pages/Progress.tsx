@@ -407,15 +407,6 @@ const Progress = () => {
       <main className={pagePadding}>
         <div className={standardSpacing.pageContent}>
 
-          <section className={standardSpacing.sectionContent}>
-            <h3 className={bodyTextBald}>Mina tips</h3>
-            <p className={pageSubtitle}>
-              {markedTipIds.length > 0 
-                ? "Markera ett tips som färdigt genom att klicka i boxen"
-                : "Välj vilka tips du vill göra under \"Tips\""}
-            </p>
-          </section>
-
           <WeeklyProgressTable
             weekDates={weekDates}
             dayLogs={dayLogs}
