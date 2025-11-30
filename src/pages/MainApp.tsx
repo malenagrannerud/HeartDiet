@@ -5,6 +5,14 @@ import Tips from "./Tips";
 import FruitPage from "./TipPages/fruit";
 import FullkornPage from "./TipPages/fullkorn";
 import FishPage from "./TipPages/fish";
+import FettPage from "./TipPages/fett";
+import MejerierPage from "./TipPages/mejerier";
+import KottPage from "./TipPages/kott";
+import SaltPage from "./TipPages/salt";
+import LagomPage from "./TipPages/lagom";
+import MotionPage from "./TipPages/motion";
+import BaljvaxterPage from "./TipPages/baljvaxter";
+import SockerPage from "./TipPages/socker";
 import Progress from "./Progress";
 import Help from "./Help";
 import Tutorial from "./Tutorial";
@@ -29,6 +37,14 @@ const MainApp = () => {
           <Route path="/TipPages/fruit" element={<FruitPage />} />
           <Route path="/TipPages/fullkorn" element={<FullkornPage />} />
           <Route path="/TipPages/fish" element={<FishPage />} />
+          <Route path="/TipPages/fett" element={<FettPage />} />
+          <Route path="/TipPages/mejerier" element={<MejerierPage />} />
+          <Route path="/TipPages/kott" element={<KottPage />} />
+          <Route path="/TipPages/salt" element={<SaltPage />} />
+          <Route path="/TipPages/lagom" element={<LagomPage />} />
+          <Route path="/TipPages/motion" element={<MotionPage />} />
+          <Route path="/TipPages/baljvaxter" element={<BaljvaxterPage />} />
+          <Route path="/TipPages/socker" element={<SockerPage />} />
           <Route path="/progress" element={<Progress />} />
           <Route path="/help" element={<Help />} />
           <Route path="/tutorial" element={<Tutorial />} />
