@@ -137,7 +137,7 @@ const FettPage = () => {
             "Hjärnhälsa: Omega-3 är viktigt för hjärnans funktion"
           ]} />
           
-          <Accordion type="single" collapsible className="mt-4">
+          <Accordion type="multiple" className="mt-4">
             <AccordionItem value="ldl">
               <AccordionTrigger className={bodyText}>Hur sänker omättat fett LDL-kolesterol?</AccordionTrigger>
               <AccordionContent className={bodyText}>

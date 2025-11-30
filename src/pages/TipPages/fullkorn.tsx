@@ -151,7 +151,7 @@ const FullkornPage = () => {
             "Bättre blodfetter: Omega-3-fettsyror i vissa fullkornsprodukter gynnar hjärtat"
           ]} />
           
-          <Accordion type="single" collapsible className="mt-4">
+          <Accordion type="multiple" className="mt-4">
             <AccordionItem value="fiber">
               <AccordionTrigger className={bodyText}>Hur minskar fibrer från fullkorn kolesterolet?</AccordionTrigger>
               <AccordionContent className={bodyText}>

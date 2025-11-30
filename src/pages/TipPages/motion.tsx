@@ -128,7 +128,7 @@ const MotionPage = () => {
             "Hjälper viktminskning: Ökar energiförbrukningen"
           ]} />
           
-          <Accordion type="single" collapsible className="mt-4">
+          <Accordion type="multiple" className="mt-4">
             <AccordionItem value="heart">
               <AccordionTrigger className={bodyText}>Hur stärker motion hjärtat?</AccordionTrigger>
               <AccordionContent className={bodyText}>

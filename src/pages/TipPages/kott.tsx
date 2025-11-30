@@ -137,7 +137,7 @@ const KottPage = () => {
             "Högt blodtryck: På grund av högt saltinnehåll i bearbetat kött"
           ]} />
           
-          <Accordion type="single" collapsible className="mt-4">
+          <Accordion type="multiple" className="mt-4">
             <AccordionItem value="cancer">
               <AccordionTrigger className={bodyText}>Varför ökar bearbetat kött risken för cancer?</AccordionTrigger>
               <AccordionContent className={bodyText}>
