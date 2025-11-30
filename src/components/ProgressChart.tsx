@@ -21,9 +21,10 @@ interface ProgressChartProps {
   dayLogs: DayLog[];
   goalWeight?: number;
   goalBloodPressure?: { systolic: number; diastolic: number };
+  onClick?: () => void;
 }
 
-export const ProgressChart: React.FC<ProgressChartProps> = ({ type, dayLogs, goalWeight, goalBloodPressure }) => {
+export const ProgressChart: React.FC<ProgressChartProps> = ({ type, dayLogs, goalWeight, goalBloodPressure, onClick }) => {
   const isWeight = type === 'weight';
   const isBloodPressure = type === 'bloodPressure';
   const isBloodFats = type === 'bloodFats';
@@ -87,7 +88,7 @@ export const ProgressChart: React.FC<ProgressChartProps> = ({ type, dayLogs, goa
   const formatter = getFormatter();
 
   return (
-    <StatsBox>
+    <StatsBox onClick={onClick}>
     <div className="flex flex-col gap-4">
       <div>
         <div className={bodyTextBald}>{title}</div>
