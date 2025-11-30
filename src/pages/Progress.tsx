@@ -13,7 +13,7 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { getDayLogs } from "@/lib/tip-completion";
 import { getStorageItem } from "@/lib/storage";
-import { healthPrioritiesSchema, markedTipsSchema } from "@/lib/schemas";
+import { healthPrioritiesSchema, markedTipsSchema, selectedMedicationsSchema } from "@/lib/schemas";
 import { StatsBox } from "@/components/StatsBox";
 import { HealthInfoCard } from "@/components/HealthInfoCard";
 import { getCurrentDate } from "@/lib/simulated-date";
@@ -38,15 +38,6 @@ const healthPriorityLabels: Record<string, string> = {
   general: "Förebygga hjärt- och kärlsjukdom"
 };
 
-const medicationLabels: Record<string, string> = {
-  warfarin: "Waran (Warfarin)",
-  doac: "DOAC (blodförtunnande)",
-  bloodPressureMeds: "Blodtrycksmedicin",
-  ace: "ACE-hämmare",
-  diuretics: "Vattenburna tabletter",
-  statins: "Kolesterolmedicin",
-  metformin: "Metformin"
-};
 
 const Progress = () => {
   const navigate = useNavigate();
@@ -71,7 +62,7 @@ const Progress = () => {
     diastolic?: string;
   } | null>(null);
   const [priorities, setPriorities] = useState<string[]>([]);
-  const [medications, setMedications] = useState<string[]>([]);
+  const [medications, setMedications] = useState<Array<{ id?: string; name?: string; addedDate?: string }>>([]);
   const [markedTipIds, setMarkedTipIds] = useState<number[]>([]);
 
   // Load day logs and health priorities from localStorage
@@ -82,7 +73,12 @@ const Progress = () => {
     const data = getStorageItem('healthPriorities', healthPrioritiesSchema);
     if (data) {
       setPriorities(data.priorities || []);
-      setMedications(data.medications || []);
+    }
+
+    // Load medications from new format
+    const savedMeds = getStorageItem('selectedMedications', selectedMedicationsSchema);
+    if (savedMeds) {
+      setMedications(savedMeds);
     }
 
     const markedTips = getStorageItem('markedTips', markedTipsSchema);
@@ -460,7 +456,7 @@ const Progress = () => {
             <HealthInfoCard
               icon={Pill}
               title="Mina läkemedel"
-              items={medications.map((id) => ({ id, label: medicationLabels[id] }))}
+              items={medications.map((med) => ({ id: med.id || '', label: med.name || '' }))}
               emptyMessage="Inga läkemedel valda ännu"
               onClick={() => navigate('/app/medications')}
             />
