@@ -13,7 +13,7 @@ export const CheckRight = ({ isChecked, onClick, className = "" }: CheckRightPro
       onClick={onClick}
     >
       {isChecked ? (
-        <div className="w-7 h-7 border-2 border-emerald-500 rounded flex items-center justify-center bg-emerald-500">
+        <div className="w-7 h-7 border-2 border-blue-900 rounded flex items-center justify-center bg-blue-900">
           <Check size={16} className="text-white" strokeWidth={3} />
         </div>
       ) : (
