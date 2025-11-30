@@ -92,3 +92,45 @@ export const selectedMedicationSchema = z.object({
 export const selectedMedicationsSchema = z.array(selectedMedicationSchema);
 
 export type SelectedMedication = z.infer<typeof selectedMedicationSchema>;
+
+// Blood fats/lipids schema
+export const bloodFatsSchema = z.object({
+  knowsLDL: z.enum(['detailed', 'just-high', 'unknown']),
+  ldl: z.string().optional(),
+  hdl: z.string().optional(),
+  triglycerides: z.string().optional(),
+  date: z.string().optional(),
+});
+
+// Blood glucose schema  
+export const bloodGlucoseSchema = z.object({
+  hba1c: z.string().optional(),
+  fastingGlucose: z.string().optional(),
+  date: z.string().optional(),
+});
+
+// Extended health metrics schema
+export const extendedHealthMetricsSchema = z.object({
+  // Basic measurements (always collected)
+  height: z.string(),
+  weight: z.string(),
+  
+  // Blood pressure (conditional)
+  bloodPressure: z.object({
+    systolic: z.string(),
+    diastolic: z.string(),
+    date: z.string(),
+  }).optional(),
+  
+  // Blood fats (conditional)
+  bloodFats: bloodFatsSchema.optional(),
+  
+  // Blood glucose (conditional)
+  bloodGlucose: bloodGlucoseSchema.optional(),
+  
+  lastUpdated: z.string(),
+});
+
+export type BloodFats = z.infer<typeof bloodFatsSchema>;
+export type BloodGlucose = z.infer<typeof bloodGlucoseSchema>;
+export type ExtendedHealthMetrics = z.infer<typeof extendedHealthMetricsSchema>;

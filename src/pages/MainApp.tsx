@@ -18,7 +18,7 @@ import Help from "./Help";
 import Tutorial from "./Tutorial";
 import HealthGoals from "./HealthGoals";
 import Medications from "./Medications";
-import HealthMetrics from "./HealthMetrics";
+import HealthMetricsFlow from "./HealthMetrics";
 import Settings from "./Settings";
 
 const MainApp = () => {
@@ -50,7 +50,7 @@ const MainApp = () => {
           <Route path="/tutorial" element={<Tutorial />} />
           <Route path="/health-goals" element={<HealthGoals />} />
           <Route path="/medications" element={<Medications />} />
-          <Route path="/health-metrics" element={<HealthMetrics />} />
+          <Route path="/health-metrics/*" element={<HealthMetricsFlow />} />
           <Route path="/settings" element={<Settings />} />
         </Routes>
       </div>
