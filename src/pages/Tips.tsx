@@ -6,7 +6,7 @@ import TipCard from "@/components/TipCard";
 import { pageTitle, pageSubtitle, pageContainer, headerContainer, pagePadding, standardSpacing } from "@/lib/design-tokens";
 import { getStorageItem, setStorageItem } from "@/lib/storage";
 import { markedTipsSchema } from "@/lib/schemas";
-import { Checkbox } from "@/components/ui/checkbox";
+import { CheckRight } from "@/components/CheckRight";
 import { useToast } from "@/hooks/use-toast";
 
 /**
@@ -113,9 +113,9 @@ const Tips = () => {
                     onClick={() => handleTipClick(tip.id)}
                   />
                 </div>
-                <Checkbox
-                  checked={isMarked(tip.id)}
-                  onCheckedChange={() => toggleMark(tip.id)}
+                <CheckRight
+                  isChecked={isMarked(tip.id)}
+                  onClick={() => toggleMark(tip.id)}
                   className="shrink-0"
                 />
               </div>
