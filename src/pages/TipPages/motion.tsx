@@ -8,6 +8,7 @@ import { UserPlanDisplay } from "@/components/UserPlanDisplay";
 import DottedList from "@/components/DottedList";
 import ExampleCard from "@/components/exCard";
 import { AddPlanButton } from "@/components/AddPlanButton";
+import { Activity } from "lucide-react";
 
 const MotionPage = () => {
   const [userPlans, setUserPlans] = useState<UserPlan[]>([]);
@@ -61,7 +62,10 @@ const MotionPage = () => {
     <div className={pageContainer}>
       <header className={`${headerContainer} ${tipCardColors.lightgreen}`}>
         <BackToTodayButton />
-        <h1 className={sectionHeading}>30 min om dagen</h1>
+        <div className="flex items-center justify-between">
+          <h1 className={sectionHeading}>30 min om dagen</h1>
+          <Activity className="h-8 w-8" />
+        </div>
       </header>
 
       <main className={`${pagePadding} ${standardSpacing.pageContent}`}>

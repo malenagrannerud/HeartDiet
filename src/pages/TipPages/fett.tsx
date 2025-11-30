@@ -8,6 +8,7 @@ import { UserPlanDisplay } from "@/components/UserPlanDisplay";
 import DottedList from "@/components/DottedList";
 import ExampleCard from "@/components/exCard";
 import { AddPlanButton } from "@/components/AddPlanButton";
+import { Droplets } from "lucide-react";
 
 const FettPage = () => {
   const [userPlans, setUserPlans] = useState<UserPlan[]>([]);
@@ -61,7 +62,10 @@ const FettPage = () => {
     <div className={pageContainer}>
       <header className={`${headerContainer} ${tipCardColors.yellow}`}>
         <BackToTodayButton />
-        <h1 className={sectionHeading}>Rätt fett</h1>
+        <div className="flex items-center justify-between">
+          <h1 className={sectionHeading}>Rätt fett</h1>
+          <Droplets className="h-8 w-8" />
+        </div>
       </header>
 
       <main className={`${pagePadding} ${standardSpacing.pageContent}`}>

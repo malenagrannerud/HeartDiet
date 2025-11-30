@@ -8,6 +8,7 @@ import { UserPlanDisplay } from "@/components/UserPlanDisplay";
 import DottedList from "@/components/DottedList";
 import ExampleCard from "@/components/exCard";
 import { AddPlanButton } from "@/components/AddPlanButton";
+import { Beef } from "lucide-react";
 
 const KottPage = () => {
   const [userPlans, setUserPlans] = useState<UserPlan[]>([]);
@@ -61,7 +62,10 @@ const KottPage = () => {
     <div className={pageContainer}>
       <header className={`${headerContainer} ${tipCardColors.darkrose}`}>
         <BackToTodayButton />
-        <h1 className={sectionHeading}>Rött och bearbetat kött</h1>
+        <div className="flex items-center justify-between">
+          <h1 className={sectionHeading}>Rött och bearbetat kött</h1>
+          <Beef className="h-8 w-8" />
+        </div>
       </header>
 
       <main className={`${pagePadding} ${standardSpacing.pageContent}`}>

@@ -9,6 +9,7 @@ import { UserPlanDisplay } from "@/components/UserPlanDisplay";
 import DottedList from "@/components/DottedList";
 import ExampleCard from "@/components/exCard";
 import { AddPlanButton } from "@/components/AddPlanButton";
+import { Wheat } from "lucide-react";
 
 const FullkornPage = () => {
   const [userPlans, setUserPlans] = useState<UserPlan[]>([]);
@@ -62,7 +63,10 @@ const FullkornPage = () => {
     <div className={pageContainer}>
       <header className={`${headerContainer} ${tipCardColors.amber}`}>
         <BackToTodayButton />
-        <h1 className={sectionHeading}>Fyll på med fullkorn</h1>
+        <div className="flex items-center justify-between">
+          <h1 className={sectionHeading}>Fyll på med fullkorn</h1>
+          <Wheat className="h-8 w-8" />
+        </div>
       </header>
 
       <main className={`${pagePadding} ${standardSpacing.pageContent}`}>
