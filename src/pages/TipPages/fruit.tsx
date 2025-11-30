@@ -11,7 +11,6 @@ import { AddPlanButton } from "@/components/AddPlanButton";
 
 const FruitPage = () => {
   const [userPlans, setUserPlans] = useState<UserPlan[]>([]);
-  const [isEditing, setIsEditing] = useState(false);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
 
   useEffect(() => {
@@ -34,7 +33,6 @@ const FruitPage = () => {
     }
     
     setUserPlans(updatedPlans);
-    setIsEditing(false);
     setEditingIndex(null);
     localStorage.setItem('userPlans-fruit', JSON.stringify(updatedPlans));
   };
@@ -43,28 +41,15 @@ const FruitPage = () => {
     const updatedPlans = userPlans.filter((_, i) => i !== index);
     setUserPlans(updatedPlans);
     localStorage.setItem('userPlans-fruit', JSON.stringify(updatedPlans));
-    
-    if (updatedPlans.length === 0) {
-      setIsEditing(true);
-    }
   };
 
   const handleEditPlan = (index: number) => {
     setEditingIndex(index);
-    setIsEditing(true);
-  };
-
-  const handleAddNewPlan = () => {
-    setEditingIndex(null);
-    setIsEditing(true);
   };
 
   const handleCancelEdit = () => {
-    setIsEditing(false);
     setEditingIndex(null);
   };
-
-  const canAddMorePlans = userPlans.length < 10;
 
   return (
     <div className={pageContainer}>
@@ -159,21 +144,12 @@ const FruitPage = () => {
             />
           )}
 
-          {isEditing && (
-            <UserPlanForm
-              tipId={1}
-              initialPlan={editingIndex !== null ? userPlans[editingIndex] : undefined}
-              onSave={handleSavePlan}
-              onCancel={handleCancelEdit}
-            />
-          )}
-
-          {!isEditing && (
-            <AddPlanButton 
-              onClick={handleAddNewPlan} 
-              canAddMorePlans={canAddMorePlans} 
-            />
-          )}
+          <UserPlanForm
+            tipId={1}
+            initialPlan={editingIndex !== null ? userPlans[editingIndex] : undefined}
+            onSave={handleSavePlan}
+            onCancel={handleCancelEdit}
+          />
         </div>
       </main>
     </div>
