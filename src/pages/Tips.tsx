@@ -4,9 +4,10 @@ import { tips } from "@/data/tips";
 import TipCard from "@/components/TipCard";
 import { pageTitle, pageSubtitle, pageContainer, headerContainer, pagePadding, standardSpacing } from "@/lib/design-tokens";
 import { getStorageItem, setStorageItem } from "@/lib/storage";
-import { markedTipsSchema } from "@/lib/schemas";
+import { markedTipsSchema, healthPrioritiesSchema } from "@/lib/schemas";
 import { BookmarkToggle } from "@/components/BookmarkToggle";
 import { useToast } from "@/hooks/use-toast";
+import { healthGoalTips } from "@/data/health-goal-tips";
 
 /**
  * Tips Page
@@ -94,11 +95,27 @@ const Tips = () => {
     }
   };
 
-  // Sort tips: marked tips first, then unmarked tips
+  // Sort tips: prioritize by health goals, then by marked status
   const sortedTips = useMemo(() => {
-    const marked = tips.filter(tip => isMarked(tip.id));
-    const unmarked = tips.filter(tip => !isMarked(tip.id));
-    return [...marked, ...unmarked];
+    // Load user's selected health goals
+    const healthData = getStorageItem('healthPriorities', healthPrioritiesSchema);
+    const selectedGoals = healthData?.priorities || [];
+    
+    // Helper function to check if a tip has relevant health goals
+    const hasRelevantHealthGoals = (tipId: number) => {
+      if (selectedGoals.length === 0) return false;
+      return healthGoalTips.some(
+        tip => tip.tipId === tipId && selectedGoals.includes(tip.goalId)
+      );
+    };
+    
+    // Categorize tips
+    const markedWithGoals = tips.filter(tip => isMarked(tip.id) && hasRelevantHealthGoals(tip.id));
+    const unmarkedWithGoals = tips.filter(tip => !isMarked(tip.id) && hasRelevantHealthGoals(tip.id));
+    const markedWithoutGoals = tips.filter(tip => isMarked(tip.id) && !hasRelevantHealthGoals(tip.id));
+    const unmarkedWithoutGoals = tips.filter(tip => !isMarked(tip.id) && !hasRelevantHealthGoals(tip.id));
+    
+    return [...markedWithGoals, ...unmarkedWithGoals, ...markedWithoutGoals, ...unmarkedWithoutGoals];
   }, [markedTips]);
 
   return (
