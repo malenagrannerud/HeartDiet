@@ -17,6 +17,7 @@ const HealthMetrics = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [weight, setWeight] = useState("");
+  const [goalWeight, setGoalWeight] = useState("");
   const [height, setHeight] = useState("");
   const [systolic, setSystolic] = useState("");
   const [diastolic, setDiastolic] = useState("");
@@ -28,6 +29,7 @@ const HealthMetrics = () => {
     const metrics = getStorageItem('healthMetrics', healthMetricsSchema);
     if (metrics) {
       setWeight(metrics.weight || "");
+      setGoalWeight(metrics.goalWeight || "");
       setHeight(metrics.height || "");
       setSystolic(metrics.systolic || "");
       setDiastolic(metrics.diastolic || "");
@@ -45,6 +47,7 @@ const HealthMetrics = () => {
     // Save to healthMetrics storage
     const metrics = { 
       weight, 
+      goalWeight,
       height, 
       systolic: skipBloodPressure ? "" : systolic, 
       diastolic: skipBloodPressure ? "" : diastolic, 
@@ -185,6 +188,23 @@ const HealthMetrics = () => {
 
             <Card className={compactCard}>
               <div className={standardSpacing.formFields}>
+                <Label htmlFor="goalWeight" className={labelText}>Vad är din målvikt (kg)?</Label>
+                <Input 
+                  id="goalWeight" 
+                  type="number" 
+                  placeholder="Ex: 85" 
+                  value={goalWeight} 
+                  onChange={(e) => setGoalWeight(e.target.value)} 
+                  className={placeholderText}
+                  step="0.1" 
+                  min="30"
+                  max="300" 
+                />
+              </div>
+            </Card>
+
+            <Card className={compactCard}>
+              <div className={standardSpacing.formFields}>
                 <div className="flex items-center justify-between">
                   <h3 className={labelText}>Blodtryck</h3>
                   {!skipBloodPressure && (
@@ -278,6 +298,12 @@ const HealthMetrics = () => {
               <span className={bodyText}>Vikt:</span>
               <span className={bodyTextBald}>{weight} kg</span>
             </div>
+            {goalWeight && (
+              <div className="flex justify-between items-center">
+                <span className={bodyText}>Målvikt:</span>
+                <span className={bodyTextBald}>{goalWeight} kg</span>
+              </div>
+            )}
             {!skipBloodPressure && systolic && diastolic && (
               <div className="flex justify-between items-center">
                 <span className={bodyText}>Blodtryck:</span>
