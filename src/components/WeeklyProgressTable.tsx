@@ -79,9 +79,9 @@ export const WeeklyProgressTable = ({
 
   return (
     <>
-      {/* Week Navigation */}
-      {/* Top row: arrows and date */}
-      <div className="flex items-center justify-between">
+      {/* Week Navigation - Compact single row with 3 columns */}
+      <div className="flex items-center justify-center gap-1 mb-1">
+        {/* Left arrow */}
         <Button
           variant="outline"
           size="sm"
@@ -91,12 +91,22 @@ export const WeeklyProgressTable = ({
           <ChevronLeft className="h-5 w-5" />
         </Button>
         
-        <div className="text-center">
+        {/* Center column: Date + "Gå till idag" stacked */}
+        <div className="flex flex-col items-center px-2">
           <div className="text-lg font-semibold">
             {format(weekDates[0], 'd MMM', { locale: sv })} - {format(weekDates[6], 'd MMM', { locale: sv })}
           </div>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={onCurrentWeek}
+            className="text-xs text-muted-foreground hover:text-foreground h-6 px-2"
+          >
+            Gå till idag
+          </Button>
         </div>
-
+        
+        {/* Right arrow */}
         <Button
           variant="outline"
           size="sm"
@@ -104,18 +114,6 @@ export const WeeklyProgressTable = ({
           className="h-10"
         >
           <ChevronRight className="h-5 w-5" />
-        </Button>
-      </div>
-
-      {/* "Gå till idag" button centered below */}
-      <div className="flex justify-center -mt-1">
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={onCurrentWeek}
-          className="text-xs text-muted-foreground hover:text-foreground"
-        >
-          Gå till idag
         </Button>
       </div>
 
