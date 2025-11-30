@@ -13,7 +13,8 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { getDayLogs } from "@/lib/tip-completion";
 import { getStorageItem } from "@/lib/storage";
-import { healthPrioritiesSchema, markedTipsSchema, selectedMedicationsSchema, healthMetricsSchema } from "@/lib/schemas";
+import { healthPrioritiesSchema, markedTipsSchema, selectedMedicationsSchema, healthMetricsSchema, extendedHealthMetricsSchema } from "@/lib/schemas";
+import { medications } from "@/data/medications";
 import { StatsBox } from "@/components/StatsBox";
 import { HealthInfoCard } from "@/components/HealthInfoCard";
 import { getCurrentDate } from "@/lib/simulated-date";
@@ -23,9 +24,10 @@ import { WeeklyProgressTable } from "@/components/WeeklyProgressTable";
 interface DayLog {
   date: string;
   entries: {
-    type: 'weight' | 'bloodPressure' | 'tip';
+    type: 'weight' | 'bloodPressure' | 'bloodFats' | 'bloodGlucose' | 'tip';
     value: number;
     value2?: number;
+    value3?: number;
     tipId?: number;
   }[];
 }
@@ -62,10 +64,12 @@ const Progress = () => {
     diastolic?: string;
   } | null>(null);
   const [priorities, setPriorities] = useState<string[]>([]);
-  const [medications, setMedications] = useState<Array<{ id?: string; name?: string; addedDate?: string }>>([]);
+  const [selectedMedications, setSelectedMedications] = useState<Array<{ id?: string; name?: string; addedDate?: string }>>([]);
   const [markedTipIds, setMarkedTipIds] = useState<number[]>([]);
   const [goalWeight, setGoalWeight] = useState<number | undefined>();
   const [goalBloodPressure, setGoalBloodPressure] = useState<{ systolic: number; diastolic: number } | undefined>();
+  const [showBloodFats, setShowBloodFats] = useState(false);
+  const [showBloodGlucose, setShowBloodGlucose] = useState(false);
 
   // Load day logs and health priorities from localStorage
   useEffect(() => {
@@ -80,7 +84,7 @@ const Progress = () => {
     // Load medications from new format
     const savedMeds = getStorageItem('selectedMedications', selectedMedicationsSchema);
     if (savedMeds) {
-      setMedications(savedMeds);
+      setSelectedMedications(savedMeds);
     }
 
     const markedTips = getStorageItem('markedTips', markedTipsSchema);
@@ -101,6 +105,27 @@ const Progress = () => {
         });
       }
     }
+
+    // Determine if we should show blood fats and blood glucose charts
+    // Show blood fats if: user has cholesterol goal OR takes statin medication
+    const hasCholesterolGoal = data?.priorities.includes('cholesterol');
+    const hasStatinMedication = savedMeds ? savedMeds.some(savedMed => {
+      if (!savedMed.id) return false;
+      const medicationInfo = medications.find(med => med.id === savedMed.id);
+      if (!medicationInfo) return false;
+      return medicationInfo.category.includes('Statin');
+    }) : false;
+    setShowBloodFats(hasCholesterolGoal || hasStatinMedication);
+
+    // Show blood glucose if: user has diabetes goal OR takes diabetes medication
+    const hasDiabetesGoal = data?.priorities.includes('diabetes');
+    const hasDiabetesMedication = savedMeds ? savedMeds.some(savedMed => {
+      if (!savedMed.id) return false;
+      const medicationInfo = medications.find(med => med.id === savedMed.id);
+      if (!medicationInfo) return false;
+      return medicationInfo.category.includes('Diabetesmedicin');
+    }) : false;
+    setShowBloodGlucose(hasDiabetesGoal || hasDiabetesMedication);
   }, []);
 
   // Generate week dates (Monday to Sunday)
@@ -457,6 +482,8 @@ const Progress = () => {
           <div className="flex flex-col gap-6">
             <ProgressChart type="bloodPressure" dayLogs={dayLogs} goalBloodPressure={goalBloodPressure} />
             <ProgressChart type="weight" dayLogs={dayLogs} goalWeight={goalWeight} />
+            {showBloodFats && <ProgressChart type="bloodFats" dayLogs={dayLogs} />}
+            {showBloodGlucose && <ProgressChart type="bloodGlucose" dayLogs={dayLogs} />}
           </div>
 
           {/* Health Goals and Medications Cards */}
@@ -472,7 +499,7 @@ const Progress = () => {
             <HealthInfoCard
               icon={Pill}
               title="Mina läkemedel"
-              items={medications.map((med) => ({ id: med.id || '', label: med.name || '' }))}
+              items={selectedMedications.map((med) => ({ id: med.id || '', label: med.name || '' }))}
               emptyMessage="Inga läkemedel valda ännu"
               onClick={() => navigate('/app/medications')}
             />
