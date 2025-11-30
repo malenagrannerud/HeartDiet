@@ -11,12 +11,15 @@ import { AddPlanButton } from "@/components/AddPlanButton";
 import { Droplets } from "lucide-react";
 import { useMedicationInteractions } from "@/hooks/use-medication-interactions";
 import { MedCard } from "@/components/MedCard";
+import { useHealthGoalTips } from "@/hooks/use-health-goal-tips";
+import { HealthGoalCard } from "@/components/HealthGoalCard";
 
 const FettPage = () => {
   const [userPlans, setUserPlans] = useState<UserPlan[]>([]);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const medicationInteractions = useMedicationInteractions(4); // tipId: 4 for Fett
+  const healthGoalTips = useHealthGoalTips(4);
 
   useEffect(() => {
     const savedPlans = localStorage.getItem('userPlans-fett');
@@ -79,6 +82,17 @@ const FettPage = () => {
             ))}
           </div>
         )}
+
+        {/* Health goal tips */}
+        {healthGoalTips.length > 0 && (
+          <div className="space-y-3 mb-6">
+            <h3 className={sectionHeading2}>Personliga tips baserat på dina hälsomål</h3>
+            {healthGoalTips.map((tip) => (
+              <HealthGoalCard key={`${tip.goalId}-${tip.tipId}`} tip={tip} />
+            ))}
+          </div>
+        )}
+
         <p className={sectionSubheading2}>
           Att välja rätt typ av fett skyddar hjärtat och sänker kolesterolet. Byt mättat fett mot omättat fett för bättre hälsa
         </p>
