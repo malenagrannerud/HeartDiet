@@ -120,10 +120,7 @@ const FruitPage = () => {
           <p className={bodyText}>
             Du mår bättre med ett bättre humör och mindre trötthet eftersom frukt och grönt ger
           </p>
-          <DottedList items={[
-            "Energi: ", 
-            "Blodsockerreglering: Det ger jämnare energi"
-          ]} />
+          
 
            <Accordion type="multiple" className="mt-4">
             <AccordionItem value="antioxidants">
