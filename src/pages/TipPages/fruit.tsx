@@ -80,7 +80,8 @@ const FruitPage = () => {
 
       <main className={`${pagePadding} ${standardSpacing.pageContent}`}>
         <p className={sectionSubheading2}>
-          Att äta minst fem nävar frukter och grönsaker varje dag hjälper dig att må bättre och minska risken för hjärt-kärlsjukdom. Välj olika sorter och färger för att få i dej alla näringsämnen 
+          Att äta minst fem nävar frukter och grönsaker varje dag hjälper dig att må bättre och minska risken för hjärt-kärlsjukdom. 
+          Välj olika sorter och färger för att få i dej alla näringsämnen 
         </p>
 
         <div> 
@@ -207,7 +208,8 @@ const FruitPage = () => {
         <div>
           <h2 className={sectionHeading2}>Nå ditt mål</h2>
           <p className={bodyText}>
-            Genom att tänka ut när och hur du ska äta dina fem om dagen kan du lättare modifiera en plan som passar dej. Ett exempel på hur man kan planer in sina fem om dagen genom att skriva planen i tre delar: 
+            Genom att tänka ut när och hur du ska äta dina fem om dagen kan du lättare modifiera en plan som passar dej. 
+            Ett exempel på hur man kan planera in sina fem om dagen: 
           </p>
         </div>
        
