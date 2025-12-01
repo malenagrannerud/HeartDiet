@@ -15,7 +15,7 @@ import { MedCardCompact } from "@/components/MedCardCompact";
 import { useHealthGoalTips } from "@/hooks/use-health-goal-tips";
 import { HealthGoalCardCompact } from "@/components/HealthGoalCardCompact";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
-import fruitsImage from './assets/f&g.png'; // or the renamed file
+import fruitsImage from './assets/fg.png'; // or the renamed file
 
 
 const FruitPage = () => {
@@ -131,7 +131,7 @@ const FruitPage = () => {
            <Accordion type="multiple" className="mt-4">
              
             <AccordionItem value="immune">
-              <AccordionTrigger className={bodyTextBald}> • Stärkt immunförsvar</AccordionTrigger>
+              <AccordionTrigger className={bodyTextBald}> • Stärkt immunförsvar </AccordionTrigger>
               <AccordionContent className={bodyText}>
                 Vitaminer & mineraler boostar energi och immunförsvar              
               </AccordionContent>
