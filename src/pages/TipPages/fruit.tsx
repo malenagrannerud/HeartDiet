@@ -123,21 +123,21 @@ const FruitPage = () => {
            <Accordion type="multiple" className="mt-4">
              
             <AccordionItem value="immune">
-              <AccordionTrigger className={bodyTextBald}>Stärkt immunförsvar</AccordionTrigger>
+              <AccordionTrigger className={bodyTextBald}> • Stärkt immunförsvar</AccordionTrigger>
               <AccordionContent className={bodyText}>
                 Vitaminer & mineraler boostar energi och immunförsvar              
               </AccordionContent>
             </AccordionItem>
              
             <AccordionItem value="energy">
-              <AccordionTrigger className={bodyTextBald}>Energi</AccordionTrigger>
+              <AccordionTrigger className={bodyTextBald}> • Energi</AccordionTrigger>
               <AccordionContent className={bodyText}>
                 Antioxidanter som C-vitamin, E-vitamin och betakaroten skyddar kroppens celler mot skador från fria radikaler. Detta minskar inflammation och oxidativ stress, som är kopplade till hjärtsjukdom, cancer och åldrande. Färgrika grönsaker och frukt innehåller mest antioxidanter.
               </AccordionContent>
             </AccordionItem>
              
             <AccordionItem value="bloodsugar">
-              <AccordionTrigger className={bodyTextBald}>Blodsockerreglering</AccordionTrigger>
+              <AccordionTrigger className={bodyTextBald}> • Blodsockerreglering</AccordionTrigger>
               <AccordionContent className={bodyText}>
                 
               </AccordionContent>
@@ -146,16 +146,21 @@ const FruitPage = () => {
           </Accordion>
         </div>
 
+        
         <div> 
           <p className={bodyText}>Frukt och grönt minskar risken för hjärtsjukdom eftersom de </p>
           <Accordion type="multiple" className="mt-4">
             
             <AccordionItem value="bloodpressure">
-              <AccordionTrigger className={bodyTextBald}> • Sänker blodtrycket</AccordionTrigger>
+              <AccordionTrigger className={bodyText}> • Sänker blodtrycket</AccordionTrigger>
               <AccordionContent className={bodyText}>
-                Kalium och nitrater vidgar blodkärlen och sänker blodtrycket. 
+                Kalium och nitrater vidgar blodkärlen och sänker blodtrycket. <br />
                 Kalium motverkar effekterna av natrium (salt) och hjälper blodkärlen att slappna av.  
                 Kalum finns i bananer, apelsiner, spenat och potatis, fast potatis inte räknas som frukt och grönt. 
+                
+                
+                
+                <br />
                 Nitrater vidgar blodkärlen. 
                 Nitrater finns i bland annat ruccola, spenat, rödbetor, romansallad och selleri.
                 Ät en näve per dag för att uppnå och upprätthålla en blodtryckssänkande effekten.
