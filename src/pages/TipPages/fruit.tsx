@@ -128,21 +128,21 @@ const FruitPage = () => {
            <Accordion type="multiple" className="mt-4">
              
             <AccordionItem value="immune">
-              <AccordionTrigger className={bodyTextBald}> • Stärkt immunförsvar</AccordionTrigger>
+              <AccordionTrigger className={bodyText}> • Stärkt immunförsvar</AccordionTrigger>
               <AccordionContent className={bodyText}>
                 Vitaminer & mineraler boostar energi och immunförsvar              
               </AccordionContent>
             </AccordionItem>
              
             <AccordionItem value="energy">
-              <AccordionTrigger className={bodyTextBald}> • Energi</AccordionTrigger>
+              <AccordionTrigger className={bodyText}> • Energi</AccordionTrigger>
               <AccordionContent className={bodyText}>
                 Antioxidanter som C-vitamin, E-vitamin och betakaroten skyddar kroppens celler mot skador från fria radikaler. Detta minskar inflammation och oxidativ stress, som är kopplade till hjärtsjukdom, cancer och åldrande. Färgrika grönsaker och frukt innehåller mest antioxidanter.
               </AccordionContent>
             </AccordionItem>
              
             <AccordionItem value="bloodsugar">
-              <AccordionTrigger className={bodyTextBald}> • Blodsockerreglering</AccordionTrigger>
+              <AccordionTrigger className={bodyText}> • Blodsockerreglering</AccordionTrigger>
               <AccordionContent className={bodyText}>
                 
               </AccordionContent>
@@ -174,28 +174,28 @@ const FruitPage = () => {
             </AccordionItem>
             
             <AccordionItem value="inflammantion">
-              <AccordionTrigger className={bodyTextBald}> • Minskar inflammation</AccordionTrigger>
+              <AccordionTrigger className={bodyText}> • Minskar inflammation</AccordionTrigger>
               <AccordionContent className={bodyText}>
                 Antioxidanter som C-vitamin, E-vitamin och betakaroten skyddar kroppens celler mot skador från fria radikaler. Detta minskar inflammation och oxidativ stress, som är kopplade till hjärtsjukdom, cancer och åldrande. Färgrika grönsaker och frukt innehåller mest antioxidanter.
               </AccordionContent>
             </AccordionItem>
             
             <AccordionItem value="LDL cholesterole">
-              <AccordionTrigger className={bodyTextBald}> • Sänker kolesterolet</AccordionTrigger>
+              <AccordionTrigger className={bodyText}> • Sänker kolesterolet</AccordionTrigger>
               <AccordionContent className={bodyText}>
                 Kalium motverkar effekterna av natrium (salt) och hjälper blodkärlen att slappna av, vilket sänker blodtrycket. Bananer, apelsiner, spenat och potatis är rika på kalium. Ett högre kaliumintag är kopplat till lägre risk för stroke och hjärtsjukdom.
               </AccordionContent>
             </AccordionItem>
             
             <AccordionItem value="vessels">
-              <AccordionTrigger className={bodyTextBald}> • Förbättrar blodkärlens funktion</AccordionTrigger>
+              <AccordionTrigger className={bodyText}> • Förbättrar blodkärlens funktion</AccordionTrigger>
               <AccordionContent className={bodyText}>
                 Kalium motverkar effekterna av natrium (salt) och hjälper blodkärlen att slappna av, vilket sänker blodtrycket. Bananer, apelsiner, spenat och potatis är rika på kalium. Ett högre kaliumintag är kopplat till lägre risk för stroke och hjärtsjukdom.
               </AccordionContent>
             </AccordionItem>
             
             <AccordionItem value="weight">
-              <AccordionTrigger className={bodyTextBald}> • Håller vikten</AccordionTrigger>
+              <AccordionTrigger className={bodyText}> • Håller vikten</AccordionTrigger>
               <AccordionContent className={bodyText}>
                 Kalium motverkar effekterna av natrium (salt) och hjälper blodkärlen att slappna av, vilket sänker blodtrycket. Bananer, apelsiner, spenat och potatis är rika på kalium. Ett högre kaliumintag är kopplat till lägre risk för stroke och hjärtsjukdom.
               </AccordionContent>
