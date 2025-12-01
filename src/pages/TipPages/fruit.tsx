@@ -121,10 +121,31 @@ const FruitPage = () => {
             Du mår bättre med ett bättre humör och mindre trötthet eftersom frukt och grönt ger
           </p>
           <DottedList items={[
-            "Stärkt immunförsvar: Vitaminer & mineraler boostar energi och immunförsvar",
-            "Energi: Antioxidanter minskar inflammation i kroppen", 
+            "Energi: ", 
             "Blodsockerreglering: Det ger jämnare energi"
           ]} />
+
+           <Accordion type="multiple" className="mt-4">
+            <AccordionItem value="antioxidants">
+              <AccordionTrigger className={bodyTextBald}>Stärkt immunförsvar</AccordionTrigger>
+              <AccordionContent className={bodyText}>
+                Vitaminer & mineraler boostar energi och immunförsvar              
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="fiber">
+              <AccordionTrigger className={bodyTextBald}>Energi</AccordionTrigger>
+              <AccordionContent className={bodyText}>
+                Antioxidanter som C-vitamin, E-vitamin och betakaroten skyddar kroppens celler mot skador från fria radikaler. Detta minskar inflammation och oxidativ stress, som är kopplade till hjärtsjukdom, cancer och åldrande. Färgrika grönsaker och frukt innehåller mest antioxidanter.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="potassium">
+              <AccordionTrigger className={bodyTextBald}>Blodsockerreglering</AccordionTrigger>
+              <AccordionContent className={bodyText}>
+                Kalium motverkar effekterna av natrium (salt) och hjälper blodkärlen att slappna av, vilket sänker blodtrycket. Bananer, apelsiner, spenat och potatis är rika på kalium. Ett högre kaliumintag är kopplat till lägre risk för stroke och hjärtsjukdom.
+              </AccordionContent>
+            </AccordionItem>
+            
+          </Accordion>
         </div>
 
         <div> 
@@ -162,7 +183,6 @@ const FruitPage = () => {
                 Kalium motverkar effekterna av natrium (salt) och hjälper blodkärlen att slappna av, vilket sänker blodtrycket. Bananer, apelsiner, spenat och potatis är rika på kalium. Ett högre kaliumintag är kopplat till lägre risk för stroke och hjärtsjukdom.
               </AccordionContent>
             </AccordionItem>
-
           </Accordion>
         </div>
 
