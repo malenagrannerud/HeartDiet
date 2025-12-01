@@ -91,6 +91,11 @@ const FruitPage = () => {
             "Bär - färska och frysta", 
             "Grönsaker - färska, frysta och i maten du lagar",
           ]} />
+          <img 
+            src="/assets/f&g.png" 
+            alt="Illustration av olika frukter och grönsaker"
+            className="my-4 max-w-full rounded-lg" 
+          />
         </div>
 
         {/* Medication warnings */}
