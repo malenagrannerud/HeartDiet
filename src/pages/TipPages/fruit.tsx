@@ -15,6 +15,8 @@ import { MedCardCompact } from "@/components/MedCardCompact";
 import { useHealthGoalTips } from "@/hooks/use-health-goal-tips";
 import { HealthGoalCardCompact } from "@/components/HealthGoalCardCompact";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
+import fruitsImage from './assets/f&g.png'; // or the renamed file
+
 
 const FruitPage = () => {
   const [userPlans, setUserPlans] = useState<UserPlan[]>([]);
@@ -93,7 +95,7 @@ const FruitPage = () => {
             "Grönsaker - färska, frysta och i maten du lagar",
           ]} />
           <img 
-            src="/assets/fg.png" 
+            src={fruitsImage}
             alt="Illustration av olika frukter och grönsaker"
             className="my-4 max-w-full rounded-lg" 
           />
