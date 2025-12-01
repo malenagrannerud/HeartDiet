@@ -8,6 +8,7 @@ import { markedTipsSchema, healthPrioritiesSchema } from "@/lib/schemas";
 import { BookmarkToggle } from "@/components/BookmarkToggle";
 import { useToast } from "@/hooks/use-toast";
 import { healthGoalTips } from "@/data/health-goal-tips";
+import { tipPageRoutes } from "@/lib/tip-routes";
 
 /**
  * Tips Page
@@ -34,21 +35,6 @@ const Tips = () => {
     const result = getStorageItem("markedTips", markedTipsSchema);
     return (result as MarkedTip[]) ?? [];
   });
-
-  // Map tip IDs to their individual page routes
-  const tipPageRoutes: Record<number, string> = {
-    1: '/app/TipPages/fruit',
-    2: '/app/TipPages/fullkorn',
-    3: '/app/TipPages/fish',
-    4: '/app/TipPages/fett',
-    5: '/app/TipPages/mejerier',
-    6: '/app/TipPages/kott',
-    7: '/app/TipPages/salt',
-    8: '/app/TipPages/lagom',
-    9: '/app/TipPages/motion',
-    10: '/app/TipPages/baljvaxter',
-    11: '/app/TipPages/socker',
-  };
 
   useEffect(() => {
     setStorageItem("markedTips", markedTips, markedTipsSchema);
