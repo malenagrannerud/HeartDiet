@@ -21,6 +21,7 @@ import { isTipCompletedToday, toggleTipCompletion } from "@/lib/tip-completion";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import { getCurrentDate, advanceDay } from "@/lib/simulated-date";
+import { tipPageRoutes } from "@/lib/tip-routes";
 
 interface MarkedTip {
   id: number;
@@ -107,13 +108,6 @@ const Today = () => {
   }, []);
 
   const markedTipsList = tips.filter(tip => markedTips.some(mt => mt.id === tip.id));
-
-  // Map tip IDs to their individual page routes
-  const tipPageRoutes: Record<number, string> = {
-    1: '/app/TipPages/fruit',
-    2: '/app/TipPages/fullkorn',
-    3: '/app/TipPages/fish',
-  };
 
   // Handler for when user navigates to a card
   const handleCardNavigation = (cardId: CardId, path: string) => {
