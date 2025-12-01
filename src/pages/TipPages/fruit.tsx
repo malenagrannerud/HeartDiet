@@ -131,14 +131,6 @@ const FruitPage = () => {
           <p className={bodyText}>
             Frukt och grönt minskar risken för hjärtsjukdom eftersom de
           </p>
-          <DottedList items={[
-            "Sänker blodtrycket: Kalium och nitrater vidgar blodkärlen",
-            "Minskar inflammation: Antioxidanter skyddar kärlväggarna",
-            "Sänker kolesterolet: Fibrer binder fett i tarmarna",
-            "Förbättrar blodkärlens funktion: På grund av C-vitamin och flavonoider",
-            "Håller vikten: På grund av låg energitäthet och mättande fibrer"
-          ]} />
-          
           <Accordion type="multiple" className="mt-4">
             <AccordionItem value="antioxidants">
               <AccordionTrigger className={bodyTextBald}>Sänker blodtrycket</AccordionTrigger>
@@ -150,8 +142,6 @@ const FruitPage = () => {
               <AccordionTrigger className={bodyTextBald}>Minskar inflammation</AccordionTrigger>
               <AccordionContent className={bodyText}>
                 Antioxidanter som C-vitamin, E-vitamin och betakaroten skyddar kroppens celler mot skador från fria radikaler. Detta minskar inflammation och oxidativ stress, som är kopplade till hjärtsjukdom, cancer och åldrande. Färgrika grönsaker och frukt innehåller mest antioxidanter.
-                
-                Lösliga fibrer från frukt, bär och grönsaker binder sig till kolesterol och gallsyror i tarmen och för ut dem ur kroppen. Detta tvingar levern att använda mer kolesterol för att producera nya gallsyror, vilket sänker kolesterolnivåerna i blodet. Äpplen, bär och havre är särskilt rika på lösliga fibrer.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="potassium">
