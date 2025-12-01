@@ -120,23 +120,72 @@ const FruitPage = () => {
           <p className={bodyText}>
             Du mår bättre med ett bättre humör och mindre trötthet eftersom frukt och grönt ger
           </p>
-          
-
            <Accordion type="multiple" className="mt-4">
-            <AccordionItem value="antioxidants">
+             
+            <AccordionItem value="immune">
               <AccordionTrigger className={bodyTextBald}>Stärkt immunförsvar</AccordionTrigger>
               <AccordionContent className={bodyText}>
                 Vitaminer & mineraler boostar energi och immunförsvar              
               </AccordionContent>
             </AccordionItem>
-            <AccordionItem value="fiber">
+             
+            <AccordionItem value="energy">
               <AccordionTrigger className={bodyTextBald}>Energi</AccordionTrigger>
               <AccordionContent className={bodyText}>
                 Antioxidanter som C-vitamin, E-vitamin och betakaroten skyddar kroppens celler mot skador från fria radikaler. Detta minskar inflammation och oxidativ stress, som är kopplade till hjärtsjukdom, cancer och åldrande. Färgrika grönsaker och frukt innehåller mest antioxidanter.
               </AccordionContent>
             </AccordionItem>
-            <AccordionItem value="potassium">
+             
+            <AccordionItem value="bloodsugar">
               <AccordionTrigger className={bodyTextBald}>Blodsockerreglering</AccordionTrigger>
+              <AccordionContent className={bodyText}>
+                
+              </AccordionContent>
+            </AccordionItem>
+             
+          </Accordion>
+        </div>
+
+        <div> 
+          <p className={bodyText}>Frukt och grönt minskar risken för hjärtsjukdom eftersom de </p>
+          <Accordion type="multiple" className="mt-4">
+            
+            <AccordionItem value="bloodpressure">
+              <AccordionTrigger className={bodyTextBald}> • Sänker blodtrycket</AccordionTrigger>
+              <AccordionContent className={bodyText}>
+                Kalium och nitrater vidgar blodkärlen och sänker blodtrycket. 
+                Kalium motverkar effekterna av natrium (salt) och hjälper blodkärlen att slappna av.  
+                Kalum finns i bananer, apelsiner, spenat och potatis, fast potatis inte räknas som frukt och grönt. 
+                Nitrater vidgar blodkärlen. 
+                Nitrater finns i bland annat ruccola, spenat, rödbetor, romansallad och selleri.
+                Ät en näve per dag för att uppnå och upprätthålla en blodtryckssänkande effekten.
+                Nitrater är vattenlösliga. Ät dem råa eller lätt tillagade.
+              </AccordionContent>
+            </AccordionItem>
+            
+            <AccordionItem value="inflammantion">
+              <AccordionTrigger className={bodyTextBald}> • Minskar inflammation</AccordionTrigger>
+              <AccordionContent className={bodyText}>
+                Antioxidanter som C-vitamin, E-vitamin och betakaroten skyddar kroppens celler mot skador från fria radikaler. Detta minskar inflammation och oxidativ stress, som är kopplade till hjärtsjukdom, cancer och åldrande. Färgrika grönsaker och frukt innehåller mest antioxidanter.
+              </AccordionContent>
+            </AccordionItem>
+            
+            <AccordionItem value="LDL cholesterole">
+              <AccordionTrigger className={bodyTextBald}> • Sänker kolesterolet</AccordionTrigger>
+              <AccordionContent className={bodyText}>
+                Kalium motverkar effekterna av natrium (salt) och hjälper blodkärlen att slappna av, vilket sänker blodtrycket. Bananer, apelsiner, spenat och potatis är rika på kalium. Ett högre kaliumintag är kopplat till lägre risk för stroke och hjärtsjukdom.
+              </AccordionContent>
+            </AccordionItem>
+            
+            <AccordionItem value="vessels">
+              <AccordionTrigger className={bodyTextBald}> • Förbättrar blodkärlens funktion</AccordionTrigger>
+              <AccordionContent className={bodyText}>
+                Kalium motverkar effekterna av natrium (salt) och hjälper blodkärlen att slappna av, vilket sänker blodtrycket. Bananer, apelsiner, spenat och potatis är rika på kalium. Ett högre kaliumintag är kopplat till lägre risk för stroke och hjärtsjukdom.
+              </AccordionContent>
+            </AccordionItem>
+            
+            <AccordionItem value="weight">
+              <AccordionTrigger className={bodyTextBald}> • Håller vikten</AccordionTrigger>
               <AccordionContent className={bodyText}>
                 Kalium motverkar effekterna av natrium (salt) och hjälper blodkärlen att slappna av, vilket sänker blodtrycket. Bananer, apelsiner, spenat och potatis är rika på kalium. Ett högre kaliumintag är kopplat till lägre risk för stroke och hjärtsjukdom.
               </AccordionContent>
@@ -145,48 +194,10 @@ const FruitPage = () => {
           </Accordion>
         </div>
 
-        <div> 
-          <p className={bodyText}>
-            Frukt och grönt minskar risken för hjärtsjukdom eftersom de
-          </p>
-          <Accordion type="multiple" className="mt-4">
-            <AccordionItem value="antioxidants">
-              <AccordionTrigger className={bodyTextBald}>Sänker blodtrycket</AccordionTrigger>
-              <AccordionContent className={bodyText}>
-                Sänker blodtrycket: Kalium och nitrater vidgar blodkärlen 
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="fiber">
-              <AccordionTrigger className={bodyTextBald}>Minskar inflammation</AccordionTrigger>
-              <AccordionContent className={bodyText}>
-                Antioxidanter som C-vitamin, E-vitamin och betakaroten skyddar kroppens celler mot skador från fria radikaler. Detta minskar inflammation och oxidativ stress, som är kopplade till hjärtsjukdom, cancer och åldrande. Färgrika grönsaker och frukt innehåller mest antioxidanter.
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="potassium">
-              <AccordionTrigger className={bodyTextBald}>Sänker kolesterolet</AccordionTrigger>
-              <AccordionContent className={bodyText}>
-                Kalium motverkar effekterna av natrium (salt) och hjälper blodkärlen att slappna av, vilket sänker blodtrycket. Bananer, apelsiner, spenat och potatis är rika på kalium. Ett högre kaliumintag är kopplat till lägre risk för stroke och hjärtsjukdom.
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="potassium">
-              <AccordionTrigger className={bodyTextBald}>Förbättrar blodkärlens funktion</AccordionTrigger>
-              <AccordionContent className={bodyText}>
-                Kalium motverkar effekterna av natrium (salt) och hjälper blodkärlen att slappna av, vilket sänker blodtrycket. Bananer, apelsiner, spenat och potatis är rika på kalium. Ett högre kaliumintag är kopplat till lägre risk för stroke och hjärtsjukdom.
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="potassium">
-              <AccordionTrigger className={bodyTextBald}>Håller vikten</AccordionTrigger>
-              <AccordionContent className={bodyText}>
-                Kalium motverkar effekterna av natrium (salt) och hjälper blodkärlen att slappna av, vilket sänker blodtrycket. Bananer, apelsiner, spenat och potatis är rika på kalium. Ett högre kaliumintag är kopplat till lägre risk för stroke och hjärtsjukdom.
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
-        </div>
-
         <div>
           <h2 className={sectionHeading2}>Nå ditt mål</h2>
           <p className={bodyText}>
-            Genom att tänka ut när och hur du ska äta dina fem om dagen, kan du lättare modifiera en plan som passar dej.
+            Genom att tänka ut när och hur du ska äta dina fem om dagen kan du lättare modifiera en plan som passar dej. Ett exempel på hur man kan planer in sina fem om dagen genom att skriva planen i tre delar: 
           </p>
         </div>
        
@@ -194,30 +205,30 @@ const FruitPage = () => {
                 <ExampleCard 
                   goal="En smoothie/dag (ca 2 nävar)"
                   when="Frukost: måndag-fredag"
-                  how="Har goda toppings redo i kylskåpet"
-                  reminder="Påminnelse kalender"
+                  how="Har frysta bär och bananer hemma"
+                  reminder="Har bananerna i skål på bordet"
                 />
 
                 <ExampleCard 
-                  goal="Grönt på smörgåsen / dag (ca 1 näve)"
-                  when="Frukost"
-                  how="Skivar gurka / tomat / paprika"
-                  reminder="Bild på grönsaker på kylskåpet"
+                  goal="Grönt på smörgåsen (ca 1 näve)"
+                  when="Frukost, varje dag"
+                  how="Skivar gurka / tomat / paprika färdigt i kylskåpet"
+                  reminder="Bild på kylskåpet"
                 />
 
                 <ExampleCard 
                   goal="Sallad varje dag (ca 2 nävar)"
                   when="Lunch och middag"
-                  how="Förbereder råkostsallad för hela veckan"
+                  how="Förbereder råkostsallad för hela veckan. Varierar med vinjägretter"
                   reminder="-"
                 />
         </div>
 
         <div className="mt-8 pt-6 border-t border-gray-200">
           <div className="mb-4">
-            <h2 className={sectionHeading2}>Mina planer</h2>
+            <h2 className={sectionHeading2}>Plan</h2>
             <p className={bodyText}>
-              Ändra din plan så många gånger du behöver tills den fungerar för dej
+              Ändra din plan eller planer så många gånger du behöver tills det fungerar för dej
             </p>
           </div>
 
