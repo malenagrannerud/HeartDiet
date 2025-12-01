@@ -143,7 +143,7 @@ const FruitPage = () => {
             <AccordionItem value="antioxidants">
               <AccordionTrigger className={bodyTextBald}>Sänker blodtrycket</AccordionTrigger>
               <AccordionContent className={bodyText}>
-                Sänker Antioxidanter som C-vitamin, E-vitamin och betakaroten skyddar kroppens celler mot skador från fria radikaler. Detta minskar inflammation och oxidativ stress, som är kopplade till hjärtsjukdom, cancer och åldrande. Färgrika grönsaker och frukt innehåller mest antioxidanter.
+                Sänker blodtrycket: Kalium och nitrater vidgar blodkärlen Antioxidanter som C-vitamin, E-vitamin och betakaroten skyddar kroppens celler mot skador från fria radikaler. Detta minskar inflammation och oxidativ stress, som är kopplade till hjärtsjukdom, cancer och åldrande. Färgrika grönsaker och frukt innehåller mest antioxidanter.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="fiber">
