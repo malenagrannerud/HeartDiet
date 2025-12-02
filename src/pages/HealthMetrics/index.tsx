@@ -7,7 +7,6 @@ import { BloodFats } from "./BloodFats";
 import { BloodGlucose } from "./BloodGlucose";
 import { BackToTodayButton } from "@/components/BackToTodayButton";
 import { useToast } from "@/hooks/use-toast";
-import { getStorageItem, setStorageItem } from "@/lib/storage";
 import { extendedHealthMetricsSchema, completedActivitiesSchema, ExtendedHealthMetrics } from "@/lib/schemas";
 import { markCardCompleted } from "@/lib/card-completion";
 import { sectionHeading, headerContainer, pageContainer, pagePadding } from "@/lib/design-tokens";
@@ -28,9 +27,6 @@ const HealthMetricsFlow = () => {
     }
   }, []);
 
-  
-
-const HealthMetricsFlow = () => {
   const saveMetric = useSaveHealthMetric();
 
   const saveData = async (data: Partial<ExtendedHealthMetrics>) => {
@@ -48,7 +44,6 @@ const HealthMetricsFlow = () => {
       fasting_glucose: data.bloodGlucose?.fastingGlucose ? parseFloat(data.bloodGlucose.fastingGlucose) : null,
     });
   };
-};
 
   const handleNext = (pageData: any) => {
     // Save the data based on the current page
