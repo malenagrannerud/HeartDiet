@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useHealthMetricsFlow } from "@/hooks/use-health-metrics-flow";
 import { CurrentMeasurements } from "./CurrentMeasurements";
@@ -7,29 +7,27 @@ import { BloodFats } from "./BloodFats";
 import { BloodGlucose } from "./BloodGlucose";
 import { BackToTodayButton } from "@/components/BackToTodayButton";
 import { useToast } from "@/hooks/use-toast";
-import { extendedHealthMetricsSchema, completedActivitiesSchema, ExtendedHealthMetrics } from "@/lib/schemas";
-import { markCardCompleted } from "@/lib/card-completion";
+import { ExtendedHealthMetrics } from "@/lib/schemas";
 import { sectionHeading, headerContainer, pageContainer, pagePadding } from "@/lib/design-tokens";
-import { useSaveHealthMetric } from '@/hooks/useHealthMetrics';
+import { useSaveHealthMetric, useGetHealthMetrics } from '@/hooks/useHealthMetrics';
 
 const HealthMetricsFlow = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const { pages, totalSteps } = useHealthMetricsFlow();
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
-  const [metricsData, setMetricsData] = useState<Partial<ExtendedHealthMetrics>>({});
-
-  useEffect(() => {
-    // Load existing data
-    const existing = getStorageItem('extendedHealthMetrics', extendedHealthMetricsSchema);
-    if (existing) {
-      setMetricsData(existing);
-    }
-  }, []);
-
+  
+  // NEW: Replace getStorageItem with useQuery
+  const { data: metricsData } = useGetHealthMetrics();
+  // NEW: Replace setStorageItem with useMutation
   const saveMetric = useSaveHealthMetric();
+  
+  // Get current page from pages array
+  const currentPage = pages[currentPageIndex];
+  const currentStep = currentPageIndex + 1;
 
   const saveData = async (data: Partial<ExtendedHealthMetrics>) => {
+    // NEW: Replace setStorageItem with mutation.mutateAsync
     await saveMetric.mutateAsync({
       height: parseFloat(data.height || '0'),
       weight: parseFloat(data.weight || '0'),
@@ -45,14 +43,14 @@ const HealthMetricsFlow = () => {
     });
   };
 
-  const handleNext = (pageData: any) => {
+  const handleNext = async (pageData: any) => {
     // Save the data based on the current page
     switch (currentPage.id) {
       case 'current-measurements':
-        saveData({ height: pageData.height, weight: pageData.weight });
+        await saveData({ height: pageData.height, weight: pageData.weight });
         break;
       case 'blood-pressure':
-        saveData({ 
+        await saveData({ 
           bloodPressure: {
             systolic: pageData.systolic,
             diastolic: pageData.diastolic,
@@ -61,10 +59,10 @@ const HealthMetricsFlow = () => {
         });
         break;
       case 'blood-fats':
-        saveData({ bloodFats: pageData });
+        await saveData({ bloodFats: pageData });
         break;
       case 'blood-glucose':
-        saveData({ bloodGlucose: pageData });
+        await saveData({ bloodGlucose: pageData });
         break;
     }
 
@@ -77,7 +75,7 @@ const HealthMetricsFlow = () => {
   };
 
   const handleSkip = () => {
-    // Move to next page or finish without saving current page data
+    // Move to next page without saving
     if (currentPageIndex < pages.length - 1) {
       setCurrentPageIndex(currentPageIndex + 1);
     } else {
@@ -86,25 +84,9 @@ const HealthMetricsFlow = () => {
   };
 
   const finishFlow = () => {
-    // Mark as completed
-    const completedActivities = getStorageItem('completedActivities', completedActivitiesSchema) || [];
-    const activities = Array.isArray(completedActivities) ? completedActivities : [];
-    const existingActivity = activities.find(a => a.id === 'health-metrics');
-    if (!existingActivity) {
-      activities.push({
-        id: 'health-metrics',
-        title: 'Hälsomått',
-        completedDate: new Date().toISOString(),
-        type: 'health-metrics'
-      });
-      setStorageItem('completedActivities', activities, completedActivitiesSchema);
-    }
-
-    markCardCompleted('health-metrics');
-
     toast({
       title: "Hälsomått sparade",
-      description: "Dina mätningar har sparats.",
+      description: "Dina mätningar har sparats i databasen.",
     });
 
     navigate('/app/today');
