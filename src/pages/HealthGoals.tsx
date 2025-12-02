@@ -7,10 +7,9 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { sectionHeading, cardTitle, standardCard, headerContainer, primaryButton, pageContainer, pagePadding, bodyText } from "@/lib/design-tokens";
-import { healthPrioritiesSchema, completedActivitiesSchema } from "@/lib/schemas";
-import { markCardCompleted } from "@/lib/card-completion"; 
 import { standardSpacing } from "@/lib/design-tokens";
 import { useHealthGoals, useSaveHealthGoals } from '@/hooks/useHealthGoals';
+import { useActivities, useSaveActivity } from '@/hooks/useActivities';
 
 interface HealthPriority {
   id: string;
@@ -51,8 +50,15 @@ const HealthGoals = () => {
   const [saveAlertOpen, setSaveAlertOpen] = useState(false);
   const [hasExistingData, setHasExistingData] = useState(false);
   
-  const { data: healthGoalsData, isLoading } = useHealthGoals();
+  // NEW: Replace getStorageItem with useQuery
+  const { data: healthGoalsData, isLoading: isLoadingGoals } = useHealthGoals();
+  // NEW: Replace setStorageItem with useMutation
   const saveHealthGoalsMutation = useSaveHealthGoals();
+  
+  // NEW: Replace getStorageItem for activities with useQuery
+  const { data: activitiesData } = useActivities();
+  // NEW: Replace setStorageItem for activities with useMutation
+  const saveActivityMutation = useSaveActivity();
 
   useEffect(() => {
     if (healthGoalsData) {
@@ -79,25 +85,22 @@ const HealthGoals = () => {
 
   const confirmSave = async () => {
     try {
+      // NEW: Replace setStorageItem with mutation.mutateAsync
       await saveHealthGoalsMutation.mutateAsync({
         priorities: selectedPriorities,
       });
       
-      // Add to completed activities
-      const completedActivities = getStorageItem('completedActivities', completedActivitiesSchema) || [];
-      const activities = Array.isArray(completedActivities) ? completedActivities : [];
-      const existingActivity = activities.find(a => a.id === 'health-goals');
+      // NEW: Check if health-goals activity exists in database
+      const existingActivity = activitiesData?.find((a: any) => a.id === 'health-goals');
       if (!existingActivity) {
-        activities.push({
+        // NEW: Replace setStorageItem with mutation.mutateAsync
+        await saveActivityMutation.mutateAsync({
           id: 'health-goals',
           title: 'Hälsomål',
           completedDate: new Date().toISOString(),
           type: 'health-goals'
         });
-        setStorageItem('completedActivities', activities, completedActivitiesSchema);
       }
-      
-      markCardCompleted('health-goals');
       
       toast({
         title: "Hälsomål sparade",
@@ -152,9 +155,9 @@ const HealthGoals = () => {
               onClick={handleSaveClick}
               className={primaryButton}
               aria-label="Spara"
-              disabled={isLoading || saveHealthGoalsMutation.isPending}
+              disabled={isLoadingGoals || saveHealthGoalsMutation.isPending}
             >
-              {isLoading || saveHealthGoalsMutation.isPending ? "Sparar..." : "Spara mina val"}
+              {isLoadingGoals || saveHealthGoalsMutation.isPending ? "Sparar..." : "Spara mina val"}
             </Button>
           </section>
         </div>
