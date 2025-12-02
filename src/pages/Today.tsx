@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { tips } from "@/data/tips";
 import TipCard from "@/components/TipCard";
 import { pageTitle, sectionHeading, cardTitle, interactiveCard, pageContainer, headerContainer, pagePadding, standardSpacing, cardTitleSmall, pageSubtitle, sectionSubheading2, bodyTextBald, bodyBaldSub, colors} from "@/lib/design-tokens";
+import welcomeIllustration from "@/assets/welcome-illustration.png";
 import { useLatestHealthMetric } from '@/hooks/useHealthMetrics';
 import { useMarkedTips } from '@/hooks/useMarkedTips';
 import { useCardCompletion } from '@/hooks/useCardCompletion';
@@ -206,7 +207,7 @@ const Today = () => {
                           onClick={() => handleCardNavigation('health-goals', '/app/health-goals')}
                           ariaLabel="Gå till hälsomål"
                           hasImage={true}
-                          imageSrc={HealthPrioritiesImage}
+                          imageSrc={welcomeIllustration}
                           imageAlt="Health goals illustration"
                         />
                       </div>
