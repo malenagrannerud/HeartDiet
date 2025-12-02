@@ -24,23 +24,10 @@ import type { Database } from './database.types';
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-// Check if variables exist and are not placeholder values
-const isPlaceholder = (value: string | undefined) => 
-  !value || 
-  value.includes('your-project-id') || 
-  value.includes('your-actual-anon-key');
-
-if (isPlaceholder(supabaseUrl) || isPlaceholder(supabaseAnonKey)) {
+if (!supabaseUrl || !supabaseAnonKey) {
   throw new Error(
-    '⚠️ Supabase Configuration Required\n\n' +
-    'You need to connect your Supabase project:\n\n' +
-    '1. Go to https://supabase.com/dashboard\n' +
-    '2. Create a new project (or select existing)\n' +
-    '3. Go to Project Settings > API\n' +
-    '4. Copy your Project URL and anon/public key\n' +
-    '5. Update .env.local with real values:\n' +
-    '   VITE_SUPABASE_URL=<your-project-url>\n' +
-    '   VITE_SUPABASE_ANON_KEY=<your-anon-key>'
+    'Missing Supabase environment variables. ' +
+    'Please create a .env.local file with VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY'
   );
 }
 

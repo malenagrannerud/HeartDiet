@@ -19,11 +19,12 @@ import { getCurrentDate } from "@/lib/simulated-date";
 import { ProgressChart } from "@/components/ProgressChart";
 import { WeeklyProgressTable } from "@/components/WeeklyProgressTable";
 import { useHealthMetrics } from '@/hooks/useHealthMetrics';
-import { useHealthGoals, useSaveHealthGoals } from '@/hooks/useHealthGoals';
-import { useHealthPriorities } from '@/hooks/useHealthPriorities';
+import { useHealthGoals } from '@/hooks/useHealthGoals';
 import { useMedications } from '@/hooks/useMedications';
+import { useHealthData } from '@/hooks/useHealthData';
+import { useSaveHealthData } from '@/hooks/useSaveHealthData';
 
-function Progress() {
+export default function Progress() {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [currentWeekStart, setCurrentWeekStart] = useState<Date>(
@@ -84,33 +85,45 @@ function Progress() {
   // NEW: Replace getStorageItem with useQuery
   const { data: healthMetrics, isLoading: metricsLoading } = useHealthMetrics();
   const { data: healthGoals } = useHealthGoals();
-  const { data: healthPrioritiesData } = useHealthPriorities();
-  const { data: medicationsData } = useMedications();
+  const { data: selectedMedications } = useMedications();
+  const { data: healthData } = useHealthData();
   
-  // NEW: Mutation for saving health goals
-  const saveHealthGoalsMutation = useSaveHealthGoals();
+  // NEW: Replace setStorageItem with useMutation
+  const saveHealthDataMutation = useSaveHealthData();
+
+  // NEW: Transform database format to chart format
+  const chartData = healthMetrics?.map(m => ({
+    date: m.measurement_date,
+    weight: m.weight,
+    systolic: m.systolic,
+    diastolic: m.diastolic,
+    ldl: m.ldl,
+    hdl: m.hdl,
+    triglycerides: m.triglycerides,
+    hba1c: m.hba1c,
+    fasting_glucose: m.fasting_glucose,
+  })) || [];
 
   useEffect(() => {
     const logs = getDayLogs();
     setDayLogs(logs);
 
-    // NEW: Check health priorities for showing relevant sections
-    if (healthPrioritiesData) {
-      const priorities = healthPrioritiesData.priorities || [];
-      setShowBloodFats(priorities.includes('cholesterol'));
-      setShowBloodGlucose(priorities.includes('diabetes'));
+    // NEW: Use healthGoals data instead of localStorage
+    if (healthGoals) {
+      setShowBloodFats(healthGoals.priorities?.includes('cholesterol') || false);
+      setShowBloodGlucose(healthGoals.priorities?.includes('diabetes') || false);
     }
 
     // NEW: Check for statin medication
-    if (medicationsData) {
-      const hasStatinMedication = medicationsData.some(savedMed => {
+    if (selectedMedications) {
+      const hasStatinMedication = selectedMedications.some(savedMed => {
         if (!savedMed.id) return false;
         const medicationInfo = medications.find(med => med.id === savedMed.id);
         if (!medicationInfo) return false;
         return medicationInfo.category.includes('Statin');
       });
       
-      const hasDiabetesMedication = medicationsData.some(savedMed => {
+      const hasDiabetesMedication = selectedMedications.some(savedMed => {
         if (!savedMed.id) return false;
         const medicationInfo = medications.find(med => med.id === savedMed.id);
         if (!medicationInfo) return false;
@@ -122,28 +135,28 @@ function Progress() {
     }
 
     // NEW: Load health goals from database
-    if (healthGoals) {
-      if (healthGoals.goal_weight) {
-        setGoalWeightInput(healthGoals.goal_weight.toString());
+    if (healthData) {
+      if (healthData.goalWeight) {
+        setGoalWeightInput(healthData.goalWeight.toString());
       }
-      if (healthGoals.goal_systolic && healthGoals.goal_diastolic) {
-        setGoalSystolicInput(healthGoals.goal_systolic.toString());
-        setGoalDiastolicInput(healthGoals.goal_diastolic.toString());
+      if (healthData.goalSystolic && healthData.goalDiastolic) {
+        setGoalSystolicInput(healthData.goalSystolic.toString());
+        setGoalDiastolicInput(healthData.goalDiastolic.toString());
       }
-      if (healthGoals.goal_ldl) {
-        setGoalLDLInput(healthGoals.goal_ldl.toString());
+      if (healthData.goalLDL) {
+        setGoalLDLInput(healthData.goalLDL.toString());
       }
-      if (healthGoals.goal_hdl) {
-        setGoalHDLInput(healthGoals.goal_hdl.toString());
+      if (healthData.goalHDL) {
+        setGoalHDLInput(healthData.goalHDL.toString());
       }
-      if (healthGoals.goal_hba1c) {
-        setGoalHbA1cInput(healthGoals.goal_hba1c.toString());
+      if (healthData.goalHbA1c) {
+        setGoalHbA1cInput(healthData.goalHbA1c.toString());
       }
-      if (healthGoals.goal_fasting_glucose) {
-        setGoalFastingGlucoseInput(healthGoals.goal_fasting_glucose.toString());
+      if (healthData.goalFastingGlucose) {
+        setGoalFastingGlucoseInput(healthData.goalFastingGlucose.toString());
       }
     }
-  }, [healthPrioritiesData, medicationsData, healthGoals]);
+  }, [healthGoals, selectedMedications, healthData]);
 
   // Generate week dates (Monday to Sunday)
   const weekDates = Array.from({ length: 7 }, (_, i) => 
@@ -694,7 +707,7 @@ function Progress() {
       }
       
       // NEW: Replace localStorage with mutation.mutateAsync
-      await saveHealthGoalsMutation.mutateAsync(goalsData);
+      await saveHealthDataMutation.mutateAsync(goalsData);
       
       const successMessages = {
         weight: `Ny målvikt: ${goalsData.goalWeight} kg`,
@@ -800,7 +813,7 @@ function Progress() {
           <div className="flex flex-col gap-6">
             <ProgressChart 
               type="bloodPressure" 
-              dayLogs={dayLogs}
+              chartData={chartData}
               onClick={() => {
                 if (expandedChart === 'bloodPressure') {
                   openGoalEditDialog('bloodPressure');
@@ -813,7 +826,7 @@ function Progress() {
             />
             <ProgressChart 
               type="weight" 
-              dayLogs={dayLogs}
+              chartData={chartData}
               onClick={() => {
                 if (expandedChart === 'weight') {
                   openGoalEditDialog('weight');
@@ -827,7 +840,7 @@ function Progress() {
             {showBloodFats && (
               <ProgressChart 
                 type="bloodFats" 
-                dayLogs={dayLogs}
+                chartData={chartData}
                 onClick={() => {
                   if (expandedChart === 'bloodFats') {
                     openGoalEditDialog('bloodFats');
@@ -842,7 +855,7 @@ function Progress() {
             {showBloodGlucose && (
               <ProgressChart 
                 type="bloodGlucose" 
-                dayLogs={dayLogs}
+                chartData={chartData}
                 onClick={() => {
                   if (expandedChart === 'bloodGlucose') {
                     openGoalEditDialog('bloodGlucose');
@@ -861,7 +874,7 @@ function Progress() {
             <HealthInfoCard
               icon={Heart}
               title="Mina hälsomål"
-              items={(healthPrioritiesData?.priorities || []).map((id: string) => ({ id, label: healthPriorityLabels[id] }))}
+              items={(healthGoals?.priorities || []).map((id: string) => ({ id, label: healthPriorityLabels[id] }))}
               emptyMessage="Inga mål valda ännu"
               onClick={() => navigate('/app/health-goals')}
             />
@@ -869,7 +882,7 @@ function Progress() {
             <HealthInfoCard
               icon={Pill}
               title="Mina läkemedel"
-              items={(medicationsData || []).map((med: any) => ({ id: med.id || '', label: med.name || '' }))}
+              items={(selectedMedications || []).map((med: any) => ({ id: med.id || '', label: med.name || '' }))}
               emptyMessage="Inga läkemedel valda ännu"
               onClick={() => navigate('/app/medications')}
             />
@@ -1117,26 +1130,7 @@ function Progress() {
                     placeholder="T.ex. 5.5"
                     className="w-full"
                   />
-                  <p className="text-xs text-muted-foreground mt-1">Målvärde är vanligtvis 4-6 mmol/L</p>
                 </div>
-              </div>
-              
-              <DialogFooter className="gap-3">
-                {existingBloodGlucoseEntry && (
-                  <Button 
-                    variant="destructive" 
-                    onClick={handleDeleteBloodGlucose} 
-                    className="text-base py-6"
-                  >
-                    Radera
-                  </Button>
-                )}
-                <Button variant="outline" onClick={() => setBloodGlucoseDialogOpen(false)} className="text-base py-6">
-                  Avbryt
-                </Button>
-                <Button onClick={handleSaveBloodGlucose} className="text-base py-6">
-                  Spara
-                </Button>
               </DialogFooter>
             </DialogContent>
           </Dialog>

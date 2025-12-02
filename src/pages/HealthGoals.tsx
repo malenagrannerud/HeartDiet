@@ -8,7 +8,7 @@ import { useToast } from "@/hooks/use-toast";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { sectionHeading, cardTitle, standardCard, headerContainer, primaryButton, pageContainer, pagePadding, bodyText } from "@/lib/design-tokens";
 import { standardSpacing } from "@/lib/design-tokens";
-import { useHealthPriorities, useSaveHealthPriorities } from '@/hooks/useHealthPriorities';
+import { useHealthGoals, useSaveHealthGoals } from '@/hooks/useHealthGoals';
 import { useActivities, useSaveActivity } from '@/hooks/useActivities';
 
 interface HealthPriority {
@@ -51,9 +51,9 @@ const HealthGoals = () => {
   const [hasExistingData, setHasExistingData] = useState(false);
   
   // NEW: Replace getStorageItem with useQuery
-  const { data: healthPrioritiesData, isLoading: isLoadingGoals } = useHealthPriorities();
+  const { data: healthGoalsData, isLoading: isLoadingGoals } = useHealthGoals();
   // NEW: Replace setStorageItem with useMutation
-  const saveHealthPrioritiesMutation = useSaveHealthPriorities();
+  const saveHealthGoalsMutation = useSaveHealthGoals();
   
   // NEW: Replace getStorageItem for activities with useQuery
   const { data: activitiesData } = useActivities();
@@ -61,11 +61,11 @@ const HealthGoals = () => {
   const saveActivityMutation = useSaveActivity();
 
   useEffect(() => {
-    if (healthPrioritiesData) {
-      setSelectedPriorities(healthPrioritiesData.priorities || []);
-      setHasExistingData(healthPrioritiesData.priorities && healthPrioritiesData.priorities.length > 0);
+    if (healthGoalsData) {
+      setSelectedPriorities(healthGoalsData.priorities || []);
+      setHasExistingData(healthGoalsData.priorities && healthGoalsData.priorities.length > 0);
     }
-  }, [healthPrioritiesData]);
+  }, [healthGoalsData]);
 
   const handlePriorityToggle = (id: string) => {
     setSelectedPriorities(prev => 
@@ -86,7 +86,9 @@ const HealthGoals = () => {
   const confirmSave = async () => {
     try {
       // NEW: Replace setStorageItem with mutation.mutateAsync
-      await saveHealthPrioritiesMutation.mutateAsync(selectedPriorities);
+      await saveHealthGoalsMutation.mutateAsync({
+        priorities: selectedPriorities,
+      });
       
       // NEW: Check if health-goals activity exists in database
       const existingActivity = activitiesData?.find((a: any) => a.id === 'health-goals');
@@ -153,9 +155,9 @@ const HealthGoals = () => {
               onClick={handleSaveClick}
               className={primaryButton}
               aria-label="Spara"
-              disabled={isLoadingGoals || saveHealthPrioritiesMutation.isPending}
+              disabled={isLoadingGoals || saveHealthGoalsMutation.isPending}
             >
-              {isLoadingGoals || saveHealthPrioritiesMutation.isPending ? "Sparar..." : "Spara mina val"}
+              {isLoadingGoals || saveHealthGoalsMutation.isPending ? "Sparar..." : "Spara mina val"}
             </Button>
           </section>
         </div>

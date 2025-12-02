@@ -9,7 +9,7 @@ import { BackToTodayButton } from "@/components/BackToTodayButton";
 import { useToast } from "@/hooks/use-toast";
 import { ExtendedHealthMetrics } from "@/lib/schemas";
 import { sectionHeading, headerContainer, pageContainer, pagePadding } from "@/lib/design-tokens";
-import { useSaveHealthMetric, useHealthMetrics } from '@/hooks/useHealthMetrics';
+import { useSaveHealthMetric, useGetHealthMetrics } from '@/hooks/useHealthMetrics';
 
 const HealthMetricsFlow = () => {
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ const HealthMetricsFlow = () => {
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
   
   // NEW: Replace getStorageItem with useQuery
-  const { data: metricsData } = useHealthMetrics();
+  const { data: metricsData } = useGetHealthMetrics();
   // NEW: Replace setStorageItem with useMutation
   const saveMetric = useSaveHealthMetric();
   

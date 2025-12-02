@@ -6,39 +6,31 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { sectionHeading, cardTitle, cardText, standardCard, headerContainer, primaryButton, pageContainer, pagePadding, bodyText, standardSpacing } from "@/lib/design-tokens";
+import { getStorageItem, setStorageItem } from "@/lib/storage";
+import { healthPrioritiesSchema, completedActivitiesSchema, selectedMedicationsSchema } from "@/lib/schemas";
+import { markCardCompleted } from "@/lib/card-completion";
 import { medications, searchMedications } from "@/data/medications";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import { Pill, Search, X } from "lucide-react";
-import { useMedications, useSaveMedications } from '@/hooks/useMedications';
-
-interface MedicationItem {
-  id: string;
-  name: string;
-  addedDate: string;
-}
 
 const Medications = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedMedications, setSelectedMedications] = useState<MedicationItem[]>([]);
+  const [selectedMedications, setSelectedMedications] = useState<Array<{ id: string; name: string; addedDate: string }>>([]);
   const [saveAlertOpen, setSaveAlertOpen] = useState(false);
   const [hasExistingData, setHasExistingData] = useState(false);
 
-  // NEW: Replace getStorageItem with useQuery
-  const { data: savedMedications, isLoading } = useMedications();
-  // NEW: Replace setStorageItem with useMutation
-  const saveMedicationsMutation = useSaveMedications();
-
   useEffect(() => {
-    // NEW: Load medications from database
-    if (savedMedications && savedMedications.length > 0) {
+    // Load existing selected medications
+    const savedMeds = getStorageItem('selectedMedications', selectedMedicationsSchema);
+    if (savedMeds && savedMeds.length > 0) {
       // Filter out any invalid entries
-      const validMeds = savedMedications.filter(m => m.id && m.name && m.addedDate);
-      setSelectedMedications(validMeds);
+      const validMeds = savedMeds.filter(m => m.id && m.name && m.addedDate);
+      setSelectedMedications(validMeds as Array<{ id: string; name: string; addedDate: string }>);
       setHasExistingData(true);
     }
-  }, [savedMedications]);
+  }, []);
 
   const handleMedicationSelect = (medId: string) => {
     // Check if already selected
@@ -54,7 +46,7 @@ const Medications = () => {
     const medication = medications.find(m => m.id === medId);
     if (!medication) return;
 
-    const newMed: MedicationItem = {
+    const newMed = {
       id: medication.id,
       name: medication.name,
       addedDate: new Date().toISOString()
@@ -76,25 +68,42 @@ const Medications = () => {
     }
   };
 
-  const confirmSave = async () => {
-    try {
-      // NEW: Replace setStorageItem with mutation.mutateAsync
-      await saveMedicationsMutation.mutateAsync(selectedMedications);
-      
-      toast({
-        title: "Läkemedel sparade",
-        description: "Dina val har sparats.",
+  const confirmSave = () => {
+    // Save selected medications
+    setStorageItem('selectedMedications', selectedMedications, selectedMedicationsSchema);
+    
+    // Also update healthPriorities for backward compatibility
+    const existingData = getStorageItem('healthPriorities', healthPrioritiesSchema) || { priorities: [], medications: [] };
+    const medicationIds = selectedMedications.map(m => m.id);
+    const data = {
+      priorities: existingData.priorities || [],
+      medications: medicationIds
+    };
+    setStorageItem('healthPriorities', data, healthPrioritiesSchema);
+    
+    // Add to completed activities if not already there
+    const completedActivities = getStorageItem('completedActivities', completedActivitiesSchema) || [];
+    const activities = Array.isArray(completedActivities) ? completedActivities : [];
+    const existingActivity = activities.find(a => a.id === 'medications');
+    if (!existingActivity) {
+      activities.push({
+        id: 'medications',
+        title: 'Läkemedel',
+        completedDate: new Date().toISOString(),
+        type: 'medications'
       });
-      
-      setSaveAlertOpen(false);
-      navigate('/app/today');
-    } catch (error) {
-      toast({
-        title: "Fel vid sparande",
-        description: "Kunde inte spara dina läkemedel. Försök igen.",
-        variant: "destructive"
-      });
+      setStorageItem('completedActivities', activities, completedActivitiesSchema);
     }
+    
+    markCardCompleted('medications');
+    
+    toast({
+      title: "Läkemedel sparade",
+      description: "Dina val har sparats.",
+    });
+    
+    setSaveAlertOpen(false);
+    navigate('/app/today');
   };
 
   // Filter medications based on search query
@@ -205,9 +214,8 @@ const Medications = () => {
               onClick={handleSaveClick}
               className={primaryButton}
               aria-label="Spara"
-              disabled={isLoading || saveMedicationsMutation.isPending}
             >
-              {isLoading || saveMedicationsMutation.isPending ? "Sparar..." : "Spara mina val"}
+              Spara mina val
             </Button>
           </section>
         </div>
