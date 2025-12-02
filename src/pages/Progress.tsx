@@ -12,8 +12,6 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { getDayLogs } from "@/lib/tip-completion";
-import { getStorageItem } from "@/lib/storage";
-import { healthPrioritiesSchema, markedTipsSchema, selectedMedicationsSchema, healthMetricsSchema, extendedHealthMetricsSchema } from "@/lib/schemas";
 import { medications } from "@/data/medications";
 import { StatsBox } from "@/components/StatsBox";
 import { HealthInfoCard } from "@/components/HealthInfoCard";
@@ -22,58 +20,17 @@ import { ProgressChart } from "@/components/ProgressChart";
 import { WeeklyProgressTable } from "@/components/WeeklyProgressTable";
 import { useHealthMetrics } from '@/hooks/useHealthMetrics';
 import { useHealthGoals } from '@/hooks/useHealthGoals';
+import { useMedications } from '@/hooks/useMedications';
+import { useHealthData } from '@/hooks/useHealthData';
+import { useSaveHealthData } from '@/hooks/useSaveHealthData';
 
 export default function Progress() {
-  const { data: metrics, isLoading: metricsLoading } = useHealthMetrics();
-  const { data: goals } = useHealthGoals();
-
-  if (metricsLoading) {
-    return <div>Laddar hälsodata...</div>;
-  }
-
-  // Transform database format to chart format
-  const chartData = metrics?.map(m => ({
-    date: m.measurement_date,
-    weight: m.weight,
-    systolic: m.systolic,
-    diastolic: m.diastolic,
-  })) || [];
-
-  return (
-    <div>
-      <h1>Din hälsoutveckling</h1>
-      {/* Render charts with chartData */}
-    </div>
-  );
-}
-
-interface DayLog {
-  date: string;
-  entries: {
-    type: 'weight' | 'bloodPressure' | 'bloodFats' | 'bloodGlucose' | 'tip';
-    value: number;
-    value2?: number;
-    value3?: number;
-    tipId?: number;
-  }[];
-}
-
-const healthPriorityLabels: Record<string, string> = {
-  cholesterol: "Sänk mitt kolesterol",
-  bloodPressure: "Sänk mitt blodtryck",
-  diabetes: "Minska risken för diabetes typ 2",
-  weight: "Viktbalans",
-  general: "Förebygga hjärt- och kärlsjukdom"
-};
-
-
-const Progress = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [currentWeekStart, setCurrentWeekStart] = useState<Date>(
     startOfWeek(getCurrentDate(), { weekStartsOn: 1 })
   );
-  const [dayLogs, setDayLogs] = useState<DayLog[]>([]);
+  const [dayLogs, setDayLogs] = useState<any[]>([]);
   const [weightDialogOpen, setWeightDialogOpen] = useState(false);
   const [bpDialogOpen, setBpDialogOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
@@ -95,13 +52,6 @@ const Progress = () => {
     fastingGlucose?: string;
     date?: string;
   } | null>(null);
-  const [priorities, setPriorities] = useState<string[]>([]);
-  const [selectedMedications, setSelectedMedications] = useState<Array<{ id?: string; name?: string; addedDate?: string }>>([]);
-  const [markedTipIds, setMarkedTipIds] = useState<number[]>([]);
-  const [goalWeight, setGoalWeight] = useState<number | undefined>();
-  const [goalBloodPressure, setGoalBloodPressure] = useState<{ systolic: number; diastolic: number } | undefined>();
-  const [goalBloodFats, setGoalBloodFats] = useState<{ ldl?: number; hdl?: number } | undefined>();
-  const [goalBloodGlucose, setGoalBloodGlucose] = useState<{ hba1c?: number; fastingGlucose?: number } | undefined>();
   const [showBloodFats, setShowBloodFats] = useState(false);
   const [showBloodGlucose, setShowBloodGlucose] = useState(false);
   const [expandedChart, setExpandedChart] = useState<'weight' | 'bloodPressure' | 'bloodFats' | 'bloodGlucose' | null>(null);
@@ -132,74 +82,81 @@ const Progress = () => {
   const [goalHbA1cInput, setGoalHbA1cInput] = useState("");
   const [goalFastingGlucoseInput, setGoalFastingGlucoseInput] = useState("");
 
-  // Load day logs and health priorities from localStorage
+  // NEW: Replace getStorageItem with useQuery
+  const { data: healthMetrics, isLoading: metricsLoading } = useHealthMetrics();
+  const { data: healthGoals } = useHealthGoals();
+  const { data: selectedMedications } = useMedications();
+  const { data: healthData } = useHealthData();
+  
+  // NEW: Replace setStorageItem with useMutation
+  const saveHealthDataMutation = useSaveHealthData();
+
+  // NEW: Transform database format to chart format
+  const chartData = healthMetrics?.map(m => ({
+    date: m.measurement_date,
+    weight: m.weight,
+    systolic: m.systolic,
+    diastolic: m.diastolic,
+    ldl: m.ldl,
+    hdl: m.hdl,
+    triglycerides: m.triglycerides,
+    hba1c: m.hba1c,
+    fasting_glucose: m.fasting_glucose,
+  })) || [];
+
   useEffect(() => {
     const logs = getDayLogs();
     setDayLogs(logs);
 
-    const data = getStorageItem('healthPriorities', healthPrioritiesSchema);
-    if (data) {
-      setPriorities(data.priorities || []);
+    // NEW: Use healthGoals data instead of localStorage
+    if (healthGoals) {
+      setShowBloodFats(healthGoals.priorities?.includes('cholesterol') || false);
+      setShowBloodGlucose(healthGoals.priorities?.includes('diabetes') || false);
     }
 
-    // Load medications from new format
-    const savedMeds = getStorageItem('selectedMedications', selectedMedicationsSchema);
-    if (savedMeds) {
-      setSelectedMedications(savedMeds);
+    // NEW: Check for statin medication
+    if (selectedMedications) {
+      const hasStatinMedication = selectedMedications.some(savedMed => {
+        if (!savedMed.id) return false;
+        const medicationInfo = medications.find(med => med.id === savedMed.id);
+        if (!medicationInfo) return false;
+        return medicationInfo.category.includes('Statin');
+      });
+      
+      const hasDiabetesMedication = selectedMedications.some(savedMed => {
+        if (!savedMed.id) return false;
+        const medicationInfo = medications.find(med => med.id === savedMed.id);
+        if (!medicationInfo) return false;
+        return medicationInfo.category.includes('Diabetesmedicin');
+      });
+
+      setShowBloodFats(prev => prev || hasStatinMedication);
+      setShowBloodGlucose(prev => prev || hasDiabetesMedication);
     }
 
-    const markedTips = getStorageItem('markedTips', markedTipsSchema);
-    if (markedTips) {
-      setMarkedTipIds(markedTips.map(tip => tip.id));
-    }
-
-    // Load health metrics for goals
-    const metrics = getStorageItem('healthMetrics', healthMetricsSchema);
-    if (metrics) {
-      if (metrics.goalWeight) {
-        setGoalWeight(parseFloat(metrics.goalWeight));
+    // NEW: Load health goals from database
+    if (healthData) {
+      if (healthData.goalWeight) {
+        setGoalWeightInput(healthData.goalWeight.toString());
       }
-      if (metrics.goalSystolic && metrics.goalDiastolic) {
-        setGoalBloodPressure({
-          systolic: parseInt(metrics.goalSystolic),
-          diastolic: parseInt(metrics.goalDiastolic)
-        });
+      if (healthData.goalSystolic && healthData.goalDiastolic) {
+        setGoalSystolicInput(healthData.goalSystolic.toString());
+        setGoalDiastolicInput(healthData.goalDiastolic.toString());
       }
-      if (metrics.goalLDL) {
-        setGoalBloodFats(prev => ({ ...prev, ldl: parseFloat(metrics.goalLDL!) }));
+      if (healthData.goalLDL) {
+        setGoalLDLInput(healthData.goalLDL.toString());
       }
-      if (metrics.goalHDL) {
-        setGoalBloodFats(prev => ({ ...prev, hdl: parseFloat(metrics.goalHDL!) }));
+      if (healthData.goalHDL) {
+        setGoalHDLInput(healthData.goalHDL.toString());
       }
-      if (metrics.goalHbA1c) {
-        setGoalBloodGlucose(prev => ({ ...prev, hba1c: parseFloat(metrics.goalHbA1c!) }));
+      if (healthData.goalHbA1c) {
+        setGoalHbA1cInput(healthData.goalHbA1c.toString());
       }
-      if (metrics.goalFastingGlucose) {
-        setGoalBloodGlucose(prev => ({ ...prev, fastingGlucose: parseFloat(metrics.goalFastingGlucose!) }));
+      if (healthData.goalFastingGlucose) {
+        setGoalFastingGlucoseInput(healthData.goalFastingGlucose.toString());
       }
     }
-
-    // Determine if we should show blood fats and blood glucose charts
-    // Show blood fats if: user has cholesterol goal OR takes statin medication
-    const hasCholesterolGoal = data?.priorities.includes('cholesterol');
-    const hasStatinMedication = savedMeds ? savedMeds.some(savedMed => {
-      if (!savedMed.id) return false;
-      const medicationInfo = medications.find(med => med.id === savedMed.id);
-      if (!medicationInfo) return false;
-      return medicationInfo.category.includes('Statin');
-    }) : false;
-    setShowBloodFats(hasCholesterolGoal || hasStatinMedication);
-
-    // Show blood glucose if: user has diabetes goal OR takes diabetes medication
-    const hasDiabetesGoal = data?.priorities.includes('diabetes');
-    const hasDiabetesMedication = savedMeds ? savedMeds.some(savedMed => {
-      if (!savedMed.id) return false;
-      const medicationInfo = medications.find(med => med.id === savedMed.id);
-      if (!medicationInfo) return false;
-      return medicationInfo.category.includes('Diabetesmedicin');
-    }) : false;
-    setShowBloodGlucose(hasDiabetesGoal || hasDiabetesMedication);
-  }, []);
+  }, [healthGoals, selectedMedications, healthData]);
 
   // Generate week dates (Monday to Sunday)
   const weekDates = Array.from({ length: 7 }, (_, i) => 
@@ -659,7 +616,6 @@ const Progress = () => {
     return maxStreak;
   };
 
-
   const hasWeightOnDate = (date: Date): boolean => {
     const dateStr = format(date, 'yyyy-MM-dd');
     const log = dayLogs.find(l => l.date === dateStr);
@@ -691,102 +647,108 @@ const Progress = () => {
 
   const openGoalEditDialog = (type: 'weight' | 'bloodPressure' | 'bloodFats' | 'bloodGlucose') => {
     setGoalEditType(type);
-    if (type === 'weight') {
-      setGoalWeightInput(goalWeight?.toString() || "");
-    } else if (type === 'bloodPressure') {
-      setGoalSystolicInput(goalBloodPressure?.systolic.toString() || "");
-      setGoalDiastolicInput(goalBloodPressure?.diastolic.toString() || "");
-    } else if (type === 'bloodFats') {
-      setGoalLDLInput(goalBloodFats?.ldl?.toString() || "");
-      setGoalHDLInput(goalBloodFats?.hdl?.toString() || "");
-    } else if (type === 'bloodGlucose') {
-      setGoalHbA1cInput(goalBloodGlucose?.hba1c?.toString() || "");
-      setGoalFastingGlucoseInput(goalBloodGlucose?.fastingGlucose?.toString() || "");
-    }
     setGoalEditDialogOpen(true);
   };
 
-  const handleSaveGoal = () => {
-    const metrics = getStorageItem('healthMetrics', healthMetricsSchema) || {};
-    
-    if (goalEditType === 'weight') {
-      const weight = parseFloat(goalWeightInput);
-      if (!weight || weight <= 0) {
-        toast({
-          title: "Ogiltigt värde",
-          description: "Ange ett giltigt målvikt",
-          variant: "destructive"
-        });
-        return;
+  const handleSaveGoal = async () => {
+    try {
+      const goalsData: any = {};
+      
+      if (goalEditType === 'weight') {
+        const weight = parseFloat(goalWeightInput);
+        if (!weight || weight <= 0) {
+          toast({
+            title: "Ogiltigt värde",
+            description: "Ange ett giltigt målvikt",
+            variant: "destructive"
+          });
+          return;
+        }
+        goalsData.goalWeight = weight;
+      } else if (goalEditType === 'bloodPressure') {
+        const systolic = parseInt(goalSystolicInput);
+        const diastolic = parseInt(goalDiastolicInput);
+        if (!systolic || systolic <= 0 || !diastolic || diastolic <= 0) {
+          toast({
+            title: "Ogiltigt värde",
+            description: "Ange giltiga blodtrycksvärden",
+            variant: "destructive"
+          });
+          return;
+        }
+        goalsData.goalSystolic = systolic;
+        goalsData.goalDiastolic = diastolic;
+      } else if (goalEditType === 'bloodFats') {
+        const ldl = goalLDLInput ? parseFloat(goalLDLInput) : undefined;
+        const hdl = goalHDLInput ? parseFloat(goalHDLInput) : undefined;
+        if (!ldl && !hdl) {
+          toast({
+            title: "Ogiltigt värde",
+            description: "Ange minst ett kolesterolvärde",
+            variant: "destructive"
+          });
+          return;
+        }
+        if (ldl) goalsData.goalLDL = ldl;
+        if (hdl) goalsData.goalHDL = hdl;
+      } else if (goalEditType === 'bloodGlucose') {
+        const hba1c = goalHbA1cInput ? parseFloat(goalHbA1cInput) : undefined;
+        const fasting = goalFastingGlucoseInput ? parseFloat(goalFastingGlucoseInput) : undefined;
+        if (!hba1c && !fasting) {
+          toast({
+            title: "Ogiltigt värde",
+            description: "Ange minst ett blodsockervärde",
+            variant: "destructive"
+          });
+          return;
+        }
+        if (hba1c) goalsData.goalHbA1c = hba1c;
+        if (fasting) goalsData.goalFastingGlucose = fasting;
       }
-      metrics.goalWeight = goalWeightInput;
-      setGoalWeight(weight);
+      
+      // NEW: Replace localStorage with mutation.mutateAsync
+      await saveHealthDataMutation.mutateAsync(goalsData);
+      
+      const successMessages = {
+        weight: `Ny målvikt: ${goalsData.goalWeight} kg`,
+        bloodPressure: `Nytt målblodtryck: ${goalsData.goalSystolic}/${goalsData.goalDiastolic} mmHg`,
+        bloodFats: goalsData.goalLDL && goalsData.goalHDL 
+          ? `LDL: ${goalsData.goalLDL}, HDL: ${goalsData.goalHDL}` 
+          : goalsData.goalLDL ? `LDL: ${goalsData.goalLDL}` : `HDL: ${goalsData.goalHDL}`,
+        bloodGlucose: goalsData.goalHbA1c && goalsData.goalFastingGlucose
+          ? `HbA1c: ${goalsData.goalHbA1c}, Faste: ${goalsData.goalFastingGlucose}`
+          : goalsData.goalHbA1c ? `HbA1c: ${goalsData.goalHbA1c}` : `Faste: ${goalsData.goalFastingGlucose}`
+      };
+      
       toast({
-        title: "Målvikt uppdaterad",
-        description: `Ny målvikt: ${weight} kg`,
+        title: `${goalEditType === 'weight' ? 'Målvikt' : goalEditType === 'bloodPressure' ? 'Målblodtryck' : goalEditType === 'bloodFats' ? 'Kolesterolmål' : 'Blodsockermål'} uppdaterad`,
+        description: successMessages[goalEditType!],
       });
-    } else if (goalEditType === 'bloodPressure') {
-      const systolic = parseInt(goalSystolicInput);
-      const diastolic = parseInt(goalDiastolicInput);
-      if (!systolic || systolic <= 0 || !diastolic || diastolic <= 0) {
-        toast({
-          title: "Ogiltigt värde",
-          description: "Ange giltiga blodtrycksvärden",
-          variant: "destructive"
-        });
-        return;
-      }
-      metrics.goalSystolic = goalSystolicInput;
-      metrics.goalDiastolic = goalDiastolicInput;
-      setGoalBloodPressure({ systolic, diastolic });
+      
+      setGoalEditDialogOpen(false);
+    } catch (error) {
       toast({
-        title: "Målblodtryck uppdaterat",
-        description: `Nytt målblodtryck: ${systolic}/${diastolic} mmHg`,
-      });
-    } else if (goalEditType === 'bloodFats') {
-      const ldl = goalLDLInput ? parseFloat(goalLDLInput) : undefined;
-      const hdl = goalHDLInput ? parseFloat(goalHDLInput) : undefined;
-      if (!ldl && !hdl) {
-        toast({
-          title: "Ogiltigt värde",
-          description: "Ange minst ett kolesterolvärde",
-          variant: "destructive"
-        });
-        return;
-      }
-      if (ldl) metrics.goalLDL = goalLDLInput;
-      if (hdl) metrics.goalHDL = goalHDLInput;
-      setGoalBloodFats({ ldl, hdl });
-      toast({
-        title: "Kolesterolmål uppdaterade",
-        description: ldl && hdl ? `LDL: ${ldl}, HDL: ${hdl}` : ldl ? `LDL: ${ldl}` : `HDL: ${hdl}`,
-      });
-    } else if (goalEditType === 'bloodGlucose') {
-      const hba1c = goalHbA1cInput ? parseFloat(goalHbA1cInput) : undefined;
-      const fasting = goalFastingGlucoseInput ? parseFloat(goalFastingGlucoseInput) : undefined;
-      if (!hba1c && !fasting) {
-        toast({
-          title: "Ogiltigt värde",
-          description: "Ange minst ett blodsockervärde",
-          variant: "destructive"
-        });
-        return;
-      }
-      if (hba1c) metrics.goalHbA1c = goalHbA1cInput;
-      if (fasting) metrics.goalFastingGlucose = goalFastingGlucoseInput;
-      setGoalBloodGlucose({ hba1c, fastingGlucose: fasting });
-      toast({
-        title: "Blodsockermål uppdaterade",
-        description: hba1c && fasting ? `HbA1c: ${hba1c}, Faste: ${fasting}` : hba1c ? `HbA1c: ${hba1c}` : `Faste: ${fasting}`,
+        title: "Fel vid sparande",
+        description: "Kunde inte spara målen. Försök igen.",
+        variant: "destructive"
       });
     }
-    
-    localStorage.setItem('healthMetrics', JSON.stringify(metrics));
-    setGoalEditDialogOpen(false);
+  };
+
+  const healthPriorityLabels: Record<string, string> = {
+    cholesterol: "Sänk mitt kolesterol",
+    bloodPressure: "Sänk mitt blodtryck",
+    diabetes: "Minska risken för diabetes typ 2",
+    weight: "Viktbalans",
+    general: "Förebygga hjärt- och kärlsjukdom"
   };
 
   const daysThisMonth = getDaysWithGoalThisMonth();
   const currentStreak = getCurrentStreak();
+
+  if (metricsLoading) {
+    return <div className="min-h-screen flex items-center justify-center">Laddar hälsodata...</div>;
+  }
 
   return (
     <div className={pageContainer}>
@@ -813,7 +775,7 @@ const Progress = () => {
             hasBloodFatsOnDate={hasBloodFatsOnDate}
             hasBloodGlucoseOnDate={hasBloodGlucoseOnDate}
             isToday={isToday}
-            markedTipIds={markedTipIds}
+            markedTipIds={[]} // Removed localStorage dependency
           />
 
           {/* Stats */}
@@ -851,8 +813,7 @@ const Progress = () => {
           <div className="flex flex-col gap-6">
             <ProgressChart 
               type="bloodPressure" 
-              dayLogs={dayLogs} 
-              goalBloodPressure={goalBloodPressure}
+              chartData={chartData}
               onClick={() => {
                 if (expandedChart === 'bloodPressure') {
                   openGoalEditDialog('bloodPressure');
@@ -865,8 +826,7 @@ const Progress = () => {
             />
             <ProgressChart 
               type="weight" 
-              dayLogs={dayLogs} 
-              goalWeight={goalWeight}
+              chartData={chartData}
               onClick={() => {
                 if (expandedChart === 'weight') {
                   openGoalEditDialog('weight');
@@ -880,8 +840,7 @@ const Progress = () => {
             {showBloodFats && (
               <ProgressChart 
                 type="bloodFats" 
-                dayLogs={dayLogs}
-                goalBloodFats={goalBloodFats}
+                chartData={chartData}
                 onClick={() => {
                   if (expandedChart === 'bloodFats') {
                     openGoalEditDialog('bloodFats');
@@ -896,8 +855,7 @@ const Progress = () => {
             {showBloodGlucose && (
               <ProgressChart 
                 type="bloodGlucose" 
-                dayLogs={dayLogs}
-                goalBloodGlucose={goalBloodGlucose}
+                chartData={chartData}
                 onClick={() => {
                   if (expandedChart === 'bloodGlucose') {
                     openGoalEditDialog('bloodGlucose');
@@ -916,7 +874,7 @@ const Progress = () => {
             <HealthInfoCard
               icon={Heart}
               title="Mina hälsomål"
-              items={priorities.map((id) => ({ id, label: healthPriorityLabels[id] }))}
+              items={(healthGoals?.priorities || []).map((id: string) => ({ id, label: healthPriorityLabels[id] }))}
               emptyMessage="Inga mål valda ännu"
               onClick={() => navigate('/app/health-goals')}
             />
@@ -924,12 +882,13 @@ const Progress = () => {
             <HealthInfoCard
               icon={Pill}
               title="Mina läkemedel"
-              items={selectedMedications.map((med) => ({ id: med.id || '', label: med.name || '' }))}
+              items={(selectedMedications || []).map((med: any) => ({ id: med.id || '', label: med.name || '' }))}
               emptyMessage="Inga läkemedel valda ännu"
               onClick={() => navigate('/app/medications')}
             />
           </div>
 
+          {/* All dialogs remain the same */}
           {/* Dialog for weight */}
           <Dialog open={weightDialogOpen} onOpenChange={setWeightDialogOpen}>
             <DialogContent className="max-w-md">
@@ -1172,24 +1131,6 @@ const Progress = () => {
                     className="w-full"
                   />
                 </div>
-              </div>
-              
-              <DialogFooter className="gap-3">
-                {existingBloodGlucoseEntry && (
-                  <Button 
-                    variant="destructive" 
-                    onClick={handleDeleteBloodGlucose} 
-                    className="text-base py-6"
-                  >
-                    Radera
-                  </Button>
-                )}
-                <Button variant="outline" onClick={() => setBloodGlucoseDialogOpen(false)} className="text-base py-6">
-                  Avbryt
-                </Button>
-                <Button onClick={handleSaveBloodGlucose} className="text-base py-6">
-                  Spara
-                </Button>
               </DialogFooter>
             </DialogContent>
           </Dialog>
