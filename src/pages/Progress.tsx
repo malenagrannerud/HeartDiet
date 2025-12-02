@@ -796,7 +796,7 @@ const Progress = () => {
               <div className="flex flex-col gap-4">
                 <div>
                   <div className={bodyTextBald}>Klarade dagar totalt</div>
-                  <div className={cardTextSmall}>Antal dagar du loggat tips sedan start</div>
+                  <div className={cardTextSmall}>Antal dagar du loggat tips</div>
                 </div>
                 <div className="flex items-center justify-end">
                   <div className="w-16 h-16 bg-emerald-500 flex items-center justify-center">
