@@ -20,6 +20,32 @@ import { HealthInfoCard } from "@/components/HealthInfoCard";
 import { getCurrentDate } from "@/lib/simulated-date";
 import { ProgressChart } from "@/components/ProgressChart";
 import { WeeklyProgressTable } from "@/components/WeeklyProgressTable";
+import { useHealthMetrics } from '@/hooks/useHealthMetrics';
+import { useHealthGoals } from '@/hooks/useHealthGoals';
+
+export default function Progress() {
+  const { data: metrics, isLoading: metricsLoading } = useHealthMetrics();
+  const { data: goals } = useHealthGoals();
+
+  if (metricsLoading) {
+    return <div>Laddar hälsodata...</div>;
+  }
+
+  // Transform database format to chart format
+  const chartData = metrics?.map(m => ({
+    date: m.measurement_date,
+    weight: m.weight,
+    systolic: m.systolic,
+    diastolic: m.diastolic,
+  })) || [];
+
+  return (
+    <div>
+      <h1>Din hälsoutveckling</h1>
+      {/* Render charts with chartData */}
+    </div>
+  );
+}
 
 interface DayLog {
   date: string;
