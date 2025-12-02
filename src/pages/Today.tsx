@@ -182,7 +182,7 @@ const Today = () => {
               {allStartCardsHidden ? (
                 <p className={bodyBaldSub}>Alla dina kurser är avklarade. Fokusera på att implementera en ny hälsosam vana!</p>
               ) : (
-                <div className="space-y-1">
+                <div className="space-y-2">
                   {!hiddenCards.tutorial && (
                     <div className="flex gap-4 items-center">
                       <CheckBoxLeft isCompleted={completionStatus.tutorial} />
@@ -192,7 +192,7 @@ const Today = () => {
                           title="Så fungerar appen"
                           icon={<BookOpen size={12} strokeWidth={2.5} />}
                           label="Kurs"
-                          time="5 min"
+                          time="4 min"
                           onClick={() => handleCardNavigation('tutorial', '/app/tutorial')}
                           ariaLabel="Gå till tutorial"
                         />
@@ -270,7 +270,7 @@ const Today = () => {
                           title="Vikt och blodtryck"
                           icon={<FileEdit size={12} strokeWidth={2.5} />}
                           label="Formulär"
-                          time="5 min"
+                          time="1-4 min"
                           onClick={() => handleCardNavigation('health-metrics', '/app/health-metrics')}
                           ariaLabel="Gå till hälsomätningar"
                         />
@@ -285,7 +285,7 @@ const Today = () => {
               <h3 className={bodyTextBald}>Mina tips</h3>
               <p className={bodyBaldSub}>
                 {markedTipsList.length > 0 
-                  ? "Markera ett tips som färdigt genom att klicka i boxen"
+                  ? "Markera ett tips som färdigt för dagen"
                   : "Välj vilka tips du vill göra under \"Tips\""}
               </p>
               {markedTipsList.length > 0 ? (
