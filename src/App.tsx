@@ -1,5 +1,3 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import Auth from './pages/Auth';
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -20,19 +18,6 @@ import NotFound from "./pages/NotFound";
 // - Router setup with protected routes
 // - Onboarding flow: new users see welcome screen, returning users go directly to app
 // - Automatically migrates old localStorage keys for backward compatibility
-
-
-function App() {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/auth" element={<Auth />} />
-        <Route path="/app/*" element={<ProtectedRoute><MainApp /></ProtectedRoute>} />
-        {/* ... other routes */}
-      </Routes>
-    </BrowserRouter>
-  );
-}
 
 // Keep QueryClient for dependency compatibility
 const queryClient = new QueryClient();

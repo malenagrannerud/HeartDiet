@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useHealthMetricsFlow } from "@/hooks/use-health-metrics-flow";
 import { CurrentMeasurements } from "./CurrentMeasurements";
@@ -7,50 +7,47 @@ import { BloodFats } from "./BloodFats";
 import { BloodGlucose } from "./BloodGlucose";
 import { BackToTodayButton } from "@/components/BackToTodayButton";
 import { useToast } from "@/hooks/use-toast";
-import { ExtendedHealthMetrics } from "@/lib/schemas";
+import { getStorageItem, setStorageItem } from "@/lib/storage";
+import { extendedHealthMetricsSchema, completedActivitiesSchema, ExtendedHealthMetrics } from "@/lib/schemas";
+import { markCardCompleted } from "@/lib/card-completion";
 import { sectionHeading, headerContainer, pageContainer, pagePadding } from "@/lib/design-tokens";
-import { useSaveHealthMetric, useGetHealthMetrics } from '@/hooks/useHealthMetrics';
 
 const HealthMetricsFlow = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const { pages, totalSteps } = useHealthMetricsFlow();
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
-  
-  // NEW: Replace getStorageItem with useQuery
-  const { data: metricsData } = useGetHealthMetrics();
-  // NEW: Replace setStorageItem with useMutation
-  const saveMetric = useSaveHealthMetric();
-  
-  // Get current page from pages array
+  const [metricsData, setMetricsData] = useState<Partial<ExtendedHealthMetrics>>({});
+
+  useEffect(() => {
+    // Load existing data
+    const existing = getStorageItem('extendedHealthMetrics', extendedHealthMetricsSchema);
+    if (existing) {
+      setMetricsData(existing);
+    }
+  }, []);
+
   const currentPage = pages[currentPageIndex];
   const currentStep = currentPageIndex + 1;
 
-  const saveData = async (data: Partial<ExtendedHealthMetrics>) => {
-    // NEW: Replace setStorageItem with mutation.mutateAsync
-    await saveMetric.mutateAsync({
-      height: parseFloat(data.height || '0'),
-      weight: parseFloat(data.weight || '0'),
-      systolic: data.bloodPressure ? parseInt(data.bloodPressure.systolic) : null,
-      diastolic: data.bloodPressure ? parseInt(data.bloodPressure.diastolic) : null,
-      bp_date: data.bloodPressure?.date || null,
-      ldl: data.bloodFats?.ldl ? parseFloat(data.bloodFats.ldl) : null,
-      hdl: data.bloodFats?.hdl ? parseFloat(data.bloodFats.hdl) : null,
-      triglycerides: data.bloodFats?.triglycerides ? parseFloat(data.bloodFats.triglycerides) : null,
-      knows_ldl: data.bloodFats?.knowsLDL || null,
-      hba1c: data.bloodGlucose?.hba1c ? parseFloat(data.bloodGlucose.hba1c) : null,
-      fasting_glucose: data.bloodGlucose?.fastingGlucose ? parseFloat(data.bloodGlucose.fastingGlucose) : null,
-    });
+  const saveData = (data: Partial<ExtendedHealthMetrics>) => {
+    const updated = {
+      ...metricsData,
+      ...data,
+      lastUpdated: new Date().toISOString(),
+    };
+    setMetricsData(updated);
+    setStorageItem('extendedHealthMetrics', updated, extendedHealthMetricsSchema);
   };
 
-  const handleNext = async (pageData: any) => {
+  const handleNext = (pageData: any) => {
     // Save the data based on the current page
     switch (currentPage.id) {
       case 'current-measurements':
-        await saveData({ height: pageData.height, weight: pageData.weight });
+        saveData({ height: pageData.height, weight: pageData.weight });
         break;
       case 'blood-pressure':
-        await saveData({ 
+        saveData({ 
           bloodPressure: {
             systolic: pageData.systolic,
             diastolic: pageData.diastolic,
@@ -59,10 +56,10 @@ const HealthMetricsFlow = () => {
         });
         break;
       case 'blood-fats':
-        await saveData({ bloodFats: pageData });
+        saveData({ bloodFats: pageData });
         break;
       case 'blood-glucose':
-        await saveData({ bloodGlucose: pageData });
+        saveData({ bloodGlucose: pageData });
         break;
     }
 
@@ -75,7 +72,7 @@ const HealthMetricsFlow = () => {
   };
 
   const handleSkip = () => {
-    // Move to next page without saving
+    // Move to next page or finish without saving current page data
     if (currentPageIndex < pages.length - 1) {
       setCurrentPageIndex(currentPageIndex + 1);
     } else {
@@ -84,9 +81,25 @@ const HealthMetricsFlow = () => {
   };
 
   const finishFlow = () => {
+    // Mark as completed
+    const completedActivities = getStorageItem('completedActivities', completedActivitiesSchema) || [];
+    const activities = Array.isArray(completedActivities) ? completedActivities : [];
+    const existingActivity = activities.find(a => a.id === 'health-metrics');
+    if (!existingActivity) {
+      activities.push({
+        id: 'health-metrics',
+        title: 'Hälsomått',
+        completedDate: new Date().toISOString(),
+        type: 'health-metrics'
+      });
+      setStorageItem('completedActivities', activities, completedActivitiesSchema);
+    }
+
+    markCardCompleted('health-metrics');
+
     toast({
       title: "Hälsomått sparade",
-      description: "Dina mätningar har sparats i databasen.",
+      description: "Dina mätningar har sparats.",
     });
 
     navigate('/app/today');

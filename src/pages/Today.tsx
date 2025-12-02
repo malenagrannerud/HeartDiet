@@ -6,9 +6,17 @@ import { useNavigate } from "react-router-dom";
 import { tips } from "@/data/tips";
 import TipCard from "@/components/TipCard";
 import { pageTitle, sectionHeading, cardTitle, interactiveCard, pageContainer, headerContainer, pagePadding, standardSpacing, cardTitleSmall, pageSubtitle, sectionSubheading2, bodyTextBald, bodyBaldSub, colors} from "@/lib/design-tokens";
-import { useLatestHealthMetric } from '@/hooks/useHealthMetrics';
-import { useMarkedTips } from '@/hooks/useMarkedTips';
-import { useCardCompletion } from '@/hooks/useCardCompletion';
+import { getStorageItem } from "@/lib/storage";
+import { markedTipsSchema } from "@/lib/schemas";
+import HealthPrioritiesImage from "@/assets/fill.png"; 
+import { 
+  isCardCompletedToday, 
+  cleanupOldCompletions,
+  getCardsToHide,
+  type CardId 
+} from "@/lib/card-completion";
+import { Button } from "@/components/ui/button";
+import { CheckBoxLeft } from "@/components/CheckBoxLeft";
 import { isTipCompletedToday, toggleTipCompletion } from "@/lib/tip-completion";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
@@ -39,15 +47,11 @@ const Today = () => {
   });
   const [tipCompletions, setTipCompletions] = useState<Record<number, boolean>>({});
 
-  // NEW: Replace getStorageItem with useQuery
-  const { data: latestHealthMetric, isLoading: healthMetricLoading } = useLatestHealthMetric();
-  const { data: markedTipsData, isLoading: markedTipsLoading } = useMarkedTips();
-  const { data: cardCompletionData, isLoading: cardCompletionLoading } = useCardCompletion();
-
   useEffect(() => {
-    // NEW: Use marked tips from database
-    if (markedTipsData) {
-      setMarkedTips(markedTipsData);
+    // Load marked tips
+    const savedTips = getStorageItem('markedTips', markedTipsSchema);
+    if (savedTips) {
+      setMarkedTips(savedTips as MarkedTip[]);
     }
     
     // Load tip completions for today
@@ -57,25 +61,25 @@ const Today = () => {
     });
     setTipCompletions(completions);
     
-    // NEW: Use card completion data from database
-    if (cardCompletionData) {
-      // Check completion status for styling
-      setCompletionStatus({
-        tutorial: isCardCompletedToday('tutorial', cardCompletionData),
-        healthGoals: isCardCompletedToday('health-goals', cardCompletionData),
-        medications: isCardCompletedToday('medications', cardCompletionData),
-        healthMetrics: isCardCompletedToday('health-metrics', cardCompletionData)
-      });
-      
-      // Check which cards to hide (completed on previous days)
-      const cardsToHide = getCardsToHide(cardCompletionData);
-      setHiddenCards({
-        tutorial: cardsToHide['tutorial'],
-        healthGoals: cardsToHide['health-goals'],
-        medications: cardsToHide['medications'],
-        healthMetrics: cardsToHide['health-metrics']
-      });
-    }
+    // Clean up old completion records
+    cleanupOldCompletions();
+    
+    // Check completion status for styling
+    setCompletionStatus({
+      tutorial: isCardCompletedToday('tutorial'),
+      healthGoals: isCardCompletedToday('health-goals'),
+      medications: isCardCompletedToday('medications'),
+      healthMetrics: isCardCompletedToday('health-metrics')
+    });
+    
+    // Check which cards to hide (completed on previous days)
+    const cardsToHide = getCardsToHide();
+    setHiddenCards({
+      tutorial: cardsToHide['tutorial'],
+      healthGoals: cardsToHide['health-goals'],
+      medications: cardsToHide['medications'],
+      healthMetrics: cardsToHide['health-metrics']
+    });
     
     // Set up midnight check to hide completed cards
     const now = getCurrentDate();
@@ -84,31 +88,29 @@ const Today = () => {
     const timeUntilMidnight = midnight.getTime() - now.getTime();
     
     const midnightTimer = setTimeout(() => {
-      if (cardCompletionData) {
-        const newCardsToHide = getCardsToHide(cardCompletionData);
-        setHiddenCards({
-          tutorial: newCardsToHide['tutorial'],
-          healthGoals: newCardsToHide['health-goals'],
-          medications: newCardsToHide['medications'],
-          healthMetrics: newCardsToHide['health-metrics']
-        });
-        // Reset completion status for new day
-        setCompletionStatus({
-          tutorial: false,
-          healthGoals: false,
-          medications: false,
-          healthMetrics: false
-        });
-      }
+      const newCardsToHide = getCardsToHide();
+      setHiddenCards({
+        tutorial: newCardsToHide['tutorial'],
+        healthGoals: newCardsToHide['health-goals'],
+        medications: newCardsToHide['medications'],
+        healthMetrics: newCardsToHide['health-metrics']
+      });
+      // Reset completion status for new day
+      setCompletionStatus({
+        tutorial: false,
+        healthGoals: false,
+        medications: false,
+        healthMetrics: false
+      });
     }, timeUntilMidnight);
     
     return () => clearTimeout(midnightTimer);
-  }, [markedTipsData, cardCompletionData]);
+  }, []);
 
   const markedTipsList = tips.filter(tip => markedTips.some(mt => mt.id === tip.id));
 
   // Handler for when user navigates to a card
-  const handleCardNavigation = (cardId: string, path: string) => {
+  const handleCardNavigation = (cardId: CardId, path: string) => {
     navigate(path);
   };
 
@@ -137,22 +139,39 @@ const Today = () => {
   // Check if all start cards are hidden
   const allStartCardsHidden = hiddenCards.tutorial && hiddenCards.healthGoals && hiddenCards.medications && hiddenCards.healthMetrics;
 
-  // Show loading state while fetching data
-  if (healthMetricLoading || markedTipsLoading || cardCompletionLoading) {
-    return (
-      <div className={pageContainer}>
-        <div className="min-h-screen flex items-center justify-center">
-          <p>Laddar...</p>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className={pageContainer}>
       <header className={headerContainer}>
           <h1 className={pageTitle}>Idag</h1>
           <p className={pageSubtitle}>Dagens fokus</p>
+
+           {/* TEMPORARY RESET BUTTON - REMOVE LATER
+              <Button 
+                onClick={() => {
+                  localStorage.clear();
+                  window.location.reload();
+                }}
+                className="bg-red-500 text-white p-2 text-sm mt-2"
+              >
+                🔄 Reset All Data (Testing)
+              </Button>
+              
+               TEMPORARY TEST BUTTON - REMOVE LATER
+              <Button 
+                onClick={() => {
+                  // Advance the simulated date by one day
+                  advanceDay();
+                  
+                  console.log('Advanced to next day');
+                  
+                  // Reload the page to reflect the new "today"
+                  window.location.reload();
+                }}
+                className="bg-blue-500 text-white p-2 text-sm"
+              >
+                🔄 Test Next Day
+              </Button>
+              */}
       </header>
 
       <main className={pagePadding}>
@@ -166,9 +185,7 @@ const Today = () => {
                 <div className="space-y-1">
                   {!hiddenCards.tutorial && (
                     <div className="flex gap-4 items-center">
-                      <div className="w-5 flex justify-center">
-                        <div className={`w-5 h-5 rounded-full ${completionStatus.tutorial ? 'bg-green-500' : 'bg-gray-200'}`} />
-                      </div>
+                      <CheckBoxLeft isCompleted={completionStatus.tutorial} />
                       <div className="flex-1">
                         <StartCard
                           isHidden={false}
@@ -193,9 +210,7 @@ const Today = () => {
 
                   {!hiddenCards.healthGoals && (
                     <div className="flex gap-4 items-center">
-                      <div className="w-5 flex justify-center">
-                        <div className={`w-5 h-5 rounded-full ${completionStatus.healthGoals ? 'bg-green-500' : 'bg-gray-200'}`} />
-                      </div>
+                      <CheckBoxLeft isCompleted={completionStatus.healthGoals} />
                       <div className="flex-1">
                         <StartCard
                           isHidden={false}
@@ -223,9 +238,7 @@ const Today = () => {
 
                   {!hiddenCards.medications && (
                     <div className="flex gap-4 items-center">
-                      <div className="w-5 flex justify-center">
-                        <div className={`w-5 h-5 rounded-full ${completionStatus.medications ? 'bg-green-500' : 'bg-gray-200'}`} />
-                      </div>
+                      <CheckBoxLeft isCompleted={completionStatus.medications} />
                       <div className="flex-1">
                         <StartCard
                           isHidden={false}
@@ -250,9 +263,7 @@ const Today = () => {
 
                   {!hiddenCards.healthMetrics && (
                     <div className="flex gap-4 items-center">
-                      <div className="w-5 flex justify-center">
-                        <div className={`w-5 h-5 rounded-full ${completionStatus.healthMetrics ? 'bg-green-500' : 'bg-gray-200'}`} />
-                      </div>
+                      <CheckBoxLeft isCompleted={completionStatus.healthMetrics} />
                       <div className="flex-1">
                         <StartCard
                           isHidden={false}
@@ -296,6 +307,7 @@ const Today = () => {
                           checked={tipCompletions[tip.id] || false}
                           className="h-7 w-7 transition-all duration-200"
                           style={{
+                            // @ts-ignore - Override primary color for this checkbox to use completion green
                             '--primary': '162 95% 31%',
                           } as React.CSSProperties}
                         />
@@ -309,34 +321,6 @@ const Today = () => {
       </main>
     </div>
   );
-};
-
-// Helper functions that now accept database data
-const isCardCompletedToday = (cardId: string, cardCompletionData: any[]) => {
-  const today = getCurrentDate().toISOString().split('T')[0];
-  return cardCompletionData?.some(
-    (card: any) => card.card_id === cardId && card.completed_date === today
-  ) || false;
-};
-
-const getCardsToHide = (cardCompletionData: any[]) => {
-  const today = getCurrentDate().toISOString().split('T')[0];
-  const cardsToHide = {
-    tutorial: false,
-    'health-goals': false,
-    medications: false,
-    'health-metrics': false
-  };
-  
-  cardCompletionData?.forEach((card: any) => {
-    if (card.completed_date && card.completed_date !== today) {
-      if (card.card_id in cardsToHide) {
-        cardsToHide[card.card_id as keyof typeof cardsToHide] = true;
-      }
-    }
-  });
-  
-  return cardsToHide;
 };
 
 export default Today;

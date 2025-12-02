@@ -180,15 +180,14 @@ const FruitPage = () => {
             <AccordionItem value="bloodpressure">
               <AccordionTrigger className={bodyText}> • Sänker blodtrycket</AccordionTrigger>
               <AccordionContent className={bodyText}>
-                Kalium motverkar effekterna av natrium (salt) och hjälper blodkärlen att slappna av. Nitrater vidgar blodkärlen.   
-                
-                <br />
-                <br />
+                Kalium och nitrater vidgar blodkärlen och sänker blodtrycket. <br />
+                Kalium motverkar effekterna av natrium (salt) och hjälper blodkärlen att slappna av.  
                 Kalum finns i bananer, apelsiner, spenat och potatis, fast potatis inte räknas som frukt och grönt. 
                 
-                <br />
-                <br />
                 
+                
+                <br />
+                Nitrater vidgar blodkärlen. 
                 Nitrater finns i bland annat ruccola, spenat, rödbetor, romansallad och selleri.
                 Ät en näve per dag för att uppnå och upprätthålla en blodtryckssänkande effekten.
                 Nitrater är vattenlösliga. Ät dem råa eller lätt tillagade.
