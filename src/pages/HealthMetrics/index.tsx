@@ -11,6 +11,7 @@ import { getStorageItem, setStorageItem } from "@/lib/storage";
 import { extendedHealthMetricsSchema, completedActivitiesSchema, ExtendedHealthMetrics } from "@/lib/schemas";
 import { markCardCompleted } from "@/lib/card-completion";
 import { sectionHeading, headerContainer, pageContainer, pagePadding } from "@/lib/design-tokens";
+import { useSaveHealthMetric } from '@/hooks/useHealthMetrics';
 
 const HealthMetricsFlow = () => {
   const navigate = useNavigate();
@@ -27,18 +28,27 @@ const HealthMetricsFlow = () => {
     }
   }, []);
 
-  const currentPage = pages[currentPageIndex];
-  const currentStep = currentPageIndex + 1;
+  
 
-  const saveData = (data: Partial<ExtendedHealthMetrics>) => {
-    const updated = {
-      ...metricsData,
-      ...data,
-      lastUpdated: new Date().toISOString(),
-    };
-    setMetricsData(updated);
-    setStorageItem('extendedHealthMetrics', updated, extendedHealthMetricsSchema);
+const HealthMetricsFlow = () => {
+  const saveMetric = useSaveHealthMetric();
+
+  const saveData = async (data: Partial<ExtendedHealthMetrics>) => {
+    await saveMetric.mutateAsync({
+      height: parseFloat(data.height || '0'),
+      weight: parseFloat(data.weight || '0'),
+      systolic: data.bloodPressure ? parseInt(data.bloodPressure.systolic) : null,
+      diastolic: data.bloodPressure ? parseInt(data.bloodPressure.diastolic) : null,
+      bp_date: data.bloodPressure?.date || null,
+      ldl: data.bloodFats?.ldl ? parseFloat(data.bloodFats.ldl) : null,
+      hdl: data.bloodFats?.hdl ? parseFloat(data.bloodFats.hdl) : null,
+      triglycerides: data.bloodFats?.triglycerides ? parseFloat(data.bloodFats.triglycerides) : null,
+      knows_ldl: data.bloodFats?.knowsLDL || null,
+      hba1c: data.bloodGlucose?.hba1c ? parseFloat(data.bloodGlucose.hba1c) : null,
+      fasting_glucose: data.bloodGlucose?.fastingGlucose ? parseFloat(data.bloodGlucose.fastingGlucose) : null,
+    });
   };
+};
 
   const handleNext = (pageData: any) => {
     // Save the data based on the current page
