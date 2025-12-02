@@ -131,17 +131,19 @@ const FruitPage = () => {
               <AccordionContent className={bodyText}>
                 Antioxidanter som C-vitamin, E-vitamin och betakaroten skyddar kroppens celler mot skador från fria radikaler. 
                 Detta minskar inflammation och oxidativ stress, som är kopplade till hjärtsjukdom, cancer och åldrande. 
-                Färgrika grönsaker och frukter innehåller mest antioxidanter.
+                Färgrika grönsaker och frukter innehåller mest antioxidanter.<br /> <br />
 
-                C-vitamin	ökar produktionen av vita blodkroppar (lymfocyter och fagocyter). 
+                C-vitamin	ökar produktionen av vita blodkroppar (lymfocyter och fagocyter).<br /> 
                 C-vitaminrika frukter/grönsaker är svartvinbär, röd paprika, grön paprika och kiwi, broccoli, jordgubbar.
-                
+                <br /><br />
                 E-vitamin	skyddar celmembran och förstärker immuncellers svar, speciellt viktigt vid åldrande.
-                E-vitaminrika frukter/grönsaker är soltorkade tomater (4,3 mg), spenat (kokt) (2,1 mg), mangold (1,9 mg), avokado (1,7 mg), kiwi / broccoli (ca 1,5 mg)
+                E-vitaminrika frukter/grönsaker är soltorkade tomater (4,3 mg), spenat (kokt) (2,1 mg), mangold (1,9 mg), avokado (1,7 mg), kiwi / broccoli (ca 1,5 mg). 
+                <br /><br />
 
                 A-vitamin / Betakaroten	är avgörande för slemhinnornas hälsa (första försvarslinjen i näsa, lungor, tarm). 
                 Reglerar immunceller.	
-                A-vitamin finns i sötpotatis, morötter, mangold / spenat, röda paprikor, mango / aprikos
+                A-vitamin finns i sötpotatis, morötter, mangold / spenat, röda paprikor, mango / aprikos.
+                <br /><br />
 
                 Flavonoider & övriga antioxidanter reglerar immunresponsen, minskar inflammatorisk stress, och kan hindra virus från att fästa till celler.	
                 Finns i bär, druvor, grönt te, citrusfrukt, lök, broccoli.
@@ -152,23 +154,31 @@ const FruitPage = () => {
             <AccordionItem value="energy">
               <AccordionTrigger className={bodyText}> • Energi </AccordionTrigger>
               <AccordionContent className={bodyText}>
-                Naturliga Sockerarter + Fibrer	Ger långsam, jämn frisättning av energi. Fibrerna bromsar nedbrytningen och förhindrar energi- och blodsockerkraschar.	Äpplen, päron, bär, morötter, sötpotatis.
+                Du får energi på grund av naturliga sockerarter och fibrer, B-vitaminer, magnesium och järn. 
+                <br /> <br />
+                Naturliga sockerarter och fibrer	ger långsam, jämn frisättning av energi. 
+                Fibrerna bromsar nedbrytningen och förhindrar energi- och blodsockerkraschar.	
+               <br /> <br />
                 
-                B-Vitaminer (B1, B2, B3, B6)	Avgörande för att omvandla mat till energi (ATP) i cellernas kraftverk (mitokondrierna). Utan B-vitaminer fastnar näringen.	Bladgrönsaker, banan, avokado, baljväxter, fullkorn.
+                B-Vitaminer (B1, B2, B3, B6) är avgörande för att omvandla mat till energi (ATP) i cellernas kraftverk (mitokondrierna). 
+                B-vitaminer finns i	Bladgrönsaker, banan, avokado, baljväxter, fullkorn. <br /> <br />
                 
-                Magnesium	Aktiverar de enzymer som behövs för att skapa energi. Dessutom hjälper det musklerna att slappna av, vilket sparar energi.	Spenat, mangold, banan, avokado, baljväxter, nötter.
+                Magnesium	aktiverar de enzymer som behövs för att skapa energi. 
+                Dessutom hjälper det musklerna att slappna av, vilket sparar energi.	
+                Magnesium finns i spenat, mangold, banan, avokado, baljväxter, nötter. <br /> <br />
                 
-                Järn	bär syret i blodet till cellerna. Spinat, mangold, linser, pumpakärnor, torkade aprikoser.
+                Järn	bär syret i blodet till cellerna. Järn finns i spenat, mangold, linser, pumpakärnor och torkade aprikoser.
               </AccordionContent>
             </AccordionItem>
              
             <AccordionItem value="bloodsugar">
-              <AccordionTrigger className={bodyText}> • Blodsockerreglering</AccordionTrigger>
+              <AccordionTrigger className={bodyText}> • Blodsockerreglering  </AccordionTrigger>
               <AccordionContent className={bodyText}>
-                
+                Bär, gröna grönsaker och frukt med skal är bäst för blodsockerreglering tack vare högt fiberinnehåll. 
+                Undvik juicer, torkad frukt och mycket mogen frukt eller ät dem i små portioner. 
+                Nyckeln är att välja hela, ofta bearbetade alternativ och kombinera med protein för blodsockerreglering.
               </AccordionContent>
             </AccordionItem>
-             
           </Accordion>
         </div>
 
@@ -180,13 +190,10 @@ const FruitPage = () => {
             <AccordionItem value="bloodpressure">
               <AccordionTrigger className={bodyText}> • Sänker blodtrycket</AccordionTrigger>
               <AccordionContent className={bodyText}>
-                Kalium och nitrater vidgar blodkärlen och sänker blodtrycket. <br />
+                Kalium och nitrater vidgar blodkärlen och sänker blodtrycket. <br /> <br />
                 Kalium motverkar effekterna av natrium (salt) och hjälper blodkärlen att slappna av.  
-                Kalum finns i bananer, apelsiner, spenat och potatis, fast potatis inte räknas som frukt och grönt. 
-                
-                
-                
-                <br />
+                Kalum finns i bananer, apelsiner, spenat och potatis med skal, fast potatis inte räknas som frukt och grönt. 
+                 <br /> <br />
                 Nitrater vidgar blodkärlen. 
                 Nitrater finns i bland annat ruccola, spenat, rödbetor, romansallad och selleri.
                 Ät en näve per dag för att uppnå och upprätthålla en blodtryckssänkande effekten.
@@ -197,28 +204,31 @@ const FruitPage = () => {
             <AccordionItem value="inflammantion">
               <AccordionTrigger className={bodyText}> • Minskar inflammation</AccordionTrigger>
               <AccordionContent className={bodyText}>
-                Antioxidanter som C-vitamin, E-vitamin och betakaroten skyddar kroppens celler mot skador från fria radikaler. Detta minskar inflammation och oxidativ stress, som är kopplade till hjärtsjukdom, cancer och åldrande. Färgrika grönsaker och frukt innehåller mest antioxidanter.
+                Antioxidanter som C-vitamin, E-vitamin och betakaroten skyddar kroppens celler mot skador från fria radikaler. 
+                Detta minskar inflammation och oxidativ stress, som är kopplade till hjärtsjukdom, cancer och åldrande. 
+                Färgrika grönsaker och frukt innehåller mest antioxidanter.
               </AccordionContent>
             </AccordionItem>
             
             <AccordionItem value="LDL cholesterole">
               <AccordionTrigger className={bodyText}> • Sänker kolesterolet</AccordionTrigger>
+              Frukter och grönsaker sänker kolesterol genom att öka fiberintaget. 
+              Fiber binder galla (som tillverkas av kolesterol) i tarmarna, 
+              så kroppen måste använda mer kolesterol från blodet för att tillverka ny galla. 
+              Detta sänker LDL ("ont") kolesterolet.
+              <br /> <br />
+
+              Ät hel frukt med skal (inte juice) och många gröna grönsaker. 
+              Kombinera gärna med havre, linser och nötter för maximal effekt.
               <AccordionContent className={bodyText}>
-                Kalium motverkar effekterna av natrium (salt) och hjälper blodkärlen att slappna av, vilket sänker blodtrycket. Bananer, apelsiner, spenat och potatis är rika på kalium. Ett högre kaliumintag är kopplat till lägre risk för stroke och hjärtsjukdom.
-              </AccordionContent>
-            </AccordionItem>
-            
-            <AccordionItem value="vessels">
-              <AccordionTrigger className={bodyText}> • Förbättrar blodkärlens funktion</AccordionTrigger>
-              <AccordionContent className={bodyText}>
-                Kalium motverkar effekterna av natrium (salt) och hjälper blodkärlen att slappna av, vilket sänker blodtrycket. Bananer, apelsiner, spenat och potatis är rika på kalium. Ett högre kaliumintag är kopplat till lägre risk för stroke och hjärtsjukdom.
               </AccordionContent>
             </AccordionItem>
             
             <AccordionItem value="weight">
               <AccordionTrigger className={bodyText}> • Håller vikten</AccordionTrigger>
               <AccordionContent className={bodyText}>
-                Kalium motverkar effekterna av natrium (salt) och hjälper blodkärlen att slappna av, vilket sänker blodtrycket. Bananer, apelsiner, spenat och potatis är rika på kalium. Ett högre kaliumintag är kopplat till lägre risk för stroke och hjärtsjukdom.
+               Frukt och grönsaker minskar inflammation, gör blodkärlen mer flexibla och förhindrar förträngningar 
+                – vilket alla tillsammans förstärker och skyddar blodkärlen mot plackbildning.              
               </AccordionContent>
             </AccordionItem>
             
