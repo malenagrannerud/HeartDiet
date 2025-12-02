@@ -33,13 +33,13 @@ interface DayLog {
 }
 
 const healthPriorityLabels: Record<string, string> = {
-  cholesterol: "Sänk mitt kolesterol",
-  bloodPressure: "Sänk mitt blodtryck",
+  cholesterol: "Hantera mitt kolesterol",
+  bloodPressure: "Hantera mitt blodtryck",
   diabetes: "Minska risken för diabetes typ 2",
   weight: "Viktbalans",
-  general: "Förebygga hjärt- och kärlsjukdom"
+  general: "Bli piggare", 
+  general2: "Förebygg livsstilsrelaterade sjukdomar" 
 };
-
 
 const Progress = () => {
   const navigate = useNavigate();
