@@ -10,7 +10,7 @@ import { getStorageItem } from "@/lib/storage";
 import { extendedHealthMetricsSchema } from "@/lib/schemas";
 
 interface CurrentMeasurementsProps {
-  onNext: (data: { height: string; weight: string }) => void;
+  onNext: (data: { height: string; weight: string; goalWeight?: string }) => void;
   onSkip: () => void;
   currentStep: number;
   totalSteps: number;
@@ -19,18 +19,25 @@ interface CurrentMeasurementsProps {
 export const CurrentMeasurements = ({ onNext, onSkip, currentStep, totalSteps }: CurrentMeasurementsProps) => {
   const [height, setHeight] = useState("");
   const [weight, setWeight] = useState("");
+  const [goalWeight, setGoalWeight] = useState(""); // Added this state
 
   useEffect(() => {
     const data = getStorageItem('extendedHealthMetrics', extendedHealthMetricsSchema);
     if (data) {
       setHeight(data.height || "");
       setWeight(data.weight || "");
+      // Optionally load goalWeight if it exists in your data
+      // setGoalWeight(data.goalWeight || "");
     }
   }, []);
 
   const handleContinue = () => {
     if (height && weight) {
-      onNext({ height, weight });
+      const data: { height: string; weight: string; goalWeight?: string } = { height, weight };
+      if (goalWeight) {
+        data.goalWeight = goalWeight;
+      }
+      onNext(data);
     }
   };
 
@@ -69,16 +76,14 @@ export const CurrentMeasurements = ({ onNext, onSkip, currentStep, totalSteps }:
                 />
               </div>
 
-
-
               <div className="space-y-2">
-                <Label htmlFor="goalWeight">Målvikt (kg)</Label>
+                <Label htmlFor="goalWeight">Målvikt (kg)</Label> {/* Fixed ID */}
                 <Input
-                  id="weight"
+                  id="goalWeight" {/* Fixed ID */}
                   type="number"
                   step="0.1"
                   value={goalWeight}
-                  onChange={(e) => setWeight(e.target.value)}
+                  onChange={(e) => setGoalWeight(e.target.value)} {/* Fixed handler */}
                   placeholder="Ex: 85,5"
                 />
               </div>
