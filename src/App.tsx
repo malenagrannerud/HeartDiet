@@ -1,17 +1,14 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import Auth from './pages/Auth';
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { useState, useEffect } from "react";
 import { getStorageItem, setStorageItem } from "@/lib/storage";
 import { onboardingCompletedSchema } from "@/lib/schemas";
 import Onboarding from "./pages/Onboarding";
 import MainApp from "./pages/MainApp";
 import NotFound from "./pages/NotFound";
-
 
 // Main application wrapper that provides global context providers and routing
 // - React Query for server state management and caching
@@ -21,20 +18,6 @@ import NotFound from "./pages/NotFound";
 // - Onboarding flow: new users see welcome screen, returning users go directly to app
 // - Automatically migrates old localStorage keys for backward compatibility
 
-
-function App() {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/auth" element={<Auth />} />
-        <Route path="/app/*" element={<ProtectedRoute><MainApp /></ProtectedRoute>} />
-        {/* ... other routes */}
-      </Routes>
-    </BrowserRouter>
-  );
-}
-
-// Keep QueryClient for dependency compatibility
 const queryClient = new QueryClient();
 
 const App = () => {
@@ -64,7 +47,12 @@ const App = () => {
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        <BrowserRouter>
+        <BrowserRouter
+          future={{
+            v7_startTransition: true,
+            v7_relativeSplatPath: true,
+          }}
+        >
           <Routes>
             <Route 
               path="/" 

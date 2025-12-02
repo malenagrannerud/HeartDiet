@@ -1130,7 +1130,26 @@ export default function Progress() {
                     placeholder="T.ex. 5.5"
                     className="w-full"
                   />
+                  <p className="text-xs text-muted-foreground mt-1">Målvärde är vanligtvis 4-6 mmol/L</p>
                 </div>
+              </div>
+              
+              <DialogFooter className="gap-3">
+                {existingBloodGlucoseEntry && (
+                  <Button 
+                    variant="destructive" 
+                    onClick={handleDeleteBloodGlucose} 
+                    className="text-base py-6"
+                  >
+                    Radera
+                  </Button>
+                )}
+                <Button variant="outline" onClick={() => setBloodGlucoseDialogOpen(false)} className="text-base py-6">
+                  Avbryt
+                </Button>
+                <Button onClick={handleSaveBloodGlucose} className="text-base py-6">
+                  Spara
+                </Button>
               </DialogFooter>
             </DialogContent>
           </Dialog>
