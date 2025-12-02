@@ -43,6 +43,9 @@ export const CurrentMeasurements = ({ onNext, onSkip, currentStep, totalSteps }:
       </div>
 
       <section className={standardSpacing.sectionContent}>
+        <h2 className={cardTitle}>Basmätningar</h2>
+        <p className={bodyText}>Vi börjar med grundläggande mått för att följa din utveckling.</p>
+
         <div className={standardSpacing.cardList}>
           <Card className={standardCard}>
             <div className="space-y-4">
@@ -53,33 +56,19 @@ export const CurrentMeasurements = ({ onNext, onSkip, currentStep, totalSteps }:
                   type="number"
                   value={height}
                   onChange={(e) => setHeight(e.target.value)}
-                  placeholder="Ex: 175,5"
+                  placeholder="Ex: 175"
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="weight">Vikt (kg)</Label>
+                <Label htmlFor="weight">Nuvarande vikt (kg)</Label>
                 <Input
                   id="weight"
                   type="number"
                   step="0.1"
                   value={weight}
                   onChange={(e) => setWeight(e.target.value)}
-                  placeholder="Ex: 95,5"
-                />
-              </div>
-
-
-
-              <div className="space-y-2">
-                <Label htmlFor="goalWeight">Målvikt (kg)</Label>
-                <Input
-                  id="weight"
-                  type="number"
-                  step="0.1"
-                  value={goalWeight}
-                  onChange={(e) => setWeight(e.target.value)}
-                  placeholder="Ex: 85,5"
+                  placeholder="Ex: 75.5"
                 />
               </div>
             </div>
