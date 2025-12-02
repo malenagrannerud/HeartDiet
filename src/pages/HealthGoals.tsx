@@ -40,7 +40,7 @@ const healthPriorities: HealthPriority[] = [
   },
   {
     id: "general2",
-    label: "Förebygg livsstilsrelaterade sjukdomar",
+    label: "Förebygg hjärt-kärl sjukdomar",
   }
 ];
 
