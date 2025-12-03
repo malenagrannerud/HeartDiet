@@ -30,6 +30,7 @@ export const BloodFats = ({ onNext, onSkip, onBack, currentStep, totalSteps }: B
   const [hdl, setHdl] = useState("");
   const [triglycerides, setTriglycerides] = useState("");
   const [date, setDate] = useState<Date>(new Date());
+  const [isSkipped, setIsSkipped] = useState(false);
 
   useEffect(() => {
     const data = getStorageItem('extendedHealthMetrics', extendedHealthMetricsSchema);
@@ -45,14 +46,55 @@ export const BloodFats = ({ onNext, onSkip, onBack, currentStep, totalSteps }: B
   }, []);
 
   const handleContinue = () => {
-    const data: any = { knowsLDL, date: date.toISOString() };
-    if (knowsLDL === 'detailed') {
-      data.ldl = ldl;
-      data.hdl = hdl;
-      data.triglycerides = triglycerides;
+    if (knowsLDL === 'detailed' && ldl) {
+      // Save detailed data
+      const data: any = { 
+        knowsLDL, 
+        date: date.toISOString(),
+        ldl,
+        hdl: hdl || undefined,
+        triglycerides: triglycerides || undefined
+      };
+      onNext(data);
+    } else if (isSkipped) {
+      // If skipped, just go to next step without data
+      onSkip();
+    } else {
+      // Save only the knowsLDL selection (not detailed values)
+      const data: any = { knowsLDL };
+      if (knowsLDL === 'just-high' || knowsLDL === 'unknown') {
+        data.date = date.toISOString();
+      }
+      onNext(data);
     }
-    onNext(data);
   };
+
+  const handleSkip = () => {
+    // Mark as skipped but don't navigate yet
+    setIsSkipped(true);
+  };
+
+  const handleInputChange = (setter: React.Dispatch<React.SetStateAction<string>>, value: string) => {
+    setter(value);
+    // If user starts typing after skipping, un-mark as skipped
+    if (isSkipped) setIsSkipped(false);
+  };
+
+  const handleRadioChange = (value: string) => {
+    setKnowsLDL(value);
+    // If user changes radio after skipping, un-mark as skipped
+    if (isSkipped) setIsSkipped(false);
+  };
+
+  // Nästa button is enabled if:
+  // 1. User selected "detailed" AND filled LDL, OR
+  // 2. User selected "just-high" or "unknown", OR
+  // 3. User clicked "Senare" (isSkipped)
+  const isValid = 
+    isSkipped || 
+    (knowsLDL === 'detailed' && ldl !== "") || 
+    knowsLDL === 'just-high' || 
+    knowsLDL === 'unknown';
 
   return (
     <div className={standardSpacing.pageContent}>
@@ -73,7 +115,7 @@ export const BloodFats = ({ onNext, onSkip, onBack, currentStep, totalSteps }: B
             <div className="space-y-4">
               <div className="space-y-3">
                 <Label>Vet du dina kolesterolvärden?</Label>
-                <RadioGroup value={knowsLDL} onValueChange={setKnowsLDL}>
+                <RadioGroup value={knowsLDL} onValueChange={handleRadioChange}>
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="detailed" id="detailed" />
                     <Label htmlFor="detailed" className="font-normal cursor-pointer">
@@ -104,7 +146,7 @@ export const BloodFats = ({ onNext, onSkip, onBack, currentStep, totalSteps }: B
                       type="number"
                       step="0.1"
                       value={ldl}
-                      onChange={(e) => setLdl(e.target.value)}
+                      onChange={(e) => handleInputChange(setLdl, e.target.value)}
                       placeholder="Ex: 3.5"
                     />
                   </div>
@@ -116,7 +158,7 @@ export const BloodFats = ({ onNext, onSkip, onBack, currentStep, totalSteps }: B
                       type="number"
                       step="0.1"
                       value={hdl}
-                      onChange={(e) => setHdl(e.target.value)}
+                      onChange={(e) => handleInputChange(setHdl, e.target.value)}
                       placeholder="Ex: 1.5"
                     />
                   </div>
@@ -128,7 +170,7 @@ export const BloodFats = ({ onNext, onSkip, onBack, currentStep, totalSteps }: B
                       type="number"
                       step="0.1"
                       value={triglycerides}
-                      onChange={(e) => setTriglycerides(e.target.value)}
+                      onChange={(e) => handleInputChange(setTriglycerides, e.target.value)}
                       placeholder="Ex: 1.7"
                     />
                   </div>
@@ -152,7 +194,13 @@ export const BloodFats = ({ onNext, onSkip, onBack, currentStep, totalSteps }: B
                         <Calendar
                           mode="single"
                           selected={date}
-                          onSelect={(newDate) => newDate && setDate(newDate)}
+                          onSelect={(newDate) => {
+                            if (newDate) {
+                              setDate(newDate);
+                              // If user selects date after skipping, un-mark as skipped
+                              if (isSkipped) setIsSkipped(false);
+                            }
+                          }}
                           initialFocus
                           locale={sv}
                           className="pointer-events-auto"
@@ -162,9 +210,11 @@ export const BloodFats = ({ onNext, onSkip, onBack, currentStep, totalSteps }: B
                   </div>
                 </div>
               )}
+
+              {/* Only Senare button inside card */}
               <Button
                 variant="ghost"
-                onClick={onSkip}
+                onClick={handleSkip}
                 className="w-full text-muted-foreground"
               >
                 Senare
@@ -176,6 +226,7 @@ export const BloodFats = ({ onNext, onSkip, onBack, currentStep, totalSteps }: B
       </section>
 
       <section className={standardSpacing.sectionContent}>
+        {/* Tillbaka and Nästa horizontally aligned under the card */}
         <div className="flex gap-3">
           <Button
             variant="outline"
@@ -187,6 +238,7 @@ export const BloodFats = ({ onNext, onSkip, onBack, currentStep, totalSteps }: B
           </Button>
           <Button
             onClick={handleContinue}
+            disabled={!isValid}
             className={`flex-1 ${primaryButton}`}
           >
             Nästa
