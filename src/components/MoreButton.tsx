@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { ChevronRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 interface MoreButtonProps {
   label?: string;
@@ -25,7 +25,7 @@ export const MoreButton = ({
       )}
     >
       {label}
-      <ChevronRight size={14} />
+      <ArrowRight size={14} />
     </button>
   );
 };

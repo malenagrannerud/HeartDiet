@@ -827,47 +827,20 @@ const Progress = () => {
               type="bloodPressure" 
               dayLogs={dayLogs} 
               goalBloodPressure={goalBloodPressure}
-              onClick={() => {
-                if (expandedChart === 'bloodPressure') {
-                  openGoalEditDialog('bloodPressure');
-                } else {
-                  setExpandedChart('bloodPressure');
-                }
-              }}
-              isExpanded={expandedChart === 'bloodPressure'}
-              onCollapse={() => setExpandedChart(null)}
-              onMoreClick={() => setExpandedChart('bloodPressure')}
+              onMoreClick={() => navigate('/app/progress/bloodPressure')}
             />
             <ProgressChart 
               type="weight" 
               dayLogs={dayLogs} 
               goalWeight={goalWeight}
-              onClick={() => {
-                if (expandedChart === 'weight') {
-                  openGoalEditDialog('weight');
-                } else {
-                  setExpandedChart('weight');
-                }
-              }}
-              isExpanded={expandedChart === 'weight'}
-              onCollapse={() => setExpandedChart(null)}
-              onMoreClick={() => setExpandedChart('weight')}
+              onMoreClick={() => navigate('/app/progress/weight')}
             />
             {showBloodFats && (
               <ProgressChart 
                 type="bloodFats" 
                 dayLogs={dayLogs}
                 goalBloodFats={goalBloodFats}
-                onClick={() => {
-                  if (expandedChart === 'bloodFats') {
-                    openGoalEditDialog('bloodFats');
-                  } else {
-                    setExpandedChart('bloodFats');
-                  }
-                }}
-                isExpanded={expandedChart === 'bloodFats'}
-                onCollapse={() => setExpandedChart(null)}
-                onMoreClick={() => setExpandedChart('bloodFats')}
+                onMoreClick={() => navigate('/app/progress/bloodFats')}
               />
             )}
             {showBloodGlucose && (
@@ -875,16 +848,7 @@ const Progress = () => {
                 type="bloodGlucose" 
                 dayLogs={dayLogs}
                 goalBloodGlucose={goalBloodGlucose}
-                onClick={() => {
-                  if (expandedChart === 'bloodGlucose') {
-                    openGoalEditDialog('bloodGlucose');
-                  } else {
-                    setExpandedChart('bloodGlucose');
-                  }
-                }}
-                isExpanded={expandedChart === 'bloodGlucose'}
-                onCollapse={() => setExpandedChart(null)}
-                onMoreClick={() => setExpandedChart('bloodGlucose')}
+                onMoreClick={() => navigate('/app/progress/bloodGlucose')}
               />
             )}
           </div>

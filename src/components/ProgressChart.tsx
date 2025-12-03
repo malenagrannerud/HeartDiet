@@ -1,10 +1,8 @@
 import { format } from "date-fns";
 import { sv } from "date-fns/locale";
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, LabelList, ReferenceLine } from 'recharts';
-import { X } from "lucide-react";
 import { ChartContainer } from "@/components/ui/chart";
 import { StatsBox } from "@/components/StatsBox";
-import { Button } from "@/components/ui/button";
 import { MoreButton } from "@/components/MoreButton";
 import { bodyTextBald, cardTextSmall } from "@/lib/design-tokens";
 
@@ -26,9 +24,6 @@ interface ProgressChartProps {
   goalBloodPressure?: { systolic: number; diastolic: number };
   goalBloodFats?: { ldl?: number; hdl?: number };
   goalBloodGlucose?: { hba1c?: number; fastingGlucose?: number };
-  onClick?: () => void;
-  isExpanded?: boolean;
-  onCollapse?: () => void;
   onMoreClick?: () => void;
 }
 
@@ -39,9 +34,6 @@ export const ProgressChart: React.FC<ProgressChartProps> = ({
   goalBloodPressure, 
   goalBloodFats,
   goalBloodGlucose,
-  onClick, 
-  isExpanded = false,
-  onCollapse,
   onMoreClick
 }) => {
   const isWeight = type === 'weight';
@@ -63,7 +55,7 @@ export const ProgressChart: React.FC<ProgressChartProps> = ({
     )
     .sort((a, b) => new Date(a.fullDate).getTime() - new Date(b.fullDate).getTime());
   
-  const chartData = isExpanded ? allChartData : allChartData.slice(-10);
+  const chartData = allChartData.slice(-10);
 
   const getChartConfig = () => {
     if (isWeight) return { weight: { label: "Vikt", color: "hsla(204, 37%, 48%, 1.00)" } };
@@ -127,53 +119,18 @@ export const ProgressChart: React.FC<ProgressChartProps> = ({
   const goalLabel = getGoalLabel();
 
   return (
-    <StatsBox onClick={!isExpanded ? onClick : undefined}>
+    <StatsBox>
     <div className="flex flex-col gap-4">
       <div className="flex justify-between items-start">
         <div>
           <div className={bodyTextBald}>{title}</div>
           <div className={cardTextSmall}>{subtitle}</div>
         </div>
-        <div className="flex items-center gap-2">
-          {!isExpanded && onMoreClick && (
-            <MoreButton label="Detaljer" onClick={onMoreClick} />
-          )}
-          {isExpanded && onCollapse && (
-            <Button 
-              variant="ghost" 
-              size="sm"
-              onClick={(e) => {
-                e.stopPropagation();
-                onCollapse();
-              }}
-              className="h-8 w-8 p-0"
-            >
-              <X className="h-4 w-4" />
-            </Button>
-          )}
-        </div>
       </div>
-      {isExpanded && chartData.length > 0 && (
-        <>
-          <div className="space-y-2 max-h-64 overflow-y-auto">
-            {chartData.map((entry, idx) => (
-              <div key={idx} className="flex justify-between items-center py-2 px-3 bg-muted/30 rounded">
-                <span className="text-sm font-medium">{format(new Date(entry.fullDate), 'd MMMM yyyy', { locale: sv })}</span>
-                <span className="text-sm font-semibold">{formatter(entry.value)}</span>
-              </div>
-            ))}
-          </div>
-          <Button onClick={onClick} variant="outline" className="w-full">
-            Ändra mål
-          </Button>
-        </>
-      )}
-      {!isExpanded && (
-        <ChartContainer config={chartConfig} className="h-48 w-full">
+      <ChartContainer config={chartConfig} className="h-48 w-full">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart 
             data={[...chartData].sort((a, b) => {
-              // Safe date comparison
               const dateA = new Date(a.date).getTime();
               const dateB = new Date(b.date).getTime();
               return dateA - dateB;
@@ -214,6 +171,10 @@ export const ProgressChart: React.FC<ProgressChartProps> = ({
           </BarChart>
         </ResponsiveContainer>
       </ChartContainer>
+      {onMoreClick && (
+        <div className="flex justify-end">
+          <MoreButton label="Detaljer" onClick={onMoreClick} />
+        </div>
       )}
     </div>
   </StatsBox>
