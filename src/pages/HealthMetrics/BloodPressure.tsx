@@ -27,6 +27,7 @@ export const BloodPressure = ({ onNext, onSkip, onBack, currentStep, totalSteps 
   const [systolic, setSystolic] = useState("");
   const [diastolic, setDiastolic] = useState("");
   const [date, setDate] = useState<Date>(new Date());
+  const [skipped, setSkipped] = useState(false);
 
   useEffect(() => {
     const data = getStorageItem('extendedHealthMetrics', extendedHealthMetricsSchema);
@@ -46,10 +47,16 @@ export const BloodPressure = ({ onNext, onSkip, onBack, currentStep, totalSteps 
         diastolic, 
         date: date.toISOString() 
       });
+    } else {
+      onSkip();
     }
   };
 
-  const isValid = systolic !== "" && diastolic !== "";
+  const isValid = skipped || (systolic !== "" && diastolic !== "");
+
+  const handleSkip = () => {
+    setSkipped(true);
+  };
 
   return (
     <div className={standardSpacing.pageContent}>
@@ -122,7 +129,7 @@ export const BloodPressure = ({ onNext, onSkip, onBack, currentStep, totalSteps 
 
               <Button
                 variant="ghost"
-                onClick={onSkip}
+                onClick={handleSkip}
                 className="w-full text-muted-foreground"
               >
                 Senare
@@ -145,7 +152,6 @@ export const BloodPressure = ({ onNext, onSkip, onBack, currentStep, totalSteps 
           </Button>
           <Button
             onClick={handleContinue}
-            disabled={!isValid}
             className={`flex-1 ${primaryButton}`}
           >
             Nästa

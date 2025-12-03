@@ -20,6 +20,7 @@ export const CurrentMeasurements = ({ onNext, onSkip, currentStep, totalSteps }:
   const [height, setHeight] = useState("");
   const [weight, setWeight] = useState("");
   const [goalWeight, setGoalWeight] = useState("");
+  const [skipped, setSkipped] = useState(false);
 
   useEffect(() => {
     // Load from extendedHealthMetrics
@@ -42,7 +43,11 @@ export const CurrentMeasurements = ({ onNext, onSkip, currentStep, totalSteps }:
     }
   };
 
-  const isValid = height !== "" && weight !== "";
+  const isValid = skipped || (height !== "" && weight !== "");
+
+  const handleSkip = () => {
+    setSkipped(true);
+  };
 
   return (
     <div className={standardSpacing.pageContent}>
@@ -94,7 +99,7 @@ export const CurrentMeasurements = ({ onNext, onSkip, currentStep, totalSteps }:
 
               <Button
                 variant="ghost"
-                onClick={onSkip}
+                onClick={handleSkip}
                 className="w-full text-muted-foreground"
               >
                 Senare
@@ -107,8 +112,7 @@ export const CurrentMeasurements = ({ onNext, onSkip, currentStep, totalSteps }:
 
       <section className={standardSpacing.sectionContent}>
         <Button
-          onClick={handleContinue}
-          disabled={!isValid}
+          onClick={isValid ? handleContinue : onSkip}
           className={`w-full ${primaryButton}`}
         >
           Nästa
