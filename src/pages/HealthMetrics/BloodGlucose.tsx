@@ -27,7 +27,7 @@ export const BloodGlucose = ({ onNext, onSkip, onBack, currentStep, totalSteps }
   const [hba1c, setHba1c] = useState("");
   const [fastingGlucose, setFastingGlucose] = useState("");
   const [date, setDate] = useState<Date>(new Date());
-  const [skipped, setSkipped] = useState(false);
+  const [isSkipped, setIsSkipped] = useState(false);
 
   useEffect(() => {
     const data = getStorageItem('extendedHealthMetrics', extendedHealthMetricsSchema);
@@ -41,17 +41,39 @@ export const BloodGlucose = ({ onNext, onSkip, onBack, currentStep, totalSteps }
   }, []);
 
   const handleSave = () => {
-    const data: any = { date: date.toISOString() };
-    if (hba1c) data.hba1c = hba1c;
-    if (fastingGlucose) data.fastingGlucose = fastingGlucose;
-    onNext(data);
+    if (hba1c || fastingGlucose) {
+      // Save actual data
+      const data: any = { date: date.toISOString() };
+      if (hba1c) data.hba1c = hba1c;
+      if (fastingGlucose) data.fastingGlucose = fastingGlucose;
+      onNext(data);
+    } else if (isSkipped) {
+      // If skipped, just skip without saving data
+      onSkip();
+    }
   };
-
-  const hasValue = skipped || hba1c !== "" || fastingGlucose !== "";
 
   const handleSkip = () => {
-    setSkipped(true);
+    // Mark as skipped but don't navigate yet
+    setIsSkipped(true);
   };
+
+  const handleInputChange = (setter: React.Dispatch<React.SetStateAction<string>>, value: string) => {
+    setter(value);
+    // If user starts typing after skipping, un-mark as skipped
+    if (isSkipped) setIsSkipped(false);
+  };
+
+  const handleDateChange = (newDate: Date | undefined) => {
+    if (newDate) {
+      setDate(newDate);
+      // If user selects date after skipping, un-mark as skipped
+      if (isSkipped) setIsSkipped(false);
+    }
+  };
+
+  // Spara button is enabled if user has entered data OR marked as skipped
+  const isValid = isSkipped || hba1c !== "" || fastingGlucose !== "";
 
   return (
     <div className={standardSpacing.pageContent}>
@@ -63,7 +85,7 @@ export const BloodGlucose = ({ onNext, onSkip, onBack, currentStep, totalSteps }
         <h2 className={cardTitle}>Blodsocker</h2>
         
         <EducationalHint 
-          context="Eftersom du fokuserar på blodsockret, låt oss se var du står"
+          context="Info"
           message="Målvärde för HbA1c är vanligtvis under 52 mmol/mol (7%)"
         />
 
@@ -76,7 +98,7 @@ export const BloodGlucose = ({ onNext, onSkip, onBack, currentStep, totalSteps }
                   id="hba1c"
                   type="text"
                   value={hba1c}
-                  onChange={(e) => setHba1c(e.target.value)}
+                  onChange={(e) => handleInputChange(setHba1c, e.target.value)}
                   placeholder="Ex: 48 eller 6.5%"
                 />
               </div>
@@ -99,7 +121,7 @@ export const BloodGlucose = ({ onNext, onSkip, onBack, currentStep, totalSteps }
                   type="number"
                   step="0.1"
                   value={fastingGlucose}
-                  onChange={(e) => setFastingGlucose(e.target.value)}
+                  onChange={(e) => handleInputChange(setFastingGlucose, e.target.value)}
                   placeholder="Ex: 5.6"
                 />
               </div>
@@ -123,7 +145,7 @@ export const BloodGlucose = ({ onNext, onSkip, onBack, currentStep, totalSteps }
                     <Calendar
                       mode="single"
                       selected={date}
-                      onSelect={(newDate) => newDate && setDate(newDate)}
+                      onSelect={handleDateChange}
                       initialFocus
                       locale={sv}
                       className="pointer-events-auto"
@@ -136,6 +158,7 @@ export const BloodGlucose = ({ onNext, onSkip, onBack, currentStep, totalSteps }
                 Fyll i det värde du känner till. Du behöver inte ha båda.
               </p>
 
+              {/* Only Senare button inside card */}
               <Button
                 variant="ghost"
                 onClick={handleSkip}
@@ -150,6 +173,7 @@ export const BloodGlucose = ({ onNext, onSkip, onBack, currentStep, totalSteps }
       </section>
 
       <section className={standardSpacing.sectionContent}>
+        {/* Tillbaka and Spara horizontally aligned under the card */}
         <div className="flex gap-3">
           <Button
             variant="outline"
@@ -160,7 +184,8 @@ export const BloodGlucose = ({ onNext, onSkip, onBack, currentStep, totalSteps }
             Tillbaka
           </Button>
           <Button
-            onClick={hasValue ? handleSave : onSkip}
+            onClick={handleSave}
+            disabled={!isValid}
             className={`flex-1 ${primaryButton}`}
           >
             <Check className="mr-2 h-4 w-4" />
