@@ -123,16 +123,12 @@ export const CurrentMeasurements = ({ onNext, onSkip, currentStep, totalSteps }:
       </section>
 
       {/* Nästa button fixed at the bottom */}
-      <section className="fixed bottom-6 left-0 right-0 px-4 z-10">
+      <section className="fixed bottom-8 left-0 right-0 px-4 z-10">
         <div className="max-w-md mx-auto">
-          <Button
-            onClick={handleContinue}
-            disabled={!isValid}
-            className={`w-full ${primaryButton} py-3 text-base`}
-          >
-            Nästa
-            <ArrowRight className="ml-2 h-5 w-5" />
-          </Button>
+          <Button onClick={handleNext} className="w-2/3 h-12 text-base" size="lg">
+                Nästa
+                <ChevronRight className="ml-2 h-5 w-5" />
+              </Button>
         </div>
       </section>
     </div>
