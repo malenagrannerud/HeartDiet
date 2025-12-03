@@ -104,12 +104,6 @@ export const BloodFats = ({ onNext, onSkip, onBack, currentStep, totalSteps }: B
 
       <section className={standardSpacing.sectionContent}>
         <h2 className={cardTitle}>Blodfetter</h2>
-        
-        <EducationalHint 
-          context="Eftersom du jobbar med kolesterolet, låt oss få ditt startvärde"
-          message="Detta hjälper oss ge bättre rekommendationer"
-        />
-
         <div className={standardSpacing.cardList}>
           <Card className={standardCard}>
             <div className="space-y-4">
@@ -220,6 +214,7 @@ export const BloodFats = ({ onNext, onSkip, onBack, currentStep, totalSteps }: B
                 Senare
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
+              
             </div>
           </Card>
         </div>
