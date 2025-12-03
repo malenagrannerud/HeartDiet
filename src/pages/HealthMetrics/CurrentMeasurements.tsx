@@ -117,7 +117,12 @@ export const CurrentMeasurements = ({ onNext, onSkip, currentStep, totalSteps }:
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
                 
-                <Button
+                
+              </div>
+            </div>
+          </Card>
+
+          <Button
                   onClick={handleContinue}
                   disabled={!isValid}
                   className={`flex-1 ${primaryButton}`}
@@ -125,9 +130,6 @@ export const CurrentMeasurements = ({ onNext, onSkip, currentStep, totalSteps }:
                   Nästa
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
-              </div>
-            </div>
-          </Card>
         </div>
       </section>
     </div>
