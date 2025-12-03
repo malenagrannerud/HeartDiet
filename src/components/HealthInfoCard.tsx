@@ -1,5 +1,6 @@
 import { LucideIcon } from "lucide-react";
 import { StatsBox } from "@/components/StatsBox";
+import { MoreButton } from "@/components/MoreButton";
 import { bodyTextBald, cardTextSmallBold, cardTextSmall } from "@/lib/design-tokens";
 
 interface HealthInfoCardProps {
@@ -8,6 +9,7 @@ interface HealthInfoCardProps {
   items: Array<{ id: string; label: string }>;
   emptyMessage: string;
   onClick: () => void;
+  buttonLabel?: string;
 }
 
 export const HealthInfoCard = ({ 
@@ -15,18 +17,22 @@ export const HealthInfoCard = ({
   title, 
   items, 
   emptyMessage, 
-  onClick 
+  onClick,
+  buttonLabel = "Ändra"
 }: HealthInfoCardProps) => {
   return (
-    <StatsBox onClick={onClick}>
+    <StatsBox>
       <div className="flex flex-col gap-4">
-        <div className="flex items-center gap-3">
-          <div className="p-2 bg-primary/10 rounded">
-            <Icon size={20} className="text-primary" />
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="p-2 bg-primary/10 rounded">
+              <Icon size={20} className="text-primary" />
+            </div>
+            <div>
+              <div className={bodyTextBald}>{title}</div>
+            </div>
           </div>
-          <div>
-            <div className={bodyTextBald}>{title}</div>
-          </div>
+          <MoreButton label={buttonLabel} onClick={onClick} />
         </div>
         {items.length > 0 ? (
           <div className="space-y-1">
