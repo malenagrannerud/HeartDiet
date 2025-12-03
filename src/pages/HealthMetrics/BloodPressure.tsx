@@ -141,31 +141,22 @@ export const BloodPressure = ({ onNext, onSkip, onBack, currentStep, totalSteps 
                 </Popover>
               </div>
 
-              <div className="flex gap-3 pt-2">
-                <Button
-                  variant="ghost"
-                  onClick={handleSkip}
-                  className="flex-1 text-muted-foreground"
-                >
-                  Senare
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-                
-                <Button
-                  onClick={handleContinue}
-                  disabled={!isValid}
-                  className={`flex-1 ${primaryButton}`}
-                >
-                  Nästa
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </div>
+              {/* Only Senare button inside card */}
+              <Button
+                variant="ghost"
+                onClick={handleSkip}
+                className="w-full text-muted-foreground"
+              >
+                Senare
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
             </div>
           </Card>
         </div>
       </section>
 
       <section className={standardSpacing.sectionContent}>
+        {/* Tillbaka and Nästa horizontally aligned under the card */}
         <div className="flex gap-3">
           <Button
             variant="outline"
@@ -174,6 +165,14 @@ export const BloodPressure = ({ onNext, onSkip, onBack, currentStep, totalSteps 
           >
             <ArrowLeft className="mr-2 h-4 w-4" />
             Tillbaka
+          </Button>
+          <Button
+            onClick={handleContinue}
+            disabled={!isValid}
+            className={`flex-1 ${primaryButton}`}
+          >
+            Nästa
+            <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         </div>
       </section>
