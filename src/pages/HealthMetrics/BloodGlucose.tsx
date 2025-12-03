@@ -27,6 +27,7 @@ export const BloodGlucose = ({ onNext, onSkip, onBack, currentStep, totalSteps }
   const [hba1c, setHba1c] = useState("");
   const [fastingGlucose, setFastingGlucose] = useState("");
   const [date, setDate] = useState<Date>(new Date());
+  const [skipped, setSkipped] = useState(false);
 
   useEffect(() => {
     const data = getStorageItem('extendedHealthMetrics', extendedHealthMetricsSchema);
@@ -46,7 +47,11 @@ export const BloodGlucose = ({ onNext, onSkip, onBack, currentStep, totalSteps }
     onNext(data);
   };
 
-  const hasValue = hba1c !== "" || fastingGlucose !== "";
+  const hasValue = skipped || hba1c !== "" || fastingGlucose !== "";
+
+  const handleSkip = () => {
+    setSkipped(true);
+  };
 
   return (
     <div className={standardSpacing.pageContent}>
@@ -133,7 +138,7 @@ export const BloodGlucose = ({ onNext, onSkip, onBack, currentStep, totalSteps }
 
               <Button
                 variant="ghost"
-                onClick={onSkip}
+                onClick={handleSkip}
                 className="w-full text-muted-foreground"
               >
                 Senare
@@ -155,8 +160,7 @@ export const BloodGlucose = ({ onNext, onSkip, onBack, currentStep, totalSteps }
             Tillbaka
           </Button>
           <Button
-            onClick={handleSave}
-            disabled={!hasValue}
+            onClick={hasValue ? handleSave : onSkip}
             className={`flex-1 ${primaryButton}`}
           >
             <Check className="mr-2 h-4 w-4" />
