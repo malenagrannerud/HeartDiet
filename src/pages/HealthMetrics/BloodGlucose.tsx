@@ -130,38 +130,37 @@ export const BloodGlucose = ({ onNext, onSkip, onBack, currentStep, totalSteps }
               <p className={`${bodyText} text-muted-foreground text-sm`}>
                 Fyll i det värde du känner till. Du behöver inte ha båda.
               </p>
+
+              <Button
+                variant="ghost"
+                onClick={onSkip}
+                className="w-full text-muted-foreground"
+              >
+                Senare
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
             </div>
           </Card>
         </div>
       </section>
 
       <section className={standardSpacing.sectionContent}>
-        <div className="space-y-3">
-          <div className="flex gap-3">
-            <Button
-              variant="outline"
-              onClick={onBack}
-              className="flex-1"
-            >
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Tillbaka
-            </Button>
-            <Button
-              onClick={handleSave}
-              disabled={!hasValue}
-              className={`flex-1 ${primaryButton}`}
-            >
-              <Check className="mr-2 h-4 w-4" />
-              Spara
-            </Button>
-          </div>
+        <div className="flex gap-3">
           <Button
             variant="outline"
-            onClick={onSkip}
-            className="w-full"
+            onClick={onBack}
+            className="flex-1"
           >
-            Senare
-            <ArrowRight className="ml-2 h-4 w-4" />
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            Tillbaka
+          </Button>
+          <Button
+            onClick={handleSave}
+            disabled={!hasValue}
+            className={`flex-1 ${primaryButton}`}
+          >
+            <Check className="mr-2 h-4 w-4" />
+            Spara
           </Button>
         </div>
       </section>

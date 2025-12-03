@@ -91,30 +91,29 @@ export const CurrentMeasurements = ({ onNext, onSkip, currentStep, totalSteps }:
                   placeholder="Ex: 70"
                 />
               </div>
+
+              <Button
+                variant="ghost"
+                onClick={onSkip}
+                className="w-full text-muted-foreground"
+              >
+                Senare
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
             </div>
           </Card>
         </div>
       </section>
 
       <section className={standardSpacing.sectionContent}>
-        <div className="space-y-3">
-          <Button
-            onClick={handleContinue}
-            disabled={!isValid}
-            className={primaryButton}
-          >
-            Nästa
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
-          <Button
-            variant="outline"
-            onClick={onSkip}
-            className="w-full"
-          >
-            Senare
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
-        </div>
+        <Button
+          onClick={handleContinue}
+          disabled={!isValid}
+          className={`w-full ${primaryButton}`}
+        >
+          Nästa
+          <ArrowRight className="ml-2 h-4 w-4" />
+        </Button>
       </section>
     </div>
   );
