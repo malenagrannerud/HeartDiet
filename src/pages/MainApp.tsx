@@ -20,6 +20,10 @@ import HealthGoals from "./HealthGoals";
 import Medications from "./Medications";
 import HealthMetricsFlow from "./HealthMetrics";
 import Settings from "./Settings";
+import BMI from "./BMI";
+import BP from "./BP";
+import Cholesterol from "./Cholesterol";
+import Diabetes from "./Diabetes";
 
 const MainApp = () => {
   const location = useLocation();
@@ -52,6 +56,10 @@ const MainApp = () => {
           <Route path="/medications" element={<Medications />} />
           <Route path="/health-metrics/*" element={<HealthMetricsFlow />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/bmi" element={<BMI />} />
+          <Route path="/bp" element={<BP />} />
+          <Route path="/cholesterol" element={<Cholesterol />} />
+          <Route path="/diabetes" element={<Diabetes />} />
         </Routes>
       </div>
       {showBottomNav && <BottomNav />}
