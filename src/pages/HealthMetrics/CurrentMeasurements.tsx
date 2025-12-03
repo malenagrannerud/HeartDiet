@@ -56,12 +56,10 @@ export const CurrentMeasurements = ({ onNext, onSkip, currentStep, totalSteps }:
       </div>
 
       <section className={standardSpacing.sectionContent}>
-        <h2 className={cardTitle}>Basmätningar</h2>
-        <p className={bodyText}>Vi börjar med grundläggande mått för att följa din utveckling.</p>
-
         <div className={standardSpacing.cardList}>
           <Card className={standardCard}>
             <div className="space-y-4">
+              
               <div className="space-y-2">
                 <Label htmlFor="height">Längd (cm)</Label>
                 <Input
@@ -70,6 +68,7 @@ export const CurrentMeasurements = ({ onNext, onSkip, currentStep, totalSteps }:
                   value={height}
                   onChange={(e) => setHeight(e.target.value)}
                   placeholder="Ex: 175"
+                  className="placeholder:text-gray-300"
                 />
               </div>
 
