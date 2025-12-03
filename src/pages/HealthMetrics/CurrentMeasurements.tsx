@@ -109,27 +109,30 @@ export const CurrentMeasurements = ({ onNext, onSkip, currentStep, totalSteps }:
 
               <div className="flex gap-3 pt-2">
                 <Button
-                  variant="ghost"
+                  variant="secondary"
                   onClick={handleSkip}
                   className="flex-1 text-muted-foreground"
                 >
                   Senare
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
-                
-                
               </div>
             </div>
           </Card>
+        </div>
+      </section>
 
+      {/* Nästa button fixed at the bottom */}
+      <section className="sticky bottom-6 left-0 right-0 px-4 z-10">
+        <div className="max-w-md mx-auto">
           <Button
-                  onClick={handleContinue}
-                  disabled={!isValid}
-                  className={`flex-1 ${primaryButton}`}
-                >
-                  Nästa
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
+            onClick={handleContinue}
+            disabled={!isValid}
+            className={`w-full ${primaryButton} py-3 text-base`}
+          >
+            Nästa
+            <ArrowRight className="ml-2 h-5 w-5" />
+          </Button>
         </div>
       </section>
     </div>
