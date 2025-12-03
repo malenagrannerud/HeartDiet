@@ -46,8 +46,6 @@ export const BloodGlucose = ({ onNext, onSkip, onBack, currentStep, totalSteps }
     onNext(data);
   };
 
-  const hasValue = hba1c !== "" || fastingGlucose !== "";
-
   return (
     <div className={standardSpacing.pageContent}>
       <div className="mb-6">
@@ -130,39 +128,36 @@ export const BloodGlucose = ({ onNext, onSkip, onBack, currentStep, totalSteps }
               <p className={`${bodyText} text-muted-foreground text-sm`}>
                 Fyll i det värde du känner till. Du behöver inte ha båda.
               </p>
+
+              <div className="pt-4 border-t space-y-3">
+                <div className="flex gap-3">
+                  <Button
+                    variant="outline"
+                    onClick={onBack}
+                    className="flex-1"
+                  >
+                    <ArrowLeft className="mr-2 h-4 w-4" />
+                    Tillbaka
+                  </Button>
+                  <Button
+                    onClick={handleSave}
+                    className={`flex-1 ${primaryButton}`}
+                  >
+                    <Check className="mr-2 h-4 w-4" />
+                    Spara
+                  </Button>
+                </div>
+                <Button
+                  variant="outline"
+                  onClick={onSkip}
+                  className="w-full"
+                >
+                  Senare
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </div>
             </div>
           </Card>
-        </div>
-      </section>
-
-      <section className={standardSpacing.sectionContent}>
-        <div className="space-y-3">
-          <div className="flex gap-3">
-            <Button
-              variant="outline"
-              onClick={onBack}
-              className="flex-1"
-            >
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Tillbaka
-            </Button>
-            <Button
-              onClick={handleSave}
-              disabled={!hasValue}
-              className={`flex-1 ${primaryButton}`}
-            >
-              <Check className="mr-2 h-4 w-4" />
-              Spara
-            </Button>
-          </div>
-          <Button
-            variant="outline"
-            onClick={onSkip}
-            className="w-full"
-          >
-            Senare
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
         </div>
       </section>
     </div>

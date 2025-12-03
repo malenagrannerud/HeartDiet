@@ -40,16 +40,12 @@ export const BloodPressure = ({ onNext, onSkip, onBack, currentStep, totalSteps 
   }, []);
 
   const handleContinue = () => {
-    if (systolic && diastolic) {
-      onNext({ 
-        systolic, 
-        diastolic, 
-        date: date.toISOString() 
-      });
-    }
+    onNext({ 
+      systolic, 
+      diastolic, 
+      date: date.toISOString() 
+    });
   };
-
-  const isValid = systolic !== "" && diastolic !== "";
 
   return (
     <div className={standardSpacing.pageContent}>
@@ -119,39 +115,36 @@ export const BloodPressure = ({ onNext, onSkip, onBack, currentStep, totalSteps 
                   </PopoverContent>
                 </Popover>
               </div>
+
+              <div className="pt-4 border-t space-y-3">
+                <div className="flex gap-3">
+                  <Button
+                    variant="outline"
+                    onClick={onBack}
+                    className="flex-1"
+                  >
+                    <ArrowLeft className="mr-2 h-4 w-4" />
+                    Tillbaka
+                  </Button>
+                  <Button
+                    onClick={handleContinue}
+                    className={`flex-1 ${primaryButton}`}
+                  >
+                    Nästa
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </div>
+                <Button
+                  variant="outline"
+                  onClick={onSkip}
+                  className="w-full"
+                >
+                  Senare
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </div>
             </div>
           </Card>
-        </div>
-      </section>
-
-      <section className={standardSpacing.sectionContent}>
-        <div className="space-y-3">
-          <div className="flex gap-3">
-            <Button
-              variant="outline"
-              onClick={onBack}
-              className="flex-1"
-            >
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Tillbaka
-            </Button>
-            <Button
-              onClick={handleContinue}
-              disabled={!isValid}
-              className={`flex-1 ${primaryButton}`}
-            >
-              Nästa
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-          </div>
-          <Button
-            variant="outline"
-            onClick={onSkip}
-            className="w-full"
-          >
-            Senare
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
         </div>
       </section>
     </div>
