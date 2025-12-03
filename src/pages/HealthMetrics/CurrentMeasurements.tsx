@@ -20,7 +20,7 @@ export const CurrentMeasurements = ({ onNext, onSkip, currentStep, totalSteps }:
   const [height, setHeight] = useState("");
   const [weight, setWeight] = useState("");
   const [goalWeight, setGoalWeight] = useState("");
-  const [skipped, setSkipped] = useState(false);
+  const [isSkipped, setIsSkipped] = useState(false);
 
   useEffect(() => {
     // Load from extendedHealthMetrics
@@ -40,14 +40,18 @@ export const CurrentMeasurements = ({ onNext, onSkip, currentStep, totalSteps }:
   const handleContinue = () => {
     if (height && weight) {
       onNext({ height, weight, goalWeight });
+    } else if (isSkipped) {
+      // If skipped, just go to next step without data
+      onSkip();
     }
   };
 
-  const isValid = skipped || (height !== "" && weight !== "");
-
   const handleSkip = () => {
-    setSkipped(true);
+    // Mark as skipped but don't navigate yet
+    setIsSkipped(true);
   };
+
+  const isValid = (height !== "" && weight !== "") || isSkipped;
 
   return (
     <div className={standardSpacing.pageContent}>
@@ -66,21 +70,28 @@ export const CurrentMeasurements = ({ onNext, onSkip, currentStep, totalSteps }:
                   id="height"
                   type="number"
                   value={height}
-                  onChange={(e) => setHeight(e.target.value)}
+                  onChange={(e) => {
+                    setHeight(e.target.value);
+                    // If user starts typing after skipping, un-mark as skipped
+                    if (isSkipped) setIsSkipped(false);
+                  }}
                   placeholder="Ex: 175"
-                  className="placeholder:text-gray-300"
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="weight">Nuvarande vikt (kg)</Label>
+                <Label htmlFor="weight">Vikt (kg)</Label>
                 <Input
                   id="weight"
                   type="number"
                   step="0.1"
                   value={weight}
-                  onChange={(e) => setWeight(e.target.value)}
-                  placeholder="Ex: 75.5"
+                  onChange={(e) => {
+                    setWeight(e.target.value);
+                    // If user starts typing after skipping, un-mark as skipped
+                    if (isSkipped) setIsSkipped(false);
+                  }}
+                  placeholder="Ex: 85,5"
                 />
               </div>
 
@@ -96,27 +107,28 @@ export const CurrentMeasurements = ({ onNext, onSkip, currentStep, totalSteps }:
                 />
               </div>
 
-              <Button
-                variant="ghost"
-                onClick={handleSkip}
-                className="w-full text-muted-foreground"
-              >
-                Senare
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
+              <div className="flex gap-3 pt-2">
+                <Button
+                  variant="ghost"
+                  onClick={handleSkip}
+                  className="flex-1 text-muted-foreground"
+                >
+                  Senare
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+                
+                <Button
+                  onClick={handleContinue}
+                  disabled={!isValid}
+                  className={`flex-1 ${primaryButton}`}
+                >
+                  Nästa
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </div>
             </div>
           </Card>
         </div>
-      </section>
-
-      <section className={standardSpacing.sectionContent}>
-        <Button
-          onClick={isValid ? handleContinue : onSkip}
-          className={`w-full ${primaryButton}`}
-        >
-          Nästa
-          <ArrowRight className="ml-2 h-4 w-4" />
-        </Button>
       </section>
     </div>
   );
