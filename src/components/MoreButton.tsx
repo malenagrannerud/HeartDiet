@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { ChevronRight } from "lucide-react";
 
 interface MoreButtonProps {
   label?: string;
@@ -7,7 +8,7 @@ interface MoreButtonProps {
 }
 
 export const MoreButton = ({ 
-  label = "Mer", 
+  label = "Detaljer", 
   onClick,
   className 
 }: MoreButtonProps) => {
@@ -19,11 +20,12 @@ export const MoreButton = ({
       }}
       className={cn(
         "px-3 py-1 bg-primary text-primary-foreground text-xs font-bold rounded-full",
-        "hover:bg-primary/90 transition-colors",
+        "hover:bg-primary/90 transition-colors inline-flex items-center gap-1",
         className
       )}
     >
       {label}
+      <ChevronRight size={14} />
     </button>
   );
 };

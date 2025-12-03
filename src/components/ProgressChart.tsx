@@ -136,7 +136,7 @@ export const ProgressChart: React.FC<ProgressChartProps> = ({
         </div>
         <div className="flex items-center gap-2">
           {!isExpanded && onMoreClick && (
-            <MoreButton label="Mer" onClick={onMoreClick} />
+            <MoreButton label="Detaljer" onClick={onMoreClick} />
           )}
           {isExpanded && onCollapse && (
             <Button 
