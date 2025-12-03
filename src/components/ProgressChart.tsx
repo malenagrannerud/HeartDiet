@@ -140,13 +140,7 @@ export const ProgressChart: React.FC<ProgressChartProps> = ({
             })}
             margin={{ top: 10, right: 10, left: 10, bottom: 10 }}
           >
-            <XAxis 
-              dataKey="date" 
-              axisLine={false}
-              tickLine={false}
-              tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }}
-              interval={0}
-            />
+            <XAxis dataKey="date" hide />
             <YAxis hide />
             {goalValue && (
               <ReferenceLine 
@@ -162,15 +156,7 @@ export const ProgressChart: React.FC<ProgressChartProps> = ({
               fill={barColor} 
               radius={[5, 5, 0, 0]}
               barSize={20}
-            >
-              <LabelList 
-                dataKey={dataKey} 
-                position="top" 
-                style={{ fontSize: 10, fill: 'hsl(var(--foreground))' }}
-                formatter={formatter}
-                offset={10}
-              />
-            </Bar>
+            />
           </BarChart>
         </ResponsiveContainer>
       </ChartContainer>
