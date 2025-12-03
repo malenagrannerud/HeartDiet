@@ -27,7 +27,7 @@ export const BloodPressure = ({ onNext, onSkip, onBack, currentStep, totalSteps 
   const [systolic, setSystolic] = useState("");
   const [diastolic, setDiastolic] = useState("");
   const [date, setDate] = useState<Date>(new Date());
-  const [skipped, setSkipped] = useState(false);
+  const [isSkipped, setIsSkipped] = useState(false);
 
   useEffect(() => {
     const data = getStorageItem('extendedHealthMetrics', extendedHealthMetricsSchema);
@@ -47,16 +47,24 @@ export const BloodPressure = ({ onNext, onSkip, onBack, currentStep, totalSteps 
         diastolic, 
         date: date.toISOString() 
       });
-    } else {
+    } else if (isSkipped) {
+      // If skipped, just go to next step without data
       onSkip();
     }
   };
 
-  const isValid = skipped || (systolic !== "" && diastolic !== "");
-
   const handleSkip = () => {
-    setSkipped(true);
+    // Mark as skipped but don't navigate yet
+    setIsSkipped(true);
   };
+
+  const handleInputChange = (setter: React.Dispatch<React.SetStateAction<string>>, value: string) => {
+    setter(value);
+    // If user starts typing after skipping, un-mark as skipped
+    if (isSkipped) setIsSkipped(false);
+  };
+
+  const isValid = (systolic !== "" && diastolic !== "") || isSkipped;
 
   return (
     <div className={standardSpacing.pageContent}>
@@ -82,7 +90,7 @@ export const BloodPressure = ({ onNext, onSkip, onBack, currentStep, totalSteps 
                     id="systolic"
                     type="number"
                     value={systolic}
-                    onChange={(e) => setSystolic(e.target.value)}
+                    onChange={(e) => handleInputChange(setSystolic, e.target.value)}
                     placeholder="120"
                   />
                 </div>
@@ -93,7 +101,7 @@ export const BloodPressure = ({ onNext, onSkip, onBack, currentStep, totalSteps 
                     id="diastolic"
                     type="number"
                     value={diastolic}
-                    onChange={(e) => setDiastolic(e.target.value)}
+                    onChange={(e) => handleInputChange(setDiastolic, e.target.value)}
                     placeholder="80"
                   />
                 </div>
@@ -118,7 +126,13 @@ export const BloodPressure = ({ onNext, onSkip, onBack, currentStep, totalSteps 
                     <Calendar
                       mode="single"
                       selected={date}
-                      onSelect={(newDate) => newDate && setDate(newDate)}
+                      onSelect={(newDate) => {
+                        if (newDate) {
+                          setDate(newDate);
+                          // If user selects date after skipping, un-mark as skipped
+                          if (isSkipped) setIsSkipped(false);
+                        }
+                      }}
                       initialFocus
                       locale={sv}
                       className="pointer-events-auto"
@@ -127,14 +141,25 @@ export const BloodPressure = ({ onNext, onSkip, onBack, currentStep, totalSteps 
                 </Popover>
               </div>
 
-              <Button
-                variant="ghost"
-                onClick={handleSkip}
-                className="w-full text-muted-foreground"
-              >
-                Senare
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
+              <div className="flex gap-3 pt-2">
+                <Button
+                  variant="ghost"
+                  onClick={handleSkip}
+                  className="flex-1 text-muted-foreground"
+                >
+                  Senare
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+                
+                <Button
+                  onClick={handleContinue}
+                  disabled={!isValid}
+                  className={`flex-1 ${primaryButton}`}
+                >
+                  Nästa
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </div>
             </div>
           </Card>
         </div>
@@ -149,13 +174,6 @@ export const BloodPressure = ({ onNext, onSkip, onBack, currentStep, totalSteps 
           >
             <ArrowLeft className="mr-2 h-4 w-4" />
             Tillbaka
-          </Button>
-          <Button
-            onClick={handleContinue}
-            className={`flex-1 ${primaryButton}`}
-          >
-            Nästa
-            <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         </div>
       </section>
