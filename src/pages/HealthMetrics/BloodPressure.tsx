@@ -143,7 +143,7 @@ export const BloodPressure = ({ onNext, onSkip, onBack, currentStep, totalSteps 
 
               {/* Only Senare button inside card */}
               <Button
-                variant="ghost"
+                variant="secondary"
                 onClick={handleSkip}
                 className="w-full text-muted-foreground"
               >
@@ -156,12 +156,11 @@ export const BloodPressure = ({ onNext, onSkip, onBack, currentStep, totalSteps 
       </section>
 
       <section className={standardSpacing.sectionContent}>
-        {/* Tillbaka and Nästa horizontally aligned under the card */}
         <div className="flex gap-3">
           <Button
             variant="outline"
             onClick={onBack}
-            className="flex-1"
+            className="flex-1 h10"
           >
             <ArrowLeft className="mr-2 h-4 w-4" />
             Tillbaka
@@ -169,7 +168,7 @@ export const BloodPressure = ({ onNext, onSkip, onBack, currentStep, totalSteps 
           <Button
             onClick={handleContinue}
             disabled={!isValid}
-            className={`flex-1 ${primaryButton}`}
+            className={`flex-1 h10 ${primaryButton}`}
           >
             Nästa
             <ArrowRight className="ml-2 h-4 w-4" />
