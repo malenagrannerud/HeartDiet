@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { format, startOfWeek, addDays, startOfMonth, endOfMonth } from "date-fns";
 import { sv } from "date-fns/locale";
-import { Target, Pill, Plus } from "lucide-react";
+import { Heart, Pill, Plus } from "lucide-react";
 import { tips } from "@/data/tips";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
@@ -179,15 +179,19 @@ const Progress = () => {
   const weekDates = Array.from({ length: 7 }, (_, i) => 
     addDays(currentWeekStart, i)
   );
+
   const goToPreviousWeek = () => {
     setCurrentWeekStart(prev => addDays(prev, -7));
   };
+
   const goToNextWeek = () => {
     setCurrentWeekStart(prev => addDays(prev, 7));
   };
+
   const goToCurrentWeek = () => {
     setCurrentWeekStart(startOfWeek(getCurrentDate(), { weekStartsOn: 1 }));
   };
+
   const isTipCompletedOnDate = (tipId: number, date: Date): boolean => {
     const dateStr = format(date, 'yyyy-MM-dd');
     const log = dayLogs.find(l => l.date === dateStr);
@@ -205,7 +209,8 @@ const Progress = () => {
         entry => entry.type === 'tip' && entry.tipId === tipId
       );
 
-      if (tipEntryIndex >= 0) {                   // Remove tip
+      if (tipEntryIndex >= 0) {
+        // Remove tip
         existingLog.entries.splice(tipEntryIndex, 1);
         if (existingLog.entries.length === 0) {
           updatedLogs.splice(existingLogIndex, 1);
@@ -214,14 +219,16 @@ const Progress = () => {
           title: "Tips avmarkerat",
           description: `${tips.find(t => t.id === tipId)?.title} har avmarkerats`,
         });
-      } else {                                    // Add tip
+      } else {
+        // Add tip
         existingLog.entries.push({ type: 'tip', value: 1, tipId });
         toast({
           title: "Tips markerat som gjort!",
           description: `${tips.find(t => t.id === tipId)?.title} har markerats`,
         });
       }
-    } else {                                      // Create new log with tip
+    } else {
+      // Create new log with tip
       updatedLogs.push({
         date: dateStr,
         entries: [{ type: 'tip', value: 1, tipId }]
@@ -588,7 +595,8 @@ const Progress = () => {
       return 0;
     }
     
-    const daysWithTips = dayLogs                                        // Get all days with tips, sorted chronologically
+    // Get all days with tips, sorted chronologically
+    const daysWithTips = dayLogs
       .filter(log => log.entries.some(entry => entry.type === 'tip'))
       .map(log => log.date)
       .sort();
@@ -600,20 +608,28 @@ const Progress = () => {
     let maxStreak = 0;
     let currentStreak = 1;
     
-    for (let i = 1; i < daysWithTips.length; i++) {                // Go through all days and find the longest consecutive sequence
+    // Go through all days and find the longest consecutive sequence
+    for (let i = 1; i < daysWithTips.length; i++) {
       const prevDate = new Date(daysWithTips[i - 1]);
       const currDate = new Date(daysWithTips[i]);
-      const diffTime = currDate.getTime() - prevDate.getTime();    // Calculate difference in days
+      
+      // Calculate difference in days
+      const diffTime = currDate.getTime() - prevDate.getTime();
       const diffDays = diffTime / (1000 * 60 * 60 * 24);
       
-      if (diffDays === 1) {         // Consecutive day
+      if (diffDays === 1) {
+        // Consecutive day
         currentStreak++;
-      } else {                      // Streak broken, check if current was the longest
+      } else {
+        // Streak broken, check if current was the longest
         maxStreak = Math.max(maxStreak, currentStreak);
         currentStreak = 1;
       }
     }
-    maxStreak = Math.max(maxStreak, currentStreak);            // Don't forget to check the last streak
+    
+    // Don't forget to check the last streak
+    maxStreak = Math.max(maxStreak, currentStreak);
+    
     return maxStreak;
   };
 
@@ -872,7 +888,7 @@ const Progress = () => {
           {/* Health Goals and Medications Cards */}
           <div className="grid grid-cols-2 gap-6">
             <HealthInfoCard
-              icon={Target}
+              icon={Heart}
               title="Mina hälsomål"
               items={priorities.map((id) => ({ id, label: healthPriorityLabels[id] }))}
               emptyMessage="Inga mål valda ännu"

@@ -145,7 +145,7 @@ const Today = () => {
           <h1 className={pageTitle}>Idag</h1>
           <p className={pageSubtitle}>Dagens fokus</p>
 
-            TEMPORARY RESET BUTTON - REMOVE LATER
+           {/* TEMPORARY RESET BUTTON - REMOVE LATER
               <Button 
                 onClick={() => {
                   localStorage.clear();
@@ -155,7 +155,7 @@ const Today = () => {
               >
                 🔄 Reset All Data (Testing)
               </Button>
-              {/*
+              
                TEMPORARY TEST BUTTON - REMOVE LATER
               <Button 
                 onClick={() => {
