@@ -5,13 +5,12 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, ArrowLeft, ArrowRight } from "lucide-react";
 import { format } from "date-fns";
 import { sv } from "date-fns/locale";
 import { ProgressIndicator } from "./components/ProgressIndicator";
 import { EducationalHint } from "./components/EducationalHint";
-import { SkipButton } from "./components/SkipButton";
-import { standardCard, cardTitle, bodyText, primaryButton, standardSpacing } from "@/lib/design-tokens";
+import { standardCard, cardTitle, primaryButton, standardSpacing } from "@/lib/design-tokens";
 import { getStorageItem } from "@/lib/storage";
 import { extendedHealthMetricsSchema } from "@/lib/schemas";
 import { cn } from "@/lib/utils";
@@ -19,11 +18,12 @@ import { cn } from "@/lib/utils";
 interface BloodPressureProps {
   onNext: (data: { systolic: string; diastolic: string; date: string }) => void;
   onSkip: () => void;
+  onBack: () => void;
   currentStep: number;
   totalSteps: number;
 }
 
-export const BloodPressure = ({ onNext, onSkip, currentStep, totalSteps }: BloodPressureProps) => {
+export const BloodPressure = ({ onNext, onSkip, onBack, currentStep, totalSteps }: BloodPressureProps) => {
   const [systolic, setSystolic] = useState("");
   const [diastolic, setDiastolic] = useState("");
   const [date, setDate] = useState<Date>(new Date());
@@ -114,6 +114,7 @@ export const BloodPressure = ({ onNext, onSkip, currentStep, totalSteps }: Blood
                       onSelect={(newDate) => newDate && setDate(newDate)}
                       initialFocus
                       locale={sv}
+                      className="pointer-events-auto"
                     />
                   </PopoverContent>
                 </Popover>
@@ -125,14 +126,32 @@ export const BloodPressure = ({ onNext, onSkip, currentStep, totalSteps }: Blood
 
       <section className={standardSpacing.sectionContent}>
         <div className="space-y-3">
+          <div className="flex gap-3">
+            <Button
+              variant="outline"
+              onClick={onBack}
+              className="flex-1"
+            >
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              Tillbaka
+            </Button>
+            <Button
+              onClick={handleContinue}
+              disabled={!isValid}
+              className={`flex-1 ${primaryButton}`}
+            >
+              Nästa
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </div>
           <Button
-            onClick={handleContinue}
-            disabled={!isValid}
-            className={primaryButton}
+            variant="outline"
+            onClick={onSkip}
+            className="w-full"
           >
-            Fortsätt
+            Senare
+            <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
-          <SkipButton onClick={onSkip} />
         </div>
       </section>
     </div>

@@ -3,14 +3,14 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
 import { ProgressIndicator } from "./components/ProgressIndicator";
-import { SkipButton } from "./components/SkipButton";
 import { standardCard, cardTitle, bodyText, primaryButton, standardSpacing } from "@/lib/design-tokens";
 import { getStorageItem } from "@/lib/storage";
-import { extendedHealthMetricsSchema } from "@/lib/schemas";
+import { extendedHealthMetricsSchema, healthMetricsSchema } from "@/lib/schemas";
 
 interface CurrentMeasurementsProps {
-  onNext: (data: { height: string; weight: string }) => void;
+  onNext: (data: { height: string; weight: string; goalWeight: string }) => void;
   onSkip: () => void;
   currentStep: number;
   totalSteps: number;
@@ -19,18 +19,26 @@ interface CurrentMeasurementsProps {
 export const CurrentMeasurements = ({ onNext, onSkip, currentStep, totalSteps }: CurrentMeasurementsProps) => {
   const [height, setHeight] = useState("");
   const [weight, setWeight] = useState("");
+  const [goalWeight, setGoalWeight] = useState("");
 
   useEffect(() => {
+    // Load from extendedHealthMetrics
     const data = getStorageItem('extendedHealthMetrics', extendedHealthMetricsSchema);
     if (data) {
       setHeight(data.height || "");
       setWeight(data.weight || "");
+      setGoalWeight(data.goalWeight || "");
+    }
+    // Also check healthMetrics for goalWeight
+    const healthData = getStorageItem('healthMetrics', healthMetricsSchema);
+    if (healthData?.goalWeight && !data?.goalWeight) {
+      setGoalWeight(healthData.goalWeight);
     }
   }, []);
 
   const handleContinue = () => {
     if (height && weight) {
-      onNext({ height, weight });
+      onNext({ height, weight, goalWeight });
     }
   };
 
@@ -71,6 +79,18 @@ export const CurrentMeasurements = ({ onNext, onSkip, currentStep, totalSteps }:
                   placeholder="Ex: 75.5"
                 />
               </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="goalWeight">Målvikt (kg)</Label>
+                <Input
+                  id="goalWeight"
+                  type="number"
+                  step="0.1"
+                  value={goalWeight}
+                  onChange={(e) => setGoalWeight(e.target.value)}
+                  placeholder="Ex: 70"
+                />
+              </div>
             </div>
           </Card>
         </div>
@@ -83,9 +103,17 @@ export const CurrentMeasurements = ({ onNext, onSkip, currentStep, totalSteps }:
             disabled={!isValid}
             className={primaryButton}
           >
-            Fortsätt
+            Nästa
+            <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
-          <SkipButton onClick={onSkip} />
+          <Button
+            variant="outline"
+            onClick={onSkip}
+            className="w-full"
+          >
+            Senare
+            <ArrowRight className="ml-2 h-4 w-4" />
+          </Button>
         </div>
       </section>
     </div>
