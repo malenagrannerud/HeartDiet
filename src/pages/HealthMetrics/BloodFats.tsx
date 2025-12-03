@@ -162,36 +162,34 @@ export const BloodFats = ({ onNext, onSkip, onBack, currentStep, totalSteps }: B
                   </div>
                 </div>
               )}
+              <Button
+                variant="ghost"
+                onClick={onSkip}
+                className="w-full text-muted-foreground"
+              >
+                Senare
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
             </div>
           </Card>
         </div>
       </section>
 
       <section className={standardSpacing.sectionContent}>
-        <div className="space-y-3">
-          <div className="flex gap-3">
-            <Button
-              variant="outline"
-              onClick={onBack}
-              className="flex-1"
-            >
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Tillbaka
-            </Button>
-            <Button
-              onClick={handleContinue}
-              className={`flex-1 ${primaryButton}`}
-            >
-              Nästa
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-          </div>
+        <div className="flex gap-3">
           <Button
             variant="outline"
-            onClick={onSkip}
-            className="w-full"
+            onClick={onBack}
+            className="flex-1"
           >
-            Senare
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            Tillbaka
+          </Button>
+          <Button
+            onClick={handleContinue}
+            className={`flex-1 ${primaryButton}`}
+          >
+            Nästa
             <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         </div>
