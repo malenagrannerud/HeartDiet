@@ -126,6 +126,9 @@ export const ProgressChart: React.FC<ProgressChartProps> = ({
           <div className={bodyTextBald}>{title}</div>
           <div className={cardTextSmall}>{subtitle}</div>
         </div>
+        {onMoreClick && (
+          <MoreButton label="Detaljer" onClick={onMoreClick} />
+        )}
       </div>
       <ChartContainer config={chartConfig} className="h-48 w-full">
         <ResponsiveContainer width="100%" height="100%">
@@ -171,11 +174,6 @@ export const ProgressChart: React.FC<ProgressChartProps> = ({
           </BarChart>
         </ResponsiveContainer>
       </ChartContainer>
-      {onMoreClick && (
-        <div className="flex justify-end">
-          <MoreButton label="Detaljer" onClick={onMoreClick} />
-        </div>
-      )}
     </div>
   </StatsBox>
     
