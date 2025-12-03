@@ -23,16 +23,13 @@ export const HealthInfoCard = ({
   return (
     <StatsBox>
       <div className="flex flex-col gap-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="p-2 bg-primary/10 rounded">
-              <Icon size={20} className="text-primary" />
-            </div>
-            <div>
-              <div className={bodyTextBald}>{title}</div>
-            </div>
+        <div className="flex items-center gap-3">
+          <div className="p-2 bg-primary/10 rounded">
+            <Icon size={20} className="text-primary" />
           </div>
-          <MoreButton label={buttonLabel} onClick={onClick} />
+          <div>
+            <div className={bodyTextBald}>{title}</div>
+          </div>
         </div>
         {items.length > 0 ? (
           <div className="space-y-1">
@@ -45,6 +42,9 @@ export const HealthInfoCard = ({
         ) : (
           <p className={cardTextSmall}>{emptyMessage}</p>
         )}
+        <div className="flex justify-end">
+          <MoreButton label={buttonLabel} onClick={onClick} />
+        </div>
       </div>
     </StatsBox>
   );
