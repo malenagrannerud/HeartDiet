@@ -162,36 +162,38 @@ export const BloodFats = ({ onNext, onSkip, onBack, currentStep, totalSteps }: B
                   </div>
                 </div>
               )}
-
-              <div className="pt-4 border-t space-y-3">
-                <div className="flex gap-3">
-                  <Button
-                    variant="outline"
-                    onClick={onBack}
-                    className="flex-1"
-                  >
-                    <ArrowLeft className="mr-2 h-4 w-4" />
-                    Tillbaka
-                  </Button>
-                  <Button
-                    onClick={handleContinue}
-                    className={`flex-1 ${primaryButton}`}
-                  >
-                    Nästa
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </div>
-                <Button
-                  variant="outline"
-                  onClick={onSkip}
-                  className="w-full"
-                >
-                  Senare
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </div>
             </div>
           </Card>
+        </div>
+      </section>
+
+      <section className={standardSpacing.sectionContent}>
+        <div className="space-y-3">
+          <div className="flex gap-3">
+            <Button
+              variant="outline"
+              onClick={onBack}
+              className="flex-1"
+            >
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              Tillbaka
+            </Button>
+            <Button
+              onClick={handleContinue}
+              className={`flex-1 ${primaryButton}`}
+            >
+              Nästa
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </div>
+          <Button
+            variant="outline"
+            onClick={onSkip}
+            className="w-full"
+          >
+            Senare
+            <ArrowRight className="ml-2 h-4 w-4" />
+          </Button>
         </div>
       </section>
     </div>

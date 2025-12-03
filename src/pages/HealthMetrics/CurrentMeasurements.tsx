@@ -22,12 +22,14 @@ export const CurrentMeasurements = ({ onNext, onSkip, currentStep, totalSteps }:
   const [goalWeight, setGoalWeight] = useState("");
 
   useEffect(() => {
+    // Load from extendedHealthMetrics
     const data = getStorageItem('extendedHealthMetrics', extendedHealthMetricsSchema);
     if (data) {
       setHeight(data.height || "");
       setWeight(data.weight || "");
       setGoalWeight(data.goalWeight || "");
     }
+    // Also check healthMetrics for goalWeight
     const healthData = getStorageItem('healthMetrics', healthMetricsSchema);
     if (healthData?.goalWeight && !data?.goalWeight) {
       setGoalWeight(healthData.goalWeight);
@@ -35,8 +37,12 @@ export const CurrentMeasurements = ({ onNext, onSkip, currentStep, totalSteps }:
   }, []);
 
   const handleContinue = () => {
-    onNext({ height, weight, goalWeight });
+    if (height && weight) {
+      onNext({ height, weight, goalWeight });
+    }
   };
+
+  const isValid = height !== "" && weight !== "";
 
   return (
     <div className={standardSpacing.pageContent}>
@@ -85,26 +91,29 @@ export const CurrentMeasurements = ({ onNext, onSkip, currentStep, totalSteps }:
                   placeholder="Ex: 70"
                 />
               </div>
-
-              <div className="pt-4 border-t space-y-3">
-                <Button
-                  onClick={handleContinue}
-                  className={`w-full ${primaryButton}`}
-                >
-                  Nästa
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-                <Button
-                  variant="outline"
-                  onClick={onSkip}
-                  className="w-full"
-                >
-                  Senare
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </div>
             </div>
           </Card>
+        </div>
+      </section>
+
+      <section className={standardSpacing.sectionContent}>
+        <div className="space-y-3">
+          <Button
+            onClick={handleContinue}
+            disabled={!isValid}
+            className={primaryButton}
+          >
+            Nästa
+            <ArrowRight className="ml-2 h-4 w-4" />
+          </Button>
+          <Button
+            variant="outline"
+            onClick={onSkip}
+            className="w-full"
+          >
+            Senare
+            <ArrowRight className="ml-2 h-4 w-4" />
+          </Button>
         </div>
       </section>
     </div>
