@@ -14,6 +14,7 @@ import MotionPage from "./TipPages/motion";
 import BaljvaxterPage from "./TipPages/baljvaxter";
 import SockerPage from "./TipPages/socker";
 import Progress from "./Progress";
+import ProgressDetail from "./ProgressDetail";
 import Help from "./Help";
 import Tutorial from "./Tutorial";
 import HealthGoals from "./HealthGoals";
@@ -46,6 +47,7 @@ const MainApp = () => {
           <Route path="/TipPages/baljvaxter" element={<BaljvaxterPage />} />
           <Route path="/TipPages/socker" element={<SockerPage />} />
           <Route path="/progress" element={<Progress />} />
+          <Route path="/progress/:type" element={<ProgressDetail />} />
           <Route path="/help" element={<Help />} />
           <Route path="/tutorial" element={<Tutorial />} />
           <Route path="/health-goals" element={<HealthGoals />} />
