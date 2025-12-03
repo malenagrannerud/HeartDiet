@@ -119,6 +119,7 @@ export const extendedHealthMetricsSchema = z.object({
   // Basic measurements (always collected)
   height: z.string(),
   weight: z.string(),
+  goalWeight: z.string().optional(),
   
   // Blood pressure (conditional)
   bloodPressure: z.object({
