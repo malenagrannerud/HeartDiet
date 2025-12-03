@@ -5,6 +5,7 @@ import { X } from "lucide-react";
 import { ChartContainer } from "@/components/ui/chart";
 import { StatsBox } from "@/components/StatsBox";
 import { Button } from "@/components/ui/button";
+import { MoreButton } from "@/components/MoreButton";
 import { bodyTextBald, cardTextSmall } from "@/lib/design-tokens";
 
 interface DayLog {
@@ -28,6 +29,7 @@ interface ProgressChartProps {
   onClick?: () => void;
   isExpanded?: boolean;
   onCollapse?: () => void;
+  onMoreClick?: () => void;
 }
 
 export const ProgressChart: React.FC<ProgressChartProps> = ({ 
@@ -39,7 +41,8 @@ export const ProgressChart: React.FC<ProgressChartProps> = ({
   goalBloodGlucose,
   onClick, 
   isExpanded = false,
-  onCollapse
+  onCollapse,
+  onMoreClick
 }) => {
   const isWeight = type === 'weight';
   const isBloodPressure = type === 'bloodPressure';
@@ -131,19 +134,24 @@ export const ProgressChart: React.FC<ProgressChartProps> = ({
           <div className={bodyTextBald}>{title}</div>
           <div className={cardTextSmall}>{subtitle}</div>
         </div>
-        {isExpanded && onCollapse && (
-          <Button 
-            variant="ghost" 
-            size="sm"
-            onClick={(e) => {
-              e.stopPropagation();
-              onCollapse();
-            }}
-            className="h-8 w-8 p-0"
-          >
-            <X className="h-4 w-4" />
-          </Button>
-        )}
+        <div className="flex items-center gap-2">
+          {!isExpanded && onMoreClick && (
+            <MoreButton label="Mer" onClick={onMoreClick} />
+          )}
+          {isExpanded && onCollapse && (
+            <Button 
+              variant="ghost" 
+              size="sm"
+              onClick={(e) => {
+                e.stopPropagation();
+                onCollapse();
+              }}
+              className="h-8 w-8 p-0"
+            >
+              <X className="h-4 w-4" />
+            </Button>
+          )}
+        </div>
       </div>
       {isExpanded && chartData.length > 0 && (
         <>

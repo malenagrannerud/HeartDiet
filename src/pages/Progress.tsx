@@ -836,6 +836,7 @@ const Progress = () => {
               }}
               isExpanded={expandedChart === 'bloodPressure'}
               onCollapse={() => setExpandedChart(null)}
+              onMoreClick={() => setExpandedChart('bloodPressure')}
             />
             <ProgressChart 
               type="weight" 
@@ -850,6 +851,7 @@ const Progress = () => {
               }}
               isExpanded={expandedChart === 'weight'}
               onCollapse={() => setExpandedChart(null)}
+              onMoreClick={() => setExpandedChart('weight')}
             />
             {showBloodFats && (
               <ProgressChart 
@@ -865,6 +867,7 @@ const Progress = () => {
                 }}
                 isExpanded={expandedChart === 'bloodFats'}
                 onCollapse={() => setExpandedChart(null)}
+                onMoreClick={() => setExpandedChart('bloodFats')}
               />
             )}
             {showBloodGlucose && (
@@ -881,6 +884,7 @@ const Progress = () => {
                 }}
                 isExpanded={expandedChart === 'bloodGlucose'}
                 onCollapse={() => setExpandedChart(null)}
+                onMoreClick={() => setExpandedChart('bloodGlucose')}
               />
             )}
           </div>
