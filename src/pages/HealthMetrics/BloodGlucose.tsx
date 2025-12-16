@@ -170,7 +170,7 @@ export const BloodGlucose = ({ onNext, onSkip, onBack, currentStep, totalSteps }
         </div>
       </section>
 
-      <section className="fixed bottom-10 left-0 right-0 px-4 z-10">
+      <section className="fixed bottom-12 left-0 right-0 px-4 z-10">
               <div className="flex gap-3">
                 <ButtonBackForward 
                   onBack={onBack}
