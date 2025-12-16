@@ -3,12 +3,14 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import { ArrowRight } from "lucide-react";
 import { ProgressIndicator } from "./components/ProgressIndicator";
-import { standardCard, cardTitle, bodyText, primaryButton, standardSpacing } from "@/lib/design-tokens";
+import { standardCard, standardSpacing } from "@/lib/design-tokens";
 import { getStorageItem } from "@/lib/storage";
 import { extendedHealthMetricsSchema, healthMetricsSchema } from "@/lib/schemas";
+import { CheckBoxSkipNow } from "@/components/CheckBoxSkipNow";
+
+
 
 interface CurrentMeasurementsProps {
   onNext: (data: { height: string; weight: string; goalWeight: string }) => void;
@@ -23,8 +25,7 @@ export const CurrentMeasurements = ({ onNext, onSkip, currentStep, totalSteps }:
   const [goalWeight, setGoalWeight] = useState("");
   const [isSkipped, setIsSkipped] = useState(false);
 
-  useEffect(() => {
-    // Load from extendedHealthMetrics
+  useEffect(() => {               // Load from extendedHealthMetrics
     const data = getStorageItem('extendedHealthMetrics', extendedHealthMetricsSchema);
     if (data) {
       setHeight(data.height || "");
@@ -41,12 +42,10 @@ export const CurrentMeasurements = ({ onNext, onSkip, currentStep, totalSteps }:
   const handleContinue = () => {
     if (height && weight) {
       onNext({ height, weight, goalWeight });
-    } else if (isSkipped) {
-      // If skipped, just go to next step without data
+    } else if (isSkipped) {           // If skipped, just go to next step without data
       onSkip();
     }
   };
-
 
   const isValid = (height !== "" && weight !== "") || isSkipped;
 
@@ -105,15 +104,7 @@ export const CurrentMeasurements = ({ onNext, onSkip, currentStep, totalSteps }:
               </div>
 
               <div className="flex items-center space-x-2 pt-2">
-                <Checkbox 
-                  id="skip-measurements"
-                  checked={isSkipped}
-                  onCheckedChange={(checked) => setIsSkipped(checked === true)}
-                />
-
-                <Label htmlFor="skip-measurements" className="cursor-pointer text-muted-foreground">
-                  Fyll i senare under "Mina sidor"
-                </Label>
+                
               </div>
 
             </div>
@@ -121,7 +112,13 @@ export const CurrentMeasurements = ({ onNext, onSkip, currentStep, totalSteps }:
         </div>
       </section>
 
-      {/* Nästa button fixed at the bottom */}
+      <div className={standardSpacing.pageContent}>
+        <CheckBoxSkipNow
+                  isSkipped={isSkipped}
+                  setIsSkipped={setIsSkipped}
+                />
+      </div>
+
       <section className="fixed bottom-16 left-0 right-0 px-4 z-10">
         <div className="max-w-md mx-auto flex gap-3">
           <Button

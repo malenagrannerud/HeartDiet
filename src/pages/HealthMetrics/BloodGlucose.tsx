@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { ButtonBackForward } from "@/components/ButtonBackForward";
-import { Checkbox } from "@/components/ui/checkbox";
+import { CheckBoxSkipNow } from "@/components/CheckBoxSkipNow";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { CalendarIcon} from "lucide-react";
@@ -130,21 +130,17 @@ export const BloodGlucose = ({ onNext, onSkip, onBack, currentStep, totalSteps }
                   </PopoverContent>
                 </Popover>
               </div>
-
-              <div className="flex items-center space-x-2">
-                <Checkbox 
-                  id="skip-bloodglucose"
-                  checked={isSkipped}
-                  onCheckedChange={(checked) => setIsSkipped(checked === true)}
-                />
-                <Label htmlFor="skip-bloodglucose" className="cursor-pointer text-muted-foreground">
-                  Senare
-                </Label>
-              </div>
             </div>
           </Card>
        </div>
       </section>
+
+      <div className={standardSpacing.pageContent}>
+              <CheckBoxSkipNow
+                        isSkipped={isSkipped}
+                        setIsSkipped={setIsSkipped}
+              />
+      </div>
 
       <section className="fixed bottom-16 left-0 right-0 px-4 z-10">
               <div className="flex gap-3">
