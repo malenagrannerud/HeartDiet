@@ -10,7 +10,7 @@ import { CalendarIcon, ArrowLeft, ArrowRight } from "lucide-react";
 import { format } from "date-fns";
 import { sv } from "date-fns/locale";
 import { ProgressIndicator } from "./components/ProgressIndicator";
-import { EducationalHint } from "./components/EducationalHint";
+import { CardInfoHint } from "@/components/CardInfoHint";
 import { standardCard, cardTitle, primaryButton, standardSpacing } from "@/lib/design-tokens";
 import { getStorageItem } from "@/lib/storage";
 import { extendedHealthMetricsSchema } from "@/lib/schemas";
@@ -72,17 +72,19 @@ export const BloodPressure = ({ onNext, onSkip, onBack, currentStep, totalSteps 
       <section className={standardSpacing.sectionContent}>
         <h2 className={cardTitle}>Blodtryck</h2>
         
-        <EducationalHint 
-          context="Eftersom du jobbar med ditt blodtryck, låt oss få ditt startvärde"
-          message="Hälsosamt mål är under 120/80 mmHg"
-        />
-
+       
         <div className={standardSpacing.cardList}>
+          <CardInfoHint
+            context="Målvärden"
+            message="Mål för ditt blodtryck är satt till 120/80 mmHg (standardvärde)."
+          />
+
+
           <Card className={standardCard}>
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="systolic">Systoliskt (övre)</Label>
+                  <Label htmlFor="systolic">Systoliskt (mmHg)</Label>
                   <Input
                     id="systolic"
                     type="number"
@@ -93,7 +95,7 @@ export const BloodPressure = ({ onNext, onSkip, onBack, currentStep, totalSteps 
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="diastolic">Diastoliskt (nedre)</Label>
+                  <Label htmlFor="diastolic">Diastoliskt (mmHg)</Label>
                   <Input
                     id="diastolic"
                     type="number"
