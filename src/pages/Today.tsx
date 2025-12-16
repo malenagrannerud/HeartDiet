@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { StartCard } from "@/components/StartCard";
-import { Clock, BookOpen, FileEdit } from "lucide-react"; 
+import { BookOpen, FileEdit } from "lucide-react"; 
 import { useNavigate } from "react-router-dom";
 import { tips } from "@/data/tips";
 import TipCard from "@/components/TipCard";
-import { pageTitle, sectionHeading, cardTitle, interactiveCard, pageContainer, headerContainer, pagePadding, standardSpacing, cardTitleSmall, pageSubtitle, sectionSubheading2, bodyTextBald, bodyBaldSub, colors} from "@/lib/design-tokens";
+import { pageTitle, pageContainer, headerContainer, pagePadding, standardSpacing, pageSubtitle, bodyTextBald, bodyBaldSub } from "@/lib/design-tokens";
 import { getStorageItem } from "@/lib/storage";
 import { markedTipsSchema } from "@/lib/schemas";
 import HealthPrioritiesImage from "@/assets/fill.png"; 
@@ -19,7 +19,7 @@ import { CheckBoxLeft } from "@/components/CheckBoxLeft";
 import { isTipCompletedToday, toggleTipCompletion } from "@/lib/tip-completion";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
-import { getCurrentDate, advanceDay } from "@/lib/simulated-date";
+import { getCurrentDate } from "@/lib/simulated-date";
 import { tipPageRoutes } from "@/lib/tip-routes";
 
 interface MarkedTip {
@@ -46,8 +46,7 @@ const Today = () => {
   });
   const [tipCompletions, setTipCompletions] = useState<Record<number, boolean>>({});
 
-  useEffect(() => {
-    // Load marked tips
+  useEffect(() => {                   // Load marked tips 
     const savedTips = getStorageItem('markedTips', markedTipsSchema);
     if (savedTips) {
       setMarkedTips(savedTips as MarkedTip[]);
@@ -60,19 +59,16 @@ const Today = () => {
     });
     setTipCompletions(completions);
     
-    // Clean up old completion records
-    cleanupOldCompletions();
+    cleanupOldCompletions();      // Clean up old completion records
     
-    // Check completion status for styling
-    setCompletionStatus({
+    setCompletionStatus({         // Check completion status for styling
       tutorial: isCardCompletedToday('tutorial'),
       healthGoals: isCardCompletedToday('health-goals'),
       medications: isCardCompletedToday('medications'),
       healthMetrics: isCardCompletedToday('health-metrics')
     });
     
-    // Check which cards to hide (completed on previous days)
-    const cardsToHide = getCardsToHide();
+    const cardsToHide = getCardsToHide();         // Check which cards to hide (completed on previous days)
     setHiddenCards({
       tutorial: cardsToHide['tutorial'],
       healthGoals: cardsToHide['health-goals'],
@@ -80,8 +76,7 @@ const Today = () => {
       healthMetrics: cardsToHide['health-metrics']
     });
     
-    // Set up midnight check to hide completed cards
-    const now = getCurrentDate();
+    const now = getCurrentDate();         // Set up midnight check to hide completed cards
     const midnight = new Date(now);
     midnight.setHours(24, 0, 0, 0);
     const timeUntilMidnight = midnight.getTime() - now.getTime();
@@ -94,8 +89,8 @@ const Today = () => {
         medications: newCardsToHide['medications'],
         healthMetrics: newCardsToHide['health-metrics']
       });
-      // Reset completion status for new day
-      setCompletionStatus({
+     
+      setCompletionStatus({             // Reset completion status for new day
         tutorial: false,
         healthGoals: false,
         medications: false,
