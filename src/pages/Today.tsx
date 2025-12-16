@@ -213,7 +213,7 @@ const Today = () => {
                       <div className="flex-1">
                         <StartCard
                           isHidden={false}
-                          title="Hälsomål"
+                          title="Mina hälsomål"
                           icon={<FileEdit size={12} strokeWidth={2.5} />}
                           label="Formulär"
                           time="2 min"
@@ -241,7 +241,7 @@ const Today = () => {
                       <div className="flex-1">
                         <StartCard
                           isHidden={false}
-                          title="Läkemedel"
+                          title="Mina läkemedel"
                           icon={<FileEdit size={12} strokeWidth={2.5} />}
                           label="Formulär"
                           time="1 min"
@@ -266,10 +266,10 @@ const Today = () => {
                       <div className="flex-1">
                         <StartCard
                           isHidden={false}
-                          title="Vikt och blodtryck"
+                          title="Mina startvärden"
                           icon={<FileEdit size={12} strokeWidth={2.5} />}
                           label="Formulär"
-                          time="5 min"
+                          time="2-5 min"
                           onClick={() => handleCardNavigation('health-metrics', '/app/health-metrics')}
                           ariaLabel="Gå till hälsomätningar"
                         />
