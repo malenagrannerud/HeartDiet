@@ -63,12 +63,9 @@ const handleNext = (pageData: any) => {
   switch (currentPageIndex) {
     case 0: // Current measurements (height, weight, goalWeight)
       saveData({ height: pageData.height, weight: pageData.weight, goalWeight: pageData.goalWeight });
-      
-      // Also save to dayLogs for Progress chart
-      if (pageData.weight) {
+      if (pageData.weight) {          // Also save to dayLogs for Progress chart
         const weight = parseFloat(pageData.weight);
-        if (weight > 0) {
-          // Add weight entry to dayLogs
+        if (weight > 0) {             // Add weight entry to dayLogs
           addEntryToDayLogs(existingLogs, today, { type: 'weight', value: weight }); // Weight tracking for progress visualization
         }
       }
