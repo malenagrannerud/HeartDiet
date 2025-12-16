@@ -1,6 +1,5 @@
 import { ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { backButton } from "@/lib/design-tokens";
 
 interface BackToTodayButtonProps {
   className?: string;
