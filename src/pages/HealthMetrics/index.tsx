@@ -150,7 +150,6 @@ const handleNext = (pageData: any) => {
   }
 };
 
-
   const handleSkip = () => {
     if (currentPageIndex < TOTAL_STEPS - 1) {
       setCurrentPageIndex(currentPageIndex + 1);
