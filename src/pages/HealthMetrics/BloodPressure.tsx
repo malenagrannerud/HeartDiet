@@ -70,108 +70,117 @@ export const BloodPressure = ({ onNext, onSkip, onBack, currentStep, totalSteps 
       </div>
 
       <section className={standardSpacing.sectionContent}>
-        <h2 className={cardTitle}>Blodtryck</h2>
-        
-       
         <div className={standardSpacing.cardList}>
+          
           <CardInfoHint
-            context="Målvärden"
-            message="Mål för ditt blodtryck är satt till 120/80 mmHg (standardvärde)."
+            context="Målvärden: Mätning på mottagning"
+            message="Under 140/90 mmHg."
           />
-
-
-          <Card className={standardCard}>
-            <div className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="systolic">Systoliskt (mmHg)</Label>
-                  <Input
-                    id="systolic"
-                    type="number"
-                    value={systolic}
-                    onChange={(e) => handleInputChange(setSystolic, e.target.value)}
-                    placeholder="120"
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="diastolic">Diastoliskt (mmHg)</Label>
-                  <Input
-                    id="diastolic"
-                    type="number"
-                    value={diastolic}
-                    onChange={(e) => handleInputChange(setDiastolic, e.target.value)}
-                    placeholder="80"
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <Label>När mättes det?</Label>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <Button
-                      variant="outline"
-                      className={cn(
-                        "w-full justify-start text-left font-normal",
-                        !date && "text-muted-foreground"
-                      )}
-                    >
-                      <CalendarIcon className="mr-2 h-4 w-4" />
-                      {date ? format(date, "PPP", { locale: sv }) : "Välj datum"}
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0">
-                    <Calendar
-                      mode="single"
-                      selected={date}
-                      onSelect={(newDate) => {
-                        if (newDate) {
-                          setDate(newDate);
-                          if (isSkipped) setIsSkipped(false);       // If user selects date after skipping, un-mark as skipped
-                        }
-                      }}
-                      initialFocus
-                      locale={sv}
-                      className="pointer-events-auto"
-                    />
-                  </PopoverContent>
-                </Popover>
-              </div>
-
-              <div className="flex items-center space-x-2">
-                <Checkbox 
-                  id="skip-bloodpressure"
-                  checked={isSkipped}
-                  onCheckedChange={(checked) => setIsSkipped(checked === true)}
-                />
-                <Label htmlFor="skip-bloodpressure" className="cursor-pointer text-muted-foreground">
-                  Senare
-                </Label>
-              </div>
-            </div>
-          </Card>
-        </div>
+       
+          <CardInfoHint
+            context="Målvärden: Hemmamätning"
+            message="Under 135/85 mmHg."
+          />
+        </div>  
       </section>
+      
+      <section className={standardSpacing.sectionContent}>
+                    <Card className={standardCard}>
+                      <div className="space-y-4">
+                        <div className="grid grid-cols-2 gap-4">
+                          <div className="space-y-2">
+                            <Label htmlFor="systolic">Systoliskt (mmHg)</Label>
+                            <Input
+                              id="systolic"
+                              type="number"
+                              value={systolic}
+                              onChange={(e) => handleInputChange(setSystolic, e.target.value)}
+                              placeholder="120"
+                            />
+                          </div>
+
+                          <div className="space-y-2">
+                            <Label htmlFor="diastolic">Diastoliskt (mmHg)</Label>
+                            <Input
+                              id="diastolic"
+                              type="number"
+                              value={diastolic}
+                              onChange={(e) => handleInputChange(setDiastolic, e.target.value)}
+                              placeholder="80"
+                            />
+                          </div>
+                        </div>
+
+                        <div className="space-y-2">
+                          <Label>När mättes det?</Label>
+                          <Popover>
+                            <PopoverTrigger asChild>
+                              <Button
+                                variant="outline"
+                                className={cn(
+                                  "w-full justify-start text-left font-normal",
+                                  !date && "text-muted-foreground"
+                                )}
+                              >
+                                <CalendarIcon className="mr-2 h-4 w-4" />
+                                {date ? format(date, "PPP", { locale: sv }) : "Välj datum"}
+                              </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-auto p-0">
+                              <Calendar
+                                mode="single"
+                                selected={date}
+                                onSelect={(newDate) => {
+                                  if (newDate) {
+                                    setDate(newDate);
+                                    if (isSkipped) setIsSkipped(false);       // If user selects date after skipping, un-mark as skipped
+                                  }
+                                }}
+                                initialFocus
+                                locale={sv}
+                                className="pointer-events-auto"
+                              />
+                            </PopoverContent>
+                          </Popover>
+                        </div>
+
+                        <div className="flex items-center space-x-2">
+                          <Checkbox 
+                            id="skip-bloodpressure"
+                            checked={isSkipped}
+                            onCheckedChange={(checked) => setIsSkipped(checked === true)}
+                          />
+                          <Label htmlFor="skip-bloodpressure" className="cursor-pointer text-muted-foreground">
+                            Senare
+                          </Label>
+                        </div>
+                      </div>
+                    </Card>
+      </section>
+
 
       <section className={standardSpacing.sectionContent}>
         <div className="flex gap-3">
+          
           <Button
             variant="outline"
             onClick={onBack}
-            className="flex-1 h10"
+            className="flex-1 h-10 min-w-0 w-full"  // Added min-w-0 and w-full
           >
             <ArrowLeft className="mr-2 h-4 w-4" />
             Tillbaka
           </Button>
+          
           <Button
             onClick={handleContinue}
             disabled={!isValid}
-            className={`flex-1 h10 ${primaryButton}`}
+            className={`flex-1 h-10 min-w-0 w-full ${primaryButton}`}  // Added min-w-0 and w-full
           >
             Nästa
-            <ArrowRight className="ml-2 h-4 w-4" />
+            <ArrowRight className="mr-2 h-4 w-4" />
           </Button>
+  
+
         </div>
       </section>
     </div>
