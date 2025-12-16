@@ -3,6 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { CalendarIcon, ArrowLeft, ArrowRight, Check } from "lucide-react";
@@ -53,10 +54,6 @@ export const BloodGlucose = ({ onNext, onSkip, onBack, currentStep, totalSteps }
     }
   };
 
-  const handleSkip = () => {
-    // Mark as skipped but don't navigate yet
-    setIsSkipped(true);
-  };
 
   const handleInputChange = (setter: React.Dispatch<React.SetStateAction<string>>, value: string) => {
     setter(value);
@@ -158,15 +155,16 @@ export const BloodGlucose = ({ onNext, onSkip, onBack, currentStep, totalSteps }
                 Fyll i det värde du känner till. Du behöver inte ha båda.
               </p>
 
-              {/* Only Senare button inside card */}
-              <Button
-                variant="ghost"
-                onClick={handleSkip}
-                className="w-full text-muted-foreground"
-              >
-                Senare
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
+              <div className="flex items-center space-x-2">
+                <Checkbox 
+                  id="skip-bloodglucose"
+                  checked={isSkipped}
+                  onCheckedChange={(checked) => setIsSkipped(checked === true)}
+                />
+                <Label htmlFor="skip-bloodglucose" className="cursor-pointer text-muted-foreground">
+                  Senare
+                </Label>
+              </div>
             </div>
           </Card>
         </div>
