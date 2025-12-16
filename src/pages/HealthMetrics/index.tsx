@@ -86,8 +86,7 @@ const handleNext = (pageData: any) => {
         }
       });
       
-      // Also save to dayLogs
-      if (pageData.systolic && pageData.diastolic) {
+      if (pageData.systolic && pageData.diastolic) {  // Also save to dayLogs
         addEntryToDayLogs(existingLogs, bpDate, { 
           type: 'bloodPressure', 
           value: parseInt(pageData.systolic), 
