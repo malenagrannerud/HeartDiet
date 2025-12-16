@@ -47,7 +47,6 @@ const HealthMetricsFlow = () => {
     }
   };
 
-
 /**
  * Handles progression through health assessment flow with dual data storage strategy
  * @param {Object} pageData - Data collected from current assessment page
@@ -58,9 +57,7 @@ const HealthMetricsFlow = () => {
  */
 const handleNext = (pageData: any) => {
   const today = format(new Date(), 'yyyy-MM-dd'); // ISO format ensures consistent date comparison
-  
-  // Get existing dayLogs
-  const existingLogs = JSON.parse(localStorage.getItem('dayLogs') || '[]'); // Retrieve time-series data for chart visualization
+  const existingLogs = JSON.parse(localStorage.getItem('dayLogs') || '[]'); //  Get existing dayLogs. Retrieve time-series data for chart visualization
   
   switch (currentPageIndex) {
     case 0: // Current measurements (height, weight, goalWeight)
@@ -185,9 +182,10 @@ const handleNext = (pageData: any) => {
     markCardCompleted('health-metrics');
 
     toast({
-      title: "Hälsomått sparade",
-      description: "Dina mätningar har sparats.",
+      title: "Startvärden sparade",
+      description: "Dina mätningar har sparats. Ändra eller lägg till under 'Mina sidor'",
     });
+
     navigate('/app/today');
   };
 
