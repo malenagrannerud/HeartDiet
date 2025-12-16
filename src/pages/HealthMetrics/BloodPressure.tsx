@@ -87,7 +87,7 @@ export const BloodPressure = ({ onNext, onSkip, onBack, currentStep, totalSteps 
       
       <section className={standardSpacing.sectionContent}>
                     <Card className={standardCard}>
-                      <div className="space-y-4">
+                      <div className="space-y-10">
                         <div className="grid grid-cols-2 gap-4">
                           <div className="space-y-2">
                             <Label htmlFor="systolic">Systoliskt (mmHg)</Label>

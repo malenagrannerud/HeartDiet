@@ -58,7 +58,7 @@ export const CurrentMeasurements = ({ onNext, onSkip, currentStep, totalSteps }:
       <section className={standardSpacing.sectionContent}>
         <div className={standardSpacing.cardList}>
           <Card className={standardCard}>
-            <div className="space-y-4">
+            <div className="space-y-10">
               
               <div className="space-y-2">
                 <Label htmlFor="height">Längd (cm)</Label>

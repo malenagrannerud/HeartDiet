@@ -102,8 +102,8 @@ export const BloodFats = ({ onNext, onSkip, onBack, currentStep, totalSteps }: B
       <section className={standardSpacing.sectionContent}>
         <div className={standardSpacing.cardList}>
           <Card className={standardCard}>
-            <div className="space-y-4">
-              <div className="space-y-3">
+            <div className="space-y-10">
+              <div className="space-y-10">
                 <Label>Vet du dina kolesterolvärden?</Label>
                 <RadioGroup value={knowsLDL} onValueChange={handleRadioChange}>
                   <div className="flex items-center space-x-2">
