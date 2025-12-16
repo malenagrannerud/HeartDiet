@@ -72,13 +72,13 @@ export const BloodPressure = ({ onNext, onSkip, onBack, currentStep, totalSteps 
         <div className={standardSpacing.cardList}>
           
           <CardInfoHint
-            context="Målvärden: Mätning på mottagning"
-            message="Under 140/90 mmHg."
+            context="Referensvärden - mätning på mottagning"
+            message="Normalvärden är satta till under 140/90 mmHg"
           />
        
           <CardInfoHint
-            context="Målvärden: Hemmamätning"
-            message="Under 135/85 mmHg."
+            context="Referensvärden - mätning hemma"
+            message="Normalvärden är satta till under 135/85 mmHg"
           />
         </div>  
       </section>

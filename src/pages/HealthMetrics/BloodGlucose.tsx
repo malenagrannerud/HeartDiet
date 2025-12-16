@@ -81,8 +81,8 @@ export const BloodGlucose = ({ onNext, onSkip, onBack, currentStep, totalSteps }
 
       <section className={standardSpacing.sectionContent}>
            <CardInfoHint 
-            context="Referensvärde P-Glukos (fP-Glukos)"
-            message="Referensvärdet är satt till 4,0 till 6,0 mmol/L"
+            context="Referensvärden P-Glukos (fP-Glukos)"
+            message="Normalvärden är satta till 4,0 till 6,0 mmol/L"
             />
       </section>
 
