@@ -3,6 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -69,10 +70,6 @@ export const BloodFats = ({ onNext, onSkip, onBack, currentStep, totalSteps }: B
     }
   };
 
-  const handleSkip = () => {
-    // Mark as skipped but don't navigate yet
-    setIsSkipped(true);
-  };
 
   const handleInputChange = (setter: React.Dispatch<React.SetStateAction<string>>, value: string) => {
     setter(value);
@@ -205,15 +202,16 @@ export const BloodFats = ({ onNext, onSkip, onBack, currentStep, totalSteps }: B
                 </div>
               )}
 
-              {/* Only Senare button inside card */}
-              <Button
-                variant="ghost"
-                onClick={handleSkip}
-                className="w-full text-muted-foreground"
-              >
-                Senare
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
+              <div className="flex items-center space-x-2">
+                <Checkbox 
+                  id="skip-bloodfats"
+                  checked={isSkipped}
+                  onCheckedChange={(checked) => setIsSkipped(checked === true)}
+                />
+                <Label htmlFor="skip-bloodfats" className="cursor-pointer text-muted-foreground">
+                  Senare
+                </Label>
+              </div>
               
             </div>
           </Card>

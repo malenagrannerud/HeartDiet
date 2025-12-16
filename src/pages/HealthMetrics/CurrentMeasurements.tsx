@@ -3,6 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { ArrowRight } from "lucide-react";
 import { ProgressIndicator } from "./components/ProgressIndicator";
 import { standardCard, cardTitle, bodyText, primaryButton, standardSpacing } from "@/lib/design-tokens";
@@ -46,10 +47,6 @@ export const CurrentMeasurements = ({ onNext, onSkip, currentStep, totalSteps }:
     }
   };
 
-  const handleSkip = () => {
-    // Mark as skipped but don't navigate yet
-    setIsSkipped(true);
-  };
 
   const isValid = (height !== "" && weight !== "") || isSkipped;
 
@@ -107,15 +104,15 @@ export const CurrentMeasurements = ({ onNext, onSkip, currentStep, totalSteps }:
                 />
               </div>
 
-              <div className="flex gap-3 pt-2">
-                <Button
-                  variant="secondary"
-                  onClick={handleSkip}
-                  className="flex-1 text-muted-foreground"
-                >
+              <div className="flex items-center space-x-2 pt-2">
+                <Checkbox 
+                  id="skip-measurements"
+                  checked={isSkipped}
+                  onCheckedChange={(checked) => setIsSkipped(checked === true)}
+                />
+                <Label htmlFor="skip-measurements" className="cursor-pointer text-muted-foreground">
                   Senare
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
+                </Label>
               </div>
             </div>
           </Card>
@@ -126,7 +123,8 @@ export const CurrentMeasurements = ({ onNext, onSkip, currentStep, totalSteps }:
       <section className="fixed bottom-8 left-0 right-0 px-4 z-10">
         <div className="max-w-md mx-auto flex gap-3">
           <Button
-            onClick={isValid ? handleContinue : onSkip}
+            onClick={handleContinue}
+            disabled={!isValid}
             className="flex-1 h-12 text-base"
             size="lg"
           >
