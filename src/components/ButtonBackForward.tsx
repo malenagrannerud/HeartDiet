@@ -17,7 +17,8 @@ export const ButtonBackForward = ({
       <Button
         variant="outline"
         onClick={onBack}
-        className="flex-1 h12"
+        className="flex-1 h10"
+        size="lg"
       >
         <ArrowLeft className="mr-2 h-5 w-2" />
         Tillbaka
@@ -26,7 +27,8 @@ export const ButtonBackForward = ({
       <Button
         onClick={onForward}
         disabled={forwardDisabled}
-        className="flex-1 h-12"
+        className="flex-1 h-10"
+        size="lg"
       >
         Nästa
         <ArrowRight className="mr-2 h-5 w-2" />

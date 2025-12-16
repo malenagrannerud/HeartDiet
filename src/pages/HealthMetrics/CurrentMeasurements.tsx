@@ -125,7 +125,7 @@ export const CurrentMeasurements = ({ onNext, onSkip, currentStep, totalSteps }:
           <Button
             onClick={handleContinue}
             disabled={!isValid}
-            className="flex-1 h-12 text-base"
+            className="flex-1 h-10 text-base"
             size="lg"
           >
             Nästa
