@@ -7,11 +7,8 @@ interface ProgressIndicatorProps {
 
 export const ProgressIndicator = ({ currentStep, totalSteps }: ProgressIndicatorProps) => {
   return (
-    <div className="flex items-center justify-center gap-2">
-      <p className={`${bodyText} text-muted-foreground`}>
-        Steg {currentStep} av {totalSteps}
-      </p>
-      <div className="flex gap-1">
+    <div className="flex items-center justify-center">
+      <div className="flex gap-2">
         {Array.from({ length: totalSteps }).map((_, index) => (
           <div
             key={index}
