@@ -17,14 +17,12 @@ export const markedTipSchema = z.object({
 
 export const markedTipsSchema = z.array(markedTipSchema);
 
-// Health priorities schema
-export const healthPrioritiesSchema = z.object({
+export const healthPrioritiesSchema = z.object({   // Health priorities schema
   priorities: z.array(z.string()),
   medications: z.array(z.string()),
 });
 
-// Health metrics schema
-export const healthMetricsSchema = z.object({
+export const healthMetricsSchema = z.object({ // Health metrics schema
   weight: z.string(),
   goalWeight: z.string().optional(),
   height: z.string(),
@@ -40,8 +38,7 @@ export const healthMetricsSchema = z.object({
   date: z.string(),
 });
 
-// Completed activity schema
-export const completedActivitySchema = z.object({
+export const completedActivitySchema = z.object({ // Completed activity schema
   id: z.string(),
   title: z.string(),
   completedDate: z.string(),  // Fixed: was completedAt
@@ -66,8 +63,7 @@ export const dayLogSchema = z.object({
 
 export const dayLogsSchema = z.array(dayLogSchema);
 
-// Onboarding completion schema
-export const onboardingCompletedSchema = z.boolean();
+export const onboardingCompletedSchema = z.boolean(); // Onboarding completion schema
 
 export type MarkedTip = z.infer<typeof markedTipSchema>;
 export type HealthPriorities = z.infer<typeof healthPrioritiesSchema>;
