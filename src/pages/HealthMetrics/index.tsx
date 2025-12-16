@@ -36,7 +36,15 @@ const HealthMetricsFlow = () => {
       lastUpdated: new Date().toISOString(),
     };
     setMetricsData(updated);
-    setStorageItem('extendedHealthMetrics', updated, extendedHealthMetricsSchema);
+    const success = setStorageItem('extendedHealthMetrics', updated, extendedHealthMetricsSchema);
+    if (!success) {
+      // Fallback: save without schema validation
+      try {
+        localStorage.setItem('extendedHealthMetrics', JSON.stringify(updated));
+      } catch (e) {
+        console.error('Failed to save health metrics:', e);
+      }
+    }
   };
 
   const handleNext = (pageData: any) => {
