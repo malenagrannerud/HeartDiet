@@ -128,8 +128,7 @@ export const BloodPressure = ({ onNext, onSkip, onBack, currentStep, totalSteps 
                       onSelect={(newDate) => {
                         if (newDate) {
                           setDate(newDate);
-                          // If user selects date after skipping, un-mark as skipped
-                          if (isSkipped) setIsSkipped(false);
+                          if (isSkipped) setIsSkipped(false);       // If user selects date after skipping, un-mark as skipped
                         }
                       }}
                       initialFocus
