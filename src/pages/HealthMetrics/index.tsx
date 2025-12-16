@@ -5,6 +5,7 @@ import { BloodPressure } from "./BloodPressure";
 import { BloodFats } from "./BloodFats";
 import { BloodGlucose } from "./BloodGlucose";
 import { BackToTodayButton } from "@/components/BackToTodayButton";
+import { ButtonAbort } from "@/components/ButtonAbort";
 import { useToast } from "@/hooks/use-toast";
 import { getStorageItem, setStorageItem } from "@/lib/storage";
 import { extendedHealthMetricsSchema, completedActivitiesSchema, ExtendedHealthMetrics, healthMetricsSchema, DayLog } from "@/lib/schemas";
@@ -191,7 +192,11 @@ const handleNext = (pageData: any) => {
   return (
     <div className={pageContainer}>
       <div className={headerContainer}>
-        {currentPageIndex === 0 && <BackToTodayButton />}
+        {currentPageIndex === 0 ? (
+          <BackToTodayButton />
+        ) : (
+          <ButtonAbort className="absolute right-4 top-4" />
+        )}
         <h1 className={sectionHeading}>{pageTitles[currentPageIndex]}</h1>
       </div>
 
