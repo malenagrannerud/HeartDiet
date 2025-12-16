@@ -120,7 +120,7 @@ export const CurrentMeasurements = ({ onNext, onSkip, currentStep, totalSteps }:
       </section>
 
       {/* Nästa button fixed at the bottom */}
-      <section className="fixed bottom-12 left-0 right-0 px-4 z-10">
+      <section className="fixed bottom-16 left-0 right-0 px-4 z-10">
         <div className="max-w-md mx-auto flex gap-3">
           <Button
             onClick={handleContinue}

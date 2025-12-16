@@ -80,39 +80,19 @@ export const BloodGlucose = ({ onNext, onSkip, onBack, currentStep, totalSteps }
       </div>
 
       <section className={standardSpacing.sectionContent}>
-        
-        <CardInfoHint 
-          context="Info"
-          message="Målvärde för HbA1c är vanligtvis under 52 mmol/mol (7%)"
-        />
+           <CardInfoHint 
+            context="Referensvärde P-Glukos (fP-Glukos)"
+            message="Referensvärdet är satt till 4,0 till 6,0 mmol/L"
+            />
+      </section>
 
+      <section className={standardSpacing.sectionContent}>
         <div className={standardSpacing.cardList}>
           <Card className={standardCard}>
-            <div className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="hba1c">HbA1c (mmol/mol eller %)</Label>
-                <Input
-                  id="hba1c"
-                  type="text"
-                  value={hba1c}
-                  onChange={(e) => handleInputChange(setHba1c, e.target.value)}
-                  placeholder="Ex: 48 eller 6.5%"
-                />
-              </div>
-
-              <div className="relative">
-                <div className="absolute inset-0 flex items-center">
-                  <span className="w-full border-t" />
-                </div>
-                <div className="relative flex justify-center text-xs uppercase">
-                  <span className="bg-background px-2 text-muted-foreground">
-                    eller
-                  </span>
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="fastingGlucose">Fasteblodsocker (mmol/L)</Label>
+            <div className="space-y-10">
+      
+              <div className="space-y-1">
+                <Label htmlFor="fastingGlucose">P-Glukos (mmol/L)</Label>
                 <Input
                   id="fastingGlucose"
                   type="number"
@@ -123,7 +103,7 @@ export const BloodGlucose = ({ onNext, onSkip, onBack, currentStep, totalSteps }
                 />
               </div>
 
-              <div className="space-y-2">
+              <div className="space-y-1">
                 <Label>När mättes det?</Label>
                 <Popover>
                   <PopoverTrigger asChild>
@@ -151,10 +131,6 @@ export const BloodGlucose = ({ onNext, onSkip, onBack, currentStep, totalSteps }
                 </Popover>
               </div>
 
-              <p className={`${bodyText} text-muted-foreground text-sm`}>
-                Fyll i det värde du känner till. Du behöver inte ha båda.
-              </p>
-
               <div className="flex items-center space-x-2">
                 <Checkbox 
                   id="skip-bloodglucose"
@@ -167,10 +143,10 @@ export const BloodGlucose = ({ onNext, onSkip, onBack, currentStep, totalSteps }
               </div>
             </div>
           </Card>
-        </div>
+       </div>
       </section>
 
-      <section className="fixed bottom-12 left-0 right-0 px-4 z-10">
+      <section className="fixed bottom-16 left-0 right-0 px-4 z-10">
               <div className="flex gap-3">
                 <ButtonBackForward 
                   onBack={onBack}
