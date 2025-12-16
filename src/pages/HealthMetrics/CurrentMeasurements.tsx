@@ -110,10 +110,12 @@ export const CurrentMeasurements = ({ onNext, onSkip, currentStep, totalSteps }:
                   checked={isSkipped}
                   onCheckedChange={(checked) => setIsSkipped(checked === true)}
                 />
+
                 <Label htmlFor="skip-measurements" className="cursor-pointer text-muted-foreground">
-                  Senare
+                  Fyll i senare under "Mina sidor"
                 </Label>
               </div>
+
             </div>
           </Card>
         </div>
