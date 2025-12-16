@@ -124,11 +124,15 @@ export const CurrentMeasurements = ({ onNext, onSkip, currentStep, totalSteps }:
 
       {/* Nästa button fixed at the bottom */}
       <section className="fixed bottom-8 left-0 right-0 px-4 z-10">
-        <div className="max-w-md mx-auto">
-          <Button onClick={handleNext} className="w-2/3 h-12 text-base" size="lg">
-                Nästa
-                <ChevronRight className="ml-2 h-5 w-5" />
-              </Button>
+        <div className="max-w-md mx-auto flex gap-3">
+          <Button
+            onClick={isValid ? handleContinue : onSkip}
+            className="flex-1 h-12 text-base"
+            size="lg"
+          >
+            Nästa
+            <ArrowRight className="ml-2 h-5 w-5" />
+          </Button>
         </div>
       </section>
     </div>
