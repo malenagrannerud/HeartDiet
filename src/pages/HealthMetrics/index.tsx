@@ -189,7 +189,6 @@ const handleNext = (pageData: any) => {
       title: "Hälsomått sparade",
       description: "Dina mätningar har sparats.",
     });
-
     navigate('/app/today');
   };
 
