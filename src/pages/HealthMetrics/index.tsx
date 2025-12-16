@@ -7,7 +7,7 @@ import { BloodGlucose } from "./BloodGlucose";
 import { BackToTodayButton } from "@/components/BackToTodayButton";
 import { useToast } from "@/hooks/use-toast";
 import { getStorageItem, setStorageItem } from "@/lib/storage";
-import { extendedHealthMetricsSchema, completedActivitiesSchema, ExtendedHealthMetrics, healthMetricsSchema } from "@/lib/schemas";
+import { extendedHealthMetricsSchema, completedActivitiesSchema, ExtendedHealthMetrics, healthMetricsSchema, DayLog } from "@/lib/schemas";
 import { markCardCompleted } from "@/lib/card-completion";
 import { sectionHeading, headerContainer, pageContainer, pagePadding } from "@/lib/design-tokens";
 import { format } from "date-fns";
