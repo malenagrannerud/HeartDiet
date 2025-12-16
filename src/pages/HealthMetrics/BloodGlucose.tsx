@@ -10,7 +10,7 @@ import { CalendarIcon, ArrowLeft, ArrowRight, Check } from "lucide-react";
 import { format } from "date-fns";
 import { sv } from "date-fns/locale";
 import { ProgressIndicator } from "./components/ProgressIndicator";
-import { EducationalHint } from "./components/EducationalHint";
+import { CardInfoHint } from "@/components/CardInfoHint";
 import { standardCard, cardTitle, bodyText, primaryButton, standardSpacing } from "@/lib/design-tokens";
 import { getStorageItem } from "@/lib/storage";
 import { extendedHealthMetricsSchema } from "@/lib/schemas";
@@ -81,7 +81,7 @@ export const BloodGlucose = ({ onNext, onSkip, onBack, currentStep, totalSteps }
       <section className={standardSpacing.sectionContent}>
         <h2 className={cardTitle}>Blodsocker</h2>
         
-        <EducationalHint 
+        <CardInfoHint 
           context="Info"
           message="Målvärde för HbA1c är vanligtvis under 52 mmol/mol (7%)"
         />
