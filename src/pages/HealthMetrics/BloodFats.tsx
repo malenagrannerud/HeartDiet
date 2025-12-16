@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { ButtonBackForward } from "@/components/ButtonBackForward";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -7,12 +8,11 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { CalendarIcon, ArrowLeft, ArrowRight } from "lucide-react";
+import { CalendarIcon} from "lucide-react";
 import { format } from "date-fns";
 import { sv } from "date-fns/locale";
 import { ProgressIndicator } from "./components/ProgressIndicator";
-import { EducationalHint } from "./components/EducationalHint";
-import { standardCard, cardTitle, primaryButton, standardSpacing } from "@/lib/design-tokens";
+import { standardCard, standardSpacing } from "@/lib/design-tokens";
 import { getStorageItem } from "@/lib/storage";
 import { extendedHealthMetricsSchema } from "@/lib/schemas";
 import { cn } from "@/lib/utils";
@@ -57,11 +57,9 @@ export const BloodFats = ({ onNext, onSkip, onBack, currentStep, totalSteps }: B
         triglycerides: triglycerides || undefined
       };
       onNext(data);
-    } else if (isSkipped) {
-      // If skipped, just go to next step without data
+    } else if (isSkipped) { // If skipped, just go to next step without data
       onSkip();
-    } else {
-      // Save only the knowsLDL selection (not detailed values)
+    } else {                // Save only the knowsLDL selection (not detailed values)
       const data: any = { knowsLDL };
       if (knowsLDL === 'just-high' || knowsLDL === 'unknown') {
         data.date = date.toISOString();
@@ -100,7 +98,6 @@ export const BloodFats = ({ onNext, onSkip, onBack, currentStep, totalSteps }: B
       </div>
 
       <section className={standardSpacing.sectionContent}>
-        <h2 className={cardTitle}>Blodfetter</h2>
         <div className={standardSpacing.cardList}>
           <Card className={standardCard}>
             <div className="space-y-4">
@@ -219,24 +216,12 @@ export const BloodFats = ({ onNext, onSkip, onBack, currentStep, totalSteps }: B
       </section>
 
       <section className={standardSpacing.sectionContent}>
-        {/* Tillbaka and Nästa horizontally aligned under the card */}
         <div className="flex gap-3">
-          <Button
-            variant="outline"
-            onClick={onBack}
-            className="flex-1"
-          >
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Tillbaka
-          </Button>
-          <Button
-            onClick={handleContinue}
-            disabled={!isValid}
-            className={`flex-1 ${primaryButton}`}
-          >
-            Nästa
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
+          <ButtonBackForward 
+            onBack={onBack}
+            onForward={handleContinue}
+            forwardDisabled={!isValid}
+          />
         </div>
       </section>
     </div>

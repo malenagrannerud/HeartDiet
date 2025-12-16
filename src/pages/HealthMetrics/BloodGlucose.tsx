@@ -3,6 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { ButtonBackForward } from "@/components/ButtonBackForward";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -79,7 +80,6 @@ export const BloodGlucose = ({ onNext, onSkip, onBack, currentStep, totalSteps }
       </div>
 
       <section className={standardSpacing.sectionContent}>
-        <h2 className={cardTitle}>Blodsocker</h2>
         
         <CardInfoHint 
           context="Info"
@@ -171,25 +171,13 @@ export const BloodGlucose = ({ onNext, onSkip, onBack, currentStep, totalSteps }
       </section>
 
       <section className={standardSpacing.sectionContent}>
-        {/* Tillbaka and Spara horizontally aligned under the card */}
-        <div className="flex gap-3">
-          <Button
-            variant="outline"
-            onClick={onBack}
-            className="flex-1"
-          >
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Tillbaka
-          </Button>
-          <Button
-            onClick={handleSave}
-            disabled={!isValid}
-            className={`flex-1 ${primaryButton}`}
-          >
-            <Check className="mr-2 h-4 w-4" />
-            Spara
-          </Button>
-        </div>
+              <div className="flex gap-3">
+                <ButtonBackForward 
+                  onBack={onBack}
+                  onForward={handleSave}
+                  forwardDisabled={!isValid}
+                />
+              </div>
       </section>
     </div>
   );

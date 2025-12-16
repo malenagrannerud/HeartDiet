@@ -6,12 +6,13 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { CalendarIcon, ArrowLeft, ArrowRight } from "lucide-react";
+import { CalendarIcon} from "lucide-react";
 import { format } from "date-fns";
 import { sv } from "date-fns/locale";
 import { ProgressIndicator } from "./components/ProgressIndicator";
 import { CardInfoHint } from "@/components/CardInfoHint";
-import { standardCard, cardTitle, primaryButton, standardSpacing } from "@/lib/design-tokens";
+import { ButtonBackForward } from "@/components/ButtonBackForward";
+import { standardCard, standardSpacing } from "@/lib/design-tokens";
 import { getStorageItem } from "@/lib/storage";
 import { extendedHealthMetricsSchema } from "@/lib/schemas";
 import { cn } from "@/lib/utils";
@@ -48,12 +49,10 @@ export const BloodPressure = ({ onNext, onSkip, onBack, currentStep, totalSteps 
         diastolic, 
         date: date.toISOString() 
       });
-    } else if (isSkipped) {
-      // If skipped, just go to next step without data
+    } else if (isSkipped) {   // If skipped, just go to next step without data
       onSkip();
     }
   };
-
 
   const handleInputChange = (setter: React.Dispatch<React.SetStateAction<string>>, value: string) => {
     setter(value);
@@ -161,26 +160,11 @@ export const BloodPressure = ({ onNext, onSkip, onBack, currentStep, totalSteps 
 
       <section className={standardSpacing.sectionContent}>
         <div className="flex gap-3">
-          
-          <Button
-            variant="outline"
-            onClick={onBack}
-            className="flex-1 h-10 min-w-0 w-full"  // Added min-w-0 and w-full
-          >
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Tillbaka
-          </Button>
-          
-          <Button
-            onClick={handleContinue}
-            disabled={!isValid}
-            className={`flex-1 h-10 min-w-0 w-full ${primaryButton}`}  // Added min-w-0 and w-full
-          >
-            Nästa
-            <ArrowRight className="mr-2 h-4 w-4" />
-          </Button>
-  
-
+          <ButtonBackForward 
+            onBack={onBack}
+            onForward={handleContinue}
+            forwardDisabled={!isValid}
+          />
         </div>
       </section>
     </div>

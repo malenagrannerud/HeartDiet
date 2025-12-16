@@ -129,7 +129,7 @@ export const CurrentMeasurements = ({ onNext, onSkip, currentStep, totalSteps }:
             size="lg"
           >
             Nästa
-            <ArrowRight className="ml-2 h-5 w-5" />
+            <ArrowRight className="ml-2 h-5 w-4" />
           </Button>
         </div>
       </section>
