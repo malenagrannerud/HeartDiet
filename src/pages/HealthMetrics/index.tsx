@@ -137,8 +137,6 @@ const handleNext = (pageData: any) => {
   }
 };
 
-
-  
 /**  Helper function to add entry to dayLogs. Manages time-series data structure ensuring single entry per metric type per day
  * @param {DayLog[]} logs - Array of daily health metric logs
  * @param {string} dateStr - Date identifier for the log entry
@@ -156,15 +154,6 @@ const handleNext = (pageData: any) => {
   }
 };
 
-
-
-
-
-
-
-
-
-  
 
   const handleSkip = () => {
     if (currentPageIndex < TOTAL_STEPS - 1) {

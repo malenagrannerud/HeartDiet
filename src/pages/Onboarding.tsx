@@ -28,7 +28,7 @@ const Onboarding = ({ onComplete }: OnboardingProps) => {
     "Tio evidensbaserade tips för ett starkare hjärta",
     "Välj vilka tips du vill implementera varje vecka",
     "Upplev effekterna av en näringsriktig diet utan orimliga tvång",
-    "Få stöd under resan. Om något tips är svårt att implementera hjälper vi dej att anpassa stegen"
+    "Få stöd under resan"
   ];
 
   return (
@@ -39,9 +39,7 @@ const Onboarding = ({ onComplete }: OnboardingProps) => {
           <>
             <h1 className={pageTitle}>Hjärtkost</h1>
               <p className={`${sectionHeading2} mb-12`}>
-                {/* M - Hjärtkost hjälper dej att följa en evidensbaserad hjärt-vänlig kosthållning */}
-
-                {/*Hjärtkost kombinerar evidensbaserad hjärt-hälsosam kost med psykologiskt stöd för att göra hälsosamma vanor enkla och uthålliga.*/}
+                
                 Ditt individanpassade program för en hjärt-vänlig kosthållning
               </p>
            

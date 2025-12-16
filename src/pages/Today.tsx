@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { StartCard } from "@/components/StartCard";
 import { Clock, BookOpen, FileEdit } from "lucide-react"; 
-import { Card } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
 import { tips } from "@/data/tips";
 import TipCard from "@/components/TipCard";
