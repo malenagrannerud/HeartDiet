@@ -116,9 +116,9 @@ export const bloodGlucoseSchema = z.object({
 
 // Extended health metrics schema
 export const extendedHealthMetricsSchema = z.object({
-  // Basic measurements (always collected)
-  height: z.string(),
-  weight: z.string(),
+  // Basic measurements (optional for incremental saves)
+  height: z.string().optional(),
+  weight: z.string().optional(),
   goalWeight: z.string().optional(),
   
   // Blood pressure (conditional)
@@ -134,7 +134,7 @@ export const extendedHealthMetricsSchema = z.object({
   // Blood glucose (conditional)
   bloodGlucose: bloodGlucoseSchema.optional(),
   
-  lastUpdated: z.string(),
+  lastUpdated: z.string().optional(),
 });
 
 export type BloodFats = z.infer<typeof bloodFatsSchema>;
