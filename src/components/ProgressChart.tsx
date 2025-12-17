@@ -4,7 +4,7 @@ import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, ReferenceLine } from 
 import { ChartContainer } from "@/components/ui/chart";
 import { StatsBox } from "@/components/StatsBox";
 import { MoreButton } from "@/components/MoreButton";
-import { cardTextSmall, cardTextSmallBold } from "@/lib/design-tokens";
+import { cardTextSmallBold } from "@/lib/design-tokens";
 
 interface DayLog {
   date: string;

@@ -15,6 +15,13 @@ import { getStorageItem } from "@/lib/storage";
 import { healthMetricsSchema } from "@/lib/schemas";
 import { pageTitle, pageContainer, headerContainer, pagePadding, standardSpacing, bodyTextBald, cardTextSmall } from "@/lib/design-tokens";
 
+
+/**
+ *  load data → process for display → handle user interactions → persist changes
+ */
+
+
+
 type MetricType = 'weight' | 'bloodPressure' | 'bloodFats' | 'bloodGlucose';
 
 interface DayLog {
