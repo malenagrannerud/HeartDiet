@@ -630,7 +630,6 @@ const Progress = () => {
         currentStreak = 1;
       }
     }
-    
     // Don't forget to check the last streak
     maxStreak = Math.max(maxStreak, currentStreak);
     

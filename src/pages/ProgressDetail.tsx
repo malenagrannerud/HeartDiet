@@ -226,6 +226,7 @@ const ProgressDetail = () => {
   return (
     <div className={pageContainer}>
       <div className={`${headerContainer} ${pagePadding}`}>
+
         <Button 
           variant="ghost" 
           onClick={() => navigate('/app/progress')}
@@ -234,6 +235,7 @@ const ProgressDetail = () => {
           <ArrowLeft className="mr-2 h-4 w-4" />
           Tillbaka
         </Button>
+        
         <h1 className={pageTitle}>{config.title}</h1>
       </div>
 

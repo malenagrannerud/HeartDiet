@@ -173,6 +173,7 @@ const Today = () => {
 
       <main className={pagePadding}>
          <div className={standardSpacing.pageContent}>
+          
             <section className={standardSpacing.sectionContent}>
               <h3 className={bodyTextBald}>Starta här</h3>
         
