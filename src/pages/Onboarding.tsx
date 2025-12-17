@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ChevronRight, ChevronLeft } from "lucide-react";
 import { pageContainer, pagePadding, pageTitle, sectionHeading, sectionHeading2, standardSpacing } from "@/lib/design-tokens";
-import welcomeIllustration from "@/assets/welcome-illustration.png";
+import welcomeIllustration from "@/assets/handHeart.png";
 
 interface OnboardingProps {
   onComplete: () => void;
