@@ -14,7 +14,8 @@ import MotionPage from "./TipPages/motion";
 import BaljvaxterPage from "./TipPages/baljvaxter";
 import SockerPage from "./TipPages/socker";
 import Progress from "./Progress";
-import ProgressDetail from "./ProgressDetaljer";
+import ProgressDetail from "./ProgressDetail";
+
 import Help from "./Help";
 import Tutorial from "./Tutorial";
 import HealthGoals from "./HealthGoals";
