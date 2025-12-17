@@ -7,7 +7,10 @@ import TipCard from "@/components/TipCard";
 import { pageTitle, pageContainer, headerContainer, pagePadding, standardSpacing, pageSubtitle, bodyTextBald, bodyBaldSub } from "@/lib/design-tokens";
 import { getStorageItem } from "@/lib/storage";
 import { markedTipsSchema } from "@/lib/schemas";
-import HealthPrioritiesImage from "@/assets/fill.png"; 
+import HealthPrioritiesImage from "@/assets/ladyFormGreen.png"; 
+import FormManOrange from "@/assets/formManOrange.png"; 
+import ReadLady from "@/assets/readLady.png"; 
+import FormLady from "@/assets/ladyFormGreen.png"; 
 import { 
   isCardCompletedToday, 
   cleanupOldCompletions,
@@ -189,6 +192,7 @@ const Today = () => {
                           time="5 min"
                           onClick={() => handleCardNavigation('tutorial', '/app/tutorial')}
                           ariaLabel="Gå till tutorial"
+                          imageSrc={ReadLady}
                         />
                       </div>
                     </div>
@@ -242,6 +246,7 @@ const Today = () => {
                           time="1 min"
                           onClick={() => handleCardNavigation('medications', '/app/medications')}
                           ariaLabel="Gå till läkemedel"
+                          imageSrc={FormLady}
                         />
                       </div>
                     </div>
@@ -267,6 +272,7 @@ const Today = () => {
                           time="2-5 min"
                           onClick={() => handleCardNavigation('health-metrics', '/app/health-metrics')}
                           ariaLabel="Gå till hälsomätningar"
+                          imageSrc={FormLady}
                         />
                       </div>
                     </div>
