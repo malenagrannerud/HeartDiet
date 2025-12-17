@@ -72,7 +72,8 @@ const handleNext = (pageData: any) => {
       break;
       
     case 1: // Blood pressure
-      const bpDate = pageData.date || today; // Allow historical entries with custom date override
+      const bpDateRaw = pageData.date || today;
+      const bpDate = bpDateRaw.includes('T') ? format(new Date(bpDateRaw), 'yyyy-MM-dd') : bpDateRaw; // Convert ISO to yyyy-MM-dd for dayLogs consistency
       saveData({ 
         bloodPressure: {
           systolic: pageData.systolic,
@@ -91,7 +92,8 @@ const handleNext = (pageData: any) => {
       break;
       
     case 2: // Blood fats
-      const bloodFatsDate = pageData.date || today;
+      const bloodFatsDateRaw = pageData.date || today;
+      const bloodFatsDate = bloodFatsDateRaw.includes('T') ? format(new Date(bloodFatsDateRaw), 'yyyy-MM-dd') : bloodFatsDateRaw; // Convert ISO to yyyy-MM-dd
       saveData({ bloodFats: pageData });
       
       // Also save to dayLogs
@@ -106,7 +108,8 @@ const handleNext = (pageData: any) => {
       break;
       
     case 3: // Blood glucose
-      const bloodGlucoseDate = pageData.date || today;
+      const bloodGlucoseDateRaw = pageData.date || today;
+      const bloodGlucoseDate = bloodGlucoseDateRaw.includes('T') ? format(new Date(bloodGlucoseDateRaw), 'yyyy-MM-dd') : bloodGlucoseDateRaw; // Convert ISO to yyyy-MM-dd
       saveData({ bloodGlucose: pageData });
       
       // Also save to dayLogs
