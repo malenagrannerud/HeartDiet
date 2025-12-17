@@ -15,16 +15,16 @@ const TipCard = ({ tip, onClick, isCompleted = false }: TipCardProps) => {
   const IconComponent = Icons[tip.icon as keyof typeof Icons] as React.ComponentType<any>;
   
   return (
-    <Card
-      className={`p-5 hover:shadow-md transition-all cursor-pointer active:scale-[0.98] ${tip.color} border-0 shadow-none min-h-[80px] ${
+   <Card
+      className={`p-5 hover:shadow-md transition-all cursor-pointer active:scale-[0.98] ${tip.color} border-0 shadow-none min-h-[100px] ${
         isCompleted ? 'opacity-60' : ''
       }`}
       onClick={onClick}
     >
-      <div className="flex items-center justify-between gap-4">
-        <div className={standardSpacing.cardList}>
-          <h3 className={cardTitle}>{tip.title}</h3>
-          <div className={cardTitleSmall}>
+      <div className="flex items-center justify-between gap-2 h-full">
+        <div className="flex flex-col justify-center">
+          <h3 className={`${cardTitle} !mb-0`}>{tip.title}</h3>
+          <div className={`${cardTitleSmall} mt-0`}>
             {tip.freq} 
           </div>
         </div>

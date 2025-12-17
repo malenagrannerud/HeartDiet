@@ -31,7 +31,7 @@ export const StartCard = ({
 
   return (
     <Card 
-      className={`${interactiveCard} ${hasImage ? 'relative' : ''} py-3 h-32`}
+      className={`${interactiveCard} ${hasImage ? 'relative' : ''} py-3 h-28`}
       onClick={onClick}
       aria-label={ariaLabel}
     >
@@ -50,7 +50,7 @@ export const StartCard = ({
       
       {/* Image container fixed at bottom with same height */}
       {hasImage && imageSrc && (
-        <div className="absolute right-0 bottom-0 w-1/3 h-32">
+        <div className="absolute right-0 bottom-0 w-1/3 h-24">
           <img 
             src={imageSrc}
             alt={imageAlt || ""}
