@@ -6,7 +6,7 @@ import { Heart, Pill, Plus } from "lucide-react";
 import { tips } from "@/data/tips";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
-import { pageTitle, pageSubtitle, pageContainer, headerContainer, pagePadding, standardSpacing, cardTextSmall, bodyTextBald } from "@/lib/design-tokens";
+import { pageTitle, pageSubtitle, pageContainer, headerContainer, pagePadding, standardSpacing, cardTextSmall, bodyTextSmallBold, cardTextSmallBold, bodyTextBald } from "@/lib/design-tokens";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -799,7 +799,7 @@ const Progress = () => {
             <StatsBox>
               <div className="flex flex-col gap-4">
                 <div>
-                  <div className={bodyTextBald}>Klarade dagar totalt</div>
+                  <div className={bodyTextSmallBold}>Klarade dagar totalt</div>
                   <div className={cardTextSmall}>Antal dagar du loggat tips</div>
                 </div>
                 <div className="flex items-center justify-end">
@@ -813,7 +813,7 @@ const Progress = () => {
             <StatsBox>
               <div className="flex flex-col gap-4">
                 <div>
-                  <div className={bodyTextBald}>Klarade dagar i rad</div>
+                  <div className={bodyTextSmallBold}>Klarade dagar i rad</div>
                   <div className={cardTextSmall}>Antal dagar i rad du loggat tips</div>
                 </div>
                 <div className="flex items-center justify-end">

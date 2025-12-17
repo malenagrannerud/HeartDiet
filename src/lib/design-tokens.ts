@@ -198,6 +198,12 @@ export const bodyText = "text-base text-[#212658]";
 export const bodyTextBald = "text-base font-bold text-[#212658]";
 
 /**
+ * BODY TEXT- 14 px bold
+ */
+export const bodyTextSmallBold = "text-sm text-[#212658] font-bold";
+
+
+/**
  * BODY SUB - Under body bald 16 px
  */
 export const bodyBaldSub = "text-base text-[#212658]/70";
