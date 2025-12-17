@@ -7,7 +7,7 @@ import TipCard from "@/components/TipCard";
 import { pageTitle, pageContainer, headerContainer, pagePadding, standardSpacing, pageSubtitle, bodyTextBald, bodyBaldSub } from "@/lib/design-tokens";
 import { getStorageItem } from "@/lib/storage";
 import { markedTipsSchema } from "@/lib/schemas";
-import HealthPrioritiesImage from "@/assets/ladyFormGreen.png"; 
+import HealthPrioritiesImage from "@/assets/formManBrown.png"; 
 import FormManOrange from "@/assets/formManOrange.png"; 
 import ReadLady from "@/assets/readLady.png"; 
 import FormLady from "@/assets/ladyFormGreen.png"; 
