@@ -235,7 +235,7 @@ const ProgressDetail = () => {
           <ArrowLeft className="mr-2 h-4 w-4" />
           Tillbaka
         </Button>
-        
+
         <h1 className={pageTitle}>{config.title}</h1>
       </div>
 
@@ -356,41 +356,44 @@ const ProgressDetail = () => {
         </DialogContent>
       </Dialog>
 
-      {/* Goal Dialog */}
-      <Dialog open={goalDialogOpen} onOpenChange={setGoalDialogOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Ändra målvärde</DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4 py-4">
-            <div>
-              <Label>{metricType === 'bloodPressure' ? 'Mål systoliskt' : config.goalLabel}</Label>
-              <Input
-                type="number"
-                step={metricType === 'weight' || metricType === 'bloodFats' || metricType === 'bloodGlucose' ? "0.1" : "1"}
-                value={goalInput}
-                onChange={(e) => setGoalInput(e.target.value)}
-                placeholder={`Ange ${config.goalLabel.toLowerCase()}`}
-              />
-            </div>
-            {metricType === 'bloodPressure' && (
-              <div>
-                <Label>Mål diastoliskt</Label>
-                <Input
-                  type="number"
-                  value={goalInput2}
-                  onChange={(e) => setGoalInput2(e.target.value)}
-                  placeholder="Ange mål diastoliskt"
-                />
+        <div className={`${pagePadding} flex flex-col gap-4`}>
+          <Dialog open={goalDialogOpen} onOpenChange={setGoalDialogOpen}>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Ändra målvärde</DialogTitle>
+              </DialogHeader>
+              <div className="space-y-4 py-4">
+                <div>
+                  <Label>{metricType === 'bloodPressure' ? 'Mål systoliskt' : config.goalLabel}</Label>
+                  <Input
+                    type="number"
+                    step={metricType === 'weight' || metricType === 'bloodFats' || metricType === 'bloodGlucose' ? "0.1" : "1"}
+                    value={goalInput}
+                    onChange={(e) => setGoalInput(e.target.value)}
+                    placeholder={`Ange ${config.goalLabel.toLowerCase()}`}
+                  />
+                </div>
+                {metricType === 'bloodPressure' && (
+                  <div>
+                    <Label>Mål diastoliskt</Label>
+                    <Input
+                      type="number"
+                      value={goalInput2}
+                      onChange={(e) => setGoalInput2(e.target.value)}
+                      placeholder="Ange mål diastoliskt"
+                    />
+                  </div>
+                )}
               </div>
-            )}
-          </div>
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setGoalDialogOpen(false)}>Avbryt</Button>
-            <Button onClick={handleSaveGoal}>Spara</Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+              <DialogFooter>
+                <Button variant="outline" onClick={() => setGoalDialogOpen(false)}>Avbryt</Button>
+                <Button onClick={handleSaveGoal}>Spara</Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+        </div>
+
+
     </div>
   );
 };
