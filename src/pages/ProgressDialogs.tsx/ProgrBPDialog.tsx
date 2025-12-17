@@ -1,65 +1,83 @@
-// src/components/dialogs/WeightDialog.tsx
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
+// components/dialogs/BloodPressureDialog.tsx
 import { format } from "date-fns";
 import { sv } from "date-fns/locale";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
-interface WeightDialogProps {
-  isOpen: boolean;
-  onClose: () => void;
+interface BloodPressureDialogProps {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
   selectedDate: Date | null;
-  weightInput: string;
-  onWeightInputChange: (value: string) => void;
-  existingWeightEntry: number | null;
+  systolicInput: string;
+  onSystolicInputChange: (value: string) => void;
+  diastolicInput: string;
+  onDiastolicInputChange: (value: string) => void;
+  existingBPEntry: { systolic: number; diastolic: number } | null;
   onSave: () => void;
   onDelete: () => void;
+  onCancel: () => void;
 }
 
-export const WeightDialog = ({
-  isOpen,
-  onClose,
+export function BloodPressureDialog({
+  open,
+  onOpenChange,
   selectedDate,
-  weightInput,
-  onWeightInputChange,
-  existingWeightEntry,
+  systolicInput,
+  onSystolicInputChange,
+  diastolicInput,
+  onDiastolicInputChange,
+  existingBPEntry,
   onSave,
-  onDelete
-}: WeightDialogProps) => {
+  onDelete,
+  onCancel,
+}: BloodPressureDialogProps) {
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
+    <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-md">
         <DialogHeader>
           <DialogTitle>
-            {existingWeightEntry ? 'Ändra vikt' : 'Lägg till vikt'} för {selectedDate && format(selectedDate, 'd MMMM yyyy', { locale: sv })}
+            {existingBPEntry ? 'Ändra blodtryck' : 'Lägg till blodtryck'} för {selectedDate && format(selectedDate, 'd MMMM yyyy', { locale: sv })}
           </DialogTitle>
         </DialogHeader>
         
         <div className="space-y-4 py-4">
-          {existingWeightEntry && (
+          {existingBPEntry && (
             <div className="p-3 bg-muted/50">
               <p className="text-sm text-muted-foreground mb-1">Nuvarande värde:</p>
-              <p className="text-lg font-semibold">{existingWeightEntry} kg</p>
+              <p className="text-lg font-semibold">{existingBPEntry.systolic}/{existingBPEntry.diastolic} mmHg</p>
             </div>
           )}
           
-          <div>
-            <Label htmlFor="weight-input" className="text-base mb-2 block">Vikt (kg)</Label>
-            <Input
-              id="weight-input"
-              type="number"
-              step="0.1"
-              value={weightInput}
-              onChange={(e) => onWeightInputChange(e.target.value)}
-              placeholder="Ange vikt i kg"
-              className="w-full"
-            />
+          <div className="space-y-3">
+            <div>
+              <Label htmlFor="systolic-input" className="text-base mb-2 block">Systoliskt (övre värde)</Label>
+              <Input
+                id="systolic-input"
+                type="number"
+                value={systolicInput}
+                onChange={(e) => onSystolicInputChange(e.target.value)}
+                placeholder="T.ex. 120"
+                className="w-full"
+              />
+            </div>
+            <div>
+              <Label htmlFor="diastolic-input" className="text-base mb-2 block">Diastoliskt (nedre värde)</Label>
+              <Input
+                id="diastolic-input"
+                type="number"
+                value={diastolicInput}
+                onChange={(e) => onDiastolicInputChange(e.target.value)}
+                placeholder="T.ex. 80"
+                className="w-full"
+              />
+            </div>
           </div>
         </div>
 
         <DialogFooter className="gap-3">
-          {existingWeightEntry && (
+          {existingBPEntry && (
             <Button 
               variant="destructive" 
               onClick={onDelete} 
@@ -68,7 +86,7 @@ export const WeightDialog = ({
               Radera
             </Button>
           )}
-          <Button variant="outline" onClick={onClose} className="text-base py-6">
+          <Button variant="outline" onClick={onCancel} className="text-base py-6">
             Avbryt
           </Button>
           <Button onClick={onSave} className="text-base py-6">
@@ -78,4 +96,4 @@ export const WeightDialog = ({
       </DialogContent>
     </Dialog>
   );
-};
+}

@@ -5,7 +5,6 @@ import { sv } from "date-fns/locale";
 import { Heart, Pill } from "lucide-react";
 import { tips } from "@/data/tips";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { pageTitle, pageSubtitle, pageContainer, headerContainer, pagePadding, standardSpacing, cardTextSmall, bodyTextSmallBold } from "@/lib/design-tokens";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
