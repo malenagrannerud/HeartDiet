@@ -20,6 +20,7 @@ import { HealthInfoCard } from "@/components/HealthInfoCard";
 import { getCurrentDate } from "@/lib/simulated-date";
 import { ProgressChart } from "@/components/ProgressChart";
 import { WeeklyProgressTable } from "@/components/WeeklyProgressTable";
+import { SaveConfirmationDialog } from "@/components/AlertSaveDataProgress";
 
 interface DayLog {
   date: string;
@@ -1266,92 +1267,15 @@ const Progress = () => {
           </Dialog>
 
           {/* Save Confirmation Alert */}
-          <AlertDialog open={saveAlertOpen} onOpenChange={setSaveAlertOpen}>
-            <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle>Granska innan du sparar</AlertDialogTitle>
-                <AlertDialogDescription>
-                  Kontrollera att uppgifterna stämmer:
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              {pendingEntry && (
-                <div className="my-4 space-y-3 bg-muted/50 p-4">
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-muted-foreground">Datum:</span>
-                    <span className="text-sm font-medium">
-                      {pendingEntry.date 
-                        ? format(new Date(pendingEntry.date), 'd MMMM yyyy', { locale: sv })
-                        : selectedDate && format(selectedDate, 'd MMMM yyyy', { locale: sv })
-                      }
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-muted-foreground">Typ:</span>
-                    <span className="text-sm font-medium">
-                      {pendingEntry.type === 'weight' && 'Vikt'}
-                      {pendingEntry.type === 'bloodPressure' && 'Blodtryck'}
-                      {pendingEntry.type === 'bloodFats' && 'Kolesterolvärden'}
-                      {pendingEntry.type === 'bloodGlucose' && 'Blodsockervärden'}
-                    </span>
-                  </div>
-                  {pendingEntry.type === 'weight' && (
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-muted-foreground">Värde:</span>
-                      <span className="text-sm font-medium">{pendingEntry.weight} kg</span>
-                    </div>
-                  )}
-                  {pendingEntry.type === 'bloodPressure' && (
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-muted-foreground">Värde:</span>
-                      <span className="text-sm font-medium">{pendingEntry.systolic}/{pendingEntry.diastolic} mmHg</span>
-                    </div>
-                  )}
-                  {pendingEntry.type === 'bloodFats' && (
-                    <>
-                      <div className="flex justify-between items-center">
-                        <span className="text-sm text-muted-foreground">LDL:</span>
-                        <span className="text-sm font-medium">{pendingEntry.ldl} mmol/L</span>
-                      </div>
-                      {pendingEntry.hdl && (
-                        <div className="flex justify-between items-center">
-                          <span className="text-sm text-muted-foreground">HDL:</span>
-                          <span className="text-sm font-medium">{pendingEntry.hdl} mmol/L</span>
-                        </div>
-                      )}
-                      {pendingEntry.triglycerides && (
-                        <div className="flex justify-between items-center">
-                          <span className="text-sm text-muted-foreground">Triglycerider:</span>
-                          <span className="text-sm font-medium">{pendingEntry.triglycerides} mmol/L</span>
-                        </div>
-                      )}
-                    </>
-                  )}
-                  {pendingEntry.type === 'bloodGlucose' && (
-                    <>
-                      {pendingEntry.hba1c && (
-                        <div className="flex justify-between items-center">
-                          <span className="text-sm text-muted-foreground">HbA1c:</span>
-                          <span className="text-sm font-medium">{pendingEntry.hba1c} mmol/mol</span>
-                        </div>
-                      )}
-                      {pendingEntry.fastingGlucose && (
-                        <div className="flex justify-between items-center">
-                          <span className="text-sm text-muted-foreground">Fasteblodsocker:</span>
-                          <span className="text-sm font-medium">{pendingEntry.fastingGlucose} mmol/L</span>
-                        </div>
-                      )}
-                    </>
-                  )}
-                </div>
-              )}
-              <AlertDialogFooter>
-                <AlertDialogCancel onClick={() => setPendingEntry(null)}>Avbryt</AlertDialogCancel>
-                <AlertDialogAction onClick={confirmSaveEntry}>
-                  Spara
-                </AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
+          <SaveConfirmationDialog
+              open={saveAlertOpen}
+              onOpenChange={setSaveAlertOpen}
+              pendingEntry={pendingEntry}
+              selectedDate={selectedDate}
+              onConfirm={confirmSaveEntry}
+              onCancel={() => setPendingEntry(null)}
+            />
+
         </div>  
       </main>
     </div>
