@@ -72,17 +72,10 @@ export const ProgressChart: React.FC<ProgressChartProps> = ({
   };
 
   const getTitle = () => {
-    if (isWeight) return "Vikt";
-    if (isBloodPressure) return "Blodtryck";
-    if (isBloodFats) return "Kolesterol (LDL)";
-    return "Blodsocker";
-  };
-
-  const getSubtitle = () => {
-    if (isWeight) return "Loggade vikter (kg)";
-    if (isBloodPressure) return "Loggade blodtryck (mmHg)";
-    if (isBloodFats) return "Loggat LDL-kolesterol (mmol/L)";
-    return "Loggat blodsocker (mmol/mol eller mmol/L)";
+    if (isWeight) return "Vikt (kg)";
+    if (isBloodPressure) return "Blodtryck (mmHg)";
+    if (isBloodFats) return "Kolesterol (mmol/L)";
+    return "Blodsocker (mmol/L)";
   };
 
   const getFormatter = () => {
@@ -96,7 +89,6 @@ export const ProgressChart: React.FC<ProgressChartProps> = ({
   const barColor = getBarColor();
   const dataKey = "value"; // All chart types use 'value' as primary data key
   const title = getTitle();
-  const subtitle = getSubtitle();
   const formatter = getFormatter();
 
   const getGoalValue = () => {
@@ -124,7 +116,6 @@ export const ProgressChart: React.FC<ProgressChartProps> = ({
       <div className="flex justify-between items-start">
         <div>
           <div className={cardTextSmallBold}>{title}</div>
-          <div className={cardTextSmall}>{subtitle}</div>
         </div>
         {onMoreClick && (
           <MoreButton label="Detaljer" onClick={onMoreClick} />
