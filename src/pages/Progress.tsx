@@ -4,11 +4,7 @@ import { format, startOfWeek, addDays, startOfMonth, endOfMonth } from "date-fns
 import { sv } from "date-fns/locale";
 import { Heart, Pill } from "lucide-react";
 import { tips } from "@/data/tips";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { pageTitle, pageSubtitle, pageContainer, headerContainer, pagePadding, standardSpacing, cardTextSmall, bodyTextSmallBold } from "@/lib/design-tokens";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { getDayLogs } from "@/lib/tip-completion";
 import { getStorageItem } from "@/lib/storage";
@@ -20,6 +16,11 @@ import { getCurrentDate } from "@/lib/simulated-date";
 import { ProgressChart } from "@/components/ProgressChart";
 import { WeeklyProgressTable } from "@/components/WeeklyProgressTable";
 import { SaveConfirmationDialog } from "@/components/AlertSaveDataProgress";
+import { GoalEditDialog } from "./ProgressDialogs.tsx/EditGoalDialog";
+import { BloodGlucoseDialog } from "./ProgressDialogs.tsx/ProgrBloodSugarDialog";
+import { WeightDialog } from "./ProgressDialogs.tsx/ProgrWeightDialog";
+import { BloodPressureDialog } from "./ProgressDialogs.tsx/ProgrBPDialog";
+import { BloodFatsDialog } from "./ProgressDialogs.tsx/ProgrBloodFatDialog";
 
 interface DayLog {
   date: string;
@@ -876,394 +877,91 @@ const Progress = () => {
           </div>
 
           {/* Dialog for weight */}
-          <Dialog open={weightDialogOpen} onOpenChange={setWeightDialogOpen}>
-            <DialogContent className="max-w-md">
-              <DialogHeader>
-                <DialogTitle>
-                  {existingWeightEntry ? 'Ändra vikt' : 'Lägg till vikt'} för {selectedDate && format(selectedDate, 'd MMMM yyyy', { locale: sv })}
-                </DialogTitle>
-              </DialogHeader>
-              
-              <div className="space-y-4 py-4">
-                {existingWeightEntry && (
-                  <div className="p-3 bg-muted/50">
-                    <p className="text-sm text-muted-foreground mb-1">Nuvarande värde:</p>
-                    <p className="text-lg font-semibold">{existingWeightEntry} kg</p>
-                  </div>
-                )}
-                
-                <div>
-                  <Label htmlFor="weight-input" className="text-base mb-2 block">Vikt (kg)</Label>
-                  <Input
-                    id="weight-input"
-                    type="number"
-                    step="0.1"
-                    value={weightInput}
-                    onChange={(e) => setWeightInput(e.target.value)}
-                    placeholder="Ange vikt i kg"
-                    className="w-full"
-                  />
-                </div>
-              </div>
+        <WeightDialog
+          open={weightDialogOpen}
+          onOpenChange={setWeightDialogOpen}
+          selectedDate={selectedDate}
+          weightInput={weightInput}
+          onWeightInputChange={setWeightInput}
+          existingWeightEntry={existingWeightEntry}
+          onSave={handleSaveWeight}
+          onDelete={handleDeleteWeight}
+          onCancel={() => setWeightDialogOpen(false)}
+        />
 
-              <DialogFooter className="gap-3">
-                {existingWeightEntry && (
-                  <Button 
-                    variant="destructive" 
-                    onClick={handleDeleteWeight} 
-                    className="text-base py-6"
-                  >
-                    Radera
-                  </Button>
-                )}
-                <Button variant="outline" onClick={() => setWeightDialogOpen(false)} className="text-base py-6">
-                  Avbryt
-                </Button>
-                <Button onClick={handleSaveWeight} className="text-base py-6">
-                  Spara
-                </Button>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
+        {/* Dialog for blood pressure */}
+        <BloodPressureDialog
+          open={bpDialogOpen}
+          onOpenChange={setBpDialogOpen}
+          selectedDate={selectedDate}
+          systolicInput={systolicInput}
+          onSystolicInputChange={setSystolicInput}
+          diastolicInput={diastolicInput}
+          onDiastolicInputChange={setDiastolicInput}
+          existingBPEntry={existingBPEntry}
+          onSave={handleSaveBloodPressure}
+          onDelete={handleDeleteBloodPressure}
+          onCancel={() => setBpDialogOpen(false)}
+        />
 
-          {/* Dialog for blood pressure */}
-          <Dialog open={bpDialogOpen} onOpenChange={setBpDialogOpen}>
-            <DialogContent className="max-w-md">
-              <DialogHeader>
-                <DialogTitle>
-                  {existingBPEntry ? 'Ändra blodtryck' : 'Lägg till blodtryck'} för {selectedDate && format(selectedDate, 'd MMMM yyyy', { locale: sv })}
-                </DialogTitle>
-              </DialogHeader>
-              
-              <div className="space-y-4 py-4">
-                {existingBPEntry && (
-                  <div className="p-3 bg-muted/50">
-                    <p className="text-sm text-muted-foreground mb-1">Nuvarande värde:</p>
-                    <p className="text-lg font-semibold">{existingBPEntry.systolic}/{existingBPEntry.diastolic} mmHg</p>
-                  </div>
-                )}
-                
-                <div className="space-y-3">
-                  <div>
-                    <Label htmlFor="systolic-input" className="text-base mb-2 block">Systoliskt (övre värde)</Label>
-                    <Input
-                      id="systolic-input"
-                      type="number"
-                      value={systolicInput}
-                      onChange={(e) => setSystolicInput(e.target.value)}
-                      placeholder="T.ex. 120"
-                      className="w-full"
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="diastolic-input" className="text-base mb-2 block">Diastoliskt (nedre värde)</Label>
-                    <Input
-                      id="diastolic-input"
-                      type="number"
-                      value={diastolicInput}
-                      onChange={(e) => setDiastolicInput(e.target.value)}
-                      placeholder="T.ex. 80"
-                      className="w-full"
-                    />
-                  </div>
-                </div>
-              </div>
+        {/* Dialog for blood fats */}
+        <BloodFatsDialog
+          open={bloodFatsDialogOpen}
+          onOpenChange={setBloodFatsDialogOpen}
+          bloodFatsDateInput={bloodFatsDateInput}
+          onBloodFatsDateInputChange={setBloodFatsDateInput}
+          ldlInput={ldlInput}
+          onLdlInputChange={setLdlInput}
+          hdlInput={hdlInput}
+          onHdlInputChange={setHdlInput}
+          triglyceridesInput={triglyceridesInput}
+          onTriglyceridesInputChange={setTriglyceridesInput}
+          existingBloodFatsEntry={existingBloodFatsEntry}
+          onSave={handleSaveBloodFats}
+          onDelete={handleDeleteBloodFats}
+          onCancel={() => setBloodFatsDialogOpen(false)}
+        />
 
-              <DialogFooter className="gap-3">
-                {existingBPEntry && (
-                  <Button 
-                    variant="destructive" 
-                    onClick={handleDeleteBloodPressure} 
-                    className="text-base py-6"
-                  >
-                    Radera
-                  </Button>
-                )}
-                <Button variant="outline" onClick={() => setBpDialogOpen(false)} className="text-base py-6">
-                  Avbryt
-                </Button>
-                <Button onClick={handleSaveBloodPressure} className="text-base py-6">
-                  Spara
-                </Button>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
 
-          {/* Dialog for blood fats */}
-          <Dialog open={bloodFatsDialogOpen} onOpenChange={setBloodFatsDialogOpen}>
-            <DialogContent className="max-w-md">
-              <DialogHeader>
-                <DialogTitle>
-                  {existingBloodFatsEntry ? 'Ändra kolesterolvärden' : 'Lägg till kolesterolvärden'}
-                </DialogTitle>
-              </DialogHeader>
-              
-              <div className="space-y-4 py-4">
-                <div>
-                  <Label htmlFor="bloodfats-date-input" className="text-base mb-2 block">Datum för mätning</Label>
-                  <Input
-                    id="bloodfats-date-input"
-                    type="date"
-                    value={bloodFatsDateInput}
-                    onChange={(e) => setBloodFatsDateInput(e.target.value)}
-                    className="w-full"
-                  />
-                </div>
-                
-                <div>
-                  <Label htmlFor="ldl-input" className="text-base mb-2 block">LDL-kolesterol (mmol/L) *</Label>
-                  <Input
-                    id="ldl-input"
-                    type="number"
-                    step="0.1"
-                    value={ldlInput}
-                    onChange={(e) => setLdlInput(e.target.value)}
-                    placeholder="T.ex. 3.5"
-                    className="w-full"
-                  />
-                </div>
-                
-                <div>
-                  <Label htmlFor="hdl-input" className="text-base mb-2 block">HDL-kolesterol (mmol/L)</Label>
-                  <Input
-                    id="hdl-input"
-                    type="number"
-                    step="0.1"
-                    value={hdlInput}
-                    onChange={(e) => setHdlInput(e.target.value)}
-                    placeholder="T.ex. 1.3"
-                    className="w-full"
-                  />
-                </div>
-                
-                <div>
-                  <Label htmlFor="triglycerides-input" className="text-base mb-2 block">Triglycerider (mmol/L)</Label>
-                  <Input
-                    id="triglycerides-input"
-                    type="number"
-                    step="0.1"
-                    value={triglyceridesInput}
-                    onChange={(e) => setTriglyceridesInput(e.target.value)}
-                    placeholder="T.ex. 1.7"
-                    className="w-full"
-                  />
-                </div>
-              </div>
-              
-              <DialogFooter className="gap-3">
-                {existingBloodFatsEntry && (
-                  <Button 
-                    variant="destructive" 
-                    onClick={handleDeleteBloodFats} 
-                    className="text-base py-6"
-                  >
-                    Radera
-                  </Button>
-                )}
-                <Button variant="outline" onClick={() => setBloodFatsDialogOpen(false)} className="text-base py-6">
-                  Avbryt
-                </Button>
-                <Button onClick={handleSaveBloodFats} className="text-base py-6">
-                  Spara
-                </Button>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
 
           {/* Dialog for blood glucose */}
-          <Dialog open={bloodGlucoseDialogOpen} onOpenChange={setBloodGlucoseDialogOpen}>
-            <DialogContent className="max-w-md">
-              <DialogHeader>
-                <DialogTitle>
-                  {existingBloodGlucoseEntry ? 'Ändra blodsockervärden' : 'Lägg till blodsockervärden'}
-                </DialogTitle>
-              </DialogHeader>
-              
-              <div className="space-y-4 py-4">
-                <div>
-                  <Label htmlFor="bloodglucose-date-input" className="text-base mb-2 block">Datum för mätning</Label>
-                  <Input
-                    id="bloodglucose-date-input"
-                    type="date"
-                    value={bloodGlucoseDateInput}
-                    onChange={(e) => setBloodGlucoseDateInput(e.target.value)}
-                    className="w-full"
-                  />
-                </div>
-                
-                <div>
-                  <Label htmlFor="hba1c-input" className="text-base mb-2 block">HbA1c (mmol/mol)</Label>
-                  <Input
-                    id="hba1c-input"
-                    type="number"
-                    step="1"
-                    value={hba1cInput}
-                    onChange={(e) => setHba1cInput(e.target.value)}
-                    placeholder="T.ex. 48"
-                    className="w-full"
-                  />
-                  <p className="text-xs text-muted-foreground mt-1">Målvärde är vanligtvis under 52 mmol/mol</p>
-                </div>
-                
-                <div>
-                  <Label htmlFor="fasting-glucose-input" className="text-base mb-2 block">Fasteblodsocker (mmol/L)</Label>
-                  <Input
-                    id="fasting-glucose-input"
-                    type="number"
-                    step="0.1"
-                    value={fastingGlucoseInput}
-                    onChange={(e) => setFastingGlucoseInput(e.target.value)}
-                    placeholder="T.ex. 5.5"
-                    className="w-full"
-                  />
-                </div>
-              </div>
-              
-              <DialogFooter className="gap-3">
-                {existingBloodGlucoseEntry && (
-                  <Button 
-                    variant="destructive" 
-                    onClick={handleDeleteBloodGlucose} 
-                    className="text-base py-6"
-                  >
-                    Radera
-                  </Button>
-                )}
-                <Button variant="outline" onClick={() => setBloodGlucoseDialogOpen(false)} className="text-base py-6">
-                  Avbryt
-                </Button>
-                <Button onClick={handleSaveBloodGlucose} className="text-base py-6">
-                  Spara
-                </Button>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
+        <BloodGlucoseDialog
+          open={bloodGlucoseDialogOpen}
+          onOpenChange={setBloodGlucoseDialogOpen}
+          bloodGlucoseDateInput={bloodGlucoseDateInput}
+          onBloodGlucoseDateInputChange={setBloodGlucoseDateInput}
+          hba1cInput={hba1cInput}
+          onHba1cInputChange={setHba1cInput}
+          fastingGlucoseInput={fastingGlucoseInput}
+          onFastingGlucoseInputChange={setFastingGlucoseInput}
+          existingBloodGlucoseEntry={existingBloodGlucoseEntry}
+          onSave={handleSaveBloodGlucose}
+          onDelete={handleDeleteBloodGlucose}
+          onCancel={() => setBloodGlucoseDialogOpen(false)}
+        />
 
-          {/* Goal Edit Dialog */}
-          <Dialog open={goalEditDialogOpen} onOpenChange={setGoalEditDialogOpen}>
-            <DialogContent className="max-w-md">
-              <DialogHeader>
-                <DialogTitle>
-                  {goalEditType === 'weight' && 'Ändra målvikt'}
-                  {goalEditType === 'bloodPressure' && 'Ändra målblodtryck'}
-                  {goalEditType === 'bloodFats' && 'Ändra kolesterolmål'}
-                  {goalEditType === 'bloodGlucose' && 'Ändra blodsockermål'}
-                </DialogTitle>
-              </DialogHeader>
-              
-              <div className="space-y-4 py-4">
-                {goalEditType === 'weight' && (
-                  <div>
-                    <Label htmlFor="goal-weight-input" className="text-base mb-2 block">Målvikt (kg)</Label>
-                    <Input
-                      id="goal-weight-input"
-                      type="number"
-                      step="0.1"
-                      value={goalWeightInput}
-                      onChange={(e) => setGoalWeightInput(e.target.value)}
-                      placeholder="Ange målvikt i kg"
-                      className="w-full"
-                    />
-                  </div>
-                )}
-                {goalEditType === 'bloodPressure' && (
-                  <div className="space-y-3">
-                    <div>
-                      <Label htmlFor="goal-systolic-input" className="text-base mb-2 block">Systoliskt målvärde (övre)</Label>
-                      <Input
-                        id="goal-systolic-input"
-                        type="number"
-                        value={goalSystolicInput}
-                        onChange={(e) => setGoalSystolicInput(e.target.value)}
-                        placeholder="T.ex. 120"
-                        className="w-full"
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="goal-diastolic-input" className="text-base mb-2 block">Diastoliskt målvärde (nedre)</Label>
-                      <Input
-                        id="goal-diastolic-input"
-                        type="number"
-                        value={goalDiastolicInput}
-                        onChange={(e) => setGoalDiastolicInput(e.target.value)}
-                        placeholder="T.ex. 80"
-                        className="w-full"
-                      />
-                    </div>
-                  </div>
-                )}
-                {goalEditType === 'bloodFats' && (
-                  <div className="space-y-3">
-                    <div>
-                      <Label htmlFor="goal-ldl-input" className="text-base mb-2 block">LDL målvärde (mmol/L)</Label>
-                      <Input
-                        id="goal-ldl-input"
-                        type="number"
-                        step="0.1"
-                        value={goalLDLInput}
-                        onChange={(e) => setGoalLDLInput(e.target.value)}
-                        placeholder="T.ex. 2.5"
-                        className="w-full"
-                      />
-                      <p className="text-xs text-muted-foreground mt-1">Rekommenderat under 3.0 mmol/L</p>
-                    </div>
-                    <div>
-                      <Label htmlFor="goal-hdl-input" className="text-base mb-2 block">HDL målvärde (mmol/L) - Valfritt</Label>
-                      <Input
-                        id="goal-hdl-input"
-                        type="number"
-                        step="0.1"
-                        value={goalHDLInput}
-                        onChange={(e) => setGoalHDLInput(e.target.value)}
-                        placeholder="T.ex. 1.5"
-                        className="w-full"
-                      />
-                      <p className="text-xs text-muted-foreground mt-1">Rekommenderat över 1.0 mmol/L</p>
-                    </div>
-                  </div>
-                )}
-                {goalEditType === 'bloodGlucose' && (
-                  <div className="space-y-3">
-                    <div>
-                      <Label htmlFor="goal-hba1c-input" className="text-base mb-2 block">HbA1c målvärde (mmol/mol)</Label>
-                      <Input
-                        id="goal-hba1c-input"
-                        type="number"
-                        step="1"
-                        value={goalHbA1cInput}
-                        onChange={(e) => setGoalHbA1cInput(e.target.value)}
-                        placeholder="T.ex. 42"
-                        className="w-full"
-                      />
-                      <p className="text-xs text-muted-foreground mt-1">Rekommenderat under 52 mmol/mol</p>
-                    </div>
-                    <div>
-                      <Label htmlFor="goal-fasting-glucose-input" className="text-base mb-2 block">Fasteblodsocker målvärde (mmol/L) - Valfritt</Label>
-                      <Input
-                        id="goal-fasting-glucose-input"
-                        type="number"
-                        step="0.1"
-                        value={goalFastingGlucoseInput}
-                        onChange={(e) => setGoalFastingGlucoseInput(e.target.value)}
-                        placeholder="T.ex. 5.5"
-                        className="w-full"
-                      />
-                      <p className="text-xs text-muted-foreground mt-1">Rekommenderat under 6.0 mmol/L</p>
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              <DialogFooter className="gap-3">
-                <Button variant="outline" onClick={() => setGoalEditDialogOpen(false)} className="text-base py-6">
-                  Avbryt
-                </Button>
-                <Button onClick={handleSaveGoal} className="text-base py-6">
-                  Spara mål
-                </Button>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
+           {/* Goal Edit Dialog */}
+              <GoalEditDialog
+                open={goalEditDialogOpen}
+                onOpenChange={setGoalEditDialogOpen}
+                goalEditType={goalEditType}
+                goalWeightInput={goalWeightInput}
+                onGoalWeightInputChange={setGoalWeightInput}
+                goalSystolicInput={goalSystolicInput}
+                onGoalSystolicInputChange={setGoalSystolicInput}
+                goalDiastolicInput={goalDiastolicInput}
+                onGoalDiastolicInputChange={setGoalDiastolicInput}
+                goalLDLInput={goalLDLInput}
+                onGoalLDLInputChange={setGoalLDLInput}
+                goalHDLInput={goalHDLInput}
+                onGoalHDLInputChange={setGoalHDLInput}
+                goalHbA1cInput={goalHbA1cInput}
+                onGoalHbA1cInputChange={setGoalHbA1cInput}
+                goalFastingGlucoseInput={goalFastingGlucoseInput}
+                onGoalFastingGlucoseInputChange={setGoalFastingGlucoseInput}
+                onSave={handleSaveGoal}
+                onCancel={() => setGoalEditDialogOpen(false)}
+              />
 
           {/* Save Confirmation Alert */}
           <SaveConfirmationDialog
@@ -1274,7 +972,6 @@ const Progress = () => {
               onConfirm={confirmSaveEntry}
               onCancel={() => setPendingEntry(null)}
             />
-
         </div>  
       </main>
     </div>
