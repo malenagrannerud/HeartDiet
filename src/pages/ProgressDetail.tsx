@@ -13,14 +13,7 @@ import { useToast } from "@/hooks/use-toast";
 import { getDayLogs } from "@/lib/tip-completion";
 import { getStorageItem } from "@/lib/storage";
 import { healthMetricsSchema } from "@/lib/schemas";
-import { pageTitle, pageContainer, headerContainer, pagePadding, standardSpacing, bodyTextBald, cardTextSmall } from "@/lib/design-tokens";
-
-
-/**
- *  load data → process for display → handle user interactions → persist changes
- */
-
-
+import { pageTitle, pageContainer, headerContainer, pagePadding, bodyTextBald, cardTextSmall } from "@/lib/design-tokens";
 
 type MetricType = 'weight' | 'bloodPressure' | 'bloodFats' | 'bloodGlucose';
 
@@ -233,7 +226,6 @@ const ProgressDetail = () => {
   return (
     <div className={pageContainer}>
       <div className={`${headerContainer} ${pagePadding}`}>
-
         <Button 
           variant="ghost" 
           onClick={() => navigate('/app/progress')}
@@ -242,11 +234,11 @@ const ProgressDetail = () => {
           <ArrowLeft className="mr-2 h-4 w-4" />
           Tillbaka
         </Button>
-
         <h1 className={pageTitle}>{config.title}</h1>
       </div>
 
-      <div className={`${pagePadding} ${standardSpacing}`}>
+      {/* Main content with consistent spacing */}
+      <div className={`${pagePadding} flex flex-col gap-4`}>
         {/* Chart */}
         {chartData.length > 0 && (
           <div className="bg-card rounded-lg p-4 border">
@@ -363,44 +355,41 @@ const ProgressDetail = () => {
         </DialogContent>
       </Dialog>
 
-        <div className={`${pagePadding} flex flex-col gap-4`}>
-          <Dialog open={goalDialogOpen} onOpenChange={setGoalDialogOpen}>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Ändra målvärde</DialogTitle>
-              </DialogHeader>
-              <div className="space-y-4 py-4">
-                <div>
-                  <Label>{metricType === 'bloodPressure' ? 'Mål systoliskt' : config.goalLabel}</Label>
-                  <Input
-                    type="number"
-                    step={metricType === 'weight' || metricType === 'bloodFats' || metricType === 'bloodGlucose' ? "0.1" : "1"}
-                    value={goalInput}
-                    onChange={(e) => setGoalInput(e.target.value)}
-                    placeholder={`Ange ${config.goalLabel.toLowerCase()}`}
-                  />
-                </div>
-                {metricType === 'bloodPressure' && (
-                  <div>
-                    <Label>Mål diastoliskt</Label>
-                    <Input
-                      type="number"
-                      value={goalInput2}
-                      onChange={(e) => setGoalInput2(e.target.value)}
-                      placeholder="Ange mål diastoliskt"
-                    />
-                  </div>
-                )}
+      {/* Goal Dialog */}
+      <Dialog open={goalDialogOpen} onOpenChange={setGoalDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Ändra målvärde</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <div>
+              <Label>{metricType === 'bloodPressure' ? 'Mål systoliskt' : config.goalLabel}</Label>
+              <Input
+                type="number"
+                step={metricType === 'weight' || metricType === 'bloodFats' || metricType === 'bloodGlucose' ? "0.1" : "1"}
+                value={goalInput}
+                onChange={(e) => setGoalInput(e.target.value)}
+                placeholder={`Ange ${config.goalLabel.toLowerCase()}`}
+              />
+            </div>
+            {metricType === 'bloodPressure' && (
+              <div>
+                <Label>Mål diastoliskt</Label>
+                <Input
+                  type="number"
+                  value={goalInput2}
+                  onChange={(e) => setGoalInput2(e.target.value)}
+                  placeholder="Ange mål diastoliskt"
+                />
               </div>
-              <DialogFooter>
-                <Button variant="outline" onClick={() => setGoalDialogOpen(false)}>Avbryt</Button>
-                <Button onClick={handleSaveGoal}>Spara</Button>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
-        </div>
-
-
+            )}
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setGoalDialogOpen(false)}>Avbryt</Button>
+            <Button onClick={handleSaveGoal}>Spara</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
