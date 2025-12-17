@@ -1,10 +1,10 @@
 import { format } from "date-fns";
 import { sv } from "date-fns/locale";
-import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, LabelList, ReferenceLine } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, ReferenceLine } from 'recharts';
 import { ChartContainer } from "@/components/ui/chart";
 import { StatsBox } from "@/components/StatsBox";
 import { MoreButton } from "@/components/MoreButton";
-import { bodyTextBald, cardTextSmall } from "@/lib/design-tokens";
+import { cardTextSmall, cardTextSmallBold } from "@/lib/design-tokens";
 
 interface DayLog {
   date: string;
@@ -120,17 +120,17 @@ export const ProgressChart: React.FC<ProgressChartProps> = ({
 
   return (
     <StatsBox>
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-3">
       <div className="flex justify-between items-start">
         <div>
-          <div className={bodyTextBald}>{title}</div>
+          <div className={cardTextSmallBold}>{title}</div>
           <div className={cardTextSmall}>{subtitle}</div>
         </div>
         {onMoreClick && (
           <MoreButton label="Detaljer" onClick={onMoreClick} />
         )}
       </div>
-      <ChartContainer config={chartConfig} className="h-48 w-full">
+      <ChartContainer config={chartConfig} className="h-32 w-full">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart 
             data={[...chartData].sort((a, b) => {
@@ -154,8 +154,8 @@ export const ProgressChart: React.FC<ProgressChartProps> = ({
             <Bar 
               dataKey={dataKey} 
               fill={barColor} 
-              radius={[5, 5, 0, 0]}
-              barSize={20}
+              radius={[10, 10, 10, 10]}
+              barSize={10}
             />
           </BarChart>
         </ResponsiveContainer>

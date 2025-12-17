@@ -30,39 +30,34 @@ interface DayLog {
 
 const metricConfig: Record<MetricType, {
   title: string;
-  subtitle: string;
   unit: string;
   color: string;
   goalKey: string;
   goalLabel: string;
 }> = {
   weight: {
-    title: "Vikt",
-    subtitle: "Loggade vikter (kg)",
+    title: "Vikt (kg)",
     unit: "kg",
     color: "hsla(204, 37%, 48%, 1.00)",
     goalKey: "goalWeight",
     goalLabel: "Målvikt (kg)"
   },
   bloodPressure: {
-    title: "Blodtryck",
-    subtitle: "Loggade blodtryck (mmHg)",
+    title: "Blodtryck (mmHg)",
     unit: "mmHg",
     color: "hsla(332, 52%, 52%, 1.00)",
     goalKey: "goalSystolic",
     goalLabel: "Mål systoliskt"
   },
   bloodFats: {
-    title: "Kolesterol (LDL)",
-    subtitle: "Loggat LDL-kolesterol (mmol/L)",
+    title: "Kolesterol (mmol/L)",
     unit: "mmol/L",
     color: "hsla(280, 65%, 60%, 1.00)",
     goalKey: "goalLDL",
     goalLabel: "Mål LDL"
   },
   bloodGlucose: {
-    title: "Blodsocker",
-    subtitle: "Loggat blodsocker (mmol/mol)",
+    title: "Blodsocker (mmol/L)",
     unit: "mmol/mol",
     color: "hsla(160, 60%, 50%, 1.00)",
     goalKey: "goalHbA1c",
@@ -240,7 +235,6 @@ const ProgressDetail = () => {
           Tillbaka
         </Button>
         <h1 className={pageTitle}>{config.title}</h1>
-        <p className="text-muted-foreground">{config.subtitle}</p>
       </div>
 
       <div className={`${pagePadding} ${standardSpacing}`}>
