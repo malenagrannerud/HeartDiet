@@ -76,7 +76,6 @@ const HealthGoals = () => {
   };
 
   const confirmSave = () => {
-    // Load existing data and update only priorities
     const existingData = getStorageItem('healthPriorities', healthPrioritiesSchema) || { priorities: [], medications: [] };
     const data = {
       priorities: selectedPriorities,
