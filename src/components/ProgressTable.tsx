@@ -321,8 +321,6 @@ export const WeeklyProgressTable = ({
                 })}
               </tr>
 
-
-
             </tbody>
           </table>
         </div>
