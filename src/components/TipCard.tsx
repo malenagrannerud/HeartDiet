@@ -20,7 +20,7 @@ const TipCard = ({ tip, onClick, isCompleted = false }: TipCardProps) => {
       onClick={onClick}
     >
       <div className="flex items-center justify-between gap-2 h-full">
-        <div className="flex flex-col justify-center">
+        <div className="flex flex-col justify-center pt-2"> {/* Added pt-2 */}
           <h3 className={`${cardTitle} !mb-0`}>{tip.title}</h3>
           <div className={`${cardTitleSmall} mt-0`}>
             {tip.freq} 
