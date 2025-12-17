@@ -11,6 +11,7 @@ import { getStorageItem, setStorageItem } from "@/lib/storage";
 import { extendedHealthMetricsSchema, completedActivitiesSchema, ExtendedHealthMetrics, healthMetricsSchema, DayLog } from "@/lib/schemas";
 import { markCardCompleted } from "@/lib/card-completion";
 import { sectionHeading, headerContainer, pageContainer, pagePadding } from "@/lib/design-tokens";
+import { getCurrentDate } from "@/lib/simulated-date";
 import { format } from "date-fns";
 
 const TOTAL_STEPS = 4; // Total nr of pages in assessment workflow
@@ -57,7 +58,7 @@ const HealthMetricsFlow = () => {
  * @param {Function} setCurrentPageIndex - Navigation controller for assessment steps
  */
 const handleNext = (pageData: any) => {
-  const today = format(new Date(), 'yyyy-MM-dd'); // ISO format ensures consistent date comparison
+  const today = format(getCurrentDate(), 'yyyy-MM-dd'); // ISO format ensures consistent date comparison
   const existingLogs = JSON.parse(localStorage.getItem('dayLogs') || '[]'); //  Get existing dayLogs. Retrieve time-series data for chart visualization
   
   switch (currentPageIndex) {

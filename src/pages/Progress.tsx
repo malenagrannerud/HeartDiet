@@ -154,7 +154,11 @@ const Progress = () => {
     }
 
     // Determine if we should show blood fats and blood glucose charts
-    // Show blood fats if: user has cholesterol goal OR takes statin medication
+    // Show chart if: user has relevant goal/medication OR has already logged values
+    const hasSavedBloodFats = logs.some((l) => l?.entries?.some((e: any) => e.type === 'bloodFats'));
+    const hasSavedBloodGlucose = logs.some((l) => l?.entries?.some((e: any) => e.type === 'bloodGlucose'));
+
+    // Show blood fats if: user has cholesterol goal OR takes statin medication OR has values
     const hasCholesterolGoal = data?.priorities.includes('cholesterol');
     const hasStatinMedication = savedMeds ? savedMeds.some(savedMed => {
       if (!savedMed.id) return false;
@@ -162,9 +166,9 @@ const Progress = () => {
       if (!medicationInfo) return false;
       return medicationInfo.category.includes('Statin');
     }) : false;
-    setShowBloodFats(hasCholesterolGoal || hasStatinMedication);
+    setShowBloodFats(Boolean(hasCholesterolGoal || hasStatinMedication || hasSavedBloodFats));
 
-    // Show blood glucose if: user has diabetes goal OR takes diabetes medication
+    // Show blood glucose if: user has diabetes goal OR takes diabetes medication OR has values
     const hasDiabetesGoal = data?.priorities.includes('diabetes');
     const hasDiabetesMedication = savedMeds ? savedMeds.some(savedMed => {
       if (!savedMed.id) return false;
@@ -172,7 +176,7 @@ const Progress = () => {
       if (!medicationInfo) return false;
       return medicationInfo.category.includes('Diabetesmedicin');
     }) : false;
-    setShowBloodGlucose(hasDiabetesGoal || hasDiabetesMedication);
+    setShowBloodGlucose(Boolean(hasDiabetesGoal || hasDiabetesMedication || hasSavedBloodGlucose));
   }, []);
 
   // Generate week dates (Monday to Sunday)
