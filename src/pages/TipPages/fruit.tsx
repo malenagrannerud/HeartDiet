@@ -127,7 +127,7 @@ const FruitPage = () => {
            <Accordion type="multiple" className="mt-4">
              
             <AccordionItem value="immune">
-              <AccordionTrigger className={bodyText}> • Stärkt immunförsvar </AccordionTrigger>
+              <AccordionTrigger className={bodyText}> Stärkt immunförsvar </AccordionTrigger>
               <AccordionContent className={bodyText}>
                 Antioxidanter som C-vitamin, E-vitamin och betakaroten skyddar kroppens celler mot skador från fria radikaler. 
                 Detta minskar inflammation och oxidativ stress, som är kopplade till hjärtsjukdom, cancer och åldrande. 
@@ -152,7 +152,7 @@ const FruitPage = () => {
             </AccordionItem>
              
             <AccordionItem value="energy">
-              <AccordionTrigger className={bodyText}> • Energi </AccordionTrigger>
+              <AccordionTrigger className={bodyText}> Energi </AccordionTrigger>
               <AccordionContent className={bodyText}>
                 Du får energi på grund av naturliga sockerarter och fibrer, B-vitaminer, magnesium och järn. 
                 <br /> <br />
@@ -172,7 +172,7 @@ const FruitPage = () => {
             </AccordionItem>
              
             <AccordionItem value="bloodsugar">
-              <AccordionTrigger className={bodyText}> • Blodsockerreglering  </AccordionTrigger>
+              <AccordionTrigger className={bodyText}> Blodsockerreglering  </AccordionTrigger>
               <AccordionContent className={bodyText}>
                 Bär, gröna grönsaker och frukt med skal är bäst för blodsockerreglering tack vare högt fiberinnehåll. 
                 Undvik juicer, torkad frukt och mycket mogen frukt eller ät dem i små portioner. 
@@ -188,7 +188,7 @@ const FruitPage = () => {
           <Accordion type="multiple" className="mt-4">
             
             <AccordionItem value="bloodpressure">
-              <AccordionTrigger className={bodyText}> • Sänker blodtrycket</AccordionTrigger>
+              <AccordionTrigger className={bodyText}> Sänker blodtrycket</AccordionTrigger>
               <AccordionContent className={bodyText}>
                 Kalium och nitrater vidgar blodkärlen och sänker blodtrycket. <br /> <br />
                 Kalium motverkar effekterna av natrium (salt) och hjälper blodkärlen att slappna av.  
@@ -202,7 +202,7 @@ const FruitPage = () => {
             </AccordionItem>
             
             <AccordionItem value="inflammantion">
-              <AccordionTrigger className={bodyText}> • Minskar inflammation</AccordionTrigger>
+              <AccordionTrigger className={bodyText}>Minskar inflammation</AccordionTrigger>
               <AccordionContent className={bodyText}>
                 Antioxidanter som C-vitamin, E-vitamin och betakaroten skyddar kroppens celler mot skador från fria radikaler. 
                 Detta minskar inflammation och oxidativ stress, som är kopplade till hjärtsjukdom, cancer och åldrande. 
@@ -211,7 +211,8 @@ const FruitPage = () => {
             </AccordionItem>
             
             <AccordionItem value="LDL cholesterole">
-              <AccordionTrigger className={bodyText}> • Sänker kolesterolet</AccordionTrigger>
+              <AccordionTrigger className={bodyText}> Sänker kolesterolet</AccordionTrigger>
+              <AccordionContent className={bodyText}>
               Frukter och grönsaker sänker kolesterol genom att öka fiberintaget. 
               Fiber binder galla (som tillverkas av kolesterol) i tarmarna, 
               så kroppen måste använda mer kolesterol från blodet för att tillverka ny galla. 
@@ -220,12 +221,12 @@ const FruitPage = () => {
 
               Ät hel frukt med skal (inte juice) och många gröna grönsaker. 
               Kombinera gärna med havre, linser och nötter för maximal effekt.
-              <AccordionContent className={bodyText}>
+              
               </AccordionContent>
             </AccordionItem>
             
             <AccordionItem value="weight">
-              <AccordionTrigger className={bodyText}> • Håller vikten</AccordionTrigger>
+              <AccordionTrigger className={bodyText}> Håller vikten</AccordionTrigger>
               <AccordionContent className={bodyText}>
                Frukt och grönsaker minskar inflammation, gör blodkärlen mer flexibla och förhindrar förträngningar 
                 – vilket alla tillsammans förstärker och skyddar blodkärlen mot plackbildning.              
@@ -239,7 +240,7 @@ const FruitPage = () => {
           <h2 className={sectionHeading2}>Nå ditt mål</h2>
           <p className={bodyText}>
             Genom att tänka ut när och hur du ska äta dina fem om dagen kan du lättare modifiera en plan som passar dej. 
-            Ett exempel på hur man kan planera in sina fem om dagen: 
+            Ett par exempel på hur man kan planera in dina fem om dagen: 
           </p>
         </div>
        
