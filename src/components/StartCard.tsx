@@ -1,6 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { interactiveCard, cardTitle, cardTitleSmall } from "@/lib/design-tokens";
-import { Clock, BookOpen, FileEdit } from "lucide-react"; 
+import { Clock } from "lucide-react";
 
 interface StartCardProps {
   isHidden: boolean;
@@ -25,18 +25,19 @@ export const StartCard = ({
   ariaLabel,
   hasImage = false,
   imageSrc,
-  imageAlt
+  imageAlt,
 }: StartCardProps) => {
   if (isHidden) return null;
 
   return (
     <Card 
-      className={`${interactiveCard} ${hasImage ? 'relative' : ''} py-3`}
+      className={`${interactiveCard} ${hasImage ? 'relative' : ''} py-3 h-32`}
       onClick={onClick}
       aria-label={ariaLabel}
     >
-      <div className="flex items-start gap-3">
-        <div className={hasImage ? "flex-1" : ""}>
+      {/* Text container with vertical centering */}
+      <div className={`${hasImage ? 'pr-[33%] h-full flex items-center' : 'h-full flex items-center'}`}>
+        <div>
           <h4 className={cardTitle}>{title}</h4>
           <div className={`flex items-center gap-2 ${cardTitleSmall} mt-1`}>
             {icon}
@@ -47,12 +48,13 @@ export const StartCard = ({
         </div>
       </div>
       
+      {/* Image container fixed at bottom with same height */}
       {hasImage && imageSrc && (
-        <div className="absolute right-0 top-0 bottom-0 w-1/3 overflow-hidden">
+        <div className="absolute right-0 bottom-0 w-1/3 h-32">
           <img 
             src={imageSrc}
             alt={imageAlt || ""}
-            className="h-full w-full object-cover"
+            className="h-full w-auto object-contain"
           />
         </div>
       )}

@@ -192,6 +192,7 @@ const Today = () => {
                           time="5 min"
                           onClick={() => handleCardNavigation('tutorial', '/app/tutorial')}
                           ariaLabel="Gå till tutorial"
+                          hasImage={true}
                           imageSrc={ReadLady}
                         />
                       </div>
@@ -246,6 +247,7 @@ const Today = () => {
                           time="1 min"
                           onClick={() => handleCardNavigation('medications', '/app/medications')}
                           ariaLabel="Gå till läkemedel"
+                          hasImage={true}
                           imageSrc={FormLady}
                         />
                       </div>
@@ -272,7 +274,8 @@ const Today = () => {
                           time="2-5 min"
                           onClick={() => handleCardNavigation('health-metrics', '/app/health-metrics')}
                           ariaLabel="Gå till hälsomätningar"
-                          imageSrc={FormLady}
+                          hasImage={true}
+                          imageSrc={FormManOrange}
                         />
                       </div>
                     </div>
