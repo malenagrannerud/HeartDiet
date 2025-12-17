@@ -2,7 +2,7 @@ import { format } from "date-fns";
 import { sv } from "date-fns/locale";
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, ReferenceLine } from 'recharts';
 import { ChartContainer } from "@/components/ui/chart";
-import { StatsBox } from "@/components/StatsBox";
+import { StatsBox } from "@/components/ProgressStatsBox";
 import { MoreButton } from "@/components/MoreButton";
 import { cardTextSmallBold } from "@/lib/design-tokens";
 

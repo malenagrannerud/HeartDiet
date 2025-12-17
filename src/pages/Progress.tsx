@@ -10,17 +10,17 @@ import { getDayLogs } from "@/lib/tip-completion";
 import { getStorageItem } from "@/lib/storage";
 import { healthPrioritiesSchema, markedTipsSchema, selectedMedicationsSchema, healthMetricsSchema, extendedHealthMetricsSchema } from "@/lib/schemas";
 import { medications } from "@/data/medications";
-import { StatsBox } from "@/components/StatsBox";
+import { StatsBox } from "@/components/ProgressStatsBox";
 import { HealthInfoCard } from "@/components/HealthInfoCard";
 import { getCurrentDate } from "@/lib/simulated-date";
 import { ProgressChart } from "@/components/ProgressChart";
-import { WeeklyProgressTable } from "@/components/WeeklyProgressTable";
+import { WeeklyProgressTable } from "@/components/ProgressTable";
 import { SaveConfirmationDialog } from "@/components/AlertSaveDataProgress";
-import { GoalEditDialog } from "./ProgressDialogs.tsx/EditGoalDialog";
-import { BloodGlucoseDialog } from "./ProgressDialogs.tsx/ProgrBloodSugarDialog";
-import { WeightDialog } from "./ProgressDialogs.tsx/ProgrWeightDialog";
-import { BloodPressureDialog } from "./ProgressDialogs.tsx/ProgrBPDialog";
-import { BloodFatsDialog } from "./ProgressDialogs.tsx/ProgrBloodFatDialog";
+import { GoalEditDialog } from "./ProgressTableDialogs.tsx/EditGoalDialog";
+import { BloodGlucoseDialog } from "./ProgressTableDialogs.tsx/ProgrBloodSugarDialog";
+import { WeightDialog } from "./ProgressTableDialogs.tsx/ProgrWeightDialog";
+import { BloodPressureDialog } from "./ProgressTableDialogs.tsx/ProgrBPDialog";
+import { BloodFatsDialog } from "./ProgressTableDialogs.tsx/ProgrBloodFatDialog";
 
 interface DayLog {
   date: string;

@@ -1,5 +1,5 @@
 import { LucideIcon } from "lucide-react";
-import { StatsBox } from "@/components/StatsBox";
+import { StatsBox } from "@/components/ProgressStatsBox";
 import { MoreButton } from "@/components/MoreButton";
 import { bodyTextBald, cardTextSmallBold, cardTextSmall } from "@/lib/design-tokens";
 
