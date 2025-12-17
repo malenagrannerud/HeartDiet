@@ -922,10 +922,8 @@ const Progress = () => {
           onCancel={() => setBloodFatsDialogOpen(false)}
         />
 
-
-
-          {/* Dialog for blood glucose */}
-        <BloodGlucoseDialog
+         {/* Dialog for blood glucose */}
+        <BloodGlucoseDialog  
           open={bloodGlucoseDialogOpen}
           onOpenChange={setBloodGlucoseDialogOpen}
           bloodGlucoseDateInput={bloodGlucoseDateInput}
