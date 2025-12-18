@@ -667,22 +667,6 @@ const Progress = () => {
     return format(date, 'yyyy-MM-dd') === format(today, 'yyyy-MM-dd');
   };
 
-  const openGoalEditDialog = (type: 'weight' | 'bloodPressure' | 'bloodFats' | 'bloodGlucose') => {
-    setGoalEditType(type);
-    if (type === 'weight') {
-      setGoalWeightInput(goalWeight?.toString() || "");
-    } else if (type === 'bloodPressure') {
-      setGoalSystolicInput(goalBloodPressure?.systolic.toString() || "");
-      setGoalDiastolicInput(goalBloodPressure?.diastolic.toString() || "");
-    } else if (type === 'bloodFats') {
-      setGoalLDLInput(goalBloodFats?.ldl?.toString() || "");
-      setGoalHDLInput(goalBloodFats?.hdl?.toString() || "");
-    } else if (type === 'bloodGlucose') {
-      setGoalHbA1cInput(goalBloodGlucose?.hba1c?.toString() || "");
-      setGoalFastingGlucoseInput(goalBloodGlucose?.fastingGlucose?.toString() || "");
-    }
-    setGoalEditDialogOpen(true);
-  };
 
   const handleSaveGoal = () => {
     const metrics = getStorageItem('healthMetrics', healthMetricsSchema) || {};
