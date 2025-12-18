@@ -128,19 +128,21 @@ const FishPage = () => {
           <p className={bodyText}>
             Fisk och skaldjur är rika på omega-3-fettsyror, protein och viktiga vitaminer som stödjer hjärthälsa och hjärnfunktion.
           </p>
-          <DottedList items={[
-            "Minskar risk för hjärtinfarkt och stroke",
-            "Stödjer hjärnans utveckling och funktion",
-            "Rik källa till D-vitamin och jod",
-            "Innehåller högkvalitativt protein",
-            "Anti-inflammatoriska egenskaper"
-          ]} />
+      
           
           <Accordion type="multiple" className="mt-1">
             <AccordionItem value="omega3-heart">
               <AccordionTrigger className={bodyText}>Minskar risk för hjärtinfarkt och stroke</AccordionTrigger>
               <AccordionContent className={bodyText}>
-                Omega-3-fettsyrorna EPA och DHA från fet fisk sänker triglycerider, minskar inflammation, stabiliserar hjärtrytmen och förhindrar blodproppar. Studier visar att regelbunden fiskkonsumtion kan minska risken för hjärtinfarkt med upp till 30-40%. Minst en portion fet fisk per vecka rekommenderas för optimal hjärthälsa.
+                Omega-3-fettsyrorna EPA och DHA från fet fisk sänker triglycerider, minskar inflammation, 
+                stabiliserar hjärtrytmen och förhindrar blodproppar. 
+                Studier visar att regelbunden fiskkonsumtion kan minska risken för hjärtinfarkt med upp till 30-40%. 
+                Minst en portion fet fisk per vecka rekommenderas för optimal hjärthälsa.
+                Fet fisk som lax, makrill och sill är bland de bästa naturliga källorna till D-vitamin. 
+                D-vitamin stärker benhälsan, immunförsvaret och kan minska risken för hjärtsjukdom och 
+                vissa cancerformer. Eftersom solen inte ger tillräckligt med D-vitamin i nordliga länder, 
+                är fisk extra viktig här.
+
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="brain">
@@ -149,12 +151,7 @@ const FishPage = () => {
                 Hjärnan består till stor del av fett, och omega-3-fettsyror är avgörande för hjärncellernas struktur och funktion. DHA från fisk stödjer kognitiv funktion, minne och inlärning. Regelbunden fiskkonsumtion är kopplad till lägre risk för demens och depression, samt bättre kognitiv hälsa i ålderdomen.
               </AccordionContent>
             </AccordionItem>
-            <AccordionItem value="vitamin-d">
-              <AccordionTrigger className={bodyText}>Varför är D-vitamin från fisk viktigt?</AccordionTrigger>
-              <AccordionContent className={bodyText}>
-                Fet fisk som lax, makrill och sill är bland de bästa naturliga källorna till D-vitamin. D-vitamin stärker benhälsan, immunförsvaret och kan minska risken för hjärtsjukdom och vissa cancerformer. Eftersom solen inte ger tillräckligt med D-vitamin i nordliga länder, är fisk extra viktig här.
-              </AccordionContent>
-            </AccordionItem>
+            
           </Accordion>
         </div>
 
