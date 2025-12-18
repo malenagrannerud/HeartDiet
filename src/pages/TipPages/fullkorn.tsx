@@ -66,6 +66,8 @@ const FullkornPage = () => {
     setIsDialogOpen(false);
   };
 
+
+
   return (
     <div className={pageContainer}>
       <header className={`${headerContainer} ${tipCardColors.amber}`}>
@@ -140,7 +142,9 @@ const FullkornPage = () => {
                 <AccordionItem value="immune">
                   <AccordionTrigger className={bodyText}>Stärkt immunförsvar</AccordionTrigger>
                   <AccordionContent className={bodyText}>
-                    Fullkorn innehåller betaglukaner, lösliga fibrer som binder kolesterol och gallsyror i tarmen. Detta tvingar kroppen att använda mer kolesterol från blodet för att producera nya gallsyror. Studier visar att 3 gram betaglukaner per dag (ca 90 g havregryn) kan sänka LDL-kolesterolet med 5-10%.
+                    Fullkorn innehåller betaglukaner, lösliga fibrer som binder kolesterol och gallsyror i tarmen. 
+                    Detta tvingar kroppen att använda mer kolesterol från blodet för att producera nya gallsyror. 
+                    Studier visar att 3 gram betaglukaner per dag (ca 90 g havregryn) kan sänka LDL-kolesterolet med 5-10%.
                   </AccordionContent>
 
                 </AccordionItem>
@@ -158,33 +162,31 @@ const FullkornPage = () => {
 
         <div className="mt-8 space-y-2" >
           <p>Fullkorn skyddar mot sjukdom genom att det bidrar till</p>
+
+
           <Accordion type="multiple" className="mt-0">
             <AccordionItem value="fiber">
               <AccordionTrigger className={bodyText}>Sänkt kolesterol</AccordionTrigger>
               <AccordionContent className={bodyText}>
                 Fullkorn innehåller betaglukaner, lösliga fibrer som binder kolesterol och gallsyror i tarmen. Detta tvingar kroppen att använda mer kolesterol från blodet för att producera nya gallsyror. Studier visar att 3 gram betaglukaner per dag (ca 90 g havregryn) kan sänka LDL-kolesterolet med 5-10%.
               </AccordionContent>
-
             </AccordionItem>
+            
             <AccordionItem value="blood-sugar">
               <AccordionTrigger className={bodyText}>Stabil blodsockernivå</AccordionTrigger>
               <AccordionContent className={bodyText}>
                 Fullkornsprodukter har ett lågt glykemiskt index (GI), vilket betyder att de bryts ner långsamt och ger en jämn blodsockerkurva. Detta förhindrar blodsockertoppar och dalar som skadar blodkärlen och ökar risken för diabetes. Fibrer och hela kornets struktur bromsar nedbrytningen av kolhydrater.
               </AccordionContent>
-
-
             </AccordionItem>
+            
             <AccordionItem value="nutrients">
               <AccordionTrigger className={bodyText}>Sänkt blodtryck</AccordionTrigger>
               <AccordionContent className={bodyText}>
-                Sänkt blodtryck: Kalium och magnesium i fullkorn hjälper blodkärlen att slappna av,
-                 Minskad inflammation: Antioxidanter i fullkorn skyddar kärlväggarna från skador. 
+                Sänkt blodtryck: Kalium och magnesium i fullkorn hjälper blodkärlen att slappna av, Minskad inflammation: Antioxidanter i fullkorn skyddar kärlväggarna från skador.
               </AccordionContent>
             </AccordionItem>
           </Accordion>
-
-
-
+                  
 
         </div>
 
