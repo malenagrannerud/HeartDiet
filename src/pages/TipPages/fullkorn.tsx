@@ -94,9 +94,7 @@ const FullkornPage = () => {
             ]} />
         </div>
 
-        <div> 
-          <p> Fullkorn kommer ifrån bland annat</p>
-        </div>
+        
 
         {/* Medication warnings */}
         {medicationInteractions.length > 0 && (
@@ -138,7 +136,7 @@ const FullkornPage = () => {
           <h2 className={sectionHeading2}>Varför minst 90 g om dagen?</h2>
           <p>Du mår bättre av fullkorn eftersom det bidrar till</p>
 
-            <Accordion type="multiple" className="mt-4">
+            <Accordion type="multiple" className="mt-1">
                 <AccordionItem value="immune">
                   <AccordionTrigger className={bodyText}>Stärkt immunförsvar</AccordionTrigger>
                   <AccordionContent className={bodyText}>
@@ -160,9 +158,8 @@ const FullkornPage = () => {
         </div>
 
 
-        <div className="mt-8 space-y-2" >
+        <div>
           <p>Fullkorn skyddar mot sjukdom genom att det bidrar till</p>
-
 
           <Accordion type="multiple" className="mt-0">
             <AccordionItem value="fiber">

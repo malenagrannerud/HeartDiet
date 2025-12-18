@@ -136,15 +136,15 @@ const FishPage = () => {
             "Anti-inflammatoriska egenskaper"
           ]} />
           
-          <Accordion type="multiple" className="mt-4">
+          <Accordion type="multiple" className="mt-1">
             <AccordionItem value="omega3-heart">
-              <AccordionTrigger className={bodyText}>Hur skyddar omega-3 hjärtat?</AccordionTrigger>
+              <AccordionTrigger className={bodyText}>Minskar risk för hjärtinfarkt och stroke</AccordionTrigger>
               <AccordionContent className={bodyText}>
                 Omega-3-fettsyrorna EPA och DHA från fet fisk sänker triglycerider, minskar inflammation, stabiliserar hjärtrytmen och förhindrar blodproppar. Studier visar att regelbunden fiskkonsumtion kan minska risken för hjärtinfarkt med upp till 30-40%. Minst en portion fet fisk per vecka rekommenderas för optimal hjärthälsa.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="brain">
-              <AccordionTrigger className={bodyText}>Varför är fisk bra för hjärnan?</AccordionTrigger>
+              <AccordionTrigger className={bodyText}>Stödjer hjärnans utveckling och funktion</AccordionTrigger>
               <AccordionContent className={bodyText}>
                 Hjärnan består till stor del av fett, och omega-3-fettsyror är avgörande för hjärncellernas struktur och funktion. DHA från fisk stödjer kognitiv funktion, minne och inlärning. Regelbunden fiskkonsumtion är kopplad till lägre risk för demens och depression, samt bättre kognitiv hälsa i ålderdomen.
               </AccordionContent>

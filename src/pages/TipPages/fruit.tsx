@@ -124,7 +124,7 @@ const FruitPage = () => {
           <p className={bodyText}>
             Du mår bättre med ett bättre humör och mindre trötthet eftersom frukt och grönt ger
           </p>
-           <Accordion type="multiple" className="mt-4">
+           <Accordion type="multiple" className="mt-1">
              
             <AccordionItem value="immune">
               <AccordionTrigger className={bodyText}> Stärkt immunförsvar </AccordionTrigger>
@@ -184,8 +184,8 @@ const FruitPage = () => {
 
         
         <div> 
-          <p className={bodyText}>Frukt och grönt minskar risken för hjärtsjukdom eftersom de </p>
-          <Accordion type="multiple" className="mt-4">
+          <p className={bodyText}>Frukt och grönt minskar risken för hjärtsjukdom. </p>
+          <Accordion type="multiple" className="mt-1">
             
             <AccordionItem value="bloodpressure">
               <AccordionTrigger className={bodyText}> Sänker blodtrycket</AccordionTrigger>

@@ -81,8 +81,8 @@ const SockerPage = () => {
         </p>
 
         <div>
-          <h2 className={sectionHeading2}>Vad är tillsatt socker?</h2>
-          <p className={bodyText}>Socker som tillsätts vid bearbetning eller hemma, inte naturligt förekommande socker i frukt och mjölk</p>
+          
+          <p className={bodyText}>Tillsatt socker är socker som tillsätts vid bearbetning eller hemma, inte naturligt förekommande socker, som i frukt och mjölk.</p>
           <DottedList items={[
             "Vitt socker, farinsocker, muscovadosocker",
             "Honung, sirap, agavesirap",
@@ -122,7 +122,6 @@ const SockerPage = () => {
             "Fruktyoghurt: 1 portion = ca 4 sockerbitar",
             "Ketchup och BBQ-sås: 1 msk = ca 1 sockerbit",
             "Frukostflingor: 1 portion = ca 3-5 sockerbitar",
-            "Smoothies på burk: 1 flaska = ca 6-8 sockerbitar",
             "Müslibar: 1 bar = ca 2-3 sockerbitar"
           ]} />
         </div>
