@@ -1,6 +1,6 @@
 import { format } from "date-fns";
 import { sv } from "date-fns/locale";
-import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, ReferenceLine } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, ReferenceLine, LabelList } from 'recharts';
 import { ChartContainer } from "@/components/ui/chart";
 import { StatsBox } from "@/components/ProgressStatsBox";
 import { MoreButton } from "@/components/MoreButton";
@@ -25,6 +25,7 @@ interface ProgressChartProps {
   goalBloodFats?: { ldl?: number; hdl?: number };
   goalBloodGlucose?: { hba1c?: number; fastingGlucose?: number };
   onMoreClick?: () => void;
+  detailed?: boolean;
 }
 
 export const ProgressChart: React.FC<ProgressChartProps> = ({ 
@@ -34,7 +35,8 @@ export const ProgressChart: React.FC<ProgressChartProps> = ({
   goalBloodPressure, 
   goalBloodFats,
   goalBloodGlucose,
-  onMoreClick
+  onMoreClick,
+  detailed = false
 }) => {
   const isWeight = type === 'weight';
   const isBloodPressure = type === 'bloodPressure';
@@ -55,7 +57,7 @@ export const ProgressChart: React.FC<ProgressChartProps> = ({
     )
     .sort((a, b) => new Date(a.fullDate).getTime() - new Date(b.fullDate).getTime());
   
-  const chartData = allChartData.slice(-10);
+  const chartData = detailed ? allChartData : allChartData.slice(-10);
 
   const getChartConfig = () => {
     if (isWeight) return { weight: { label: "Vikt", color: "hsla(204, 37%, 48%, 1.00)" } };
@@ -87,7 +89,7 @@ export const ProgressChart: React.FC<ProgressChartProps> = ({
 
   const chartConfig = getChartConfig();
   const barColor = getBarColor();
-  const dataKey = "value"; // All chart types use 'value' as primary data key
+  const dataKey = "value";
   const title = getTitle();
   const formatter = getFormatter();
 
@@ -110,49 +112,78 @@ export const ProgressChart: React.FC<ProgressChartProps> = ({
   const goalValue = getGoalValue();
   const goalLabel = getGoalLabel();
 
+  // Detailed view (for ProgressDetail page)
+  if (detailed) {
+    return (
+      <div className="bg-card rounded-lg p-4 border">
+        <ChartContainer config={chartConfig} className="h-64 w-full">
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart data={chartData} margin={{ top: 20, right: 10, left: 10, bottom: 10 }}>
+              <XAxis 
+                dataKey="date" 
+                axisLine={false}
+                tickLine={false}
+                tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }}
+              />
+              <YAxis hide />
+              {goalValue && (
+                <ReferenceLine 
+                  y={goalValue} 
+                  stroke="hsl(var(--primary))" 
+                  strokeDasharray="3 3"
+                  strokeWidth={2}
+                  label={{ value: goalLabel, position: 'right', fill: 'hsl(var(--primary))', fontSize: 10 }}
+                />
+              )}
+              <Bar dataKey={dataKey} fill={barColor} radius={[5, 5, 0, 0]} barSize={20}>
+                <LabelList dataKey="value" position="top" style={{ fontSize: 10, fill: 'hsl(var(--foreground))' }} formatter={formatter} offset={10} />
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
+        </ChartContainer>
+      </div>
+    );
+  }
+
+  // Simplified view (for Progress page StatsBox)
   return (
     <StatsBox>
-    <div className="flex flex-col gap-3">
-      <div className="flex justify-between items-start">
-        <div>
-          <div className={cardTextSmallBold}>{title}</div>
+      <div className="flex flex-col gap-3">
+        <div className="flex justify-between items-start">
+          <div>
+            <div className={cardTextSmallBold}>{title}</div>
+          </div>
+          {onMoreClick && (
+            <MoreButton label="Detaljer" onClick={onMoreClick} />
+          )}
         </div>
-        {onMoreClick && (
-          <MoreButton label="Detaljer" onClick={onMoreClick} />
-        )}
-      </div>
-      <ChartContainer config={chartConfig} className="h-32 w-full">
-        <ResponsiveContainer width="100%" height="100%">
-          <BarChart 
-            data={[...chartData].sort((a, b) => {
-              const dateA = new Date(a.date).getTime();
-              const dateB = new Date(b.date).getTime();
-              return dateA - dateB;
-            })}
-            margin={{ top: 10, right: 10, left: 10, bottom: 10 }}
-          >
-            <XAxis dataKey="date" hide />
-            <YAxis hide />
-            {goalValue && (
-              <ReferenceLine 
-                y={goalValue} 
-                stroke="hsl(var(--primary))" 
-                strokeDasharray="3 3"
-                strokeWidth={2}
-                label={{ value: goalLabel, position: 'right', fill: 'hsl(var(--primary))', fontSize: 10 }}
+        <ChartContainer config={chartConfig} className="h-32 w-full">
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart 
+              data={chartData}
+              margin={{ top: 10, right: 10, left: 10, bottom: 10 }}
+            >
+              <XAxis dataKey="date" hide />
+              <YAxis hide />
+              {goalValue && (
+                <ReferenceLine 
+                  y={goalValue} 
+                  stroke="hsl(var(--primary))" 
+                  strokeDasharray="3 3"
+                  strokeWidth={2}
+                  label={{ value: goalLabel, position: 'right', fill: 'hsl(var(--primary))', fontSize: 10 }}
+                />
+              )}
+              <Bar 
+                dataKey={dataKey} 
+                fill={barColor} 
+                radius={[10, 10, 10, 10]}
+                barSize={10}
               />
-            )}
-            <Bar 
-              dataKey={dataKey} 
-              fill={barColor} 
-              radius={[10, 10, 10, 10]}
-              barSize={10}
-            />
-          </BarChart>
-        </ResponsiveContainer>
-      </ChartContainer>
-    </div>
-  </StatsBox>
-    
+            </BarChart>
+          </ResponsiveContainer>
+        </ChartContainer>
+      </div>
+    </StatsBox>
   );
 };
