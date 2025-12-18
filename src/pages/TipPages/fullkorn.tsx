@@ -92,6 +92,10 @@ const FullkornPage = () => {
             ]} />
         </div>
 
+        <div> 
+        <p> Fullkorn kommer ifrån bland annat</p>
+        </div>
+
         {/* Medication warnings */}
         {medicationInteractions.length > 0 && (
           <div className="space-y-2 mt-4">
@@ -127,47 +131,57 @@ const FullkornPage = () => {
             "Mjöl (100% fullkorn)." 
           ]} />
         </div>
-    
+
         <div>
           <h2 className={sectionHeading2}>Varför minst 90 g om dagen?</h2>
           <p>Du mår bättre av fullkorn eftersom det bidrar till</p>
-          <DottedList items={[
-            "Stärkt immunförsvar: C-vitamin och zink stärker skyddet mot infektioner",
-            "Mer energi: B-vitaminer omvandlar mat till energi och bekämpar trötthet",
-            "Muskelfunktion: Magnesium är viktigt för muskelavslappning och energiproduktion",
-            "Benhälsa: Vitamin K stärker skelettet och förbättrar blodkoagulering",
-            "Syretransport: Järn förhindrar trötthet genom att transportera syre i blodet"
-          ]} />
+
+            <Accordion type="multiple" className="mt-4">
+                <AccordionItem value="immune">
+                  <AccordionTrigger className={bodyText}>Stärkt immunförsvar</AccordionTrigger>
+                  <AccordionContent className={bodyText}>
+                    Fullkorn innehåller betaglukaner, lösliga fibrer som binder kolesterol och gallsyror i tarmen. Detta tvingar kroppen att använda mer kolesterol från blodet för att producera nya gallsyror. Studier visar att 3 gram betaglukaner per dag (ca 90 g havregryn) kan sänka LDL-kolesterolet med 5-10%.
+                  </AccordionContent>
+
+                </AccordionItem>
+                <AccordionItem value="energi">
+                  <AccordionTrigger className={bodyText}>Mer energi</AccordionTrigger>
+                  <AccordionContent className={bodyText}>
+                    B-vitaminer omvandlar mat till energi och bekämpar trötthet. 
+                    Magnesium är viktigt för muskelavslappning och energiproduktion. 
+                    Järn förhindrar trötthet genom att transportera syre i blodet 
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
         </div>
 
-        <div>
-          <p>Fullkorn skyddar mot sjukdom eftersom det bidrar till</p>
-          <DottedList items={[
-            "Sänkt blodtryck: Kalium och magnesium i fullkorn hjälper blodkärlen att slappna av",
-            "Lägre kolesterol: Lösliga fibrer binder sig med gallsyror och sänker LDL-kolesterolet",
-            "Minskad inflammation: Antioxidanter i fullkorn skyddar kärlväggarna från skador",
-            "Förbättrad blodsockerreglering: Långsamma kolhydrater förhindrar blodsockertoppar som skadar kärlen",
-            "Hälsosam vikt: Fibrer (betaglukaner) mättar och hjälper dig att upprätthålla en normal vikt",
-            "Bättre blodfetter: Omega-3-fettsyror i vissa fullkornsprodukter gynnar hjärtat"
-          ]} />
-          
-          <Accordion type="multiple" className="mt-4">
+
+
+
+
+        <div >
+          <p>Fullkorn skyddar mot sjukdom genom att det bidrar till</p>
+          <Accordion type="multiple" className="mt-0">
             <AccordionItem value="fiber">
-              <AccordionTrigger className={bodyText}>Hur minskar fibrer från fullkorn kolesterolet?</AccordionTrigger>
+              <AccordionTrigger className={bodyText}>Sänkt kolesterol</AccordionTrigger>
               <AccordionContent className={bodyText}>
                 Fullkorn innehåller betaglukaner, lösliga fibrer som binder kolesterol och gallsyror i tarmen. Detta tvingar kroppen att använda mer kolesterol från blodet för att producera nya gallsyror. Studier visar att 3 gram betaglukaner per dag (ca 90 g havregryn) kan sänka LDL-kolesterolet med 5-10%.
               </AccordionContent>
+
             </AccordionItem>
             <AccordionItem value="blood-sugar">
-              <AccordionTrigger className={bodyText}>Varför ger fullkorn stabil blodsockernivå?</AccordionTrigger>
+              <AccordionTrigger className={bodyText}>Stabil blodsockernivå</AccordionTrigger>
               <AccordionContent className={bodyText}>
                 Fullkornsprodukter har ett lågt glykemiskt index (GI), vilket betyder att de bryts ner långsamt och ger en jämn blodsockerkurva. Detta förhindrar blodsockertoppar och dalar som skadar blodkärlen och ökar risken för diabetes. Fibrer och hela kornets struktur bromsar nedbrytningen av kolhydrater.
               </AccordionContent>
+
+
             </AccordionItem>
             <AccordionItem value="nutrients">
-              <AccordionTrigger className={bodyText}>Vilka näringsämnen finns i fullkorn?</AccordionTrigger>
+              <AccordionTrigger className={bodyText}>Sänkt blodtryck</AccordionTrigger>
               <AccordionContent className={bodyText}>
-                Fullkorn innehåller B-vitaminer (energiomsättning), järn (syretransport), magnesium (muskel- och nervfunktion), zink (immunförsvar), selen (antioxidant) och vitamin E. Kliet (yttre skalet) innehåller fibrer och mineraler, medan grodden innehåller nyttiga fetter och vitaminer. Dessa näringsämnen försvinner när kornet raffineras till vitt mjöl.
+                Sänkt blodtryck: Kalium och magnesium i fullkorn hjälper blodkärlen att slappna av,
+                 Minskad inflammation: Antioxidanter i fullkorn skyddar kärlväggarna från skador. 
               </AccordionContent>
             </AccordionItem>
           </Accordion>
