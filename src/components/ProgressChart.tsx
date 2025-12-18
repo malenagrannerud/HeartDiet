@@ -5,7 +5,7 @@ import { ChartContainer } from "@/components/ui/chart";
 import { StatsBox } from "@/components/ProgressStatsBox";
 import { MoreButton } from "@/components/MoreButton";
 import { cardTextSmallBold } from "@/lib/design-tokens";
-
+import { DEFAULT_GOALS } from "@/lib/health-defaults";
 interface DayLog {
   date: string;
   entries: {
@@ -93,19 +93,30 @@ export const ProgressChart: React.FC<ProgressChartProps> = ({
   const title = getTitle();
   const formatter = getFormatter();
 
+  // Get goal value: use provided value or default (except weight which has no default)
   const getGoalValue = () => {
-    if (isWeight && goalWeight) return goalWeight;
-    if (isBloodPressure && goalBloodPressure) return goalBloodPressure.systolic;
-    if (isBloodFats && goalBloodFats?.ldl) return goalBloodFats.ldl;
-    if (isBloodGlucose && goalBloodGlucose?.hba1c) return goalBloodGlucose.hba1c;
+    if (isWeight) return goalWeight || null; // No default for weight
+    if (isBloodPressure) return goalBloodPressure?.systolic ?? DEFAULT_GOALS.bloodPressure.systolic;
+    if (isBloodFats) return goalBloodFats?.ldl ?? DEFAULT_GOALS.bloodFats.ldl;
+    if (isBloodGlucose) return goalBloodGlucose?.hba1c ?? DEFAULT_GOALS.bloodGlucose.hba1c;
     return null;
   };
 
   const getGoalLabel = () => {
     if (isWeight && goalWeight) return `Mål: ${goalWeight} kg`;
-    if (isBloodPressure && goalBloodPressure) return `Mål: ${goalBloodPressure.systolic}/${goalBloodPressure.diastolic}`;
-    if (isBloodFats && goalBloodFats?.ldl) return `Mål LDL: ${goalBloodFats.ldl}`;
-    if (isBloodGlucose && goalBloodGlucose?.hba1c) return `Mål HbA1c: ${goalBloodGlucose.hba1c}`;
+    if (isBloodPressure) {
+      const sys = goalBloodPressure?.systolic ?? DEFAULT_GOALS.bloodPressure.systolic;
+      const dia = goalBloodPressure?.diastolic ?? DEFAULT_GOALS.bloodPressure.diastolic;
+      return `Mål: ${sys}/${dia}`;
+    }
+    if (isBloodFats) {
+      const ldl = goalBloodFats?.ldl ?? DEFAULT_GOALS.bloodFats.ldl;
+      return `Mål LDL: ${ldl}`;
+    }
+    if (isBloodGlucose) {
+      const hba1c = goalBloodGlucose?.hba1c ?? DEFAULT_GOALS.bloodGlucose.hba1c;
+      return `Mål HbA1c: ${hba1c}`;
+    }
     return '';
   };
 
