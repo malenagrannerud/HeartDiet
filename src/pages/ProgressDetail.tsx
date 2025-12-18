@@ -3,17 +3,16 @@ import { useNavigate, useParams } from "react-router-dom";
 import { format } from "date-fns";
 import { sv } from "date-fns/locale";
 import { ArrowLeft } from "lucide-react";
-import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, LabelList, ReferenceLine } from 'recharts';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
-import { ChartContainer } from "@/components/ui/chart";
 import { useToast } from "@/hooks/use-toast";
 import { getDayLogs } from "@/lib/tip-completion";
 import { getStorageItem } from "@/lib/storage";
 import { healthMetricsSchema } from "@/lib/schemas";
 import { pageTitle, pageContainer, headerContainer, pagePadding, bodyTextBald, cardTextSmall } from "@/lib/design-tokens";
+import { ProgressChart } from "@/components/ProgressChart";
 
 type MetricType = 'weight' | 'bloodPressure' | 'bloodFats' | 'bloodGlucose';
 
@@ -241,33 +240,18 @@ const ProgressDetail = () => {
       <div className={`${pagePadding} flex flex-col gap-4`}>
         {/* Chart */}
         {chartData.length > 0 && (
-          <div className="bg-card rounded-lg p-4 border">
-            <ChartContainer config={{ value: { label: config.title, color: config.color } }} className="h-64 w-full">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={chartData} margin={{ top: 20, right: 10, left: 10, bottom: 10 }}>
-                  <XAxis 
-                    dataKey="date" 
-                    axisLine={false}
-                    tickLine={false}
-                    tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }}
-                  />
-                  <YAxis hide />
-                  {goalValue && (
-                    <ReferenceLine 
-                      y={goalValue} 
-                      stroke="hsl(var(--primary))" 
-                      strokeDasharray="3 3"
-                      strokeWidth={2}
-                      label={{ value: getGoalLabel(), position: 'right', fill: 'hsl(var(--primary))', fontSize: 10 }}
-                    />
-                  )}
-                  <Bar dataKey="value" fill={config.color} radius={[5, 5, 0, 0]} barSize={20}>
-                    <LabelList dataKey="value" position="top" style={{ fontSize: 10, fill: 'hsl(var(--foreground))' }} formatter={formatter} offset={10} />
-                  </Bar>
-                </BarChart>
-              </ResponsiveContainer>
-            </ChartContainer>
-          </div>
+          <ProgressChart
+            type={metricType}
+            dayLogs={dayLogs}
+            goalWeight={metricType === 'weight' ? goalValue : undefined}
+            goalBloodPressure={metricType === 'bloodPressure' && goalValue && goalValue2 
+              ? { systolic: goalValue, diastolic: goalValue2 } : undefined}
+            goalBloodFats={metricType === 'bloodFats' && goalValue 
+              ? { ldl: goalValue } : undefined}
+            goalBloodGlucose={metricType === 'bloodGlucose' && goalValue 
+              ? { hba1c: goalValue } : undefined}
+            detailed={true}
+          />
         )}
 
         {/* Goal section */}
