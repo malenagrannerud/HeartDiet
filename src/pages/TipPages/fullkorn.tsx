@@ -93,7 +93,7 @@ const FullkornPage = () => {
         </div>
 
         <div> 
-        <p> Fullkorn kommer ifrån bland annat</p>
+          <p> Fullkorn kommer ifrån bland annat</p>
         </div>
 
         {/* Medication warnings */}
@@ -156,10 +156,7 @@ const FullkornPage = () => {
         </div>
 
 
-
-
-
-        <div >
+        <div className="mt-8 space-y-2" >
           <p>Fullkorn skyddar mot sjukdom genom att det bidrar till</p>
           <Accordion type="multiple" className="mt-0">
             <AccordionItem value="fiber">
@@ -185,6 +182,10 @@ const FullkornPage = () => {
               </AccordionContent>
             </AccordionItem>
           </Accordion>
+
+
+
+
         </div>
 
         <div>
