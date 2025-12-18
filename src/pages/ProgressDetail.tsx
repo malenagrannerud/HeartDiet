@@ -390,6 +390,8 @@ const ProgressDetail = () => {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      
     </div>
   );
 };
