@@ -142,7 +142,7 @@ const Today = () => {
           <h1 className={pageTitle}>Idag</h1>
           <p className={pageSubtitle}>Dagens fokus</p>
 
-            TEMPORARY RESET BUTTON - REMOVE LATER
+            {/* TEMPORARY RESET BUTTON - REMOVE LATER
               <Button 
                 onClick={() => {
                   localStorage.clear();
@@ -152,23 +152,23 @@ const Today = () => {
               >
                 🔄 Reset All Data (Testing)
               </Button>
+              */}
               
               {/* TEMPORARY TEST BUTTON - REMOVE LATER
               <Button 
                 onClick={() => {
-                  // Advance the simulated date by one day
-                  advanceDay();
-                  
+                  advanceDay();                   // Advance the simulated date by one day
                   console.log('Advanced to next day');
-                  
-                  // Reload the page to reflect the new "today"
-                  window.location.reload();
+                   window.location.reload();
                 }}
                 className="bg-blue-500 text-white p-2 text-sm"
               >
                 🔄 Test Next Day
               </Button>
               */}
+
+
+        
       </header>
 
       <main className={pagePadding}>
