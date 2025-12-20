@@ -309,7 +309,7 @@ const ProgressDetail = () => {
         </div>
       </div>
 
-      {/* Edit Dialog */}
+     
       <Dialog open={editDialogOpen} onOpenChange={setEditDialogOpen}>
         <DialogContent>
           <DialogHeader>
