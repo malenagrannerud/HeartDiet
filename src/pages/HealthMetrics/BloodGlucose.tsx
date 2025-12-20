@@ -148,6 +148,7 @@ export const BloodGlucose = ({ onNext, onSkip, onBack, currentStep, totalSteps }
                   onBack={onBack}
                   onForward={handleSave}
                   forwardDisabled={!isValid}
+                  forwardLabel="Spara"
                 />
               </div>
       </section>

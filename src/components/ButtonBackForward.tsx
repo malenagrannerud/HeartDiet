@@ -5,12 +5,14 @@ interface ButtonBackForwardProps {
   onBack: () => void;
   onForward: () => void;
   forwardDisabled: boolean;
+  forwardLabel?: string;
 }
 
 export const ButtonBackForward = ({
   onBack,
   onForward,
   forwardDisabled,
+  forwardLabel = "Nästa",
 }: ButtonBackForwardProps) => {
   return (
     <>
@@ -30,8 +32,8 @@ export const ButtonBackForward = ({
         className="flex-1 h-10"
         size="lg"
       >
-        Nästa
-        <ArrowRight className="mr-2 h-5 w-2" />
+        {forwardLabel}
+        <ArrowRight className="ml-2 h-5 w-5" />
       </Button>
     </>
   );
