@@ -20,8 +20,6 @@ export const healthPrioritiesSchema = z.object({   // Health priorities schema
   medications: z.array(z.string()),
 });
 
-
-
 export const completedActivitySchema = z.object({ // Completed activity schema
   id: z.string(),
   title: z.string(),
@@ -48,9 +46,11 @@ export const dayLogSchema = z.object({
 export const dayLogsSchema = z.array(dayLogSchema);
 
 export const onboardingCompletedSchema = z.boolean(); // Onboarding completion schema
+
+// ✅ TYPE EXPORTS
 export type MarkedTip = z.infer<typeof markedTipSchema>;
 export type HealthPriorities = z.infer<typeof healthPrioritiesSchema>;
-export type HealthMetrics = z.infer<typeof healthMetricsSchema>;
+export type HealthMetrics = z.infer<typeof healthMetricsSchema>; // ✅ ADD THIS LINE!
 export type CompletedActivity = z.infer<typeof completedActivitySchema>;
 export type DayLogEntry = z.infer<typeof dayLogEntrySchema>;
 export type DayLog = z.infer<typeof dayLogSchema>;
@@ -64,10 +64,6 @@ export const cardCompletionsSchema = z.array(cardCompletionSchema);
 export type CardCompletion = z.infer<typeof cardCompletionSchema>;
 export type CardId = CardCompletion['cardId'];
 
-
-
-
-
 // Selected medication schema
 export const selectedMedicationSchema = z.object({
   id: z.string(),
@@ -77,13 +73,7 @@ export const selectedMedicationSchema = z.object({
 export const selectedMedicationsSchema = z.array(selectedMedicationSchema);
 export type SelectedMedication = z.infer<typeof selectedMedicationSchema>;
 
-
-
-
-
-
-
-// Blood fats/lipids schema
+// Blood fats/lipids schema (keep for form validation)
 export const bloodFatsSchema = z.object({
   knowsLDL: z.enum(['detailed', 'just-high', 'unknown']),
   ldl: z.string().optional(),
@@ -92,13 +82,14 @@ export const bloodFatsSchema = z.object({
   date: z.string().optional(),
 });
 
-// Blood glucose schema  
+// Blood glucose schema (keep for form validation)  
 export const bloodGlucoseSchema = z.object({
   hba1c: z.string().optional(),
   fastingGlucose: z.string().optional(),
   date: z.string().optional(),
 });
 
+// ✅ UNIFIED HEALTH METRICS SCHEMA
 export const healthMetricsSchema = z.object({ 
   // Basic measurements
   weight: z.string().optional(),
@@ -135,6 +126,3 @@ export const healthMetricsSchema = z.object({
   date: z.string().optional(),
   lastUpdated: z.string().optional(),
 });
-
-export type BloodFats = z.infer<typeof bloodFatsSchema>;
-export type BloodGlucose = z.infer<typeof bloodGlucoseSchema>;
