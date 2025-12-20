@@ -82,7 +82,7 @@ const FettPage = () => {
         </p>
 
         <div>
-          <p className={bodyText}>Dessa fetter är bra för hjärtat och hjälper till att sänka kolesterolet</p>
+          <p className={bodyText}>Omättade fetter är bra för hjärtat och hjälper till att sänka kolesterolet. Hit räknas till exempel: </p>
           <DottedList items={[
             "Flytande matfetter: rapsolja, olivolja, solrosolja",
             "Nötter och frön",
