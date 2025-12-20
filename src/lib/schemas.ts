@@ -77,11 +77,13 @@ export const cardCompletionSchema = z.object({
   cardId: z.enum(['tutorial', 'health-goals', 'medications', 'health-metrics']),
   completedDate: z.string(), // ISO date string
 });
-
 export const cardCompletionsSchema = z.array(cardCompletionSchema);
-
 export type CardCompletion = z.infer<typeof cardCompletionSchema>;
 export type CardId = CardCompletion['cardId'];
+
+
+
+
 
 // Selected medication schema
 export const selectedMedicationSchema = z.object({
@@ -89,10 +91,12 @@ export const selectedMedicationSchema = z.object({
   name: z.string(),
   addedDate: z.string(), // ISO date string
 });
-
 export const selectedMedicationsSchema = z.array(selectedMedicationSchema);
-
 export type SelectedMedication = z.infer<typeof selectedMedicationSchema>;
+
+
+
+
 
 // Blood fats/lipids schema
 export const bloodFatsSchema = z.object({
