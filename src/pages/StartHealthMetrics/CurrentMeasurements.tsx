@@ -32,7 +32,7 @@ export const CurrentMeasurements = ({ onNext, onSkip, currentStep, totalSteps }:
       setWeight(data.weight || "");
       setGoalWeight(data.goalWeight || "");
     }
-    // Also check healthMetrics for goalWeight
+
     const healthData = getStorageItem('healthMetrics', healthMetricsSchema);
     if (healthData?.goalWeight && !data?.goalWeight) {
       setGoalWeight(healthData.goalWeight);

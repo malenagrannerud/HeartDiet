@@ -62,6 +62,7 @@ const handleNext = (pageData: any) => {
   const existingLogs = JSON.parse(localStorage.getItem('dayLogs') || '[]'); //  Get existing dayLogs. Retrieve time-series data for chart visualization
   
   switch (currentPageIndex) {
+    
     case 0: // Current measurements (height, weight, goalWeight)
       saveData({ height: pageData.height, weight: pageData.weight, goalWeight: pageData.goalWeight });
       if (pageData.weight) {          // Also save to dayLogs for Progress chart
