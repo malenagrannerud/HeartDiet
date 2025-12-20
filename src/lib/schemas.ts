@@ -20,21 +20,7 @@ export const healthPrioritiesSchema = z.object({   // Health priorities schema
   medications: z.array(z.string()),
 });
 
-export const healthMetricsSchema = z.object({ // Health metrics schema
-  weight: z.string(),
-  goalWeight: z.string().optional(),
-  height: z.string(),
-  systolic: z.string(),
-  diastolic: z.string(),
-  goalSystolic: z.string().optional(),
-  goalDiastolic: z.string().optional(),
-  goalLDL: z.string().optional(),
-  goalHDL: z.string().optional(),
-  goalHbA1c: z.string().optional(),
-  goalFastingGlucose: z.string().optional(),
-  skipBloodPressure: z.boolean(),
-  date: z.string(),
-});
+
 
 export const completedActivitySchema = z.object({ // Completed activity schema
   id: z.string(),
@@ -95,6 +81,8 @@ export type SelectedMedication = z.infer<typeof selectedMedicationSchema>;
 
 
 
+
+
 // Blood fats/lipids schema
 export const bloodFatsSchema = z.object({
   knowsLDL: z.enum(['detailed', 'just-high', 'unknown']),
@@ -111,9 +99,31 @@ export const bloodGlucoseSchema = z.object({
   date: z.string().optional(),
 });
 
+
+
+
+
+export const healthMetricsSchema = z.object({ // Health metrics schema
+  weight: z.string(),
+  goalWeight: z.string().optional(),
+  height: z.string(),
+
+  
+  systolic: z.string(),
+  diastolic: z.string(),
+  goalSystolic: z.string().optional(),
+  goalDiastolic: z.string().optional(),
+  goalLDL: z.string().optional(),
+  goalHDL: z.string().optional(),
+  goalHbA1c: z.string().optional(),
+  goalFastingGlucose: z.string().optional(),
+  skipBloodPressure: z.boolean(),
+  date: z.string(),
+});
+
 // Extended health metrics schema
 export const extendedHealthMetricsSchema = z.object({
-  // Basic measurements (optional for incremental saves)
+ 
   height: z.string().optional(),
   weight: z.string().optional(),
   goalWeight: z.string().optional(),
