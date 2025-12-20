@@ -128,17 +128,13 @@ export const extendedHealthMetricsSchema = z.object({
   weight: z.string().optional(),
   goalWeight: z.string().optional(),
   
-  // Blood pressure (conditional)
   bloodPressure: z.object({
     systolic: z.string(),
     diastolic: z.string(),
     date: z.string(),
   }).optional(),
   
-  // Blood fats (conditional)
   bloodFats: bloodFatsSchema.optional(),
-  
-  // Blood glucose (conditional)
   bloodGlucose: bloodGlucoseSchema.optional(),
   
   lastUpdated: z.string().optional(),
