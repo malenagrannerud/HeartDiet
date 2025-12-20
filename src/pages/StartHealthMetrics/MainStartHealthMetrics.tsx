@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { CurrentMeasurements } from "./WeightHeight";
+import { CurrentWeightHeight } from "./WeightHeight";
 import { BloodPressure } from "./BloodPressure";
 import { BloodFats } from "./BloodFats";
 import { BloodGlucose } from "./BloodGlucose";
@@ -202,7 +202,7 @@ const addEntryToDayLogs = (logs: DayLog[], dateStr: string, entry: any) => {
 
       <main className={pagePadding}>
         {currentPageIndex === 0 && (
-          <CurrentMeasurements
+          <CurrentWeightHeight
             onNext={handleNext}
             onSkip={handleSkip}
             currentStep={currentStep}

@@ -12,14 +12,14 @@ import { CheckBoxSkipNow } from "@/components/CheckBoxSkipNow";
 
 
 
-interface CurrentMeasurementsProps {
+interface WeightHeightProps {
   onNext: (data: { height: string; weight: string; goalWeight: string }) => void;
   onSkip: () => void;
   currentStep: number;
   totalSteps: number;
 }
 
-export const CurrentMeasurements = ({ onNext, onSkip, currentStep, totalSteps }: CurrentMeasurementsProps) => {
+export const CurrentWeightHeight = ({ onNext, onSkip, currentStep, totalSteps }: WeightHeightProps) => {
   const [height, setHeight] = useState("");
   const [weight, setWeight] = useState("");
   const [goalWeight, setGoalWeight] = useState("");
