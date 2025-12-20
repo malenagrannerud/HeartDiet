@@ -4,15 +4,12 @@ import { pageTitle, pageSubtitle, standardCard, pageContainer, pagePadding } fro
 
 const Help = () => {
   return (
-    /* STANDARDIZATION: Page uses pageContainer, pagePadding, space-y-6 for consistent layout */
     <div className={`${pageContainer} ${pagePadding} space-y-6`}>
-      {/* STANDARDIZATION: Header uses pageTitle (text-4xl) and pageSubtitle (text-lg) */}
       <header>
         <h1 className={pageTitle}>Hjälp</h1>
         <p className={pageSubtitle}>Vanliga frågor och svar</p>
       </header>
 
-      {/* STANDARDIZATION: Card uses p-5 padding and bg-blue-50 background */}
       <Card className={standardCard}>
         <Accordion type="single" collapsible className="w-full space-y-3">
           <AccordionItem value="item-1" className="border-b-2">
@@ -67,7 +64,6 @@ const Help = () => {
         </Accordion>
       </Card>
 
-      {/* STANDARDIZATION: Contact card uses standardCard for consistent styling */}
       <Card className={`${standardCard} bg-gradient-to-br from-primary/10 to-primary/5`}>
         <h2 className="text-2xl font-bold mb-4 text-foreground">Kontakta oss</h2>
         <p className="text-foreground/80 mb-5 text-lg leading-relaxed">
