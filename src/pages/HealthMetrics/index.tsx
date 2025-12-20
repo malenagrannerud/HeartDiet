@@ -10,7 +10,7 @@
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { CurrentMeasurements } from "./CurrentMeasurements";
+import { CurrentMeasurements } from "./Weight";
 import { BloodPressure } from "./BloodPressure";
 import { BloodFats } from "./BloodFats";
 import { BloodGlucose } from "./BloodGlucose";
@@ -148,7 +148,6 @@ const HealthMetricsFlow = () => {
    * Marks the card as completed and navigates back to Today page
    */
   const finishFlow = () => {
-    // Mark activity as completed
     const completedActivities = getStorageItem('completedActivities', completedActivitiesSchema) || [];
     const activities = Array.isArray(completedActivities) ? completedActivities : [];
     const existingActivity = activities.find(a => a.id === 'health-metrics');
@@ -162,13 +161,11 @@ const HealthMetricsFlow = () => {
       });
       setStorageItem('completedActivities', activities, completedActivitiesSchema);
     }
-
-    // Mark the card as completed for Today page
     markCardCompleted('health-metrics');
 
     toast({
       title: "Startvärden sparade",
-      description: "Dina mätningar har sparats. Ändra eller lägg till under 'Mina sidor'",
+      description: "Ändra eller lägg till mätningar under 'Mina sidor'",
     });
 
     navigate('/app/today');

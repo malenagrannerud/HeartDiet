@@ -33,7 +33,6 @@ export const CurrentMeasurements = ({ onNext, onSkip, currentStep, totalSteps }:
   const [isSkipped, setIsSkipped] = useState(false);
 
   useEffect(() => {
-    // Load height from healthMetrics (static data)
     const savedHeight = getLatestHeight();
     if (savedHeight) setHeight(savedHeight);
 
@@ -50,7 +49,6 @@ export const CurrentMeasurements = ({ onNext, onSkip, currentStep, totalSteps }:
     if (height && weight) {
       onNext({ height, weight, goalWeight });
     } else if (isSkipped) {
-      // If skipped, just go to next step without data
       onSkip();
     }
   };
@@ -95,7 +93,7 @@ export const CurrentMeasurements = ({ onNext, onSkip, currentStep, totalSteps }:
                     // If user starts typing after skipping, un-mark as skipped
                     if (isSkipped) setIsSkipped(false);
                   }}
-                  placeholder="Ex: 85,5"
+                  placeholder="Ex: 95,5"
                 />
               </div>
 
@@ -107,7 +105,7 @@ export const CurrentMeasurements = ({ onNext, onSkip, currentStep, totalSteps }:
                   step="0.1"
                   value={goalWeight}
                   onChange={(e) => setGoalWeight(e.target.value)}
-                  placeholder="Ex: 70"
+                  placeholder="Ex: 80"
                 />
               </div>
 
