@@ -1,4 +1,4 @@
-import { MedicationData, FoodInteraction } from "@/data/medications";
+import { MedicationData, FoodInteraction } from "@/data/medListAndFoodInteractions";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { AlertTriangle, Pill, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";

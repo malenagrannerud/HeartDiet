@@ -1,6 +1,6 @@
 import { AlertTriangle, Pill } from "lucide-react";
 import { Card } from "@/components/ui/card";
-import { FoodInteraction, MedicationData } from "@/data/medications";
+import { FoodInteraction, MedicationData } from "@/data/medListAndFoodInteractions";
 
 interface MedCardProps {
   medication: MedicationData;

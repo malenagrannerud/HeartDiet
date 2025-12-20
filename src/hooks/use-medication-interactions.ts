@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { medications, MedicationData, FoodInteraction } from "@/data/medications";
+import { medications, MedicationData, FoodInteraction } from "@/data/medListAndFoodInteractions";
 import { getStorageItem } from "@/lib/storage";
 import { selectedMedicationsSchema } from "@/lib/schemas";
 

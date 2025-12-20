@@ -9,7 +9,7 @@ import { sectionHeading, cardTitle, cardText, standardCard, headerContainer, pri
 import { getStorageItem, setStorageItem } from "@/lib/storage";
 import { healthPrioritiesSchema, completedActivitiesSchema, selectedMedicationsSchema } from "@/lib/schemas";
 import { markCardCompleted } from "@/lib/card-completion";
-import { medications, searchMedications } from "@/data/medications";
+import { medications, searchMedications } from "@/data/medListAndFoodInteractions";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import { Pill, Search, X } from "lucide-react";
 

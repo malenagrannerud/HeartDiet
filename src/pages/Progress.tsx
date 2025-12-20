@@ -16,7 +16,7 @@ import { pageTitle, pageSubtitle, pageContainer, headerContainer, pagePadding, s
 import { useToast } from "@/hooks/use-toast";
 import { getStorageItem } from "@/lib/storage";
 import { healthPrioritiesSchema, markedTipsSchema, selectedMedicationsSchema, healthMetricsSchema } from "@/lib/schemas";
-import { medications } from "@/data/medications";
+import { medications } from "@/data/medListAndFoodInteractions";
 import { StatsBox } from "@/components/ProgressStatsBox";
 import { HealthInfoCard } from "@/components/HealthInfoCard";
 import { getCurrentDate } from "@/lib/simulated-date";
