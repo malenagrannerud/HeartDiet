@@ -17,5 +17,4 @@ export const DEFAULT_GOALS = {
     hdl: 1.0, // mmol/L (minimum target)
     triglycerides: 2.0, // mmol/L
   },
-  // Weight has no default - must be set by user during onboarding
 } as const;
