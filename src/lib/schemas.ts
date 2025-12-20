@@ -100,46 +100,42 @@ export const bloodGlucoseSchema = z.object({
 });
 
 
-
-
-
 export const healthMetricsSchema = z.object({ 
+  // Basic measurements
   weight: z.string().optional(),
   goalWeight: z.string().optional(),
   height: z.string().optional(),
 
-
-  systolic: z.string(),
-  diastolic: z.string(),
+  // Blood pressure
+  systolic: z.string().optional(),
+  diastolic: z.string().optional(),
   goalSystolic: z.string().optional(),
   goalDiastolic: z.string().optional(),
+  
+  // Blood fats fields (from bloodFatsSchema)
+  knowsLDL: z.enum(['detailed', 'just-high', 'unknown']).optional(),
+  ldl: z.string().optional(),
+  hdl: z.string().optional(),
+  triglycerides: z.string().optional(),
   goalLDL: z.string().optional(),
   goalHDL: z.string().optional(),
+  
+  // Blood glucose fields (from bloodGlucoseSchema)
+  hba1c: z.string().optional(),
+  fastingGlucose: z.string().optional(),
   goalHbA1c: z.string().optional(),
   goalFastingGlucose: z.string().optional(),
-  skipBloodPressure: z.boolean(),
-  date: z.string(),
-});
-
-// Extended health metrics schema
-export const extendedHealthMetricsSchema = z.object({
- 
-  height: z.string().optional(),
-  weight: z.string().optional(),
-  goalWeight: z.string().optional(),
   
-  bloodPressure: z.object({
-    systolic: z.string(),
-    diastolic: z.string(),
-    date: z.string(),
-  }).optional(),
+  // Measurement dates
+  bloodPressureDate: z.string().optional(),
+  bloodFatsDate: z.string().optional(),
+  bloodGlucoseDate: z.string().optional(),
   
-  bloodFats: bloodFatsSchema.optional(),
-  bloodGlucose: bloodGlucoseSchema.optional(),
-  
+  // Other fields
+  skipBloodPressure: z.boolean().optional(),
+  date: z.string().optional(),
   lastUpdated: z.string().optional(),
 });
 
 export type BloodFats = z.infer<typeof bloodFatsSchema>;
 export type BloodGlucose = z.infer<typeof bloodGlucoseSchema>;
-export type ExtendedHealthMetrics = z.infer<typeof extendedHealthMetricsSchema>;

@@ -7,7 +7,7 @@ import { ArrowRight } from "lucide-react";
 import { ProgressIndicator } from "./components/ProgressIndicator";
 import { standardCard, standardSpacing } from "@/lib/design-tokens";
 import { getStorageItem } from "@/lib/storage";
-import { extendedHealthMetricsSchema, healthMetricsSchema } from "@/lib/schemas";
+import { healthMetricsSchema } from "@/lib/schemas";
 import { CheckBoxSkipNow } from "@/components/CheckBoxSkipNow";
 
 
@@ -25,8 +25,9 @@ export const CurrentMeasurements = ({ onNext, onSkip, currentStep, totalSteps }:
   const [goalWeight, setGoalWeight] = useState("");
   const [isSkipped, setIsSkipped] = useState(false);
 
-  useEffect(() => {               // Load from extendedHealthMetrics
-    const data = getStorageItem('extendedHealthMetrics', extendedHealthMetricsSchema);
+  useEffect(() => {               
+    const data = getStorageItem('healthMetrics', healthMetricsSchema);
+
     if (data) {
       setHeight(data.height || "");
       setWeight(data.weight || "");
