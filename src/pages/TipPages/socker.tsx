@@ -77,18 +77,32 @@ const SockerPage = () => {
 
       <main className={`${pagePadding} ${standardSpacing.pageContent}`}>
         <p className={sectionSubheading2}>
-          Att begränsa tillsatt socker hjälper dig att undvika viktökning, karies och minska risken för typ 2-diabetes och hjärt-kärlsjukdom
+          Att begränsa kommersiellt socker hjälper dig att undvika viktökning, karies och minska risken för typ 2-diabetes och hjärt-kärlsjukdom
         </p>
 
         <div>
-          
-          <p className={bodyText}>Tillsatt socker är socker som tillsätts vid bearbetning eller hemma, inte naturligt förekommande socker, som i frukt och mjölk.</p>
+          <p className={bodyText}>Kommersiellt socker är socker som finns i varor du handlar. I många komersiella produkter gömmer det sig överraskande mycket socker. 
+            Hit räknas inte naturligt förekommande socker, som i frukt och mjölk.</p>
+        </div>
+
+          <p className={bodyText}>
+          Välj hemmabakat fika med mindre socker. Prova att till exempel minska hälften av sockret 
+          i dina vanliga recept. 
+        </p>
+
+
+
+          <div>
+          <p className={bodyText}></p>
           <DottedList items={[
-            "Vitt socker, farinsocker, muscovadosocker",
-            "Honung, sirap, agavesirap",
-            "Socker i läsk, saft och energidrycker",
-            "Socker i godis, kakor, glass och sötsaker",
-            "Gömt socker i såser, dressingar och färdigmat"
+
+            "Köpt kanelbulle: 1 bulle = ca 8 sockerbitar <-> hemmabakad bulle.",
+            "Läsk och saft: 1 glas = ca 5 sockerbitar <-> kolsyrat vatten",
+            "Fruktyoghurt: 1 portion = ca 4 sockerbitar <-> osötad yoghurt med bär",
+            "Ketchup och BBQ-sås: 1 msk = ca 1 sockerbit",
+            "Frukostflingor: 1 portion = ca 3-5 sockerbitar",
+            "Müslibar: 1 bar = ca 2-3 sockerbitar",
+            "Färdigmat: varierar, läs näringsdeklarationen"
           ]} />
         </div>
 
@@ -115,14 +129,12 @@ const SockerPage = () => {
         )}
 
         <div>
-          <h2 className={sectionHeading2}>Var gömmer sig sockret?</h2>
-          <p className={bodyText}>Många produkter innehåller överraskande mycket socker</p>
+          <h2 className={sectionHeading2}>Naturligt söta alternativ</h2>
+          <p className={bodyText}>Tillfredsställ sötsuget med nyttigare alternativ</p>
           <DottedList items={[
-            "Läsk och saft: 1 glas = ca 5 sockerbitar",
-            "Fruktyoghurt: 1 portion = ca 4 sockerbitar",
-            "Ketchup och BBQ-sås: 1 msk = ca 1 sockerbit",
-            "Frukostflingor: 1 portion = ca 3-5 sockerbitar",
-            "Müslibar: 1 bar = ca 2-3 sockerbitar"
+            "Torkad frukt: dadlar, fikon, aprikoser",
+            "Kanel och vanilj: ger naturlig sötma",
+            "Mörk choklad (70%+): mindre socker än mjölkchoklad"
           ]} />
         </div>
 
@@ -160,29 +172,7 @@ const SockerPage = () => {
           </Accordion>
         </div>
 
-        <div>
-          <h2 className={sectionHeading2}>Så minskar du sockret</h2>
-          <p className={bodyText}>Praktiska tips för mindre socker i vardagen</p>
-          <DottedList items={[
-            "Drick vatten istället för läsk och saft",
-            "Välj osötad yoghurt och smaksätt själv med bär",
-            "Byt vita bröd mot fullkornsbröd",
-            "Ät frukt istället för godis och sötsaker",
-            "Läs näringsdeklarationen - undvik produkter där socker är bland de första ingredienserna",
-            "Minska gradvis: hälften socker i kaffet, sedan inget"
-          ]} />
-        </div>
-
-        <div>
-          <h2 className={sectionHeading2}>Naturligt söta alternativ</h2>
-          <p className={bodyText}>Tillfredsställ sötsuget med nyttigare alternativ</p>
-          <DottedList items={[
-            "Färsk frukt: äpplen, bananer, bär",
-            "Torkad frukt: dadlar, fikon, aprikoser (i måttliga mängder)",
-            "Kanel och vanilj: ger naturlig sötma",
-            "Mörk choklad (70%+): mindre socker än mjölkchoklad"
-          ]} />
-        </div>
+        
 
         <div>
           <h2 className={sectionHeading2}>Nå ditt mål</h2>
@@ -193,9 +183,9 @@ const SockerPage = () => {
 
         <div className="mt-2 space-y-2">
           <ExampleCard 
-            goal="Drick vatten istället för läsk"
+            goal="Byt läsk mot bubbelvatten med citron"
             when="Till alla måltider"
-            how="Köper bubbelvatten och citroner"
+            how="Har kylt bubbelvatten och citroner"
             reminder="Tar bort läsk från inköpslistan"
           />
 
@@ -210,7 +200,7 @@ const SockerPage = () => {
             goal="Frukt som efterrätt istället för glass"
             when="Efter middag"
             how="Har en fruktkorg väl synlig"
-            reminder="Köper favorit frukt varje vecka"
+            reminder="Köper favoritfrukt varje vecka"
           />
         </div>
 
