@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { CurrentMeasurements } from "./CurrentMeasurements";
+import { CurrentMeasurements } from "./WeightHeight";
 import { BloodPressure } from "./BloodPressure";
 import { BloodFats } from "./BloodFats";
 import { BloodGlucose } from "./BloodGlucose";
