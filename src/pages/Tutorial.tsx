@@ -19,7 +19,7 @@ const Tutorial = () => {
         <div className={standardSpacing.pageContent}>
           <section className={standardSpacing.sectionContent}>
             <p className={sectionSubheading}>
-            Läs om hur du använder appen. Du kan när du vill läsa igen under "Mina sidor - Inställningar"
+            Läs om hur du använder appen. Du kan när du vill läsa igen under "Hjälp"
             </p>
           </section>
 
@@ -36,11 +36,7 @@ const Tutorial = () => {
                     följa stegen i din egen takt. Du behöver inte göra allt på en gång - ta det lugnt och 
                     börja med det som känns rätt för dig.
                   </p>
-                  <div className="bg-[#FCFAF7] p-5 rounded-lg border-2 border-border">
-                    <p className={bodyText}>
-                      💡 Tips: Börja med att välja ett eller två tips att fokusera på denna vecka.
-                    </p>
-                  </div>
+                  
                 </div>
               </div>
             </Card>
@@ -59,10 +55,11 @@ const Tutorial = () => {
                     När du hittar något som passar dig, tryck på bocken så hamnar tipset under 
                     "Mina valda tips" på Idag-sidan.
                   </p>
-                  <p className={`${cardText} text-lg`}>
-                    Du kan välja så många eller så få tips du vill. Det viktiga är att du väljer 
-                    sådant som känns hanterbart för just dig.
-                  </p>
+                  <div className="bg-[#FCFAF7] p-5 rounded-lg border-2 border-border">
+                      <p className={bodyText}>
+                        💡 Tips: Börja med att välja ett eller två tips att fokusera på denna vecka.
+                      </p>
+                  </div>
                 </div>
               </div>
             </Card>
@@ -77,8 +74,10 @@ const Tutorial = () => {
                 <div className="space-y-4">
                   <h2 className={sectionHeading2}>Framsteg-sidan</h2>
                   <p className={bodyText}>
-                    Här kan du följa din utveckling över tid. Du ser en kalender där du kan 
-                    klicka på ett datum för att registrera blodtryck och vikt. 
+                    Här kan du följa din utveckling över tid. 
+                    
+                    Du ser en kalender med alla olika råd och hälsodata att fylla i. 
+                    Klicka på ett råd för att logga det som "klarat" för dagen.
                   </p>
                   <p className={bodyText}>
                     Små färgade rutor visar vilka tips du har följt. Ett litet hjärta ♥ betyder 
@@ -86,7 +85,7 @@ const Tutorial = () => {
                   </p>
                   <div className="bg-[#FCFAF7] p-5 rounded-lg border-2 border-border">
                     <p className={bodyText}>
-                      💡 Tips: Du behöver inte fylla i något varje dag. Gör det när det passar dig.
+                     // 💡 Tips: Du behöver inte fylla i något varje dag. Gör det när det passar dig.
                     </p>
                   </div>
                 </div>
@@ -103,8 +102,8 @@ const Tutorial = () => {
                 <div className="space-y-4">
                   <h2 className={sectionHeading2}>Hjälp-sidan</h2>
                   <p className={bodyText}>
-                    Om du någonsin undrar över något, finns det en hjälp-sida längst ner i menyn. 
-                    Där hittar du svar på vanliga frågor.
+                    *UNDER KONSTRUKTION*
+                    Här hittar du svar på vanliga frågor.
                   </p>
                 </div>
               </div>
@@ -113,7 +112,6 @@ const Tutorial = () => {
 
           <section>
             <div className="bg-green-50 p-8 rounded-lg border-2 border-green-200">
-              <h3 className={`${cardTitle} text-2xl mb-4`}>Du klarar det här!</h3>
               <p className={bodyText}>
                 Kom ihåg att varje litet steg räknas. Det spelar ingen roll hur långsamt du går, 
                 det viktiga är att du har börjat. Ta dig tid, var snäll mot dig själv, och gör 
