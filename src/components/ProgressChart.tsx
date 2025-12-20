@@ -5,7 +5,7 @@ import { ChartContainer } from "@/components/ui/chart";
 import { StatsBox } from "@/components/ProgressStatsBox";
 import { MoreButton } from "@/components/MoreButton";
 import { cardTextSmallBold } from "@/lib/design-tokens";
-import { DEFAULT_GOALS } from "@/lib/health-defaults";
+import { DEFAULT_GOALS } from "@/lib/metrics-defaults";
 interface DayLog {
   date: string;
   entries: {

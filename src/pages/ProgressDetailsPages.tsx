@@ -13,7 +13,7 @@ import { getStorageItem } from "@/lib/storage";
 import { healthMetricsSchema } from "@/lib/schemas";
 import { pageTitle, pageContainer, headerContainer, pagePadding, bodyTextBald, cardTextSmall } from "@/lib/design-tokens";
 import { ProgressChart } from "@/components/ProgressChart";
-import { DEFAULT_GOALS } from "@/lib/health-defaults";
+import { DEFAULT_GOALS } from "@/lib/metrics-defaults";
 type MetricType = 'weight' | 'bloodPressure' | 'bloodFats' | 'bloodGlucose';
 
 interface DayLog {
@@ -89,12 +89,10 @@ const ProgressDetail = () => {
 
     const metrics = getStorageItem('healthMetrics', healthMetricsSchema);
     
-    // Set goals: use user-defined values or defaults (except weight which has no default)
     if (metricType === 'weight') {
       if (metrics?.goalWeight) {
         setGoalValue(parseFloat(metrics.goalWeight));
       }
-      // No default for weight
     } else if (metricType === 'bloodPressure') {
       setGoalValue(metrics?.goalSystolic ? parseInt(metrics.goalSystolic) : DEFAULT_GOALS.bloodPressure.systolic);
       setGoalValue2(metrics?.goalDiastolic ? parseInt(metrics.goalDiastolic) : DEFAULT_GOALS.bloodPressure.diastolic);
