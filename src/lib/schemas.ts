@@ -14,7 +14,6 @@ export const markedTipSchema = z.object({
   markedDate: z.string(),
   color: z.string(),
 });
-
 export const markedTipsSchema = z.array(markedTipSchema);
 
 export const healthPrioritiesSchema = z.object({   // Health priorities schema
@@ -64,7 +63,6 @@ export const dayLogSchema = z.object({
 export const dayLogsSchema = z.array(dayLogSchema);
 
 export const onboardingCompletedSchema = z.boolean(); // Onboarding completion schema
-
 export type MarkedTip = z.infer<typeof markedTipSchema>;
 export type HealthPriorities = z.infer<typeof healthPrioritiesSchema>;
 export type HealthMetrics = z.infer<typeof healthMetricsSchema>;
