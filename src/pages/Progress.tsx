@@ -8,7 +8,7 @@ import { pageTitle, pageSubtitle, pageContainer, headerContainer, pagePadding, s
 import { useToast } from "@/hooks/use-toast";
 import { getDayLogs } from "@/lib/tip-completion";
 import { getStorageItem } from "@/lib/storage";
-import { healthPrioritiesSchema, markedTipsSchema, selectedMedicationsSchema, healthMetricsSchema, extendedHealthMetricsSchema } from "@/lib/schemas";
+import { healthPrioritiesSchema, markedTipsSchema, selectedMedicationsSchema, healthMetricsSchema } from "@/lib/schemas";
 import { medications } from "@/data/medications";
 import { StatsBox } from "@/components/ProgressStatsBox";
 import { HealthInfoCard } from "@/components/HealthInfoCard";
