@@ -114,7 +114,6 @@ const FettPage = () => {
         )}
 
         <div>
-          <h2 className={sectionHeading2}>Undvik mättat fett</h2>
           <p className={bodyText}>Begränsa dessa eftersom de höjer det onda kolesterolet (LDL)</p>
           <DottedList items={[
             "Smör och hårt matfett",
