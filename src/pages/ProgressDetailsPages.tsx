@@ -237,11 +237,9 @@ const ProgressDetail = () => {
         <h1 className={pageTitle}>{config.title}</h1>
       </div>
 
-      {/* Main content with consistent spacing */}
       <div className={`${pagePadding} flex flex-col gap-4`}>
-        {/* Chart */}
         {chartData.length > 0 && (
-          
+
           <ProgressChart
             type={metricType}
             dayLogs={dayLogs}
@@ -256,7 +254,6 @@ const ProgressDetail = () => {
           />
         )}
 
-        {/* Goal section */}
         <div className="bg-card rounded-lg p-4 border">
           <div className="flex justify-between items-center">
             <div>

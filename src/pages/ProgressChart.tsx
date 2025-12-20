@@ -120,8 +120,8 @@ export const ProgressChart: React.FC<ProgressChartProps> = ({
     return '';
   };
 
-  const goalValue = getGoalValue();
-  const goalLabel = getGoalLabel();
+  const metricGoalValue = getGoalValue();
+  const metricGoalLabel = getGoalLabel();
 
   // Detailed view (for ProgressDetail page)
   if (detailed) {
@@ -137,13 +137,13 @@ export const ProgressChart: React.FC<ProgressChartProps> = ({
                 tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }}
               />
               <YAxis hide />
-              {goalValue && (
+              {metricGoalValue && (
                 <ReferenceLine 
-                  y={goalValue} 
+                  y={metricGoalValue} 
                   stroke="hsl(var(--primary))" 
                   strokeDasharray="3 3"
                   strokeWidth={2}
-                  label={{ value: goalLabel, position: 'right', fill: 'hsl(var(--primary))', fontSize: 10 }}
+                  label={{ value: metricGoalLabel, position: 'right', fill: 'hsl(var(--primary))', fontSize: 10 }}
                 />
               )}
               <Bar dataKey={dataKey} fill={barColor} radius={[5, 5, 0, 0]} barSize={20}>
@@ -170,19 +170,20 @@ export const ProgressChart: React.FC<ProgressChartProps> = ({
         </div>
         <ChartContainer config={chartConfig} className="h-32 w-full">
           <ResponsiveContainer width="100%" height="100%">
+            
             <BarChart 
               data={chartData}
               margin={{ top: 10, right: 10, left: 10, bottom: 10 }}
             >
               <XAxis dataKey="date" hide />
               <YAxis hide />
-              {goalValue && (
+              {metricGoalValue && (
                 <ReferenceLine 
-                  y={goalValue} 
+                  y={metricGoalValue} 
                   stroke="hsl(var(--primary))" 
                   strokeDasharray="3 3"
                   strokeWidth={2}
-                  label={{ value: goalLabel, position: 'right', fill: 'hsl(var(--primary))', fontSize: 10 }}
+                  label={{ value: metricGoalLabel, position: 'right', fill: 'hsl(var(--primary))', fontSize: 10 }}
                 />
               )}
               <Bar 
@@ -192,6 +193,7 @@ export const ProgressChart: React.FC<ProgressChartProps> = ({
                 barSize={10}
               />
             </BarChart>
+
           </ResponsiveContainer>
         </ChartContainer>
       </div>
