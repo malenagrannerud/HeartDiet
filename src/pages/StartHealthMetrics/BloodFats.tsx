@@ -5,17 +5,16 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { CheckBoxSkipNow } from "@/components/CheckBoxSkipNow";
-
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { CalendarIcon} from "lucide-react";
+import { CalendarIcon } from "lucide-react";
 import { format } from "date-fns";
 import { sv } from "date-fns/locale";
 import { ProgressIndicator } from "./components/ProgressIndicator";
 import { standardCard, standardSpacing } from "@/lib/design-tokens";
 import { getStorageItem } from "@/lib/storage";
-import { extendedHealthMetricsSchema } from "@/lib/schemas";
+import { healthMetricsSchema } from "@/lib/schemas"; // CHANGED
 import { cn } from "@/lib/utils";
 
 interface BloodFatsProps {
@@ -35,21 +34,25 @@ export const BloodFats = ({ onNext, onSkip, onBack, currentStep, totalSteps }: B
   const [isSkipped, setIsSkipped] = useState(false);
 
   useEffect(() => {
-    const data = getStorageItem('extendedHealthMetrics', extendedHealthMetricsSchema);
-    if (data?.bloodFats) {
-      setKnowsLDL(data.bloodFats.knowsLDL || "unknown");
-      setLdl(data.bloodFats.ldl || "");
-      setHdl(data.bloodFats.hdl || "");
-      setTriglycerides(data.bloodFats.triglycerides || "");
-      if (data.bloodFats.date) {
-        setDate(new Date(data.bloodFats.date));
+    // CHANGED: Load from healthMetrics instead of extendedHealthMetrics
+    const data = getStorageItem('healthMetrics', healthMetricsSchema);
+    
+    if (data) {
+      // Load from flat structure instead of nested bloodFats object
+      setKnowsLDL(data.knowsLDL || "unknown");
+      setLdl(data.ldl || "");
+      setHdl(data.hdl || "");
+      setTriglycerides(data.triglycerides || "");
+      
+      // Load date from bloodFatsDate field
+      if (data.bloodFatsDate) {
+        setDate(new Date(data.bloodFatsDate));
       }
     }
   }, []);
 
   const handleContinue = () => {
     if (knowsLDL === 'detailed' && ldl) {
-      // Save detailed data
       const data: any = { 
         knowsLDL, 
         date: date.toISOString(),
@@ -58,9 +61,9 @@ export const BloodFats = ({ onNext, onSkip, onBack, currentStep, totalSteps }: B
         triglycerides: triglycerides || undefined
       };
       onNext(data);
-    } else if (isSkipped) { // If skipped, just go to next step without data
+    } else if (isSkipped) {
       onSkip();
-    } else {                // Save only the knowsLDL selection (not detailed values)
+    } else {
       const data: any = { knowsLDL };
       if (knowsLDL === 'just-high' || knowsLDL === 'unknown') {
         data.date = date.toISOString();
@@ -69,23 +72,16 @@ export const BloodFats = ({ onNext, onSkip, onBack, currentStep, totalSteps }: B
     }
   };
 
-
   const handleInputChange = (setter: React.Dispatch<React.SetStateAction<string>>, value: string) => {
     setter(value);
-    // If user starts typing after skipping, un-mark as skipped
     if (isSkipped) setIsSkipped(false);
   };
 
   const handleRadioChange = (value: string) => {
     setKnowsLDL(value);
-    // If user changes radio after skipping, un-mark as skipped
     if (isSkipped) setIsSkipped(false);
   };
 
-  // Nästa button is enabled if:
-  // 1. User selected "detailed" AND filled LDL, OR
-  // 2. User selected "just-high" or "unknown", OR
-  // 3. User clicked "Senare" (isSkipped)
   const isValid = 
     isSkipped || 
     (knowsLDL === 'detailed' && ldl !== "") || 
@@ -186,7 +182,6 @@ export const BloodFats = ({ onNext, onSkip, onBack, currentStep, totalSteps }: B
                           onSelect={(newDate) => {
                             if (newDate) {
                               setDate(newDate);
-                              // If user selects date after skipping, un-mark as skipped
                               if (isSkipped) setIsSkipped(false);
                             }
                           }}
@@ -205,10 +200,10 @@ export const BloodFats = ({ onNext, onSkip, onBack, currentStep, totalSteps }: B
       </section>
 
       <div className={standardSpacing.pageContent}>
-              <CheckBoxSkipNow
-                        isSkipped={isSkipped}
-                        setIsSkipped={setIsSkipped}
-              />
+        <CheckBoxSkipNow
+          isSkipped={isSkipped}
+          setIsSkipped={setIsSkipped}
+        />
       </div>
 
       <section className="fixed bottom-16 left-0 right-0 px-4 z-10">
