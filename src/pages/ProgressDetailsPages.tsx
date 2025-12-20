@@ -12,7 +12,7 @@ import { getDayLogs } from "@/lib/tip-completion";
 import { getStorageItem } from "@/lib/storage";
 import { healthMetricsSchema } from "@/lib/schemas";
 import { pageTitle, pageContainer, headerContainer, pagePadding, bodyTextBald, cardTextSmall } from "@/lib/design-tokens";
-import { ProgressChart } from "@/components/ProgressChart";
+import { ProgressChart } from "@/pages/ProgressChart";
 import { DEFAULT_GOALS } from "@/lib/metrics-defaults";
 type MetricType = 'weight' | 'bloodPressure' | 'bloodFats' | 'bloodGlucose';
 
@@ -49,14 +49,14 @@ const metricConfig: Record<MetricType, {
     goalLabel: "Mål systoliskt"
   },
   bloodFats: {
-    title: "Kolesterol (mmol/L)",
+    title: "LDL-Kolesterol (mmol/L)",
     unit: "mmol/L",
     color: "hsla(280, 65%, 60%, 1.00)",
     goalKey: "goalLDL",
     goalLabel: "Mål LDL"
   },
   bloodGlucose: {
-    title: "Blodsocker (mmol/L)",
+    title: "P-Glukos (mmol/L)",
     unit: "mmol/mol",
     color: "hsla(160, 60%, 50%, 1.00)",
     goalKey: "goalHbA1c",

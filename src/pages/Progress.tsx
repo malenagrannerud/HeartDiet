@@ -13,7 +13,7 @@ import { medications } from "@/data/medications";
 import { StatsBox } from "@/components/ProgressStatsBox";
 import { HealthInfoCard } from "@/components/HealthInfoCard";
 import { getCurrentDate } from "@/lib/simulated-date";
-import { ProgressChart } from "@/components/ProgressChart";
+import { ProgressChart } from "@/pages/ProgressChart";
 import { WeeklyProgressTable } from "@/pages/ProgressTable";
 import { SaveConfirmationDialog } from "@/components/AlertSaveDataProgress";
 import { GoalEditDialog } from "./ProgressTableDialogs.tsx/EditGoalDialog";
