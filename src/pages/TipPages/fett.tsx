@@ -77,11 +77,11 @@ const FettPage = () => {
 
       <main className={`${pagePadding} ${standardSpacing.pageContent}`}>
         <p className={sectionSubheading2}>
-          Att välja rätt typ av fett skyddar hjärtat och sänker kolesterolet. Byt mättat fett mot omättat fett för bättre hälsa
+          Att välja rätt typ av fett skyddar hjärtat och sänker kolesterolet. 
+          Byt mättat fett mot omättat fett för bättre hälsa
         </p>
 
         <div>
-          <h2 className={sectionHeading2}>Goda fetter - omättade</h2>
           <p className={bodyText}>Dessa fetter är bra för hjärtat och hjälper till att sänka kolesterolet</p>
           <DottedList items={[
             "Flytande matfetter: rapsolja, olivolja, solrosolja",
@@ -127,9 +127,9 @@ const FettPage = () => {
 
         <div>
           <h2 className={sectionHeading2}>Varför rätt fett?</h2>
-          <p className={bodyText}>Omättade fetter ger flera hälsofördelar</p>
+          <p className={bodyText}> Rätt fett skyddar mot hjärt-kärlsjukdom efter som de </p>
           <DottedList items={[
-            "Sänker LDL-kolesterol: Minskar risken för åderförkalkning",
+            
             "Höjer HDL-kolesterol: Det 'goda' kolesterolet som skyddar hjärtat",
             "Anti-inflammatoriskt: Omega-3 minskar inflammation i kroppen",
             "Sänker blodtryck: Bidrar till friskare blodkärl",
@@ -137,22 +137,36 @@ const FettPage = () => {
           ]} />
           
           <Accordion type="multiple" className="mt-4">
+
+
             <AccordionItem value="ldl">
-              <AccordionTrigger className={bodyText}>Hur sänker omättat fett LDL-kolesterol?</AccordionTrigger>
+              <AccordionTrigger className={bodyText}>Minskar risken för åderförkalkning</AccordionTrigger>
               <AccordionContent className={bodyText}>
-                Omättade fetter, särskilt fleromättade fetter som finns i fisk och nötter, hjälper levern att ta bort LDL-kolesterol från blodet. De ersätter också mättat fett i kosten, vilket i sig höjer LDL. Studier visar att ersätta mättat fett med omättat fett kan sänka LDL-kolesterolet med upp till 10%.
+                Omättade fetter, särskilt fleromättade fetter som finns i fisk och nötter, 
+                hjälper levern att ta bort LDL-kolesterol från blodet. 
+                De ersätter också mättat fett i kosten, vilket i sig höjer LDL. 
+                Studier visar att ersätta mättat fett med omättat fett kan sänka LDL-kolesterolet med upp till 10%.
               </AccordionContent>
             </AccordionItem>
+
+
             <AccordionItem value="hdl">
               <AccordionTrigger className={bodyText}>Varför är HDL-kolesterol bra för hjärtat?</AccordionTrigger>
               <AccordionContent className={bodyText}>
-                HDL-kolesterol kallas "det goda kolesterolet" eftersom det transporterar bort kolesterol från blodkärlen tillbaka till levern där det bryts ner. Detta minskar risken för plackbildning i artärerna. Omättade fetter, särskilt från olivolja och nötter, hjälper till att höja HDL-nivåerna.
+                HDL-kolesterol kallas "det goda kolesterolet" eftersom det transporterar bort kolesterol
+                 från blodkärlen tillbaka till levern där det bryts ner. 
+                 Detta minskar risken för plackbildning i artärerna. 
+                 Omättade fetter, särskilt från olivolja och nötter, hjälper till att höja HDL-nivåerna.
               </AccordionContent>
             </AccordionItem>
+
+
             <AccordionItem value="omega3">
               <AccordionTrigger className={bodyText}>Vilken roll spelar Omega-3 för inflammation?</AccordionTrigger>
               <AccordionContent className={bodyText}>
-                Omega-3-fettsyror, särskilt EPA och DHA från fet fisk, har kraftfulla anti-inflammatoriska egenskaper. De motverkar kronisk inflammation som kan skada blodkärl och öka risken för hjärtsjukdom. Omega-3 minskar också produktionen av inflammatoriska ämnen i kroppen.
+                Omega-3-fettsyror, särskilt EPA och DHA från fet fisk, har kraftfulla anti-inflammatoriska egenskaper.
+                 De motverkar kronisk inflammation som kan skada blodkärl och öka risken för hjärtsjukdom. 
+                 Omega-3 minskar också produktionen av inflammatoriska ämnen i kroppen.
               </AccordionContent>
             </AccordionItem>
           </Accordion>
@@ -161,7 +175,7 @@ const FettPage = () => {
         <div>
           <h2 className={sectionHeading2}>Planera för att börja äta rätt fett</h2>
           <p className={bodyText}>
-            Genom att tänka ut hur du ska byta till nyttigare fetter, kan du lättare modifiera en plan som passar dej
+            Genom att tänka ut när och hur du ska byta till nyttigare fetter, kan du lättare modifiera en plan som passar dej
           </p>
         </div>
 
