@@ -1,13 +1,3 @@
-/**
- * CurrentMeasurements Component
- * 
- * First step in health metrics flow - collects height, weight, and goal weight.
- * 
- * DATA FLOW:
- * - Loads: Latest measurements from dayLogs + goals from healthMetrics via health-data helpers
- * - Saves: Passed to parent (index.tsx) which saves to dayLogs and healthMetrics
- */
-
 import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -16,8 +6,11 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { ProgressIndicator } from "./components/ProgressIndicator";
 import { standardCard, standardSpacing } from "@/lib/design-tokens";
+import { getStorageItem } from "@/lib/storage";
+import { extendedHealthMetricsSchema, healthMetricsSchema } from "@/lib/schemas";
 import { CheckBoxSkipNow } from "@/components/CheckBoxSkipNow";
-import { getLatestMeasurement, getHealthGoals, getLatestHeight } from "@/lib/health-data";
+
+
 
 interface CurrentMeasurementsProps {
   onNext: (data: { height: string; weight: string; goalWeight: string }) => void;
@@ -32,23 +25,24 @@ export const CurrentMeasurements = ({ onNext, onSkip, currentStep, totalSteps }:
   const [goalWeight, setGoalWeight] = useState("");
   const [isSkipped, setIsSkipped] = useState(false);
 
-  useEffect(() => {
-    const savedHeight = getLatestHeight();
-    if (savedHeight) setHeight(savedHeight);
-
-    // Load latest weight from dayLogs (time-series)
-    const latestWeight = getLatestMeasurement('weight');
-    if (latestWeight) setWeight(latestWeight.value.toString());
-
-    // Load goal weight from healthMetrics
-    const goals = getHealthGoals();
-    if (goals.goalWeight) setGoalWeight(goals.goalWeight.toString());
+  useEffect(() => {               // Load from extendedHealthMetrics
+    const data = getStorageItem('extendedHealthMetrics', extendedHealthMetricsSchema);
+    if (data) {
+      setHeight(data.height || "");
+      setWeight(data.weight || "");
+      setGoalWeight(data.goalWeight || "");
+    }
+    // Also check healthMetrics for goalWeight
+    const healthData = getStorageItem('healthMetrics', healthMetricsSchema);
+    if (healthData?.goalWeight && !data?.goalWeight) {
+      setGoalWeight(healthData.goalWeight);
+    }
   }, []);
 
   const handleContinue = () => {
     if (height && weight) {
       onNext({ height, weight, goalWeight });
-    } else if (isSkipped) {
+    } else if (isSkipped) {           // If skipped, just go to next step without data
       onSkip();
     }
   };
@@ -93,7 +87,7 @@ export const CurrentMeasurements = ({ onNext, onSkip, currentStep, totalSteps }:
                     // If user starts typing after skipping, un-mark as skipped
                     if (isSkipped) setIsSkipped(false);
                   }}
-                  placeholder="Ex: 95,5"
+                  placeholder="Ex: 85,5"
                 />
               </div>
 
@@ -105,7 +99,7 @@ export const CurrentMeasurements = ({ onNext, onSkip, currentStep, totalSteps }:
                   step="0.1"
                   value={goalWeight}
                   onChange={(e) => setGoalWeight(e.target.value)}
-                  placeholder="Ex: 80"
+                  placeholder="Ex: 70"
                 />
               </div>
 

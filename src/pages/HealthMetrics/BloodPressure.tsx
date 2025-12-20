@@ -1,30 +1,22 @@
-/**
- * BloodPressure Component
- * 
- * Second step in health metrics flow - collects blood pressure readings.
- * 
- * DATA FLOW:
- * - Loads: Latest BP from dayLogs via health-data helpers
- * - Saves: Passed to parent (index.tsx) which saves to dayLogs
- */
-
 import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { CheckBoxSkipNow } from "@/components/CheckBoxSkipNow";
+import { ButtonAbort } from "@/components/ButtonAbort";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon} from "lucide-react";
 import { format } from "date-fns";
 import { sv } from "date-fns/locale";
 import { ProgressIndicator } from "./components/ProgressIndicator";
 import { CardInfoHint } from "@/components/CardInfoHint";
 import { ButtonBackForward } from "@/components/ButtonBackForward";
 import { standardCard, standardSpacing } from "@/lib/design-tokens";
+import { getStorageItem } from "@/lib/storage";
+import { extendedHealthMetricsSchema } from "@/lib/schemas";
 import { cn } from "@/lib/utils";
-import { getLatestMeasurement } from "@/lib/health-data";
 
 interface BloodPressureProps {
   onNext: (data: { systolic: string; diastolic: string; date: string }) => void;
@@ -41,13 +33,12 @@ export const BloodPressure = ({ onNext, onSkip, onBack, currentStep, totalSteps 
   const [isSkipped, setIsSkipped] = useState(false);
 
   useEffect(() => {
-    // Load latest blood pressure from dayLogs
-    const latestBP = getLatestMeasurement('bloodPressure');
-    if (latestBP) {
-      setSystolic(latestBP.value.toString());
-      setDiastolic(latestBP.value2?.toString() || "");
-      if (latestBP.date) {
-        setDate(new Date(latestBP.date));
+    const data = getStorageItem('extendedHealthMetrics', extendedHealthMetricsSchema);
+    if (data?.bloodPressure) {
+      setSystolic(data.bloodPressure.systolic || "");
+      setDiastolic(data.bloodPressure.diastolic || "");
+      if (data.bloodPressure.date) {
+        setDate(new Date(data.bloodPressure.date));
       }
     }
   }, []);
@@ -59,8 +50,7 @@ export const BloodPressure = ({ onNext, onSkip, onBack, currentStep, totalSteps 
         diastolic, 
         date: date.toISOString() 
       });
-    } else if (isSkipped) {
-      // If skipped, just go to next step without data
+    } else if (isSkipped) {   // If skipped, just go to next step without data
       onSkip();
     }
   };
@@ -143,8 +133,7 @@ export const BloodPressure = ({ onNext, onSkip, onBack, currentStep, totalSteps 
                                 onSelect={(newDate) => {
                                   if (newDate) {
                                     setDate(newDate);
-                                    // If user selects date after skipping, un-mark as skipped
-                                    if (isSkipped) setIsSkipped(false);
+                                    if (isSkipped) setIsSkipped(false);       // If user selects date after skipping, un-mark as skipped
                                   }
                                 }}
                                 initialFocus

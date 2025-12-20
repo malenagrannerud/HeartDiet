@@ -1,7 +1,7 @@
 import { format } from "date-fns";
 import { sv } from "date-fns/locale";
 import { ChevronLeft, ChevronRight, Plus, Heart, Weight, Activity, Droplet } from "lucide-react";
-import { tips } from "@/data/tipCardColorsText";
+import { tips } from "@/data/tips";
 import { Button } from "@/components/ui/button";
 import { bodyText, tableHeaderSmall } from "@/lib/design-tokens";
 import { getStorageItem } from "@/lib/storage";

@@ -1,5 +1,5 @@
 import React from 'react';
-import { UserPlan } from '@/data/tipCardColorsText';
+import { UserPlan } from '@/data/tips';
 import { UserPlanForm } from './UserPlanForm';
 import {
   Dialog,

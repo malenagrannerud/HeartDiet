@@ -1,34 +1,26 @@
-/**
- * Progress Page
- * 
- * UNIFIED STORAGE STRATEGY:
- * - dayLogs: All time-series measurements (weight, BP, fats, glucose) - single source of truth
- * - healthMetrics: User-defined goals only (goalWeight, goalSystolic, etc.)
- */
-
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { format, startOfWeek, addDays, startOfMonth, endOfMonth } from "date-fns";
 import { sv } from "date-fns/locale";
 import { Heart, Pill } from "lucide-react";
-import { tips } from "@/data/tipCardColorsText";
+import { tips } from "@/data/tips";
 import { pageTitle, pageSubtitle, pageContainer, headerContainer, pagePadding, standardSpacing, cardTextSmall, bodyTextSmallBold } from "@/lib/design-tokens";
 import { useToast } from "@/hooks/use-toast";
+import { getDayLogs } from "@/lib/tip-completion";
 import { getStorageItem } from "@/lib/storage";
-import { healthPrioritiesSchema, markedTipsSchema, selectedMedicationsSchema, healthMetricsSchema } from "@/lib/schemas";
-import { medications } from "@/data/medListAndFoodInteractions";
+import { healthPrioritiesSchema, markedTipsSchema, selectedMedicationsSchema, healthMetricsSchema, extendedHealthMetricsSchema } from "@/lib/schemas";
+import { medications } from "@/data/medications";
 import { StatsBox } from "@/components/ProgressStatsBox";
 import { HealthInfoCard } from "@/components/HealthInfoCard";
 import { getCurrentDate } from "@/lib/simulated-date";
 import { ProgressChart } from "@/components/ProgressChart";
 import { WeeklyProgressTable } from "@/components/ProgressTable";
 import { SaveConfirmationDialog } from "@/components/AlertSaveDataProgress";
-import { GoalEditDialog } from "./ProgressTableDialogs/EditGoalDialog";
-import { BloodGlucoseDialog } from "./ProgressTableDialogs/ProgrBloodSugarDialog";
-import { WeightDialog } from "./ProgressTableDialogs/ProgrWeightDialog";
-import { BloodPressureDialog } from "./ProgressTableDialogs/ProgrBPDialog";
-import { BloodFatsDialog } from "./ProgressTableDialogs/ProgrBloodFatDialog";
-import { getDayLogsData, getHealthGoals } from "@/lib/health-data";
+import { GoalEditDialog } from "./ProgressTableDialogs.tsx/EditGoalDialog";
+import { BloodGlucoseDialog } from "./ProgressTableDialogs.tsx/ProgrBloodSugarDialog";
+import { WeightDialog } from "./ProgressTableDialogs.tsx/ProgrWeightDialog";
+import { BloodPressureDialog } from "./ProgressTableDialogs.tsx/ProgrBPDialog";
+import { BloodFatsDialog } from "./ProgressTableDialogs.tsx/ProgrBloodFatDialog";
 
 interface DayLog {
   date: string;
@@ -115,9 +107,9 @@ const Progress = () => {
   const [goalHbA1cInput, setGoalHbA1cInput] = useState("");
   const [goalFastingGlucoseInput, setGoalFastingGlucoseInput] = useState("");
 
-  // Load day logs and health priorities from localStorage (unified storage)
+  // Load day logs and health priorities from localStorage
   useEffect(() => {
-    const logs = getDayLogsData();
+    const logs = getDayLogs();
     setDayLogs(logs);
 
     const data = getStorageItem('healthPriorities', healthPrioritiesSchema);

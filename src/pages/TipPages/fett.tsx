@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { UserPlan } from "@/data/tipCardColorsText";
+import { UserPlan } from "@/data/tips";
 import { pageContainer, headerContainer, pagePadding, sectionHeading, sectionHeading2, sectionSubheading2, bodyText, tipCardColors, standardSpacing } from "@/lib/design-tokens";
 import { BackToTodayButton } from "@/components/BackToTodayButton";
 import { UserPlanFormDialog } from "@/components/UserPlanFormDialog";
@@ -8,22 +8,22 @@ import { UserPlanDisplay } from "@/components/UserPlanDisplay";
 import DottedList from "@/components/DottedList";
 import ExampleCard from "@/components/exCard";
 import { AddPlanButton } from "@/components/AddPlanButton";
-import { Beef } from "lucide-react";
+import { Droplets } from "lucide-react";
 import { useMedicationInteractions } from "@/hooks/use-medication-interactions";
 import { MedCardCompact } from "@/components/MedCardCompact";
 import { useHealthGoalTips } from "@/hooks/use-health-goal-tips";
 import { HealthGoalCardCompact } from "@/components/HealthGoalCardCompact";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 
-const KottPage = () => {
+const FettPage = () => {
   const [userPlans, setUserPlans] = useState<UserPlan[]>([]);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const medicationInteractions = useMedicationInteractions(6); // tipId: 6
-  const healthGoalTips = useHealthGoalTips(6);
+  const medicationInteractions = useMedicationInteractions(4); // tipId: 4 for Fett
+  const healthGoalTips = useHealthGoalTips(4);
 
   useEffect(() => {
-    const savedPlans = localStorage.getItem('userPlans-kott');
+    const savedPlans = localStorage.getItem('userPlans-fett');
     if (savedPlans) {
       setUserPlans(JSON.parse(savedPlans));
     }
@@ -41,13 +41,13 @@ const KottPage = () => {
     
     setUserPlans(updatedPlans);
     setEditingIndex(null);
-    localStorage.setItem('userPlans-kott', JSON.stringify(updatedPlans));
+    localStorage.setItem('userPlans-fett', JSON.stringify(updatedPlans));
   };
 
   const handleDeletePlan = (index: number) => {
     const updatedPlans = userPlans.filter((_, i) => i !== index);
     setUserPlans(updatedPlans);
-    localStorage.setItem('userPlans-kott', JSON.stringify(updatedPlans));
+    localStorage.setItem('userPlans-fett', JSON.stringify(updatedPlans));
   };
 
   const handleEditPlan = (index: number) => {
@@ -67,28 +67,28 @@ const KottPage = () => {
 
   return (
     <div className={pageContainer}>
-      <header className={`${headerContainer} ${tipCardColors.darkrose}`}>
+      <header className={`${headerContainer} ${tipCardColors.yellow}`}>
         <BackToTodayButton />
         <div className="flex items-center justify-between">
-          <h1 className={sectionHeading}>Rött och bearbetat kött</h1>
-          <Beef className="h-8 w-8" />
+          <h1 className={sectionHeading}>Rätt fett</h1>
+          <Droplets className="h-8 w-8" />
         </div>
       </header>
 
       <main className={`${pagePadding} ${standardSpacing.pageContent}`}>
         <p className={sectionSubheading2}>
-          Att begränsa rött och bearbetat kött till max 500 g per vecka minskar risken för hjärt-kärlsjukdom, typ 2-diabetes och vissa cancerformer
+          Att välja rätt typ av fett skyddar hjärtat och sänker kolesterolet. Byt mättat fett mot omättat fett för bättre hälsa
         </p>
 
         <div>
-          <h2 className={sectionHeading2}>Vad är rött kött?</h2>
-          <p className={bodyText}>Rött kött kommer från däggdjur</p>
+          <h2 className={sectionHeading2}>Goda fetter - omättade</h2>
+          <p className={bodyText}>Dessa fetter är bra för hjärtat och hjälper till att sänka kolesterolet</p>
           <DottedList items={[
-            "Nötkött",
-            "Fläskkött",
-            "Lammkött",
-            "Älg och viltkött",
-            "Kalvkött"
+            "Flytande matfetter: rapsolja, olivolja, solrosolja",
+            "Flytande matfett på smörgås",
+            "Nötter och frön: mandel, valnötter, cashew, solrosfrön",
+            "Fet fisk: lax, makrill, sill",
+            "Avokado"
           ]} />
         </div>
 
@@ -115,88 +115,76 @@ const KottPage = () => {
         )}
 
         <div>
-          <h2 className={sectionHeading2}>Vad är bearbetat kött?</h2>
-          <p className={bodyText}>Kött som bearbetats för längre hållbarhet</p>
+          <h2 className={sectionHeading2}>Undvik mättat fett</h2>
+          <p className={bodyText}>Begränsa dessa eftersom de höjer det onda kolesterolet (LDL)</p>
           <DottedList items={[
-            "Korv: falukorv, grillkorv, isterband",
-            "Charkuterier: skinka, salami, bacon",
-            "Rökt och saltad kött",
-            "Konserverat kött",
-            "Köttbullar och färdigmat med kött"
+            "Smör och hårt matfett",
+            "Feta mejeriproukter: grädde, crème fraiche",
+            "Fett kött och charkuterier",
+            "Kokosolja och palmolja",
+            "Bakverk och sötsaker med mycket smör"
           ]} />
         </div>
 
         <div>
-          <h2 className={sectionHeading2}>Varför begränsa?</h2>
-          <p className={bodyText}>Att äta mindre rött och bearbetat kött minskar risken för</p>
+          <h2 className={sectionHeading2}>Varför rätt fett?</h2>
+          <p className={bodyText}>Omättade fetter ger flera hälsofördelar</p>
           <DottedList items={[
-            "Hjärt-kärlsjukdom: Mättat fett höjer kolesterolet",
-            "Tjocktarmscancer: Särskilt vid bearbetat kött",
-            "Typ 2-diabetes: Bearbetat kött ökar risken",
-            "Övervikt: Ofta högt energiinnehåll",
-            "Högt blodtryck: På grund av högt saltinnehåll i bearbetat kött"
+            "Sänker LDL-kolesterol: Minskar risken för åderförkalkning",
+            "Höjer HDL-kolesterol: Det 'goda' kolesterolet som skyddar hjärtat",
+            "Anti-inflammatoriskt: Omega-3 minskar inflammation i kroppen",
+            "Sänker blodtryck: Bidrar till friskare blodkärl",
+            "Hjärnhälsa: Omega-3 är viktigt för hjärnans funktion"
           ]} />
           
           <Accordion type="multiple" className="mt-4">
-            <AccordionItem value="cancer">
-              <AccordionTrigger className={bodyText}>Varför ökar bearbetat kött risken för cancer?</AccordionTrigger>
+            <AccordionItem value="ldl">
+              <AccordionTrigger className={bodyText}>Hur sänker omättat fett LDL-kolesterol?</AccordionTrigger>
               <AccordionContent className={bodyText}>
-                WHO klassificerar bearbetat kött som cancerframkallande (grupp 1). När kött röks, saltas eller konserveras bildas cancerframkallande ämnen som nitrosaminer. Hemjärn i rött kött kan också skada tarmens slemhinna. Studier visar att varje 50 g bearbetat kött per dag ökar risken för tjocktarmscancer med 18%.
+                Omättade fetter, särskilt fleromättade fetter som finns i fisk och nötter, hjälper levern att ta bort LDL-kolesterol från blodet. De ersätter också mättat fett i kosten, vilket i sig höjer LDL. Studier visar att ersätta mättat fett med omättat fett kan sänka LDL-kolesterolet med upp till 10%.
               </AccordionContent>
             </AccordionItem>
-            <AccordionItem value="heart">
-              <AccordionTrigger className={bodyText}>Hur påverkar rött kött hjärthälsan?</AccordionTrigger>
+            <AccordionItem value="hdl">
+              <AccordionTrigger className={bodyText}>Varför är HDL-kolesterol bra för hjärtat?</AccordionTrigger>
               <AccordionContent className={bodyText}>
-                Rött kött innehåller mycket mättat fett som höjer LDL-kolesterolet. Bearbetat kött innehåller också mycket salt och nitriter som höjer blodtrycket. Dessutom producerar tarmbakterier TMAO från L-karnitin i rött kött, vilket ökar risken för åderförkalkning. Att ersätta rött kött med fisk, kyckling eller baljväxter minskar dessa risker.
+                HDL-kolesterol kallas "det goda kolesterolet" eftersom det transporterar bort kolesterol från blodkärlen tillbaka till levern där det bryts ner. Detta minskar risken för plackbildning i artärerna. Omättade fetter, särskilt från olivolja och nötter, hjälper till att höja HDL-nivåerna.
               </AccordionContent>
             </AccordionItem>
-            <AccordionItem value="alternatives">
-              <AccordionTrigger className={bodyText}>Vilka är de bästa alternativen till rött kött?</AccordionTrigger>
+            <AccordionItem value="omega3">
+              <AccordionTrigger className={bodyText}>Vilken roll spelar Omega-3 för inflammation?</AccordionTrigger>
               <AccordionContent className={bodyText}>
-                Fisk ger omega-3 och skyddar hjärtat. Kyckling och kalkon innehåller protein utan mättat fett. Baljväxter som linser och bönor ger protein, fibrer och mineraler. Ägg är näringsrika och mångsidiga. Vegetariska alternativ som tofu och tempeh fungerar bra i många recept. Variera mellan dessa för bästa näringsintag.
+                Omega-3-fettsyror, särskilt EPA och DHA från fet fisk, har kraftfulla anti-inflammatoriska egenskaper. De motverkar kronisk inflammation som kan skada blodkärl och öka risken för hjärtsjukdom. Omega-3 minskar också produktionen av inflammatoriska ämnen i kroppen.
               </AccordionContent>
             </AccordionItem>
           </Accordion>
         </div>
 
         <div>
-          <h2 className={sectionHeading2}>Alternativ till rött kött</h2>
-          <p className={bodyText}>Ersätt med proteinrika alternativ</p>
-          <DottedList items={[
-            "Fisk och skaldjur",
-            "Kyckling och kalkon",
-            "Baljväxter: linser, bönor, kikärtor",
-            "Ägg",
-            "Vegetariska alternativ: tofu, tempeh, Quorn"
-          ]} />
-        </div>
-
-        <div>
           <h2 className={sectionHeading2}>Nå ditt mål</h2>
           <p className={bodyText}>
-            Genom att planera dina måltider och byta ut några köttmåltider, kan du lättare nå målet på max 500 g per vecka
+            Genom att tänka ut hur du ska byta till nyttigare fetter, kan du lättare modifiera en plan som passar dej
           </p>
         </div>
 
         <div className="mt-2 space-y-2">
           <ExampleCard 
-            goal="Vegetarisk middag 3 ggr / v."
-            when="Måndag, onsdag, fredag"
-            how="Planerar veckomeny med baljväxtsrätter"
-            reminder="Veckans meny på kylskåpet"
+            goal="Byt smör mot flytande matfett"
+            when="Varje måltid"
+            how="Har rapsolja/olivolja framme på köksbordet"
+            reminder="Klisterlapp på smörpaketet"
           />
 
           <ExampleCard 
-            goal="Fisk istället för kött 2 ggr / v."
-            when="Tisdag och torsdag"
-            how="Handlar färdig fisk att laga snabbt"
-            reminder="Kalender"
+            goal="Äta nötter som mellanmål (30 g / dag)"
+            when="Eftermiddag kl 15"
+            how="Portionerar ut i små burkar för veckan"
+            reminder="Alarm mobil"
           />
 
           <ExampleCard 
-            goal="Kyckling istället för nöt"
-            when="Lördags middag"
-            how="Provar nya kycklingrecept"
+            goal="Tillaga mat med rapsolja istället för smör"
+            when="Middagstillagning"
+            how="Ställer fram rapsoljan, stoppar undan smöret"
             reminder="-"
           />
         </div>
@@ -223,7 +211,7 @@ const KottPage = () => {
               <UserPlanFormDialog
                 open={isDialogOpen}
                 onOpenChange={setIsDialogOpen}
-                tipId={6}
+                tipId={4}
                 initialPlan={editingIndex !== null ? userPlans[editingIndex] : undefined}
                 onSave={handleSavePlan}
                 onCancel={handleCancelEdit}
@@ -231,7 +219,7 @@ const KottPage = () => {
             </>
           ) : (
             <UserPlanForm
-              tipId={6}
+              tipId={4}
               initialPlan={undefined}
               onSave={handleSavePlan}
               onCancel={handleCancelEdit}
@@ -243,4 +231,4 @@ const KottPage = () => {
   );
 };
 
-export default KottPage;
+export default FettPage;

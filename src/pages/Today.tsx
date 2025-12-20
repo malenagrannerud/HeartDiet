@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { StartCard } from "@/components/StartCard";
 import { BookOpen, FileEdit } from "lucide-react"; 
 import { useNavigate } from "react-router-dom";
-import { tips } from "@/data/tipCardColorsText";
+import { tips } from "@/data/tips";
 import TipCard from "@/components/TipCard";
 import { pageTitle, pageContainer, headerContainer, pagePadding, standardSpacing, pageSubtitle, bodyTextBald, bodyBaldSub } from "@/lib/design-tokens";
 import { getStorageItem } from "@/lib/storage";

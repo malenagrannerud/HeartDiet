@@ -1,6 +1,6 @@
 // components/UserPlanForm.tsx
 import React, { useState } from 'react';
-import { UserPlan } from '@/data/tipCardColorsText'; // Import from src/data/tips.ts
+import { UserPlan } from '@/data/tips'; // Import from src/data/tips.ts
 import { bodyTextBald } from '@/lib/design-tokens';
 import { sectionHeading2} from '@/lib/design-tokens';
 

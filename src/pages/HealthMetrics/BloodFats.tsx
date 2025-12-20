@@ -1,30 +1,23 @@
-/**
- * BloodFats Component
- * 
- * Third step in health metrics flow - collects cholesterol/lipid readings.
- * 
- * DATA FLOW:
- * - Loads: Latest blood fats from dayLogs via health-data helpers
- * - Saves: Passed to parent (index.tsx) which saves to dayLogs
- */
-
 import { useState, useEffect } from "react";
 import { ButtonBackForward } from "@/components/ButtonBackForward";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { CheckBoxSkipNow } from "@/components/CheckBoxSkipNow";
+
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon} from "lucide-react";
 import { format } from "date-fns";
 import { sv } from "date-fns/locale";
 import { ProgressIndicator } from "./components/ProgressIndicator";
 import { standardCard, standardSpacing } from "@/lib/design-tokens";
+import { getStorageItem } from "@/lib/storage";
+import { extendedHealthMetricsSchema } from "@/lib/schemas";
 import { cn } from "@/lib/utils";
-import { getLatestMeasurement } from "@/lib/health-data";
 
 interface BloodFatsProps {
   onNext: (data: { knowsLDL: string; ldl?: string; hdl?: string; triglycerides?: string; date?: string }) => void;
@@ -43,16 +36,14 @@ export const BloodFats = ({ onNext, onSkip, onBack, currentStep, totalSteps }: B
   const [isSkipped, setIsSkipped] = useState(false);
 
   useEffect(() => {
-    // Load latest blood fats from dayLogs
-    const latestFats = getLatestMeasurement('bloodFats');
-    if (latestFats) {
-      // If we have detailed data, set knowsLDL to 'detailed'
-      setKnowsLDL('detailed');
-      setLdl(latestFats.value.toString());
-      setHdl(latestFats.value2?.toString() || "");
-      setTriglycerides(latestFats.value3?.toString() || "");
-      if (latestFats.date) {
-        setDate(new Date(latestFats.date));
+    const data = getStorageItem('extendedHealthMetrics', extendedHealthMetricsSchema);
+    if (data?.bloodFats) {
+      setKnowsLDL(data.bloodFats.knowsLDL || "unknown");
+      setLdl(data.bloodFats.ldl || "");
+      setHdl(data.bloodFats.hdl || "");
+      setTriglycerides(data.bloodFats.triglycerides || "");
+      if (data.bloodFats.date) {
+        setDate(new Date(data.bloodFats.date));
       }
     }
   }, []);
@@ -68,11 +59,9 @@ export const BloodFats = ({ onNext, onSkip, onBack, currentStep, totalSteps }: B
         triglycerides: triglycerides || undefined
       };
       onNext(data);
-    } else if (isSkipped) {
-      // If skipped, just go to next step without data
+    } else if (isSkipped) { // If skipped, just go to next step without data
       onSkip();
-    } else {
-      // Save only the knowsLDL selection (not detailed values)
+    } else {                // Save only the knowsLDL selection (not detailed values)
       const data: any = { knowsLDL };
       if (knowsLDL === 'just-high' || knowsLDL === 'unknown') {
         data.date = date.toISOString();

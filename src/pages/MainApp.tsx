@@ -1,26 +1,26 @@
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { BottomNav } from "@/components/BottomNav";
 import Today from "./Today";
-import Tips from "./tips/Tips";
-import FruitPage from "./tips/TipPages/fruit";
-import FullkornPage from "./tips/TipPages/fullkorn";
-import FishPage from "./tips/TipPages/fish";
-import FettPage from "./tips/TipPages/fett";
-import MejerierPage from "./tips/TipPages/mejerier";
-import KottPage from "./tips/TipPages/kott";
-import SaltPage from "./tips/TipPages/salt";
-import LagomPage from "./tips/TipPages/lagom";
-import MotionPage from "./tips/TipPages/motion";
-import BaljvaxterPage from "./tips/TipPages/baljvaxter";
-import SockerPage from "./tips/TipPages/socker";
+import Tips from "./Tips";
+import FruitPage from "./TipPages/fruit";
+import FullkornPage from "./TipPages/fullkorn";
+import FishPage from "./TipPages/fish";
+import FettPage from "./TipPages/fett";
+import MejerierPage from "./TipPages/mejerier";
+import KottPage from "./TipPages/kott";
+import SaltPage from "./TipPages/salt";
+import LagomPage from "./TipPages/lagom";
+import MotionPage from "./TipPages/motion";
+import BaljvaxterPage from "./TipPages/baljvaxter";
+import SockerPage from "./TipPages/socker";
 import Progress from "./Progress";
-import ProgressDetail from "./ProgressAllDetailsPages";
+import ProgressDetail from "./ProgressDetail";
 
 import Help from "./Help";
 import Tutorial from "./Tutorial";
 import HealthGoals from "./HealthGoals";
 import Medications from "./Medications";
-import HealthMetricsFlow from "./StartHealthMetrics";
+import HealthMetricsFlow from "./HealthMetrics";
 import Settings from "./Settings";
 
 const MainApp = () => {

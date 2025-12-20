@@ -9,7 +9,7 @@ import { sectionHeading, cardTitle, cardText, standardCard, headerContainer, pri
 import { getStorageItem, setStorageItem } from "@/lib/storage";
 import { healthPrioritiesSchema, completedActivitiesSchema, selectedMedicationsSchema } from "@/lib/schemas";
 import { markCardCompleted } from "@/lib/card-completion";
-import { medications, searchMedications } from "@/data/medListAndFoodInteractions";
+import { medications, searchMedications } from "@/data/medications";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import { Pill, Search, X } from "lucide-react";
 
@@ -22,6 +22,7 @@ const Medications = () => {
   const [hasExistingData, setHasExistingData] = useState(false);
 
   useEffect(() => {
+    // Load existing selected medications
     const savedMeds = getStorageItem('selectedMedications', selectedMedicationsSchema);
     if (savedMeds && savedMeds.length > 0) {
       // Filter out any invalid entries

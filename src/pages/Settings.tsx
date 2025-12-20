@@ -14,11 +14,13 @@ const Settings = () => {
 
   return (
     <div className={`${pageContainer} pb-16`}>
+      {/* Header */}
       <header className="px-6 py-8">
         <h1 className={pageTitle}>Hjälp</h1>
       </header>
 
       <div className={`${pagePadding} space-y-6`}>
+        {/* Tutorial Card */}
         <Card 
           className={`${interactiveCard} ${tutorialCompleted ? 'bg-green-50 border-green-200' : ''}`}
           onClick={() => navigate('/app/tutorial')}

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { UserPlan } from "@/data/tipCardColorsText";
+import { UserPlan } from "@/data/tips";
 import { pageContainer, headerContainer, pagePadding, sectionHeading, sectionHeading2, sectionSubheading2, bodyText, tipCardColors, standardSpacing } from "@/lib/design-tokens";
 import { BackToTodayButton } from "@/components/BackToTodayButton";
 import { UserPlanFormDialog } from "@/components/UserPlanFormDialog";
@@ -8,22 +8,22 @@ import { UserPlanDisplay } from "@/components/UserPlanDisplay";
 import DottedList from "@/components/DottedList";
 import ExampleCard from "@/components/exCard";
 import { AddPlanButton } from "@/components/AddPlanButton";
-import { Droplets } from "lucide-react";
+import { PackageOpen } from "lucide-react";
 import { useMedicationInteractions } from "@/hooks/use-medication-interactions";
 import { MedCardCompact } from "@/components/MedCardCompact";
 import { useHealthGoalTips } from "@/hooks/use-health-goal-tips";
 import { HealthGoalCardCompact } from "@/components/HealthGoalCardCompact";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 
-const FettPage = () => {
+const SaltPage = () => {
   const [userPlans, setUserPlans] = useState<UserPlan[]>([]);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const medicationInteractions = useMedicationInteractions(4); // tipId: 4 for Fett
-  const healthGoalTips = useHealthGoalTips(4);
+  const medicationInteractions = useMedicationInteractions(7); // tipId: 7 for Salt
+  const healthGoalTips = useHealthGoalTips(7);
 
   useEffect(() => {
-    const savedPlans = localStorage.getItem('userPlans-fett');
+    const savedPlans = localStorage.getItem('userPlans-salt');
     if (savedPlans) {
       setUserPlans(JSON.parse(savedPlans));
     }
@@ -41,13 +41,13 @@ const FettPage = () => {
     
     setUserPlans(updatedPlans);
     setEditingIndex(null);
-    localStorage.setItem('userPlans-fett', JSON.stringify(updatedPlans));
+    localStorage.setItem('userPlans-salt', JSON.stringify(updatedPlans));
   };
 
   const handleDeletePlan = (index: number) => {
     const updatedPlans = userPlans.filter((_, i) => i !== index);
     setUserPlans(updatedPlans);
-    localStorage.setItem('userPlans-fett', JSON.stringify(updatedPlans));
+    localStorage.setItem('userPlans-salt', JSON.stringify(updatedPlans));
   };
 
   const handleEditPlan = (index: number) => {
@@ -67,28 +67,29 @@ const FettPage = () => {
 
   return (
     <div className={pageContainer}>
-      <header className={`${headerContainer} ${tipCardColors.yellow}`}>
+      <header className={`${headerContainer} ${tipCardColors.graygreen}`}>
         <BackToTodayButton />
         <div className="flex items-center justify-between">
-          <h1 className={sectionHeading}>Rätt fett</h1>
-          <Droplets className="h-8 w-8" />
+          <h1 className={sectionHeading}>Salt-halt</h1>
+          <PackageOpen className="h-8 w-8" />
         </div>
       </header>
 
       <main className={`${pagePadding} ${standardSpacing.pageContent}`}>
         <p className={sectionSubheading2}>
-          Att välja rätt typ av fett skyddar hjärtat och sänker kolesterolet. Byt mättat fett mot omättat fett för bättre hälsa
+          Att begränsa salt till max 6 g per dag (ca 1 tesked) sänker blodtrycket och minskar risken för stroke och hjärtsjukdom
         </p>
 
         <div>
-          <h2 className={sectionHeading2}>Goda fetter - omättade</h2>
-          <p className={bodyText}>Dessa fetter är bra för hjärtat och hjälper till att sänka kolesterolet</p>
+          <h2 className={sectionHeading2}>Var finns saltet?</h2>
+          <p className={bodyText}>75% av vårt saltintag kommer från färdigmat och processade livsmedel</p>
           <DottedList items={[
-            "Flytande matfetter: rapsolja, olivolja, solrosolja",
-            "Flytande matfett på smörgås",
-            "Nötter och frön: mandel, valnötter, cashew, solrosfrön",
-            "Fet fisk: lax, makrill, sill",
-            "Avokado"
+            "Bröd och spannmålsprodukter (20-30%)",
+            "Charkuterier och korv",
+            "Ost och smör",
+            "Färdigrätter och halvfabrikat",
+            "Soppor och buljonger",
+            "Snacks: chips, nötter, popcorn"
           ]} />
         </div>
 
@@ -115,77 +116,90 @@ const FettPage = () => {
         )}
 
         <div>
-          <h2 className={sectionHeading2}>Undvik mättat fett</h2>
-          <p className={bodyText}>Begränsa dessa eftersom de höjer det onda kolesterolet (LDL)</p>
+          <h2 className={sectionHeading2}>Så minskar du saltet</h2>
+          <p className={bodyText}>Praktiska tips för att minska saltintaget</p>
           <DottedList items={[
-            "Smör och hårt matfett",
-            "Feta mejeriproukter: grädde, crème fraiche",
-            "Fett kött och charkuterier",
-            "Kokosolja och palmolja",
-            "Bakverk och sötsaker med mycket smör"
+            "Välj osaltat vid inköp av smör, margarin och nötter",
+            "Använd kryddor och örter istället för salt",
+            "Läs näringsdeklarationen - välj produkter med lågt saltinnehåll",
+            "Laga mat från grunden oftare",
+            "Skölj konserverad mat (bönor, linser, majs)",
+            "Salta inte maten vid bordet"
           ]} />
         </div>
 
         <div>
-          <h2 className={sectionHeading2}>Varför rätt fett?</h2>
-          <p className={bodyText}>Omättade fetter ger flera hälsofördelar</p>
+          <h2 className={sectionHeading2}>Varför minska salt?</h2>
+          <p className={bodyText}>För högt saltintag leder till</p>
           <DottedList items={[
-            "Sänker LDL-kolesterol: Minskar risken för åderförkalkning",
-            "Höjer HDL-kolesterol: Det 'goda' kolesterolet som skyddar hjärtat",
-            "Anti-inflammatoriskt: Omega-3 minskar inflammation i kroppen",
-            "Sänker blodtryck: Bidrar till friskare blodkärl",
-            "Hjärnhälsa: Omega-3 är viktigt för hjärnans funktion"
+            "Högt blodtryck: Salt gör att kroppen lagrar mer vätska",
+            "Stroke: Skadade blodkärl i hjärnan",
+            "Hjärtinfarkt: Ökad belastning på hjärtat",
+            "Njurskador: Njurarna måste arbeta hårdare",
+            "Benskörhet: För mycket salt ökar kalciumförlust"
           ]} />
           
           <Accordion type="multiple" className="mt-4">
-            <AccordionItem value="ldl">
-              <AccordionTrigger className={bodyText}>Hur sänker omättat fett LDL-kolesterol?</AccordionTrigger>
+            <AccordionItem value="blood-pressure">
+              <AccordionTrigger className={bodyText}>Hur höjer salt blodtrycket?</AccordionTrigger>
               <AccordionContent className={bodyText}>
-                Omättade fetter, särskilt fleromättade fetter som finns i fisk och nötter, hjälper levern att ta bort LDL-kolesterol från blodet. De ersätter också mättat fett i kosten, vilket i sig höjer LDL. Studier visar att ersätta mättat fett med omättat fett kan sänka LDL-kolesterolet med upp till 10%.
+                Salt (natrium) får kroppen att behålla mer vätska för att späda ut saltet i blodet. Detta ökar blodvolymen, vilket tvingar hjärtat att pumpa hårdare och blodkärlen utsätts för högre tryck. Högt blodtryck skadar kärlväggarna över tid och ökar risken för hjärtinfarkt, stroke och njursjukdom. Att minska salt med 1 g/dag kan sänka blodtrycket med 1-2 mmHg.
               </AccordionContent>
             </AccordionItem>
-            <AccordionItem value="hdl">
-              <AccordionTrigger className={bodyText}>Varför är HDL-kolesterol bra för hjärtat?</AccordionTrigger>
+            <AccordionItem value="hidden-salt">
+              <AccordionTrigger className={bodyText}>Var finns det gömda saltet?</AccordionTrigger>
               <AccordionContent className={bodyText}>
-                HDL-kolesterol kallas "det goda kolesterolet" eftersom det transporterar bort kolesterol från blodkärlen tillbaka till levern där det bryts ner. Detta minskar risken för plackbildning i artärerna. Omättade fetter, särskilt från olivolja och nötter, hjälper till att höja HDL-nivåerna.
+                75% av vårt saltintag kommer inte från saltkaret utan från färdigmat och processade livsmedel. Bröd, ost, charkuterier, korv, färdigrätter, soppor och snacks innehåller ofta mycket salt. Många matvaror smakar inte ens salt trots högt innehåll. Läs näringsdeklarationen - välj produkter med mindre än 0,5 g salt per 100 g. Att laga mat från grunden ger dig kontrollen.
               </AccordionContent>
             </AccordionItem>
-            <AccordionItem value="omega3">
-              <AccordionTrigger className={bodyText}>Vilken roll spelar Omega-3 för inflammation?</AccordionTrigger>
+            <AccordionItem value="taste">
+              <AccordionTrigger className={bodyText}>Kan smaksinnet anpassa sig till mindre salt?</AccordionTrigger>
               <AccordionContent className={bodyText}>
-                Omega-3-fettsyror, särskilt EPA och DHA från fet fisk, har kraftfulla anti-inflammatoriska egenskaper. De motverkar kronisk inflammation som kan skada blodkärl och öka risken för hjärtsjukdom. Omega-3 minskar också produktionen av inflammatoriska ämnen i kroppen.
+                Ja! Smaksinnet anpassar sig till lägre saltnivåer inom 2-4 veckor. Minska saltet gradvis så märker du knappt skillnaden, och snart smakar salt mat för salt. Använd kryddor, örter, citron, vitlök och lök för att förstärka smaken istället. Många upplever att mat smakar bättre när de inte överdrivet saltar - de naturliga smakerna kommer fram.
               </AccordionContent>
             </AccordionItem>
           </Accordion>
         </div>
 
         <div>
+          <h2 className={sectionHeading2}>Alternativ till salt</h2>
+          <p className={bodyText}>Smaksätt maten med</p>
+          <DottedList items={[
+            "Örter: basilika, timjan, rosmarin, oregano",
+            "Kryddor: paprika, spiskummin, cayennepeppar",
+            "Vitlök och lök",
+            "Citron och lime",
+            "Vinäger"
+          ]} />
+        </div>
+
+        <div>
           <h2 className={sectionHeading2}>Nå ditt mål</h2>
           <p className={bodyText}>
-            Genom att tänka ut hur du ska byta till nyttigare fetter, kan du lättare modifiera en plan som passar dej
+            Genom att planera hur du ska minska saltet i din vardag, kan du lättare nå målet på max 6 g per dag
           </p>
         </div>
 
         <div className="mt-2 space-y-2">
           <ExampleCard 
-            goal="Byt smör mot flytande matfett"
-            when="Varje måltid"
-            how="Har rapsolja/olivolja framme på köksbordet"
-            reminder="Klisterlapp på smörpaketet"
+            goal="Inte salta vid bordet"
+            when="Alla måltider"
+            how="Tar bort saltkar från bordet"
+            reminder="Berättar familjen"
           />
 
           <ExampleCard 
-            goal="Äta nötter som mellanmål (30 g / dag)"
-            when="Eftermiddag kl 15"
-            how="Portionerar ut i små burkar för veckan"
-            reminder="Alarm mobil"
+            goal="Byta till osaltat smör"
+            when="Vid inköp"
+            how="Köper osaltat istället"
+            reminder="Inköpslista"
           />
 
           <ExampleCard 
-            goal="Tillaga mat med rapsolja istället för smör"
-            when="Middagstillagning"
-            how="Ställer fram rapsoljan, stoppar undan smöret"
-            reminder="-"
+            goal="Krydda med örter istället för salt"
+            when="Middagslagning"
+            how="Köper färska och torkade örter"
+            reminder="Receptkort med kryddtips på kylskåpet"
           />
         </div>
 
@@ -211,7 +225,7 @@ const FettPage = () => {
               <UserPlanFormDialog
                 open={isDialogOpen}
                 onOpenChange={setIsDialogOpen}
-                tipId={4}
+                tipId={7}
                 initialPlan={editingIndex !== null ? userPlans[editingIndex] : undefined}
                 onSave={handleSavePlan}
                 onCancel={handleCancelEdit}
@@ -219,7 +233,7 @@ const FettPage = () => {
             </>
           ) : (
             <UserPlanForm
-              tipId={4}
+              tipId={7}
               initialPlan={undefined}
               onSave={handleSavePlan}
               onCancel={handleCancelEdit}
@@ -231,4 +245,4 @@ const FettPage = () => {
   );
 };
 
-export default FettPage;
+export default SaltPage;

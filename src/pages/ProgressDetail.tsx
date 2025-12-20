@@ -1,9 +1,3 @@
-/**
- * ProgressDetail Page
- * 
- * UNIFIED STORAGE: Uses dayLogs for measurements, healthMetrics for goals
- */
-
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { format } from "date-fns";
@@ -14,10 +8,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
+import { getDayLogs } from "@/lib/tip-completion";
+import { getStorageItem } from "@/lib/storage";
+import { healthMetricsSchema } from "@/lib/schemas";
 import { pageTitle, pageContainer, headerContainer, pagePadding, bodyTextBald, cardTextSmall } from "@/lib/design-tokens";
 import { ProgressChart } from "@/components/ProgressChart";
 import { DEFAULT_GOALS } from "@/lib/health-defaults";
-import { getDayLogsData, getHealthGoals, saveHealthGoal } from "@/lib/health-data";
 type MetricType = 'weight' | 'bloodPressure' | 'bloodFats' | 'bloodGlucose';
 
 interface DayLog {
@@ -88,22 +84,24 @@ const ProgressDetail = () => {
   const config = metricConfig[metricType];
 
   useEffect(() => {
-    // Load measurements from unified dayLogs storage
-    const logs = getDayLogsData();
+    const logs = getDayLogs();
     setDayLogs(logs);
 
-    // Load goals from unified healthMetrics storage
-    const goals = getHealthGoals();
+    const metrics = getStorageItem('healthMetrics', healthMetricsSchema);
     
+    // Set goals: use user-defined values or defaults (except weight which has no default)
     if (metricType === 'weight') {
-      if (goals.goalWeight) setGoalValue(goals.goalWeight);
+      if (metrics?.goalWeight) {
+        setGoalValue(parseFloat(metrics.goalWeight));
+      }
+      // No default for weight
     } else if (metricType === 'bloodPressure') {
-      setGoalValue(goals.goalSystolic || DEFAULT_GOALS.bloodPressure.systolic);
-      setGoalValue2(goals.goalDiastolic || DEFAULT_GOALS.bloodPressure.diastolic);
+      setGoalValue(metrics?.goalSystolic ? parseInt(metrics.goalSystolic) : DEFAULT_GOALS.bloodPressure.systolic);
+      setGoalValue2(metrics?.goalDiastolic ? parseInt(metrics.goalDiastolic) : DEFAULT_GOALS.bloodPressure.diastolic);
     } else if (metricType === 'bloodFats') {
-      setGoalValue(goals.goalLDL || DEFAULT_GOALS.bloodFats.ldl);
+      setGoalValue(metrics?.goalLDL ? parseFloat(metrics.goalLDL) : DEFAULT_GOALS.bloodFats.ldl);
     } else if (metricType === 'bloodGlucose') {
-      setGoalValue(goals.goalHbA1c || DEFAULT_GOALS.bloodGlucose.hba1c);
+      setGoalValue(metrics?.goalHbA1c ? parseFloat(metrics.goalHbA1c) : DEFAULT_GOALS.bloodGlucose.hba1c);
     }
   }, [metricType]);
 
@@ -200,27 +198,25 @@ const ProgressDetail = () => {
   };
 
   const handleSaveGoal = () => {
+    const metrics = getStorageItem('healthMetrics', healthMetricsSchema) || {};
+    
     if (metricType === 'weight') {
-      const value = goalInput ? parseFloat(goalInput) : undefined;
-      saveHealthGoal('goalWeight', value);
-      setGoalValue(value);
+      metrics.goalWeight = goalInput || undefined;
+      setGoalValue(goalInput ? parseFloat(goalInput) : undefined);
     } else if (metricType === 'bloodPressure') {
-      const systolic = goalInput ? parseInt(goalInput) : undefined;
-      const diastolic = goalInput2 ? parseInt(goalInput2) : undefined;
-      saveHealthGoal('goalSystolic', systolic);
-      saveHealthGoal('goalDiastolic', diastolic);
-      setGoalValue(systolic);
-      setGoalValue2(diastolic);
+      metrics.goalSystolic = goalInput || undefined;
+      metrics.goalDiastolic = goalInput2 || undefined;
+      setGoalValue(goalInput ? parseInt(goalInput) : undefined);
+      setGoalValue2(goalInput2 ? parseInt(goalInput2) : undefined);
     } else if (metricType === 'bloodFats') {
-      const value = goalInput ? parseFloat(goalInput) : undefined;
-      saveHealthGoal('goalLDL', value);
-      setGoalValue(value);
+      metrics.goalLDL = goalInput || undefined;
+      setGoalValue(goalInput ? parseFloat(goalInput) : undefined);
     } else if (metricType === 'bloodGlucose') {
-      const value = goalInput ? parseFloat(goalInput) : undefined;
-      saveHealthGoal('goalHbA1c', value);
-      setGoalValue(value);
+      metrics.goalHbA1c = goalInput || undefined;
+      setGoalValue(goalInput ? parseFloat(goalInput) : undefined);
     }
 
+    localStorage.setItem('healthMetrics', JSON.stringify(metrics));
     setGoalDialogOpen(false);
     toast({ title: "Mål uppdaterat" });
   };
@@ -309,7 +305,7 @@ const ProgressDetail = () => {
         </div>
       </div>
 
-     
+      {/* Edit Dialog */}
       <Dialog open={editDialogOpen} onOpenChange={setEditDialogOpen}>
         <DialogContent>
           <DialogHeader>

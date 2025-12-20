@@ -1,6 +1,6 @@
 import { getStorageItem } from "@/lib/storage";
 import { healthPrioritiesSchema, selectedMedicationsSchema } from "@/lib/schemas";
-import { medications } from "@/data/medListAndFoodInteractions";
+import { medications } from "@/data/medications";
 
 export interface HealthMetricsPage {
   id: string;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { UserPlan } from '@/data/tipCardColorsText';
+import { UserPlan } from '@/data/tips';
 import { bodyTextBald } from '@/lib/design-tokens';
 import { Trash2, Edit2 } from 'lucide-react';
 

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { UserPlan } from "@/data/tipCardColorsText";
+import { UserPlan } from "@/data/tips";
 import { pageContainer, headerContainer, pagePadding, sectionHeading, sectionHeading2, sectionSubheading2, bodyText, tipCardColors, standardSpacing } from "@/lib/design-tokens";
 import { BackToTodayButton } from "@/components/BackToTodayButton";
 import { UserPlanFormDialog } from "@/components/UserPlanFormDialog";
