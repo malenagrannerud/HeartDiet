@@ -103,7 +103,7 @@ export const bloodGlucoseSchema = z.object({
 
 
 
-export const healthMetricsSchema = z.object({ // Health metrics schema
+export const healthMetricsSchema = z.object({ 
   weight: z.string().optional(),
   goalWeight: z.string().optional(),
   height: z.string().optional(),
