@@ -23,6 +23,33 @@ const Tutorial = () => {
             </p>
           </section>
 
+
+
+          <section className={standardSpacing.sectionContent}>
+            <Card className={standardCard}>
+              <div className="flex items-start gap-5">
+                <div className="bg-green-100 p-4 rounded-full flex-shrink-0">
+                  <Home className="w-8 h-8 text-green-700" />
+                </div>
+                <div className="space-y-4">
+                  <h2 className={sectionHeading2}>Mål med app</h2>
+                  <p className={bodyText}>
+                    Välkommen
+                  </p>
+                  
+                </div>
+              </div>
+            </Card>
+          </section>
+
+
+
+
+
+
+
+          
+
           <section className={standardSpacing.sectionContent}>
             <Card className={standardCard}>
               <div className="flex items-start gap-5">
