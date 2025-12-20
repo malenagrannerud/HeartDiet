@@ -23,11 +23,11 @@ import { getCurrentDate } from "@/lib/simulated-date";
 import { ProgressChart } from "@/components/ProgressChart";
 import { WeeklyProgressTable } from "@/components/ProgressTable";
 import { SaveConfirmationDialog } from "@/components/AlertSaveDataProgress";
-import { GoalEditDialog } from "./ProgressTableDialogs.tsx/EditGoalDialog";
-import { BloodGlucoseDialog } from "./ProgressTableDialogs.tsx/ProgrBloodSugarDialog";
-import { WeightDialog } from "./ProgressTableDialogs.tsx/ProgrWeightDialog";
-import { BloodPressureDialog } from "./ProgressTableDialogs.tsx/ProgrBPDialog";
-import { BloodFatsDialog } from "./ProgressTableDialogs.tsx/ProgrBloodFatDialog";
+import { GoalEditDialog } from "./ProgressTableDialogs/EditGoalDialog";
+import { BloodGlucoseDialog } from "./ProgressTableDialogs/ProgrBloodSugarDialog";
+import { WeightDialog } from "./ProgressTableDialogs/ProgrWeightDialog";
+import { BloodPressureDialog } from "./ProgressTableDialogs/ProgrBPDialog";
+import { BloodFatsDialog } from "./ProgressTableDialogs/ProgrBloodFatDialog";
 import { getDayLogsData, getHealthGoals } from "@/lib/health-data";
 
 interface DayLog {
