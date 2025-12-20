@@ -99,7 +99,6 @@ export const bloodGlucoseSchema = z.object({
   date: z.string().optional(),
 });
 
-
 export const healthMetricsSchema = z.object({ 
   // Basic measurements
   weight: z.string().optional(),
