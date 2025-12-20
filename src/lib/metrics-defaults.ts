@@ -13,7 +13,7 @@ export const DEFAULT_GOALS = {
     fastingGlucose: 6.0, // mmol/L (upper target range 4.0-6.0)
   },
   bloodFats: {
-    ldl: 1.4, // mmol/L
+    ldl: 3.0, // mmol/L
     hdl: 1.0, // mmol/L (minimum target)
     triglycerides: 2.0, // mmol/L
   },
