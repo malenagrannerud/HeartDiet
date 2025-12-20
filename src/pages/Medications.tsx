@@ -22,7 +22,6 @@ const Medications = () => {
   const [hasExistingData, setHasExistingData] = useState(false);
 
   useEffect(() => {
-    // Load existing selected medications
     const savedMeds = getStorageItem('selectedMedications', selectedMedicationsSchema);
     if (savedMeds && savedMeds.length > 0) {
       // Filter out any invalid entries
