@@ -241,6 +241,7 @@ const ProgressDetail = () => {
       <div className={`${pagePadding} flex flex-col gap-4`}>
         {/* Chart */}
         {chartData.length > 0 && (
+          
           <ProgressChart
             type={metricType}
             dayLogs={dayLogs}
