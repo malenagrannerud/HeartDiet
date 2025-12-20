@@ -1,3 +1,13 @@
+/**
+ * BloodGlucose Component
+ * 
+ * Fourth (final) step in health metrics flow - collects blood glucose readings.
+ * 
+ * DATA FLOW:
+ * - Loads: Latest blood glucose from dayLogs via health-data helpers
+ * - Saves: Passed to parent (index.tsx) which saves to dayLogs
+ */
+
 import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -7,15 +17,14 @@ import { ButtonBackForward } from "@/components/ButtonBackForward";
 import { CheckBoxSkipNow } from "@/components/CheckBoxSkipNow";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { CalendarIcon} from "lucide-react";
+import { CalendarIcon } from "lucide-react";
 import { format } from "date-fns";
 import { sv } from "date-fns/locale";
 import { ProgressIndicator } from "./components/ProgressIndicator";
 import { CardInfoHint } from "@/components/CardInfoHint";
-import { standardCard, cardTitle, bodyText, primaryButton, standardSpacing } from "@/lib/design-tokens";
-import { getStorageItem } from "@/lib/storage";
-import { extendedHealthMetricsSchema } from "@/lib/schemas";
+import { standardCard, standardSpacing } from "@/lib/design-tokens";
 import { cn } from "@/lib/utils";
+import { getLatestMeasurement } from "@/lib/health-data";
 
 interface BloodGlucoseProps {
   onNext: (data: { hba1c?: string; fastingGlucose?: string; date?: string }) => void;
@@ -32,12 +41,13 @@ export const BloodGlucose = ({ onNext, onSkip, onBack, currentStep, totalSteps }
   const [isSkipped, setIsSkipped] = useState(false);
 
   useEffect(() => {
-    const data = getStorageItem('extendedHealthMetrics', extendedHealthMetricsSchema);
-    if (data?.bloodGlucose) {
-      setHba1c(data.bloodGlucose.hba1c || "");
-      setFastingGlucose(data.bloodGlucose.fastingGlucose || "");
-      if (data.bloodGlucose.date) {
-        setDate(new Date(data.bloodGlucose.date));
+    // Load latest blood glucose from dayLogs
+    const latestGlucose = getLatestMeasurement('bloodGlucose');
+    if (latestGlucose) {
+      setHba1c(latestGlucose.value.toString());
+      setFastingGlucose(latestGlucose.value2?.toString() || "");
+      if (latestGlucose.date) {
+        setDate(new Date(latestGlucose.date));
       }
     }
   }, []);

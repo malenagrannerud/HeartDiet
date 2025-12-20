@@ -1,3 +1,11 @@
+/**
+ * Progress Page
+ * 
+ * UNIFIED STORAGE STRATEGY:
+ * - dayLogs: All time-series measurements (weight, BP, fats, glucose) - single source of truth
+ * - healthMetrics: User-defined goals only (goalWeight, goalSystolic, etc.)
+ */
+
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { format, startOfWeek, addDays, startOfMonth, endOfMonth } from "date-fns";
@@ -6,9 +14,8 @@ import { Heart, Pill } from "lucide-react";
 import { tips } from "@/data/tips";
 import { pageTitle, pageSubtitle, pageContainer, headerContainer, pagePadding, standardSpacing, cardTextSmall, bodyTextSmallBold } from "@/lib/design-tokens";
 import { useToast } from "@/hooks/use-toast";
-import { getDayLogs } from "@/lib/tip-completion";
 import { getStorageItem } from "@/lib/storage";
-import { healthPrioritiesSchema, markedTipsSchema, selectedMedicationsSchema, healthMetricsSchema, extendedHealthMetricsSchema } from "@/lib/schemas";
+import { healthPrioritiesSchema, markedTipsSchema, selectedMedicationsSchema, healthMetricsSchema } from "@/lib/schemas";
 import { medications } from "@/data/medications";
 import { StatsBox } from "@/components/ProgressStatsBox";
 import { HealthInfoCard } from "@/components/HealthInfoCard";
@@ -21,6 +28,7 @@ import { BloodGlucoseDialog } from "./ProgressTableDialogs.tsx/ProgrBloodSugarDi
 import { WeightDialog } from "./ProgressTableDialogs.tsx/ProgrWeightDialog";
 import { BloodPressureDialog } from "./ProgressTableDialogs.tsx/ProgrBPDialog";
 import { BloodFatsDialog } from "./ProgressTableDialogs.tsx/ProgrBloodFatDialog";
+import { getDayLogsData, getHealthGoals } from "@/lib/health-data";
 
 interface DayLog {
   date: string;
@@ -107,9 +115,9 @@ const Progress = () => {
   const [goalHbA1cInput, setGoalHbA1cInput] = useState("");
   const [goalFastingGlucoseInput, setGoalFastingGlucoseInput] = useState("");
 
-  // Load day logs and health priorities from localStorage
+  // Load day logs and health priorities from localStorage (unified storage)
   useEffect(() => {
-    const logs = getDayLogs();
+    const logs = getDayLogsData();
     setDayLogs(logs);
 
     const data = getStorageItem('healthPriorities', healthPrioritiesSchema);
