@@ -200,7 +200,6 @@ const ProgressDetail = () => {
   };
 
   const handleSaveGoal = () => {
-    // Save goals using unified storage helper
     if (metricType === 'weight') {
       const value = goalInput ? parseFloat(goalInput) : undefined;
       saveHealthGoal('goalWeight', value);
