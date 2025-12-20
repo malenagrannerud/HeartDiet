@@ -9,7 +9,7 @@ export const DEFAULT_GOALS = {
     diastolic: 90,
   },
   bloodGlucose: {
-    hba1c: 6.0, // mmol/L (upper target range 4.0-6.0)
+    hba1c: 5.0, // mmol/L (target 4.0-6.0)
    // fastingGlucose: 6.0, // mmol/L (upper target range 4.0-6.0)
   },
   bloodFats: {
