@@ -1,5 +1,5 @@
 import { Card } from "@/components/ui/card";
-import { Tip } from "@/data/tips";
+import { Tip } from "@/data/tipCardColorsText";
 import { cardTitle, cardTitleSmall } from "@/lib/design-tokens";
 import * as Icons from "lucide-react";
 

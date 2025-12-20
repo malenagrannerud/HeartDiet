@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { format, startOfWeek, addDays, startOfMonth, endOfMonth } from "date-fns";
 import { sv } from "date-fns/locale";
 import { Heart, Pill } from "lucide-react";
-import { tips } from "@/data/tips";
+import { tips } from "@/data/tipCardColorsText";
 import { pageTitle, pageSubtitle, pageContainer, headerContainer, pagePadding, standardSpacing, cardTextSmall, bodyTextSmallBold } from "@/lib/design-tokens";
 import { useToast } from "@/hooks/use-toast";
 import { getStorageItem } from "@/lib/storage";
