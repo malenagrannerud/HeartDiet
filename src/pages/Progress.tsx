@@ -600,7 +600,6 @@ const Progress = () => {
       return 0;
     }
     
-    // Get all days with tips, sorted chronologically
     const daysWithTips = dayLogs
       .filter(log => log.entries.some(entry => entry.type === 'tip'))
       .map(log => log.date)
@@ -613,25 +612,20 @@ const Progress = () => {
     let maxStreak = 0;
     let currentStreak = 1;
     
-    // Go through all days and find the longest consecutive sequence
     for (let i = 1; i < daysWithTips.length; i++) {
       const prevDate = new Date(daysWithTips[i - 1]);
       const currDate = new Date(daysWithTips[i]);
       
-      // Calculate difference in days
       const diffTime = currDate.getTime() - prevDate.getTime();
       const diffDays = diffTime / (1000 * 60 * 60 * 24);
       
       if (diffDays === 1) {
-        // Consecutive day
         currentStreak++;
       } else {
-        // Streak broken, check if current was the longest
         maxStreak = Math.max(maxStreak, currentStreak);
         currentStreak = 1;
       }
     }
-    // Don't forget to check the last streak
     maxStreak = Math.max(maxStreak, currentStreak);
     
     return maxStreak;
