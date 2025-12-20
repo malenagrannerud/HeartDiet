@@ -85,9 +85,8 @@ const FettPage = () => {
           <p className={bodyText}>Dessa fetter är bra för hjärtat och hjälper till att sänka kolesterolet</p>
           <DottedList items={[
             "Flytande matfetter: rapsolja, olivolja, solrosolja",
-            "Flytande matfett på smörgås",
-            "Nötter och frön: mandel, valnötter, cashew, solrosfrön",
-            "Fet fisk: lax, makrill, sill",
+            "Nötter och frön",
+            "Fet fisk",
             "Avokado"
           ]} />
         </div>
@@ -160,7 +159,7 @@ const FettPage = () => {
         </div>
 
         <div>
-          <h2 className={sectionHeading2}>Nå ditt mål</h2>
+          <h2 className={sectionHeading2}>Planera för att börja äta rätt fett</h2>
           <p className={bodyText}>
             Genom att tänka ut hur du ska byta till nyttigare fetter, kan du lättare modifiera en plan som passar dej
           </p>
