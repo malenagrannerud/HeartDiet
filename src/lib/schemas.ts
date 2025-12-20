@@ -104,11 +104,11 @@ export const bloodGlucoseSchema = z.object({
 
 
 export const healthMetricsSchema = z.object({ // Health metrics schema
-  weight: z.string(),
+  weight: z.string().optional(),
   goalWeight: z.string().optional(),
-  height: z.string(),
+  height: z.string().optional(),
 
-  
+
   systolic: z.string(),
   diastolic: z.string(),
   goalSystolic: z.string().optional(),
