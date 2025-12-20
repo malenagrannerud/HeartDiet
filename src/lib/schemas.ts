@@ -8,8 +8,7 @@
 
 import { z } from 'zod';
 
-// Marked tips schema
-export const markedTipSchema = z.object({
+export const markedTipSchema = z.object({     // Marked tips schema
   id: z.number(),
   markedDate: z.string(),
   color: z.string(),
