@@ -23,7 +23,6 @@ const HealthMetricsFlow = () => {
   const [metricsData, setMetricsData] = useState<Partial<HealthMetrics>>({}); // CHANGED
 
   useEffect(() => {
-    // CHANGED: Load from healthMetrics instead of extendedHealthMetrics
     const existing = getStorageItem('healthMetrics', healthMetricsSchema);
     if (existing) {
       setMetricsData(existing);
@@ -33,7 +32,6 @@ const HealthMetricsFlow = () => {
   const pageTitles = ['Längd & vikt', 'Blodtryck', 'Blodfetter', 'Blodsocker'];
   const currentStep = currentPageIndex + 1;
 
-  // CHANGED: Accepts Partial<HealthMetrics> instead of Partial<ExtendedHealthMetrics>
   const saveData = (data: Partial<HealthMetrics>) => {
     const updated = {
       ...metricsData,
@@ -42,7 +40,6 @@ const HealthMetricsFlow = () => {
     };
     setMetricsData(updated);
     
-    // CHANGED: Save to healthMetrics instead of extendedHealthMetrics
     const success = setStorageItem('healthMetrics', updated, healthMetricsSchema);
     if (!success) {
       try {
@@ -59,7 +56,6 @@ const handleNext = (pageData: any) => {
   
   switch (currentPageIndex) {
     case 0: // Current measurements (height, weight, goalWeight)
-      // CHANGED: Save flat structure instead of nested
       saveData({ 
         height: pageData.height, 
         weight: pageData.weight, 
@@ -78,7 +74,6 @@ const handleNext = (pageData: any) => {
       const bpDateRaw = pageData.date || today;
       const bpDate = bpDateRaw.includes('T') ? format(new Date(bpDateRaw), 'yyyy-MM-dd') : bpDateRaw;
       
-      // CHANGED: Save flat structure instead of nested bloodPressure object
       saveData({ 
         systolic: pageData.systolic,
         diastolic: pageData.diastolic,
@@ -98,7 +93,6 @@ const handleNext = (pageData: any) => {
       const bloodFatsDateRaw = pageData.date || today;
       const bloodFatsDate = bloodFatsDateRaw.includes('T') ? format(new Date(bloodFatsDateRaw), 'yyyy-MM-dd') : bloodFatsDateRaw;
       
-      // CHANGED: Save flat structure instead of nested bloodFats object
       saveData({ 
         knowsLDL: pageData.knowsLDL,
         ldl: pageData.ldl,
@@ -121,7 +115,6 @@ const handleNext = (pageData: any) => {
       const bloodGlucoseDateRaw = pageData.date || today;
       const bloodGlucoseDate = bloodGlucoseDateRaw.includes('T') ? format(new Date(bloodGlucoseDateRaw), 'yyyy-MM-dd') : bloodGlucoseDateRaw;
       
-      // CHANGED: Save flat structure instead of nested bloodGlucose object
       saveData({ 
         hba1c: pageData.hba1c,
         fastingGlucose: pageData.fastingGlucose,
