@@ -14,7 +14,7 @@ import { StatsBox } from "@/components/ProgressStatsBox";
 import { HealthInfoCard } from "@/components/HealthInfoCard";
 import { getCurrentDate } from "@/lib/simulated-date";
 import { ProgressChart } from "@/components/ProgressChart";
-import { WeeklyProgressTable } from "@/components/ProgressTable";
+import { WeeklyProgressTable } from "@/pages/ProgressTable";
 import { SaveConfirmationDialog } from "@/components/AlertSaveDataProgress";
 import { GoalEditDialog } from "./ProgressTableDialogs.tsx/EditGoalDialog";
 import { BloodGlucoseDialog } from "./ProgressTableDialogs.tsx/ProgrBloodSugarDialog";
