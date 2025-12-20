@@ -82,9 +82,7 @@ export const WeeklyProgressTable = ({
 
   return (
     <>
-      {/* Week Navigation - Compact single row with 3 columns */}
       <div className="flex items-center justify-center gap-1 mb-1">
-        {/* Left arrow */}
         <Button
           variant="outline"
           size="sm"
