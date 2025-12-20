@@ -34,17 +34,14 @@ export const BloodFats = ({ onNext, onSkip, onBack, currentStep, totalSteps }: B
   const [isSkipped, setIsSkipped] = useState(false);
 
   useEffect(() => {
-    // CHANGED: Load from healthMetrics instead of extendedHealthMetrics
     const data = getStorageItem('healthMetrics', healthMetricsSchema);
     
     if (data) {
-      // Load from flat structure instead of nested bloodFats object
       setKnowsLDL(data.knowsLDL || "unknown");
       setLdl(data.ldl || "");
       setHdl(data.hdl || "");
       setTriglycerides(data.triglycerides || "");
       
-      // Load date from bloodFatsDate field
       if (data.bloodFatsDate) {
         setDate(new Date(data.bloodFatsDate));
       }

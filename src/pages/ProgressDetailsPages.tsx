@@ -13,7 +13,7 @@ import { getStorageItem } from "@/lib/storage";
 import { healthMetricsSchema } from "@/lib/schemas";
 import { pageTitle, pageContainer, headerContainer, pagePadding, bodyTextBald, cardTextSmall } from "@/lib/design-tokens";
 import { ProgressChart } from "@/pages/ProgressChart";
-import { DEFAULT_GOALS } from "@/lib/metrics-defaults";
+import { DEFAULT_GOALS } from "@/data/metrics-defaults";
 type MetricType = 'weight' | 'bloodPressure' | 'bloodFats' | 'bloodGlucose';
 
 interface DayLog {
