@@ -26,17 +26,12 @@ export const CurrentWeightHeight = ({ onNext, onSkip, currentStep, totalSteps }:
   const [isSkipped, setIsSkipped] = useState(false);
 
   useEffect(() => {               
-    const data = getStorageItem('healthMetrics', healthMetricsSchema);
-
-    if (data) {
-      setHeight(data.height || "");
-      setWeight(data.weight || "");
-      setGoalWeight(data.goalWeight || "");
-    }
-
     const healthData = getStorageItem('healthMetrics', healthMetricsSchema);
-    if (healthData?.goalWeight && !data?.goalWeight) {
-      setGoalWeight(healthData.goalWeight);
+    
+    if (healthData) {
+      setHeight(healthData.height || "");
+      setWeight(healthData.weight || "");
+      setGoalWeight(healthData.goalWeight || "");
     }
   }, []);
 
