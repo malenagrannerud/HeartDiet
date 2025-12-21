@@ -139,14 +139,7 @@ const Tutorial = () => {
                 </CardHeart>
               </div>
               
-              {/* Screenshot image */}
-              <div className="sm:w-1/3 flex items-start justify-center sm:justify-end">
-                <img 
-                  src={progressImage} 
-                  alt="Progress screen screenshot" 
-                  className="w-full max-w-[140px] sm:max-w-[160px] h-auto border-2 border-gray-300 rounded-lg shadow-md"
-                />
-              </div>
+             
             </div>
           </section>
 
