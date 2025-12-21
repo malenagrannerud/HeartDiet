@@ -1,5 +1,12 @@
+/**
+ * Tip completion tracking with safe localStorage access
+ * Uses Zod validation to prevent corrupted data from crashing the app
+ */
+
 import { format } from "date-fns";
 import { getCurrentDate } from "./simulated-date";
+import { getStorageItem, setStorageItem } from "./storage";
+import { dayLogsSchema, type DayLog } from "./schemas";
 
 interface TipEntry {
   type: 'tip' | 'weight' | 'bloodPressure';
@@ -8,35 +15,21 @@ interface TipEntry {
   tipId?: number;
 }
 
-interface DayLog {
-  date: string;
-  entries: TipEntry[];
-}
-
 const STORAGE_KEY = 'dayLogs';
 
 /**
- * Get all day logs from storage
+ * Get all day logs from storage with validation
  */
 export const getDayLogs = (): DayLog[] => {
-  try {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    return saved ? JSON.parse(saved) : [];
-  } catch (error) {
-    console.error('Error loading day logs:', error);
-    return [];
-  }
+  const logs = getStorageItem<DayLog[]>(STORAGE_KEY, dayLogsSchema);
+  return logs ?? [];
 };
 
 /**
- * Save day logs to storage
+ * Save day logs to storage with validation
  */
 const saveDayLogs = (logs: DayLog[]): void => {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(logs));
-  } catch (error) {
-    console.error('Error saving day logs:', error);
-  }
+  setStorageItem(STORAGE_KEY, logs, dayLogsSchema);
 };
 
 /**

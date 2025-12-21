@@ -1,5 +1,3 @@
-import { useState, useEffect } from "react";
-import { UserPlan } from "@/data/tips";
 import { pageContainer, headerContainer, pagePadding, sectionHeading, sectionHeading2, sectionSubheading2, bodyText, tipCardColors, standardSpacing } from "@/lib/design-tokens";
 import { BackToTodayButton } from "@/components/BackToTodayButton";
 import { UserPlanFormDialog } from "@/components/UserPlanFormDialog";
@@ -14,56 +12,22 @@ import { MedCardCompact } from "@/components/MedCardCompact";
 import { useHealthGoalTips } from "@/hooks/use-health-goal-tips";
 import { HealthGoalCardCompact } from "@/components/HealthGoalCardCompact";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
+import { useTipUserPlans } from "@/hooks/use-tip-user-plans";
 
 const FettPage = () => {
-  const [userPlans, setUserPlans] = useState<UserPlan[]>([]);
-  const [editingIndex, setEditingIndex] = useState<number | null>(null);
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const {
+    userPlans,
+    editingIndex,
+    isDialogOpen,
+    setIsDialogOpen,
+    handleSavePlan,
+    handleDeletePlan,
+    handleEditPlan,
+    handleAddPlan,
+    handleCancelEdit,
+  } = useTipUserPlans('fett');
   const medicationInteractions = useMedicationInteractions(4); // tipId: 4 for Fett
   const healthGoalTips = useHealthGoalTips(4);
-
-  useEffect(() => {
-    const savedPlans = localStorage.getItem('userPlans-fett');
-    if (savedPlans) {
-      setUserPlans(JSON.parse(savedPlans));
-    }
-  }, []);
-
-  const handleSavePlan = (plan: UserPlan) => {
-    let updatedPlans;
-    
-    if (editingIndex !== null) {
-      updatedPlans = [...userPlans];
-      updatedPlans[editingIndex] = plan;
-    } else {
-      updatedPlans = [...userPlans, plan];
-    }
-    
-    setUserPlans(updatedPlans);
-    setEditingIndex(null);
-    localStorage.setItem('userPlans-fett', JSON.stringify(updatedPlans));
-  };
-
-  const handleDeletePlan = (index: number) => {
-    const updatedPlans = userPlans.filter((_, i) => i !== index);
-    setUserPlans(updatedPlans);
-    localStorage.setItem('userPlans-fett', JSON.stringify(updatedPlans));
-  };
-
-  const handleEditPlan = (index: number) => {
-    setEditingIndex(index);
-    setIsDialogOpen(true);
-  };
-
-  const handleAddPlan = () => {
-    setEditingIndex(null);
-    setIsDialogOpen(true);
-  };
-
-  const handleCancelEdit = () => {
-    setEditingIndex(null);
-    setIsDialogOpen(false);
-  };
 
   return (
     <div className={pageContainer}>

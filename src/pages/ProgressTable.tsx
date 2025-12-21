@@ -5,19 +5,8 @@ import { tips } from "@/data/tips";
 import { Button } from "@/components/ui/button";
 import { bodyText, tableHeaderSmall } from "@/lib/design-tokens";
 import { getStorageItem } from "@/lib/storage";
-import { healthPrioritiesSchema } from "@/lib/schemas";
+import { healthPrioritiesSchema, type DayLog } from "@/lib/schemas";
 import { healthGoalTips } from "@/data/health-goal-tips";
-
-interface DayLog {
-  date: string;
-  entries: {
-    type: 'weight' | 'bloodPressure' | 'bloodFats' | 'bloodGlucose' | 'tip';
-    value: number;
-    value2?: number;
-    value3?: number;
-    tipId?: number;
-  }[];
-}
 
 interface WeeklyProgressTableProps {
   weekDates: Date[];

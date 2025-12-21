@@ -8,7 +8,7 @@ import { pageTitle, pageSubtitle, pageContainer, headerContainer, pagePadding, s
 import { useToast } from "@/hooks/use-toast";
 import { getDayLogs } from "@/lib/tip-completion";
 import { getStorageItem } from "@/lib/storage";
-import { healthPrioritiesSchema, markedTipsSchema, selectedMedicationsSchema, healthMetricsSchema } from "@/lib/schemas";
+import { healthPrioritiesSchema, markedTipsSchema, selectedMedicationsSchema, healthMetricsSchema, type DayLog } from "@/lib/schemas";
 import { medications } from "@/data/medications";
 import { StatsBox } from "@/components/ProgressStatsBox";
 import { HealthInfoCard } from "@/components/HealthInfoCard";
@@ -21,17 +21,6 @@ import { BloodGlucoseDialog } from "./ProgressTableDialogs.tsx/ProgrBloodSugarDi
 import { WeightDialog } from "./ProgressTableDialogs.tsx/ProgrWeightDialog";
 import { BloodPressureDialog } from "./ProgressTableDialogs.tsx/ProgrBPDialog";
 import { BloodFatsDialog } from "./ProgressTableDialogs.tsx/ProgrBloodFatDialog";
-
-interface DayLog {
-  date: string;
-  entries: {
-    type: 'weight' | 'bloodPressure' | 'bloodFats' | 'bloodGlucose' | 'tip';
-    value: number;
-    value2?: number;
-    value3?: number;
-    tipId?: number;
-  }[];
-}
 
 const healthPriorityLabels: Record<string, string> = {
   cholesterol: "Hantera mitt kolesterol",
