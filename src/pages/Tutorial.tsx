@@ -1,13 +1,21 @@
 import { useNavigate } from "react-router-dom";
 import { Card } from "@/components/ui/card";
-import { sectionHeading, sectionSubheading, sectionHeading2, cardTitle, cardText, standardCard, primaryButton, pageContainer, standardSpacing, headerContainer, pagePadding, bodyTextBald, bodyText } from "@/lib/design-tokens";
+import { sectionHeading, sectionSubheading, cardTitle, cardText, standardCard, primaryButton, pageContainer, standardSpacing, headerContainer, pagePadding, bodyTextBald, bodyText } from "@/lib/design-tokens";
 import { BackToTodayButton } from "@/components/BackToTodayButton";
 import { CompleteCardButton } from "@/components/CompleteCardButton";
 import DottedList from "@/components/DottedList";
+
 import iconImage from "@/assets/icon.png";
+
+import todayImage from "@/assets/tutidag.png";
+import tipsImage from "@/assets/tuttips.png";
+import progressImage from "@/assets/tutmina_sidor.png";
 
 const Tutorial = () => {
   const navigate = useNavigate();
+
+  // Custom style for section headings
+  const sectionHeadingStyle = "font-bold text-[16px] text-[#8B4513]";
 
   return (
     <div className={pageContainer}>
@@ -26,10 +34,20 @@ const Tutorial = () => {
 
           <section className={standardSpacing.sectionContent}>
             <div className="space-y-4">
-              <h2 className={sectionHeading2}> Mål </h2>
+              {/* Updated heading with image to the right */}
+              <div className="flex items-center justify-between">
+                <h2 className={sectionHeadingStyle}>Mål med appen</h2>
+                
+              </div>
               <p className={bodyText}>
-                Välkommen till HjärtKost! Målet med appen är att hjälpa användaren att äta enligt den "Nya nordiska dieten",
+                Välkommen till HjärtKost! 
+              </p>
+
+              <p 
+                Målet med appen är att hjälpa användaren att äta enligt den "Nya nordiska dieten",
                 en vetetnskapligt bevisad diet som minskar risken för många livsstilsrelaterade sjukdomar drastiskt.
+              </p>
+            <p 
 
                 Den liknar Medelhavsdieten, men fokuserar på lokalt odlade och traditionella nordiska livsmedel 
                 för ett miljövänligare livsmedelsmönster. Till exempel ingår:
@@ -59,11 +77,19 @@ const Tutorial = () => {
 
           <section className={standardSpacing.sectionContent}>
             <div className="space-y-4">
-              <h2 className={sectionHeading2}>Idag</h2>
+              {/* Updated heading with image to the right */}
+              <div className="flex items-center justify-between">
+                <h2 className={sectionHeadingStyle}>Idag</h2>
+                <img 
+                  src={todayImage} 
+                  alt="Today icon" 
+                  className="w-6 h-6"
+                />
+              </div>
               <p className={bodyText}>
                 När du öppnar appen hamnar du på "Idag". Här ser du dina valda hälsotips och kan 
                 följa stegen i din egen takt. Du behöver inte göra allt på en gång - ta det lugnt och 
-                börja med det som känns rätt för dig.
+                börja med det som känms rätt för dig.
               </p>
               <div className="bg-[#FCFAF7] p-5 rounded-lg border-2 border-border flex items-start gap-3">
                   <img 
@@ -80,7 +106,15 @@ const Tutorial = () => {
 
           <section className={standardSpacing.sectionContent}>
             <div className="space-y-4">
-              <h2 className={sectionHeading2}>Tips-sidan</h2>
+              {/* Updated heading with image to the right */}
+              <div className="flex items-center justify-between">
+                <h2 className={sectionHeadingStyle}>Tips-sidan</h2>
+                <img 
+                  src={tipsImage} 
+                  alt="Tips icon" 
+                  className="w-6 h-6"
+                />
+              </div>
               <p className={bodyText}>
                 Under "Tips" hittar du alla hälsoråd. Klicka på ett tips för att läsa mer. 
                 När du hittar något som passar dig, tryck på bocken så hamnar tipset under 
@@ -101,7 +135,15 @@ const Tutorial = () => {
 
           <section className={standardSpacing.sectionContent}>
             <div className="space-y-4">
-              <h2 className={sectionHeading2}>Framsteg-sidan</h2>
+              {/* Updated heading with image to the right */}
+              <div className="flex items-center justify-between">
+                <h2 className={sectionHeadingStyle}>Framsteg-sidan</h2>
+                <img 
+                  src={progressImage} 
+                  alt="Progress icon" 
+                  className="w-6 h-6"
+                />
+              </div>
               <p className={bodyText}>
                 Här kan du följa din utveckling över tid. 
                 
@@ -123,7 +165,15 @@ const Tutorial = () => {
 
           <section className={standardSpacing.sectionContent}>
             <div className="space-y-4">
-              <h2 className={sectionHeading2}>Hjälp</h2>
+              {/* Updated heading with image to the right */}
+              <div className="flex items-center justify-between">
+                <h2 className={sectionHeadingStyle}>Hjälp</h2>
+                <img 
+                  src={helpImage} 
+                  alt="Help icon" 
+                  className="w-6 h-6"
+                />
+              </div>
               <p className={bodyText}>
                 Läs om hur appen fungerar.
               </p>
