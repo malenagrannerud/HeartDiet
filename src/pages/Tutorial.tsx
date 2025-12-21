@@ -53,8 +53,8 @@ const Tutorial = () => {
                     Den Nya nordiska kosten implementeras genom att användaren väljer tips att försöka implementera 
                     varje vecka. Till exempel: 
                     <DottedList items={[
-                      "Vecka ett väljer jag tipset "Fem nävar frukt och grönt" varje dag. Jag planerar och utvärderar hur det går", 
-                      "Vecka två forsätter jag med "Fem nävar frukt och grönt". Jag lägger även till ett tips, "Rätt fett" ", 
+                      "Vecka ett väljer jag tipset 'Fem nävar frukt och grönt' varje dag. Jag planerar och utvärderar hur det går", 
+                      "Vecka två forsätter jag med 'Fem nävar frukt och grönt'. Jag lägger även till ett tips, 'Rätt fett' ", 
                       "Vecka tre lägger jag till två nya tips... ", 
                       "Flera av tipsen följer jag redan, dom kryssar jag bara i", 
                      ]} />
@@ -151,7 +151,7 @@ const Tutorial = () => {
                   </p>
                   <div className="bg-[#FCFAF7] p-5 rounded-lg border-2 border-border">
                     <p className={bodyText}>
-                     // 💡 Tips: Du behöver inte fylla i något varje dag. Gör det när det passar dig.
+                      {/* 💡 Tips: Du behöver inte fylla i något varje dag. Gör det när det passar dig. */}
                     </p>
                   </div>
                 </div>
