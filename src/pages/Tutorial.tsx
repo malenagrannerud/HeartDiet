@@ -5,6 +5,8 @@ import { sectionHeading, sectionSubheading, sectionHeading2, cardTitle, cardText
 import { BackToTodayButton } from "@/components/BackToTodayButton";
 import { CompleteCardButton } from "@/components/CompleteCardButton";
 import DottedList from "@/components/DottedList";
+import iconImage from "@/assets/icon.png"; // Add this line
+
 
 
 const Tutorial = () => {
@@ -37,7 +39,8 @@ const Tutorial = () => {
                     en vetetnskapligt bevisad diet som minskar risken för många livsstilsrelaterade sjukdomar drastiskt.
 
                     Den liknar Medelhavsdieten, men fokuserar på lokalt odlade och traditionella nordiska livsmedel 
-                    för ett miljövänligare livsmedelsmönster. Till exempel ingår: 
+                    för ett miljövänligare livsmedelsmönster. Till exempel ingår:
+                    </p>
 
                     <DottedList items={[
                       "Grönsaker och rotfrukter: Kål, morötter, potatis",
@@ -47,9 +50,17 @@ const Tutorial = () => {
                       "Protein: Fågel, ägg, fisk, magra mejeriprodukter och bajlväxter.",
                       "Andra: Skogssvamp, färska kryddor, sjögräs, skaldjur, fermenterad mat. ",
                     ]} />
-                   
-                
-                  </p>
+
+                    <div className="bg-[#FCFAF7] p-5 rounded-lg border-2 border-border flex items-start gap-3">
+                      <img 
+                        src={iconImage} 
+                        alt="Tips icon" 
+                        className="w-6 h-6 flex-shrink-0"
+                      />
+                      <p className={bodyText}>
+                        Tips: Börja med att välja ett eller två tips att fokusera på denna vecka.
+                      </p>
+                    </div>
                   
                 </div>
               </div>
@@ -69,6 +80,19 @@ const Tutorial = () => {
                     följa stegen i din egen takt. Du behöver inte göra allt på en gång - ta det lugnt och 
                     börja med det som känns rätt för dig.
                   </p>
+                  <div className="bg-[#FCFAF7] p-5 rounded-lg border-2 border-border flex items-start gap-3">
+                      <img 
+                        src={iconImage} 
+                        alt="Tips icon" 
+                        className="w-6 h-6 flex-shrink-0"
+                      />
+                      <p className={bodyText}>
+                        Tips: Börja med att välja ett eller två tips att fokusera på denna vecka.
+                      </p>
+                    </div>
+
+
+
                   
                 </div>
               </div>
@@ -88,11 +112,16 @@ const Tutorial = () => {
                     När du hittar något som passar dig, tryck på bocken så hamnar tipset under 
                     "Mina valda tips" på Idag-sidan.
                   </p>
-                  <div className="bg-[#FCFAF7] p-5 rounded-lg border-2 border-border">
+                  <div className="bg-[#FCFAF7] p-5 rounded-lg border-2 border-border flex items-start gap-3">
+                      <img 
+                        src={iconImage} 
+                        alt="Tips icon" 
+                        className="w-6 h-6 flex-shrink-0"
+                      />
                       <p className={bodyText}>
-                        💡 Tips: Börja med att välja ett eller två tips att fokusera på denna vecka.
+                        Tips: Börja med att välja ett eller två tips att fokusera på denna vecka.
                       </p>
-                  </div>
+                    </div>
                 </div>
               </div>
             </Card>
@@ -116,11 +145,13 @@ const Tutorial = () => {
                     Små färgade rutor visar vilka tips du har följt. Ett litet hjärta ♥ betyder 
                     att du har registrerat blodtryck, och en vågsymbol ⚖ betyder att du har registrerat din vikt.
                   </p>
+                  
                   <div className="bg-[#FCFAF7] p-5 rounded-lg border-2 border-border">
                     <p className={bodyText}>
                       {/* 💡 Tips: Du behöver inte fylla i något varje dag. Gör det när det passar dig. */}
                     </p>
                   </div>
+                  
                 </div>
               </div>
             </Card>
@@ -144,6 +175,19 @@ const Tutorial = () => {
           </section>
 
           <section>
+
+            <div className="bg-[#FCFAF7] p-5 rounded-lg border-2 border-border flex items-start gap-3">
+                      <img 
+                        src={iconImage} 
+                        alt="Tips icon" 
+                        className="w-6 h-6 flex-shrink-0"
+                      />
+                      <p className={bodyText}>
+                        Tips: Börja med att välja ett eller två tips att fokusera på denna vecka.
+                      </p>
+                    </div>
+
+            
             <div className="bg-green-50 p-8 rounded-lg border-2 border-green-200">
               <p className={bodyText}>
                 Kom ihåg att varje litet steg räknas. Det spelar ingen roll hur långsamt du går, 
