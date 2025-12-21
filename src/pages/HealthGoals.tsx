@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { BackToTodayButton } from "@/components/BackToTodayButton";
 import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -46,6 +46,8 @@ const healthPriorities: HealthPriority[] = [
 
 const HealthGoals = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const returnTo = searchParams.get('returnTo') || '/app/today';
   const { toast } = useToast();
   const [selectedPriorities, setSelectedPriorities] = useState<string[]>([]);
   const [saveAlertOpen, setSaveAlertOpen] = useState(false);
@@ -106,7 +108,7 @@ const HealthGoals = () => {
     });
     
     setSaveAlertOpen(false);
-    navigate('/app/today');
+    navigate(returnTo);
   };
 
   return (

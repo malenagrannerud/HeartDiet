@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { BackToTodayButton } from "@/components/BackToTodayButton";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -15,6 +15,8 @@ import { Pill, Search, X } from "lucide-react";
 
 const Medications = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const returnTo = searchParams.get('returnTo') || '/app/today';
   const { toast } = useToast();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedMedications, setSelectedMedications] = useState<Array<{ id: string; name: string; addedDate: string }>>([]);
@@ -103,7 +105,7 @@ const Medications = () => {
     });
     
     setSaveAlertOpen(false);
-    navigate('/app/today');
+    navigate(returnTo);
   };
 
   // Filter medications based on search query

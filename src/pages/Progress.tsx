@@ -842,7 +842,7 @@ const Progress = () => {
               title="Mina hälsomål"
               items={priorities.map((id) => ({ id, label: healthPriorityLabels[id] }))}
               emptyMessage="Inga mål valda ännu"
-              onClick={() => navigate('/app/health-goals')}
+              onClick={() => navigate('/app/health-goals?returnTo=/app/progress')}
             />
 
             <HealthInfoCard
@@ -850,7 +850,7 @@ const Progress = () => {
               title="Mina läkemedel"
               items={selectedMedications.map((med) => ({ id: med.id || '', label: med.name || '' }))}
               emptyMessage="Inga läkemedel valda ännu"
-              onClick={() => navigate('/app/medications')}
+              onClick={() => navigate('/app/medications?returnTo=/app/progress')}
             />
           </div>
 
