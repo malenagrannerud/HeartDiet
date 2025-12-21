@@ -8,11 +8,12 @@ import { BackToTodayButton } from "@/components/BackToTodayButton";
 import { ButtonAbort } from "@/components/ButtonAbort";
 import { useToast } from "@/hooks/use-toast";
 import { getStorageItem, setStorageItem } from "@/lib/storage";
-import { completedActivitiesSchema, healthMetricsSchema, HealthMetrics, DayLog } from "@/lib/schemas"; // CHANGED
+import { completedActivitiesSchema, healthMetricsSchema, HealthMetrics, DayLog } from "@/lib/schemas";
 import { markCardCompleted } from "@/lib/card-completion";
 import { sectionHeading, headerContainer, pageContainer, pagePadding } from "@/lib/design-tokens";
 import { getCurrentDate } from "@/lib/simulated-date";
 import { format } from "date-fns";
+import { safeParseFloat, safeParseInt, HEALTH_RANGES } from "@/lib/health-validators";
 
 const TOTAL_STEPS = 4; // Total nr of pages in assessment workflow
 
@@ -63,8 +64,8 @@ const handleNext = (pageData: any) => {
       });
       
       if (pageData.weight) {
-        const weight = parseFloat(pageData.weight);
-        if (weight > 0) {
+        const weight = safeParseFloat(pageData.weight);
+        if (weight !== undefined && weight >= HEALTH_RANGES.weight.min && weight <= HEALTH_RANGES.weight.max) {
           addEntryToDayLogs(existingLogs, today, { type: 'weight', value: weight });
         }
       }
@@ -81,11 +82,17 @@ const handleNext = (pageData: any) => {
       });
       
       if (pageData.systolic && pageData.diastolic) {
-        addEntryToDayLogs(existingLogs, bpDate, { 
-          type: 'bloodPressure', 
-          value: parseInt(pageData.systolic), 
-          value2: parseInt(pageData.diastolic)
-        });
+        const systolic = safeParseInt(pageData.systolic);
+        const diastolic = safeParseInt(pageData.diastolic);
+        if (systolic !== undefined && diastolic !== undefined &&
+            systolic >= HEALTH_RANGES.systolic.min && systolic <= HEALTH_RANGES.systolic.max &&
+            diastolic >= HEALTH_RANGES.diastolic.min && diastolic <= HEALTH_RANGES.diastolic.max) {
+          addEntryToDayLogs(existingLogs, bpDate, { 
+            type: 'bloodPressure', 
+            value: systolic, 
+            value2: diastolic
+          });
+        }
       }
       break;
       
@@ -102,12 +109,17 @@ const handleNext = (pageData: any) => {
       });
       
       if (pageData.ldl) {
-        addEntryToDayLogs(existingLogs, bloodFatsDate, { 
-          type: 'bloodFats', 
-          value: parseFloat(pageData.ldl),
-          value2: pageData.hdl ? parseFloat(pageData.hdl) : undefined,
-          value3: pageData.triglycerides ? parseFloat(pageData.triglycerides) : undefined
-        });
+        const ldl = safeParseFloat(pageData.ldl);
+        if (ldl !== undefined && ldl >= HEALTH_RANGES.ldl.min && ldl <= HEALTH_RANGES.ldl.max) {
+          const hdl = safeParseFloat(pageData.hdl);
+          const triglycerides = safeParseFloat(pageData.triglycerides);
+          addEntryToDayLogs(existingLogs, bloodFatsDate, { 
+            type: 'bloodFats', 
+            value: ldl,
+            value2: (hdl !== undefined && hdl >= HEALTH_RANGES.hdl.min && hdl <= HEALTH_RANGES.hdl.max) ? hdl : undefined,
+            value3: (triglycerides !== undefined && triglycerides >= HEALTH_RANGES.triglycerides.min && triglycerides <= HEALTH_RANGES.triglycerides.max) ? triglycerides : undefined
+          });
+        }
       }
       break;
       
@@ -122,11 +134,19 @@ const handleNext = (pageData: any) => {
       });
       
       if (pageData.hba1c || pageData.fastingGlucose) {
-        addEntryToDayLogs(existingLogs, bloodGlucoseDate, { 
-          type: 'bloodGlucose', 
-          value: pageData.hba1c ? parseFloat(pageData.hba1c) : (parseFloat(pageData.fastingGlucose) || 0),
-          value2: pageData.fastingGlucose ? parseFloat(pageData.fastingGlucose) : undefined
-        });
+        const hba1c = safeParseFloat(pageData.hba1c);
+        const fastingGlucose = safeParseFloat(pageData.fastingGlucose);
+        
+        const validHba1c = hba1c !== undefined && hba1c >= HEALTH_RANGES.hba1c.min && hba1c <= HEALTH_RANGES.hba1c.max;
+        const validFasting = fastingGlucose !== undefined && fastingGlucose >= HEALTH_RANGES.fastingGlucose.min && fastingGlucose <= HEALTH_RANGES.fastingGlucose.max;
+        
+        if (validHba1c || validFasting) {
+          addEntryToDayLogs(existingLogs, bloodGlucoseDate, { 
+            type: 'bloodGlucose', 
+            value: validHba1c ? hba1c : (validFasting ? fastingGlucose : 0),
+            value2: validFasting ? fastingGlucose : undefined
+          });
+        }
       }
       break;
   }

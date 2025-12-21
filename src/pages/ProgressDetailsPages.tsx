@@ -14,6 +14,7 @@ import { healthMetricsSchema, type DayLog } from "@/lib/schemas";
 import { pageTitle, pageContainer, headerContainer, pagePadding, bodyTextBald, cardTextSmall } from "@/lib/design-tokens";
 import { ProgressChart } from "@/pages/ProgressChart";
 import { DEFAULT_GOALS } from "@/data/metrics-defaults";
+import { safeParseFloat, safeParseInt, validateWeight, validateSystolic, validateDiastolic, validateLDL, validateHbA1c } from "@/lib/health-validators";
 
 type MetricType = 'weight' | 'bloodPressure' | 'bloodFats' | 'bloodGlucose';
 
@@ -80,16 +81,15 @@ const ProgressDetail = () => {
     const metrics = getStorageItem('healthMetrics', healthMetricsSchema);
     
     if (metricType === 'weight') {
-      if (metrics?.goalWeight) {
-        setGoalValue(parseFloat(metrics.goalWeight));
-      }
+      const goal = safeParseFloat(metrics?.goalWeight);
+      if (goal !== undefined) setGoalValue(goal);
     } else if (metricType === 'bloodPressure') {
-      setGoalValue(metrics?.goalSystolic ? parseInt(metrics.goalSystolic) : DEFAULT_GOALS.bloodPressure.systolic);
-      setGoalValue2(metrics?.goalDiastolic ? parseInt(metrics.goalDiastolic) : DEFAULT_GOALS.bloodPressure.diastolic);
+      setGoalValue(safeParseInt(metrics?.goalSystolic) ?? DEFAULT_GOALS.bloodPressure.systolic);
+      setGoalValue2(safeParseInt(metrics?.goalDiastolic) ?? DEFAULT_GOALS.bloodPressure.diastolic);
     } else if (metricType === 'bloodFats') {
-      setGoalValue(metrics?.goalLDL ? parseFloat(metrics.goalLDL) : DEFAULT_GOALS.bloodFats.ldl);
+      setGoalValue(safeParseFloat(metrics?.goalLDL) ?? DEFAULT_GOALS.bloodFats.ldl);
     } else if (metricType === 'bloodGlucose') {
-      setGoalValue(metrics?.goalHbA1c ? parseFloat(metrics.goalHbA1c) : DEFAULT_GOALS.bloodGlucose.hba1c);
+      setGoalValue(safeParseFloat(metrics?.goalHbA1c) ?? DEFAULT_GOALS.bloodGlucose.hba1c);
     }
   }, [metricType]);
 
@@ -129,11 +129,27 @@ const ProgressDetail = () => {
 
   const handleSaveEdit = () => {
     if (!selectedEntry) return;
-    const newValue = parseFloat(editValue);
-    if (isNaN(newValue) || newValue <= 0) {
-      toast({ title: "Ogiltigt värde", variant: "destructive" });
+    
+    // Validate based on metric type
+    let validation;
+    if (metricType === 'weight') {
+      validation = validateWeight(editValue);
+    } else if (metricType === 'bloodPressure') {
+      validation = validateSystolic(editValue);
+    } else if (metricType === 'bloodFats') {
+      validation = validateLDL(editValue);
+    } else if (metricType === 'bloodGlucose') {
+      validation = validateHbA1c(editValue);
+    } else {
+      validation = { valid: true, value: parseFloat(editValue) };
+    }
+    
+    if (!validation.valid || validation.value === undefined) {
+      toast({ title: "Ogiltigt värde", description: validation.error, variant: "destructive" });
       return;
     }
+
+    const newValue = validation.value;
 
     const updatedLogs = dayLogs.map(log => {
       if (log.date === selectedEntry.date) {
@@ -144,7 +160,7 @@ const ProgressDetail = () => {
               return {
                 ...entry,
                 value: newValue,
-                value2: metricType === 'bloodPressure' ? parseInt(editValue2) : entry.value2
+                value2: metricType === 'bloodPressure' ? (safeParseInt(editValue2) ?? entry.value2) : entry.value2
               };
             }
             return entry;
@@ -190,18 +206,19 @@ const ProgressDetail = () => {
     
     if (metricType === 'weight') {
       metrics.goalWeight = goalInput || undefined;
-      setGoalValue(goalInput ? parseFloat(goalInput) : undefined);
+      const parsed = safeParseFloat(goalInput);
+      setGoalValue(parsed);
     } else if (metricType === 'bloodPressure') {
       metrics.goalSystolic = goalInput || undefined;
       metrics.goalDiastolic = goalInput2 || undefined;
-      setGoalValue(goalInput ? parseInt(goalInput) : undefined);
-      setGoalValue2(goalInput2 ? parseInt(goalInput2) : undefined);
+      setGoalValue(safeParseInt(goalInput));
+      setGoalValue2(safeParseInt(goalInput2));
     } else if (metricType === 'bloodFats') {
       metrics.goalLDL = goalInput || undefined;
-      setGoalValue(goalInput ? parseFloat(goalInput) : undefined);
+      setGoalValue(safeParseFloat(goalInput));
     } else if (metricType === 'bloodGlucose') {
       metrics.goalHbA1c = goalInput || undefined;
-      setGoalValue(goalInput ? parseFloat(goalInput) : undefined);
+      setGoalValue(safeParseFloat(goalInput));
     }
 
     localStorage.setItem('healthMetrics', JSON.stringify(metrics));
