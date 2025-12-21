@@ -33,7 +33,7 @@ const Tutorial = () => {
             <Card className={standardCard}>
               <div className="flex items-start gap-5">
                 <div className="space-y-4">
-                  <h2 className={sectionHeading2}> Mål med appen"</h2>
+                  <h2 className={sectionHeading2}> Mål </h2>
                   <p className={bodyText}>
                     Välkommen till HjärtKost! Målet med appen är att hjälpa användaren att äta enligt den "Nya nordiska dieten",
                     en vetetnskapligt bevisad diet som minskar risken för många livsstilsrelaterade sjukdomar drastiskt.
@@ -58,7 +58,7 @@ const Tutorial = () => {
                         className="w-6 h-6 flex-shrink-0"
                       />
                       <p className={bodyText}>
-                        Tips: Börja med att välja ett eller två tips att fokusera på denna vecka.
+                        Börja med att välja ett eller två tips att fokusera på denna vecka.
                       </p>
                     </div>
                   
@@ -70,9 +70,7 @@ const Tutorial = () => {
           <section className={standardSpacing.sectionContent}>
             <Card className={standardCard}>
               <div className="flex items-start gap-5">
-                <div className="bg-green-100 p-1 rounded-full flex-shrink-0">
-                  <Home className="w-8 h-8 text-green-700" />
-                </div>
+                
                 <div className="space-y-4">
                   <h2 className={sectionHeading2}>Idag</h2>
                   <p className={bodyText}>
@@ -91,9 +89,6 @@ const Tutorial = () => {
                       </p>
                     </div>
 
-
-
-                  
                 </div>
               </div>
             </Card>
@@ -102,8 +97,7 @@ const Tutorial = () => {
           <section>
             <Card className={standardCard}>
               <div className="flex items-start gap-5">
-                <div className="bg-blue-100 p-1 rounded-full flex-shrink-0">
-                  <BookOpen className="w-8 h-8 text-blue-700" />
+                
                 </div>
                 <div className="space-y-4">
                   <h2 className={sectionHeading2}>Tips-sidan</h2>
@@ -131,7 +125,7 @@ const Tutorial = () => {
             <Card className={standardCard}>
               <div className="flex items-start gap-5">
                 <div className="bg-purple-100 p-1 rounded-full flex-shrink-0">
-                  <TrendingUp className="w-8 h-8 text-purple-700" />
+                  
                 </div>
                 <div className="space-y-4">
                   <h2 className={sectionHeading2}>Framsteg-sidan</h2>
@@ -158,20 +152,12 @@ const Tutorial = () => {
           </section>
 
           <section>
-            <Card className={standardCard}>
-              <div className="flex items-start gap-5">
-                <div className="bg-orange-100 p-1 rounded-full flex-shrink-0">
-                  <HelpCircle className="w-8 h-8 text-orange-700" />
-                </div>
-                <div className="space-y-4">
-                  <h2 className={sectionHeading2}>Hjälp-sidan</h2>
+            
+                  <h2 className={sectionHeading2}>Hjälp</h2>
                   <p className={bodyText}>
-                    *UNDER KONSTRUKTION*
-                    Här hittar du svar på vanliga frågor.
+                    Läs om hur appen fungerar.
                   </p>
-                </div>
-              </div>
-            </Card>
+              
           </section>
 
           <section>
@@ -183,24 +169,14 @@ const Tutorial = () => {
                         className="w-6 h-6 flex-shrink-0"
                       />
                       <p className={bodyText}>
-                        Tips: Börja med att välja ett eller två tips att fokusera på denna vecka.
+                        Varje litet steg räknas. Det spelar ingen roll hur långsamt det går, 
+                        det viktiga är att du har börjat. Ta dig tid, var snäll mot dig själv, och gör 
+                        så gott du kan.
                       </p>
-                    </div>
-
-            
-            <div className="bg-green-50 p-8 rounded-lg border-2 border-green-200">
-              <p className={bodyText}>
-                Kom ihåg att varje litet steg räknas. Det spelar ingen roll hur långsamt du går, 
-                det viktiga är att du har börjat. Ta dig tid, var snäll mot dig själv, och gör 
-                så gott du kan.
-              </p>
-              <p className={bodyText}>
-                Appen finns här när du behöver den, och allt du gör är i din egen takt.
-              </p>
-            </div>
+              </div>
           </section>
 
-          <section>       
+          <section>  
             <CompleteCardButton 
               cardId="tutorial"
               className={`${primaryButton} w-full`}
@@ -208,7 +184,6 @@ const Tutorial = () => {
               Fortsätt
             </CompleteCardButton>
           </section>
-
         </div>
       </main>
     </div>
