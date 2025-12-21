@@ -13,8 +13,6 @@ import progressImage from "@/assets/tutmina_sidor.png";
 
 const Tutorial = () => {
   const navigate = useNavigate();
-
-  // Custom style for section headings
   const sectionHeadingStyle = "font-bold text-[16px] text-[#8B4513]";
 
   return (
@@ -43,15 +41,14 @@ const Tutorial = () => {
                 Välkommen till HjärtKost! 
               </p>
 
-              <p 
+              <p className={bodyText}> 
                 Målet med appen är att hjälpa användaren att äta enligt den "Nya nordiska dieten",
                 en vetetnskapligt bevisad diet som minskar risken för många livsstilsrelaterade sjukdomar drastiskt.
               </p>
-            <p 
-
+              <p className={bodyText}>
                 Den liknar Medelhavsdieten, men fokuserar på lokalt odlade och traditionella nordiska livsmedel 
                 för ett miljövänligare livsmedelsmönster. Till exempel ingår:
-                </p>
+              </p>
 
                 <DottedList items={[
                   "Grönsaker och rotfrukter: Kål, morötter, potatis",
