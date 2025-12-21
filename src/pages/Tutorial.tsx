@@ -26,13 +26,13 @@ const Tutorial = () => {
         <div className={standardSpacing.pageContent}>
           <section className={standardSpacing.sectionContent}>
             <p className={sectionSubheading}>
-            Läsa om appen igen under "Hjälp"
+            Läs om appen igen under "Hjälp"
             </p>
           </section>
 
           {/* MÅL SECTION */}
           <section className={standardSpacing.sectionContent}>
-            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
+            <div className="flex flex-col sm:flex-row gap-1">
               {/* Text content */}
               <div className="sm:w-2/3 space-y-4">
                 <h2 className={sectionHeadingStyle}>Mål med appen</h2>
@@ -79,8 +79,7 @@ const Tutorial = () => {
 
           {/* IDAG SECTION */}
           <section className={standardSpacing.sectionContent}>
-            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
-              {/* Text content */}
+              <div className="flex flex-col sm:flex-row gap-1">              {/* Text content */}
               <div className="sm:w-2/3 space-y-4">
                 <h2 className={sectionHeadingStyle}>Idag</h2>
                 <p className={bodyText}>
