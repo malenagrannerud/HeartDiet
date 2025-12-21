@@ -165,11 +165,6 @@ const Tutorial = () => {
               {/* Updated heading with image to the right */}
               <div className="flex items-center justify-between">
                 <h2 className={sectionHeadingStyle}>Hjälp</h2>
-                <img 
-                  src={helpImage} 
-                  alt="Help icon" 
-                  className="w-6 h-6"
-                />
               </div>
               <p className={bodyText}>
                 Läs om hur appen fungerar.
