@@ -4,9 +4,13 @@ import { sectionHeading, sectionSubheading, cardTitle, cardText, standardCard, p
 import { BackToTodayButton } from "@/components/BackToTodayButton";
 import { CompleteCardButton } from "@/components/CompleteCardButton";
 import DottedList from "@/components/DottedList";
-import CardHeart from "@/components/CardHeart"; // Add this import
+import CardHeart from "@/components/CardHeart";
 
-import iconImage from "@/assets/icon.png"; // This is still used in other places
+import iconImage from "@/assets/icon.png";
+
+import todayImage from "@/assets/tutidag.png";
+import tipsImage from "@/assets/tuttips.png";
+import progressImage from "@/assets/tutmina_sidor.png";
 
 const Tutorial = () => {
   const navigate = useNavigate();
@@ -52,21 +56,18 @@ const Tutorial = () => {
                   "Skogssvamp, färska kryddor, sjögräs, skaldjur, fermenterad mat",
                 ]} />
 
-
-                <div className="bg-[#FCFAF7] p-5 rounded-lg border-2 border-border flex items-start gap-3">
-                  <img 
-                    src={iconImage} 
-                    alt="Tips icon" 
-                    className="w-6 h-6 flex-shrink-0"
-                  />
-                  <p className={bodyText}>
-                    Att implementera nya matvanor görs i små steg. Det ska vara roligt och gott!
-                  </p>
-                </div>
+                {/* CardHeart component */}
+                <CardHeart>
+                  Att implementera nya matvanor görs i små steg. Det ska vara roligt och gott!
+                </CardHeart>
               </div>
               
-              {/* CardHeart component */}
-              <CardHeart altText="Mål" />
+              {/* Image placeholder */}
+              <div className="sm:w-1/3 flex items-start justify-center sm:justify-end">
+                <div className="bg-gray-100 border-2 border-gray-300 rounded-lg w-full max-w-[140px] sm:max-w-[160px] h-[250px] sm:h-[300px] flex items-center justify-center">
+                  <span className="text-gray-400 text-sm">Mål</span>
+                </div>
+              </div>
             </div>
           </section>
 
@@ -81,20 +82,21 @@ const Tutorial = () => {
                   följa stegen i din egen takt. Du behöver inte göra allt på en gång - ta det lugnt och 
                   börja med det som känms rätt för dig.
                 </p>
-                <div className="bg-[#FCFAF7] p-5 rounded-lg border-2 border-border flex items-start gap-3">
-                  <img 
-                    src={iconImage} 
-                    alt="Tips icon" 
-                    className="w-6 h-6 flex-shrink-0"
-                  />
-                  <p className={bodyText}>
-                    Börja med att välja ett eller två tips att fokusera på denna vecka.
-                  </p>
-                </div>
+                
+                {/* CardHeart component */}
+                <CardHeart>
+                  Börja med att välja ett eller två tips att fokusera på denna vecka.
+                </CardHeart>
               </div>
               
-              {/* CardHeart component */}
-              <CardHeart altText="Idag" />
+              {/* Screenshot image */}
+              <div className="sm:w-1/3 flex items-start justify-center sm:justify-end">
+                <img 
+                  src={todayImage} 
+                  alt="Today screen screenshot" 
+                  className="w-full max-w-[140px] sm:max-w-[160px] h-auto border-2 border-gray-300 rounded-lg shadow-md"
+                />
+              </div>
             </div>
           </section>
 
@@ -109,20 +111,21 @@ const Tutorial = () => {
                   När du hittar något som passar dig, tryck på bocken så hamnar tipset under 
                   "Mina valda tips" på Idag-sidan.
                 </p>
-                <div className="bg-[#FCFAF7] p-5 rounded-lg border-2 border-border flex items-start gap-3">
-                  <img 
-                    src={iconImage} 
-                    alt="Tips icon" 
-                    className="w-6 h-6 flex-shrink-0"
-                  />
-                  <p className={bodyText}>
-                    Börja med att välja ett eller två tips att fokusera på denna vecka.
-                  </p>
-                </div>
+                
+                {/* CardHeart component */}
+                <CardHeart>
+                  Börja med att välja ett eller två tips att fokusera på denna vecka.
+                </CardHeart>
               </div>
               
-              {/* CardHeart component */}
-              <CardHeart altText="Tips" />
+              {/* Screenshot image */}
+              <div className="sm:w-1/3 flex items-start justify-center sm:justify-end">
+                <img 
+                  src={tipsImage} 
+                  alt="Tips screen screenshot" 
+                  className="w-full max-w-[140px] sm:max-w-[160px] h-auto border-2 border-gray-300 rounded-lg shadow-md"
+                />
+              </div>
             </div>
           </section>
 
@@ -142,20 +145,20 @@ const Tutorial = () => {
                   att du har registrerat blodtryck, och en vågsymbol ⚖ betyder att du har registrerat din vikt.
                 </p>
                 
-                <div className="bg-[#FCFAF7] p-5 rounded-lg border-2 border-border flex items-start gap-3">
-                  <img 
-                    src={iconImage} 
-                    alt="Tips icon" 
-                    className="w-6 h-6 flex-shrink-0"
-                  />
-                  <p className={bodyText}>
-                    Tips: Du behöver inte fylla i något varje dag. Gör det när det passar dig.
-                  </p>
-                </div>
+                {/* CardHeart component */}
+                <CardHeart>
+                  Tips: Du behöver inte fylla i något varje dag. Gör det när det passar dig.
+                </CardHeart>
               </div>
               
-              {/* CardHeart component */}
-              <CardHeart altText="Mina sidor" />
+              {/* Screenshot image */}
+              <div className="sm:w-1/3 flex items-start justify-center sm:justify-end">
+                <img 
+                  src={progressImage} 
+                  alt="Progress screen screenshot" 
+                  className="w-full max-w-[140px] sm:max-w-[160px] h-auto border-2 border-gray-300 rounded-lg shadow-md"
+                />
+              </div>
             </div>
           </section>
 
@@ -170,25 +173,23 @@ const Tutorial = () => {
                 </p>
               </div>
               
-              {/* CardHeart component */}
-              <CardHeart altText="Hjälp" />
+              {/* Image placeholder */}
+              <div className="sm:w-1/3 flex items-start justify-center sm:justify-end">
+                <div className="bg-gray-100 border-2 border-gray-300 rounded-lg w-full max-w-[140px] sm:max-w-[160px] h-[250px] sm:h-[300px] flex items-center justify-center">
+                  <span className="text-gray-400 text-sm">Hjälp</span>
+                </div>
+              </div>
             </div>
           </section>
 
           {/* ENCOURAGEMENT SECTION */}
           <section className={standardSpacing.sectionContent}>
-            <div className="bg-[#FCFAF7] p-5 rounded-lg border-2 border-border flex items-start gap-3">
-              <img 
-                src={iconImage} 
-                alt="Tips icon" 
-                className="w-6 h-6 flex-shrink-0"
-              />
-              <p className={bodyText}>
-                Varje litet steg räknas. Det spelar ingen roll hur långsamt det går, 
-                det viktiga är att du har börjat. Ta dig tid, var snäll mot dig själv, och gör 
-                så gott du kan.
-              </p>
-            </div>
+            {/* CardHeart component */}
+            <CardHeart>
+              Varje litet steg räknas. Det spelar ingen roll hur långsamt det går, 
+              det viktiga är att du har börjat. Ta dig tid, var snäll mot dig själv, och gör 
+              så gott du kan.
+            </CardHeart>
           </section>
 
           {/* BUTTON SECTION */}
