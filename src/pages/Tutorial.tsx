@@ -1,4 +1,3 @@
-
 import { useNavigate } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { sectionHeading, sectionSubheading, cardTitle, cardText, standardCard, primaryButton, pageContainer, standardSpacing, headerContainer, pagePadding, bodyTextBald, bodyText } from "@/lib/design-tokens";
@@ -27,26 +26,23 @@ const Tutorial = () => {
         <div className={standardSpacing.pageContent}>
           <section className={standardSpacing.sectionContent}>
             <p className={sectionSubheading}>
-            Läs om hur du använder appen. Du kan när du vill läsa igen under "Hjälp"
+            Läsa om appen igen under "Hjälp"
             </p>
           </section>
 
           {/* MÅL SECTION */}
           <section className={standardSpacing.sectionContent}>
-            <div className="flex flex-col md:flex-row gap-6">
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
               {/* Text content */}
-              <div className="md:w-2/3 space-y-4">
+              <div className="sm:w-2/3 space-y-4">
                 <h2 className={sectionHeadingStyle}>Mål med appen</h2>
-                <p className={bodyText}>
-                  Välkommen till HjärtKost! 
-                </p>
-
+              
                 <p className={bodyText}> 
-                Målet med appen är att hjälpa användaren att äta enligt den "Nya nordiska dieten",
+                Välkommen till HjärtKost! Målet med appen är att hjälpa användaren att äta enligt den "Nya nordiska dieten",
                 en vetetnskapligt bevisad diet som minskar risken för många livsstilsrelaterade sjukdomar drastiskt.
               </p>
               <p className={bodyText}>
-                Nya nordiska dieten liknar Medelhavsdieten, men fokuserar på lokalt odlade livsmedel 
+                Dieten liknar Medelhavsdieten, men fokuserar på lokalt odlade livsmedel 
                 för ett miljövänligare matmönster. Till exempel ingår:
               </p>
 
@@ -67,15 +63,15 @@ const Tutorial = () => {
                     className="w-6 h-6 flex-shrink-0"
                   />
                   <p className={bodyText}>
-                    Att implementera nya matvanor görs i små steg. Det ska vara roligt och gott, inte ett tvång!
+                    Att implementera nya matvanor görs i små steg. Det ska vara roligt och gott!
                   </p>
                 </div>
               </div>
               
-              {/* Image placeholder - Add an image for this section if you have one */}
-              <div className="md:w-1/3 flex items-start justify-center">
-                <div className="bg-gray-100 border-2 border-gray-300 rounded-lg w-full max-w-[200px] h-[350px] flex items-center justify-center">
-                  <span className="text-gray-400">Mål screenshot</span>
+              {/* Image placeholder */}
+              <div className="sm:w-1/3 flex items-start justify-center sm:justify-end">
+                <div className="bg-gray-100 border-2 border-gray-300 rounded-lg w-full max-w-[140px] sm:max-w-[160px] h-[250px] sm:h-[300px] flex items-center justify-center">
+                  <span className="text-gray-400 text-sm">Mål</span>
                 </div>
               </div>
             </div>
@@ -83,9 +79,9 @@ const Tutorial = () => {
 
           {/* IDAG SECTION */}
           <section className={standardSpacing.sectionContent}>
-            <div className="flex flex-col md:flex-row gap-6">
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
               {/* Text content */}
-              <div className="md:w-2/3 space-y-4">
+              <div className="sm:w-2/3 space-y-4">
                 <h2 className={sectionHeadingStyle}>Idag</h2>
                 <p className={bodyText}>
                   När du öppnar appen hamnar du på "Idag". Här ser du dina valda hälsotips och kan 
@@ -99,17 +95,17 @@ const Tutorial = () => {
                     className="w-6 h-6 flex-shrink-0"
                   />
                   <p className={bodyText}>
-                    Tips: Börja med att välja ett eller två tips att fokusera på denna vecka.
+                    Börja med att välja ett eller två tips att fokusera på denna vecka.
                   </p>
                 </div>
               </div>
               
               {/* Screenshot image */}
-              <div className="md:w-1/3 flex items-start justify-center">
+              <div className="sm:w-1/3 flex items-start justify-center sm:justify-end">
                 <img 
                   src={todayImage} 
                   alt="Today screen screenshot" 
-                  className="w-full max-w-[200px] h-auto border-2 border-gray-300 rounded-lg shadow-md"
+                  className="w-full max-w-[140px] sm:max-w-[160px] h-auto border-2 border-gray-300 rounded-lg shadow-md"
                 />
               </div>
             </div>
@@ -117,10 +113,10 @@ const Tutorial = () => {
 
           {/* TIPS-SIDAN SECTION */}
           <section className={standardSpacing.sectionContent}>
-            <div className="flex flex-col md:flex-row gap-6">
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
               {/* Text content */}
-              <div className="md:w-2/3 space-y-4">
-                <h2 className={sectionHeadingStyle}>Tips-sidan</h2>
+              <div className="sm:w-2/3 space-y-4">
+                <h2 className={sectionHeadingStyle}>Tips</h2>
                 <p className={bodyText}>
                   Under "Tips" hittar du alla hälsoråd. Klicka på ett tips för att läsa mer. 
                   När du hittar något som passar dig, tryck på bocken så hamnar tipset under 
@@ -133,17 +129,17 @@ const Tutorial = () => {
                     className="w-6 h-6 flex-shrink-0"
                   />
                   <p className={bodyText}>
-                    Tips: Börja med att välja ett eller två tips att fokusera på denna vecka.
+                    Börja med att välja ett eller två tips att fokusera på denna vecka.
                   </p>
                 </div>
               </div>
               
               {/* Screenshot image */}
-              <div className="md:w-1/3 flex items-start justify-center">
+              <div className="sm:w-1/3 flex items-start justify-center sm:justify-end">
                 <img 
                   src={tipsImage} 
                   alt="Tips screen screenshot" 
-                  className="w-full max-w-[200px] h-auto border-2 border-gray-300 rounded-lg shadow-md"
+                  className="w-full max-w-[140px] sm:max-w-[160px] h-auto border-2 border-gray-300 rounded-lg shadow-md"
                 />
               </div>
             </div>
@@ -151,10 +147,9 @@ const Tutorial = () => {
 
           {/* FRAMSTEG-SIDAN SECTION */}
           <section className={standardSpacing.sectionContent}>
-            <div className="flex flex-col md:flex-row gap-6">
-              {/* Text content */}
-              <div className="md:w-2/3 space-y-4">
-                <h2 className={sectionHeadingStyle}>Framsteg-sidan</h2>
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
+              <div className="sm:w-2/3 space-y-4">
+                <h2 className={sectionHeadingStyle}>Mina sidor</h2>
                 <p className={bodyText}>
                   Här kan du följa din utveckling över tid. 
                   
@@ -179,11 +174,11 @@ const Tutorial = () => {
               </div>
               
               {/* Screenshot image */}
-              <div className="md:w-1/3 flex items-start justify-center">
+              <div className="sm:w-1/3 flex items-start justify-center sm:justify-end">
                 <img 
                   src={progressImage} 
                   alt="Progress screen screenshot" 
-                  className="w-full max-w-[200px] h-auto border-2 border-gray-300 rounded-lg shadow-md"
+                  className="w-full max-w-[140px] sm:max-w-[160px] h-auto border-2 border-gray-300 rounded-lg shadow-md"
                 />
               </div>
             </div>
@@ -191,19 +186,19 @@ const Tutorial = () => {
 
           {/* HJÄLP SECTION */}
           <section className={standardSpacing.sectionContent}>
-            <div className="flex flex-col md:flex-row gap-6">
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
               {/* Text content */}
-              <div className="md:w-2/3 space-y-4">
+              <div className="sm:w-2/3 space-y-4">
                 <h2 className={sectionHeadingStyle}>Hjälp</h2>
                 <p className={bodyText}>
                   Läs om hur appen fungerar.
                 </p>
               </div>
               
-              {/* Image placeholder - Add an image for this section if you have one */}
-              <div className="md:w-1/3 flex items-start justify-center">
-                <div className="bg-gray-100 border-2 border-gray-300 rounded-lg w-full max-w-[200px] h-[350px] flex items-center justify-center">
-                  <span className="text-gray-400">Hjälp screenshot</span>
+              {/* Image placeholder */}
+              <div className="sm:w-1/3 flex items-start justify-center sm:justify-end">
+                <div className="bg-gray-100 border-2 border-gray-300 rounded-lg w-full max-w-[140px] sm:max-w-[160px] h-[250px] sm:h-[300px] flex items-center justify-center">
+                  <span className="text-gray-400 text-sm">Hjälp</span>
                 </div>
               </div>
             </div>
@@ -241,20 +236,3 @@ const Tutorial = () => {
 };
 
 export default Tutorial;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
