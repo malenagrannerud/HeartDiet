@@ -119,10 +119,18 @@ const Tutorial = () => {
               <div className="sm:w-2/3 space-y-4">
                 <h2 className={sectionHeadingStyle}>Mina sidor</h2>
                 <p className={bodyText}>
-                  Här kan du följa din utveckling över tid. 
-                  
-                  Du ser en kalender med alla tips. När ett tips är klarat, klicka i rutan. 
-                  
+                  I kalendern - checka tips: Här ser du alla tips. När ett tips är klarat, klicka i rutan. 
+                  Du kan även fylla i klarade tips bakåt i tiden. 
+                </p>
+                <p className={bodyText}>
+                  I kalendern - fyll i mätvärden: Här kan du fylla i vikt, blodtryck,
+                  glukos eller blodfetter. Du får även en graf för värdena. 
+                </p>
+                <p className={bodyText}>
+                  Mina hälsomål: Här ser du dina övergripande mål. 
+                </p>
+                <p className={bodyText}>
+                  Mina läkemedel: Fyll i vilka läkemedel du tar, så kan appen påminna dej om interaktioner med läkemedel. 
                 </p>
              
                 
@@ -142,29 +150,18 @@ const Tutorial = () => {
             </div>
           </section>
 
-          {/* HJÄLP SECTION */}
           <section className={standardSpacing.sectionContent}>
             <div className="flex flex-col sm:flex-row gap-1">
-              {/* Text content */}
               <div className="sm:w-2/3 space-y-4">
                 <h2 className={sectionHeadingStyle}>Hjälp</h2>
                 <p className={bodyText}>
                   Läs om hur appen fungerar.
                 </p>
               </div>
-              
-              {/* Image placeholder */}
-              <div className="sm:w-1/3 flex items-start justify-center sm:justify-end">
-                <div className="bg-gray-100 border-2 border-gray-300 rounded-lg w-full max-w-[140px] sm:max-w-[160px] h-[250px] sm:h-[300px] flex items-center justify-center">
-                  <span className="text-gray-400 text-sm">Hjälp</span>
-                </div>
-              </div>
             </div>
           </section>
 
-          {/* ENCOURAGEMENT SECTION */}
           <section className={standardSpacing.sectionContent}>
-            {/* CardHeart component */}
             <CardHeart>
               Varje litet steg räknas. Det spelar ingen roll hur långsamt det går, 
               det viktiga är att du har börjat. Ta dig tid, var snäll mot dig själv, och gör 
@@ -172,7 +169,6 @@ const Tutorial = () => {
             </CardHeart>
           </section>
 
-          {/* BUTTON SECTION */}
           <section className={standardSpacing.sectionContent}>
             <CompleteCardButton 
               cardId="tutorial"
