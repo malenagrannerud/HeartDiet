@@ -41,7 +41,7 @@ const Tutorial = () => {
                   Välkommen till HjärtKost! 
                 </p>
 
-                <<p className={bodyText}> 
+                <p className={bodyText}> 
                 Målet med appen är att hjälpa användaren att äta enligt den "Nya nordiska dieten",
                 en vetetnskapligt bevisad diet som minskar risken för många livsstilsrelaterade sjukdomar drastiskt.
               </p>
