@@ -9,6 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 import { getDayLogs } from "@/lib/tip-completion";
 import { getStorageItem } from "@/lib/storage";
 import { healthPrioritiesSchema, markedTipsSchema, selectedMedicationsSchema, healthMetricsSchema, type DayLog } from "@/lib/schemas";
+import { validateWeight, validateSystolic, validateDiastolic, validateLDL, validateHDL, validateTriglycerides, validateHbA1c, validateFastingGlucose, safeParseFloat, safeParseInt, HEALTH_RANGES } from "@/lib/health-validators";
 import { medications } from "@/data/medications";
 import { StatsBox } from "@/components/ProgressStatsBox";
 import { HealthInfoCard } from "@/components/HealthInfoCard";
@@ -117,30 +118,29 @@ const Progress = () => {
       setMarkedTipIds(markedTips.map(tip => tip.id));
     }
 
-    // Load health metrics for goals
+    // Load health metrics for goals with safe parsing
     const metrics = getStorageItem('healthMetrics', healthMetricsSchema);
     if (metrics) {
-      if (metrics.goalWeight) {
-        setGoalWeight(parseFloat(metrics.goalWeight));
+      const goalW = safeParseFloat(metrics.goalWeight);
+      if (goalW !== undefined) setGoalWeight(goalW);
+      
+      const goalSys = safeParseInt(metrics.goalSystolic);
+      const goalDia = safeParseInt(metrics.goalDiastolic);
+      if (goalSys !== undefined && goalDia !== undefined) {
+        setGoalBloodPressure({ systolic: goalSys, diastolic: goalDia });
       }
-      if (metrics.goalSystolic && metrics.goalDiastolic) {
-        setGoalBloodPressure({
-          systolic: parseInt(metrics.goalSystolic),
-          diastolic: parseInt(metrics.goalDiastolic)
-        });
-      }
-      if (metrics.goalLDL) {
-        setGoalBloodFats(prev => ({ ...prev, ldl: parseFloat(metrics.goalLDL!) }));
-      }
-      if (metrics.goalHDL) {
-        setGoalBloodFats(prev => ({ ...prev, hdl: parseFloat(metrics.goalHDL!) }));
-      }
-      if (metrics.goalHbA1c) {
-        setGoalBloodGlucose(prev => ({ ...prev, hba1c: parseFloat(metrics.goalHbA1c!) }));
-      }
-      if (metrics.goalFastingGlucose) {
-        setGoalBloodGlucose(prev => ({ ...prev, fastingGlucose: parseFloat(metrics.goalFastingGlucose!) }));
-      }
+      
+      const goalL = safeParseFloat(metrics.goalLDL);
+      if (goalL !== undefined) setGoalBloodFats(prev => ({ ...prev, ldl: goalL }));
+      
+      const goalH = safeParseFloat(metrics.goalHDL);
+      if (goalH !== undefined) setGoalBloodFats(prev => ({ ...prev, hdl: goalH }));
+      
+      const goalHba = safeParseFloat(metrics.goalHbA1c);
+      if (goalHba !== undefined) setGoalBloodGlucose(prev => ({ ...prev, hba1c: goalHba }));
+      
+      const goalFG = safeParseFloat(metrics.goalFastingGlucose);
+      if (goalFG !== undefined) setGoalBloodGlucose(prev => ({ ...prev, fastingGlucose: goalFG }));
     }
 
     // Determine if we should show blood fats and blood glucose charts
@@ -279,11 +279,11 @@ const Progress = () => {
 
   const handleSaveWeight = () => {
     if (!selectedDate) return;
-    const kg = parseFloat(weightInput) || 0;
-    if (kg <= 0) {
+    const validation = validateWeight(weightInput);
+    if (!validation.valid) {
       toast({
         title: "Ogiltigt värde",
-        description: "Ange ett giltigt viktvärde",
+        description: validation.error || "Ange ett giltigt viktvärde",
         variant: "destructive"
       });
       return;
@@ -294,12 +294,20 @@ const Progress = () => {
 
   const handleSaveBloodPressure = () => {
     if (!selectedDate) return;
-    const systolic = parseInt(systolicInput) || 0;
-    const diastolic = parseInt(diastolicInput) || 0;
-    if (systolic <= 0 || diastolic <= 0) {
+    const sysValidation = validateSystolic(systolicInput);
+    const diaValidation = validateDiastolic(diastolicInput);
+    if (!sysValidation.valid) {
       toast({
-        title: "Ogiltigt värde",
-        description: "Ange giltiga blodtrycksvärden",
+        title: "Ogiltigt systoliskt värde",
+        description: sysValidation.error || "Ange ett giltigt systoliskt värde",
+        variant: "destructive"
+      });
+      return;
+    }
+    if (!diaValidation.valid) {
+      toast({
+        title: "Ogiltigt diastoliskt värde",
+        description: diaValidation.error || "Ange ett giltigt diastoliskt värde",
         variant: "destructive"
       });
       return;
@@ -388,14 +396,37 @@ const Progress = () => {
   };
 
   const handleSaveBloodFats = () => {
-    const ldl = parseFloat(ldlInput);
-    if (!ldl || ldl <= 0) {
+    const ldlValidation = validateLDL(ldlInput);
+    if (!ldlValidation.valid) {
       toast({
-        title: "Ogiltigt värde",
-        description: "Ange minst LDL-kolesterol",
+        title: "Ogiltigt LDL-värde",
+        description: ldlValidation.error || "Ange ett giltigt LDL-kolesterolvärde",
         variant: "destructive"
       });
       return;
+    }
+    // Validate optional fields if provided
+    if (hdlInput.trim()) {
+      const hdlValidation = validateHDL(hdlInput);
+      if (!hdlValidation.valid) {
+        toast({
+          title: "Ogiltigt HDL-värde",
+          description: hdlValidation.error || "Ange ett giltigt HDL-kolesterolvärde",
+          variant: "destructive"
+        });
+        return;
+      }
+    }
+    if (triglyceridesInput.trim()) {
+      const trigValidation = validateTriglycerides(triglyceridesInput);
+      if (!trigValidation.valid) {
+        toast({
+          title: "Ogiltigt triglyceridvärde",
+          description: trigValidation.error || "Ange ett giltigt triglyceridvärde",
+          variant: "destructive"
+        });
+        return;
+      }
     }
     setPendingEntry({ 
       type: 'bloodFats', 
@@ -458,9 +489,10 @@ const Progress = () => {
   };
 
   const handleSaveBloodGlucose = () => {
-    const hba1c = parseFloat(hba1cInput);
-    const fasting = parseFloat(fastingGlucoseInput);
-    if ((!hba1c || hba1c <= 0) && (!fasting || fasting <= 0)) {
+    const hasHba1c = hba1cInput.trim().length > 0;
+    const hasFasting = fastingGlucoseInput.trim().length > 0;
+    
+    if (!hasHba1c && !hasFasting) {
       toast({
         title: "Ogiltigt värde",
         description: "Ange minst ett blodsockervärde",
@@ -468,6 +500,31 @@ const Progress = () => {
       });
       return;
     }
+    
+    if (hasHba1c) {
+      const hba1cValidation = validateHbA1c(hba1cInput);
+      if (!hba1cValidation.valid) {
+        toast({
+          title: "Ogiltigt HbA1c-värde",
+          description: hba1cValidation.error || "Ange ett giltigt HbA1c-värde",
+          variant: "destructive"
+        });
+        return;
+      }
+    }
+    
+    if (hasFasting) {
+      const fastingValidation = validateFastingGlucose(fastingGlucoseInput);
+      if (!fastingValidation.valid) {
+        toast({
+          title: "Ogiltigt fasteblodsocker",
+          description: fastingValidation.error || "Ange ett giltigt fasteblodsockervärde",
+          variant: "destructive"
+        });
+        return;
+      }
+    }
+    
     setPendingEntry({ 
       type: 'bloodGlucose',
       hba1c: hba1cInput || undefined,
