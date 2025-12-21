@@ -30,10 +30,8 @@ const Tutorial = () => {
           <section className={standardSpacing.sectionContent}>
             <Card className={standardCard}>
               <div className="flex items-start gap-5">
-                <div className="bg-green-100 p-4 rounded-full flex-shrink-0">
-                </div>
                 <div className="space-y-4">
-                  <h2 className={sectionHeading2}> Mål med appen - att äta enligt "Nya nordiska dieten"</h2>
+                  <h2 className={sectionHeading2}> Mål med appen"</h2>
                   <p className={bodyText}>
                     Välkommen till HjärtKost! Målet med appen är att hjälpa användaren att äta enligt den "Nya nordiska dieten",
                     en vetetnskapligt bevisad diet som minskar risken för många livsstilsrelaterade sjukdomar drastiskt.
@@ -42,7 +40,7 @@ const Tutorial = () => {
                     för ett miljövänligare livsmedelsmönster. Till exempel ingår: 
 
                     <DottedList items={[
-                      "Grönsaker och rotfrukter: Kål, morötter, potatis, baljväxter (ärtor, bönor).",
+                      "Grönsaker och rotfrukter: Kål, morötter, potatis",
                       "Frukt och bär: Äpplen, päron, blåbär, lingon.",
                       "Fullkorn: Råg, havre, korn.", 
                       "Fettkällor: Rapsolja, fet fisk (lax, strömming), nötter.",
@@ -50,30 +48,7 @@ const Tutorial = () => {
                       "Andra: Skogssvamp, färska kryddor, sjögräs, skaldjur, fermenterad mat. ",
                     ]} />
                    
-                    Den Nya nordiska kosten implementeras genom att användaren väljer tips att försöka implementera 
-                    varje vecka. Till exempel: 
-                    <DottedList items={[
-                      "Vecka ett väljer jag tipset 'Fem nävar frukt och grönt' varje dag. Jag planerar och utvärderar hur det går", 
-                      "Vecka två forsätter jag med 'Fem nävar frukt och grönt'. Jag lägger även till ett tips, 'Rätt fett' ", 
-                      "Vecka tre lägger jag till två nya tips... ", 
-                      "Flera av tipsen följer jag redan, dom kryssar jag bara i", 
-                     ]} />
-
-                    TIPS: I början kan du till exempel följa tipsen under veckorna, men skippa det under helgen.
-     
-        
-                    Fördelar <br /><br />
-                    Hjärt- och kärlhälsa: Sänker kolesterol och blodtryck.<br /><br />
-                    Blodfetter och blodsocker: Förbättrar insulinkänslighet och blodsocker, särskilt för personer med typ 2-diabetes. <br /><br />
-                    Viktkontroll: Kan bidra till viktminskning. <br /><br />
-                    Hållbarhet: Bygger på lokala och säsongsbetonade råvaror. <br /><br />
-
-                    Vad bör undvikas?
-                    Processad mat.
-                    Godis och chips.
-                    Högt fettinnehåll i kött som bacon och korv. 
-
-                    
+                
                   </p>
                   
                 </div>
@@ -81,18 +56,10 @@ const Tutorial = () => {
             </Card>
           </section>
 
-
-
-
-
-
-
-          
-
           <section className={standardSpacing.sectionContent}>
             <Card className={standardCard}>
               <div className="flex items-start gap-5">
-                <div className="bg-green-100 p-4 rounded-full flex-shrink-0">
+                <div className="bg-green-100 p-1 rounded-full flex-shrink-0">
                   <Home className="w-8 h-8 text-green-700" />
                 </div>
                 <div className="space-y-4">
@@ -111,7 +78,7 @@ const Tutorial = () => {
           <section>
             <Card className={standardCard}>
               <div className="flex items-start gap-5">
-                <div className="bg-blue-100 p-4 rounded-full flex-shrink-0">
+                <div className="bg-blue-100 p-1 rounded-full flex-shrink-0">
                   <BookOpen className="w-8 h-8 text-blue-700" />
                 </div>
                 <div className="space-y-4">
@@ -134,7 +101,7 @@ const Tutorial = () => {
           <section>
             <Card className={standardCard}>
               <div className="flex items-start gap-5">
-                <div className="bg-purple-100 p-4 rounded-full flex-shrink-0">
+                <div className="bg-purple-100 p-1 rounded-full flex-shrink-0">
                   <TrendingUp className="w-8 h-8 text-purple-700" />
                 </div>
                 <div className="space-y-4">
@@ -162,7 +129,7 @@ const Tutorial = () => {
           <section>
             <Card className={standardCard}>
               <div className="flex items-start gap-5">
-                <div className="bg-orange-100 p-4 rounded-full flex-shrink-0">
+                <div className="bg-orange-100 p-1 rounded-full flex-shrink-0">
                   <HelpCircle className="w-8 h-8 text-orange-700" />
                 </div>
                 <div className="space-y-4">
