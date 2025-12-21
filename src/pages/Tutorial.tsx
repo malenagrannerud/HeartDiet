@@ -12,7 +12,7 @@ import progressImage from "@/assets/tutmina_sidor.png";
 
 const Tutorial = () => {
   const navigate = useNavigate();
-  const sectionHeadingStyle = "font-bold text-[16px] text-[#8B4513] mb-4";
+  const sectionHeadingStyle = "font-bold text-[16px] text-[#DC143C] mb-4";
 
   return (
     <div className={pageContainer}>
