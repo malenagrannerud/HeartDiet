@@ -10,22 +10,12 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "
 import { useToast } from "@/hooks/use-toast";
 import { getDayLogs } from "@/lib/tip-completion";
 import { getStorageItem } from "@/lib/storage";
-import { healthMetricsSchema } from "@/lib/schemas";
+import { healthMetricsSchema, type DayLog } from "@/lib/schemas";
 import { pageTitle, pageContainer, headerContainer, pagePadding, bodyTextBald, cardTextSmall } from "@/lib/design-tokens";
 import { ProgressChart } from "@/pages/ProgressChart";
 import { DEFAULT_GOALS } from "@/data/metrics-defaults";
-type MetricType = 'weight' | 'bloodPressure' | 'bloodFats' | 'bloodGlucose';
 
-interface DayLog {
-  date: string;
-  entries: {
-    type: MetricType | 'tip';
-    value: number;
-    value2?: number;
-    value3?: number;
-    tipId?: number;
-  }[];
-}
+type MetricType = 'weight' | 'bloodPressure' | 'bloodFats' | 'bloodGlucose';
 
 const metricConfig: Record<MetricType, {
   title: string;

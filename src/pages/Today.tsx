@@ -142,30 +142,6 @@ const Today = () => {
           <h1 className={pageTitle}>Idag</h1>
           <p className={pageSubtitle}>Dagens fokus</p>
 
-            {/* TEMPORARY RESET BUTTON - REMOVE LATER
-              <Button 
-                onClick={() => {
-                  localStorage.clear();
-                  window.location.reload();
-                }}
-                className="bg-red-500 text-white p-2 text-sm mt-2"
-              >
-                🔄 Reset All Data (Testing)
-              </Button>
-              */}
-              
-              {/* TEMPORARY TEST BUTTON - REMOVE LATER
-              <Button 
-                onClick={() => {
-                  advanceDay();                   // Advance the simulated date by one day
-                  console.log('Advanced to next day');
-                   window.location.reload();
-                }}
-                className="bg-blue-500 text-white p-2 text-sm"
-              >
-                🔄 Test Next Day
-              </Button>
-              */}
 
 
         

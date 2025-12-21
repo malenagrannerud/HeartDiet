@@ -1,6 +1,4 @@
 // pages/TipPages/fullkorn.tsx
-import { useState, useEffect } from "react";
-import { UserPlan } from "@/data/tips";
 import { pageContainer, headerContainer, pagePadding, sectionHeading, sectionHeading2, sectionSubheading2, bodyText, tipCardColors, standardSpacing } from "@/lib/design-tokens";
 import { BackToTodayButton } from "@/components/BackToTodayButton";
 import { UserPlanFormDialog } from "@/components/UserPlanFormDialog";
@@ -15,58 +13,15 @@ import { MedCardCompact } from "@/components/MedCardCompact";
 import { useHealthGoalTips } from "@/hooks/use-health-goal-tips";
 import { HealthGoalCardCompact } from "@/components/HealthGoalCardCompact";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
+import { useTipUserPlans } from "@/hooks/use-tip-user-plans";
 
 const FullkornPage = () => {
-  const [userPlans, setUserPlans] = useState<UserPlan[]>([]);
-  const [editingIndex, setEditingIndex] = useState<number | null>(null);
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const medicationInteractions = useMedicationInteractions(2); // tipId: 2 for Fullkorn
+  const {
+    userPlans, editingIndex, isDialogOpen, setIsDialogOpen,
+    handleSavePlan, handleDeletePlan, handleEditPlan, handleAddPlan, handleCancelEdit,
+  } = useTipUserPlans('fullkorn');
+  const medicationInteractions = useMedicationInteractions(2);
   const healthGoalTips = useHealthGoalTips(2);
-
-  useEffect(() => {
-    const savedPlans = localStorage.getItem('userPlans-fullkorn');
-    if (savedPlans) {
-      setUserPlans(JSON.parse(savedPlans));
-    }
-  }, []);
-
-  const handleSavePlan = (plan: UserPlan) => {
-    let updatedPlans;
-    
-    if (editingIndex !== null) {
-      updatedPlans = [...userPlans];
-      updatedPlans[editingIndex] = plan;
-    } else {
-      updatedPlans = [...userPlans, plan];
-    }
-    
-    setUserPlans(updatedPlans);
-    setEditingIndex(null);
-    localStorage.setItem('userPlans-fullkorn', JSON.stringify(updatedPlans));
-  };
-
-  const handleDeletePlan = (index: number) => {
-    const updatedPlans = userPlans.filter((_, i) => i !== index);
-    setUserPlans(updatedPlans);
-    localStorage.setItem('userPlans-fullkorn', JSON.stringify(updatedPlans));
-  };
-
-  const handleEditPlan = (index: number) => {
-    setEditingIndex(index);
-    setIsDialogOpen(true);
-  };
-
-  const handleAddPlan = () => {
-    setEditingIndex(null);
-    setIsDialogOpen(true);
-  };
-
-  const handleCancelEdit = () => {
-    setEditingIndex(null);
-    setIsDialogOpen(false);
-  };
-
-
 
   return (
     <div className={pageContainer}>

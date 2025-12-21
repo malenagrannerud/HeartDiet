@@ -6,16 +6,7 @@ import { StatsBox } from "@/components/ProgressStatsBox";
 import { MoreButton } from "@/components/MoreButton";
 import { cardTextSmallBold } from "@/lib/design-tokens";
 import { DEFAULT_GOALS } from "@/data/metrics-defaults";
-interface DayLog {
-  date: string;
-  entries: {
-    type: 'weight' | 'bloodPressure' | 'bloodFats' | 'bloodGlucose' | 'tip';
-    value: number;
-    value2?: number;
-    value3?: number;
-    tipId?: number;
-  }[];
-}
+import { type DayLog } from "@/lib/schemas";
 
 interface ProgressChartProps {
   type: 'weight' | 'bloodPressure' | 'bloodFats' | 'bloodGlucose';

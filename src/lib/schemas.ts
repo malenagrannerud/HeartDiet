@@ -89,6 +89,16 @@ export const bloodGlucoseSchema = z.object({
   date: z.string().optional(),
 });
 
+// User plan schema for tip pages
+export const userPlanSchema = z.object({
+  goal: z.string(),
+  when: z.string(),
+  how: z.string(),
+  reminder: z.string(),
+});
+export const userPlansSchema = z.array(userPlanSchema);
+export type UserPlanType = z.infer<typeof userPlanSchema>;
+
 // ✅ UNIFIED HEALTH METRICS SCHEMA
 export const healthMetricsSchema = z.object({ 
   // Basic measurements

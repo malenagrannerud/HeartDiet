@@ -12,6 +12,7 @@ import { z } from 'zod';
 /**
  * Safely get an item from localStorage
  * Returns null if item doesn't exist or parsing fails
+ * When using with a Zod schema, returns the properly typed output
  */
 export function getStorageItem<T>(key: string, schema?: z.ZodType<T>): T | null {
   try {
@@ -26,10 +27,11 @@ export function getStorageItem<T>(key: string, schema?: z.ZodType<T>): T | null 
         console.error(`Validation failed for ${key}:`, result.error);
         return null;
       }
-      return result.data;
+      // Cast to T to ensure proper type inference
+      return result.data as T;
     }
     
-    return parsed;
+    return parsed as T;
   } catch (error) {
     console.error(`Error reading from localStorage (${key}):`, error);
     return null;
