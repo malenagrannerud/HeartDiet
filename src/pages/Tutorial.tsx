@@ -5,9 +5,7 @@ import { BackToTodayButton } from "@/components/BackToTodayButton";
 import { CompleteCardButton } from "@/components/CompleteCardButton";
 import DottedList from "@/components/DottedList";
 import CardHeart from "@/components/CardHeart";
-
 import iconImage from "@/assets/icon.png";
-
 import todayImage from "@/assets/tutidag.png";
 import tipsImage from "@/assets/tuttips.png";
 import progressImage from "@/assets/tutmina_sidor.png";
@@ -31,10 +29,8 @@ const Tutorial = () => {
             </p>
           </section>
 
-          {/* MÅL SECTION */}
           <section className={standardSpacing.sectionContent}>
             <div className="flex flex-col sm:flex-row gap-1">
-              {/* Text content */}
               <div className="sm:w-2/3 space-y-4">
                 <h2 className={sectionHeadingStyle}>Mål med appen</h2>
               
@@ -56,40 +52,31 @@ const Tutorial = () => {
                   "Skogssvamp, färska kryddor, sjögräs, skaldjur, fermenterad mat",
                 ]} />
 
-                {/* CardHeart component */}
                 <CardHeart>
                   Att implementera nya matvanor görs i små steg. Det ska vara roligt och gott!
                 </CardHeart>
               </div>
-              
-              {/* Image placeholder */}
-              <div className="sm:w-1/3 flex items-start justify-center sm:justify-end">
-                <div className="bg-gray-100 border-2 border-gray-300 rounded-lg w-full max-w-[140px] sm:max-w-[160px] h-[250px] sm:h-[300px] flex items-center justify-center">
-                  <span className="text-gray-400 text-sm">Mål</span>
-                </div>
-              </div>
             </div>
           </section>
 
-          {/* IDAG SECTION */}
           <section className={standardSpacing.sectionContent}>
             <div className="flex flex-col sm:flex-row gap-1">
-              {/* Text content */}
               <div className="sm:w-2/3 space-y-4">
                 <h2 className={sectionHeadingStyle}>Idag</h2>
                 <p className={bodyText}>
-                  När du öppnar appen hamnar du på "Idag". Här ser du dina valda hälsotips och kan 
-                  följa stegen i din egen takt. Du behöver inte göra allt på en gång - ta det lugnt och 
-                  börja med det som känms rätt för dig.
+                  När du öppnar appen hamnar du på "Idag". 
+                  Här ser du vad du ska göra för dagen. 
+                  Det kan vara att fylla i ett formulär eller läsa en artikel.
+
+                  
+                  
                 </p>
                 
-                {/* CardHeart component */}
                 <CardHeart>
-                  Börja med att välja ett eller två tips att fokusera på denna vecka.
+                  Följ stegen i din egen takt. Du behöver inte göra klart allt under en dag, de sparas.  
                 </CardHeart>
               </div>
               
-              {/* Screenshot image */}
               <div className="sm:w-1/3 flex items-start justify-center sm:justify-end">
                 <img 
                   src={todayImage} 
@@ -100,25 +87,23 @@ const Tutorial = () => {
             </div>
           </section>
 
-          {/* TIPS-SIDAN SECTION */}
           <section className={standardSpacing.sectionContent}>
             <div className="flex flex-col sm:flex-row gap-1">
-              {/* Text content */}
               <div className="sm:w-2/3 space-y-4">
-                <h2 className={sectionHeadingStyle}>Tips</h2>
+                <h2 className={sectionHeadingStyle}>Mina tips</h2>
                 <p className={bodyText}>
-                  Under "Tips" hittar du alla hälsoråd. Klicka på ett tips för att läsa mer. 
+                  Här hittar du alla hälsoråd. Klicka på ett tips för att läsa mer, 
+                  eller skapa en plan för hur du vill impementera just detta tips. 
                   När du hittar något som passar dig, tryck på bocken så hamnar tipset under 
                   "Mina valda tips" på Idag-sidan.
+                  Du kan checka av tipset om du har uppnåt det.
                 </p>
                 
-                {/* CardHeart component */}
                 <CardHeart>
-                  Börja med att välja ett eller två tips att fokusera på denna vecka.
+                  Börja med att välja ett eller två tips att fokusera på varje vecka.
                 </CardHeart>
               </div>
               
-              {/* Screenshot image */}
               <div className="sm:w-1/3 flex items-start justify-center sm:justify-end">
                 <img 
                   src={tipsImage} 
@@ -129,7 +114,6 @@ const Tutorial = () => {
             </div>
           </section>
 
-          {/* FRAMSTEG-SIDAN SECTION */}
           <section className={standardSpacing.sectionContent}>
             <div className="flex flex-col sm:flex-row gap-1">
               <div className="sm:w-2/3 space-y-4">
@@ -137,15 +121,11 @@ const Tutorial = () => {
                 <p className={bodyText}>
                   Här kan du följa din utveckling över tid. 
                   
-                  Du ser en kalender med alla olika råd och hälsodata att fylla i. 
-                  Klicka på ett råd för att logga det som "klarat" för dagen.
+                  Du ser en kalender med alla tips. När ett tips är klarat, klicka i rutan. 
+                  
                 </p>
-                <p className={bodyText}>
-                  Små färgade rutor visar vilka tips du har följt. Ett litet hjärta ♥ betyder 
-                  att du har registrerat blodtryck, och en vågsymbol ⚖ betyder att du har registrerat din vikt.
-                </p>
+             
                 
-                {/* CardHeart component */}
                 <CardHeart>
                   Tips: Du behöver inte fylla i något varje dag. Gör det när det passar dig.
                 </CardHeart>
