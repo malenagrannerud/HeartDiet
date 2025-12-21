@@ -37,7 +37,7 @@ const Tutorial = () => {
                 <p className={bodyText}> 
                 Välkommen till HjärtKost! Målet med appen är att hjälpa användaren att implementera alla tips (se "Mina tips") i slutändan. 
                 Man äter då enligt den "Nya nordiska dieten",
-                en vetetnskapligt bevisad diet som minskar risken för många livsstilsrelaterade sjukdomar drastiskt.
+                en vetenskapligt bevisad diet som minskar risken för många livsstilsrelaterade sjukdomar drastiskt.
               </p>
               <p className={bodyText}>
                 Dieten liknar Medelhavsdieten, men fokuserar på lokalt odlade livsmedel 
