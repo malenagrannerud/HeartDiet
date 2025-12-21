@@ -4,6 +4,8 @@ import { Card } from "@/components/ui/card";
 import { sectionHeading, sectionSubheading, sectionHeading2, cardTitle, cardText, standardCard, primaryButton, pageContainer, standardSpacing, headerContainer, pagePadding, bodyTextBald, bodyText } from "@/lib/design-tokens";
 import { BackToTodayButton } from "@/components/BackToTodayButton";
 import { CompleteCardButton } from "@/components/CompleteCardButton";
+import { DottedList } from "@/components/DottedList";
+
 
 const Tutorial = () => {
   const navigate = useNavigate();
