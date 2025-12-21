@@ -12,12 +12,8 @@ export const getCompletedCards = (): CardCompletion[] => {
 };
 
 export const markCardCompleted = (cardId: CardId): boolean => {
-  console.log('markCardCompleted called with:', cardId);
   const completedCards = getCompletedCards();
   const today = getCurrentDate().toISOString().split('T')[0];
-  
-  console.log('Current completedCards:', completedCards);
-  console.log('Today:', today);
   
   // Remove any existing completion for this card today and add new one
   const filteredCards = completedCards.filter(
@@ -29,11 +25,7 @@ export const markCardCompleted = (cardId: CardId): boolean => {
     { cardId, completedDate: today }
   ];
   
-  console.log('Updated cards to save:', updatedCards);
-  const result = setStorageItem(COMPLETED_CARDS_KEY, updatedCards, cardCompletionsSchema);
-  console.log('setStorageItem result:', result);
-  
-  return result;
+  return setStorageItem(COMPLETED_CARDS_KEY, updatedCards, cardCompletionsSchema);
 };
 
 export const isCardCompletedToday = (cardId: CardId): boolean => {
@@ -68,16 +60,10 @@ export const getCardsToHide = (): Record<CardId, boolean> => {
   const completedCards = getCompletedCards();
   const today = getCurrentDate().toISOString().split('T')[0];
   
-  console.log('🕵️ getCardsToHide - Today:', today);
-  console.log('🕵️ getCardsToHide - All completed cards:', completedCards);
-  
-  const result = {
+  return {
     'tutorial': completedCards.some(card => card.cardId === 'tutorial' && card.completedDate !== today),
     'health-goals': completedCards.some(card => card.cardId === 'health-goals' && card.completedDate !== today),
     'medications': completedCards.some(card => card.cardId === 'medications' && card.completedDate !== today),
     'health-metrics': completedCards.some(card => card.cardId === 'health-metrics' && card.completedDate !== today),
   };
-  
-  console.log('🕵️ getCardsToHide - Cards to hide:', result);
-  return result;
 };
