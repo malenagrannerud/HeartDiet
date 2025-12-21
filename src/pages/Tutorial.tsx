@@ -35,7 +35,8 @@ const Tutorial = () => {
                 <h2 className={sectionHeadingStyle}>Mål med appen</h2>
               
                 <p className={bodyText}> 
-                Välkommen till HjärtKost! Målet med appen är att hjälpa användaren att äta enligt den "Nya nordiska dieten",
+                Välkommen till HjärtKost! Målet med appen är att hjälpa användaren att implementera alla tips (se "Mina tips") i slutändan. 
+                Man äter då enligt den "Nya nordiska dieten",
                 en vetetnskapligt bevisad diet som minskar risken för många livsstilsrelaterade sjukdomar drastiskt.
               </p>
               <p className={bodyText}>
