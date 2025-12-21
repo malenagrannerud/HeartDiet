@@ -79,7 +79,8 @@ const Tutorial = () => {
 
           {/* IDAG SECTION */}
           <section className={standardSpacing.sectionContent}>
-              <div className="flex flex-col sm:flex-row gap-1">              {/* Text content */}
+            <div className="flex flex-col sm:flex-row gap-1">
+              {/* Text content */}
               <div className="sm:w-2/3 space-y-4">
                 <h2 className={sectionHeadingStyle}>Idag</h2>
                 <p className={bodyText}>
@@ -112,7 +113,7 @@ const Tutorial = () => {
 
           {/* TIPS-SIDAN SECTION */}
           <section className={standardSpacing.sectionContent}>
-            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
+            <div className="flex flex-col sm:flex-row gap-1">
               {/* Text content */}
               <div className="sm:w-2/3 space-y-4">
                 <h2 className={sectionHeadingStyle}>Tips</h2>
@@ -146,7 +147,7 @@ const Tutorial = () => {
 
           {/* FRAMSTEG-SIDAN SECTION */}
           <section className={standardSpacing.sectionContent}>
-            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
+            <div className="flex flex-col sm:flex-row gap-1">
               <div className="sm:w-2/3 space-y-4">
                 <h2 className={sectionHeadingStyle}>Mina sidor</h2>
                 <p className={bodyText}>
@@ -185,7 +186,7 @@ const Tutorial = () => {
 
           {/* HJÄLP SECTION */}
           <section className={standardSpacing.sectionContent}>
-            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
+            <div className="flex flex-col sm:flex-row gap-1">
               {/* Text content */}
               <div className="sm:w-2/3 space-y-4">
                 <h2 className={sectionHeadingStyle}>Hjälp</h2>
