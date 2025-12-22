@@ -56,12 +56,17 @@ const FettPage = () => {
         <div>
           <p className={bodyText}> Byt ut det mättade fettet där du kan </p>
           <DottedList items={[
-            <span key="1">Stekning och bakning: Smör <span className="text-green-600 text-xl">→</span> olivolja eller rapsolja </span>,
-            <span key="2">På smörgås: Smör <span className="text-green-600 text-xl">→</span> avokado, hummus eller olivolja</span>,
-            <span key="3">Köttfärs: Fetthalt 12-20%   <span className="text-green-600 text-xl">→</span> Max 10% </span>,
-            <span key="4">Grilla: Kött <span className="text-green-600 text-xl">→</span> Lax, kyckling, kalkon </span>,
-            <span key="5">Bearnaise på smör <span className="text-green-600 text-xl">→</span> Bearnaise på olja </span>,
-            <span key="5">Brunsås på smör <span className="text-green-600 text-xl">→</span> Brunsås på sky </span>,
+            <span key="1">Stekning och bakning: Smör <span className="text-green-500 font-black text-3xl drop-shadow-lg">➤</span> olivolja eller rapsolja </span>,
+            <span key="2">På smörgås: Smör <span className="text-green-500 font-black text-3xl drop-shadow-lg">➤</span>
+ avokado, hummus eller olivolja</span>,
+            <span key="3">Köttfärs: Fetthalt 12-20%   <span className="text-green-500 font-black text-3xl drop-shadow-lg">➤</span>
+Max 10% </span>,
+            <span key="4">Grilla: Kött <span className="text-green-500 font-black text-3xl drop-shadow-lg">➤</span>
+ Lax, kyckling, kalkon </span>,
+            <span key="5">Bearnaise på smör <span className="text-green-500 font-black text-3xl drop-shadow-lg">➤</span>
+ Bearnaise på olja </span>,
+            <span key="5">Brunsås på smör <span className="text-green-500 font-black text-3xl drop-shadow-lg">➤</span>
+Brunsås på sky </span>,
 
       
           ]} />
