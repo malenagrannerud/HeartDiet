@@ -1,7 +1,7 @@
-// components/GreenArrow.jsx
+// components/ArrowExchange.tsx
 import React from 'react';
 
-const GreenArrow = ({
+const ArrowExchange = ({
   size = 32,             // Arrow size in pixels
   thickness = 'thick',   // 'thin', 'medium', 'thick', 'extra-thick'
   color = '#10B981',     // Emerald green - very visible
@@ -39,4 +39,4 @@ const GreenArrow = ({
   );
 };
 
-export default GreenArrow;
+export default ArrowExchange; // Changed from GreenArrow to ArrowExchange
