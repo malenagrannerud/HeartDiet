@@ -24,9 +24,7 @@ const Tutorial = () => {
       <main className={pagePadding}>
         <div className={standardSpacing.pageContent}>
           <section className={standardSpacing.sectionContent}>
-            <p className={sectionSubheading}>
-            Läs om appen igen under "Hjälp"
-            </p>
+           
           </section>
 
           <section className={standardSpacing.sectionContent}>
@@ -42,20 +40,20 @@ const Tutorial = () => {
                 
                 <p className={bodyText}>
                   HjärtKost fokuserar på lokalt odlade livsmedel för ett miljövänligare matmönster. 
-                  Dieten Då brukar dieten kallas för hälsosam nordisk kost / Nordiska dieten / Nya nordiska dieten.
+                  Dieten Då brukar dieten kallas för hälsosam nordisk kost / nordiska dieten / nya nordiska dieten.
                   Huvuddelarna i dieten:
                 </p>
 
                 <DottedList items={[
-                  "Undvik ultraprocessad mat (mat med en innehållförteckning )",
+                  "Undvik ultraprocessad mat",
                   "Fem nävar frukter/bär och grönsaker per dag",
                   "Mer fullkorn", 
-                  "Olivolja och rapsolja ersätter allt annat fett i köket.",
+                  "Olivolja och rapsolja ersätter allt fett i köket",
                   "Drick kaffe",
                   "Fysisk aktivitet varje dag",
                 ]} />
 
-                https://www.youtube.com/watch?v=f4yr-jjxD00&t=5s
+               <p className={bodyText}> See "Secrets of the Mediterranean diet" https://www.youtube.com/watch?v=f4yr-jjxD00&t=5s </p>
 
                 <CardHeart>
                   Att implementera nya matvanor görs i små steg. Det ska vara roligt och gott!
@@ -71,10 +69,7 @@ const Tutorial = () => {
                 <p className={bodyText}>
                   När du öppnar appen hamnar du på "Idag". 
                   Här ser du vad du ska göra för dagen. 
-                  Det kan vara att fylla i ett formulär eller läsa en artikel.
-
-                  
-                  
+                  Det kan vara att fylla i ett formulär eller läsa en artikel.            
                 </p>
                 
                 <CardHeart>
@@ -97,7 +92,7 @@ const Tutorial = () => {
               <div className="sm:w-2/3 space-y-4">
                 <h2 className={sectionHeadingStyle}>Mina tips</h2>
                 <p className={bodyText}>
-                  Här hittar du alla hälsoråd. Klicka på ett tips för att läsa mer, 
+                  Här hittar du alla tips. Klicka på ett tips för att läsa mer, 
                   eller skapa en plan för hur du vill impementera just detta tips. 
                   När du hittar något som passar dig, tryck på bocken så hamnar tipset under 
                   "Mina valda tips" på Idag-sidan.
@@ -139,25 +134,19 @@ const Tutorial = () => {
                 </p>
              
                 
-                <CardHeart>
-                  Tips: Du behöver inte fylla i något varje dag. Gör det när det passar dig.
-                </CardHeart>
+                
               </div>
-              
+                 <div className="sm:w-1/3 flex items-start justify-center sm:justify-end">
+                <img 
+                  src={progressImage} 
+                  alt="Progress screen screenshot" 
+                  className="w-full max-w-[140px] sm:max-w-[160px] h-auto border-2 border-gray-300 rounded-lg shadow-md"
+                />
              
             </div>
           </section>
 
-          <section className={standardSpacing.sectionContent}>
-            <div className="flex flex-col sm:flex-row gap-1">
-              <div className="sm:w-2/3 space-y-4">
-                <h2 className={sectionHeadingStyle}>Hjälp</h2>
-                <p className={bodyText}>
-                  Läs om hur appen fungerar.
-                </p>
-              </div>
-            </div>
-          </section>
+
 
           <section className={standardSpacing.sectionContent}>
             <CardHeart>
