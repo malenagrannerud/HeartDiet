@@ -30,13 +30,14 @@ const Tutorial = () => {
      
       <main className={pagePadding}>
         <div className={standardSpacing.pageContent}>
+          
           <section className={`${standardSpacing.sectionContent} mb-8 p-6 bg-gray-50 border border-gray-200`}>
             <h2 className={`${sectionHeadingStyle} text-lg`}>Innehållsförteckning</h2>
             <ul className="space-y-0 mt-0">
               <li>
                 <button 
                   onClick={() => scrollToSection('mal-med-appen')}
-                  className="text-left hover:text-[#DC143C] transition-colors duration-200 w-full py-2"
+                  className="text-left hover:text-[#DC143C] transition-colors duration-200 w-full py-1"
                 >
                   <span className="font-medium">Mål med appen</span>
                 </button>
@@ -44,7 +45,7 @@ const Tutorial = () => {
               <li>
                 <button 
                   onClick={() => scrollToSection('idag')}
-                  className="text-left hover:text-[#DC143C] transition-colors duration-200 w-full py-2"
+                  className="text-left hover:text-[#DC143C] transition-colors duration-200 w-full py-1"
                 >
                   <span className="font-medium">Idag</span>
                 </button>
@@ -52,7 +53,7 @@ const Tutorial = () => {
               <li>
                 <button 
                   onClick={() => scrollToSection('mina-tips')}
-                  className="text-left hover:text-[#DC143C] transition-colors duration-200 w-full py-2"
+                  className="text-left hover:text-[#DC143C] transition-colors duration-200 w-full py-1"
                 >
                   <span className="font-medium">Mina tips</span>
                 </button>
@@ -60,7 +61,7 @@ const Tutorial = () => {
               <li>
                 <button 
                   onClick={() => scrollToSection('mina-sidor')}
-                  className="text-left hover:text-[#DC143C] transition-colors duration-200 w-full py-2"
+                  className="text-left hover:text-[#DC143C] transition-colors duration-200 w-full py-1"
                 >
                   <span className="font-medium">Mina sidor</span>
                 </button>
@@ -80,9 +81,7 @@ const Tutorial = () => {
                 </p>
                 
                 <p className={bodyText}>
-                  HjärtKost fokuserar på lokalt odlade livsmedel för ett miljövänligare matmönster. 
-                  Då brukar dieten kallas för hälsosam nordisk kost / nordiska dieten / nya nordiska dieten.
-                  Huvuddelarna i dieten:
+                  HjärtKost fokuserar på lokalt odlade livsmedel för ett miljövänligare matmönster. Huvuddelarna i dieten:
                 </p>
 
                 <DottedList items={[
@@ -122,7 +121,7 @@ const Tutorial = () => {
             </div>
           </section>
 
-          <section id="idag" className={standardSpacing.sectionContent}>
+          <section id="idag" className={`${standardSpacing.sectionContent} mb-10`}>
             <div className="flex flex-col sm:flex-row gap-1">
               <div className="sm:w-2/3 space-y-4">
                 <h2 className={sectionHeadingStyle}>Idag</h2>
@@ -147,7 +146,7 @@ const Tutorial = () => {
             </div>
           </section>
 
-          <section id="mina-tips" className={standardSpacing.sectionContent}>
+          <section id="mina-tips" className={`${standardSpacing.sectionContent} mb-10`}>
             <div className="flex flex-col sm:flex-row gap-1">
               <div className="sm:w-2/3 space-y-4">
                 <h2 className={sectionHeadingStyle}>Mina tips</h2>
@@ -174,7 +173,7 @@ const Tutorial = () => {
             </div>
           </section>
 
-          <section id="mina-sidor" className={standardSpacing.sectionContent}>
+          <section id="mina-sidor" className={`${standardSpacing.sectionContent} mb-10`}>
             <div className="flex flex-col sm:flex-row gap-1">
               <div className="sm:w-2/3 space-y-4">
                 <h2 className={sectionHeadingStyle}>Mina sidor</h2>
