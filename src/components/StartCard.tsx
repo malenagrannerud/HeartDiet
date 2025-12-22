@@ -1,5 +1,6 @@
 // components/StartCard.tsx
 import { Card } from "@/components/ui/card";
+import { interactiveCard, cardTitle, cardTitleSmall } from "@/lib/design-tokens";
 import { Clock } from "lucide-react";
 
 interface StartCardProps {
@@ -31,29 +32,27 @@ export const StartCard = ({
 
   return (
     <Card 
-      // Applied deeper blue: Blue-100 as base with hover to blue-200
-      className="p-5 border-0 shadow-sm bg-blue-100 min-h-[80px] cursor-pointer hover:bg-blue-200 transition-all active:scale-[0.98]"
+      // ONLY CHANGE: Override the background to blue-100, keep all other original classes
+      className={`${interactiveCard} bg-blue-100 ${hasImage ? 'relative' : ''} py-3 h-28`}
       onClick={onClick}
       aria-label={ariaLabel}
     >
-      {/* Text container with vertical centering - adjusted for new padding */}
-      <div className={`${hasImage ? 'pr-[33%]' : ''} h-full flex items-center`}>
-        <div className="w-full">
-          {/* Title with deeper blue text (blue-900) */}
-          <h4 className="font-semibold text-lg text-blue-900 mb-2">{title}</h4>
-          
-          {/* Label/time row with medium blue text (blue-700) */}
-          <div className="flex items-center gap-2 text-sm text-blue-700">
+      {/* Text container with vertical centering */}
+      <div className={`${hasImage ? 'pr-[33%] h-full flex items-center' : 'h-full flex items-center'}`}>
+        <div>
+          <h4 className={cardTitle}>{title}</h4>
+          <div className={`flex items-center gap-2 ${cardTitleSmall} mt-1`}>
             {icon}
             <span>{label}</span>
-            <Clock size={12} strokeWidth={2.5} className="text-blue-600" />
+            <Clock size={12} strokeWidth={2.5} />
             <span>{time}</span>
           </div>
         </div>
       </div>
       
+      {/* Image container fixed at bottom with same height */}
       {hasImage && imageSrc && (
-        <div className="absolute right-4 bottom-4 w-1/4 h-20">
+        <div className="absolute right-0 bottom-0 w-1/3 h-24">
           <img 
             src={imageSrc}
             alt={imageAlt || ""}
