@@ -14,13 +14,13 @@ const TipCard = ({ tip, onClick, isCompleted = false }: TipCardProps) => {
   
   return (
     <Card
-      className={`p-5 hover:shadow-md transition-all cursor-pointer active:scale-[0.98] ${tip.color} border-0 shadow-none min-h-[100px] ${
+      className={`p-5 hover:shadow-md transition-all cursor-pointer active:scale-[0.98] ${tip.color} border-0 shadow-none min-h-[100px] rounded-none ${
         isCompleted ? 'opacity-60' : ''
       }`}
       onClick={onClick}
     >
       <div className="flex items-center justify-between gap-2 h-full">
-        <div className="flex flex-col justify-center pt-2"> {/* Added pt-2 */}
+        <div className="flex flex-col justify-center pt-2">
           <h3 className={`${cardTitle} !mb-0`}>{tip.title}</h3>
           <div className={`${cardTitleSmall} mt-0`}>
             {tip.freq} 
