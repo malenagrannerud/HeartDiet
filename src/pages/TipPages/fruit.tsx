@@ -15,7 +15,7 @@ import { MedCardCompact } from "@/components/MedCardCompact";
 import { useHealthGoalTips } from "@/hooks/use-health-goal-tips";
 import { HealthGoalCardCompact } from "@/components/HealthGoalCardCompact";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
-import sansongImage from './assets/sasong.png';
+import sasongImage from './assets/sasong.png';
 
 
 
@@ -128,7 +128,7 @@ const FruitPage = () => {
 
           <div className="md:w-1/3 flex justify-center">
             <img 
-              src={sansongImage} 
+              src={sasongImage} 
               alt="Säsongstabell för grönsaker och frukt" 
               className="w-full max-w-[280px] rounded-lg shadow-lg border border-gray-300"
             />
