@@ -40,7 +40,7 @@ const FullkornPage = () => {
 
         <div> 
           <p className={bodyText}>Fullkorn är ett sädeskorn som innehåller alla sina tre delar: kli, grodd och frövita. Detta gäller även om kornet har krossats eller malts till ett fullkornsmjöl. Till skillnad från vitt mjöl, där de näringsrika delarna kli och grodd har tagits bort, innehåller fullkornsprodukter mer fibrer, vitaminer och mineraler.</p>
-          <p> Fullkorn kommer ifrån bland annat</p>
+          <p Fullkorn kommer ifrån bland annat</p>
           <DottedList items={[
                             "Vete, råg, korn och havre",
                             "Ris",
@@ -75,21 +75,21 @@ const FullkornPage = () => {
 
         <div>
           <h2 className={sectionHeading2}>Fullkornsprodukter</h2>
-          <p> För att äta 90 g fullkorn kan du till exempel äta: </p>
+          <p className={bodyText}> För att äta 90 g fullkorn kan du till exempel äta: </p>
           <DottedList items={[
             "Havregryn (100% fullkorn). En portion är ca 35 g",
-            "Vanligt bröd <span className="text-green-500 font-black text-3xl drop-shadow-lg">➤</span> Knäckebröd (100% fullkorn). 2 skivor är ca 24 g",
+            <span key="bread">Vanligt bröd <span className="text-green-500 font-black text-3xl drop-shadow-lg">➤</span> Knäckebröd (100% fullkorn). 2 skivor är ca 24 g</span>,
             "Musli (55% fullkorn)",
-            "Fullkornsbröd (20 - 70%) fullkorn ",
-            "Pasta <span className="text-green-500 font-black text-3xl drop-shadow-lg">➤</span> Fullkornspasta (55% fullkorn). En portion är ca 40 g", 
-            "Pasta <span className="text-green-500 font-black text-3xl drop-shadow-lg">➤</span> Mathavre (55% fullkorn). En portion är ca 40 g", 
-            "Vitt mjöl <span className="text-green-500 font-black text-3xl drop-shadow-lg">➤</span> Mjöl på fullkorn (100% fullkorn)." 
+            "Fullkornsbröd (20 - 70%) fullkorn",
+            <span key="pasta1">Pasta <span className="text-green-500 font-black text-3xl drop-shadow-lg">➤</span> Fullkornspasta (55% fullkorn). En portion är ca 40 g</span>,
+            <span key="pasta2">Pasta <span className="text-green-500 font-black text-3xl drop-shadow-lg">➤</span> Mathavre (55% fullkorn). En portion är ca 40 g</span>,
+            <span key="flour">Vitt mjöl <span className="text-green-500 font-black text-3xl drop-shadow-lg">➤</span> Mjöl på fullkorn (100% fullkorn).</span>
           ]} />
         </div>
 
         <div>
           <h2 className={sectionHeading2}>Varför minst 90 g om dagen?</h2>
-          <p>Du mår bättre av fullkorn eftersom det bidrar till</p>
+          <p className={bodyText}>Du mår bättre av fullkorn eftersom det bidrar till</p>
 
             <Accordion type="multiple" className="mt-1">
                 <AccordionItem value="immune">
