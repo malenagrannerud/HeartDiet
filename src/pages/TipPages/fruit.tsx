@@ -115,19 +115,14 @@ const FruitPage = () => {
           </div>
         )}
 
-        {/* Seasonal eating section - FIXED missing closing div */}
-        <div className="mt-6 p-6 bg-green-50 border border-green-200 rounded-xl">
           <div className="flex flex-col md:flex-row gap-6 items-center">
             <div className="md:w-2/3">
-             
               <p className="text-gray-600 mb-4">
-                Att äta grönsaker och frukt när de är i säsong ger dig maximal näring 
+                Grönsaker och frukt i säsong ger maximal näring 
                 samtidigt som det är bättre för miljön. Lokalt odlade säsongsvaror 
                 har kortare transportvägar och mindre klimatpåverkan.
               </p>
-              
-            </div>
-            
+            </div> 
             <div className="md:w-1/3 flex justify-center">
               <img 
                 src={sasongImage} 
@@ -136,7 +131,8 @@ const FruitPage = () => {
               />
             </div>
           </div>
-        </div>
+
+        
 
         <div> 
           <h2 className={sectionHeading2}>Varför minst fem om dagen?</h2>
