@@ -14,7 +14,7 @@ import { useHealthGoalTips } from "@/hooks/use-health-goal-tips";
 import { HealthGoalCardCompact } from "@/components/HealthGoalCardCompact";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import { useTipUserPlans } from "@/hooks/use-tip-user-plans";
-import GreenArrow from "@/components/GreenArrow";
+import GreenArrow from "@/components/ArrowExchanage";
 
 
 
