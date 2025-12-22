@@ -54,7 +54,7 @@ export const tips: Tip[] = [
   },
   {
     id: 6,
-    title: "Rött och bearbetat kött",
+    title: "Rött & bearbetat kött",
     color: tipCardColors.darkrose,
     freq: `Veckovis`,
     icon: "Beef"
