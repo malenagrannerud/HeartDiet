@@ -14,6 +14,14 @@ const Tutorial = () => {
   const navigate = useNavigate();
   const sectionHeadingStyle = "font-bold text-[16px] text-[#DC143C] mb-4";
 
+  // Scroll to section function
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className={pageContainer}>
       <header className={headerContainer}>
@@ -23,11 +31,54 @@ const Tutorial = () => {
      
       <main className={pagePadding}>
         <div className={standardSpacing.pageContent}>
-          <section className={standardSpacing.sectionContent}>
-            {/* Empty section - intentional? */}
+          {/* INNEHÅLLSFÖRTECKNING */}
+          <section className={`${standardSpacing.sectionContent} mb-8 p-6 bg-gray-50 rounded-lg border border-gray-200`}>
+            <h2 className={`${sectionHeadingStyle} text-lg`}>Innehållsförteckning</h2>
+            <ul className="space-y-3 mt-4">
+              <li className="flex items-start">
+                <div className="w-2 h-2 bg-[#DC143C] rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                <button 
+                  onClick={() => scrollToSection('mal-med-appen')}
+                  className="text-left hover:text-[#DC143C] transition-colors duration-200"
+                >
+                  <span className="font-medium">Mål med appen</span>
+                  <p className="text-gray-600 text-sm mt-1">Lär dig om HjärtKosts syfte och den nordiska dieten</p>
+                </button>
+              </li>
+              <li className="flex items-start">
+                <div className="w-2 h-2 bg-[#DC143C] rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                <button 
+                  onClick={() => scrollToSection('idag')}
+                  className="text-left hover:text-[#DC143C] transition-colors duration-200"
+                >
+                  <span className="font-medium">Idag</span>
+                  <p className="text-gray-600 text-sm mt-1">Hur du använder dagens uppgifter</p>
+                </button>
+              </li>
+              <li className="flex items-start">
+                <div className="w-2 h-2 bg-[#DC143C] rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                <button 
+                  onClick={() => scrollToSection('mina-tips')}
+                  className="text-left hover:text-[#DC143C] transition-colors duration-200"
+                >
+                  <span className="font-medium">Mina tips</span>
+                  <p className="text-gray-600 text-sm mt-1">Hantera och välja hälsotips</p>
+                </button>
+              </li>
+              <li className="flex items-start">
+                <div className="w-2 h-2 bg-[#DC143C] rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                <button 
+                  onClick={() => scrollToSection('mina-sidor')}
+                  className="text-left hover:text-[#DC143C] transition-colors duration-200"
+                >
+                  <span className="font-medium">Mina sidor</span>
+                  <p className="text-gray-600 text-sm mt-1">Kalender, mätvärden och hälsomål</p>
+                </button>
+              </li>
+            </ul>
           </section>
 
-          <section className={standardSpacing.sectionContent}>
+          <section id="mal-med-appen" className={standardSpacing.sectionContent}>
             <div className="flex flex-col sm:flex-row gap-1">
               <div className="sm:w-2/3 space-y-4">
                 <h2 className={sectionHeadingStyle}>Mål med appen</h2>
@@ -53,18 +104,6 @@ const Tutorial = () => {
                   "Fysisk aktivitet varje dag",
                 ]} />
 
-                <div className="sm:w-1/3 flex items-start justify-center sm:justify-end">
-                <img 
-                  src={tipsImage} 
-                  alt="Tips screen screenshot" 
-                  className="w-full max-w-[140px] sm:max-w-[160px] h-auto border-2 border-gray-300 rounded-lg shadow-md"
-                />
-              </div>
-
-
-
-            
-
                 <p className={bodyText}>
                   Se gärna{" "}
                   <a 
@@ -77,17 +116,23 @@ const Tutorial = () => {
                   </a>
                   {" "}på youtube.
                 </p>
-                                   
 
                 <CardHeart>
                   Att implementera nya matvanor görs i små steg. Det ska vara roligt och gott!
                 </CardHeart>
               </div>
-              {/* Missing closing div for sm:w-2/3? Actually it's closed */}
+              
+              <div className="sm:w-1/3 flex items-start justify-center sm:justify-end">
+                <img 
+                  src={tipsImage} 
+                  alt="Tips screen screenshot" 
+                  className="w-full max-w-[140px] sm:max-w-[160px] h-auto border-2 border-gray-300 rounded-lg shadow-md"
+                />
+              </div>
             </div>
           </section>
 
-          <section className={standardSpacing.sectionContent}>
+          <section id="idag" className={standardSpacing.sectionContent}>
             <div className="flex flex-col sm:flex-row gap-1">
               <div className="sm:w-2/3 space-y-4">
                 <h2 className={sectionHeadingStyle}>Idag</h2>
@@ -112,7 +157,7 @@ const Tutorial = () => {
             </div>
           </section>
 
-          <section className={standardSpacing.sectionContent}>
+          <section id="mina-tips" className={standardSpacing.sectionContent}>
             <div className="flex flex-col sm:flex-row gap-1">
               <div className="sm:w-2/3 space-y-4">
                 <h2 className={sectionHeadingStyle}>Mina tips</h2>
@@ -139,7 +184,7 @@ const Tutorial = () => {
             </div>
           </section>
 
-          <section className={standardSpacing.sectionContent}>
+          <section id="mina-sidor" className={standardSpacing.sectionContent}>
             <div className="flex flex-col sm:flex-row gap-1">
               <div className="sm:w-2/3 space-y-4">
                 <h2 className={sectionHeadingStyle}>Mina sidor</h2>
