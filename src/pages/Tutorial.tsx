@@ -18,13 +18,13 @@ const Tutorial = () => {
     <div className={pageContainer}>
       <header className={headerContainer}>
         <BackToTodayButton/>
-          <h1 className={sectionHeading}>Så fungerar appen</h1>
+        <h1 className={sectionHeading}>Så fungerar appen</h1>
       </header>
      
       <main className={pagePadding}>
         <div className={standardSpacing.pageContent}>
           <section className={standardSpacing.sectionContent}>
-           
+            {/* Empty section - intentional? */}
           </section>
 
           <section className={standardSpacing.sectionContent}>
@@ -35,12 +35,12 @@ const Tutorial = () => {
                 <p className={bodyText}> 
                   Välkommen till HjärtKost! Målet med appen är att hjälpa användaren att implementera ett antal tips. 
                   När alla tips är implementerade äter du enligt medelhavsdieten, en vetenskapligt bevisad diet som 
-                    drastiskt minskar risken för många livsstilsrelaterade sjukdomar.
+                  drastiskt minskar risken för många livsstilsrelaterade sjukdomar.
                 </p>
                 
                 <p className={bodyText}>
                   HjärtKost fokuserar på lokalt odlade livsmedel för ett miljövänligare matmönster. 
-                  Dieten Då brukar dieten kallas för hälsosam nordisk kost / nordiska dieten / nya nordiska dieten.
+                  Då brukar dieten kallas för hälsosam nordisk kost / nordiska dieten / nya nordiska dieten.
                   Huvuddelarna i dieten:
                 </p>
 
@@ -53,12 +53,13 @@ const Tutorial = () => {
                   "Fysisk aktivitet varje dag",
                 ]} />
 
-               <p className={bodyText}> See "Secrets of the Mediterranean diet" https://www.youtube.com/watch?v=f4yr-jjxD00&t=5s </p>
+                <p className={bodyText}> See "Secrets of the Mediterranean diet" https://www.youtube.com/watch?v=f4yr-jjxD00&t=5s </p>
 
                 <CardHeart>
                   Att implementera nya matvanor görs i små steg. Det ska vara roligt och gott!
                 </CardHeart>
               </div>
+              {/* Missing closing div for sm:w-2/3? Actually it's closed */}
             </div>
           </section>
 
@@ -93,10 +94,10 @@ const Tutorial = () => {
                 <h2 className={sectionHeadingStyle}>Mina tips</h2>
                 <p className={bodyText}>
                   Här hittar du alla tips. Klicka på ett tips för att läsa mer, 
-                  eller skapa en plan för hur du vill impementera just detta tips. 
+                  eller skapa en plan för hur du vill implementera just detta tips. 
                   När du hittar något som passar dig, tryck på bocken så hamnar tipset under 
                   "Mina valda tips" på Idag-sidan.
-                  Du kan checka av tipset om du har uppnåt det.
+                  Du kan checka av tipset om du har uppnått det.
                 </p>
                 
                 <CardHeart>
@@ -130,23 +131,19 @@ const Tutorial = () => {
                   Mina hälsomål: Här ser du dina övergripande mål. 
                 </p>
                 <p className={bodyText}>
-                  Mina läkemedel: Fyll i vilka läkemedel du tar, så kan appen påminna dej om interaktioner med läkemedel. 
+                  Mina läkemedel: Fyll i vilka läkemedel du tar, så kan appen påminna dig om interaktioner med läkemedel. 
                 </p>
-             
-                
-                
               </div>
-                 <div className="sm:w-1/3 flex items-start justify-center sm:justify-end">
+              
+              <div className="sm:w-1/3 flex items-start justify-center sm:justify-end">
                 <img 
                   src={progressImage} 
                   alt="Progress screen screenshot" 
                   className="w-full max-w-[140px] sm:max-w-[160px] h-auto border-2 border-gray-300 rounded-lg shadow-md"
                 />
-             
+              </div>
             </div>
           </section>
-
-
 
           <section className={standardSpacing.sectionContent}>
             <CardHeart>
