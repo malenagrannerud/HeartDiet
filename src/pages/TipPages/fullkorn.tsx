@@ -35,21 +35,23 @@ const FullkornPage = () => {
 
       <main className={`${pagePadding} ${standardSpacing.pageContent}`}>
         <p className={sectionSubheading2}>
-          Att äta minst 90 g fullkorn varje dag hjälper dig att må bättre samtidigt som det minskar risken för hjärt-kärlsjukdomar, vissa typer av cancer samt typ2-diabetes
+          Att äta minst 90 g fullkorn varje dag hjälper dig att må bättre samtidigt som det minskar risken för hjärt-kärlsjukdomar, 
+          vissa typer av cancer samt typ2-diabetes
         </p>
 
         <div> 
-          <p className={bodyText}>Fullkorn är ett sädeskorn som innehåller alla sina tre delar: kli, grodd och frövita. Detta gäller även om kornet har krossats eller malts till ett fullkornsmjöl. Till skillnad från vitt mjöl, där de näringsrika delarna kli och grodd har tagits bort, innehåller fullkornsprodukter mer fibrer, vitaminer och mineraler.</p>
-          <p Fullkorn kommer ifrån bland annat</p>
+          <p className={bodyText}>Fullkorn är ett sädeskorn som innehåller alla sina tre delar: kli, grodd och frövita. 
+            Detta gäller även om kornet har krossats eller malts till ett fullkornsmjöl. Till skillnad från vitt mjöl, 
+            där de näringsrika delarna kli och grodd har tagits bort, innehåller fullkornsprodukter mer fibrer, 
+            vitaminer och mineraler.</p>
+          <p className={bodyText}>Fullkorn kommer ifrån bland annat</p>
           <DottedList items={[
-                            "Vete, råg, korn och havre",
-                            "Ris",
-                            "Majs", 
-                            "Hirs, teff och durra",
-            ]} />
+            "Vete, råg, korn och havre",
+            "Ris",
+            "Majs", 
+            "Hirs, teff och durra",
+          ]} />
         </div>
-
-        
 
         {/* Medication warnings */}
         {medicationInteractions.length > 0 && (
@@ -75,7 +77,7 @@ const FullkornPage = () => {
 
         <div>
           <h2 className={sectionHeading2}>Fullkornsprodukter</h2>
-          <p className={bodyText}> För att äta 90 g fullkorn kan du till exempel äta: </p>
+          <p className={bodyText}>För att äta 90 g fullkorn kan du till exempel äta:</p>
           <DottedList items={[
             "Havregryn (100% fullkorn). En portion är ca 35 g",
             <span key="bread">Vanligt bröd <span className="text-green-500 font-black text-3xl drop-shadow-lg">➤</span> Knäckebröd (100% fullkorn). 2 skivor är ca 24 g</span>,
@@ -91,30 +93,29 @@ const FullkornPage = () => {
           <h2 className={sectionHeading2}>Varför minst 90 g om dagen?</h2>
           <p className={bodyText}>Du mår bättre av fullkorn eftersom det bidrar till</p>
 
-            <Accordion type="multiple" className="mt-1">
-                <AccordionItem value="immune">
-                  <AccordionTrigger className={bodyText}>Stärkt immunförsvar</AccordionTrigger>
-                  <AccordionContent className={bodyText}>
-                    Fullkorn innehåller betaglukaner, lösliga fibrer som binder kolesterol och gallsyror i tarmen. 
-                    Detta tvingar kroppen att använda mer kolesterol från blodet för att producera nya gallsyror. 
-                    Studier visar att 3 gram betaglukaner per dag (ca 90 g havregryn) kan sänka LDL-kolesterolet med 5-10%.
-                  </AccordionContent>
-
-                </AccordionItem>
-                <AccordionItem value="energi">
-                  <AccordionTrigger className={bodyText}>Mer energi</AccordionTrigger>
-                  <AccordionContent className={bodyText}>
-                    B-vitaminer omvandlar mat till energi och bekämpar trötthet. 
-                    Magnesium är viktigt för muskelavslappning och energiproduktion. 
-                    Järn förhindrar trötthet genom att transportera syre i blodet 
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
+          <Accordion type="multiple" className="mt-1">
+            <AccordionItem value="immune">
+              <AccordionTrigger className={bodyText}>Stärkt immunförsvar</AccordionTrigger>
+              <AccordionContent className={bodyText}>
+                Fullkorn innehåller betaglukaner, lösliga fibrer som binder kolesterol och gallsyror i tarmen. 
+                Detta tvingar kroppen att använda mer kolesterol från blodet för att producera nya gallsyror. 
+                Studier visar att 3 gram betaglukaner per dag (ca 90 g havregryn) kan sänka LDL-kolesterolet med 5-10%.
+              </AccordionContent>
+            </AccordionItem>
+            
+            <AccordionItem value="energi">
+              <AccordionTrigger className={bodyText}>Mer energi</AccordionTrigger>
+              <AccordionContent className={bodyText}>
+                B-vitaminer omvandlar mat till energi och bekämpar trötthet. 
+                Magnesium är viktigt för muskelavslappning och energiproduktion. 
+                Järn förhindrar trötthet genom att transportera syre i blodet 
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
         </div>
 
-
         <div>
-          <p>Fullkorn skyddar mot sjukdom genom att det bidrar till</p>
+          <p className={bodyText}>Fullkorn skyddar mot sjukdom genom att det bidrar till</p>
 
           <Accordion type="multiple" className="mt-0">
             <AccordionItem value="fiber">
@@ -138,8 +139,6 @@ const FullkornPage = () => {
               </AccordionContent>
             </AccordionItem>
           </Accordion>
-                  
-
         </div>
 
         <div>
@@ -150,26 +149,26 @@ const FullkornPage = () => {
         </div>
 
         <div className="mt-2 space-y-2">
-                <ExampleCard 
-                  goal="Äta en tallrik gröt / dag (ca 35 g)"
-                  when="Frukost: måndag-fredag"
-                  how="Har goda toppings redo i kylskåpet"
-                  reminder="Ställer fram havregrynen varje kväll"
-                />
+          <ExampleCard 
+            goal="Äta en tallrik gröt / dag (ca 35 g)"
+            when="Frukost: måndag-fredag"
+            how="Har goda toppings redo i kylskåpet"
+            reminder="Ställer fram havregrynen varje kväll"
+          />
 
-                <ExampleCard 
-                  goal="Äta två knäckebröd / dag (ca 25 g)"
-                  when="Lunch: måndag-fredag"
-                  how=" Har knäckebrödkorg på bordet"
-                  reminder="Skriver på inköpslistan"
-                />
-                
-                <ExampleCard 
-                  goal="Blanda pasta med fullkornspasta (ca 30 g )"
-                  when="Middag: varje dag"
-                  how="Blandar en färdig blandning i skafferiet"
-                  reminder="-"
-                />
+          <ExampleCard 
+            goal="Äta två knäckebröd / dag (ca 25 g)"
+            when="Lunch: måndag-fredag"
+            how="Har knäckebrödkorg på bordet"
+            reminder="Skriver på inköpslistan"
+          />
+          
+          <ExampleCard 
+            goal="Blanda pasta med fullkornspasta (ca 30 g)"
+            when="Middag: varje dag"
+            how="Blandar en färdig blandning i skafferiet"
+            reminder="-"
+          />
         </div>
 
         <div className="mt-8 pt-6 border-t border-gray-200">
