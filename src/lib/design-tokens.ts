@@ -310,8 +310,7 @@ export const labelText = "text-[#212658] font-semibold";
  * STANDARD CARD
  * p-5 padding, light grey-blue background (bg-blue-50), min height 80px
  */
-export const standardCard = "p-5 border-0 shadow-sm bg-blue-100 min-h-[80px]";
-
+export const standardCard = "p-5 border-0 shadow-sm bg-blue-100 min-h-[80px] rounded-none";
 /**
  * COMPACT CARD
  * Smaller padding for dense layouts. Same as standard card 
@@ -322,14 +321,12 @@ export const compactCard = "p-5 border-0 shadow-sm bg-blue-50 min-h-[80px]";
  * INTERACTIVE CARD
  * Same base styling as standard card, adds interaction effects
  */
-export const interactiveCard = "p-5 border-0 shadow-sm bg-blue-100 min-h-[80px] cursor-pointer hover:bg-blue-100 transition-all active:scale-[0.98]";
-
+export const interactiveCard = "p-5 border-0 shadow-sm bg-blue-100 min-h-[80px] cursor-pointer hover:bg-blue-100 transition-all active:scale-[0.98] rounded-none";
 /**
  * TIP CARD
  * p-5 padding, keeps tip-specific colors, min height 80px
  */
-export const tipCard = "p-5 hover:shadow-sm transition-all cursor-pointer active:scale-[0.98] relative border-0 shadow-none min-h-[80px]";
-
+export const tipCard = "p-5 hover:shadow-sm transition-all cursor-pointer active:scale-[0.98] relative border-0 shadow-none min-h-[80px] rounded-none";
 // ==========================================
 // 🎯 COMPONENT STYLES
 // ==========================================
