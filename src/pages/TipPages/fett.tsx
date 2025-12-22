@@ -65,6 +65,7 @@ const FettPage = () => {
             <span key="5">Bearnaise på smör <ArrowExchange /> Bearnaise på olja</span>,
             <span key="6">Brunsås på smör <ArrowExchange /> Brunsås på sky</span>,
           ]} />
+        </div>
 
         {/* Medication warnings */}
         {medicationInteractions.length > 0 && (
