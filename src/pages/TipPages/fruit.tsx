@@ -15,7 +15,7 @@ import { MedCardCompact } from "@/components/MedCardCompact";
 import { useHealthGoalTips } from "@/hooks/use-health-goal-tips";
 import { HealthGoalCardCompact } from "@/components/HealthGoalCardCompact";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
-import sasongImage from './assets/sasong.png';
+import sasongImage from "@/assets/sasong.png";
 
 const FruitPage = () => {
   const [userPlans, setUserPlans] = useState<UserPlan[]>([]);
