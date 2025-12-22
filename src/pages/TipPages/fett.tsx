@@ -41,7 +41,7 @@ const FettPage = () => {
 
       <main className={`${pagePadding} ${standardSpacing.pageContent}`}>
         <p className={sectionSubheading2}>
-          Att välja rätt typ av fett skyddar hjärtat och sänker kolesterolet med 30%. 
+          Att välja rätt typ av fett skyddar hjärtat och sänker kolesterolet. 
           Byt mättat fett mot omättat fett för bättre hälsa
         </p>
 
@@ -53,13 +53,17 @@ const FettPage = () => {
           ]} />
         </div>
 
-
         <div>
           <p className={bodyText}> Byt ut det mättade fettet där du kan </p>
           <DottedList items={[
-            <span key="1">Stekning och bakning: Smör <span className="text-purple-600 text-xl">→</span> olivolja eller rapsolja (100g smör <span className="text-purple-600 text-xl">↔</span> 80g olja)</span>,
-            <span key="2">På smörgås: Smör <span className="text-purple-600 text-xl">→</span> avokado, hummus eller olivolja</span>,
-            <span key="3">Grilla: Kött <span className="text-purple-600 text-xl">→</span> lax</span>,
+            <span key="1">Stekning och bakning: Smör <span className="text-green-600 text-xl">→</span> olivolja eller rapsolja (100g smör <span className="text-purple-600 text-xl">↔</span> 80g olja)</span>,
+            <span key="2">På smörgås: Smör <span className="text-green-600 text-xl">→</span> avokado, hummus eller olivolja</span>,
+            <span key="3">Köttfärs: Fetthalt 12-20%   <span className="text-green-600 text-xl">→</span> Max 10% </span>,
+            <span key="4">Grilla: Kött <span className="text-green-600 text-xl">→</span> Lax, kyckling, kalkon </span>,
+            <span key="5">Bearnaise på smör <span className="text-green-600 text-xl">→</span> Bearnaise på olja </span>,
+            <span key="5">Brunsås på smör <span className="text-green-600 text-xl">→</span> Brunsås på sky </span>,
+
+      
           ]} />
         </div>
 
@@ -87,7 +91,7 @@ const FettPage = () => {
 
         <div>
           <h2 className={sectionHeading2}>Varför rätt fett?</h2>
-          <p className={bodyText}> Rätt fett skyddar mot hjärt-kärlsjukdom efter som de </p>
+          <p className={bodyText}> Rätt fett skyddar mot hjärt-kärlsjukdom efter som det </p>
           
           <Accordion type="multiple" className="mt-4">
             <AccordionItem value="ldl">
@@ -130,9 +134,9 @@ const FettPage = () => {
 
         <div className="mt-2 space-y-2">
           <ExampleCard 
-            goal="Byt smör mot flytande matfett"
-            when="Varje måltid"
-            how="Har rapsolja/olivolja framme på köksbordet"
+            goal="Byt smör mot olivolja på smörgås"
+            when="Varje frukost"
+            how="Gör slut på det sista smöret. Sen - olivolja framme"
             reminder="Klisterlapp på smörpaketet"
           />
 
@@ -144,7 +148,7 @@ const FettPage = () => {
           />
 
           <ExampleCard 
-            goal="Tillaga mat med rapsolja istället för smör"
+            goal="Laga mat med rapsolja istället för smör"
             when="Middagstillagning"
             how="Ställer fram rapsoljan, stoppar undan smöret"
             reminder="-"
