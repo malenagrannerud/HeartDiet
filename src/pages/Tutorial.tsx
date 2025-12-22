@@ -53,7 +53,16 @@ const Tutorial = () => {
                   "Fysisk aktivitet varje dag",
                 ]} />
 
-                <p className={bodyText}> Se gärna "Secrets of the Mediterranean diet" https://www.youtube.com/watch?v=f4yr-jjxD00&t=5s </p>
+                <p className={bodyText}> Se gärna 
+                  <a 
+                    href="https://www.youtube.com/watch?v=f4yr-jjxD00&t=5s"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:text-blue-800 underline hover:no-underline transition-colors duration-200"
+                  >
+                    Secrets of the Mediterranean diet
+                  </a>
+                </p>
 
                 <CardHeart>
                   Att implementera nya matvanor görs i små steg. Det ska vara roligt och gott!
