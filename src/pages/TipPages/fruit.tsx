@@ -16,6 +16,7 @@ import { useHealthGoalTips } from "@/hooks/use-health-goal-tips";
 import { HealthGoalCardCompact } from "@/components/HealthGoalCardCompact";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import fruitsImage from './assets/fg.png'; 
+import sansongImage from './assets/säsong.png'; 
 
 
 
@@ -37,11 +38,9 @@ const FruitPage = () => {
     let updatedPlans;
     
     if (editingIndex !== null) {
-      // Editing existing plan
       updatedPlans = [...userPlans];
       updatedPlans[editingIndex] = plan;
     } else {
-      // Adding new plan
       updatedPlans = [...userPlans, plan];
     }
     
@@ -119,6 +118,23 @@ const FruitPage = () => {
             ))}
           </div>
         )}
+
+        <div> 
+          <p className="text-gray-600 mb-4">
+            Att äta grönsaker och frukt när de är i säsong ger dig maximal näring 
+            samtidigt som det är bättre för miljön. Lokalt odlade säsongsvaror 
+            har kortare transportvägar och mindre klimatpåverkan.
+          </p>
+        </div>
+
+          <div className="md:w-1/3 flex justify-center">
+            <img 
+              src={sansongImage} 
+              alt="Säsongstabell för grönsaker och frukt" 
+              className="w-full max-w-[280px] rounded-lg shadow-lg border border-gray-300"
+            />
+          </div>
+        
 
         <div> 
           <h2 className={sectionHeading2}>Varför minst fem om dagen?</h2>
