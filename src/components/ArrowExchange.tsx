@@ -10,7 +10,7 @@ interface ArrowExchangeProps {
 }
 
 const ArrowExchange: React.FC<ArrowExchangeProps> = ({
-  size = 32,
+  size = 20,
   thickness = 'thick',
   color = '#10B981',
   className = '',
