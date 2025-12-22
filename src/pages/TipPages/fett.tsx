@@ -58,8 +58,8 @@ const FettPage = () => {
         <div>
           <p className={bodyText}> Byt ut det mättade fettet där du kan </p>
           <DottedList items={[
-            <span key="1">Stekning och bakning: Smör <ArrowExchange /> olivolja eller rapsolja</span>,
-            <span key="2">På smörgås: Smör <ArrowExchange /> avokado, hummus eller olivolja</span>,
+            <span key="1">Stekning och bakning: Smör <ArrowExchange /> Olivolja eller rapsolja</span>,
+            <span key="2">På smörgås: Smör <ArrowExchange /> Avokado, hummus eller olivolja</span>,
             <span key="3">Köttfärs: Fetthalt 12-20% <ArrowExchange /> Max 10%</span>,
             <span key="4">Grilla: Kött <ArrowExchange /> Lax, kyckling, kalkon</span>,
             <span key="5">Bearnaise på smör <ArrowExchange /> Bearnaise på olja</span>,
