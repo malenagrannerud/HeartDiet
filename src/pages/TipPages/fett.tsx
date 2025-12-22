@@ -13,6 +13,8 @@ import { useHealthGoalTips } from "@/hooks/use-health-goal-tips";
 import { HealthGoalCardCompact } from "@/components/HealthGoalCardCompact";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import { useTipUserPlans } from "@/hooks/use-tip-user-plans";
+import ArrowExchange from "@/components/ArrowExchange";
+
 
 const FettPage = () => {
   const {
@@ -56,21 +58,13 @@ const FettPage = () => {
         <div>
           <p className={bodyText}> Byt ut det mättade fettet där du kan </p>
           <DottedList items={[
-            <span key="1">Stekning och bakning: Smör <span className="text-green-500 font-black text-3xl drop-shadow-lg">➤</span> olivolja eller rapsolja </span>,
-            <span key="2">På smörgås: Smör <span className="text-green-500 font-black text-3xl drop-shadow-lg">➤</span>
- avokado, hummus eller olivolja</span>,
-            <span key="3">Köttfärs: Fetthalt 12-20%   <span className="text-green-500 font-black text-3xl drop-shadow-lg">➤</span>
-Max 10% </span>,
-            <span key="4">Grilla: Kött <span className="text-green-500 font-black text-3xl drop-shadow-lg">➤</span>
- Lax, kyckling, kalkon </span>,
-            <span key="5">Bearnaise på smör <span className="text-green-500 font-black text-3xl drop-shadow-lg">➤</span>
- Bearnaise på olja </span>,
-            <span key="5">Brunsås på smör <span className="text-green-500 font-black text-3xl drop-shadow-lg">➤</span>
-Brunsås på sky </span>,
-
-      
+            <span key="1">Stekning och bakning: Smör <ArrowExchange /> olivolja eller rapsolja</span>,
+            <span key="2">På smörgås: Smör <ArrowExchange /> avokado, hummus eller olivolja</span>,
+            <span key="3">Köttfärs: Fetthalt 12-20% <ArrowExchange /> Max 10%</span>,
+            <span key="4">Grilla: Kött <ArrowExchange /> Lax, kyckling, kalkon</span>,
+            <span key="5">Bearnaise på smör <ArrowExchange /> Bearnaise på olja</span>,
+            <span key="6">Brunsås på smör <ArrowExchange /> Brunsås på sky</span>,
           ]} />
-        </div>
 
         {/* Medication warnings */}
         {medicationInteractions.length > 0 && (
