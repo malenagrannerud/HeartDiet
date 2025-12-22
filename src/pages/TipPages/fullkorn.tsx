@@ -78,15 +78,18 @@ const FullkornPage = () => {
           </div>
         )}
 
-       <DottedList items={[
-        <span key="havre">Yoghurt<ArrowExchange /> Havregryn (100% fullkorn). En portion är ca 35 g</span>,
-        <span key="bread">Vanligt bröd <ArrowExchange /> Knäckebröd (100% fullkorn). 2 skivor är ca 24 g</span>,
-        <span key="bread2">Vanligt bröd <ArrowExchange /> Fullkornsbröd (20 - 70%). 2 skivor är ca 12 g</span>,
-        <span key="musli">Vanligt bröd <ArrowExchange /> Musli (55% fullkorn). En portion är ca 20 g</span>,
-        <span key="pasta1">Pasta <ArrowExchange /> Fullkornspasta (55% fullkorn). En portion är ca 40 g</span>,
-        <span key="pasta2">Pasta <ArrowExchange /> Mathavre (55% fullkorn). En portion är ca 40 g</span>,
-        <span key="flour">Vitt mjöl <ArrowExchange /> Mjöl på fullkorn (100% fullkorn)</span>
-      ]} />
+            <div>
+              <p className={bodyText}>Ett par exempel på vart du kan få dina fullkorn</p>
+               <DottedList items={[
+                <span key="havre">Yoghurt<ArrowExchange /> Havregryn (100% fullkorn). En portion är ca 35 g</span>,
+                <span key="bread">Vanligt bröd <ArrowExchange /> Knäckebröd (100% fullkorn). 2 skivor är ca 24 g</span>,
+                <span key="bread2">Vanligt bröd <ArrowExchange /> Fullkornsbröd (20 - 70%). 2 skivor är ca 12 g</span>,
+                <span key="musli">Vanligt bröd <ArrowExchange /> Musli (55% fullkorn). En portion är ca 20 g</span>,
+                <span key="pasta1">Pasta <ArrowExchange /> Fullkornspasta (55% fullkorn). En portion är ca 40 g</span>,
+                <span key="pasta2">Pasta <ArrowExchange /> Mathavre (55% fullkorn). En portion är ca 40 g</span>,
+                <span key="flour">Vitt mjöl <ArrowExchange /> Mjöl på fullkorn (100% fullkorn)</span>
+              ]} />
+        </div>
 
         <div>
           <h2 className={sectionHeading2}>Varför minst 90 g om dagen?</h2>
