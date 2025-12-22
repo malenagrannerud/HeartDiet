@@ -1,12 +1,20 @@
 // components/ArrowExchange.tsx
 import React from 'react';
 
-const ArrowExchange = ({
-  size = 32,             // Arrow size in pixels
-  thickness = 'thick',   // 'thin', 'medium', 'thick', 'extra-thick'
-  color = '#10B981',     // Emerald green - very visible
+interface ArrowExchangeProps {
+  size?: number;
+  thickness?: 'thin' | 'medium' | 'thick' | 'extra-thick';
+  color?: string;
+  className?: string;
+  animate?: boolean;
+}
+
+const ArrowExchange: React.FC<ArrowExchangeProps> = ({
+  size = 32,
+  thickness = 'thick',
+  color = '#10B981',
   className = '',
-  animate = false        // Add hover animation
+  animate = false
 }) => {
   // Define thickness based on prop
   const strokeWidth = {
@@ -28,7 +36,7 @@ const ArrowExchange = ({
       strokeLinecap="round"
       strokeLinejoin="round"
       className={`
-        inline-block align-middle
+        inline-block align-middle mx-2
         ${animate ? 'hover:scale-110 transition-transform duration-200' : ''}
         ${className}
       `}
@@ -39,4 +47,4 @@ const ArrowExchange = ({
   );
 };
 
-export default ArrowExchange; // Changed from GreenArrow to ArrowExchange
+export default ArrowExchange;
