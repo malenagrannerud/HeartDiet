@@ -84,12 +84,12 @@ const FruitPage = () => {
         </p>
 
         <div> 
-          <p className={bodyText}>Till dina fem om dagen räknas</p>
+          <p className={bodyText}>Till dina fem om dagen räknas (färska, frysta och i maten du lagar)</p>
           <DottedList items={[
             "Rotfrukter",
-            "Frukt - färska och frysta",
-            "Bär - färska och frysta", 
-            "Grönsaker - färska, frysta och i maten du lagar",
+            "Frukt",
+            "Bär", 
+            "Grönsaker",
           ]} />
         </div>
 
