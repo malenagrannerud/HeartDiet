@@ -117,7 +117,7 @@ const FruitPage = () => {
 
           <div className="flex flex-col md:flex-row gap-6 items-center">
             <div className="md:w-2/3">
-              <p className="text-gray-600 mb-4">
+              <p className="text-gray-600 mb-0.5">
                 Grönsaker och frukt i säsong ger maximal näring 
                 samtidigt som det är bättre för miljön. Lokalt odlade säsongsvaror 
                 har kortare transportvägar och mindre klimatpåverkan.
