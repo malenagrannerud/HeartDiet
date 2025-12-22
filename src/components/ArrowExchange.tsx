@@ -1,34 +1,90 @@
-// components/PurpleArrow.jsx
-const PurpleArrow = ({
-  direction = "right", // "right", "left", "up", "down"
-  size = 20,
-  color = "#9333ea", // Purple-600
-  thickness = 2,
-  className = ""
+// components/ThickGreenArrow.jsx
+const ThickGreenArrow = ({
+  direction = "right", // "right", "left", "up", "down", "swap"
+  size = 28, // Larger default size for thickness
+  color = "#10B981", // Emerald-500 - vibrant green that stands out
+  thickness = "4", // Stroke width for SVG variants
+  variant = "solid", // "solid", "outline", "chevron", "fat"
+  className = "",
+  animate = false
 }) => {
-  const paths = {
-    right: "M5 12h14m0 0l-7-7m7 7l-7 7",
-    left: "M19 12H5m0 0l7 7m-7-7l7-7", 
-    up: "M12 19V5m0 0l-7 7m7-7l7 7",
-    down: "M12 5v14m0 0l7-7m-7 7l-7-7"
+  // SVG path definitions for different variants
+  const svgPaths = {
+    solid: {
+      right: "M13 5l7 7-7 7",
+      left: "M11 19l-7-7 7-7",
+      up: "M5 13l7-7 7 7",
+      down: "M19 11l-7 7-7-7"
+    },
+    chevron: {
+      right: "M9 5l7 7-7 7",
+      left: "M15 19l-7-7 7-7",
+      up: "M5 15l7-7 7 7",
+      down: "M19 9l-7 7-7-7"
+    }
   };
 
+  // Text arrows (simplest for inline use)
+  const textArrows = {
+    right: "➔",
+    left: "⬅",
+    up: "⬆",
+    down: "⬇",
+    fat: "➤",
+    swap: "⇄",
+    double: "⇒"
+  };
+
+  // For "fat" text arrows - extra bold
+  if (variant === "fat") {
+    return (
+      <span 
+        className={`inline-block font-bold ${animate ? 'hover:scale-110 transition-transform' : ''} ${className}`}
+        style={{ 
+          color, 
+          fontSize: `${size}px`,
+          lineHeight: 1
+        }}
+      >
+        {textArrows[direction] || textArrows.right}
+      </span>
+    );
+  }
+
+  // For "swap" direction (double-ended arrow)
+  if (direction === "swap") {
+    return (
+      <span 
+        className={`inline-block ${className}`}
+        style={{ 
+          color, 
+          fontSize: `${size}px`,
+          fontWeight: 'bold',
+          lineHeight: 1
+        }}
+      >
+        ↔
+      </span>
+    );
+  }
+
+  // SVG arrows (solid or outline)
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width={size}
       height={size}
       viewBox="0 0 24 24"
-      fill="none"
-      stroke={color}
+      fill={variant === "solid" ? color : "none"}
+      stroke={variant === "outline" || variant === "chevron" ? color : "none"}
       strokeWidth={thickness}
       strokeLinecap="round"
       strokeLinejoin="round"
-      className={`inline-block ${className}`}
+      className={`inline-block align-middle ${animate ? 'hover:scale-110 transition-transform' : ''} ${className}`}
     >
-      <path d={paths[direction]} />
+      <path d={svgPaths[variant === "chevron" ? "chevron" : "solid"][direction] || svgPaths.solid.right} />
     </svg>
   );
 };
 
-export default PurpleArrow;
+export default ThickGreenArrow;
