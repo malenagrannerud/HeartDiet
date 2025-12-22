@@ -1,5 +1,6 @@
 import { format } from "date-fns";
 import { sv } from "date-fns/locale";
+import { useNavigate } from "react-router-dom";
 import { ChevronLeft, ChevronRight, Plus, Heart, Weight, Activity, Droplet } from "lucide-react";
 import { tips } from "@/data/tips";
 import { Button } from "@/components/ui/button";
@@ -7,6 +8,7 @@ import { bodyText, tableHeaderSmall } from "@/lib/design-tokens";
 import { getStorageItem } from "@/lib/storage";
 import { healthPrioritiesSchema, type DayLog } from "@/lib/schemas";
 import { healthGoalTips } from "@/data/health-goal-tips";
+import { tipPageRoutes } from "@/lib/tip-routes";
 
 interface WeeklyProgressTableProps {
   weekDates: Date[];
@@ -41,6 +43,8 @@ export const WeeklyProgressTable = ({
   isToday,
   markedTipIds = []
 }: WeeklyProgressTableProps) => {
+  const navigate = useNavigate();
+
   const getDayInitial = (date: Date) => {
     const days = ['Sön', 'Mån', 'Tis', 'Ons', 'Tor', 'Fre', 'Lör'];
     return days[date.getDay()];
@@ -147,7 +151,13 @@ export const WeeklyProgressTable = ({
                 
                 return (
                   <tr key={tip.id} className="border-b hover:bg-muted/30 transition-colors">
-                    <td className="py-1 px-1">
+                    <td 
+                      className="py-1 px-1 cursor-pointer hover:underline"
+                      onClick={() => {
+                        const route = tipPageRoutes[tip.id];
+                        if (route) navigate(route);
+                      }}
+                    >
                       <span className={bodyText}>{tip.title}</span>
                     </td>
                     {weekDates.map((date, dayIndex) => {
