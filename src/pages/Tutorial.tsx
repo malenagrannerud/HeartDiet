@@ -40,7 +40,7 @@ const Tutorial = () => {
                 
                 <p className={bodyText}>
                   HjärtKost fokuserar på lokalt odlade livsmedel för ett miljövänligare matmönster. 
-                  Dieten Då brukar dieten kallas för hälsosam nordisk kost / nordiska dieten / nya nordiska dieten.
+                  Då brukar dieten kallas för hälsosam nordisk kost / nordiska dieten / nya nordiska dieten.
                   Huvuddelarna i dieten:
                 </p>
 
@@ -53,7 +53,7 @@ const Tutorial = () => {
                   "Fysisk aktivitet varje dag",
                 ]} />
 
-                <p className={bodyText}> See "Secrets of the Mediterranean diet" https://www.youtube.com/watch?v=f4yr-jjxD00&t=5s </p>
+                <p className={bodyText}> Se gärna "Secrets of the Mediterranean diet" https://www.youtube.com/watch?v=f4yr-jjxD00&t=5s </p>
 
                 <CardHeart>
                   Att implementera nya matvanor görs i små steg. Det ska vara roligt och gott!
