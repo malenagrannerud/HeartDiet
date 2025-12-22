@@ -79,15 +79,14 @@ const FullkornPage = () => {
         )}
 
        <DottedList items={[
-        
-        "Havregryn (100% fullkorn). En portion är ca 35 g",
-        "Vanligt bröd <ArrowExchange /> Knäckebröd (100% fullkorn). 2 skivor är ca 24 g</span>,
-        "Musli (55% fullkorn)",
-        "Fullkornsbröd (20 - 70%) fullkorn",
-        "Pasta <ArrowExchange /> Fullkornspasta (55% fullkorn). En portion är ca 40 g</span>,
-        "Pasta <ArrowExchange />Mathavre (55% fullkorn). En portion är ca 40 g</span>,
-        "Vitt mjöl <ArrowExchange /> Mjöl på fullkorn (100% fullkorn).</span>
-      ]} />
+  "Havregryn (100% fullkorn). En portion är ca 35 g",
+  <span key="bread">Vanligt bröd <ArrowExchange /> Knäckebröd (100% fullkorn). 2 skivor är ca 24 g</span>,
+  "Musli (55% fullkorn)",
+  "Fullkornsbröd (20 - 70%) fullkorn",
+  <span key="pasta1">Pasta <ArrowExchange /> Fullkornspasta (55% fullkorn). En portion är ca 40 g</span>,
+  <span key="pasta2">Pasta <ArrowExchange /> Mathavre (55% fullkorn). En portion är ca 40 g</span>,
+  <span key="flour">Vitt mjöl <ArrowExchange /> Mjöl på fullkorn (100% fullkorn).</span>
+]} />
 
         <div>
           <h2 className={sectionHeading2}>Varför minst 90 g om dagen?</h2>
