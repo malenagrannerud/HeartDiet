@@ -132,6 +132,23 @@ const FruitPage = () => {
             </div>
           </div>
 
+
+        <div> 
+          <h2 className={sectionHeading2}>Sätta att äta rotfrukter</h2>
+          
+          <p className={bodyText}>Råa</p>
+          <p className={bodyText}>Kokta/Ångkokta</p>
+          <p className={bodyText}>Ugnsrostade</p>
+          <p className={bodyText}>Mos</p>
+          <p className={bodyText}>Stekta</p>
+          <p className={bodyText}>Soppa/gryta</p>
+
+
+        </div>
+
+
+        
+
         
 
         <div> 
