@@ -15,8 +15,7 @@ import { MedCardCompact } from "@/components/MedCardCompact";
 import { useHealthGoalTips } from "@/hooks/use-health-goal-tips";
 import { HealthGoalCardCompact } from "@/components/HealthGoalCardCompact";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
-import fruitsImage from './assets/fg.png'; 
-import sansongImage from './assets/säsong.png'; 
+import sansongImage from './assets/sasong.png';
 
 
 
