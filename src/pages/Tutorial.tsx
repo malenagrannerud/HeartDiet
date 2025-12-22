@@ -173,7 +173,7 @@ const Tutorial = () => {
             </div>
           </section>
 
-          <section id="mina-sidor" className={`${standardSpacing.sectionContent} mt-10`}>
+          <section id="mina-sidor" className={`${standardSpacing.sectionContent} mt-20`}>
             <div className="flex flex-col sm:flex-row gap-1">
               <div className="sm:w-2/3 space-y-4">
                 <h2 className={sectionHeadingStyle}>Mina sidor</h2>
