@@ -18,6 +18,7 @@ import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/
 import fruitsImage from './assets/fg.png'; 
 
 
+
 const FruitPage = () => {
   const [userPlans, setUserPlans] = useState<UserPlan[]>([]);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
