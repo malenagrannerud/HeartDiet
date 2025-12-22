@@ -41,17 +41,26 @@ const FettPage = () => {
 
       <main className={`${pagePadding} ${standardSpacing.pageContent}`}>
         <p className={sectionSubheading2}>
-          Att välja rätt typ av fett skyddar hjärtat och sänker kolesterolet. 
+          Att välja rätt typ av fett skyddar hjärtat och sänker kolesterolet med 30%. 
           Byt mättat fett mot omättat fett för bättre hälsa
         </p>
 
         <div>
-          <p className={bodyText}>Omättade fetter är bra för hjärtat och hjälper till att sänka kolesterolet. Hit räknas till exempel: </p>
+          <p className={bodyText}>Omättade fetter är bra för hjärtat och hjälper till att sänka kolesterolet.  </p>
           <DottedList items={[
-            "Flytande matfetter: rapsolja, olivolja, solrosolja",
-            "Nötter och frön",
-            "Fet fisk",
-            "Avokado"
+            "Omättade fetter: Olivolja (extra virgin), rapsolja, avokado, fet fisk, nötter och frön",
+            "Mättade fetter: Smör och hårt matfett, feta mejeriproukter (grädde, crème fraiche), fett kött och charkuterier, kokosolja och palmolja   ",
+          ]} />
+        </div>
+
+
+        <div>
+          <p className={bodyText}> Byt ut det mättade fettet där du kan </p>
+          <DottedList items={[
+            "Stekning och bakning: Smör <span className="text-purple-600 text-xl">→</span> olivolja eller rapsolja (100g smör <--> 80g olja)",
+            "På smörgås: Smör <span className="text-purple-600 text-xl">→</span> avokado, hummus eller olivolja",
+            "Grilla: Kött <span className="text-purple-600 text-xl">→</span> lax",
+            "Avokado, fet fisk, nötter och frön"
           ]} />
         </div>
 
@@ -78,30 +87,10 @@ const FettPage = () => {
         )}
 
         <div>
-          <p className={bodyText}>Begränsa dessa eftersom de höjer det onda kolesterolet (LDL)</p>
-          <DottedList items={[
-            "Smör och hårt matfett",
-            "Feta mejeriproukter: grädde, crème fraiche",
-            "Fett kött och charkuterier",
-            "Kokosolja och palmolja",
-            "Bakverk och sötsaker med mycket smör"
-          ]} />
-        </div>
-
-        <div>
           <h2 className={sectionHeading2}>Varför rätt fett?</h2>
           <p className={bodyText}> Rätt fett skyddar mot hjärt-kärlsjukdom efter som de </p>
-          <DottedList items={[
-            
-            "Höjer HDL-kolesterol: Det 'goda' kolesterolet som skyddar hjärtat",
-            "Anti-inflammatoriskt: Omega-3 minskar inflammation i kroppen",
-            "Sänker blodtryck: Bidrar till friskare blodkärl",
-            "Hjärnhälsa: Omega-3 är viktigt för hjärnans funktion"
-          ]} />
           
           <Accordion type="multiple" className="mt-4">
-
-
             <AccordionItem value="ldl">
               <AccordionTrigger className={bodyText}>Minskar risken för åderförkalkning</AccordionTrigger>
               <AccordionContent className={bodyText}>
@@ -112,9 +101,8 @@ const FettPage = () => {
               </AccordionContent>
             </AccordionItem>
 
-
             <AccordionItem value="hdl">
-              <AccordionTrigger className={bodyText}>Varför är HDL-kolesterol bra för hjärtat?</AccordionTrigger>
+              <AccordionTrigger className={bodyText}>Höjer HDL-kolesterol</AccordionTrigger>
               <AccordionContent className={bodyText}>
                 HDL-kolesterol kallas "det goda kolesterolet" eftersom det transporterar bort kolesterol
                  från blodkärlen tillbaka till levern där det bryts ner. 
@@ -123,9 +111,8 @@ const FettPage = () => {
               </AccordionContent>
             </AccordionItem>
 
-
             <AccordionItem value="omega3">
-              <AccordionTrigger className={bodyText}>Vilken roll spelar Omega-3 för inflammation?</AccordionTrigger>
+              <AccordionTrigger className={bodyText}>Anti-inflammatoriskt</AccordionTrigger>
               <AccordionContent className={bodyText}>
                 Omega-3-fettsyror, särskilt EPA och DHA från fet fisk, har kraftfulla anti-inflammatoriska egenskaper.
                  De motverkar kronisk inflammation som kan skada blodkärl och öka risken för hjärtsjukdom. 
