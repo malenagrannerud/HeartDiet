@@ -32,51 +32,43 @@ const Tutorial = () => {
       <main className={pagePadding}>
         <div className={standardSpacing.pageContent}>
           {/* INNEHÅLLSFÖRTECKNING */}
-          <section className={`${standardSpacing.sectionContent} mb-8 p-6 bg-gray-50 rounded-lg border border-gray-200`}>
-            <h2 className={`${sectionHeadingStyle} text-lg`}>Innehållsförteckning</h2>
-            <ul className="space-y-3 mt-4">
-              <li className="flex items-start">
-                <div className="w-2 h-2 bg-[#DC143C] rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                <button 
-                  onClick={() => scrollToSection('mal-med-appen')}
-                  className="text-left hover:text-[#DC143C] transition-colors duration-200"
-                >
-                  <span className="font-medium">Mål med appen</span>
-                  <p className="text-gray-600 text-sm mt-1">Lär dig om HjärtKosts syfte och den nordiska dieten</p>
-                </button>
-              </li>
-              <li className="flex items-start">
-                <div className="w-2 h-2 bg-[#DC143C] rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                <button 
-                  onClick={() => scrollToSection('idag')}
-                  className="text-left hover:text-[#DC143C] transition-colors duration-200"
-                >
-                  <span className="font-medium">Idag</span>
-                  <p className="text-gray-600 text-sm mt-1">Hur du använder dagens uppgifter</p>
-                </button>
-              </li>
-              <li className="flex items-start">
-                <div className="w-2 h-2 bg-[#DC143C] rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                <button 
-                  onClick={() => scrollToSection('mina-tips')}
-                  className="text-left hover:text-[#DC143C] transition-colors duration-200"
-                >
-                  <span className="font-medium">Mina tips</span>
-                  <p className="text-gray-600 text-sm mt-1">Hantera och välja hälsotips</p>
-                </button>
-              </li>
-              <li className="flex items-start">
-                <div className="w-2 h-2 bg-[#DC143C] rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                <button 
-                  onClick={() => scrollToSection('mina-sidor')}
-                  className="text-left hover:text-[#DC143C] transition-colors duration-200"
-                >
-                  <span className="font-medium">Mina sidor</span>
-                  <p className="text-gray-600 text-sm mt-1">Kalender, mätvärden och hälsomål</p>
-                </button>
-              </li>
-            </ul>
-          </section>
+          <section className={`${standardSpacing.sectionContent} mb-8 p-6 bg-gray-50 border border-gray-200`}>
+  <h2 className={`${sectionHeadingStyle} text-lg`}>Innehållsförteckning</h2>
+  <ul className="space-y-2 mt-4">
+    <li>
+      <button 
+        onClick={() => scrollToSection('mal-med-appen')}
+        className="text-left hover:text-[#DC143C] transition-colors duration-200 w-full py-2"
+      >
+        <span className="font-medium">Mål med appen</span>
+      </button>
+    </li>
+    <li>
+      <button 
+        onClick={() => scrollToSection('idag')}
+        className="text-left hover:text-[#DC143C] transition-colors duration-200 w-full py-2"
+      >
+        <span className="font-medium">Idag</span>
+      </button>
+    </li>
+    <li>
+      <button 
+        onClick={() => scrollToSection('mina-tips')}
+        className="text-left hover:text-[#DC143C] transition-colors duration-200 w-full py-2"
+      >
+        <span className="font-medium">Mina tips</span>
+      </button>
+    </li>
+    <li>
+      <button 
+        onClick={() => scrollToSection('mina-sidor')}
+        className="text-left hover:text-[#DC143C] transition-colors duration-200 w-full py-2"
+      >
+        <span className="font-medium">Mina sidor</span>
+      </button>
+    </li>
+  </ul>
+</section>
 
           <section id="mal-med-appen" className={standardSpacing.sectionContent}>
             <div className="flex flex-col sm:flex-row gap-1">
