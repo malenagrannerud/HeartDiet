@@ -14,7 +14,6 @@ const Tutorial = () => {
   const navigate = useNavigate();
   const sectionHeadingStyle = "font-bold text-[16px] text-[#DC143C] mb-4";
 
-  // Scroll to section function
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -31,10 +30,9 @@ const Tutorial = () => {
      
       <main className={pagePadding}>
         <div className={standardSpacing.pageContent}>
-          {/* INNEHÅLLSFÖRTECKNING */}
           <section className={`${standardSpacing.sectionContent} mb-8 p-6 bg-gray-50 border border-gray-200`}>
             <h2 className={`${sectionHeadingStyle} text-lg`}>Innehållsförteckning</h2>
-            <ul className="space-y-1 mt-4">
+            <ul className="space-y-1 mt-2">
               <li>
                 <button 
                   onClick={() => scrollToSection('mal-med-appen')}
