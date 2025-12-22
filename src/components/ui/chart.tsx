@@ -88,6 +88,15 @@ const sanitizeKey = (key: string): string => {
   return key.replace(/[^a-zA-Z0-9-]/g, '');
 };
 
+/**
+ * SECURITY WARNING: Chart config must NEVER accept untrusted user input.
+ * This component uses dangerouslySetInnerHTML to inject CSS variables.
+ * The sanitization functions (sanitizeColor, sanitizeKey) are defense-in-depth
+ * but not foolproof against all attack vectors.
+ * 
+ * All color and key values MUST come from developer-controlled sources only.
+ * Never pass user-provided colors, theme names, or chart configuration directly.
+ */
 const ChartStyle = ({ id, config }: { id: string; config: ChartConfig }) => {
   const colorConfig = Object.entries(config).filter(([_, config]) => config.theme || config.color);
 

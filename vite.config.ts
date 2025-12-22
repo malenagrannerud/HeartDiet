@@ -15,7 +15,8 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  // Strip console.log and debugger statements in production builds
+  // Strip ALL console methods and debugger statements in production builds
+  // This prevents information leakage through console.error/warn in production
   esbuild: {
     drop: mode === 'production' ? ['console', 'debugger'] : [],
   },
