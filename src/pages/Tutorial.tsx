@@ -69,7 +69,8 @@ const Tutorial = () => {
             </ul>
           </section>
 
-          <section id="mal-med-appen" className={standardSpacing.sectionContent}>
+          {/* MÅL MED APPEN - With border */}
+          <section id="mal-med-appen" className="mb-8 border border-gray-300 p-6">
             <div className="flex flex-col sm:flex-row gap-1">
               <div className="sm:w-2/3 space-y-4">
                 <h2 className={sectionHeadingStyle}>Mål med appen</h2>
@@ -121,7 +122,8 @@ const Tutorial = () => {
             </div>
           </section>
 
-          <section id="idag" className={`${standardSpacing.sectionContent} mt-10`}>
+          {/* IDAG - With border */}
+          <section id="idag" className="mb-8 border border-gray-300 p-6 mt-10">
             <div className="flex flex-col sm:flex-row gap-1">
               <div className="sm:w-2/3 space-y-4">
                 <h2 className={sectionHeadingStyle}>Idag</h2>
@@ -146,7 +148,8 @@ const Tutorial = () => {
             </div>
           </section>
 
-          <section id="mina-tips" className={`${standardSpacing.sectionContent} mt-10`}>
+          {/* MINA TIPS - With border */}
+          <section id="mina-tips" className="mb-8 border border-gray-300 p-6 mt-10">
             <div className="flex flex-col sm:flex-row gap-1">
               <div className="sm:w-2/3 space-y-4">
                 <h2 className={sectionHeadingStyle}>Mina tips</h2>
@@ -173,7 +176,8 @@ const Tutorial = () => {
             </div>
           </section>
 
-          <section id="mina-sidor" className={`${standardSpacing.sectionContent} mt-20`}>
+          {/* MINA SIDOR - With border */}
+          <section id="mina-sidor" className="mb-8 border border-gray-300 p-6 mt-20">
             <div className="flex flex-col sm:flex-row gap-1">
               <div className="sm:w-2/3 space-y-4">
                 <h2 className={sectionHeadingStyle}>Mina sidor</h2>
@@ -203,7 +207,8 @@ const Tutorial = () => {
             </div>
           </section>
 
-          <section className={standardSpacing.sectionContent}>
+          {/* FINAL CARDHEART - With border */}
+          <section className="mb-8 border border-gray-300 p-6">
             <CardHeart>
               Varje litet steg räknas. Det spelar ingen roll hur långsamt det går, 
               det viktiga är att du har börjat. Ta dig tid, var snäll mot dig själv, och gör 
@@ -211,7 +216,8 @@ const Tutorial = () => {
             </CardHeart>
           </section>
 
-          <section className={standardSpacing.sectionContent}>
+          {/* CONTINUE BUTTON - With border */}
+          <section className="border border-gray-300 p-6">
             <CompleteCardButton 
               cardId="tutorial"
               className={`${primaryButton} w-full`}
