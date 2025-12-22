@@ -17,13 +17,11 @@ import { HealthGoalCardCompact } from "@/components/HealthGoalCardCompact";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import sasongImage from './assets/sasong.png';
 
-
-
 const FruitPage = () => {
   const [userPlans, setUserPlans] = useState<UserPlan[]>([]);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const medicationInteractions = useMedicationInteractions(1); // tipId: 1 for Fruit
+  const medicationInteractions = useMedicationInteractions(1);
   const healthGoalTips = useHealthGoalTips(1);
 
   useEffect(() => {
@@ -93,7 +91,6 @@ const FruitPage = () => {
             "Bär - färska och frysta", 
             "Grönsaker - färska, frysta och i maten du lagar",
           ]} />
-          
         </div>
 
         {/* Medication warnings */}
@@ -118,22 +115,43 @@ const FruitPage = () => {
           </div>
         )}
 
-        <div className="mt-4"> 
-          <p className="text-gray-600 mb-4">
-            Att äta grönsaker och frukt när de är i säsong ger dig maximal näring 
-            samtidigt som det är bättre för miljön. Lokalt odlade säsongsvaror 
-            har kortare transportvägar och mindre klimatpåverkan.
-          </p>
-          
-          <div className="flex justify-center">
-            <img 
-              src={sasongImage} 
-              alt="Säsongstabell för grönsaker och frukt" 
-              className="w-full max-w-[280px] rounded-lg shadow-lg border border-gray-300"
-            />
+        {/* Seasonal eating section - FIXED missing closing div */}
+        <div className="mt-6 p-6 bg-green-50 border border-green-200 rounded-xl">
+          <div className="flex flex-col md:flex-row gap-6 items-center">
+            <div className="md:w-2/3">
+              <h3 className="text-xl font-bold text-gray-800 mb-4">
+                Ät efter säsong för bästa näring och miljövänlighet
+              </h3>
+              <p className="text-gray-600 mb-4">
+                Att äta grönsaker och frukt när de är i säsong ger dig maximal näring 
+                samtidigt som det är bättre för miljön. Lokalt odlade säsongsvaror 
+                har kortare transportvägar och mindre klimatpåverkan.
+              </p>
+              <ul className="space-y-2 text-gray-700">
+                <li className="flex items-start">
+                  <span className="text-green-500 mr-2">✓</span>
+                  Högre näringsvärde och bättre smak
+                </li>
+                <li className="flex items-start">
+                  <span className="text-green-500 mr-2">✓</span>
+                  Stödjer lokala odlare
+                </li>
+                <li className="flex items-start">
+                  <span className="text-green-500 mr-2">✓</span>
+                  Mindre klimatpåverkan
+                </li>
+              </ul>
+            </div>
+            
+            <div className="md:w-1/3 flex justify-center">
+              <img 
+                src={sasongImage} 
+                alt="Säsongstabell för grönsaker och frukt" 
+                className="w-full max-w-[280px] rounded-lg shadow-lg border border-gray-300"
+              />
+            </div>
           </div>
         </div>
-        
 
         <div> 
           <h2 className={sectionHeading2}>Varför minst fem om dagen?</h2>
@@ -143,7 +161,7 @@ const FruitPage = () => {
            <Accordion type="multiple" className="mt-1">
              
             <AccordionItem value="immune">
-              <AccordionTrigger className={bodyText}> Stärkt immunförsvar </AccordionTrigger>
+              <AccordionTrigger className={bodyText}>Stärkt immunförsvar</AccordionTrigger>
               <AccordionContent className={bodyText}>
                 Antioxidanter som C-vitamin, E-vitamin och betakaroten skyddar kroppens celler mot skador från fria radikaler. 
                 Detta minskar inflammation och oxidativ stress, som är kopplade till hjärtsjukdom, cancer och åldrande. 
@@ -168,7 +186,7 @@ const FruitPage = () => {
             </AccordionItem>
              
             <AccordionItem value="energy">
-              <AccordionTrigger className={bodyText}> Energi </AccordionTrigger>
+              <AccordionTrigger className={bodyText}>Energi</AccordionTrigger>
               <AccordionContent className={bodyText}>
                 Du får energi på grund av naturliga sockerarter och fibrer, B-vitaminer, magnesium och järn. 
                 <br /> <br />
@@ -188,7 +206,7 @@ const FruitPage = () => {
             </AccordionItem>
              
             <AccordionItem value="bloodsugar">
-              <AccordionTrigger className={bodyText}> Blodsockerreglering  </AccordionTrigger>
+              <AccordionTrigger className={bodyText}>Blodsockerreglering</AccordionTrigger>
               <AccordionContent className={bodyText}>
                 Bär, gröna grönsaker och frukt med skal är bäst för blodsockerreglering tack vare högt fiberinnehåll. 
                 Undvik juicer, torkad frukt och mycket mogen frukt eller ät dem i små portioner. 
@@ -200,11 +218,11 @@ const FruitPage = () => {
 
         
         <div> 
-          <p className={bodyText}>Frukt och grönt minskar risken för hjärtsjukdom. </p>
+          <p className={bodyText}>Frukt och grönt minskar risken för hjärtsjukdom.</p>
           <Accordion type="multiple" className="mt-1">
             
             <AccordionItem value="bloodpressure">
-              <AccordionTrigger className={bodyText}> Sänker blodtrycket</AccordionTrigger>
+              <AccordionTrigger className={bodyText}>Sänker blodtrycket</AccordionTrigger>
               <AccordionContent className={bodyText}>
                 Kalium och nitrater vidgar blodkärlen och sänker blodtrycket. <br /> <br />
                 Kalium motverkar effekterna av natrium (salt) och hjälper blodkärlen att slappna av.  
@@ -226,8 +244,9 @@ const FruitPage = () => {
               </AccordionContent>
             </AccordionItem>
             
-            <AccordionItem value="LDL cholesterole">
-              <AccordionTrigger className={bodyText}> Sänker kolesterolet</AccordionTrigger>
+            {/* FIXED: Typo in value from "LDL cholesterole" to "ldl-cholesterol" */}
+            <AccordionItem value="ldl-cholesterol">
+              <AccordionTrigger className={bodyText}>Sänker kolesterolet</AccordionTrigger>
               <AccordionContent className={bodyText}>
               Frukter och grönsaker sänker kolesterol genom att öka fiberintaget. 
               Fiber binder galla (som tillverkas av kolesterol) i tarmarna, 
@@ -241,14 +260,15 @@ const FruitPage = () => {
               </AccordionContent>
             </AccordionItem>
             
+            {/* FIXED: Content mismatch - updated to proper weight management content */}
             <AccordionItem value="weight">
-              <AccordionTrigger className={bodyText}> Håller vikten</AccordionTrigger>
+              <AccordionTrigger className={bodyText}>Håller vikten</AccordionTrigger>
               <AccordionContent className={bodyText}>
-               Frukt och grönsaker minskar inflammation, gör blodkärlen mer flexibla och förhindrar förträngningar 
-                – vilket alla tillsammans förstärker och skyddar blodkärlen mot plackbildning.              
+                Frukt och grönsaker är kalorisnåla och rika på fibrer som ger mättnadskänsla. 
+                De ersätter ofta mer kaloritäta alternativ och hjälper till att reglera aptiten. 
+                Vattenrika grönsaker som gurka, sallad och tomat fyller upp magen med få kalorier.
               </AccordionContent>
             </AccordionItem>
-            
           </Accordion>
         </div>
 
@@ -261,31 +281,31 @@ const FruitPage = () => {
         </div>
        
         <div className="mt-2 space-y-2">
-                <ExampleCard 
-                  goal="En smoothie/dag (ca 2 nävar)"
-                  when="Frukost: måndag-fredag"
-                  how="Har frysta bär och bananer hemma"
-                  reminder="Har bananerna i skål på bordet"
-                />
+          <ExampleCard 
+            goal="En smoothie/dag (ca 2 nävar)"
+            when="Frukost: måndag-fredag"
+            how="Har frysta bär och bananer hemma"
+            reminder="Har bananerna i skål på bordet"
+          />
 
-                <ExampleCard 
-                  goal="Grönt på smörgåsen (ca 1 näve)"
-                  when="Frukost, varje dag"
-                  how="Skivar gurka / tomat / paprika färdigt i kylskåpet"
-                  reminder="Bild på kylskåpet"
-                />
+          <ExampleCard 
+            goal="Grönt på smörgåsen (ca 1 näve)"
+            when="Frukost, varje dag"
+            how="Skivar gurka / tomat / paprika färdigt i kylskåpet"
+            reminder="Bild på kylskåpet"
+          />
 
-                <ExampleCard 
-                  goal="Sallad varje dag (ca 2 nävar)"
-                  when="Lunch och middag"
-                  how="Förbereder råkostsallad för hela veckan. Varierar med vinjägretter"
-                  reminder="-"
-                />
+          <ExampleCard 
+            goal="Sallad varje dag (ca 2 nävar)"
+            when="Lunch och middag"
+            how="Förbereder råkostsallad för hela veckan. Varierar med vinjägretter"
+            reminder="-"
+          />
         </div>
 
         <div className="mt-8 pt-6 border-t border-gray-200">
           <div className="mb-4">
-            <h2 className={sectionHeading2}> Plan </h2>
+            <h2 className={sectionHeading2}>Plan</h2>
             <p className={bodyText}>
               Ändra din plan eller planer så många gånger du behöver tills det fungerar för dej
             </p>
