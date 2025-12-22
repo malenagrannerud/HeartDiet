@@ -14,7 +14,7 @@ import { useHealthGoalTips } from "@/hooks/use-health-goal-tips";
 import { HealthGoalCardCompact } from "@/components/HealthGoalCardCompact";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import { useTipUserPlans } from "@/hooks/use-tip-user-plans";
-import GreenArrow from "@/components/ArrowExchanage";
+import ArrowExchange from "@/components/ArrowExchange";
 
 
 
@@ -80,12 +80,12 @@ const FullkornPage = () => {
 
        <DottedList items={[
   "Havregryn (100% fullkorn). En portion är ca 35 g",
-  <span key="bread">Vanligt bröd <GreenArrow size={28} className="mx-2" /> Knäckebröd (100% fullkorn). 2 skivor är ca 24 g</span>,
+  <span key="bread">Vanligt bröd <ArrowExchange className="mx-2" /> Knäckebröd (100% fullkorn). 2 skivor är ca 24 g</span>,
   "Musli (55% fullkorn)",
   "Fullkornsbröd (20 - 70%) fullkorn",
-  <span key="pasta1">Pasta <GreenArrow size={28} className="mx-2" /> Fullkornspasta (55% fullkorn). En portion är ca 40 g</span>,
-  <span key="pasta2">Pasta <GreenArrow size={28} className="mx-2" /> Mathavre (55% fullkorn). En portion är ca 40 g</span>,
-  <span key="flour">Vitt mjöl <GreenArrow size={28} className="mx-2" /> Mjöl på fullkorn (100% fullkorn).</span>
+  <span key="pasta1">Pasta <ArrowExchange size={28} thickness="extra-thick" color="#22C55E" className="mx-2" /> Fullkornspasta (55% fullkorn). En portion är ca 40 g</span>,
+  <span key="pasta2">Pasta <ArrowExchange size={36} thickness="extra-thick" color="#00FF00" animate={true} className="mx-2" /> Mathavre (55% fullkorn). En portion är ca 40 g</span>,
+  <span key="flour">Vitt mjöl <ArrowExchange className="mx-2" /> Mjöl på fullkorn (100% fullkorn).</span>
 ]} />
 
         <div>
