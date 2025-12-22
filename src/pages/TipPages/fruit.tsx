@@ -119,28 +119,13 @@ const FruitPage = () => {
         <div className="mt-6 p-6 bg-green-50 border border-green-200 rounded-xl">
           <div className="flex flex-col md:flex-row gap-6 items-center">
             <div className="md:w-2/3">
-              <h3 className="text-xl font-bold text-gray-800 mb-4">
-                Ät efter säsong för bästa näring och miljövänlighet
-              </h3>
+             
               <p className="text-gray-600 mb-4">
                 Att äta grönsaker och frukt när de är i säsong ger dig maximal näring 
                 samtidigt som det är bättre för miljön. Lokalt odlade säsongsvaror 
                 har kortare transportvägar och mindre klimatpåverkan.
               </p>
-              <ul className="space-y-2 text-gray-700">
-                <li className="flex items-start">
-                  <span className="text-green-500 mr-2">✓</span>
-                  Högre näringsvärde och bättre smak
-                </li>
-                <li className="flex items-start">
-                  <span className="text-green-500 mr-2">✓</span>
-                  Stödjer lokala odlare
-                </li>
-                <li className="flex items-start">
-                  <span className="text-green-500 mr-2">✓</span>
-                  Mindre klimatpåverkan
-                </li>
-              </ul>
+              
             </div>
             
             <div className="md:w-1/3 flex justify-center">
