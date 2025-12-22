@@ -78,12 +78,12 @@ const FullkornPage = () => {
           <p> För att äta 90 g fullkorn kan du till exempel äta: </p>
           <DottedList items={[
             "Havregryn (100% fullkorn). En portion är ca 35 g",
-            "Knäckebröd (100% fullkorn). 2 skivor är ca 24 g",
+            "Vanligt bröd <span className="text-green-500 font-black text-3xl drop-shadow-lg">➤</span> Knäckebröd (100% fullkorn). 2 skivor är ca 24 g",
             "Musli (55% fullkorn)",
             "Fullkornsbröd (20 - 70%) fullkorn ",
-            "Fullkornspasta (55% fullkorn). En portion är ca 40 g", 
-            "Mathavre (55% fullkorn). En portion är ca 40 g", 
-            "Mjöl (100% fullkorn)." 
+            "Pasta <span className="text-green-500 font-black text-3xl drop-shadow-lg">➤</span> Fullkornspasta (55% fullkorn). En portion är ca 40 g", 
+            "Pasta <span className="text-green-500 font-black text-3xl drop-shadow-lg">➤</span> Mathavre (55% fullkorn). En portion är ca 40 g", 
+            "Vitt mjöl <span className="text-green-500 font-black text-3xl drop-shadow-lg">➤</span> Mjöl på fullkorn (100% fullkorn)." 
           ]} />
         </div>
 
