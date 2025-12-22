@@ -118,21 +118,21 @@ const FruitPage = () => {
           </div>
         )}
 
-        <div> 
+        <div className="mt-4"> 
           <p className="text-gray-600 mb-4">
             Att äta grönsaker och frukt när de är i säsong ger dig maximal näring 
             samtidigt som det är bättre för miljön. Lokalt odlade säsongsvaror 
             har kortare transportvägar och mindre klimatpåverkan.
           </p>
-        </div>
-
-          <div className="md:w-1/3 flex justify-center">
+          
+          <div className="flex justify-center">
             <img 
               src={sasongImage} 
               alt="Säsongstabell för grönsaker och frukt" 
               className="w-full max-w-[280px] rounded-lg shadow-lg border border-gray-300"
             />
           </div>
+        </div>
         
 
         <div> 
