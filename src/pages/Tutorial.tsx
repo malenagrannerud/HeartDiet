@@ -35,23 +35,27 @@ const Tutorial = () => {
                 <h2 className={sectionHeadingStyle}>Mål med appen</h2>
               
                 <p className={bodyText}> 
-                Välkommen till HjärtKost! Målet med appen är att hjälpa användaren att implementera alla tips (se "Mina tips") i slutändan. 
-                Man äter då enligt den "Nya nordiska dieten",
-                en vetenskapligt bevisad diet som minskar risken för många livsstilsrelaterade sjukdomar drastiskt.
-              </p>
-              <p className={bodyText}>
-                Dieten liknar Medelhavsdieten, men fokuserar på lokalt odlade livsmedel 
-                för ett miljövänligare matmönster. Till exempel ingår:
-              </p>
+                  Välkommen till HjärtKost! Målet med appen är att hjälpa användaren att implementera ett antal tips. 
+                  När alla tips är implementerade äter du enligt medelhavsdieten, en vetenskapligt bevisad diet som 
+                    drastiskt minskar risken för många livsstilsrelaterade sjukdomar.
+                </p>
+                
+                <p className={bodyText}>
+                  HjärtKost fokuserar på lokalt odlade livsmedel för ett miljövänligare matmönster. 
+                  Dieten Då brukar dieten kallas för hälsosam nordisk kost / Nordiska dieten / Nya nordiska dieten.
+                  Huvuddelarna i dieten:
+                </p>
 
                 <DottedList items={[
-                  "Grönsaker och rotfrukter",
-                  "Frukt och bär",
-                  "Fullkorn", 
-                  "Rapsolja",
-                  "Lax, magra mejeriprodukter och bajlväxter",
-                  "Skogssvamp, färska kryddor, sjögräs, skaldjur, fermenterad mat",
+                  "Undvik ultraprocessad mat (mat med en innehållförteckning )",
+                  "Fem nävar frukter/bär och grönsaker per dag",
+                  "Mer fullkorn", 
+                  "Olivolja och rapsolja ersätter allt annat fett i köket.",
+                  "Drick kaffe",
+                  "Fysisk aktivitet varje dag",
                 ]} />
+
+                https://www.youtube.com/watch?v=f4yr-jjxD00&t=5s
 
                 <CardHeart>
                   Att implementera nya matvanor görs i små steg. Det ska vara roligt och gott!
