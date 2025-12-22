@@ -14,6 +14,9 @@ import { useHealthGoalTips } from "@/hooks/use-health-goal-tips";
 import { HealthGoalCardCompact } from "@/components/HealthGoalCardCompact";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import { useTipUserPlans } from "@/hooks/use-tip-user-plans";
+import GreenArrow from "@/components/GreenArrow";
+
+
 
 const FullkornPage = () => {
   const {
@@ -75,19 +78,15 @@ const FullkornPage = () => {
           </div>
         )}
 
-        <div>
-          <h2 className={sectionHeading2}>Fullkornsprodukter</h2>
-          <p className={bodyText}>För att äta 90 g fullkorn kan du till exempel äta:</p>
-          <DottedList items={[
-            "Havregryn (100% fullkorn). En portion är ca 35 g",
-            <span key="bread">Vanligt bröd <span className="text-green-500 font-black text-3xl drop-shadow-lg">➤</span> Knäckebröd (100% fullkorn). 2 skivor är ca 24 g</span>,
-            "Musli (55% fullkorn)",
-            "Fullkornsbröd (20 - 70%) fullkorn",
-            <span key="pasta1">Pasta <span className="text-green-500 font-black text-3xl drop-shadow-lg">➤</span> Fullkornspasta (55% fullkorn). En portion är ca 40 g</span>,
-            <span key="pasta2">Pasta <span className="text-green-500 font-black text-3xl drop-shadow-lg">➤</span> Mathavre (55% fullkorn). En portion är ca 40 g</span>,
-            <span key="flour">Vitt mjöl <span className="text-green-500 font-black text-3xl drop-shadow-lg">➤</span> Mjöl på fullkorn (100% fullkorn).</span>
-          ]} />
-        </div>
+       <DottedList items={[
+  "Havregryn (100% fullkorn). En portion är ca 35 g",
+  <span key="bread">Vanligt bröd <GreenArrow size={28} className="mx-2" /> Knäckebröd (100% fullkorn). 2 skivor är ca 24 g</span>,
+  "Musli (55% fullkorn)",
+  "Fullkornsbröd (20 - 70%) fullkorn",
+  <span key="pasta1">Pasta <GreenArrow size={28} className="mx-2" /> Fullkornspasta (55% fullkorn). En portion är ca 40 g</span>,
+  <span key="pasta2">Pasta <GreenArrow size={28} className="mx-2" /> Mathavre (55% fullkorn). En portion är ca 40 g</span>,
+  <span key="flour">Vitt mjöl <GreenArrow size={28} className="mx-2" /> Mjöl på fullkorn (100% fullkorn).</span>
+]} />
 
         <div>
           <h2 className={sectionHeading2}>Varför minst 90 g om dagen?</h2>
