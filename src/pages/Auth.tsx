@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "@/integrations/supabase/client";
+import { supabase, isSupabaseConfigured } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -45,7 +45,17 @@ const Auth = () => {
 
   const handleAuth = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
+    if (!isSupabaseConfigured) {
+      toast({
+        title: "Konfiguration saknas",
+        description:
+          "Miljövariabler saknas. Sätt VITE_SUPABASE_URL och VITE_SUPABASE_ANON_KEY och ladda om förhandsvisningen.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     if (!validateInputs()) return;
 
     setLoading(true);
@@ -82,7 +92,7 @@ const Auth = () => {
       }
     } catch (error: any) {
       let message = "Något gick fel. Försök igen.";
-      
+
       if (error.message?.includes("Invalid login credentials")) {
         message = "Fel e-post eller lösenord.";
       } else if (error.message?.includes("User already registered")) {
@@ -114,6 +124,17 @@ const Auth = () => {
               : "Fyll i dina uppgifter för att skapa ett konto"}
           </p>
         </div>
+
+        {!isSupabaseConfigured && (
+          <div className="rounded-md border border-border bg-muted p-3 text-sm text-foreground">
+            <p className="font-medium">Supabase är inte konfigurerat</p>
+            <p className="mt-1 text-muted-foreground">
+              Lägg till <span className="font-mono">VITE_SUPABASE_URL</span> och{" "}
+              <span className="font-mono">VITE_SUPABASE_ANON_KEY</span> i projektets
+              miljövariabler och ladda om.
+            </p>
+          </div>
+        )}
 
         <form onSubmit={handleAuth} className="space-y-4">
           <div className="space-y-2">
