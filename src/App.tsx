@@ -6,9 +6,11 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getStorageItem, setStorageItem } from "@/lib/storage";
 import { onboardingCompletedSchema } from "@/lib/schemas";
+import { AuthProvider, useAuth } from "@/hooks/use-auth";
 import Onboarding from "./pages/Onboarding";
 import MainApp from "./pages/MainApp";
 import NotFound from "./pages/NotFound";
+import Auth from "./pages/Auth";
 
 
 // Main application wrapper that provides global context providers and routing
@@ -22,7 +24,8 @@ import NotFound from "./pages/NotFound";
 // Keep QueryClient for dependency compatibility
 const queryClient = new QueryClient();
 
-const App = () => {
+const AppRoutes = () => {
+  const { user, loading } = useAuth();
   const [onboardingCompleted, setOnboardingCompleted] = useState<boolean>(() => {
     // Migrate old key if exists
     const oldKey = localStorage.getItem("hasSeenOnboarding");
@@ -44,28 +47,57 @@ const App = () => {
     setOnboardingCompleted(true);
   };
 
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-muted-foreground">Laddar...</div>
+      </div>
+    );
+  }
+
+  return (
+    <Routes>
+      <Route 
+        path="/" 
+        element={
+          user 
+            ? (onboardingCompleted ? <Navigate to="/app" replace /> : <Navigate to="/welcome" replace />)
+            : <Navigate to="/auth" replace />
+        } 
+      />
+      <Route 
+        path="/auth" 
+        element={user ? <Navigate to="/" replace /> : <Auth />} 
+      />
+      <Route 
+        path="/welcome" 
+        element={
+          user 
+            ? <Onboarding onComplete={completeOnboarding} />
+            : <Navigate to="/auth" replace />
+        } 
+      />
+      <Route 
+        path="/app/*" 
+        element={user ? <MainApp /> : <Navigate to="/auth" replace />} 
+      />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  );
+};
+
+const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Routes>
-            <Route 
-              path="/" 
-              element={
-                onboardingCompleted ? <Navigate to="/app" replace /> : <Navigate to="/welcome" replace />
-              } 
-            />
-            <Route 
-              path="/welcome" 
-              element={<Onboarding onComplete={completeOnboarding} />} 
-            />
-            <Route path="/app/*" element={<MainApp />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </TooltipProvider>
+      <AuthProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <AppRoutes />
+          </BrowserRouter>
+        </TooltipProvider>
+      </AuthProvider>
     </QueryClientProvider>
   );
 };
