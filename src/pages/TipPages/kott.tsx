@@ -81,14 +81,14 @@ const KottPage = () => {
         </p>
 
         <div>
-          <h2 className={sectionHeading2}>Vad är rött kött?</h2>
-          <p className={bodyText}>Rött kött kommer från däggdjur</p>
+          <h2 className={sectionHeading2}>Vad är rött och bearbetat kött?</h2>
+          <p className={bodyText}>Rött kött är kött från nöt, gris, lamm, ren och vilt. 
+            Chark är till exempel korv, skinka och bacon, och även chark av kyckling och kalkon. </p>
           <DottedList items={[
-            "Nötkött",
-            "Fläskkött",
-            "Lammkött",
+            "Nöt, fläsk och lammkött <--> Kyckling, kalkon, kanin",
+            
             "Älg och viltkött",
-            "Kalvkött"
+            
           ]} />
         </div>
 
@@ -114,17 +114,6 @@ const KottPage = () => {
           </div>
         )}
 
-        <div>
-          <h2 className={sectionHeading2}>Vad är bearbetat kött?</h2>
-          <p className={bodyText}>Kött som bearbetats för längre hållbarhet</p>
-          <DottedList items={[
-            "Korv: falukorv, grillkorv, isterband",
-            "Charkuterier: skinka, salami, bacon",
-            "Rökt och saltad kött",
-            "Konserverat kött",
-            "Köttbullar och färdigmat med kött"
-          ]} />
-        </div>
 
         <div>
           <h2 className={sectionHeading2}>Varför begränsa?</h2>
@@ -139,10 +128,14 @@ const KottPage = () => {
           
           <Accordion type="multiple" className="mt-4">
             <AccordionItem value="cancer">
-              <AccordionTrigger className={bodyText}>Varför ökar bearbetat kött risken för cancer?</AccordionTrigger>
+              <AccordionTrigger className={bodyText}>Miskar risken för cancer</AccordionTrigger>
               <AccordionContent className={bodyText}>
-                WHO klassificerar bearbetat kött som cancerframkallande (grupp 1). När kött röks, saltas eller konserveras bildas cancerframkallande ämnen som nitrosaminer. Hemjärn i rött kött kan också skada tarmens slemhinna. Studier visar att varje 50 g bearbetat kött per dag ökar risken för tjocktarmscancer med 18%.
+                WHO klassificerar bearbetat kött som cancerframkallande (grupp 1). 
+                När kött röks, saltas eller konserveras bildas cancerframkallande ämnen som nitrosaminer. 
+                Hemjärn i rött kött kan också skada tarmens slemhinna. Studier visar att varje 50 g bearbetat kött
+                 per dag ökar risken för tjocktarmscancer med 18%.
               </AccordionContent>
+
             </AccordionItem>
             <AccordionItem value="heart">
               <AccordionTrigger className={bodyText}>Hur påverkar rött kött hjärthälsan?</AccordionTrigger>
@@ -150,6 +143,7 @@ const KottPage = () => {
                 Rött kött innehåller mycket mättat fett som höjer LDL-kolesterolet. Bearbetat kött innehåller också mycket salt och nitriter som höjer blodtrycket. Dessutom producerar tarmbakterier TMAO från L-karnitin i rött kött, vilket ökar risken för åderförkalkning. Att ersätta rött kött med fisk, kyckling eller baljväxter minskar dessa risker.
               </AccordionContent>
             </AccordionItem>
+            
             <AccordionItem value="alternatives">
               <AccordionTrigger className={bodyText}>Vilka är de bästa alternativen till rött kött?</AccordionTrigger>
               <AccordionContent className={bodyText}>
