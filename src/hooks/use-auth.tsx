@@ -24,22 +24,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // If the client isn't configured yet, avoid a hard crash and let the UI show setup instructions.
-    if (!supabase) {
-      setSession(null);
-      setUser(null);
-      setLoading(false);
-      return;
-    }
-
     // Set up auth state listener FIRST
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((event, session) => {
-      setSession(session);
-      setUser(session?.user ?? null);
-      setLoading(false);
-    });
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        setSession(session);
+        setUser(session?.user ?? null);
+        setLoading(false);
+      }
+    );
 
     // THEN check for existing session
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -52,7 +44,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const signOut = async () => {
-    if (!supabase) return;
     await supabase.auth.signOut();
   };
 

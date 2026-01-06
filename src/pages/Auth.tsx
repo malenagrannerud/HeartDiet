@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { isSupabaseConfigured, supabase } from "@/integrations/supabase/client";
+import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -51,16 +51,6 @@ const Auth = () => {
     setLoading(true);
 
     try {
-      if (!supabase) {
-        toast({
-          title: "Saknar konfiguration",
-          description:
-            "Appen saknar VITE_SUPABASE_URL och VITE_SUPABASE_ANON_KEY. Lägg till dem i projektets environment/secrets och ladda om.",
-          variant: "destructive",
-        });
-        return;
-      }
-
       if (isLogin) {
         const { error } = await supabase.auth.signInWithPassword({
           email: email.trim(),
@@ -111,25 +101,7 @@ const Auth = () => {
     }
   };
 
-  if (!isSupabaseConfigured) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center p-4">
-        <div className="w-full max-w-md space-y-3">
-          <h1 className="text-2xl font-bold text-foreground">Inloggning ej redo</h1>
-          <p className="text-sm text-muted-foreground">
-            Miljövariabler saknas: <span className="font-medium">VITE_SUPABASE_URL</span> och{" "}
-            <span className="font-medium">VITE_SUPABASE_ANON_KEY</span>.
-          </p>
-          <p className="text-sm text-muted-foreground">
-            Lägg till dem i projektets environment/secrets och ladda sedan om förhandsvisningen.
-          </p>
-        </div>
-      </div>
-    );
-  }
-
   return (
-
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
       <div className="w-full max-w-sm space-y-6">
         <div className="text-center space-y-2">
