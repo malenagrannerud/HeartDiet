@@ -67,6 +67,8 @@ const Progress = () => {
   const [goalBloodPressure, setGoalBloodPressure] = useState<{ systolic: number; diastolic: number } | undefined>();
   const [goalBloodFats, setGoalBloodFats] = useState<{ ldl?: number; hdl?: number } | undefined>();
   const [goalBloodGlucose, setGoalBloodGlucose] = useState<{ hba1c?: number; fastingGlucose?: number } | undefined>();
+  const [showBloodFats, setShowBloodFats] = useState(false);
+  const [showBloodGlucose, setShowBloodGlucose] = useState(false);
   const [expandedChart, setExpandedChart] = useState<'weight' | 'bloodPressure' | 'bloodFats' | 'bloodGlucose' | null>(null);
   
   // Blood fats dialog state
@@ -141,6 +143,30 @@ const Progress = () => {
       if (goalFG !== undefined) setGoalBloodGlucose(prev => ({ ...prev, fastingGlucose: goalFG }));
     }
 
+    // Determine if we should show blood fats and blood glucose charts
+    // Show chart if: user has relevant goal/medication OR has already logged values
+    const hasSavedBloodFats = logs.some((l) => l?.entries?.some((e: any) => e.type === 'bloodFats'));
+    const hasSavedBloodGlucose = logs.some((l) => l?.entries?.some((e: any) => e.type === 'bloodGlucose'));
+
+    // Show blood fats if: user has cholesterol goal OR takes statin medication OR has values
+    const hasCholesterolGoal = data?.priorities.includes('cholesterol');
+    const hasStatinMedication = savedMeds ? savedMeds.some(savedMed => {
+      if (!savedMed.id) return false;
+      const medicationInfo = medications.find(med => med.id === savedMed.id);
+      if (!medicationInfo) return false;
+      return medicationInfo.category.includes('Statin');
+    }) : false;
+    setShowBloodFats(Boolean(hasCholesterolGoal || hasStatinMedication || hasSavedBloodFats));
+
+    // Show blood glucose if: user has diabetes goal OR takes diabetes medication OR has values
+    const hasDiabetesGoal = data?.priorities.includes('diabetes');
+    const hasDiabetesMedication = savedMeds ? savedMeds.some(savedMed => {
+      if (!savedMed.id) return false;
+      const medicationInfo = medications.find(med => med.id === savedMed.id);
+      if (!medicationInfo) return false;
+      return medicationInfo.category.includes('Diabetesmedicin');
+    }) : false;
+    setShowBloodGlucose(Boolean(hasDiabetesGoal || hasDiabetesMedication || hasSavedBloodGlucose));
   }, []);
 
   // Generate week dates (Monday to Sunday)
@@ -782,7 +808,12 @@ const Progress = () => {
             onNextWeek={goToNextWeek}
             onCurrentWeek={goToCurrentWeek}
             onTipToggle={handleTipToggle}
+            onOpenDialog={openAddDataDialog}
             isTipCompletedOnDate={isTipCompletedOnDate}
+            hasWeightOnDate={hasWeightOnDate}
+            hasBloodPressureOnDate={hasBloodPressureOnDate}
+            hasBloodFatsOnDate={hasBloodFatsOnDate}
+            hasBloodGlucoseOnDate={hasBloodGlucoseOnDate}
             isToday={isToday}
             markedTipIds={markedTipIds}
           />
@@ -832,18 +863,22 @@ const Progress = () => {
               goalWeight={goalWeight}
               onMoreClick={() => navigate('/app/progress/weight')}
             />
-            <ProgressChart 
-              type="bloodFats" 
-              dayLogs={dayLogs}
-              goalBloodFats={goalBloodFats}
-              onMoreClick={() => navigate('/app/progress/bloodFats')}
-            />
-            <ProgressChart 
-              type="bloodGlucose" 
-              dayLogs={dayLogs}
-              goalBloodGlucose={goalBloodGlucose}
-              onMoreClick={() => navigate('/app/progress/bloodGlucose')}
-            />
+            {showBloodFats && (
+              <ProgressChart 
+                type="bloodFats" 
+                dayLogs={dayLogs}
+                goalBloodFats={goalBloodFats}
+                onMoreClick={() => navigate('/app/progress/bloodFats')}
+              />
+            )}
+            {showBloodGlucose && (
+              <ProgressChart 
+                type="bloodGlucose" 
+                dayLogs={dayLogs}
+                goalBloodGlucose={goalBloodGlucose}
+                onMoreClick={() => navigate('/app/progress/bloodGlucose')}
+              />
+            )}
           </div>
 
           {/* Health Goals and Medications Cards */}
