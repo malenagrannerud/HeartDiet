@@ -808,12 +808,7 @@ const Progress = () => {
             onNextWeek={goToNextWeek}
             onCurrentWeek={goToCurrentWeek}
             onTipToggle={handleTipToggle}
-            onOpenDialog={openAddDataDialog}
             isTipCompletedOnDate={isTipCompletedOnDate}
-            hasWeightOnDate={hasWeightOnDate}
-            hasBloodPressureOnDate={hasBloodPressureOnDate}
-            hasBloodFatsOnDate={hasBloodFatsOnDate}
-            hasBloodGlucoseOnDate={hasBloodGlucoseOnDate}
             isToday={isToday}
             markedTipIds={markedTipIds}
           />
