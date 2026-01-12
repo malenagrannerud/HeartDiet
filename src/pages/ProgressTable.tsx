@@ -1,7 +1,7 @@
 import { format } from "date-fns";
 import { sv } from "date-fns/locale";
 import { useNavigate } from "react-router-dom";
-import { ChevronLeft, ChevronRight, Plus, Heart, Weight, Activity, Droplet } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { tips } from "@/data/tips";
 import { Button } from "@/components/ui/button";
 import { bodyText, tableHeaderSmall } from "@/lib/design-tokens";
@@ -17,12 +17,7 @@ interface WeeklyProgressTableProps {
   onNextWeek: () => void;
   onCurrentWeek: () => void;
   onTipToggle: (tipId: number, date: Date) => void;
-  onOpenDialog: (date: Date, type: 'weight' | 'bloodPressure' | 'bloodFats' | 'bloodGlucose') => void;
   isTipCompletedOnDate: (tipId: number, date: Date) => boolean;
-  hasWeightOnDate: (date: Date) => boolean;
-  hasBloodPressureOnDate: (date: Date) => boolean;
-  hasBloodFatsOnDate: (date: Date) => boolean;
-  hasBloodGlucoseOnDate: (date: Date) => boolean;
   isToday: (date: Date) => boolean;
   markedTipIds?: number[];
 }
@@ -34,12 +29,7 @@ export const WeeklyProgressTable = ({
   onNextWeek,
   onCurrentWeek,
   onTipToggle,
-  onOpenDialog,
   isTipCompletedOnDate,
-  hasWeightOnDate,
-  hasBloodPressureOnDate,
-  hasBloodFatsOnDate,
-  hasBloodGlucoseOnDate,
   isToday,
   markedTipIds = []
 }: WeeklyProgressTableProps) => {
@@ -190,133 +180,6 @@ export const WeeklyProgressTable = ({
               })}
               
              
-
-              {/* Row for blood pressure */}
-              <tr className="border-b bg-muted/20">
-                <td className="py-1 px-1">
-                  <span className={bodyText}>Blodtryck</span>
-                </td>
-                {weekDates.map((date, dayIndex) => {
-                  const hasBP = hasBloodPressureOnDate(date);
-                  const todayHighlight = isToday(date);
-                  return (
-                    <td 
-                      key={dayIndex} 
-                      className={`text-center py-1 px-0 ${
-                        todayHighlight ? 'bg-primary/10 border-l-2 border-r-2 border-primary' : ''
-                      }`}
-                    >
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => onOpenDialog(date, 'bloodPressure')}
-                        className="h-8 w-8 p-0 rounded-none"
-                      >
-                        {hasBP ? (
-                            <Heart className="h-4 w-4 text-[hsla(332,52%,52%,1.00)] fill-[hsla(332,52%,52%,1.00)]" />                        ) : (
-                          <Plus className="h-4 w-4 text-gray-400 opacity-70" strokeWidth={1.5} />
-                        )}
-                      </Button>
-                    </td>
-                  );
-                })}
-              </tr>
-
-               {/* Row for weight */}
-              <tr className="border-b bg-muted/20">
-                <td className="py-1 px-1">
-                  <span className={bodyText}>Vikt</span>
-                </td>
-                {weekDates.map((date, dayIndex) => {
-                  const hasWeight = hasWeightOnDate(date);
-                  const todayHighlight = isToday(date);
-                  return (
-                    <td 
-                      key={dayIndex} 
-                      className={`text-center py-1 px-0 ${
-                        todayHighlight ? 'bg-primary/10 border-l-2 border-r-2 border-primary' : ''
-                      }`}
-                    >
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => onOpenDialog(date, 'weight')}
-                        className="h-8 w-8 p-0 rounded-none"
-                      >
-                        {hasWeight ? (
-                          <Weight className="h-4 w-4 text-[hsla(204,37%,48%,1.00)] fill-[hsla(204,37%,48%,1.00)]" />
-                        ) : (
-                          <Plus className="h-4 w-4 text-gray-400 opacity-70" strokeWidth={1.5} />
-                        )}
-                      </Button>
-                    </td>
-                  );
-                })}
-              </tr>
-
-              {/* Row for Kolesterol (blood fats) */}
-              <tr className="border-b bg-muted/20">
-                <td className="py-1 px-1">
-                  <span className={bodyText}>Kolesterol</span>
-                </td>
-                {weekDates.map((date, dayIndex) => {
-                  const hasBloodFats = hasBloodFatsOnDate(date);
-                  const todayHighlight = isToday(date);
-                  return (
-                    <td 
-                      key={dayIndex} 
-                      className={`text-center py-1 px-0 ${
-                        todayHighlight ? 'bg-primary/10 border-l-2 border-r-2 border-primary' : ''
-                      }`}
-                    >
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => onOpenDialog(date, 'bloodFats')}
-                        className="h-8 w-8 p-0 rounded-none"
-                      >
-                        {hasBloodFats ? (
-                          <Activity className="h-4 w-4 text-[hsla(280,60%,55%,1.00)] fill-[hsla(280,60%,55%,1.00)]" />
-                        ) : (
-                          <Plus className="h-4 w-4 text-gray-400 opacity-70" strokeWidth={1.5} />
-                        )}
-                      </Button>
-                    </td>
-                  );
-                })}
-              </tr>
-
-              {/* Row for Blodsocker (blood glucose) */}
-              <tr className="border-b bg-muted/20">
-                <td className="py-1 px-1">
-                  <span className={bodyText}>Blodsocker</span>
-                </td>
-                {weekDates.map((date, dayIndex) => {
-                  const hasGlucose = hasBloodGlucoseOnDate(date);
-                  const todayHighlight = isToday(date);
-                  return (
-                    <td 
-                      key={dayIndex} 
-                      className={`text-center py-1 px-0 ${
-                        todayHighlight ? 'bg-primary/10 border-l-2 border-r-2 border-primary' : ''
-                      }`}
-                    >
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => onOpenDialog(date, 'bloodGlucose')}
-                        className="h-8 w-8 p-0 rounded-none"
-                      >
-                        {hasGlucose ? (
-                          <Droplet className="h-4 w-4 text-[hsla(195,75%,45%,1.00)] fill-[hsla(195,75%,45%,1.00)]" />
-                        ) : (
-                          <Plus className="h-4 w-4 text-gray-400 opacity-70" strokeWidth={1.5} />
-                        )}
-                      </Button>
-                    </td>
-                  );
-                })}
-              </tr>
 
             </tbody>
           </table>
