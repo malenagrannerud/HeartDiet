@@ -169,6 +169,15 @@ const Progress = () => {
     setShowBloodGlucose(Boolean(hasDiabetesGoal || hasDiabetesMedication || hasSavedBloodGlucose));
   }, []);
 
+
+
+
+
+
+
+
+  
+
   // Generate week dates (Monday to Sunday)
   const weekDates = Array.from({ length: 7 }, (_, i) => 
     addDays(currentWeekStart, i)
