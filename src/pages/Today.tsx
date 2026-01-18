@@ -204,40 +204,16 @@ const Today = () => {
                     </div>
                   )}
                   
-                  {!hiddenCards.healthGoals && !hiddenCards.medications && (
+                  {/* Medications card hidden as per user request */}
+                  
+                  {!hiddenCards.healthGoals && !hiddenCards.healthMetrics && (
                     <div className="flex gap-4">
                       <div className="w-5 flex justify-center">
                         <div className="w-0.5 h-2 border-l-2 border-dashed border-gray-300" />
-                      </div>
-                    </div>
-                  )}
-
-                  {!hiddenCards.medications && (
-                    <div className="flex gap-4 items-center">
-                      <CheckBoxLeft isCompleted={completionStatus.medications} />
-                      <div className="flex-1">
-                        <StartCard
-                          isHidden={false}
-                          title="Mina läkemedel"
-                          icon={<FileEdit size={12} strokeWidth={2.5} />}
-                          label="Formulär"
-                          time="1 min"
-                          onClick={() => handleCardNavigation('medications', '/app/medications')}
-                          ariaLabel="Gå till läkemedel"
-                          hasImage={true}
-                          imageSrc={FormLady}
-                        />
                       </div>
                     </div>
                   )}
                   
-                  {!hiddenCards.medications && !hiddenCards.healthMetrics && (
-                    <div className="flex gap-4">
-                      <div className="w-5 flex justify-center">
-                        <div className="w-0.5 h-2 border-l-2 border-dashed border-gray-300" />
-                      </div>
-                    </div>
-                  )}
 
                   {!hiddenCards.healthMetrics && (
                     <div className="flex gap-4 items-center">
