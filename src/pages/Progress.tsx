@@ -881,22 +881,14 @@ const Progress = () => {
             )}
           </div>
 
-          {/* Health Goals and Medications Cards */}
-          <div className="grid grid-cols-2 gap-6">
+          {/* Health Goals Card - Medications card hidden as per user request */}
+          <div className="grid grid-cols-1 gap-6">
             <HealthInfoCard
               icon={Heart}
               title="Mina hälsomål"
               items={priorities.map((id) => ({ id, label: healthPriorityLabels[id] }))}
               emptyMessage="Inga mål valda ännu"
               onClick={() => navigate('/app/health-goals?returnTo=/app/progress')}
-            />
-
-            <HealthInfoCard
-              icon={Pill}
-              title="Mina läkemedel"
-              items={selectedMedications.map((med) => ({ id: med.id || '', label: med.name || '' }))}
-              emptyMessage="Inga läkemedel valda ännu"
-              onClick={() => navigate('/app/medications?returnTo=/app/progress')}
             />
           </div>
 
