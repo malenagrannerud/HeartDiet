@@ -25,14 +25,14 @@ export const UserPlanDisplay: React.FC<UserPlanDisplayProps> = ({
             <div className="flex gap-2">
               <button
                 onClick={() => onEdit(index)}
-                className="p-2 text-blue-600 hover:bg-blue-100 rounded-lg transition-colors"
+                className="p-2 text-black hover:bg-gray-200 rounded-lg transition-colors"
                 aria-label="Redigera plan"
               >
                 <Edit2 size={18} />
               </button>
               <button
                 onClick={() => onDelete(index)}
-                className="p-2 text-red-600 hover:bg-red-100 rounded-lg transition-colors"
+                className="p-2 text-black hover:bg-gray-200 rounded-lg transition-colors"
                 aria-label="Ta bort plan"
               >
                 <Trash2 size={18} />

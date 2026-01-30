@@ -80,14 +80,14 @@ export const UserPlanForm: React.FC<UserPlanFormProps> = ({
         <div className="flex gap-3 pt-2">
           <button
             type="submit"
-            className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors"
+            className="bg-black text-white px-6 py-2 rounded-lg hover:opacity-90 transition-colors"
           >
             Spara 
           </button>
           <button
             type="button"
             onClick={onCancel}
-            className="bg-gray-300 text-gray-700 px-6 py-2 rounded-lg hover:bg-gray-400 transition-colors"
+            className="bg-gray-200 text-black px-6 py-2 rounded-lg hover:bg-gray-300 transition-colors"
           >
             Avbryt
           </button>

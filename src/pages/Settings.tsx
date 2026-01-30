@@ -1,12 +1,30 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { BookOpen, Check } from "lucide-react";
+import { BookOpen, Check, LogOut } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { pageTitle, cardTitle, cardText, interactiveCard, pageContainer, pagePadding } from "@/lib/design-tokens";
+import { useAuth } from "@/hooks/use-auth";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 const Settings = () => {
   const navigate = useNavigate();
+  const { signOut } = useAuth();
   const [tutorialCompleted, setTutorialCompleted] = useState(false);
+
+  const handleLogout = async () => {
+    await signOut();
+    navigate('/auth');
+  };
 
   useEffect(() => {
     setTutorialCompleted(localStorage.getItem('tutorialCompleted') === 'true');
@@ -42,6 +60,39 @@ const Settings = () => {
             )}
           </div>
         </Card>
+
+        {/* Logout Card with Confirmation Dialog */}
+        <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <Card 
+              className={`${interactiveCard} border-destructive/30 hover:border-destructive/50 cursor-pointer`}
+            >
+              <div className="flex items-start gap-4">
+                <div className="p-3 bg-destructive/10 rounded-lg">
+                  <LogOut size={24} className="text-destructive" />
+                </div>
+                <div className="flex-1">
+                  <h3 className={cardTitle}>Logga ut</h3>
+                  <p className={cardText}>Logga ut från ditt konto</p>
+                </div>
+              </div>
+            </Card>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Vill du logga ut?</AlertDialogTitle>
+              <AlertDialogDescription>
+                Du kommer att loggas ut från ditt konto och behöver logga in igen för att använda appen.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Avbryt</AlertDialogCancel>
+              <AlertDialogAction onClick={handleLogout} className="bg-destructive hover:bg-destructive/90">
+                Logga ut
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </div>
     </div>
   );

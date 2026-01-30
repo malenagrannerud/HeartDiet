@@ -10,23 +10,23 @@ interface MedCardCompactProps {
 }
 
 export const MedCardCompact = ({ medication, interaction, className }: MedCardCompactProps) => {
-  // Color based on severity
+  // Color based on severity (high contrast)
   const severityColors = {
-    high: "border-amber-600 bg-amber-50 hover:bg-amber-100",
-    medium: "border-blue-600 bg-blue-50 hover:bg-blue-100",
-    low: "border-slate-600 bg-slate-50 hover:bg-slate-100"
+    high: "border-2 border-black bg-amber-100 hover:bg-amber-200",
+    medium: "border-2 border-gray-600 bg-gray-100 hover:bg-gray-200",
+    low: "border border-gray-400 bg-gray-50 hover:bg-gray-100"
   };
 
   const severityTextColors = {
-    high: "text-amber-900",
-    medium: "text-blue-900",
-    low: "text-slate-900"
+    high: "text-black",
+    medium: "text-black",
+    low: "text-black"
   };
 
   const severityIconColors = {
-    high: "text-amber-600",
-    medium: "text-blue-600",
-    low: "text-slate-600"
+    high: "text-black",
+    medium: "text-black",
+    low: "text-gray-700"
   };
 
   return (
