@@ -33,7 +33,7 @@ export const StartCard = ({
   return (
     <Card 
       // ONLY CHANGE: Override the background to blue-100, keep all other original classes
-      className={`${interactiveCard} bg-blue-100 ${hasImage ? 'relative' : ''} py-3 h-28`}
+      className={`${interactiveCard} bg-gray-100 ${hasImage ? 'relative' : ''} py-3 h-28`}
       onClick={onClick}
       aria-label={ariaLabel}
     >
