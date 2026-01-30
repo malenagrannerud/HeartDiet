@@ -9,17 +9,17 @@ interface MedCardProps {
 }
 
 export const MedCard = ({ medication, interaction, className = "" }: MedCardProps) => {
-  // Set background color based on severity
+  // Set background color based on severity (high contrast)
   const severityColors = {
-    high: "bg-amber-50 dark:bg-amber-950/20 border-amber-300 dark:border-amber-800",
-    medium: "bg-blue-50 dark:bg-blue-950/20 border-blue-300 dark:border-blue-800",
-    low: "bg-slate-50 dark:bg-slate-900/20 border-slate-300 dark:border-slate-800"
+    high: "bg-amber-100 border-2 border-black",
+    medium: "bg-gray-100 border-2 border-gray-600",
+    low: "bg-gray-50 border border-gray-400"
   };
 
   const severityTextColors = {
-    high: "text-amber-800 dark:text-amber-200",
-    medium: "text-blue-800 dark:text-blue-200",
-    low: "text-slate-800 dark:text-slate-200"
+    high: "text-black",
+    medium: "text-black",
+    low: "text-black"
   };
 
   const severityLabels = {

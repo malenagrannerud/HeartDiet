@@ -1,6 +1,6 @@
 /**
  * ==========================================
- * CENTRALIZED DESIGN TOKENS
+ * CENTRALIZED DESIGN TOKENS - HIGH CONTRAST
  * ==========================================
  * 
  * All titles, subtitles, headings, text styles, card sizes, 
@@ -21,9 +21,9 @@
  * 
  * CARDS:
  * - All cards: p-5 padding, min-h-[80px]
- * - Non-tip cards: bg-blue-50 (light grey-blue)
+ * - Non-tip cards: bg-gray-100 (high contrast gray)
  * - Tip cards: Keep original colors from tip.color
- * - Interactive cards: Same base + hover:bg-blue-100
+ * - Interactive cards: Same base + hover:bg-gray-200
  * 
  * TYPOGRAPHY:
  * - Page titles: text-4xl (pageTitle)
@@ -33,37 +33,37 @@
  * - Card body text: text-base (cardText)
  * - Small text: text-sm (cardTextSmall)
  * 
- * COLORS:
- * - Headers: #212658 (dark blue)
- * - Body text: #212658 with 70% opacity
- * - Card backgrounds: bg-blue-50 (except tip cards)
- * - Page background: #FFFFFF
+ * COLORS (HIGH CONTRAST):
+ * - Headers: black
+ * - Body text: black or gray-700 for secondary
+ * - Card backgrounds: bg-gray-100 (except tip cards)
+ * - Page background: white
  */
 
 // ==========================================
-// 🎨 COLORS (Based on user requirements)
+// 🎨 COLORS (High Contrast)
 // ==========================================
 export const colors = {
   // Main background for all frames
   background: {
     primary: '#FFFFFF',    // main background
     secondary: '#FFFFFF',  // White - for cards
-    tertiary: '#D5EDF9',   // Light blue - special sections
+    tertiary: '#E5E7EB',   // Light gray - special sections
   },
   
-  // Main header color
+  // Main header color (high contrast)
   header: {
-    main: '#212658',       // Dark blue - ALL main headers
-    secondary: '#212658',  // Same for consistency
+    main: '#000000',       // Pure black - ALL main headers
+    secondary: '#000000',  // Same for consistency
   },
   
-  // Text colors
+  // Text colors (high contrast)
   text: {
-    primary: '#212658',         // Main text
-    secondary: 'rgba(33, 38, 88, 0.7)',  // 70% opacity for subtitles
+    primary: '#000000',    // Pure black - main text
+    secondary: '#374151',  // Gray-700 for secondary text
   },
   
-  // Tip card colors
+  // Tip card colors (preserved for categorization)
   tipCards: {
     green: '#A8CC7D',
     lightgreen: '#E4F5CF',
@@ -151,115 +151,115 @@ export const headerContainer = "border-b border-border sticky top-0 z-10 p-6 pt-
 export const pagePadding = "p-6";
 
 // ==========================================
-// 📝 TYPOGRAPHY - TEXT
+// 📝 TYPOGRAPHY - TEXT (HIGH CONTRAST)
 // ==========================================
 
 /**
  * PAGE TITLES - Used for main page headers 36 px
  */
-export const pageTitle = "text-4xl font-bold text-[#212658]";
+export const pageTitle = "text-4xl font-bold text-black";
 
 /**
  * PAGE SUBTITLES - Used under page titles 18px
  */
-export const pageSubtitle = "text-[#212658]/70 text-lg font-normal";
+export const pageSubtitle = "text-gray-700 text-lg font-normal";
 
 /**
  * SECTION HEADINGS 1  
  * 24 px - Used for a header within pages. 
  */
-export const sectionHeading = "text-2xl font-bold text-[#212658]";
+export const sectionHeading = "text-2xl font-bold text-black";
 
 /**
  * SECTION SUB-HEADINGS 1
  * subheading 22 px. 
  */
-export const sectionSubheading = "text-[#212658]/70 text-[22px] font-normal";
+export const sectionSubheading = "text-gray-700 text-[22px] font-normal";
 
 /**
  * SECTION HEADINGS 2 
  * 20 px - Used for section headers within pages
  */
-export const sectionHeading2 = "text-xl font-bold text-[#212658] mt-2";
+export const sectionHeading2 = "text-xl font-bold text-black mt-2";
 
 /**
  * SECTION SUB HEADINGS 2
  * 18 px subheading 
  */
-export const sectionSubheading2 = "text-lg font-normal text-[#212658]/70 ";
+export const sectionSubheading2 = "text-lg font-normal text-gray-700";
 
 /**
  * BODY TEXT-16 px Used for body text within cards 16 px
  */
-export const bodyText = "text-base text-[#212658]";
+export const bodyText = "text-base text-black";
 
 /**
  * BODY TEXT- 16 px
  */
-export const bodyTextBald = "text-base font-bold text-[#212658]";
+export const bodyTextBald = "text-base font-bold text-black";
 
 /**
  * BODY TEXT- 14 px bold
  */
-export const bodyTextSmallBold = "text-sm text-[#212658] font-bold";
+export const bodyTextSmallBold = "text-sm text-black font-bold";
 
 
 /**
  * BODY SUB - Under body bald 16 px
  */
-export const bodyBaldSub = "text-base text-[#212658]/70";
+export const bodyBaldSub = "text-base text-gray-700";
 
 /**
  * BODY TEXT when
  * Used for body text within cards 16 px
  */
-export const bodyWhen = "text-base text-[#212658] bg-[#ffeb3b]";
+export const bodyWhen = "text-base text-black bg-[#ffeb3b]";
 
 /**
  * BODY TEXT how
  * Used for body text within cards 16 px
  */
-export const bodyHow = "text-base text-[#212658] bg-[#bbdefb]";
+export const bodyHow = "text-base text-black bg-[#bbdefb]";
 
 /**
  * CARD TITLES - 16px
  */
-export const cardTitle = "text-base font-bold text-[#212658]";
+export const cardTitle = "text-base font-bold text-black";
 
 /**
  * CARD TITLE SMALL - 12 px
  */
-export const cardTitleSmall = "text-xs text-[#212658]";
+export const cardTitleSmall = "text-xs text-black";
 
 /**
  * CARD TEXT 
  * Used for body text within cards 16 px
  */
-export const cardText = "text-xs text-[#212658]";
+export const cardText = "text-xs text-black";
 
 /**
  * SMALL CARD TEXT
  * Used for secondary text in cards 14 px
  */
-export const cardTextSmall = "text-sm text-[#212658]/70";
+export const cardTextSmall = "text-sm text-gray-700";
 
 /**
  * SMALL CARD TEXT (no opacity)
  * Used for secondary text in cards 14 px without opacity
  */
-export const cardTextSmallBold = "text-sm text-[#212658]";
+export const cardTextSmallBold = "text-sm text-black";
 
 /**
  * TABLE HEADER TEXT SMALL
  * Used for very small text in table headers 12 px
  */
-export const tableHeaderSmall = "text-xs text-[#212658]";
+export const tableHeaderSmall = "text-xs text-black";
 
 /**
  * TABLE HEADER TEXT MEDIUM
  * Used for medium text in table headers with bold 14 px
  */
-export const tableHeaderMedium = "text-sm font-medium text-[#212658]/70";
+export const tableHeaderMedium = "text-sm font-medium text-gray-700";
 
 /**
  * Placeholder TEXT
@@ -272,13 +272,13 @@ export const placeholderText = "[&::placeholder]:text-base [&::placeholder]:text
  * EX CARD TEXT
  * Used for secondary text in cards 14 px
  */
-export const exCardText = "text-xs text-[#212658]";
+export const exCardText = "text-xs text-black";
 
 /**
  * EX CARD TEXT
  * Used for secondary text in cards 14 px
  */
-export const exCardTextBold = "text-xs font-bold text-[#212658]";
+export const exCardTextBold = "text-xs font-bold text-black";
 
 
 export const exCardTextHand = "text-sm font-normal font-['Dancing_Script']";
@@ -302,34 +302,34 @@ export const buttonText = "text-base font-semibold";
  * LABEL TEXT
  * Used for form labels
  */
-export const labelText = "text-[#212658] font-semibold";
+export const labelText = "text-black font-semibold";
 
 // ==========================================
-// 📦 CARD SIZES - 
+// 📦 CARD SIZES - HIGH CONTRAST
 // ==========================================
 /**
  * STANDARD CARD
- * p-5 padding, light grey-blue background (bg-blue-50), min height 80px
+ * p-5 padding, light gray background (bg-gray-100), min height 80px
  */
-export const standardCard = "p-5 border-0 shadow-sm bg-blue-100 min-h-[80px] rounded-none";
+export const standardCard = "p-5 border-0 shadow-sm bg-gray-100 min-h-[80px] rounded-none";
 /**
  * COMPACT CARD
  * Smaller padding for dense layouts. Same as standard card 
  */
-export const compactCard = "p-5 border-0 shadow-sm bg-blue-50 min-h-[80px]";
+export const compactCard = "p-5 border-0 shadow-sm bg-gray-100 min-h-[80px]";
 
 /**
  * INTERACTIVE CARD
  * Same base styling as standard card, adds interaction effects
  */
-export const interactiveCard = "p-5 border-0 shadow-sm bg-blue-100 min-h-[80px] cursor-pointer hover:bg-blue-100 transition-all active:scale-[0.98] rounded-none";
+export const interactiveCard = "p-5 border-0 shadow-sm bg-gray-100 min-h-[80px] cursor-pointer hover:bg-gray-200 transition-all active:scale-[0.98] rounded-none";
 /**
  * TIP CARD
  * p-5 padding, keeps tip-specific colors, min height 80px
  */
 export const tipCard = "p-5 hover:shadow-sm transition-all cursor-pointer active:scale-[0.98] relative border-0 shadow-none min-h-[80px] rounded-none";
 // ==========================================
-// 🎯 COMPONENT STYLES
+// 🎯 COMPONENT STYLES - HIGH CONTRAST
 // ==========================================
 
 /**
@@ -346,15 +346,15 @@ export const iconButton = "p-3 hover:bg-accent rounded-lg transition-colors min-
 
 /**
  * PRIMARY BUTTON
- * Main action button styling
+ * Main action button styling (high contrast - black)
  */
-export const primaryButton = "w-full py-6 rounded-lg font-bold text-xl transition-all bg-[#212658] text-white hover:opacity-90 shadow-lg min-h-[64px]";
+export const primaryButton = "w-full py-6 rounded-lg font-bold text-xl transition-all bg-black text-white hover:opacity-90 shadow-lg min-h-[64px]";
 
 /**
  * SECONDARY BUTTON
- * Secondary action button styling
+ * Secondary action button styling (high contrast - black)
  */
-export const secondaryButton = "w-full py-4 rounded-lg font-semibold transition-opacity bg-[#212658] text-white hover:opacity-90";
+export const secondaryButton = "w-full py-4 rounded-lg font-semibold transition-opacity bg-black text-white hover:opacity-90";
 
 /**
  * DISABLED BUTTON
@@ -372,7 +372,7 @@ export const disabledButton = "bg-gray-300 text-gray-500 cursor-not-allowed";
 export const getBackgroundColor = () => colors.background.primary;
 
 /**
- * Get header color
+ * Get header color (high contrast black)
  */
 export const getHeaderColor = () => colors.header.main;
 
