@@ -1,11 +1,13 @@
 import { NavLink } from "react-router-dom";
-import { Home, BookOpen, User, HelpCircle, BarChart3, ChartBar, BarChart } from "lucide-react";
+import { Home, BookOpen, HelpCircle, BarChart, FileEditIcon } from "lucide-react";
 
 export const BottomNav = () => {
   const navItems = [
     { path: "/app/today", label: "Idag", icon: Home },
     { path: "/app/tips", label: "Tips", icon: BookOpen },
-    { path: "/app/progress", label: "Mina värden", icon: BarChart },
+    { path: "/app/diary", label: "Dagbok", icon: FileEditIcon}
+    ,
+    { path: "/app/progress", label: "Mina värden", icon: BarChart},
     { path: "/app/settings", label: "Hjälp", icon: HelpCircle },
   ];
 

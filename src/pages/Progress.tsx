@@ -1,21 +1,18 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { format, startOfWeek, addDays, startOfMonth, endOfMonth } from "date-fns";
+import { format } from "date-fns";
 import { sv } from "date-fns/locale";
-import { Heart, Pill } from "lucide-react";
-import { tips } from "@/data/tips";
-import { pageTitle, pageSubtitle, pageContainer, headerContainer, pagePadding, standardSpacing, cardTextSmall, bodyTextSmallBold } from "@/lib/design-tokens";
+import { Heart } from "lucide-react";
+import { pageTitle, pageSubtitle, pageContainer, headerContainer, pagePadding, standardSpacing } from "@/lib/design-tokens";
 import { useToast } from "@/hooks/use-toast";
 import { getDayLogs } from "@/lib/tip-completion";
 import { getStorageItem } from "@/lib/storage";
 import { healthPrioritiesSchema, markedTipsSchema, selectedMedicationsSchema, healthMetricsSchema, type DayLog } from "@/lib/schemas";
-import { validateWeight, validateSystolic, validateDiastolic, validateLDL, validateHDL, validateTriglycerides, validateHbA1c, validateFastingGlucose, safeParseFloat, safeParseInt, HEALTH_RANGES } from "@/lib/health-validators";
+import { validateWeight, validateSystolic, validateDiastolic, validateLDL, validateHDL, validateTriglycerides, validateHbA1c, validateFastingGlucose, safeParseFloat, safeParseInt } from "@/lib/health-validators";
 import { medications } from "@/data/medications";
-import { StatsBox } from "@/components/ProgressStatsBox";
 import { HealthInfoCard } from "@/components/HealthInfoCard";
 import { getCurrentDate } from "@/lib/simulated-date";
 import { ProgressChart } from "@/pages/ProgressChart";
-import { WeeklyProgressTable } from "@/pages/ProgressTable";
 import { SaveConfirmationDialog } from "@/components/AlertSaveDataProgress";
 import { GoalEditDialog } from "./ProgressTableDialogs.tsx/EditGoalDialog";
 import { BloodGlucoseDialog } from "./ProgressTableDialogs.tsx/ProgrBloodSugarDialog";
@@ -35,9 +32,6 @@ const healthPriorityLabels: Record<string, string> = {
 const Progress = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const [currentWeekStart, setCurrentWeekStart] = useState<Date>(
-    startOfWeek(getCurrentDate(), { weekStartsOn: 1 })
-  );
   const [dayLogs, setDayLogs] = useState<DayLog[]>([]);
   const [weightDialogOpen, setWeightDialogOpen] = useState(false);
   const [bpDialogOpen, setBpDialogOpen] = useState(false);
@@ -67,9 +61,6 @@ const Progress = () => {
   const [goalBloodPressure, setGoalBloodPressure] = useState<{ systolic: number; diastolic: number } | undefined>();
   const [goalBloodFats, setGoalBloodFats] = useState<{ ldl?: number; hdl?: number } | undefined>();
   const [goalBloodGlucose, setGoalBloodGlucose] = useState<{ hba1c?: number; fastingGlucose?: number } | undefined>();
-  const [showBloodFats, setShowBloodFats] = useState(false);
-  const [showBloodGlucose, setShowBloodGlucose] = useState(false);
-  const [expandedChart, setExpandedChart] = useState<'weight' | 'bloodPressure' | 'bloodFats' | 'bloodGlucose' | null>(null);
   
   // Blood fats dialog state
   const [bloodFatsDialogOpen, setBloodFatsDialogOpen] = useState(false);
@@ -97,8 +88,9 @@ const Progress = () => {
   const [goalHbA1cInput, setGoalHbA1cInput] = useState("");
   const [goalFastingGlucoseInput, setGoalFastingGlucoseInput] = useState("");
 
-  // Load day logs and health priorities from localStorage
+  // Load health priorities, medications, and day logs from localStorage
   useEffect(() => {
+    // Load day logs for charts
     const logs = getDayLogs();
     setDayLogs(logs);
 
@@ -142,149 +134,7 @@ const Progress = () => {
       const goalFG = safeParseFloat(metrics.goalFastingGlucose);
       if (goalFG !== undefined) setGoalBloodGlucose(prev => ({ ...prev, fastingGlucose: goalFG }));
     }
-
-    // Determine if we should show blood fats and blood glucose charts
-    // Show chart if: user has relevant goal/medication OR has already logged values
-    const hasSavedBloodFats = logs.some((l) => l?.entries?.some((e: any) => e.type === 'bloodFats'));
-    const hasSavedBloodGlucose = logs.some((l) => l?.entries?.some((e: any) => e.type === 'bloodGlucose'));
-
-    // Show blood fats if: user has cholesterol goal OR takes statin medication OR has values
-    const hasCholesterolGoal = data?.priorities.includes('cholesterol');
-    const hasStatinMedication = savedMeds ? savedMeds.some(savedMed => {
-      if (!savedMed.id) return false;
-      const medicationInfo = medications.find(med => med.id === savedMed.id);
-      if (!medicationInfo) return false;
-      return medicationInfo.category.includes('Statin');
-    }) : false;
-    setShowBloodFats(Boolean(hasCholesterolGoal || hasStatinMedication || hasSavedBloodFats));
-
-    // Show blood glucose if: user has diabetes goal OR takes diabetes medication OR has values
-    const hasDiabetesGoal = data?.priorities.includes('diabetes');
-    const hasDiabetesMedication = savedMeds ? savedMeds.some(savedMed => {
-      if (!savedMed.id) return false;
-      const medicationInfo = medications.find(med => med.id === savedMed.id);
-      if (!medicationInfo) return false;
-      return medicationInfo.category.includes('Diabetesmedicin');
-    }) : false;
-    setShowBloodGlucose(Boolean(hasDiabetesGoal || hasDiabetesMedication || hasSavedBloodGlucose));
   }, []);
-
-
-
-
-
-
-
-
-  
-
-  // Generate week dates (Monday to Sunday)
-  const weekDates = Array.from({ length: 7 }, (_, i) => 
-    addDays(currentWeekStart, i)
-  );
-
-  const goToPreviousWeek = () => {
-    setCurrentWeekStart(prev => addDays(prev, -7));
-  };
-
-  const goToNextWeek = () => {
-    setCurrentWeekStart(prev => addDays(prev, 7));
-  };
-
-  const goToCurrentWeek = () => {
-    setCurrentWeekStart(startOfWeek(getCurrentDate(), { weekStartsOn: 1 }));
-  };
-
-  const isTipCompletedOnDate = (tipId: number, date: Date): boolean => {
-    const dateStr = format(date, 'yyyy-MM-dd');
-    const log = dayLogs.find(l => l.date === dateStr);
-    return log?.entries.some(entry => entry.type === 'tip' && entry.tipId === tipId) || false;
-  };
-
-  const handleTipToggle = (tipId: number, date: Date) => {
-    const dateStr = format(date, 'yyyy-MM-dd');
-    const existingLogIndex = dayLogs.findIndex(log => log.date === dateStr);
-    let updatedLogs = [...dayLogs];
-
-    if (existingLogIndex >= 0) {
-      const existingLog = updatedLogs[existingLogIndex];
-      const tipEntryIndex = existingLog.entries.findIndex(
-        entry => entry.type === 'tip' && entry.tipId === tipId
-      );
-
-      if (tipEntryIndex >= 0) {
-        // Remove tip
-        existingLog.entries.splice(tipEntryIndex, 1);
-        if (existingLog.entries.length === 0) {
-          updatedLogs.splice(existingLogIndex, 1);
-        }
-        toast({
-          title: "Tips avmarkerat",
-          description: `${tips.find(t => t.id === tipId)?.title} har avmarkerats`,
-        });
-      } else {
-        // Add tip
-        existingLog.entries.push({ type: 'tip', value: 1, tipId });
-        toast({
-          title: "Tips markerat som gjort!",
-          description: `${tips.find(t => t.id === tipId)?.title} har markerats`,
-        });
-      }
-    } else {
-      // Create new log with tip
-      updatedLogs.push({
-        date: dateStr,
-        entries: [{ type: 'tip', value: 1, tipId }]
-      });
-      toast({
-        title: "Tips markerat som gjort!",
-        description: `${tips.find(t => t.id === tipId)?.title} har markerats`,
-      });
-    }
-
-    setDayLogs(updatedLogs);
-    localStorage.setItem('dayLogs', JSON.stringify(updatedLogs));
-  };
-
-  const openAddDataDialog = (date: Date, type: 'weight' | 'bloodPressure' | 'bloodFats' | 'bloodGlucose') => {
-    setSelectedDate(date);
-    const dateStr = format(date, 'yyyy-MM-dd');
-    const log = dayLogs.find(l => l.date === dateStr);
-    
-    if (type === 'bloodFats') {
-      openBloodFatsDialog(date);
-      return;
-    }
-    
-    if (type === 'bloodGlucose') {
-      openBloodGlucoseDialog(date);
-      return;
-    }
-    
-    if (type === 'weight') {
-      const weightEntry = log?.entries.find(e => e.type === 'weight');
-      if (weightEntry) {
-        setWeightInput(weightEntry.value.toString());
-        setExistingWeightEntry(weightEntry.value);
-      } else {
-        setWeightInput("");
-        setExistingWeightEntry(null);
-      }
-      setWeightDialogOpen(true);
-    } else {
-      const bpEntry = log?.entries.find(e => e.type === 'bloodPressure');
-      if (bpEntry && bpEntry.value2) {
-        setSystolicInput(bpEntry.value.toString());
-        setDiastolicInput(bpEntry.value2.toString());
-        setExistingBPEntry({ systolic: bpEntry.value, diastolic: bpEntry.value2 });
-      } else {
-        setSystolicInput("");
-        setDiastolicInput("");
-        setExistingBPEntry(null);
-      }
-      setBpDialogOpen(true);
-    }
-  };
 
   const handleSaveWeight = () => {
     if (!selectedDate) return;
@@ -377,33 +227,6 @@ const Progress = () => {
     setExistingBPEntry(null);
   };
 
-  const openBloodFatsDialog = (date?: Date) => {
-    const targetDate = date || getCurrentDate();
-    setSelectedDate(targetDate);
-    setBloodFatsDateInput(format(targetDate, 'yyyy-MM-dd'));
-    
-    const dateStr = format(targetDate, 'yyyy-MM-dd');
-    const log = dayLogs.find(l => l.date === dateStr);
-    const bloodFatsEntry = log?.entries.find(e => e.type === 'bloodFats');
-    
-    if (bloodFatsEntry) {
-      setLdlInput(bloodFatsEntry.value.toString());
-      setHdlInput(bloodFatsEntry.value2?.toString() || "");
-      setTriglyceridesInput(bloodFatsEntry.value3?.toString() || "");
-      setExistingBloodFatsEntry({
-        ldl: bloodFatsEntry.value,
-        hdl: bloodFatsEntry.value2,
-        triglycerides: bloodFatsEntry.value3
-      });
-    } else {
-      setLdlInput("");
-      setHdlInput("");
-      setTriglyceridesInput("");
-      setExistingBloodFatsEntry(null);
-    }
-    setBloodFatsDialogOpen(true);
-  };
-
   const handleSaveBloodFats = () => {
     const ldlValidation = validateLDL(ldlInput);
     if (!ldlValidation.valid) {
@@ -471,30 +294,6 @@ const Progress = () => {
     
     setBloodFatsDialogOpen(false);
     setExistingBloodFatsEntry(null);
-  };
-
-  const openBloodGlucoseDialog = (date?: Date) => {
-    const targetDate = date || getCurrentDate();
-    setSelectedDate(targetDate);
-    setBloodGlucoseDateInput(format(targetDate, 'yyyy-MM-dd'));
-    
-    const dateStr = format(targetDate, 'yyyy-MM-dd');
-    const log = dayLogs.find(l => l.date === dateStr);
-    const bloodGlucoseEntry = log?.entries.find(e => e.type === 'bloodGlucose');
-    
-    if (bloodGlucoseEntry) {
-      setHba1cInput(bloodGlucoseEntry.value.toString());
-      setFastingGlucoseInput(bloodGlucoseEntry.value2?.toString() || "");
-      setExistingBloodGlucoseEntry({
-        hba1c: bloodGlucoseEntry.value,
-        fastingGlucose: bloodGlucoseEntry.value2
-      });
-    } else {
-      setHba1cInput("");
-      setFastingGlucoseInput("");
-      setExistingBloodGlucoseEntry(null);
-    }
-    setBloodGlucoseDialogOpen(true);
   };
 
   const handleSaveBloodGlucose = () => {
@@ -640,83 +439,6 @@ const Progress = () => {
     setExistingBloodGlucoseEntry(null);
   };
 
-  const getDaysWithGoalThisMonth = () => {
-    const monthStart = startOfMonth(getCurrentDate());
-    const monthEnd = endOfMonth(getCurrentDate());
-    return dayLogs.filter(log => {
-      const logDate = new Date(log.date);
-      return logDate >= monthStart && logDate <= monthEnd && 
-             log.entries.some(entry => entry.type === 'tip');
-    }).length;
-  };
-
-  const getCurrentStreak = () => {
-    if (dayLogs.length === 0) {
-      return 0;
-    }
-    
-    const daysWithTips = dayLogs
-      .filter(log => log.entries.some(entry => entry.type === 'tip'))
-      .map(log => log.date)
-      .sort();
-    
-    if (daysWithTips.length === 0) {
-      return 0;
-    }
-    
-    let maxStreak = 0;
-    let currentStreak = 1;
-    
-    for (let i = 1; i < daysWithTips.length; i++) {
-      const prevDate = new Date(daysWithTips[i - 1]);
-      const currDate = new Date(daysWithTips[i]);
-      
-      const diffTime = currDate.getTime() - prevDate.getTime();
-      const diffDays = diffTime / (1000 * 60 * 60 * 24);
-      
-      if (diffDays === 1) {
-        currentStreak++;
-      } else {
-        maxStreak = Math.max(maxStreak, currentStreak);
-        currentStreak = 1;
-      }
-    }
-    maxStreak = Math.max(maxStreak, currentStreak);
-    
-    return maxStreak;
-  };
-
-
-  const hasWeightOnDate = (date: Date): boolean => {
-    const dateStr = format(date, 'yyyy-MM-dd');
-    const log = dayLogs.find(l => l.date === dateStr);
-    return log?.entries.some(entry => entry.type === 'weight') || false;
-  };
-
-  const hasBloodPressureOnDate = (date: Date): boolean => {
-    const dateStr = format(date, 'yyyy-MM-dd');
-    const log = dayLogs.find(l => l.date === dateStr);
-    return log?.entries.some(entry => entry.type === 'bloodPressure') || false;
-  };
-
-  const hasBloodFatsOnDate = (date: Date): boolean => {
-    const dateStr = format(date, 'yyyy-MM-dd');
-    const log = dayLogs.find(l => l.date === dateStr);
-    return log?.entries.some(entry => entry.type === 'bloodFats') || false;
-  };
-
-  const hasBloodGlucoseOnDate = (date: Date): boolean => {
-    const dateStr = format(date, 'yyyy-MM-dd');
-    const log = dayLogs.find(l => l.date === dateStr);
-    return log?.entries.some(entry => entry.type === 'bloodGlucose') || false;
-  };
-
-  const isToday = (date: Date): boolean => {
-    const today = getCurrentDate();
-    return format(date, 'yyyy-MM-dd') === format(today, 'yyyy-MM-dd');
-  };
-
-
   const handleSaveGoal = () => {
     const metrics = getStorageItem('healthMetrics', healthMetricsSchema) || {};
     
@@ -796,102 +518,46 @@ const Progress = () => {
     setGoalEditDialogOpen(false);
   };
 
-  const daysThisMonth = getDaysWithGoalThisMonth();
-  const currentStreak = getCurrentStreak();
-
   return (
     <div className={pageContainer}>
-      
       <header className={headerContainer}>
-          <h1 className={pageTitle}>Mina sidor</h1>
-          <p className={pageSubtitle}>Följ dina framsteg och logga data</p>
+          <h1 className={pageTitle}>Mina värden</h1>
       </header>
       
       <main className={pagePadding}>
         <div className={standardSpacing.pageContent}>
 
-          <WeeklyProgressTable
-            weekDates={weekDates}
-            dayLogs={dayLogs}
-            onPreviousWeek={goToPreviousWeek}
-            onNextWeek={goToNextWeek}
-            onCurrentWeek={goToCurrentWeek}
-            onTipToggle={handleTipToggle}
-            onOpenDialog={openAddDataDialog}
-            isTipCompletedOnDate={isTipCompletedOnDate}
-            hasWeightOnDate={hasWeightOnDate}
-            hasBloodPressureOnDate={hasBloodPressureOnDate}
-            hasBloodFatsOnDate={hasBloodFatsOnDate}
-            hasBloodGlucoseOnDate={hasBloodGlucoseOnDate}
-            isToday={isToday}
-            markedTipIds={markedTipIds}
-          />
-
-          {/* Stats */}
-          <div className="grid grid-cols-2 gap-6">
-            <StatsBox>
-              <div className="flex flex-col gap-4">
-                <div>
-                  <div className={bodyTextSmallBold}>Klarade dagar totalt</div>
-                  <div className={cardTextSmall}>Antal dagar du loggat tips</div>
-                </div>
-                <div className="flex items-center justify-end">
-                  <div className="w-16 h-16 bg-emerald-500 flex items-center justify-center">
-                    <span className="text-3xl font-bold text-blue-900">{daysThisMonth}</span>
-                  </div>
-                </div>
-              </div>
-            </StatsBox>
-
-            <StatsBox>
-              <div className="flex flex-col gap-4">
-                <div>
-                  <div className={bodyTextSmallBold}>Klarade dagar i rad</div>
-                  <div className={cardTextSmall}>Antal dagar i rad du loggat tips</div>
-                </div>
-                <div className="flex items-center justify-end">
-                  <div className="w-16 h-16 bg-blue-100 flex items-center justify-center">
-                    <span className="text-3xl font-bold text-blue-900">{currentStreak}</span>
-                  </div>
-                </div>
-              </div>
-            </StatsBox>
-          </div>
-
-          {/* Charts */}
           <div className="flex flex-col gap-6">
             <ProgressChart 
               type="bloodPressure" 
-              dayLogs={dayLogs} 
+              dayLogs={dayLogs}
               goalBloodPressure={goalBloodPressure}
               onMoreClick={() => navigate('/app/progress/bloodPressure')}
             />
+
             <ProgressChart 
               type="weight" 
-              dayLogs={dayLogs} 
+              dayLogs={dayLogs}
               goalWeight={goalWeight}
               onMoreClick={() => navigate('/app/progress/weight')}
             />
-            {showBloodFats && (
-              <ProgressChart 
-                type="bloodFats" 
-                dayLogs={dayLogs}
-                goalBloodFats={goalBloodFats}
-                onMoreClick={() => navigate('/app/progress/bloodFats')}
-              />
-            )}
-            {showBloodGlucose && (
-              <ProgressChart 
-                type="bloodGlucose" 
-                dayLogs={dayLogs}
-                goalBloodGlucose={goalBloodGlucose}
-                onMoreClick={() => navigate('/app/progress/bloodGlucose')}
-              />
-            )}
+            
+            <ProgressChart 
+              type="bloodFats" 
+              dayLogs={dayLogs}
+              goalBloodFats={goalBloodFats}
+              onMoreClick={() => navigate('/app/progress/bloodFats')}
+            />
+            <ProgressChart 
+              type="bloodGlucose" 
+              dayLogs={dayLogs}
+              goalBloodGlucose={goalBloodGlucose}
+              onMoreClick={() => navigate('/app/progress/bloodGlucose')}
+            />
           </div>
 
-          {/* Health Goals Card - Medications card hidden as per user request */}
-          <div className="grid grid-cols-1 gap-6">
+          {/* Health Goals Card */}
+          <div className="grid grid-cols-1 gap-6 mt-6">
             <HealthInfoCard
               icon={Heart}
               title="Mina hälsomål"

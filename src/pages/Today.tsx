@@ -152,17 +152,22 @@ return (
                 />
               ))
             ) : (
-              <div className="text-center py-8">
-                <p className="text-gray-500 mb-4">Inga tips valda för idag</p>
+              
                 <button
                   onClick={() => navigate('/app/tips')}
-                  className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-colors"
+                  className="w-full flex items-center justify-between bg-white text-gray-800 font-medium py-3 px-6 border border-gray-300 hover:bg-gray-50 transition-colors shadow-sm"
                 >
-                  <BookOpen size={18} />
-                  Välj tips här
+                  <div className="flex items-center gap-2">
+                    <span>Inga tips valda för idag. Välj tips</span>
+                  
+                    <ChevronRight className="w-4 h-4 text-blue-600" />
+                  </div>
                 </button>
-              </div>
-            )}
+            
+
+            )
+            
+            }
           </div>
         </section>
 
