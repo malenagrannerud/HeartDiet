@@ -5,7 +5,9 @@ export const BottomNav = () => {
   const navItems = [
     { path: "/app/today", label: "Idag", icon: Home },
     { path: "/app/tips", label: "Tips", icon: BookOpen },
-    { path: "/app/progress", label: "Mina sidor", icon: User },
+    { path: "/app/progress", label: "Mina värden", icon: User },
+
+
     { path: "/app/settings", label: "Hjälp", icon: HelpCircle },
   ];
 
