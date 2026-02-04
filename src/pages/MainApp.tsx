@@ -15,7 +15,7 @@ import BaljvaxterPage from "./TipPages/baljvaxter";
 import SockerPage from "./TipPages/socker";
 import Progress from "./Progress";
 import ProgressDetail from "./ProgressDetailsPages";
-
+import Dagbok from "./Dagbok";  // Import the Dagbok component
 import Help from "./Help";
 import Tutorial from "./Tutorial";
 import HealthGoals from "./HealthGoals";
@@ -27,7 +27,14 @@ const MainApp = () => {
   const location = useLocation();
   
   // Show bottom nav only on main pages (Headspace style)
-  const showBottomNav = ["/app/today", "/app/tips", "/app/progress", "/app/settings"].includes(location.pathname);
+  // Added "/app/dagbok" to show bottom nav on Dagbok page
+  const showBottomNav = [
+    "/app/today", 
+    "/app/tips", 
+    "/app/progress", 
+    "/app/dagbok",  // Added this line
+    "/app/settings"
+  ].includes(location.pathname);
   
   return (
     <>
@@ -36,6 +43,8 @@ const MainApp = () => {
           <Route path="/" element={<Navigate to="/app/today" replace />} />
           <Route path="/today" element={<Today />} />
           <Route path="/tips" element={<Tips />} />
+          
+          {/* Tip Pages */}
           <Route path="/TipPages/fruit" element={<FruitPage />} />
           <Route path="/TipPages/fullkorn" element={<FullkornPage />} />
           <Route path="/TipPages/fish" element={<FishPage />} />
@@ -47,14 +56,21 @@ const MainApp = () => {
           <Route path="/TipPages/motion" element={<MotionPage />} />
           <Route path="/TipPages/baljvaxter" element={<BaljvaxterPage />} />
           <Route path="/TipPages/socker" element={<SockerPage />} />
+          
+          {/* Progress & Tracking */}
           <Route path="/progress" element={<Progress />} />
           <Route path="/progress/:type" element={<ProgressDetail />} />
+          <Route path="/dagbok" element={<Dagbok />} />  {/* Added Dagbok route */}
+          
+          {/* Help & Settings */}
           <Route path="/help" element={<Help />} />
           <Route path="/tutorial" element={<Tutorial />} />
+          <Route path="/settings" element={<Settings />} />
+          
+          {/* Onboarding/Setup */}
           <Route path="/health-goals" element={<HealthGoals />} />
           <Route path="/medications" element={<Medications />} />
           <Route path="/health-metrics/*" element={<HealthMetricsFlow />} />
-          <Route path="/settings" element={<Settings />} />
         </Routes>
       </div>
       {showBottomNav && <BottomNav />}
