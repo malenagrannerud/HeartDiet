@@ -14,12 +14,10 @@ import MotionPage from "./TipPages/motion";
 import BaljvaxterPage from "./TipPages/baljvaxter";
 import SockerPage from "./TipPages/socker";
 import Progress from "./Progress";
-import ProgressDetail from "./ProgressDetailsPages";
 import Dagbok from "./Dagbok";  
 import Tutorial from "./Tutorial";
 import HealthGoals from "./HealthGoals";
 import Medications from "./Medications";
-import HealthMetricsFlow from "./StartHealthMetrics/MainStartHealthMetrics";
 import Settings from "./Settings";
 
 const MainApp = () => {
@@ -58,10 +56,11 @@ const MainApp = () => {
           
           {/* Progress  */}
           
-          <Route path="/ProgressPages/bloodFat" element={<ProgressDetail />} />
-          <Route path="/ProgressPages/bloodPressure" element={<ProgressDetail />} />
-          <Route path="/ProgressPages/bloodSugar" element={<ProgressDetail />} />
-          <Route path="/ProgressPages/weight" element={<ProgressDetail />} />
+         // In MainApp.tsx, change:
+          <Route path="/progress/bloodPressure" element={<SockerPage />} />
+          <Route path="/progress/weight" element={<SockerPage />} />
+          <Route path="/progress/bloodFats" element={<SockerPage />} />
+          <Route path="/progress/bloodGlucose" element={<SockerPage />} />
 
 
           {/* Dagbok route */}
@@ -74,7 +73,6 @@ const MainApp = () => {
           {/* Onboarding/Setup */}
           <Route path="/health-goals" element={<HealthGoals />} />
           <Route path="/medications" element={<Medications />} />
-          <Route path="/health-metrics/*" element={<HealthMetricsFlow />} />
         </Routes>
       </div>
       {showBottomNav && <BottomNav />}

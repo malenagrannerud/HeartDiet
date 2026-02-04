@@ -8,7 +8,7 @@ import { healthPrioritiesSchema, selectedMedicationsSchema, healthMetricsSchema,
 import { safeParseFloat, safeParseInt } from "@/lib/health-validators";
 import { medications } from "@/data/medications";
 import { HealthInfoCard } from "@/components/HealthInfoCard";
-import { ProgressChart } from "@/pages/ProgressChart";
+import { ProgressChart } from "@/pages/ProgChartComponent";
 
 const healthPriorityLabels: Record<string, string> = {
   cholesterol: "Hantera mitt kolesterol",
