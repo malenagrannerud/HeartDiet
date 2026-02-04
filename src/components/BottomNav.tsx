@@ -1,18 +1,16 @@
 import { NavLink } from "react-router-dom";
-import { Home, BookOpen, User, HelpCircle } from "lucide-react";
+import { Home, BookOpen, User, HelpCircle, BarChart3, ChartBar, BarChart } from "lucide-react";
 
 export const BottomNav = () => {
   const navItems = [
     { path: "/app/today", label: "Idag", icon: Home },
     { path: "/app/tips", label: "Tips", icon: BookOpen },
-    { path: "/app/progress", label: "Mina värden", icon: User },
-
-
+    { path: "/app/progress", label: "Mina värden", icon: BarChart },
     { path: "/app/settings", label: "Hjälp", icon: HelpCircle },
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-card border-t border-border max-w-md mx-auto">
+    <nav className="fixed bottom-0 left-0 right-0 bg-card max-w-md mx-auto safe-area-inset-bottom">
       <div className="flex justify-around items-center h-16">
         {navItems.map((item) => (
           <NavLink
