@@ -15,8 +15,7 @@ import BaljvaxterPage from "./TipPages/baljvaxter";
 import SockerPage from "./TipPages/socker";
 import Progress from "./Progress";
 import ProgressDetail from "./ProgressDetailsPages";
-import Dagbok from "./Dagbok";  // Import the Dagbok component
-import Help from "./Help";
+import Dagbok from "./Dagbok";  
 import Tutorial from "./Tutorial";
 import HealthGoals from "./HealthGoals";
 import Medications from "./Medications";
@@ -32,7 +31,7 @@ const MainApp = () => {
     "/app/today", 
     "/app/tips", 
     "/app/progress", 
-    "/app/dagbok",  // Added this line
+    "/app/dagbok",  
     "/app/settings"
   ].includes(location.pathname);
   
@@ -57,13 +56,18 @@ const MainApp = () => {
           <Route path="/TipPages/baljvaxter" element={<BaljvaxterPage />} />
           <Route path="/TipPages/socker" element={<SockerPage />} />
           
-          {/* Progress & Tracking */}
-          <Route path="/progress" element={<Progress />} />
-          <Route path="/progress/:type" element={<ProgressDetail />} />
-          <Route path="/dagbok" element={<Dagbok />} />  {/* Added Dagbok route */}
+          {/* Progress  */}
+          
+          <Route path="/ProgressPages/bloodFat" element={<ProgressDetail />} />
+          <Route path="/ProgressPages/bloodPressure" element={<ProgressDetail />} />
+          <Route path="/ProgressPages/bloodSugar" element={<ProgressDetail />} />
+          <Route path="/ProgressPages/weight" element={<ProgressDetail />} />
+
+
+          {/* Dagbok route */}
+          <Route path="/dagbok" element={<Dagbok />} />  
           
           {/* Help & Settings */}
-          <Route path="/help" element={<Help />} />
           <Route path="/tutorial" element={<Tutorial />} />
           <Route path="/settings" element={<Settings />} />
           

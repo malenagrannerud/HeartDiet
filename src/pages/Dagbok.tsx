@@ -9,7 +9,7 @@ import { getDayLogs } from "@/lib/tip-completion";
 import { getStorageItem } from "@/lib/storage";
 import { markedTipsSchema, type DayLog } from "@/lib/schemas";
 import { getCurrentDate } from "@/lib/simulated-date";
-import { WeeklyProgressTable } from "@/pages/ProgressTable";
+import { WeeklyProgressTable } from "@/pages/DagbokLogTable";
 
 const StatsBox = ({ children }: { children: React.ReactNode }) => (
   <div className="bg-white rounded-lg p-6 shadow-sm">{children}</div>
