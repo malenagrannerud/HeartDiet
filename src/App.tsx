@@ -10,7 +10,7 @@ import { AuthProvider, useAuth } from "@/hooks/use-auth";
 import Onboarding from "./pages/Onboarding";
 import MainApp from "./pages/MainApp";
 import NotFound from "./pages/NotFound";
-import Auth from "./pages/Auth";
+import Auth from "./pages/LogIn";
 
 
 // Main application wrapper that provides global context providers and routing
