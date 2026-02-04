@@ -1,4 +1,4 @@
-// pages/BloodFatsChart.tsx
+// pages/ProgressPages/bloodFat.tsx
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card } from "@/components/ui/card";
@@ -17,7 +17,11 @@ interface BloodFatsChartData {
   triglycerides?: number;
 }
 
-export const BloodFatsChart = () => {
+// ============================================================================
+// FULL DETAILED CHART PAGE
+// ============================================================================
+
+const BloodFatChart = () => {
   const navigate = useNavigate();
   const [chartData, setChartData] = useState<BloodFatsChartData[]>([]);
   const [goalLDL, setGoalLDL] = useState<number | undefined>();
@@ -295,4 +299,133 @@ export const BloodFatsChart = () => {
   );
 };
 
-export default BloodFatsChart;
+// ============================================================================
+// SIMPLIFIED MINI CHART FOR PROGRESS PAGE (Export this!)
+// ============================================================================
+
+interface BloodFatsMiniChartProps {
+  dayLogs: DayLog[];
+  goalLDL?: number;
+  onMoreClick?: () => void;
+}
+
+export const BloodFatsMiniChart: React.FC<BloodFatsMiniChartProps> = ({
+  dayLogs,
+  goalLDL,
+  onMoreClick
+}) => {
+  const [chartData, setChartData] = useState<{date: string; ldl: number; hdl?: number}[]>([]);
+
+  useEffect(() => {
+    const fatsData = dayLogs
+      .map(log => {
+        const bloodFatsEntry = log.entries.find(e => e.type === 'bloodFats');
+        if (!bloodFatsEntry) return null;
+        
+        return {
+          date: log.date,
+          ldl: bloodFatsEntry.value,
+          hdl: bloodFatsEntry.value2
+        };
+      })
+      .filter(Boolean)
+      .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    
+    setChartData(fatsData);
+  }, [dayLogs]);
+
+  // Simple mini bar chart
+  const renderMiniChart = () => {
+    if (chartData.length === 0) {
+      return (
+        <div className="h-20 flex items-center justify-center text-gray-500 text-sm">
+          Inga värden
+        </div>
+      );
+    }
+
+    // Get last 5-7 values
+    const recentData = chartData.slice(-7);
+    const values = recentData.map(d => d.ldl);
+    const maxValue = Math.max(...values);
+    const minValue = Math.min(...values);
+    const range = maxValue - minValue || 1;
+
+    return (
+      <div className="h-20">
+        <div className="flex items-end h-14 space-x-1">
+          {recentData.map((data, i) => {
+            const heightPercent = ((data.ldl - minValue) / range) * 70 + 30;
+            return (
+              <div 
+                key={i}
+                className="flex-1 flex flex-col items-center"
+              >
+                <div 
+                  className="w-3 bg-blue-500 rounded-t"
+                  style={{ height: `${heightPercent}%` }}
+                  title={`LDL: ${data.ldl.toFixed(1)}`}
+                />
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  };
+
+  const latestData = chartData[chartData.length - 1];
+
+  return (
+    <Card className="p-4">
+      <div className="flex justify-between items-start">
+        <div>
+          <h3 className="font-semibold text-gray-800">Kolesterol</h3>
+          <p className="text-sm text-gray-500">
+            {latestData ? 'Senaste LDL' : 'Inga värden'}
+          </p>
+        </div>
+        
+        {onMoreClick && (
+          <Button 
+            variant="ghost" 
+            size="sm" 
+            onClick={onMoreClick}
+            className="text-blue-600 hover:text-blue-800"
+          >
+            Detaljer
+          </Button>
+        )}
+      </div>
+
+      <div className="mt-3">
+        <div className="flex items-baseline gap-2">
+          <span className="text-2xl font-bold text-gray-900">
+            {latestData ? latestData.ldl.toFixed(1) : '–'}
+          </span>
+          <span className="text-sm text-gray-500">mmol/L</span>
+        </div>
+      </div>
+
+      <div className="mt-3">
+        {renderMiniChart()}
+      </div>
+
+      {goalLDL && latestData && (
+        <div className="mt-3 pt-3 border-t border-gray-100">
+          <div className="flex justify-between text-sm">
+            <span className="text-gray-500">Mål:</span>
+            <span className={`font-medium ${
+              latestData.ldl > goalLDL ? 'text-red-600' : 'text-green-600'
+            }`}>
+              {goalLDL} mmol/L
+            </span>
+          </div>
+        </div>
+      )}
+    </Card>
+  );
+};
+
+// Export both
+export default BloodFatChart;

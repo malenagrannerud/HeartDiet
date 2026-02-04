@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Heart, Pill } from "lucide-react";
+import { Card } from "@/components/ui/card"; // ADD THIS
+import { Button } from "@/components/ui/button"; // ADD THIS
 import { pageTitle, pageContainer, headerContainer, pagePadding, standardSpacing } from "@/lib/design-tokens";
 import { getDayLogs } from "@/lib/tip-completion";
 import { getStorageItem } from "@/lib/storage";
@@ -8,7 +10,10 @@ import { healthPrioritiesSchema, selectedMedicationsSchema, healthMetricsSchema,
 import { safeParseFloat, safeParseInt } from "@/lib/health-validators";
 import { medications } from "@/data/medications";
 import { HealthInfoCard } from "@/components/HealthInfoCard";
-import { ProgressChart } from "@/pages/ProgChartComponent";
+import { BloodPressureMiniChart } from "./ProgressPages/bloodPressure";
+import { WeightMiniChart } from "./ProgressPages/weight";
+import { BloodFatsMiniChart } from "./ProgressPages/bloodFat";
+import { BloodSugarMiniChart } from "./ProgressPages/bloodSugar";
 
 const healthPriorityLabels: Record<string, string> = {
   cholesterol: "Hantera mitt kolesterol",
@@ -25,9 +30,12 @@ const Progress = () => {
   const [priorities, setPriorities] = useState<string[]>([]);
   const [selectedMedications, setSelectedMedications] = useState<Array<{ id?: string; name?: string; addedDate?: string }>>([]);
   const [goalWeight, setGoalWeight] = useState<number | undefined>();
-  const [goalBloodPressure, setGoalBloodPressure] = useState<{ systolic: number; diastolic: number } | undefined>();
-  const [goalBloodFats, setGoalBloodFats] = useState<{ ldl?: number; hdl?: number } | undefined>();
-  const [goalBloodGlucose, setGoalBloodGlucose] = useState<{ hba1c?: number; fastingGlucose?: number } | undefined>();
+  const [goalSystolic, setGoalSystolic] = useState<number | undefined>();
+  const [goalDiastolic, setGoalDiastolic] = useState<number | undefined>();
+  const [goalLDL, setGoalLDL] = useState<number | undefined>();
+  const [goalHDL, setGoalHDL] = useState<number | undefined>();
+  const [goalHbA1c, setGoalHbA1c] = useState<number | undefined>();
+  const [goalFastingGlucose, setGoalFastingGlucose] = useState<number | undefined>();
 
   // Load data for charts and health info
   useEffect(() => {
@@ -50,26 +58,27 @@ const Progress = () => {
     // Load health metrics for goals
     const metrics = getStorageItem('healthMetrics', healthMetricsSchema);
     if (metrics) {
+      // Weight
       const goalW = safeParseFloat(metrics.goalWeight);
       if (goalW !== undefined) setGoalWeight(goalW);
       
+      // Blood Pressure
       const goalSys = safeParseInt(metrics.goalSystolic);
       const goalDia = safeParseInt(metrics.goalDiastolic);
-      if (goalSys !== undefined && goalDia !== undefined) {
-        setGoalBloodPressure({ systolic: goalSys, diastolic: goalDia });
-      }
+      if (goalSys !== undefined) setGoalSystolic(goalSys);
+      if (goalDia !== undefined) setGoalDiastolic(goalDia);
       
+      // Blood Fats
       const goalL = safeParseFloat(metrics.goalLDL);
-      if (goalL !== undefined) setGoalBloodFats(prev => ({ ...prev, ldl: goalL }));
-      
       const goalH = safeParseFloat(metrics.goalHDL);
-      if (goalH !== undefined) setGoalBloodFats(prev => ({ ...prev, hdl: goalH }));
+      if (goalL !== undefined) setGoalLDL(goalL);
+      if (goalH !== undefined) setGoalHDL(goalH);
       
+      // Blood Glucose
       const goalHba = safeParseFloat(metrics.goalHbA1c);
-      if (goalHba !== undefined) setGoalBloodGlucose(prev => ({ ...prev, hba1c: goalHba }));
-      
       const goalFG = safeParseFloat(metrics.goalFastingGlucose);
-      if (goalFG !== undefined) setGoalBloodGlucose(prev => ({ ...prev, fastingGlucose: goalFG }));
+      if (goalHba !== undefined) setGoalHbA1c(goalHba);
+      if (goalFG !== undefined) setGoalFastingGlucose(goalFG);
     }
   }, []);
 
@@ -96,31 +105,30 @@ const Progress = () => {
         <div className={standardSpacing.pageContent}>
           {/* 4 Charts - Click "Detaljer" to navigate to detail pages */}
           <div className="flex flex-col gap-6">
-            <ProgressChart 
-              type="bloodPressure" 
+            <BloodPressureMiniChart 
               dayLogs={dayLogs}
-              goalBloodPressure={goalBloodPressure}
+              goalSystolic={goalSystolic}
+              goalDiastolic={goalDiastolic}
               onMoreClick={() => navigate('/app/progress/bloodPressure')}
             />
 
-            <ProgressChart 
-              type="weight" 
+            <WeightMiniChart 
               dayLogs={dayLogs}
               goalWeight={goalWeight}
               onMoreClick={() => navigate('/app/progress/weight')}
             />
             
-            <ProgressChart 
-              type="bloodFats" 
+            <BloodFatsMiniChart 
               dayLogs={dayLogs}
-              goalBloodFats={goalBloodFats}
+              goalLDL={goalLDL}
+            
               onMoreClick={() => navigate('/app/progress/bloodFats')}
             />
             
-            <ProgressChart 
-              type="bloodGlucose" 
+            <BloodSugarMiniChart 
               dayLogs={dayLogs}
-              goalBloodGlucose={goalBloodGlucose}
+              goalHbA1c={goalHbA1c}
+              goalFastingGlucose={goalFastingGlucose}
               onMoreClick={() => navigate('/app/progress/bloodGlucose')}
             />
           </div>
