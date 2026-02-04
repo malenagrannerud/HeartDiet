@@ -17,6 +17,7 @@ import BloodPressureChart from "./ProgressPages/bloodPressure";
 import WeightChart from "./ProgressPages/weight";
 import BloodGlucoseChart from "./ProgressPages/bloodSugar";
 import BloodFatsChart from "./ProgressPages/bloodFat";
+import Progress from "./Progress";
 import Dagbok from "./Dagbok";  
 import Tutorial from "./Tutorial";
 import HealthGoals from "./HealthGoals";
@@ -57,13 +58,12 @@ const MainApp = () => {
           <Route path="/TipPages/baljvaxter" element={<BaljvaxterPage />} />
           <Route path="/TipPages/socker" element={<SockerPage />} />
           
-          {/* Progress  */}
-          
-         // In MainApp.tsx, change:
-          <Route path="/ProgressPages/bloodPressure" element={<BloodPressureChart />} />
-          <Route path="/ProgressPages/weight" element={<WeightChart />} />
-          <Route path="/ProgressPages/bloodFat" element={<BloodFatsChart />} />          
-          <Route path="/ProgressPages/bloodSugar" element={<BloodGlucoseChart />} />
+          {/* Progress */}
+          <Route path="/progress" element={<Progress />} />
+          <Route path="/progress/bloodPressure" element={<BloodPressureChart />} />
+          <Route path="/progress/weight" element={<WeightChart />} />
+          <Route path="/progress/bloodFats" element={<BloodFatsChart />} />          
+          <Route path="/progress/bloodGlucose" element={<BloodGlucoseChart />} />
 
 
           {/* Dagbok route */}
