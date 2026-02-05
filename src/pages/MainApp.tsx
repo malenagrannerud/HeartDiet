@@ -13,6 +13,7 @@ import LagomPage from "./TipPages/lagom";
 import MotionPage from "./TipPages/motion";
 import BaljvaxterPage from "./TipPages/baljvaxter";
 import SockerPage from "./TipPages/socker";
+import Dagbok from "./Dagbok";
 import Progress from "./Progress";
 import ProgressDetail from "./ProgressDetailsPages";
 
@@ -27,7 +28,7 @@ const MainApp = () => {
   const location = useLocation();
   
   // Show bottom nav only on main pages (Headspace style)
-  const showBottomNav = ["/app/today", "/app/tips", "/app/progress", "/app/settings"].includes(location.pathname);
+  const showBottomNav = ["/app/today", "/app/tips", "/app/dagbok", "/app/progress", "/app/settings"].includes(location.pathname);
   
   return (
     <>
@@ -47,6 +48,7 @@ const MainApp = () => {
           <Route path="/TipPages/motion" element={<MotionPage />} />
           <Route path="/TipPages/baljvaxter" element={<BaljvaxterPage />} />
           <Route path="/TipPages/socker" element={<SockerPage />} />
+          <Route path="/dagbok" element={<Dagbok />} />
           <Route path="/progress" element={<Progress />} />
           <Route path="/progress/:type" element={<ProgressDetail />} />
           <Route path="/help" element={<Help />} />
