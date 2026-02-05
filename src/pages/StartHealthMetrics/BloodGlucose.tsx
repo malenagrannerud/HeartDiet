@@ -1,0 +1,156 @@
+import { useState, useEffect } from "react";
+import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import { ButtonBackForward } from "@/components/ButtonBackForward";
+import { CheckBoxSkipNow } from "@/components/CheckBoxSkipNow";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { CalendarIcon } from "lucide-react";
+import { format } from "date-fns";
+import { sv } from "date-fns/locale";
+import { ProgressIndicator } from "./components/ProgressIndicator";
+import { CardInfoHint } from "@/components/CardInfoHint";
+import { standardCard, cardTitle, bodyText, primaryButton, standardSpacing } from "@/lib/design-tokens";
+import { getStorageItem } from "@/lib/storage";
+import { healthMetricsSchema } from "@/lib/schemas"; // CHANGED
+import { cn } from "@/lib/utils";
+
+interface BloodGlucoseProps {
+  onNext: (data: { hba1c?: string; fastingGlucose?: string; date?: string }) => void;
+  onSkip: () => void;
+  onBack: () => void;
+  currentStep: number;
+  totalSteps: number;
+}
+
+export const BloodGlucose = ({ onNext, onSkip, onBack, currentStep, totalSteps }: BloodGlucoseProps) => {
+  const [hba1c, setHba1c] = useState("");
+  const [fastingGlucose, setFastingGlucose] = useState("");
+  const [date, setDate] = useState<Date>(new Date());
+  const [isSkipped, setIsSkipped] = useState(false);
+
+  useEffect(() => {
+    // CHANGED: Load from healthMetrics instead of extendedHealthMetrics
+    const data = getStorageItem('healthMetrics', healthMetricsSchema);
+    
+    if (data) {
+      // Load from flat structure instead of nested bloodGlucose object
+      setHba1c(data.hba1c || "");
+      setFastingGlucose(data.fastingGlucose || "");
+      
+      // Load date from bloodGlucoseDate field
+      if (data.bloodGlucoseDate) {
+        setDate(new Date(data.bloodGlucoseDate));
+      }
+    }
+  }, []);
+
+  const handleSave = () => {
+    if (hba1c || fastingGlucose) {
+      const data: any = { date: date.toISOString() };
+      if (hba1c) data.hba1c = hba1c;
+      if (fastingGlucose) data.fastingGlucose = fastingGlucose;
+      onNext(data);
+    } else if (isSkipped) {
+      onSkip();
+    }
+  };
+
+  const handleInputChange = (setter: React.Dispatch<React.SetStateAction<string>>, value: string) => {
+    setter(value);
+    if (isSkipped) setIsSkipped(false);
+  };
+
+  const handleDateChange = (newDate: Date | undefined) => {
+    if (newDate) {
+      setDate(newDate);
+      if (isSkipped) setIsSkipped(false);
+    }
+  };
+
+  const isValid = isSkipped || hba1c !== "" || fastingGlucose !== "";
+
+  return (
+    <div className={standardSpacing.pageContent}>
+      <div className="mb-6">
+        <ProgressIndicator currentStep={currentStep} totalSteps={totalSteps} />
+      </div>
+
+      <section className={standardSpacing.sectionContent}>
+        <CardInfoHint 
+          context="Referensvärden P-Glukos (fP-Glukos)"
+          message="Normalvärden är satta till 4,0 till 6,0 mmol/L"
+        />
+      </section>
+
+      <section className={standardSpacing.sectionContent}>
+        <div className={standardSpacing.cardList}>
+          <Card className={standardCard}>
+            <div className="space-y-10">
+      
+              <div className="space-y-1">
+                <Label htmlFor="fastingGlucose">P-Glukos (mmol/L)</Label>
+                <Input
+                  id="fastingGlucose"
+                  type="number"
+                  step="0.1"
+                  value={fastingGlucose}
+                  onChange={(e) => handleInputChange(setFastingGlucose, e.target.value)}
+                  placeholder="Ex: 5.6"
+                />
+              </div>
+
+              <div className="space-y-1">
+                <Label>När mättes det?</Label>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant="outline"
+                      className={cn(
+                        "w-full justify-start text-left font-normal",
+                        !date && "text-muted-foreground"
+                      )}
+                    >
+                      <CalendarIcon className="mr-2 h-4 w-4" />
+                      {date ? format(date, "PPP", { locale: sv }) : "Välj datum"}
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0">
+                    <Calendar
+                      mode="single"
+                      selected={date}
+                      onSelect={handleDateChange}
+                      initialFocus
+                      locale={sv}
+                      className="pointer-events-auto"
+                    />
+                  </PopoverContent>
+                </Popover>
+              </div>
+            </div>
+          </Card>
+       </div>
+      </section>
+
+      <div className={standardSpacing.pageContent}>
+        <CheckBoxSkipNow
+          isSkipped={isSkipped}
+          setIsSkipped={setIsSkipped}
+        />
+      </div>
+
+      <section className="fixed bottom-16 left-0 right-0 px-4 z-10">
+        <div className="flex gap-3">
+          <ButtonBackForward 
+            onBack={onBack}
+            onForward={handleSave}
+            forwardDisabled={!isValid}
+            forwardLabel="Spara"
+          />
+        </div>
+      </section>
+    </div>
+  );
+};

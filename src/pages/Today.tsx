@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { StartCard } from "@/components/StartCard";
-import { BookOpen, ChevronRight, FileEdit } from "lucide-react"; 
+import { BookOpen, FileEdit } from "lucide-react"; 
 import { useNavigate } from "react-router-dom";
 import { tips } from "@/data/tips";
 import TipCard from "@/components/TipCard";
@@ -10,14 +10,17 @@ import { markedTipsSchema } from "@/lib/schemas";
 import HealthPrioritiesImage from "@/assets/formManBrown.png"; 
 import FormManOrange from "@/assets/formManOrange.png"; 
 import ReadLady from "@/assets/readLady.png"; 
+import FormLady from "@/assets/ladyFormGreen.png"; 
 import { 
   isCardCompletedToday, 
   cleanupOldCompletions,
   getCardsToHide,
   type CardId 
 } from "@/lib/card-completion";
+import { Button } from "@/components/ui/button";
 import { CheckBoxLeft } from "@/components/CheckBoxLeft";
 import { isTipCompletedToday, toggleTipCompletion } from "@/lib/tip-completion";
+import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import { getCurrentDate } from "@/lib/simulated-date";
 import { tipPageRoutes } from "@/lib/tip-routes";
@@ -46,28 +49,29 @@ const Today = () => {
   });
   const [tipCompletions, setTipCompletions] = useState<Record<number, boolean>>({});
 
-  useEffect(() => {
+  useEffect(() => {                   // Load marked tips 
     const savedTips = getStorageItem('markedTips', markedTipsSchema);
     if (savedTips) {
       setMarkedTips(savedTips as MarkedTip[]);
     }
     
+    // Load tip completions for today
     const completions: Record<number, boolean> = {};
     tips.forEach(tip => {
       completions[tip.id] = isTipCompletedToday(tip.id);
     });
     setTipCompletions(completions);
     
-    cleanupOldCompletions();
+    cleanupOldCompletions();      // Clean up old completion records
     
-    setCompletionStatus({
+    setCompletionStatus({         // Check completion status for styling
       tutorial: isCardCompletedToday('tutorial'),
       healthGoals: isCardCompletedToday('health-goals'),
       medications: isCardCompletedToday('medications'),
       healthMetrics: isCardCompletedToday('health-metrics')
     });
     
-    const cardsToHide = getCardsToHide();
+    const cardsToHide = getCardsToHide();         // Check which cards to hide (completed on previous days)
     setHiddenCards({
       tutorial: cardsToHide['tutorial'],
       healthGoals: cardsToHide['health-goals'],
@@ -75,7 +79,7 @@ const Today = () => {
       healthMetrics: cardsToHide['health-metrics']
     });
     
-    const now = getCurrentDate();
+    const now = getCurrentDate();         // Set up midnight check to hide completed cards
     const midnight = new Date(now);
     midnight.setHours(24, 0, 0, 0);
     const timeUntilMidnight = midnight.getTime() - now.getTime();
@@ -89,7 +93,7 @@ const Today = () => {
         healthMetrics: newCardsToHide['health-metrics']
       });
      
-      setCompletionStatus({
+      setCompletionStatus({             // Reset completion status for new day
         tutorial: false,
         healthGoals: false,
         medications: false,
@@ -102,6 +106,7 @@ const Today = () => {
 
   const markedTipsList = tips.filter(tip => markedTips.some(mt => mt.id === tip.id));
 
+  // Handler for when user navigates to a card
   const handleCardNavigation = (cardId: CardId, path: string) => {
     navigate(path);
   };
@@ -126,72 +131,152 @@ const Today = () => {
       title: newStatus ? "Tips markerat som gjort!" : "Tips avmarkerat",
       description: newStatus ? `${tipTitle} har sparats för idag` : `${tipTitle} har tagits bort`,
     });
+  };
+
+  // Check if all start cards are hidden
+  const allStartCardsHidden = hiddenCards.tutorial && hiddenCards.healthGoals && hiddenCards.medications && hiddenCards.healthMetrics;
+
+  return (
+    <div className={pageContainer}>
+      <header className={headerContainer}>
+          <h1 className={pageTitle}>Idag</h1>
+          <p className={pageSubtitle}>Dagens fokus</p>
+
+
+
+        
+      </header>
+
+      <main className={pagePadding}>
+         <div className={standardSpacing.pageContent}>
+          
+            <section className={standardSpacing.sectionContent}>
+              <h3 className={bodyTextBald}>Starta här</h3>
+        
+              {allStartCardsHidden ? (
+                <p className={bodyBaldSub}>Alla dina kurser är avklarade. Fokusera på att implementera en ny hälsosam vana!</p>
+              ) : (
+                <div className="space-y-1">
+                  {!hiddenCards.tutorial && (
+                    <div className="flex gap-4 items-center">
+                      <CheckBoxLeft isCompleted={completionStatus.tutorial} />
+                      <div className="flex-1">
+                        <StartCard
+                          isHidden={false}
+                          title="Så fungerar appen"
+                          icon={<BookOpen size={12} strokeWidth={2.5} />}
+                          label="Kurs"
+                          time="5 min"
+                          onClick={() => handleCardNavigation('tutorial', '/app/tutorial')}
+                          ariaLabel="Gå till tutorial"
+                          hasImage={true}
+                          imageSrc={ReadLady}
+                        />
+                      </div>
+                    </div>
+                  )}
+                  
+                  {!hiddenCards.tutorial && !hiddenCards.healthGoals && (
+                    <div className="flex gap-4">
+                      <div className="w-5 flex justify-center">
+                        <div className="w-0.5 h-2 border-l-2 border-dashed border-gray-300" />
+                      </div>
+                    </div>
+                  )}
+
+                  {!hiddenCards.healthGoals && (
+                    <div className="flex gap-4 items-center">
+                      <CheckBoxLeft isCompleted={completionStatus.healthGoals} />
+                      <div className="flex-1">
+                        <StartCard
+                          isHidden={false}
+                          title="Mina hälsomål"
+                          icon={<FileEdit size={12} strokeWidth={2.5} />}
+                          label="Formulär"
+                          time="2 min"
+                          onClick={() => handleCardNavigation('health-goals', '/app/health-goals')}
+                          ariaLabel="Gå till hälsomål"
+                          hasImage={true}
+                          imageSrc={HealthPrioritiesImage}
+                          imageAlt="Health goals illustration"
+                        />
+                      </div>
+                    </div>
+                  )}
+                  
+                  {/* Medications card hidden as per user request */}
+                  
+                  {!hiddenCards.healthGoals && !hiddenCards.healthMetrics && (
+                    <div className="flex gap-4">
+                      <div className="w-5 flex justify-center">
+                        <div className="w-0.5 h-2 border-l-2 border-dashed border-gray-300" />
+                      </div>
+                    </div>
+                  )}
+                  
+
+                  {!hiddenCards.healthMetrics && (
+                    <div className="flex gap-4 items-center">
+                      <CheckBoxLeft isCompleted={completionStatus.healthMetrics} />
+                      <div className="flex-1">
+                        <StartCard
+                          isHidden={false}
+                          title="Mina startvärden"
+                          icon={<FileEdit size={12} strokeWidth={2.5} />}
+                          label="Formulär"
+                          time="2-5 min"
+                          onClick={() => handleCardNavigation('health-metrics', '/app/health-metrics')}
+                          ariaLabel="Gå till hälsomätningar"
+                          hasImage={true}
+                          imageSrc={FormManOrange}
+                        />
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+            </section>
+
+            <section className={standardSpacing.sectionContent}>
+              <h3 className={bodyTextBald}>Mina tips</h3>
+              <p className={bodyBaldSub}>
+                {markedTipsList.length > 0 
+                  ? "Markera ett tips som färdigt genom att klicka i boxen"
+                  : "Välj vilka tips du vill göra under \"Tips\""}
+              </p>
+              {markedTipsList.length > 0 ? (
+                <div className="space-y-4">
+                  {markedTipsList.map((tip) => (
+                    <div key={tip.id} className="flex gap-4 items-center">
+                      <div className="flex-1">
+                        <TipCard
+                          tip={tip}
+                          onClick={() => handleTipClick(tip.id)}
+                          isCompleted={tipCompletions[tip.id]}
+                        />
+                      </div>
+                      <div 
+                        onClick={(e) => handleTipCheckboxToggle(tip.id, e)}
+                        className="cursor-pointer"
+                      >
+                        <Checkbox 
+                          checked={tipCompletions[tip.id] || false}
+                          className="h-7 w-7 transition-all duration-200"
+                          style={{
+                            // @ts-ignore - Override primary color for this checkbox to use completion green
+                            '--primary': '162 95% 31%',
+                          } as React.CSSProperties}
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : null}
+          </section>
+        </div>
+      </main>
+    </div>
+  );
 };
 
-return (
-  <div className={pageContainer}>
-    <header className={headerContainer}>
-      <h1 className={pageTitle}>Idag</h1>
-      <p className={pageSubtitle}>Välkommen Rosita</p>
-    </header>
-
-    <main className={`${pagePadding} pb-24`}>
-      <div className={standardSpacing.pageContent}>
-        
-        <section className={standardSpacing.sectionContent}>
-          <h3 className={bodyTextBald}>Dagens mål</h3>
-          
-          <div className="space-y-3">
-            {markedTipsList.length > 0 ? (
-              markedTipsList.map(tip => (
-                <TipCard
-                  key={tip.id}
-                  tip={tip}
-                  onClick={() => handleTipClick(tip.id)}
-                  isCompleted={tipCompletions[tip.id] || false}
-                />
-              ))
-            ) : (
-              
-                <button
-                  onClick={() => navigate('/app/tips')}
-                  className="w-full flex items-center justify-between bg-white text-gray-800 font-medium py-3 px-6 border border-gray-300 hover:bg-gray-50 transition-colors shadow-sm"
-                >
-                  <div className="flex items-center gap-2">
-                    <span>Inga tips valda för idag. Välj tips</span>
-                  
-                    <ChevronRight className="w-4 h-4 text-blue-600" />
-                  </div>
-                </button>
-            
-
-            )
-            
-            }
-          </div>
-        </section>
-
-        <section className={standardSpacing.sectionContent}>
-          {/* Empty section as requested */}
-        </section>
-
-      </div>
-
-      <div className="fixed bottom-20 left-0 right-0 p-4 bg-transparent z-10">        
-        <button
-          onClick={() => navigate('/app/food-diary')}
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-lg text-lg shadow-md transition-all duration-200 active:scale-95 flex items-center justify-between"
-          aria-label="Gå till matdagbok"
-        >
-          <div className="flex-1 text-center">
-            <span>Skriv i min dagbok</span>
-          </div>
-          <ChevronRight size={24} strokeWidth={3} className="opacity-90" />
-        </button>
-      </div>
-    </main>
-  </div>
-);
-}
- 
 export default Today;

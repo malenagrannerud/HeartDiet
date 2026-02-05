@@ -31,9 +31,6 @@ export const tips: Tip[] = [
     freq: `Dagligen`,
     icon: "Wheat"
   },
-
- /*
-
   {
     id: 3,
     title: "Fisk & skaldjur",
@@ -41,9 +38,6 @@ export const tips: Tip[] = [
     freq: `Veckovis`,
     icon: "Fish"
   },
- */
-
-
  {
     id: 4,
     title: "Rätt fett",
@@ -65,8 +59,6 @@ export const tips: Tip[] = [
     freq: `Veckovis`,
     icon: "Beef"
   },
- 
- /*
   {
     id: 7,
     title: "Salt-halt",
@@ -74,9 +66,6 @@ export const tips: Tip[] = [
     freq: `Dagligen`,
     icon: "PackageOpen"
   },
-*/
-
-
   {
     id: 8,
     title: "Lagom är bäst",
@@ -91,17 +80,13 @@ export const tips: Tip[] = [
     freq: `Dagligen`,
     icon: "Footprints"
   },
- 
- /*
-  {
+ {
   id: 10,
   title: "Ät mer baljväxter",
   color: tipCardColors.orange,
   freq: `Dagligen`,
   icon: "Sprout"
   },
-
-
   {
    id: 11,
    title: "Minska på sockret",
@@ -109,6 +94,4 @@ export const tips: Tip[] = [
    freq: `Dagligen`,
    icon: "Candy"
   },
-*/
-
 ];
