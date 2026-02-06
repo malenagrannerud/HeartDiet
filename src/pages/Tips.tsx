@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { tips } from "@/data/tips";
 import TipCard from "@/components/TipCard";
-import { pageTitle, pageSubtitle, pageContainer, headerContainer, pagePadding, standardSpacing } from "@/lib/design-tokens";
+import { pageTitle, pageSubtitle, pageContainer, headerContainer, pagePadding, standardSpacing, bodyTextBald } from "@/lib/design-tokens";
 import { getStorageItem, setStorageItem } from "@/lib/storage";
 import { markedTipsSchema, healthPrioritiesSchema } from "@/lib/schemas";
 import { BookmarkToggle } from "@/components/BookmarkToggle";
@@ -112,6 +112,8 @@ const Tips = () => {
 
       <main className={pagePadding}>
         <div className={standardSpacing.pageContent}>
+
+  
           <div className={standardSpacing.cardList}>
             {sortedTips.map((tip) => (
               <div key={tip.id} className="flex items-center gap-3">

@@ -61,6 +61,13 @@ const Settings = () => {
           </div>
         </Card>
 
+
+
+
+
+
+        
+
         {/* Logout Card with Confirmation Dialog */}
         <AlertDialog>
           <AlertDialogTrigger asChild>

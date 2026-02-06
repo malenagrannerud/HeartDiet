@@ -70,7 +70,7 @@ const KottPage = () => {
       <header className={`${headerContainer} ${tipCardColors.darkrose}`}>
         <BackToTodayButton />
         <div className="flex items-center justify-between">
-          <h1 className={sectionHeading}>Rött och bearbetat kött</h1>
+          <h1 className={sectionHeading}>Rött kött</h1>
           <Beef className="h-8 w-8" />
         </div>
       </header>
