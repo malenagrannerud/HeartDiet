@@ -20,7 +20,7 @@ import ProgressDetail from "./ProgressDetailsPages";
 import Tutorial from "./HelpAppDescription";
 import HealthGoals from "./HealthGoals";
 import Medications from "./Medications";
-import HealthMetricsFlow from "./StartHealthMetrics/MainStartHealthMetrics";
+import HealthMetricsFlow from "./TodayStartValues/MainStartVals";
 import Settings from "./Help";
 
 const MainApp = () => {
