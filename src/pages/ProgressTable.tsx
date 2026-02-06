@@ -1,7 +1,7 @@
 import { format } from "date-fns";
 import { sv } from "date-fns/locale";
 import { useNavigate } from "react-router-dom";
-import { ChevronLeft, ChevronRight, Plus, Heart, Weight, Activity, Droplet } from "lucide-react";
+import { ChevronLeft, ChevronRight, Heart, Weight, Activity, Droplet } from "lucide-react";
 import { tips } from "@/data/tips";
 import { Button } from "@/components/ui/button";
 import { bodyText, tableHeaderSmall } from "@/lib/design-tokens";
@@ -213,9 +213,8 @@ export const WeeklyProgressTable = ({
                         className="h-8 w-8 p-0 rounded-none"
                       >
                         {hasBP ? (
-                            <Heart className="h-4 w-4 text-[hsla(332,52%,52%,1.00)] fill-[hsla(332,52%,52%,1.00)]" />                        ) : (
-                          <Plus className="h-4 w-4 text-gray-400 opacity-70" strokeWidth={1.5} />
-                        )}
+                            <Heart className="h-4 w-4 text-[hsla(332,52%,52%,1.00)] fill-[hsla(332,52%,52%,1.00)]" />
+                        ) : null}
                       </Button>
                     </td>
                   );
@@ -245,9 +244,7 @@ export const WeeklyProgressTable = ({
                       >
                         {hasWeight ? (
                           <Weight className="h-4 w-4 text-[hsla(204,37%,48%,1.00)] fill-[hsla(204,37%,48%,1.00)]" />
-                        ) : (
-                          <Plus className="h-4 w-4 text-gray-400 opacity-70" strokeWidth={1.5} />
-                        )}
+                        ) : null}
                       </Button>
                     </td>
                   );
@@ -277,9 +274,7 @@ export const WeeklyProgressTable = ({
                       >
                         {hasBloodFats ? (
                           <Activity className="h-4 w-4 text-[hsla(280,60%,55%,1.00)] fill-[hsla(280,60%,55%,1.00)]" />
-                        ) : (
-                          <Plus className="h-4 w-4 text-gray-400 opacity-70" strokeWidth={1.5} />
-                        )}
+                        ) : null}
                       </Button>
                     </td>
                   );
@@ -309,9 +304,7 @@ export const WeeklyProgressTable = ({
                       >
                         {hasGlucose ? (
                           <Droplet className="h-4 w-4 text-[hsla(195,75%,45%,1.00)] fill-[hsla(195,75%,45%,1.00)]" />
-                        ) : (
-                          <Plus className="h-4 w-4 text-gray-400 opacity-70" strokeWidth={1.5} />
-                        )}
+                        ) : null}
                       </Button>
                     </td>
                   );
