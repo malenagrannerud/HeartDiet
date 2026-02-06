@@ -14,15 +14,14 @@ import MotionPage from "./TipPages/motion";
 import BaljvaxterPage from "./TipPages/baljvaxter";
 import SockerPage from "./TipPages/socker";
 import Dagbok from "./Dagbok";
-import Progress from "./Progress";
+import Progress from "./Values";
 import ProgressDetail from "./ProgressDetailsPages";
 
-import Help from "./Help";
-import Tutorial from "./Tutorial";
+import Tutorial from "./HelpAppDescription";
 import HealthGoals from "./HealthGoals";
 import Medications from "./Medications";
 import HealthMetricsFlow from "./StartHealthMetrics/MainStartHealthMetrics";
-import Settings from "./Settings";
+import Settings from "./Help";
 
 const MainApp = () => {
   const location = useLocation();
@@ -51,7 +50,6 @@ const MainApp = () => {
           <Route path="/dagbok" element={<Dagbok />} />
           <Route path="/progress" element={<Progress />} />
           <Route path="/progress/:type" element={<ProgressDetail />} />
-          <Route path="/help" element={<Help />} />
           <Route path="/tutorial" element={<Tutorial />} />
           <Route path="/health-goals" element={<HealthGoals />} />
           <Route path="/medications" element={<Medications />} />

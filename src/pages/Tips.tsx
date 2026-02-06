@@ -107,7 +107,7 @@ const Tips = () => {
     <div className={pageContainer}>
       <header className={headerContainer}>
         <h1 className={pageTitle}>Mina tips</h1>
-        <p className={pageSubtitle}>Välj vilka tips du vill fokusera på genom att markera boxen</p>
+        <p className={pageSubtitle}>Välj ett mål för veckan</p>
       </header>
 
       <main className={pagePadding}>

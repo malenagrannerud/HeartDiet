@@ -9,7 +9,7 @@ import { safeParseFloat, safeParseInt } from "@/lib/health-validators";
 import { medications } from "@/data/medications";
 import { HealthInfoCard } from "@/components/HealthInfoCard";
 import { getCurrentDate } from "@/lib/simulated-date";
-import { ProgressChart } from "@/pages/ProgressChart";
+import { ProgressChart } from "@/pages/ValuesCharts";
 
 const healthPriorityLabels: Record<string, string> = {
   cholesterol: "Hantera mitt kolesterol",
@@ -28,8 +28,6 @@ const Progress = () => {
   const [goalBloodPressure, setGoalBloodPressure] = useState<{ systolic: number; diastolic: number } | undefined>();
   const [goalBloodFats, setGoalBloodFats] = useState<{ ldl?: number; hdl?: number } | undefined>();
   const [goalBloodGlucose, setGoalBloodGlucose] = useState<{ hba1c?: number; fastingGlucose?: number } | undefined>();
-  const [showBloodFats, setShowBloodFats] = useState(false);
-  const [showBloodGlucose, setShowBloodGlucose] = useState(false);
 
   // Load day logs and health priorities from localStorage
   useEffect(() => {
@@ -69,42 +67,29 @@ const Progress = () => {
       if (goalFG !== undefined) setGoalBloodGlucose(prev => ({ ...prev, fastingGlucose: goalFG }));
     }
 
-    // Determine if we should show blood fats and blood glucose charts
-    const hasSavedBloodFats = logs.some((l) => l?.entries?.some((e: any) => e.type === 'bloodFats'));
-    const hasSavedBloodGlucose = logs.some((l) => l?.entries?.some((e: any) => e.type === 'bloodGlucose'));
-
-    // Show blood fats if: user has cholesterol goal OR takes statin medication OR has values
-    const hasCholesterolGoal = data?.priorities.includes('cholesterol');
-    const hasStatinMedication = savedMeds ? savedMeds.some(savedMed => {
-      if (!savedMed.id) return false;
-      const medicationInfo = medications.find(med => med.id === savedMed.id);
-      if (!medicationInfo) return false;
-      return medicationInfo.category.includes('Statin');
-    }) : false;
-    setShowBloodFats(Boolean(hasCholesterolGoal || hasStatinMedication || hasSavedBloodFats));
-
-    // Show blood glucose if: user has diabetes goal OR takes diabetes medication OR has values
-    const hasDiabetesGoal = data?.priorities.includes('diabetes');
-    const hasDiabetesMedication = savedMeds ? savedMeds.some(savedMed => {
-      if (!savedMed.id) return false;
-      const medicationInfo = medications.find(med => med.id === savedMed.id);
-      if (!medicationInfo) return false;
-      return medicationInfo.category.includes('Diabetesmedicin');
-    }) : false;
-    setShowBloodGlucose(Boolean(hasDiabetesGoal || hasDiabetesMedication || hasSavedBloodGlucose));
+    // REMOVED: All conditional logic for showing/hiding charts
+    // Charts will now always be displayed
   }, []);
 
   return (
     <div className={pageContainer}>
-      
       <header className={headerContainer}>
-          <h1 className={pageTitle}>Mina sidor</h1>
-          <p className={pageSubtitle}>Följ dina framsteg</p>
+          <h1 className={pageTitle}>Mina mätningar</h1>
+          <p className={pageSubtitle}>Se och redigera dina mätningar och mål</p>
       </header>
-      
+
       <main className={pagePadding}>
         <div className={standardSpacing.pageContent}>
-          {/* Charts */}
+          <div className="grid grid-cols-1 gap-6">
+            <HealthInfoCard
+              icon={Heart}
+              title="Mitt hälsomål"
+              items={priorities.map((id) => ({ id, label: healthPriorityLabels[id] }))}
+              emptyMessage="Inga mål valda ännu"
+              onClick={() => navigate('/app/health-goals?returnTo=/app/progress')}
+            />
+          </div>
+
           <div className="flex flex-col gap-6">
             <ProgressChart 
               type="bloodPressure" 
@@ -118,32 +103,19 @@ const Progress = () => {
               goalWeight={goalWeight}
               onMoreClick={() => navigate('/app/progress/weight')}
             />
-            {showBloodFats && (
-              <ProgressChart 
-                type="bloodFats" 
-                dayLogs={dayLogs}
-                goalBloodFats={goalBloodFats}
-                onMoreClick={() => navigate('/app/progress/bloodFats')}
-              />
-            )}
-            {showBloodGlucose && (
-              <ProgressChart 
-                type="bloodGlucose" 
-                dayLogs={dayLogs}
-                goalBloodGlucose={goalBloodGlucose}
-                onMoreClick={() => navigate('/app/progress/bloodGlucose')}
-              />
-            )}
-          </div>
 
-          {/* Health Goals Card */}
-          <div className="grid grid-cols-1 gap-6">
-            <HealthInfoCard
-              icon={Heart}
-              title="Mina hälsomål"
-              items={priorities.map((id) => ({ id, label: healthPriorityLabels[id] }))}
-              emptyMessage="Inga mål valda ännu"
-              onClick={() => navigate('/app/health-goals?returnTo=/app/progress')}
+            <ProgressChart 
+              type="bloodFats" 
+              dayLogs={dayLogs}
+              goalBloodFats={goalBloodFats}
+              onMoreClick={() => navigate('/app/progress/bloodFats')}
+            />
+
+            <ProgressChart 
+              type="bloodGlucose" 
+              dayLogs={dayLogs}
+              goalBloodGlucose={goalBloodGlucose}
+              onMoreClick={() => navigate('/app/progress/bloodGlucose')}
             />
           </div>
         </div>  

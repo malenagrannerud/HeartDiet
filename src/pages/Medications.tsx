@@ -35,7 +35,6 @@ const Medications = () => {
   }, []);
 
   const handleMedicationSelect = (medId: string) => {
-    // Check if already selected
     if (selectedMedications.some(m => m.id === medId)) {
       toast({
         title: "Redan tillagt",

@@ -1,18 +1,20 @@
 import { NavLink } from "react-router-dom";
-import { Home, BookOpen, CalendarDays, User, HelpCircle } from "lucide-react";
+import { Home, BookOpen, CalendarDays, HelpCircle, BarChart3 } from "lucide-react";
 
 export const BottomNav = () => {
   const navItems = [
     { path: "/app/today", label: "Idag", icon: Home },
     { path: "/app/tips", label: "Tips", icon: BookOpen },
     { path: "/app/dagbok", label: "Dagbok", icon: CalendarDays },
-    { path: "/app/progress", label: "Mina sidor", icon: User },
+    { path: "/app/progress", label: "Mätningar", icon: BarChart3 },
     { path: "/app/settings", label: "Hjälp", icon: HelpCircle },
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-card border-t border-border max-w-md mx-auto">
-      <div className="flex justify-around items-center h-16">
+    <nav className="fixed bottom-0 left-0 right-0 bg-card border-t border-border">
+      {/* Removed max-w-md constraint for full width */}
+      <div className="flex justify-around items-center h-28 px-4">
+        {/* Increased height to h-28 (112px) and added horizontal padding */}
         {navItems.map((item) => (
           <NavLink
             key={item.path}
@@ -27,8 +29,15 @@ export const BottomNav = () => {
           >
             {({ isActive }) => (
               <>
-                <item.icon className="h-6 w-6 mb-1" fill={isActive ? "currentColor" : "none"} />
-                <span className="text-xs font-medium">{item.label}</span>
+                <item.icon 
+                  className="h-8 w-8 mb-2" 
+                  // Increased icon size to h-8 w-8
+                  fill={isActive ? "currentColor" : "none"} 
+                />
+                <span className="text-sm font-medium">
+                  {/* Increased text size to text-sm */}
+                  {item.label}
+                </span>
               </>
             )}
           </NavLink>

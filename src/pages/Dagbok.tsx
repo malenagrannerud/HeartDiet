@@ -589,38 +589,9 @@ const Dagbok = () => {
       </header>
       
       <main className={pagePadding}>
+
+
         <div className={standardSpacing.pageContent}>
-          {/* Stats */}
-          <div className="grid grid-cols-2 gap-6">
-            <StatsBox>
-              <div className="flex flex-col gap-4">
-                <div>
-                  <div className={bodyTextSmallBold}>Klarade dagar totalt</div>
-                  <div className={cardTextSmall}>Antal dagar du loggat tips</div>
-                </div>
-                <div className="flex items-center justify-end">
-                  <div className="w-16 h-16 bg-accent flex items-center justify-center">
-                    <span className="text-3xl font-bold text-foreground">{daysThisMonth}</span>
-                  </div>
-                </div>
-              </div>
-            </StatsBox>
-
-            <StatsBox>
-              <div className="flex flex-col gap-4">
-                <div>
-                  <div className={bodyTextSmallBold}>Klarade dagar i rad</div>
-                  <div className={cardTextSmall}>Antal dagar i rad du loggat tips</div>
-                </div>
-                <div className="flex items-center justify-end">
-                  <div className="w-16 h-16 bg-muted flex items-center justify-center">
-                    <span className="text-3xl font-bold text-foreground">{currentStreak}</span>
-                  </div>
-                </div>
-              </div>
-            </StatsBox>
-          </div>
-
           <WeeklyProgressTable
             weekDates={weekDates}
             dayLogs={dayLogs}
@@ -710,6 +681,40 @@ const Dagbok = () => {
             onCancel={() => setPendingEntry(null)}
           />
         </div>  
+
+        {/* STREAKS */}
+          <div className="grid grid-cols-2 gap-6">
+            <StatsBox>
+              <div className="flex flex-col gap-4">
+                <div>
+                  <div className={bodyTextSmallBold}>Klarade dagar totalt</div>
+                  <div className={cardTextSmall}>Antal dagar du loggat tips</div>
+                </div>
+                <div className="flex items-center justify-end">
+                  <div className="w-16 h-16 bg-accent flex items-center justify-center">
+                    <span className="text-3xl font-bold text-foreground">{daysThisMonth}</span>
+                  </div>
+                </div>
+              </div>
+            </StatsBox>
+
+            <StatsBox>
+              <div className="flex flex-col gap-4">
+                <div>
+                  <div className={bodyTextSmallBold}>Klarade dagar i rad</div>
+                  <div className={cardTextSmall}>Antal dagar i rad du loggat tips</div>
+                </div>
+                <div className="flex items-center justify-end">
+                  <div className="w-16 h-16 bg-muted flex items-center justify-center">
+                    <span className="text-3xl font-bold text-foreground">{currentStreak}</span>
+                  </div>
+                </div>
+              </div>
+            </StatsBox>
+          </div>
+
+
+
       </main>
     </div>
   );

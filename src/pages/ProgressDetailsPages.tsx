@@ -12,7 +12,7 @@ import { getDayLogs } from "@/lib/tip-completion";
 import { getStorageItem } from "@/lib/storage";
 import { healthMetricsSchema, type DayLog } from "@/lib/schemas";
 import { pageTitle, pageContainer, headerContainer, pagePadding, bodyTextBald, cardTextSmall } from "@/lib/design-tokens";
-import { ProgressChart } from "@/pages/ProgressChart";
+import { ProgressChart } from "@/pages/ValuesCharts";
 import { DEFAULT_GOALS } from "@/data/metrics-defaults";
 import { safeParseFloat, safeParseInt, validateWeight, validateSystolic, validateDiastolic, validateLDL, validateHbA1c } from "@/lib/health-validators";
 
