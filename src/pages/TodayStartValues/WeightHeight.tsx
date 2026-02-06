@@ -10,40 +10,33 @@ import { getStorageItem } from "@/lib/storage";
 import { healthMetricsSchema } from "@/lib/schemas";
 import { CheckBoxSkipNow } from "@/components/CheckBoxSkipNow";
 
-
-
-interface WeightHeightProps {
-  onNext: (data: { height: string; weight: string; goalWeight: string }) => void;
+interface HeightPageProps {
+  onNext: (data: { height: string }) => void;
   onSkip: () => void;
   currentStep: number;
   totalSteps: number;
 }
 
-export const CurrentWeightHeight = ({ onNext, onSkip, currentStep, totalSteps }: WeightHeightProps) => {
+export const HeightPage = ({ onNext, onSkip, currentStep, totalSteps }: HeightPageProps) => {
   const [height, setHeight] = useState("");
-  const [weight, setWeight] = useState("");
-  const [goalWeight, setGoalWeight] = useState("");
   const [isSkipped, setIsSkipped] = useState(false);
 
   useEffect(() => {               
     const healthData = getStorageItem('healthMetrics', healthMetricsSchema);
-    
     if (healthData) {
       setHeight(healthData.height || "");
-      setWeight(healthData.weight || "");
-      setGoalWeight(healthData.goalWeight || "");
     }
   }, []);
 
   const handleContinue = () => {
-    if (height && weight) {
-      onNext({ height, weight, goalWeight });
-    } else if (isSkipped) {           // If skipped, just go to next step without data
+    if (height) {
+      onNext({ height });
+    } else if (isSkipped) {
       onSkip();
     }
   };
 
-  const isValid = (height !== "" && weight !== "") || isSkipped;
+  const isValid = height !== "" || isSkipped;
 
   return (
     <div className={standardSpacing.pageContent}>
@@ -55,7 +48,6 @@ export const CurrentWeightHeight = ({ onNext, onSkip, currentStep, totalSteps }:
         <div className={standardSpacing.cardList}>
           <Card className={standardCard}>
             <div className="space-y-10">
-              
               <div className="space-y-2">
                 <Label htmlFor="height">Längd (cm)</Label>
                 <Input
@@ -64,45 +56,15 @@ export const CurrentWeightHeight = ({ onNext, onSkip, currentStep, totalSteps }:
                   value={height}
                   onChange={(e) => {
                     setHeight(e.target.value);
-                    // If user starts typing after skipping, un-mark as skipped
                     if (isSkipped) setIsSkipped(false);
                   }}
-                  placeholder="Ex: 175"
+                  placeholder="175,5"
+                  autoFocus
                 />
+                <p className="text-sm text-muted-foreground mt-1">
+                  Ange din längd i centimeter
+                </p>
               </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="weight">Vikt (kg)</Label>
-                <Input
-                  id="weight"
-                  type="number"
-                  step="0.1"
-                  value={weight}
-                  onChange={(e) => {
-                    setWeight(e.target.value);
-                    // If user starts typing after skipping, un-mark as skipped
-                    if (isSkipped) setIsSkipped(false);
-                  }}
-                  placeholder="Ex: 85,5"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="goalWeight">Målvikt (kg)</Label>
-                <Input
-                  id="goalWeight"
-                  type="number"
-                  step="0.1"
-                  value={goalWeight}
-                  onChange={(e) => setGoalWeight(e.target.value)}
-                  placeholder="Ex: 70"
-                />
-              </div>
-
-              <div className="flex items-center space-x-2 pt-2">
-                
-              </div>
-
             </div>
           </Card>
         </div>
@@ -110,9 +72,9 @@ export const CurrentWeightHeight = ({ onNext, onSkip, currentStep, totalSteps }:
 
       <div className={standardSpacing.pageContent}>
         <CheckBoxSkipNow
-                  isSkipped={isSkipped}
-                  setIsSkipped={setIsSkipped}
-                />
+          isSkipped={isSkipped}
+          setIsSkipped={setIsSkipped}
+        />
       </div>
 
       <section className="fixed bottom-16 left-0 right-0 px-4 z-10">
@@ -124,7 +86,7 @@ export const CurrentWeightHeight = ({ onNext, onSkip, currentStep, totalSteps }:
             size="lg"
           >
             Nästa
-            <ArrowRight className="mr-2 h-5 w-2" />
+            <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
         </div>
       </section>
