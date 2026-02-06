@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
-import { format, startOfWeek, addDays } from "date-fns";
+import { format, startOfWeek, addDays, startOfMonth, endOfMonth, eachDayOfInterval, subDays } from "date-fns";
 import { sv } from "date-fns/locale";
-import { pageTitle, pageSubtitle, pageContainer, headerContainer, pagePadding, standardSpacing } from "@/lib/design-tokens";
+import { pageTitle, pageSubtitle, pageContainer, headerContainer, pagePadding, standardSpacing, cardTextSmall, bodyTextSmallBold } from "@/lib/design-tokens";
+import { StatsBox } from "@/components/ProgressStatsBox";
 import { useToast } from "@/hooks/use-toast";
 import { getDayLogs } from "@/lib/tip-completion";
 import { getStorageItem } from "@/lib/storage";
@@ -72,6 +73,43 @@ const Dagbok = () => {
       setMarkedTipIds(markedTips.map(tip => tip.id));
     }
   }, []);
+
+  // Calculate stats
+  const getDaysWithGoalThisMonth = (): number => {
+    const today = getCurrentDate();
+    const monthStart = startOfMonth(today);
+    const monthEnd = endOfMonth(today);
+    const daysInMonth = eachDayOfInterval({ start: monthStart, end: monthEnd });
+    
+    return daysInMonth.filter(day => {
+      const dateStr = format(day, 'yyyy-MM-dd');
+      const log = dayLogs.find(l => l.date === dateStr);
+      return log?.entries.some(entry => entry.type === 'tip');
+    }).length;
+  };
+
+  const getCurrentStreak = (): number => {
+    let streak = 0;
+    let currentDate = getCurrentDate();
+    
+    while (true) {
+      const dateStr = format(currentDate, 'yyyy-MM-dd');
+      const log = dayLogs.find(l => l.date === dateStr);
+      const hasTipEntry = log?.entries.some(entry => entry.type === 'tip');
+      
+      if (hasTipEntry) {
+        streak++;
+        currentDate = subDays(currentDate, 1);
+      } else {
+        break;
+      }
+    }
+    
+    return streak;
+  };
+
+  const daysThisMonth = getDaysWithGoalThisMonth();
+  const currentStreak = getCurrentStreak();
 
   // Generate week dates (Monday to Sunday)
   const weekDates = Array.from({ length: 7 }, (_, i) => 
@@ -552,6 +590,37 @@ const Dagbok = () => {
       
       <main className={pagePadding}>
         <div className={standardSpacing.pageContent}>
+          {/* Stats */}
+          <div className="grid grid-cols-2 gap-6">
+            <StatsBox>
+              <div className="flex flex-col gap-4">
+                <div>
+                  <div className={bodyTextSmallBold}>Klarade dagar totalt</div>
+                  <div className={cardTextSmall}>Antal dagar du loggat tips</div>
+                </div>
+                <div className="flex items-center justify-end">
+                  <div className="w-16 h-16 bg-accent flex items-center justify-center">
+                    <span className="text-3xl font-bold text-foreground">{daysThisMonth}</span>
+                  </div>
+                </div>
+              </div>
+            </StatsBox>
+
+            <StatsBox>
+              <div className="flex flex-col gap-4">
+                <div>
+                  <div className={bodyTextSmallBold}>Klarade dagar i rad</div>
+                  <div className={cardTextSmall}>Antal dagar i rad du loggat tips</div>
+                </div>
+                <div className="flex items-center justify-end">
+                  <div className="w-16 h-16 bg-muted flex items-center justify-center">
+                    <span className="text-3xl font-bold text-foreground">{currentStreak}</span>
+                  </div>
+                </div>
+              </div>
+            </StatsBox>
+          </div>
+
           <WeeklyProgressTable
             weekDates={weekDates}
             dayLogs={dayLogs}
