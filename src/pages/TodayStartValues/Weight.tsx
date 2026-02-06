@@ -1,15 +1,9 @@
-//Weight.tsx
-
-
-
 import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ButtonBackForward } from "@/components/ButtonBackForward";
 import { ProgressIndicator } from "./components/ProgressIndicator";
-import { standardCard, standardSpacing } from "@/lib/design-tokens";
+import { pageContainer, standardCard, standardSpacing } from "@/lib/design-tokens";
 import { getStorageItem } from "@/lib/storage";
 import { healthMetricsSchema } from "@/lib/schemas";
 import { CheckBoxSkipNow } from "@/components/CheckBoxSkipNow";
@@ -48,17 +42,16 @@ export const WeightPage = ({ onNext, onSkip, onBack, currentStep, totalSteps }: 
   const isValid = weight !== "" || isSkipped;
 
   return (
-    <div className={standardSpacing.pageContent}>
-      <div className="mb-6">
+    <div className={pageContainer}>
+      <div className="mb-30">
         <ProgressIndicator currentStep={currentStep} totalSteps={totalSteps} />
       </div>
 
       <section className={standardSpacing.sectionContent}>
-        
           <Card className={standardCard}>
             <div className="p-10 space-y-10">
               <div className="space-y-2">
-                <Label htmlFor="weight">Hur mycket väger du (kg)? </Label>
+                <h1 className="text-2xl font-bold text-gray-900 mb-2">Hur mycket väger du (kg)?</h1>
                 <Input
                   id="weight"
                   type="number"
@@ -74,7 +67,7 @@ export const WeightPage = ({ onNext, onSkip, onBack, currentStep, totalSteps }: 
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="goalWeight">Vilken är din målvikt (kg)?  </Label>
+                <h1 className="text-2xl font-bold text-gray-900 mb-2">Vilken är din målvikt (kg)?</h1>
                 <Input
                   id="goalWeight"
                   type="number"
@@ -84,39 +77,22 @@ export const WeightPage = ({ onNext, onSkip, onBack, currentStep, totalSteps }: 
                   placeholder="80"
                 />
               </div>
+              
+              <CheckBoxSkipNow
+                isSkipped={isSkipped}
+                setIsSkipped={setIsSkipped}
+              />
             </div>
           </Card>
-       
       </section>
 
-      <div className="mt-6">
-        <CheckBoxSkipNow
-          isSkipped={isSkipped}
-          setIsSkipped={setIsSkipped}
-        />
-      </div>
-
-      <section className="fixed bottom-16 left-0 right-0 px-4 z-10">
-        <div className="max-w-md mx-auto flex gap-3">
-          <Button
-            onClick={onBack}
-            variant="outline"
-            className="flex-1 h-12"
-            size="lg"
-          >
-            <ArrowLeft className="mr-2 h-5 w-5" />
-            Tillbaka
-          </Button>
-          
-          <Button
-            onClick={handleContinue}
-            disabled={!isValid}
-            className="flex-1 h-12"
-            size="lg"
-          >
-            Nästa
-            <ArrowRight className="ml-2 h-5 w-5" />
-          </Button>
+      <section className="fixed bottom-24 left-0 right-0 px-4 z-10">
+        <div className="flex gap-3">
+          <ButtonBackForward 
+            onBack={onBack}
+            onForward={handleContinue}
+            forwardDisabled={!isValid}
+          />
         </div>
       </section>
     </div>

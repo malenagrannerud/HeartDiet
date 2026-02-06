@@ -2,23 +2,26 @@ import { useState, useEffect } from "react";
 import { ButtonBackForward } from "@/components/ButtonBackForward";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { CheckBoxSkipNow } from "@/components/CheckBoxSkipNow";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { CalendarIcon } from "lucide-react";
 import { format } from "date-fns";
 import { sv } from "date-fns/locale";
 import { ProgressIndicator } from "./components/ProgressIndicator";
-import { standardCard, standardSpacing } from "@/lib/design-tokens";
+import { pageContainer, standardCard, standardSpacing } from "@/lib/design-tokens";
 import { getStorageItem } from "@/lib/storage";
-import { healthMetricsSchema } from "@/lib/schemas"; // CHANGED
+import { healthMetricsSchema } from "@/lib/schemas";
 import { cn } from "@/lib/utils";
 
 interface BloodFatsProps {
-  onNext: (data: { knowsLDL: string; ldl?: string; hdl?: string; triglycerides?: string; date?: string }) => void;
+  onNext: (data: { 
+    ldl?: string; 
+    hdl?: string; 
+    triglycerides?: string; 
+    date?: string 
+  }) => void;
   onSkip: () => void;
   onBack: () => void;
   currentStep: number;
@@ -26,7 +29,6 @@ interface BloodFatsProps {
 }
 
 export const BloodFats = ({ onNext, onSkip, onBack, currentStep, totalSteps }: BloodFatsProps) => {
-  const [knowsLDL, setKnowsLDL] = useState<string>("unknown");
   const [ldl, setLdl] = useState("");
   const [hdl, setHdl] = useState("");
   const [triglycerides, setTriglycerides] = useState("");
@@ -37,7 +39,6 @@ export const BloodFats = ({ onNext, onSkip, onBack, currentStep, totalSteps }: B
     const data = getStorageItem('healthMetrics', healthMetricsSchema);
     
     if (data) {
-      setKnowsLDL(data.knowsLDL || "unknown");
       setLdl(data.ldl || "");
       setHdl(data.hdl || "");
       setTriglycerides(data.triglycerides || "");
@@ -49,22 +50,17 @@ export const BloodFats = ({ onNext, onSkip, onBack, currentStep, totalSteps }: B
   }, []);
 
   const handleContinue = () => {
-    if (knowsLDL === 'detailed' && ldl) {
-      const data: any = { 
-        knowsLDL, 
-        date: date.toISOString(),
-        ldl,
-        hdl: hdl || undefined,
-        triglycerides: triglycerides || undefined
-      };
-      onNext(data);
-    } else if (isSkipped) {
+    if (isSkipped) {
       onSkip();
     } else {
-      const data: any = { knowsLDL };
-      if (knowsLDL === 'just-high' || knowsLDL === 'unknown') {
-        data.date = date.toISOString();
-      }
+      const data: any = { 
+        date: date.toISOString()
+      };
+      
+      if (ldl) data.ldl = ldl;
+      if (hdl) data.hdl = hdl;
+      if (triglycerides) data.triglycerides = triglycerides;
+      
       onNext(data);
     }
   };
@@ -74,55 +70,23 @@ export const BloodFats = ({ onNext, onSkip, onBack, currentStep, totalSteps }: B
     if (isSkipped) setIsSkipped(false);
   };
 
-  const handleRadioChange = (value: string) => {
-    setKnowsLDL(value);
-    if (isSkipped) setIsSkipped(false);
-  };
-
-  const isValid = 
-    isSkipped || 
-    (knowsLDL === 'detailed' && ldl !== "") || 
-    knowsLDL === 'just-high' || 
-    knowsLDL === 'unknown';
+  const isValid = isSkipped || ldl !== "" || hdl !== "" || triglycerides !== "";
 
   return (
-    <div className={standardSpacing.pageContent}>
-      <div className="mb-6">
+    <div className={pageContainer}>
+      <div className="mb-30">
         <ProgressIndicator currentStep={currentStep} totalSteps={totalSteps} />
       </div>
 
       <section className={standardSpacing.sectionContent}>
-        <div className={standardSpacing.cardList}>
           <Card className={standardCard}>
-            <div className="space-y-10">
+            <div className="p-10 space-y-10">
               <div className="space-y-10">
-                <Label>Vet du dina kolesterolvärden?</Label>
-                <RadioGroup value={knowsLDL} onValueChange={handleRadioChange}>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="detailed" id="detailed" />
-                    <Label htmlFor="detailed" className="font-normal cursor-pointer">
-                      Jag vet mitt LDL
-                    </Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="just-high" id="just-high" />
-                    <Label htmlFor="just-high" className="font-normal cursor-pointer">
-                      Jag vet bara att det är högt
-                    </Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="unknown" id="unknown" />
-                    <Label htmlFor="unknown" className="font-normal cursor-pointer">
-                      Jag vet inte
-                    </Label>
-                  </div>
-                </RadioGroup>
-              </div>
-
-              {knowsLDL === 'detailed' && (
-                <div className="space-y-4 pt-4 border-t">
+                <h1 className="text-2xl font-bold text-gray-900 mb-2">Dina blodfetter?</h1>
+                
+                <div className="space-y-4">
                   <div className="space-y-2">
-                    <Label htmlFor="ldl">LDL-kolesterol (mmol/L)</Label>
+                    <div className="text-lg font-medium">LDL-kolesterol (mmol/L)</div>
                     <Input
                       id="ldl"
                       type="number"
@@ -130,11 +94,12 @@ export const BloodFats = ({ onNext, onSkip, onBack, currentStep, totalSteps }: B
                       value={ldl}
                       onChange={(e) => handleInputChange(setLdl, e.target.value)}
                       placeholder="Ex: 3.5"
+                      autoFocus
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="hdl">HDL-kolesterol (mmol/L) - frivilligt</Label>
+                    <div className="text-lg font-medium">HDL-kolesterol (mmol/L)</div>
                     <Input
                       id="hdl"
                       type="number"
@@ -146,7 +111,7 @@ export const BloodFats = ({ onNext, onSkip, onBack, currentStep, totalSteps }: B
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="triglycerides">Triglycerider (mmol/L) - frivilligt</Label>
+                    <div className="text-lg font-medium">Triglycerider (mmol/L)</div>
                     <Input
                       id="triglycerides"
                       type="number"
@@ -158,7 +123,7 @@ export const BloodFats = ({ onNext, onSkip, onBack, currentStep, totalSteps }: B
                   </div>
 
                   <div className="space-y-2">
-                    <Label>När mättes det?</Label>
+                    <div className="text-lg font-medium">När mättes det?</div>
                     <Popover>
                       <PopoverTrigger asChild>
                         <Button
@@ -190,20 +155,17 @@ export const BloodFats = ({ onNext, onSkip, onBack, currentStep, totalSteps }: B
                     </Popover>
                   </div>
                 </div>
-              )}              
+              </div>
+              
+              <CheckBoxSkipNow
+                isSkipped={isSkipped}
+                setIsSkipped={setIsSkipped}
+              />
             </div>
           </Card>
-        </div>
       </section>
 
-      <div className={standardSpacing.pageContent}>
-        <CheckBoxSkipNow
-          isSkipped={isSkipped}
-          setIsSkipped={setIsSkipped}
-        />
-      </div>
-
-      <section className="fixed bottom-16 left-0 right-0 px-4 z-10">
+      <section className="fixed bottom-24 left-0 right-0 px-4 z-10">
         <div className="flex gap-3">
           <ButtonBackForward 
             onBack={onBack}

@@ -1,15 +1,13 @@
 import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import { ProgressIndicator } from "./components/ProgressIndicator"; // Changed import pathimport { standardCard, standardSpacing } from "@/lib/design-tokens";
+import { ProgressIndicator } from "./components/ProgressIndicator";
+import { pageContainer, standardCard, standardSpacing } from "@/lib/design-tokens";
 import { getStorageItem } from "@/lib/storage";
 import { healthMetricsSchema } from "@/lib/schemas";
 import { CheckBoxSkipNow } from "@/components/CheckBoxSkipNow";
-import { standardCard, standardSpacing } from "@/lib/design-tokens";
-
 
 interface HeightPageProps {
   onNext: (data: { height: string }) => void;
@@ -40,20 +38,16 @@ export const HeightPage = ({ onNext, onSkip, currentStep, totalSteps }: HeightPa
   const isValid = height !== "" || isSkipped;
 
   return (
-    <div className={standardSpacing.pageContent}>
-      <div className="mb-6">
+    <div className={pageContainer}>
+      <div className="mb-30">
         <ProgressIndicator currentStep={currentStep} totalSteps={totalSteps} />
       </div>
 
       <section className={standardSpacing.sectionContent}>
-        
-         
-         
           <Card className={standardCard}>
-            <div className="p-10 space-y-20">
-              <div className="space-y-10">
-                
-                <Label htmlFor="height">Hur lång är du (cm)? </Label>
+            <div className="p-10 space-y-10">
+              <div className="space-y-2">
+                <h1 className="text-2xl font-bold text-gray-900 mb-2">Hur lång är du (cm)?</h1>
                 <Input
                   id="height"
                   type="number"
@@ -65,28 +59,22 @@ export const HeightPage = ({ onNext, onSkip, currentStep, totalSteps }: HeightPa
                   placeholder="175,5"
                   autoFocus
                 />
-              
               </div>
+              
+              <CheckBoxSkipNow
+                isSkipped={isSkipped}
+                setIsSkipped={setIsSkipped}
+              />
             </div>
           </Card>
-
-
-        
       </section>
 
-      <div className="mt-6">
-        <CheckBoxSkipNow
-          isSkipped={isSkipped}
-          setIsSkipped={setIsSkipped}
-        />
-      </div>
-
-      <section className="fixed bottom-16 left-0 right-0 px-4 z-10">
-        <div className="max-w-md mx-auto flex gap-3">
+      <section className="fixed bottom-24 left-0 right-0 px-4 z-10">
+        <div className="max-w-md mx-auto">
           <Button
             onClick={handleContinue}
             disabled={!isValid}
-            className="flex-1 h-12 text-base"
+            className="w-full h-12 text-base"
             size="lg"
           >
             Nästa

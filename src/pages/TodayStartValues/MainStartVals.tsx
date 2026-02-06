@@ -18,6 +18,44 @@ import { safeParseFloat, safeParseInt, HEALTH_RANGES } from "@/lib/health-valida
 
 const TOTAL_STEPS = 5;
 
+// Helper functions
+const normalizeDate = (dateInput: string | Date, fallback: string): string => {
+  if (!dateInput) return fallback;
+  
+  if (dateInput instanceof Date) {
+    return format(dateInput, 'yyyy-MM-dd');
+  }
+  
+  if (dateInput.includes('T')) {
+    return format(new Date(dateInput), 'yyyy-MM-dd');
+  }
+  
+  return dateInput;
+};
+
+const isValidRange = (value: number | undefined, range: { min: number; max: number }) => {
+  return value !== undefined && value >= range.min && value <= range.max;
+};
+
+const createDayLogEntry = (type: string, value: any, value2?: any, value3?: any) => ({
+  type,
+  value,
+  ...(value2 !== undefined && { value2 }),
+  ...(value3 !== undefined && { value3 }),
+  timestamp: new Date().toISOString()
+});
+
+const addEntryToDayLogs = (logs: DayLog[], dateStr: string, entry: any) => {
+  const existingLogIndex = logs.findIndex(log => log.date === dateStr);
+  
+  if (existingLogIndex >= 0) {
+    logs[existingLogIndex].entries = logs[existingLogIndex].entries.filter(e => e.type !== entry.type);
+    logs[existingLogIndex].entries.push(entry);
+  } else {
+    logs.push({ date: dateStr, entries: [entry] });
+  }
+};
+
 const HealthMetricsFlow = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -51,113 +89,108 @@ const HealthMetricsFlow = () => {
     }
   };
 
+  // Page handlers
+  const handleHeightData = (pageData: any, today: string, existingLogs: DayLog[]) => {
+    saveData({ height: pageData.height });
+  };
+
+  const handleWeightData = (pageData: any, today: string, existingLogs: DayLog[]) => {
+    saveData({ 
+      weight: pageData.weight, 
+      goalWeight: pageData.goalWeight 
+    });
+    
+    const weight = safeParseFloat(pageData.weight);
+    if (isValidRange(weight, HEALTH_RANGES.weight)) {
+      addEntryToDayLogs(existingLogs, today, createDayLogEntry('weight', weight));
+    }
+  };
+
+  const handleBloodPressureData = (pageData: any, today: string, existingLogs: DayLog[]) => {
+    const bpDate = normalizeDate(pageData.date, today);
+    
+    saveData({ 
+      systolic: pageData.systolic,
+      diastolic: pageData.diastolic,
+      bloodPressureDate: bpDate,
+    });
+    
+    const systolic = safeParseInt(pageData.systolic);
+    const diastolic = safeParseInt(pageData.diastolic);
+    if (isValidRange(systolic, HEALTH_RANGES.systolic) && 
+        isValidRange(diastolic, HEALTH_RANGES.diastolic)) {
+      addEntryToDayLogs(existingLogs, bpDate, 
+        createDayLogEntry('bloodPressure', systolic, diastolic));
+    }
+  };
+
+  const handleBloodFatsData = (pageData: any, today: string, existingLogs: DayLog[]) => {
+    const bloodFatsDate = normalizeDate(pageData.date, today);
+    
+    saveData({ 
+      ldl: pageData.ldl,
+      hdl: pageData.hdl,
+      triglycerides: pageData.triglycerides,
+      bloodFatsDate,
+    });
+    
+    const ldl = safeParseFloat(pageData.ldl);
+    if (isValidRange(ldl, HEALTH_RANGES.ldl)) {
+      const hdl = safeParseFloat(pageData.hdl);
+      const triglycerides = safeParseFloat(pageData.triglycerides);
+      addEntryToDayLogs(existingLogs, bloodFatsDate, 
+        createDayLogEntry('bloodFats', ldl, 
+          isValidRange(hdl, HEALTH_RANGES.hdl) ? hdl : undefined,
+          isValidRange(triglycerides, HEALTH_RANGES.triglycerides) ? triglycerides : undefined
+        ));
+    }
+  };
+
+  const handleBloodGlucoseData = (pageData: any, today: string, existingLogs: DayLog[]) => {
+    const bloodGlucoseDate = normalizeDate(pageData.date, today);
+    
+    saveData({ 
+      hba1c: pageData.hba1c,
+      fastingGlucose: pageData.fastingGlucose,
+      bloodGlucoseDate,
+    });
+    
+    const hba1c = safeParseFloat(pageData.hba1c);
+    const fastingGlucose = safeParseFloat(pageData.fastingGlucose);
+    
+    const validHba1c = isValidRange(hba1c, HEALTH_RANGES.hba1c);
+    const validFasting = isValidRange(fastingGlucose, HEALTH_RANGES.fastingGlucose);
+    
+    if (validHba1c || validFasting) {
+      addEntryToDayLogs(existingLogs, bloodGlucoseDate, 
+        createDayLogEntry('bloodGlucose', 
+          validHba1c ? hba1c : (validFasting ? fastingGlucose : 0),
+          validFasting ? fastingGlucose : undefined
+        ));
+    }
+  };
+
   const handleNext = (pageData: any) => {
     const today = format(getCurrentDate(), 'yyyy-MM-dd');
     const existingLogs = JSON.parse(localStorage.getItem('dayLogs') || '[]');
     
-    switch (currentPageIndex) {
-      case 0: // Height
-        saveData({ 
-          height: pageData.height 
-        });
-        break;
-        
-      case 1: // Weight and goal weight
-        saveData({ 
-          weight: pageData.weight, 
-          goalWeight: pageData.goalWeight 
-        });
-        
-        if (pageData.weight) {
-          const weight = safeParseFloat(pageData.weight);
-          if (weight !== undefined && weight >= HEALTH_RANGES.weight.min && weight <= HEALTH_RANGES.weight.max) {
-            addEntryToDayLogs(existingLogs, today, { type: 'weight', value: weight });
-          }
-        }
-        break;
-        
-      case 2: // Blood pressure
-        const bpDateRaw = pageData.date || today;
-        const bpDate = bpDateRaw.includes('T') ? format(new Date(bpDateRaw), 'yyyy-MM-dd') : bpDateRaw;
-        
-        saveData({ 
-          systolic: pageData.systolic,
-          diastolic: pageData.diastolic,
-          bloodPressureDate: bpDate,
-        });
-        
-        if (pageData.systolic && pageData.diastolic) {
-          const systolic = safeParseInt(pageData.systolic);
-          const diastolic = safeParseInt(pageData.diastolic);
-          if (systolic !== undefined && diastolic !== undefined &&
-              systolic >= HEALTH_RANGES.systolic.min && systolic <= HEALTH_RANGES.systolic.max &&
-              diastolic >= HEALTH_RANGES.diastolic.min && diastolic <= HEALTH_RANGES.diastolic.max) {
-            addEntryToDayLogs(existingLogs, bpDate, { 
-              type: 'bloodPressure', 
-              value: systolic, 
-              value2: diastolic
-            });
-          }
-        }
-        break;
-        
-      case 3: // Blood fats
-        const bloodFatsDateRaw = pageData.date || today;
-        const bloodFatsDate = bloodFatsDateRaw.includes('T') ? format(new Date(bloodFatsDateRaw), 'yyyy-MM-dd') : bloodFatsDateRaw;
-        
-        saveData({ 
-          knowsLDL: pageData.knowsLDL,
-          ldl: pageData.ldl,
-          hdl: pageData.hdl,
-          triglycerides: pageData.triglycerides,
-          bloodFatsDate: bloodFatsDate,
-        });
-        
-        if (pageData.ldl) {
-          const ldl = safeParseFloat(pageData.ldl);
-          if (ldl !== undefined && ldl >= HEALTH_RANGES.ldl.min && ldl <= HEALTH_RANGES.ldl.max) {
-            const hdl = safeParseFloat(pageData.hdl);
-            const triglycerides = safeParseFloat(pageData.triglycerides);
-            addEntryToDayLogs(existingLogs, bloodFatsDate, { 
-              type: 'bloodFats', 
-              value: ldl,
-              value2: (hdl !== undefined && hdl >= HEALTH_RANGES.hdl.min && hdl <= HEALTH_RANGES.hdl.max) ? hdl : undefined,
-              value3: (triglycerides !== undefined && triglycerides >= HEALTH_RANGES.triglycerides.min && triglycerides <= HEALTH_RANGES.triglycerides.max) ? triglycerides : undefined
-            });
-          }
-        }
-        break;
-        
-      case 4: // Blood glucose
-        const bloodGlucoseDateRaw = pageData.date || today;
-        const bloodGlucoseDate = bloodGlucoseDateRaw.includes('T') ? format(new Date(bloodGlucoseDateRaw), 'yyyy-MM-dd') : bloodGlucoseDateRaw;
-        
-        saveData({ 
-          hba1c: pageData.hba1c,
-          fastingGlucose: pageData.fastingGlucose,
-          bloodGlucoseDate: bloodGlucoseDate,
-        });
-        
-        if (pageData.hba1c || pageData.fastingGlucose) {
-          const hba1c = safeParseFloat(pageData.hba1c);
-          const fastingGlucose = safeParseFloat(pageData.fastingGlucose);
-          
-          const validHba1c = hba1c !== undefined && hba1c >= HEALTH_RANGES.hba1c.min && hba1c <= HEALTH_RANGES.hba1c.max;
-          const validFasting = fastingGlucose !== undefined && fastingGlucose >= HEALTH_RANGES.fastingGlucose.min && fastingGlucose <= HEALTH_RANGES.fastingGlucose.max;
-          
-          if (validHba1c || validFasting) {
-            addEntryToDayLogs(existingLogs, bloodGlucoseDate, { 
-              type: 'bloodGlucose', 
-              value: validHba1c ? hba1c : (validFasting ? fastingGlucose : 0),
-              value2: validFasting ? fastingGlucose : undefined
-            });
-          }
-        }
-        break;
+    const handlers = [
+      handleHeightData,
+      handleWeightData,
+      handleBloodPressureData,
+      handleBloodFatsData,
+      handleBloodGlucoseData
+    ];
+    
+    if (currentPageIndex < handlers.length) {
+      handlers[currentPageIndex](pageData, today, existingLogs);
     }
     
     localStorage.setItem('dayLogs', JSON.stringify(existingLogs));
+    goToNextPage();
+  };
 
+  const goToNextPage = () => {
     if (currentPageIndex < TOTAL_STEPS - 1) {
       setCurrentPageIndex(currentPageIndex + 1);
     } else {
@@ -165,30 +198,14 @@ const HealthMetricsFlow = () => {
     }
   };
 
-  const addEntryToDayLogs = (logs: DayLog[], dateStr: string, entry: any) => {
-    const existingLogIndex = logs.findIndex(log => log.date === dateStr);
-    
-    if (existingLogIndex >= 0) {
-      logs[existingLogIndex].entries = logs[existingLogIndex].entries.filter(e => e.type !== entry.type);
-      logs[existingLogIndex].entries.push(entry);
-    } else {
-      logs.push({ date: dateStr, entries: [entry] });
-    }
-  };
-
-  const handleSkip = () => {
-    if (currentPageIndex < TOTAL_STEPS - 1) {
-      setCurrentPageIndex(currentPageIndex + 1);
-    } else {
-      finishFlow();
-    }
-  };
-
-  const handleBack = () => {
+  const goToPreviousPage = () => {
     if (currentPageIndex > 0) {
       setCurrentPageIndex(currentPageIndex - 1);
     }
   };
+
+  const handleSkip = goToNextPage;
+  const handleBack = goToPreviousPage;
 
   const finishFlow = () => {
     const completedActivities = getStorageItem('completedActivities', completedActivitiesSchema) || [];
@@ -214,9 +231,66 @@ const HealthMetricsFlow = () => {
     navigate('/app/today');
   };
 
+  // Render the appropriate page based on current index
+  const renderCurrentPage = () => {
+    switch (currentPageIndex) {
+      case 0:
+        return (
+          <HeightPage
+            onNext={handleNext}
+            onSkip={handleSkip}
+            currentStep={currentStep}
+            totalSteps={TOTAL_STEPS}
+          />
+        );
+      case 1:
+        return (
+          <WeightPage
+            onNext={handleNext}
+            onSkip={handleSkip}
+            onBack={handleBack}
+            currentStep={currentStep}
+            totalSteps={TOTAL_STEPS}
+          />
+        );
+      case 2:
+        return (
+          <BloodPressure
+            onNext={handleNext}
+            onSkip={handleSkip}
+            onBack={handleBack}
+            currentStep={currentStep}
+            totalSteps={TOTAL_STEPS}
+          />
+        );
+      case 3:
+        return (
+          <BloodFats
+            onNext={handleNext}
+            onSkip={handleSkip}
+            onBack={handleBack}
+            currentStep={currentStep}
+            totalSteps={TOTAL_STEPS}
+          />
+        );
+      case 4:
+        return (
+          <BloodGlucose
+            onNext={handleNext}
+            onSkip={handleSkip}
+            onBack={handleBack}
+            currentStep={currentStep}
+            totalSteps={TOTAL_STEPS}
+          />
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
     <div className={pageContainer}>
-      <div className={headerContainer}>
+      <div className={`${headerContainer} min-h-[120px] py-6`}>
         {currentPageIndex === 0 ? (
           <BackToTodayButton />
         ) : (
@@ -225,50 +299,7 @@ const HealthMetricsFlow = () => {
       </div>
 
       <main className={pagePadding}>
-        {currentPageIndex === 0 && (
-          <HeightPage
-            onNext={handleNext}
-            onSkip={handleSkip}
-            currentStep={currentStep}
-            totalSteps={TOTAL_STEPS}
-          />
-        )}
-        {currentPageIndex === 1 && (
-          <WeightPage
-            onNext={handleNext}
-            onSkip={handleSkip}
-            onBack={handleBack}
-            currentStep={currentStep}
-            totalSteps={TOTAL_STEPS}
-          />
-        )}
-        {currentPageIndex === 2 && (
-          <BloodPressure
-            onNext={handleNext}
-            onSkip={handleSkip}
-            onBack={handleBack}
-            currentStep={currentStep}
-            totalSteps={TOTAL_STEPS}
-          />
-        )}
-        {currentPageIndex === 3 && (
-          <BloodFats
-            onNext={handleNext}
-            onSkip={handleSkip}
-            onBack={handleBack}
-            currentStep={currentStep}
-            totalSteps={TOTAL_STEPS}
-          />
-        )}
-        {currentPageIndex === 4 && (
-          <BloodGlucose
-            onNext={handleNext}
-            onSkip={handleSkip}
-            onBack={handleBack}
-            currentStep={currentStep}
-            totalSteps={TOTAL_STEPS}
-          />
-        )}
+        {renderCurrentPage()}
       </main>
     </div>
   );
