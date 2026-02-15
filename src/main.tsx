@@ -1,14 +1,35 @@
+/**
+ * React application entry point
+ * Bootstraps the app by rendering the root component
+ */
+
+
 import { createRoot } from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+import { StrictMode } from "react";
 import App from "./App.tsx";
 import "./index.css";
 
+const rootElement = document.getElementById("root");
 
+if (!rootElement) {
+  throw new Error("Root element not found");
+}
 
-// This is the entry point of the React application
-// - createRoot() creates a React root for modern React (version 18+)
-// - document.getElementById("root") finds the HTML element where the app will be mounted
-// - The ! tells TypeScript we're sure this element exists (non-null assertion)
-// - .render(<App />) renders the main App component into the 'root' element
-// - This is the starting point where the entire React app begins execution
-
-createRoot(document.getElementById("root")!).render(<App />);
+createRoot(rootElement).render(
+  /**
+   * StrictMode enables additional development checks:
+   * - Identifies components with unsafe lifecycles
+   * - Warns about legacy API usage
+   * - Detects unexpected side effects
+   */
+  <StrictMode>
+    {/**
+     * BrowserRouter enables client-side routing
+     * Uses HTML5 history API for clean URLs without # fragments
+     */}
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </StrictMode>
+);
