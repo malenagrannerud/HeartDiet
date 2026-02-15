@@ -1,37 +1,16 @@
-
-/**
- * Application entry point module
- * 
- * @module main.tsx
- * 
- * @requires react-dom/client - React 18 DOM rendering API
- * @requires ./App - Root application component
- * @requires ./index.css - Global styles
- * 
- * @function
- * @name createRoot
- * @description Creates a React 18 root container for concurrent features
- * 
- * @constant
- * @name rootElement
- * @type {HTMLElement}
- * @description DOM element with id="root" where app mounts
- * 
- * @throws {Error} If root element not found in index.html
- * 
- * @description
- * Renders the App component inside root element.
- * First code that runs when app starts.
- */
-
 import { createRoot } from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+import { StrictMode } from "react";
 import App from "./App.tsx";
 import "./index.css";
 
-const rootElement = document.getElementById("root");
 
-if (!rootElement) {
-  throw new Error("Root element not found");
-}
 
-createRoot(rootElement).render(<App />);
+// This is the entry point of the React application
+// - createRoot() creates a React root for modern React (version 18+)
+// - document.getElementById("root") finds the HTML element where the app will be mounted
+// - The ! tells TypeScript we're sure this element exists (non-null assertion)
+// - .render(<App />) renders the main App component into the 'root' element
+// - This is the starting point where the entire React app begins execution
+
+createRoot(document.getElementById("root")!).render(<App />);
