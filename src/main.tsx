@@ -1,4 +1,7 @@
 /**
+ * main.tsx
+ *
+ *
  * React application entry point
  * Bootstraps the app by rendering the root component
  */
