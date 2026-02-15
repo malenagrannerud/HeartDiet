@@ -13,7 +13,7 @@ import LagomPage from "./Tips/lagom";
 import MotionPage from "./Tips/motion";
 import BaljvaxterPage from "./Tips/baljvaxter";
 import SockerPage from "./Tips/socker";
-import Dagbok from "./Dagbok/MainDagbok";
+import { MainDagbok as Dagbok } from "./Dagbok/MainDagbok";
 import Progress from "./Matningar/MatningarMain";
 import ProgressDetail from "./Matningar/MatningarDetaljer";
 
