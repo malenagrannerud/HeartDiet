@@ -1,3 +1,34 @@
+/**
+ * 
+ * @module MatningarHalsomal
+ * 
+ * @description
+ * Page for users to select their health priorities/goals.
+ * Features:
+ * - List of predefined health goals with checkboxes
+ * - Multi-select functionality (users can choose multiple goals)
+ * - Persistent storage of selected priorities
+ * - Confirmation dialog when overwriting existing data
+ * - Integration with completed activities tracking
+ * - Navigation back to previous page after save
+ * 
+ * Goals are saved to localStorage with schema validation.
+ * Compatible with both onboarding flow and standalone access.
+ * 
+ * @requires react - useState, useEffect for state management
+ * @requires react-router-dom - Navigation and URL parameters
+ * @requires @/components/BackToTodayButton - Navigation back to today
+ * @requires @/components/ui/card - Card container
+ * @requires @/components/ui/checkbox - Checkbox input
+ * @requires @/components/ui/button - Button component
+ * @requires @/hooks/use-toast - Toast notifications
+ * @requires @/components/ui/alert-dialog - Confirmation dialog
+ * @requires @/lib/design-tokens - Design system classes
+ * @requires @/lib/storage - Local storage utilities
+ * @requires @/lib/schemas - Type validation schemas
+ * @requires @/lib/card-completion - Card completion tracking
+ */
+
 import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { BackToTodayButton } from "@/components/BackToTodayButton";
@@ -12,11 +43,21 @@ import { healthPrioritiesSchema, completedActivitiesSchema } from "@/lib/schemas
 import { markCardCompleted } from "@/lib/card-completion"; 
 import { standardSpacing } from "@/lib/design-tokens";
 
+/**
+ * Health priority item structure
+ * 
+ * @interface HealthPriority
+ * @property {string} id - Unique identifier for the priority
+ * @property {string} label - Display label for the priority
+ */
 interface HealthPriority {
   id: string;
   label: string;
 }
 
+/**
+ * Available health priorities with display labels
+ */
 const healthPriorities: HealthPriority[] = [
   {
     id: "cholesterol",
@@ -44,6 +85,15 @@ const healthPriorities: HealthPriority[] = [
   }
 ];
 
+/**
+ * Health goals selection page component
+ * 
+ * @component
+ * @returns {JSX.Element} Health goals selection page
+ * 
+ * @example
+ * <HealthGoals />
+ */
 const HealthGoals = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -53,6 +103,9 @@ const HealthGoals = () => {
   const [saveAlertOpen, setSaveAlertOpen] = useState(false);
   const [hasExistingData, setHasExistingData] = useState(false);
 
+  /**
+   * Load existing health priorities from localStorage on mount
+   */
   useEffect(() => {
     const data = getStorageItem('healthPriorities', healthPrioritiesSchema);
     if (data) {
@@ -61,6 +114,11 @@ const HealthGoals = () => {
     }
   }, []);
 
+  /**
+   * Toggle selection of a health priority
+   * 
+   * @param {string} id - Priority ID to toggle
+   */
   const handlePriorityToggle = (id: string) => {
     setSelectedPriorities(prev => 
       prev.includes(id) 
@@ -69,6 +127,10 @@ const HealthGoals = () => {
     );
   };
 
+  /**
+   * Handle save button click
+   * Shows confirmation dialog if existing data exists
+   */
   const handleSaveClick = () => {
     if (hasExistingData) {
       setSaveAlertOpen(true);
@@ -77,6 +139,10 @@ const HealthGoals = () => {
     }
   };
 
+  /**
+   * Confirm and save health priorities
+   * Saves to localStorage, updates completed activities, and navigates back
+   */
   const confirmSave = () => {
     const existingData = getStorageItem('healthPriorities', healthPrioritiesSchema) || { priorities: [], medications: [] };
     const data = {
@@ -143,6 +209,7 @@ const HealthGoals = () => {
             </div>
           </section>
 
+          {/* Save button */}
           <section className={standardSpacing.sectionContent}>
             <Button
               onClick={handleSaveClick}
@@ -155,6 +222,7 @@ const HealthGoals = () => {
         </div>
       </main>
 
+      {/* Confirmation dialog for overwriting existing data */}
       <AlertDialog open={saveAlertOpen} onOpenChange={setSaveAlertOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>

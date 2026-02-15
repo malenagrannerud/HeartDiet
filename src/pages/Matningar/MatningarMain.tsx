@@ -1,3 +1,30 @@
+/**
+ * Progress page component for displaying health metrics and goals
+ * 
+ * @module MatingarMain.tsx
+ * 
+ * @description
+ * Main progress page showing all health measurements and goals.
+ * Features:
+ * - Health priorities card with user's selected health goals
+ * - Charts for each metric type (blood pressure, weight, blood fats, blood glucose)
+ * - Click navigation to detailed views for each metric
+ * - Persistent loading of health metrics, priorities, and goals from localStorage
+ * 
+ * Charts are always displayed regardless of data availability.
+ * 
+ * @requires react - useState, useEffect for state management
+ * @requires react-router-dom - Navigation
+ * @requires lucide-react - Heart icon
+ * @requires @/lib/design-tokens - Design system classes
+ * @requires @/lib/tip-completion - Day logs data
+ * @requires @/lib/storage - Local storage utilities
+ * @requires @/lib/schemas - Type validation schemas
+ * @requires @/lib/health-validators - Safe parsing utilities
+ * @requires @/components/HealthInfoCard - Health priorities card
+ * @requires @/pages/Matningar/MatningarPlotsMain - Chart component
+ */
+
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Heart } from "lucide-react";
@@ -7,8 +34,11 @@ import { getStorageItem } from "@/lib/storage";
 import { healthPrioritiesSchema, selectedMedicationsSchema, healthMetricsSchema, type DayLog } from "@/lib/schemas";
 import { safeParseFloat, safeParseInt } from "@/lib/health-validators";
 import { HealthInfoCard } from "@/components/HealthInfoCard";
-import { ProgressChart } from "@/pages/Matningar/MatningarPlotsMain";
+import { ProgressChart } from "@/pages/Matningar/PlotsComponents";
 
+/**
+ * Mapping of health priority IDs to display labels
+ */
 const healthPriorityLabels: Record<string, string> = {
   cholesterol: "Hantera mitt kolesterol",
   bloodPressure: "Hantera mitt blodtryck",
@@ -18,6 +48,15 @@ const healthPriorityLabels: Record<string, string> = {
   general2: "Förebygg livsstilsrelaterade sjukdomar" 
 };
 
+/**
+ * Progress page component
+ * 
+ * @component
+ * @returns {JSX.Element} Progress page with health metrics and charts
+ * 
+ * @example
+ * <Progress />
+ */
 const Progress = () => {
   const navigate = useNavigate();
   const [dayLogs, setDayLogs] = useState<DayLog[]>([]);
@@ -27,7 +66,9 @@ const Progress = () => {
   const [goalBloodFats, setGoalBloodFats] = useState<{ ldl?: number; hdl?: number } | undefined>();
   const [goalBloodGlucose, setGoalBloodGlucose] = useState<{ hba1c?: number; fastingGlucose?: number } | undefined>();
 
-  // Load day logs and health priorities from localStorage
+  /**
+   * Load day logs and health priorities from localStorage on mount
+   */
   useEffect(() => {
     const logs = getDayLogs();
     setDayLogs(logs);
@@ -64,20 +105,18 @@ const Progress = () => {
       const goalFG = safeParseFloat(metrics.goalFastingGlucose);
       if (goalFG !== undefined) setGoalBloodGlucose(prev => ({ ...prev, fastingGlucose: goalFG }));
     }
-
-    // REMOVED: All conditional logic for showing/hiding charts
-    // Charts will now always be displayed
   }, []);
 
   return (
     <div className={pageContainer}>
       <header className={headerContainer}>
-          <h1 className={pageTitle}>Mina mätningar</h1>
-          <p className={pageSubtitle}>Se och redigera dina mätningar och mål</p>
+        <h1 className={pageTitle}>Mina mätningar</h1>
+        <p className={pageSubtitle}>Se och redigera dina mätningar och mål</p>
       </header>
 
       <main className={pagePadding}>
         <div className={standardSpacing.pageContent}>
+          {/* Health priorities card */}
           <div className="grid grid-cols-1 gap-6">
             <HealthInfoCard
               icon={Heart}
@@ -88,6 +127,7 @@ const Progress = () => {
             />
           </div>
 
+          {/* Charts section - always displayed */}
           <div className="flex flex-col gap-6">
             <ProgressChart 
               type="bloodPressure" 
@@ -101,14 +141,12 @@ const Progress = () => {
               goalWeight={goalWeight}
               onMoreClick={() => navigate('/app/progress/weight')}
             />
-
             <ProgressChart 
               type="bloodFats" 
               dayLogs={dayLogs}
               goalBloodFats={goalBloodFats}
               onMoreClick={() => navigate('/app/progress/bloodFats')}
             />
-
             <ProgressChart 
               type="bloodGlucose" 
               dayLogs={dayLogs}

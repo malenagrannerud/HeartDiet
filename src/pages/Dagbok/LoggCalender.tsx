@@ -1,5 +1,4 @@
 /**
- * Calendar view component for tracking daily tip completion
  * 
  * @module LoggCalender
  * 

@@ -1,5 +1,4 @@
 /**
- * Progress detail page for viewing and managing health metrics
  * 
  * @module MatningarDetaljer
  * 
@@ -43,7 +42,7 @@ import { getDayLogs } from "@/lib/tip-completion";
 import { getStorageItem } from "@/lib/storage";
 import { healthMetricsSchema, type DayLog } from "@/lib/schemas";
 import { pageTitle, pageContainer, headerContainer, pagePadding, bodyTextBald, cardTextSmall } from "@/lib/design-tokens";
-import { ProgressChart } from "@/pages/Matningar/MatningarPlotsMain";
+import { ProgressChart } from "@/pages/Matningar/PlotsComponents";
 import { DEFAULT_GOALS } from "@/data/metrics-defaults";
 import { safeParseFloat, safeParseInt, validateWeight, validateSystolic, validateDiastolic, validateLDL, validateHbA1c } from "@/lib/health-validators";
 
