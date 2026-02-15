@@ -11,7 +11,7 @@ import { healthGoalTips } from "@/data/health-goal-tips";
 import { tipPageRoutes } from "@/lib/tip-routes";
 
 /**
- * Tips Page
+ * TipsMain Page
  * 
  * toggleMark() - Marks/unmarks tips when user clicks checkbox
  * isMarked() - Checks if specific tip is marked

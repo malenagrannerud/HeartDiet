@@ -1,4 +1,4 @@
-// components/dialogs/WeightDialog.tsx
+
 import { format } from "date-fns";
 import { sv } from "date-fns/locale";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";

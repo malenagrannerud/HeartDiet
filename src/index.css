@@ -1,14 +1,31 @@
-/* ==========================================
- * TAILWIND DIRECTIVES
- * ========================================== */
+/**
+ * Tailwind CSS configuration file
+ * 
+ * @module index.css
+ * 
+ * What this does:
+ * - Imports Tailwind's core styles (base, components, utilities)
+ * - Defines all colors as CSS variables in HSL format
+ * - Applies default styles to HTML elements
+ * 
+ * Why HSL format:
+ * - Tailwind works best with HSL values
+ * - Easy to adjust opacity (hsla)
+ * 
+ * Color system:
+ * --primary: Main brand color (black)
+ * --secondary: Supporting elements (light gray)  
+ * --destructive: Error/delete actions (dark red)
+ * --muted: Disabled/subtle elements (gray)
+ * --background: Page background (white)
+ * --foreground: Default text color (black)
+ * 
+ * @see {@link https://tailwindcss.com/docs/functions-and-directives|Tailwind Directives}
+ */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* ==========================================
- * CSS VARIABLES - HIGH CONTRAST DESIGN SYSTEM
- * All colors in HSL format for Tailwind
- * ========================================== */
 
 @layer base {
   :root {
@@ -72,10 +89,6 @@
     --radius: 0.5rem;
   }
 }
-
-/* ==========================================
- * GLOBAL STYLES
- * ========================================== */
 
 @layer base {
   * {

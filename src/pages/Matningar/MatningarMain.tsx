@@ -6,10 +6,8 @@ import { getDayLogs } from "@/lib/tip-completion";
 import { getStorageItem } from "@/lib/storage";
 import { healthPrioritiesSchema, selectedMedicationsSchema, healthMetricsSchema, type DayLog } from "@/lib/schemas";
 import { safeParseFloat, safeParseInt } from "@/lib/health-validators";
-import { medications } from "@/data/medications";
 import { HealthInfoCard } from "@/components/HealthInfoCard";
-import { getCurrentDate } from "@/lib/simulated-date";
-import { ProgressChart } from "@/pages/ValuesCharts";
+import { ProgressChart } from "@/pages/Matningar/MatningarPlotsMain";
 
 const healthPriorityLabels: Record<string, string> = {
   cholesterol: "Hantera mitt kolesterol",

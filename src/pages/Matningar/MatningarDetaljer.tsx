@@ -1,3 +1,34 @@
+/**
+ * Progress detail page for viewing and managing health metrics
+ * 
+ * @module MatningarDetaljer
+ * 
+ * @description
+ * DETAILED VIEW - Displays complete history for a single health metric.
+ * Users can:
+ * - View chart with all historical data points
+ * - See current goal value and edit it
+ * - Browse list of all logged values with dates
+ * - Click any entry to edit or delete it
+ * - Update goal values for each metric type
+ * 
+ * Accessed via URL parameter /progress/:type (weight, bloodPressure, bloodFats, bloodGlucose)
+ * 
+ * @requires react - useState, useEffect for state management
+ * @requires react-router-dom - Navigation and URL parameters
+ * @requires date-fns - Date formatting with Swedish locale
+ * @requires lucide-react - Back arrow icon
+ * @requires @/components/ui - UI components (Button, Input, Dialog, Label)
+ * @requires @/hooks/use-toast - Toast notifications
+ * @requires @/lib/tip-completion - Day logs data
+ * @requires @/lib/storage - Local storage utilities
+ * @requires @/lib/schemas - Type validation schemas
+ * @requires @/lib/design-tokens - Design system classes
+ * @requires @/pages/Matningar/MatningarPlotsMain - Chart component
+ * @requires @/data/metrics-defaults - Default goal values
+ * @requires @/lib/health-validators - Input validation functions
+ */
+
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { format } from "date-fns";
@@ -12,18 +43,25 @@ import { getDayLogs } from "@/lib/tip-completion";
 import { getStorageItem } from "@/lib/storage";
 import { healthMetricsSchema, type DayLog } from "@/lib/schemas";
 import { pageTitle, pageContainer, headerContainer, pagePadding, bodyTextBald, cardTextSmall } from "@/lib/design-tokens";
-import { ProgressChart } from "@/pages/ValuesCharts";
+import { ProgressChart } from "@/pages/Matningar/MatningarPlotsMain";
 import { DEFAULT_GOALS } from "@/data/metrics-defaults";
 import { safeParseFloat, safeParseInt, validateWeight, validateSystolic, validateDiastolic, validateLDL, validateHbA1c } from "@/lib/health-validators";
 
+/**
+ * Available metric types for tracking
+ */
 type MetricType = 'weight' | 'bloodPressure' | 'bloodFats' | 'bloodGlucose';
 
+/**
+ * Configuration for each metric type
+ * Defines display properties and goal mappings
+ */
 const metricConfig: Record<MetricType, {
-  title: string;
-  unit: string;
-  color: string;
-  goalKey: string;
-  goalLabel: string;
+  title: string;        // Display name with unit
+  unit: string;         // Measurement unit
+  color: string;        // Chart color in HSL
+  goalKey: string;      // Storage key for goal
+  goalLabel: string;    // Display label for goal input
 }> = {
   weight: {
     title: "Vikt (kg)",
@@ -55,11 +93,18 @@ const metricConfig: Record<MetricType, {
   }
 };
 
+/**
+ * Progress detail page component - DETAILED VIEW
+ * 
+ * @component
+ * @returns {JSX.Element} Detailed metric view with edit/delete functionality
+ */
 const ProgressDetail = () => {
   const navigate = useNavigate();
   const { type } = useParams<{ type: MetricType }>();
   const { toast } = useToast();
   
+  // State
   const [dayLogs, setDayLogs] = useState<DayLog[]>([]);
   const [goalValue, setGoalValue] = useState<number | undefined>();
   const [goalValue2, setGoalValue2] = useState<number | undefined>();
@@ -74,6 +119,9 @@ const ProgressDetail = () => {
   const metricType = type as MetricType;
   const config = metricConfig[metricType];
 
+  /**
+   * Load day logs and goal values on mount or metric change
+   */
   useEffect(() => {
     const logs = getDayLogs();
     setDayLogs(logs);
@@ -93,6 +141,10 @@ const ProgressDetail = () => {
     }
   }, [metricType]);
 
+  /**
+   * Prepare chart data from day logs
+   * Formats dates and sorts chronologically
+   */
   const chartData = dayLogs
     .flatMap(log => 
       log.entries
@@ -106,11 +158,10 @@ const ProgressDetail = () => {
     )
     .sort((a, b) => new Date(a.fullDate).getTime() - new Date(b.fullDate).getTime());
 
-  const formatter = (value: number) => {
-    if (metricType === 'weight') return `${value} kg`;
-    return `${value}`;
-  };
-
+  /**
+   * Generate goal display label
+   * @returns {string} Formatted goal string
+   */
   const getGoalLabel = () => {
     if (!goalValue) return '';
     if (metricType === 'weight') return `Mål: ${goalValue} kg`;
@@ -120,6 +171,10 @@ const ProgressDetail = () => {
     return '';
   };
 
+  /**
+   * Opens edit dialog for a specific entry
+   * @param {Object} entry - The entry to edit
+   */
   const openEditDialog = (entry: { date: string; value: number; value2?: number }) => {
     setSelectedEntry(entry);
     setEditValue(entry.value.toString());
@@ -127,6 +182,10 @@ const ProgressDetail = () => {
     setEditDialogOpen(true);
   };
 
+  /**
+   * Saves edited entry after validation
+   * Updates localStorage and state
+   */
   const handleSaveEdit = () => {
     if (!selectedEntry) return;
     
@@ -176,6 +235,10 @@ const ProgressDetail = () => {
     toast({ title: "Värde uppdaterat" });
   };
 
+  /**
+   * Deletes the selected entry
+   * Removes from logs and updates storage
+   */
   const handleDeleteEntry = () => {
     if (!selectedEntry) return;
     
@@ -195,12 +258,19 @@ const ProgressDetail = () => {
     toast({ title: "Värde raderat" });
   };
 
+  /**
+   * Opens goal dialog with current values
+   */
   const openGoalDialog = () => {
     setGoalInput(goalValue?.toString() || "");
     setGoalInput2(goalValue2?.toString() || "");
     setGoalDialogOpen(true);
   };
 
+  /**
+   * Saves new goal values
+   * Updates health metrics in storage
+   */
   const handleSaveGoal = () => {
     const metrics = getStorageItem('healthMetrics', healthMetricsSchema) || {};
     
@@ -226,12 +296,14 @@ const ProgressDetail = () => {
     toast({ title: "Mål uppdaterat" });
   };
 
+  // Handle invalid metric type
   if (!config) {
     return <div>Okänd typ</div>;
   }
 
   return (
     <div className={pageContainer}>
+      {/* Header with back button */}
       <div className={`${headerContainer} ${pagePadding}`}>
         <Button 
           variant="ghost" 
@@ -244,9 +316,10 @@ const ProgressDetail = () => {
         <h1 className={pageTitle}>{config.title}</h1>
       </div>
 
+      {/* Main content */}
       <div className={`${pagePadding} flex flex-col gap-4`}>
+        {/* Chart section - detailed view with all historical data */}
         {chartData.length > 0 && (
-
           <ProgressChart
             type={metricType}
             dayLogs={dayLogs}
@@ -261,6 +334,7 @@ const ProgressDetail = () => {
           />
         )}
 
+        {/* Goal section - manage target values */}
         <div className="bg-card rounded-lg p-4 border">
           <div className="flex justify-between items-center">
             <div>
@@ -275,7 +349,7 @@ const ProgressDetail = () => {
           </div>
         </div>
 
-        {/* Values list */}
+        {/* History list - click any entry to edit/delete */}
         <div className="bg-card rounded-lg border">
           <div className="p-4 border-b">
             <div className={bodyTextBald}>Loggade värden</div>
@@ -308,7 +382,7 @@ const ProgressDetail = () => {
         </div>
       </div>
 
-      {/* Edit Dialog */}
+      {/* EDIT DIALOG - for modifying or deleting existing entries */}
       <Dialog open={editDialogOpen} onOpenChange={setEditDialogOpen}>
         <DialogContent>
           <DialogHeader>
@@ -345,7 +419,7 @@ const ProgressDetail = () => {
         </DialogContent>
       </Dialog>
 
-      {/* Goal Dialog */}
+      {/* GOAL DIALOG - for updating target values */}
       <Dialog open={goalDialogOpen} onOpenChange={setGoalDialogOpen}>
         <DialogContent>
           <DialogHeader>
@@ -380,8 +454,6 @@ const ProgressDetail = () => {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-
-      
     </div>
   );
 };

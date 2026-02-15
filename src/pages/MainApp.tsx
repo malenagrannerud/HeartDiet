@@ -1,27 +1,27 @@
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { BottomNav } from "@/components/BottomNav";
-import Today from "./Today";
-import Tips from "./Tips";
-import FruitPage from "./TipPages/fruit";
-import FullkornPage from "./TipPages/fullkorn";
-import FishPage from "./TipPages/fish";
-import FettPage from "./TipPages/fett";
-import MejerierPage from "./TipPages/mejerier";
-import KottPage from "./TipPages/kott";
-import SaltPage from "./TipPages/salt";
-import LagomPage from "./TipPages/lagom";
-import MotionPage from "./TipPages/motion";
-import BaljvaxterPage from "./TipPages/baljvaxter";
-import SockerPage from "./TipPages/socker";
-import Dagbok from "./Dagbok";
-import Progress from "./Values";
-import ProgressDetail from "./ProgressDetailsPages";
+import Today from "./Today/Today";
+import Tips from "./Tips/TipsMain";
+import FruitPage from "./Tips/fruit";
+import FullkornPage from "./Tips/fullkorn";
+import FishPage from "./Tips/fish";
+import FettPage from "./Tips/fett";
+import MejerierPage from "./Tips/mejerier";
+import KottPage from "./Tips/kott";
+import SaltPage from "./Tips/salt";
+import LagomPage from "./Tips/lagom";
+import MotionPage from "./Tips/motion";
+import BaljvaxterPage from "./Tips/baljvaxter";
+import SockerPage from "./Tips/socker";
+import Dagbok from "./Dagbok/MainDagbok";
+import Progress from "./Matningar/MatningarMain";
+import ProgressDetail from "./Matningar/MatningarDetaljer";
 
-import Tutorial from "./HelpAppDescription";
-import HealthGoals from "./HealthGoals";
+import Tutorial from "./Hjalp/HelpAppDescription";
+import HealthGoals from "./Matningar/MatningarHalsomal";
 import Medications from "./Medications";
-import HealthMetricsFlow from "./TodayStartValues/MainStartVals";
-import Settings from "./Help";
+import HealthMetricsFlow from "./Onboard/MainOnboardMatningar";
+import Settings from "./Hjalp/Help";
 
 const MainApp = () => {
   const location = useLocation();

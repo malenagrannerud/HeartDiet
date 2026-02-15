@@ -114,7 +114,6 @@ export const ProgressChart: React.FC<ProgressChartProps> = ({
   const metricGoalValue = getGoalValue();
   const metricGoalLabel = getGoalLabel();
 
-  // Detailed view (for ProgressDetail page)
   if (detailed) {
     return (
       <div className="bg-card rounded-lg p-4 border">
@@ -147,7 +146,6 @@ export const ProgressChart: React.FC<ProgressChartProps> = ({
     );
   }
 
-  // Simplified view (for Progress page StatsBox)
   return (
     <StatsBox>
       <div className="flex flex-col gap-3">
