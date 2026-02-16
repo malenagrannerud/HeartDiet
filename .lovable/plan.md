@@ -1,89 +1,139 @@
-# Add New Measurement Button to Detail Views
+
+
+# Refactor `src/pages/Matningar/` - Split into Smaller Modules with JSDoc
 
 ## Overview
 
-Add a "Lagg till matning" (Add measurement) button to each metric detail page so users can add new entries directly from the detailed view, not just edit existing ones.
+The main file `MatningarDetaljer.tsx` is 628 lines long and contains configuration data, business logic, and three dialog components all in one file. This refactor splits it into focused, single-responsibility modules while adding JSDoc to all files. No functionality changes.
 
-## What Will Change
+## New File Structure
 
-Currently, the detail pages at `/app/progress/:type` only let users edit or delete existing entries. After this change, each detail page will have an **"Add measurement" button** that opens a dialog with a date picker and the appropriate input fields for that metric type.
+```text
+src/pages/Matningar/
+  MatningarMain.tsx          -- (exists, add JSDoc cleanup only)
+  MatningarHalsomal.tsx      -- (exists, already has JSDoc, no changes)
+  MatningarDetaljer.tsx      -- (slimmed down, orchestrates sub-components)
+  PlotsComponents.tsx        -- (exists, already has JSDoc, no changes)
+  MEDAS.tsx                  -- (exists, empty, no changes)
+  metric-config.ts           -- NEW: MetricType type + metricConfig constant
+  EditEntryDialog.tsx        -- NEW: Edit/delete dialog component
+  GoalDialog.tsx             -- NEW: Goal editing dialog component
+  AddMeasurementDialog.tsx   -- NEW: Add new measurement dialog component
+  metric-handlers.ts         -- NEW: Pure logic functions (validate, save, delete)
+```
 
-## Implementation
+## What Gets Extracted
 
-### Single file change: `src/pages/Matningar/MatningarDetaljer.tsx`
+### 1. `metric-config.ts` (new)
+- `MetricType` type definition
+- `metricConfig` record (titles, units, colors, goal keys)
+- Reusable across both `MatningarDetaljer` and potentially `PlotsComponents`
 
-1. **Add new state variables:**
-  - `addDialogOpen` - controls the add dialog visibility
-  - `addDateInput` - date input for the new entry (defaults to today)
-  - `addValue` / `addValue2` / `addValue3` - input values depending on metric type
-  - &nbsp;
-2. **Add new dialog** for creating entries with:
-  - Date picker (type="date") - defaults to today's date
-  - For **weight**: single weight input (kg)
-  - For **bloodPressure**: systolic + diastolic inputs
-  - For **bloodFats**: LDL input (required), HDL and triglycerides inputs (optional)
-  - For **bloodGlucose**: HbA1c and fasting glucose inputs
-3. **Add `handleSaveNew` function** that:
-  - Validates input using existing validators (`validateWeight`, `validateSystolic`, etc.)
-  - Creates a new entry in `dayLogs` for the selected date
-  - If a log for that date already exists, appends the entry (or replaces if same type exists)
-  - Saves to localStorage and updates state
-  - Shows toast confirmation
+### 2. `metric-handlers.ts` (new)
+Pure functions extracted from the component, each with JSDoc:
+- `validateMetricValue(metricType, value)` - routes to correct validator
+- `buildNewEntry(metricType, values)` - constructs a `DayLogEntry`
+- `updateLogEntry(dayLogs, date, metricType, newValue, newValue2)` - immutable update
+- `deleteLogEntry(dayLogs, date, metricType)` - immutable delete
+- `upsertLogEntry(dayLogs, date, entry)` - add or replace entry for a date
+- `loadGoalValues(metricType, metrics)` - reads goal values from stored metrics
+- `saveGoalValues(metricType, metrics, values)` - writes goal values to metrics object
+- `getGoalLabel(metricType, goalValue, goalValue2)` - formats goal display string
+
+### 3. `EditEntryDialog.tsx` (new)
+Dialog component for editing/deleting an existing measurement entry.
+- Props: `open`, `onOpenChange`, `metricType`, `config`, `selectedEntry`, `onSave`, `onDelete`
+- Manages its own local input state (`editValue`, `editValue2`)
+- Calls parent callbacks for save/delete
+
+### 4. `GoalDialog.tsx` (new)
+Dialog component for editing goal/target values.
+- Props: `open`, `onOpenChange`, `metricType`, `config`, `currentGoal`, `currentGoal2`, `onSave`
+- Manages its own local input state
+
+### 5. `AddMeasurementDialog.tsx` (new)
+Dialog component for adding a new measurement.
+- Props: `open`, `onOpenChange`, `metricType`, `onSave`
+- Manages date, value1/2/3 state internally
+- Renders conditional fields per metric type (weight: 1 field, BP: 2, fats: 3, glucose: 2)
+
+### 6. `MatningarDetaljer.tsx` (simplified)
+Becomes a thin orchestration component (~150 lines):
+- Imports config from `metric-config.ts`
+- Imports handlers from `metric-handlers.ts`
+- Imports three dialog components
+- Manages `dayLogs`, `goalValue`, `goalValue2`, and dialog open states
+- Renders header, chart, goal section, history list, and the three dialogs
+
+## Files NOT Changed
+- `MatningarMain.tsx` - already clean, only minor JSDoc touch-up
+- `MatningarHalsomal.tsx` - already well-documented
+- `PlotsComponents.tsx` - already well-documented
+- `MainApp.tsx` - import stays the same (default export unchanged)
 
 ## Technical Details
 
-### New state (lines ~111-116 area)
-
+### metric-config.ts
 ```typescript
-const [addDialogOpen, setAddDialogOpen] = useState(false);
-const [addDateInput, setAddDateInput] = useState("");
-const [addValue, setAddValue] = useState("");
-const [addValue2, setAddValue2] = useState("");
-const [addValue3, setAddValue3] = useState("");
+/** Available health metric types */
+export type MetricType = 'weight' | 'bloodPressure' | 'bloodFats' | 'bloodGlucose';
+
+/** Display configuration for each metric type */
+export interface MetricConfigItem {
+  title: string;
+  unit: string;
+  color: string;
+  goalKey: string;
+  goalLabel: string;
+}
+
+export const metricConfig: Record<MetricType, MetricConfigItem> = { ... };
 ```
 
-### Add button placement (in the "Loggade varden" header, line ~354)
-
-```tsx
-<div className="p-4 border-b flex justify-between items-center">
-  <div className={bodyTextBald}>Loggade varden</div>
-  <Button variant="outline" size="sm" onClick={openAddDialog}>
-    <Plus className="mr-1 h-4 w-4" /> Lagg till
-  </Button>
-</div>
+### metric-handlers.ts
+All functions are pure (no side effects), making them easy to test:
+```typescript
+/**
+ * Validates a metric value using the appropriate validator
+ * @param metricType - The type of metric being validated
+ * @param value - Raw string input from user
+ * @returns Validation result with parsed value or error message
+ */
+export const validateMetricValue = (metricType: MetricType, value: string) => { ... };
 ```
 
-### New handler: `openAddDialog`
+### Dialog components
+Each dialog is self-contained with local state, receiving callbacks for persistence:
+```typescript
+interface EditEntryDialogProps {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  metricType: MetricType;
+  config: MetricConfigItem;
+  selectedEntry: { date: string; value: number; value2?: number } | null;
+  onSave: (value: string, value2: string) => void;
+  onDelete: () => void;
+}
+```
 
-- Sets `addDateInput` to today in `yyyy-MM-dd` format
-- Clears all value inputs
-- Opens the dialog
+### Import changes in MatningarDetaljer.tsx
+```typescript
+import { MetricType, metricConfig } from "./metric-config";
+import { validateMetricValue, buildNewEntry, ... } from "./metric-handlers";
+import { EditEntryDialog } from "./EditEntryDialog";
+import { GoalDialog } from "./GoalDialog";
+import { AddMeasurementDialog } from "./AddMeasurementDialog";
+```
 
-### New handler: `handleSaveNew`
+## Files Changed Summary
 
-- Validates based on metric type
-- Finds or creates a dayLog for the selected date
-- Adds the entry (removes existing same-type entry for that date to avoid duplicates)
-- Persists to localStorage
-- Refreshes state and closes dialog
+| File | Action | Purpose |
+|------|--------|---------|
+| `src/pages/Matningar/metric-config.ts` | Create | Shared types and config constants |
+| `src/pages/Matningar/metric-handlers.ts` | Create | Pure business logic functions |
+| `src/pages/Matningar/EditEntryDialog.tsx` | Create | Edit/delete measurement dialog |
+| `src/pages/Matningar/GoalDialog.tsx` | Create | Goal editing dialog |
+| `src/pages/Matningar/AddMeasurementDialog.tsx` | Create | Add measurement dialog |
+| `src/pages/Matningar/MatningarDetaljer.tsx` | Rewrite | Slim orchestrator using new modules |
+| `src/pages/Matningar/MatningarMain.tsx` | Minor edit | Import `MetricType` from shared config |
 
-### Add Dialog - adapts fields per metric type
-
-- **weight**: 1 input field (value)
-- **bloodPressure**: 2 input fields (systolic/diastolic)
-- **bloodFats**: 3 input fields (LDL required, HDL optional, triglycerides optional)
-- **bloodGlucose**: 2 input fields (HbA1c, fasting glucose)
-
-### Blood fats storage detail
-
-Blood fats uses `value` for LDL, `value2` for HDL, `value3` for triglycerides - matching the existing `dayLogEntrySchema` which supports `value`, `value2`, and `value3`.
-
-## Files Changed
-
-
-| File                                        | Change                                                           |
-| ------------------------------------------- | ---------------------------------------------------------------- |
-| `src/pages/Matningar/MatningarDetaljer.tsx` | Add state, button, dialog, and save handler for new measurements |
-
-
-No other files need changes - the existing schema and validators already support all needed metric types.
