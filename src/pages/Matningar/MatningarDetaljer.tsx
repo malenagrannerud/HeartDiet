@@ -1,31 +1,14 @@
 /**
- * 
  * @module MatningarDetaljer
- * 
+ *
  * @description
- * DETAILED VIEW - Displays complete history for a single health metric.
- * Users can:
- * - View chart with all historical data points
- * - See current goal value and edit it
- * - Browse list of all logged values with dates
- * - Click any entry to edit or delete it
- * - Update goal values for each metric type
- * 
+ * Detailed view for a single health metric. Orchestrates sub-components:
+ * - Chart with all historical data points
+ * - Goal display and editing
+ * - History list with click-to-edit
+ * - Dialogs for editing, deleting, and adding entries
+ *
  * Accessed via URL parameter /progress/:type (weight, bloodPressure, bloodFats, bloodGlucose)
- * 
- * @requires react - useState, useEffect for state management
- * @requires react-router-dom - Navigation and URL parameters
- * @requires date-fns - Date formatting with Swedish locale
- * @requires lucide-react - Back arrow icon
- * @requires @/components/ui - UI components (Button, Input, Dialog, Label)
- * @requires @/hooks/use-toast - Toast notifications
- * @requires @/lib/tip-completion - Day logs data
- * @requires @/lib/storage - Local storage utilities
- * @requires @/lib/schemas - Type validation schemas
- * @requires @/lib/design-tokens - Design system classes
- * @requires @/pages/Matningar/MatningarPlotsMain - Chart component
- * @requires @/data/metrics-defaults - Default goal values
- * @requires @/lib/health-validators - Input validation functions
  */
 
 import { useState, useEffect } from "react";
@@ -34,280 +17,135 @@ import { format } from "date-fns";
 import { sv } from "date-fns/locale";
 import { ArrowLeft, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import { getDayLogs } from "@/lib/tip-completion";
-import { getStorageItem } from "@/lib/storage";
-import { healthMetricsSchema, type DayLog, type DayLogEntry } from "@/lib/schemas";
+import { type DayLog } from "@/lib/schemas";
 import { pageTitle, pageContainer, headerContainer, pagePadding, bodyTextBald, cardTextSmall } from "@/lib/design-tokens";
-import { format as formatDate } from "date-fns";
 import { ProgressChart } from "@/pages/Matningar/PlotsComponents";
-import { DEFAULT_GOALS } from "@/data/metrics-defaults";
-import { safeParseFloat, safeParseInt, validateWeight, validateSystolic, validateDiastolic, validateLDL, validateHbA1c } from "@/lib/health-validators";
+import { safeParseInt } from "@/lib/health-validators";
+import { validateDiastolic } from "@/lib/health-validators";
+
+import { type MetricType, metricConfig } from "./metric-config";
+import {
+  validateMetricValue,
+  buildNewEntry,
+  updateLogEntry,
+  deleteLogEntry,
+  upsertLogEntry,
+  loadGoalValues,
+  saveGoalValues,
+  getGoalLabel,
+} from "./metric-handlers";
+import { EditEntryDialog, type SelectedEntry } from "./EditEntryDialog";
+import { GoalDialog } from "./GoalDialog";
+import { AddMeasurementDialog } from "./AddMeasurementDialog";
 
 /**
- * Available metric types for tracking
- */
-type MetricType = 'weight' | 'bloodPressure' | 'bloodFats' | 'bloodGlucose';
-
-/**
- * Configuration for each metric type
- * Defines display properties and goal mappings
- */
-const metricConfig: Record<MetricType, {
-  title: string;        // Display name with unit
-  unit: string;         // Measurement unit
-  color: string;        // Chart color in HSL
-  goalKey: string;      // Storage key for goal
-  goalLabel: string;    // Display label for goal input
-}> = {
-  weight: {
-    title: "Vikt (kg)",
-    unit: "kg",
-    color: "hsla(204, 37%, 48%, 1.00)",
-    goalKey: "goalWeight",
-    goalLabel: "Målvikt (kg)"
-  },
-  bloodPressure: {
-    title: "Blodtryck (mmHg)",
-    unit: "mmHg",
-    color: "hsla(332, 52%, 52%, 1.00)",
-    goalKey: "goalSystolic",
-    goalLabel: "Mål systoliskt"
-  },
-  bloodFats: {
-    title: "LDL-Kolesterol (mmol/L)",
-    unit: "mmol/L",
-    color: "hsla(280, 65%, 60%, 1.00)",
-    goalKey: "goalLDL",
-    goalLabel: "Mål LDL"
-  },
-  bloodGlucose: {
-    title: "P-Glukos (mmol/L)",
-    unit: "mmol/mol",
-    color: "hsla(160, 60%, 50%, 1.00)",
-    goalKey: "goalHbA1c",
-    goalLabel: "Mål HbA1c"
-  }
-};
-
-/**
- * Progress detail page component - DETAILED VIEW
- * 
+ * Progress detail page — thin orchestrator that wires handlers to UI.
+ *
  * @component
- * @returns {JSX.Element} Detailed metric view with edit/delete functionality
+ * @returns Detailed metric view with edit/delete/add functionality
  */
 const ProgressDetail = () => {
   const navigate = useNavigate();
   const { type } = useParams<{ type: MetricType }>();
   const { toast } = useToast();
-  
-  // State
+
+  const metricType = type as MetricType;
+  const config = metricConfig[metricType];
+
+  // ── State ────────────────────────────────
   const [dayLogs, setDayLogs] = useState<DayLog[]>([]);
   const [goalValue, setGoalValue] = useState<number | undefined>();
   const [goalValue2, setGoalValue2] = useState<number | undefined>();
   const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [goalDialogOpen, setGoalDialogOpen] = useState(false);
   const [addDialogOpen, setAddDialogOpen] = useState(false);
-  const [selectedEntry, setSelectedEntry] = useState<{ date: string; value: number; value2?: number } | null>(null);
-  const [editValue, setEditValue] = useState("");
-  const [editValue2, setEditValue2] = useState("");
-  const [goalInput, setGoalInput] = useState("");
-  const [goalInput2, setGoalInput2] = useState("");
-  const [addDateInput, setAddDateInput] = useState("");
-  const [addValue, setAddValue] = useState("");
-  const [addValue2, setAddValue2] = useState("");
-  const [addValue3, setAddValue3] = useState("");
+  const [selectedEntry, setSelectedEntry] = useState<SelectedEntry | null>(null);
 
-  const metricType = type as MetricType;
-  const config = metricConfig[metricType];
-
-  /**
-   * Load day logs and goal values on mount or metric change
-   */
+  /** Load day logs and goal values on mount or metric change */
   useEffect(() => {
-    const logs = getDayLogs();
-    setDayLogs(logs);
-
-    const metrics = getStorageItem('healthMetrics', healthMetricsSchema);
-    
-    if (metricType === 'weight') {
-      const goal = safeParseFloat(metrics?.goalWeight);
-      if (goal !== undefined) setGoalValue(goal);
-    } else if (metricType === 'bloodPressure') {
-      setGoalValue(safeParseInt(metrics?.goalSystolic) ?? DEFAULT_GOALS.bloodPressure.systolic);
-      setGoalValue2(safeParseInt(metrics?.goalDiastolic) ?? DEFAULT_GOALS.bloodPressure.diastolic);
-    } else if (metricType === 'bloodFats') {
-      setGoalValue(safeParseFloat(metrics?.goalLDL) ?? DEFAULT_GOALS.bloodFats.ldl);
-    } else if (metricType === 'bloodGlucose') {
-      setGoalValue(safeParseFloat(metrics?.goalHbA1c) ?? DEFAULT_GOALS.bloodGlucose.hba1c);
-    }
+    setDayLogs(getDayLogs());
+    const goals = loadGoalValues(metricType);
+    setGoalValue(goals.goalValue);
+    setGoalValue2(goals.goalValue2);
   }, [metricType]);
 
-  /**
-   * Prepare chart data from day logs
-   * Formats dates and sorts chronologically
-   */
+  // ── Derived data ─────────────────────────
+  /** Chart data: formatted dates sorted chronologically */
   const chartData = dayLogs
-    .flatMap(log => 
+    .flatMap((log) =>
       log.entries
-        .filter(e => e.type === metricType)
-        .map(e => ({ 
-          date: format(new Date(log.date), 'd MMM', { locale: sv }),
+        .filter((e) => e.type === metricType)
+        .map((e) => ({
+          date: format(new Date(log.date), "d MMM", { locale: sv }),
           value: e.value,
           value2: e.value2,
-          fullDate: log.date
+          fullDate: log.date,
         }))
     )
     .sort((a, b) => new Date(a.fullDate).getTime() - new Date(b.fullDate).getTime());
 
-  /**
-   * Generate goal display label
-   * @returns {string} Formatted goal string
-   */
-  const getGoalLabel = () => {
-    if (!goalValue) return '';
-    if (metricType === 'weight') return `Mål: ${goalValue} kg`;
-    if (metricType === 'bloodPressure' && goalValue2) return `Mål: ${goalValue}/${goalValue2}`;
-    if (metricType === 'bloodFats') return `Mål LDL: ${goalValue}`;
-    if (metricType === 'bloodGlucose') return `Mål HbA1c: ${goalValue}`;
-    return '';
+  // ── Helpers to persist logs ──────────────
+  /** Writes updated logs to state and localStorage */
+  const persistLogs = (logs: DayLog[]) => {
+    setDayLogs(logs);
+    localStorage.setItem("dayLogs", JSON.stringify(logs));
   };
 
-  /**
-   * Opens edit dialog for a specific entry
-   * @param {Object} entry - The entry to edit
-   */
-  const openEditDialog = (entry: { date: string; value: number; value2?: number }) => {
+  // ── Dialog callbacks ─────────────────────
+
+  /** Opens edit dialog for a specific entry */
+  const openEditDialog = (entry: SelectedEntry) => {
     setSelectedEntry(entry);
-    setEditValue(entry.value.toString());
-    setEditValue2(entry.value2?.toString() || "");
     setEditDialogOpen(true);
   };
 
-  /**
-   * Saves edited entry after validation
-   * Updates localStorage and state
-   */
-  const handleSaveEdit = () => {
+  /** Saves edited entry after validation */
+  const handleSaveEdit = (editValue: string, editValue2: string) => {
     if (!selectedEntry) return;
-    
-    // Validate based on metric type
-    let validation;
-    if (metricType === 'weight') {
-      validation = validateWeight(editValue);
-    } else if (metricType === 'bloodPressure') {
-      validation = validateSystolic(editValue);
-    } else if (metricType === 'bloodFats') {
-      validation = validateLDL(editValue);
-    } else if (metricType === 'bloodGlucose') {
-      validation = validateHbA1c(editValue);
-    } else {
-      validation = { valid: true, value: parseFloat(editValue) };
-    }
-    
+
+    const validation = validateMetricValue(metricType, editValue);
     if (!validation.valid || validation.value === undefined) {
       toast({ title: "Ogiltigt värde", description: validation.error, variant: "destructive" });
       return;
     }
 
-    const newValue = validation.value;
+    const newValue2 =
+      metricType === "bloodPressure" ? safeParseInt(editValue2) : undefined;
 
-    const updatedLogs = dayLogs.map(log => {
-      if (log.date === selectedEntry.date) {
-        return {
-          ...log,
-          entries: log.entries.map(entry => {
-            if (entry.type === metricType) {
-              return {
-                ...entry,
-                value: newValue,
-                value2: metricType === 'bloodPressure' ? (safeParseInt(editValue2) ?? entry.value2) : entry.value2
-              };
-            }
-            return entry;
-          })
-        };
-      }
-      return log;
-    });
-
-    setDayLogs(updatedLogs);
-    localStorage.setItem('dayLogs', JSON.stringify(updatedLogs));
+    persistLogs(updateLogEntry(dayLogs, selectedEntry.date, metricType, validation.value, newValue2));
     setEditDialogOpen(false);
     toast({ title: "Värde uppdaterat" });
   };
 
-  /**
-   * Deletes the selected entry
-   * Removes from logs and updates storage
-   */
+  /** Deletes the currently selected entry */
   const handleDeleteEntry = () => {
     if (!selectedEntry) return;
-    
-    const updatedLogs = dayLogs.map(log => {
-      if (log.date === selectedEntry.date) {
-        return {
-          ...log,
-          entries: log.entries.filter(entry => entry.type !== metricType)
-        };
-      }
-      return log;
-    }).filter(log => log.entries.length > 0);
-
-    setDayLogs(updatedLogs);
-    localStorage.setItem('dayLogs', JSON.stringify(updatedLogs));
+    persistLogs(deleteLogEntry(dayLogs, selectedEntry.date, metricType));
     setEditDialogOpen(false);
     toast({ title: "Värde raderat" });
   };
 
-  /**
-   * Opens goal dialog with current values
-   */
-  const openGoalDialog = () => {
-    setGoalInput(goalValue?.toString() || "");
-    setGoalInput2(goalValue2?.toString() || "");
-    setGoalDialogOpen(true);
+  /** Saves updated goal values */
+  const handleSaveGoal = (goalInput: string, goalInput2: string) => {
+    const result = saveGoalValues(metricType, goalInput, goalInput2);
+    setGoalValue(result.goalValue);
+    setGoalValue2(result.goalValue2);
+    setGoalDialogOpen(false);
+    toast({ title: "Mål uppdaterat" });
   };
 
-  /**
-   * Opens add measurement dialog with today's date
-   */
-  const openAddDialog = () => {
-    setAddDateInput(formatDate(new Date(), 'yyyy-MM-dd'));
-    setAddValue("");
-    setAddValue2("");
-    setAddValue3("");
-    setAddDialogOpen(true);
-  };
-
-  /**
-   * Saves a new measurement entry after validation
-   */
-  const handleSaveNew = () => {
-    // Validate primary value based on metric type
-    let validation;
-    if (metricType === 'weight') {
-      validation = validateWeight(addValue);
-    } else if (metricType === 'bloodPressure') {
-      validation = validateSystolic(addValue);
-    } else if (metricType === 'bloodFats') {
-      validation = validateLDL(addValue);
-    } else if (metricType === 'bloodGlucose') {
-      validation = validateHbA1c(addValue);
-    } else {
-      validation = { valid: true, value: parseFloat(addValue) };
-    }
-
+  /** Saves a new measurement entry after validation */
+  const handleSaveNew = (date: string, addValue: string, addValue2: string, addValue3: string) => {
+    const validation = validateMetricValue(metricType, addValue);
     if (!validation.valid || validation.value === undefined) {
       toast({ title: "Ogiltigt värde", description: validation.error, variant: "destructive" });
       return;
     }
 
-    // Validate secondary value for blood pressure
-    if (metricType === 'bloodPressure') {
+    // Validate diastolic for blood pressure
+    if (metricType === "bloodPressure") {
       const diaValidation = validateDiastolic(addValue2);
       if (!diaValidation.valid) {
         toast({ title: "Ogiltigt diastoliskt värde", description: diaValidation.error, variant: "destructive" });
@@ -315,85 +153,26 @@ const ProgressDetail = () => {
       }
     }
 
-    if (!addDateInput) {
+    if (!date) {
       toast({ title: "Välj ett datum", variant: "destructive" });
       return;
     }
 
-    const newEntry: DayLogEntry = {
-      type: metricType,
-      value: validation.value,
-      ...(metricType === 'bloodPressure' && { value2: safeParseInt(addValue2) }),
-      ...(metricType === 'bloodFats' && addValue2 && { value2: safeParseFloat(addValue2) }),
-      ...(metricType === 'bloodFats' && addValue3 && { value3: safeParseFloat(addValue3) }),
-      ...(metricType === 'bloodGlucose' && addValue2 && { value2: safeParseFloat(addValue2) }),
-    };
-
-    const updatedLogs = [...dayLogs];
-    const existingLogIndex = updatedLogs.findIndex(log => log.date === addDateInput);
-
-    if (existingLogIndex >= 0) {
-      // Remove existing entry of same type, then add new one
-      updatedLogs[existingLogIndex] = {
-        ...updatedLogs[existingLogIndex],
-        entries: [
-          ...updatedLogs[existingLogIndex].entries.filter(e => e.type !== metricType),
-          newEntry
-        ]
-      };
-    } else {
-      updatedLogs.push({ date: addDateInput, entries: [newEntry] });
-    }
-
-    setDayLogs(updatedLogs);
-    localStorage.setItem('dayLogs', JSON.stringify(updatedLogs));
+    const entry = buildNewEntry(metricType, { value: validation.value, value2: addValue2, value3: addValue3 });
+    persistLogs(upsertLogEntry(dayLogs, date, entry));
     setAddDialogOpen(false);
     toast({ title: "Mätning tillagd" });
   };
 
-  /**
-   * Saves new goal values
-   * Updates health metrics in storage
-   */
-  const handleSaveGoal = () => {
-    const metrics = getStorageItem('healthMetrics', healthMetricsSchema) || {};
-    
-    if (metricType === 'weight') {
-      metrics.goalWeight = goalInput || undefined;
-      const parsed = safeParseFloat(goalInput);
-      setGoalValue(parsed);
-    } else if (metricType === 'bloodPressure') {
-      metrics.goalSystolic = goalInput || undefined;
-      metrics.goalDiastolic = goalInput2 || undefined;
-      setGoalValue(safeParseInt(goalInput));
-      setGoalValue2(safeParseInt(goalInput2));
-    } else if (metricType === 'bloodFats') {
-      metrics.goalLDL = goalInput || undefined;
-      setGoalValue(safeParseFloat(goalInput));
-    } else if (metricType === 'bloodGlucose') {
-      metrics.goalHbA1c = goalInput || undefined;
-      setGoalValue(safeParseFloat(goalInput));
-    }
+  // ── Guard ────────────────────────────────
+  if (!config) return <div>Okänd typ</div>;
 
-    localStorage.setItem('healthMetrics', JSON.stringify(metrics));
-    setGoalDialogOpen(false);
-    toast({ title: "Mål uppdaterat" });
-  };
-
-  // Handle invalid metric type
-  if (!config) {
-    return <div>Okänd typ</div>;
-  }
-
+  // ── Render ───────────────────────────────
   return (
     <div className={pageContainer}>
       {/* Header with back button */}
       <div className={`${headerContainer} ${pagePadding}`}>
-        <Button 
-          variant="ghost" 
-          onClick={() => navigate('/app/progress')}
-          className="mb-4"
-        >
+        <Button variant="ghost" onClick={() => navigate("/app/progress")} className="mb-4">
           <ArrowLeft className="mr-2 h-4 w-4" />
           Tillbaka
         </Button>
@@ -402,65 +181,67 @@ const ProgressDetail = () => {
 
       {/* Main content */}
       <div className={`${pagePadding} flex flex-col gap-4`}>
-        {/* Chart section - detailed view with all historical data */}
+        {/* Chart */}
         {chartData.length > 0 && (
           <ProgressChart
             type={metricType}
             dayLogs={dayLogs}
-            goalWeight={metricType === 'weight' ? goalValue : undefined}
-            goalBloodPressure={metricType === 'bloodPressure' && goalValue && goalValue2 
-              ? { systolic: goalValue, diastolic: goalValue2 } : undefined}
-            goalBloodFats={metricType === 'bloodFats' && goalValue 
-              ? { ldl: goalValue } : undefined}
-            goalBloodGlucose={metricType === 'bloodGlucose' && goalValue 
-              ? { hba1c: goalValue } : undefined}
+            goalWeight={metricType === "weight" ? goalValue : undefined}
+            goalBloodPressure={
+              metricType === "bloodPressure" && goalValue && goalValue2
+                ? { systolic: goalValue, diastolic: goalValue2 }
+                : undefined
+            }
+            goalBloodFats={
+              metricType === "bloodFats" && goalValue ? { ldl: goalValue } : undefined
+            }
+            goalBloodGlucose={
+              metricType === "bloodGlucose" && goalValue ? { hba1c: goalValue } : undefined
+            }
             detailed={true}
           />
         )}
 
-        {/* Goal section - manage target values */}
+        {/* Goal section */}
         <div className="bg-card rounded-lg p-4 border">
           <div className="flex justify-between items-center">
             <div>
               <div className={bodyTextBald}>Målvärde</div>
               <div className={cardTextSmall}>
-                {goalValue ? getGoalLabel() : "Inget mål satt"}
+                {goalValue ? getGoalLabel(metricType, goalValue, goalValue2) : "Inget mål satt"}
               </div>
             </div>
-            <Button variant="outline" onClick={openGoalDialog}>
+            <Button variant="outline" onClick={() => setGoalDialogOpen(true)}>
               {goalValue ? "Ändra mål" : "Sätt mål"}
             </Button>
           </div>
         </div>
 
-        {/* History list - click any entry to edit/delete */}
+        {/* History list */}
         <div className="bg-card rounded-lg border">
           <div className="p-4 border-b flex justify-between items-center">
             <div className={bodyTextBald}>Loggade värden</div>
-            <Button variant="outline" size="sm" onClick={openAddDialog}>
+            <Button variant="outline" size="sm" onClick={() => setAddDialogOpen(true)}>
               <Plus className="mr-1 h-4 w-4" /> Lägg till
             </Button>
           </div>
           {chartData.length === 0 ? (
-            <div className="p-4 text-center text-muted-foreground">
-              Inga värden loggade än
-            </div>
+            <div className="p-4 text-center text-muted-foreground">Inga värden loggade än</div>
           ) : (
             <div className="divide-y">
               {[...chartData].reverse().map((entry, idx) => (
-                <div 
-                  key={idx} 
+                <div
+                  key={idx}
                   className="flex justify-between items-center p-4 hover:bg-muted/30 cursor-pointer"
                   onClick={() => openEditDialog({ date: entry.fullDate, value: entry.value, value2: entry.value2 })}
                 >
                   <span className="text-sm font-medium">
-                    {format(new Date(entry.fullDate), 'd MMMM yyyy', { locale: sv })}
+                    {format(new Date(entry.fullDate), "d MMMM yyyy", { locale: sv })}
                   </span>
                   <span className="text-sm font-semibold">
-                    {metricType === 'bloodPressure' && entry.value2 
+                    {metricType === "bloodPressure" && entry.value2
                       ? `${entry.value}/${entry.value2} ${config.unit}`
-                      : `${entry.value} ${config.unit}`
-                    }
+                      : `${entry.value} ${config.unit}`}
                   </span>
                 </div>
               ))}
@@ -469,158 +250,33 @@ const ProgressDetail = () => {
         </div>
       </div>
 
-      {/* EDIT DIALOG - for modifying or deleting existing entries */}
-      <Dialog open={editDialogOpen} onOpenChange={setEditDialogOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>
-              Ändra värde för {selectedEntry && format(new Date(selectedEntry.date), 'd MMMM yyyy', { locale: sv })}
-            </DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4 py-4">
-            <div>
-              <Label>{metricType === 'bloodPressure' ? 'Systoliskt' : config.title}</Label>
-              <Input
-                type="number"
-                step={metricType === 'weight' || metricType === 'bloodFats' ? "0.1" : "1"}
-                value={editValue}
-                onChange={(e) => setEditValue(e.target.value)}
-              />
-            </div>
-            {metricType === 'bloodPressure' && (
-              <div>
-                <Label>Diastoliskt</Label>
-                <Input
-                  type="number"
-                  value={editValue2}
-                  onChange={(e) => setEditValue2(e.target.value)}
-                />
-              </div>
-            )}
-          </div>
-          <DialogFooter className="gap-2">
-            <Button variant="destructive" onClick={handleDeleteEntry}>Radera</Button>
-            <Button variant="outline" onClick={() => setEditDialogOpen(false)}>Avbryt</Button>
-            <Button onClick={handleSaveEdit}>Spara</Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+      {/* Dialogs */}
+      <EditEntryDialog
+        open={editDialogOpen}
+        onOpenChange={setEditDialogOpen}
+        metricType={metricType}
+        config={config}
+        selectedEntry={selectedEntry}
+        onSave={handleSaveEdit}
+        onDelete={handleDeleteEntry}
+      />
 
-      {/* GOAL DIALOG - for updating target values */}
-      <Dialog open={goalDialogOpen} onOpenChange={setGoalDialogOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Ändra målvärde</DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4 py-4">
-            <div>
-              <Label>{metricType === 'bloodPressure' ? 'Mål systoliskt' : config.goalLabel}</Label>
-              <Input
-                type="number"
-                step={metricType === 'weight' || metricType === 'bloodFats' || metricType === 'bloodGlucose' ? "0.1" : "1"}
-                value={goalInput}
-                onChange={(e) => setGoalInput(e.target.value)}
-                placeholder={`Ange ${config.goalLabel.toLowerCase()}`}
-              />
-            </div>
-            {metricType === 'bloodPressure' && (
-              <div>
-                <Label>Mål diastoliskt</Label>
-                <Input
-                  type="number"
-                  value={goalInput2}
-                  onChange={(e) => setGoalInput2(e.target.value)}
-                  placeholder="Ange mål diastoliskt"
-                />
-              </div>
-            )}
-          </div>
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setGoalDialogOpen(false)}>Avbryt</Button>
-            <Button onClick={handleSaveGoal}>Spara</Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+      <GoalDialog
+        open={goalDialogOpen}
+        onOpenChange={setGoalDialogOpen}
+        metricType={metricType}
+        config={config}
+        currentGoal={goalValue}
+        currentGoal2={goalValue2}
+        onSave={handleSaveGoal}
+      />
 
-      {/* ADD DIALOG - for creating new measurement entries */}
-      <Dialog open={addDialogOpen} onOpenChange={setAddDialogOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Lägg till mätning</DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4 py-4">
-            <div>
-              <Label>Datum</Label>
-              <Input
-                type="date"
-                value={addDateInput}
-                onChange={(e) => setAddDateInput(e.target.value)}
-              />
-            </div>
-            <div>
-              <Label>{metricType === 'bloodPressure' ? 'Systoliskt (mmHg)' : metricType === 'bloodFats' ? 'LDL (mmol/L)' : metricType === 'bloodGlucose' ? 'HbA1c (mmol/mol)' : 'Vikt (kg)'}</Label>
-              <Input
-                type="number"
-                step={metricType === 'weight' || metricType === 'bloodFats' ? "0.1" : "1"}
-                value={addValue}
-                onChange={(e) => setAddValue(e.target.value)}
-                placeholder={metricType === 'weight' ? 'Ange vikt' : metricType === 'bloodPressure' ? 'Ange systoliskt' : metricType === 'bloodFats' ? 'Ange LDL' : 'Ange HbA1c'}
-              />
-            </div>
-            {metricType === 'bloodPressure' && (
-              <div>
-                <Label>Diastoliskt (mmHg)</Label>
-                <Input
-                  type="number"
-                  value={addValue2}
-                  onChange={(e) => setAddValue2(e.target.value)}
-                  placeholder="Ange diastoliskt"
-                />
-              </div>
-            )}
-            {metricType === 'bloodFats' && (
-              <>
-                <div>
-                  <Label>HDL (mmol/L) - valfritt</Label>
-                  <Input
-                    type="number"
-                    step="0.1"
-                    value={addValue2}
-                    onChange={(e) => setAddValue2(e.target.value)}
-                    placeholder="Ange HDL"
-                  />
-                </div>
-                <div>
-                  <Label>Triglycerider (mmol/L) - valfritt</Label>
-                  <Input
-                    type="number"
-                    step="0.1"
-                    value={addValue3}
-                    onChange={(e) => setAddValue3(e.target.value)}
-                    placeholder="Ange triglycerider"
-                  />
-                </div>
-              </>
-            )}
-            {metricType === 'bloodGlucose' && (
-              <div>
-                <Label>Fasteglukos (mmol/L) - valfritt</Label>
-                <Input
-                  type="number"
-                  step="0.1"
-                  value={addValue2}
-                  onChange={(e) => setAddValue2(e.target.value)}
-                  placeholder="Ange fasteglukos"
-                />
-              </div>
-            )}
-          </div>
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setAddDialogOpen(false)}>Avbryt</Button>
-            <Button onClick={handleSaveNew}>Spara</Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+      <AddMeasurementDialog
+        open={addDialogOpen}
+        onOpenChange={setAddDialogOpen}
+        metricType={metricType}
+        onSave={handleSaveNew}
+      />
     </div>
   );
 };
