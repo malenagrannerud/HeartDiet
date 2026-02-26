@@ -228,7 +228,7 @@ export const ProgressChart: React.FC<ProgressChartProps> = ({
   // Compact view
   return (
     <StatsBox>
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-8">
         <div className="flex justify-between items-start">
           <div className={cardTextSmallBold}>{title}</div>
           {onMoreClick && <MoreButton label="Detaljer" onClick={onMoreClick} />}
