@@ -151,21 +151,22 @@ export const ProgressChart: React.FC<ProgressChartProps> = ({
       <ResponsiveContainer width="100%" height="100%">
         <LineChart data={chartData} margin={{ top: 20, right: 10, left: 10, bottom: 10 }}>
           <CartesianGrid
-            strokeDasharray="3 3"
             stroke="hsl(var(--muted-foreground) / 0.15)"
             horizontal
             vertical
           />
-          {detailed && (
-            <XAxis 
-              dataKey="date" 
-              axisLine={false}
-              tickLine={false}
-              tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }}
-            />
-          )}
-          {!detailed && <XAxis dataKey="date" hide />}
-          <YAxis hide />
+          <XAxis 
+            dataKey="date" 
+            axisLine={false}
+            tickLine={false}
+            tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }}
+          />
+          <YAxis
+            axisLine={false}
+            tickLine={false}
+            tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }}
+            width={35}
+          />
 
           {detailed && <Tooltip />}
 
