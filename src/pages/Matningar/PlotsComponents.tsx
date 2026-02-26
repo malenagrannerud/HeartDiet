@@ -6,9 +6,7 @@
  * Displays all values per metric (e.g., systolic+diastolic for blood pressure).
  */
 
-import { format } from "date-fns";
-import { sv } from "date-fns/locale";
-import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, ReferenceLine, Tooltip, CartesianGrid } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, ReferenceLine, Tooltip, CartesianGrid, Label } from 'recharts';
 import { ChartContainer } from "@/components/ui/chart";
 import { StatsBox } from "@/components/ProgressStatsBox";
 import { MoreButton } from "@/components/MoreButton";
@@ -54,13 +52,16 @@ export const ProgressChart: React.FC<ProgressChartProps> = ({
   const isBloodFats = type === 'bloodFats';
   const isBloodGlucose = type === 'bloodGlucose';
 
-  // Transform day logs into chart data with all value fields
+  // Swedish month abbreviations
+  const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'Maj', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dec'];
+
+  // Transform day logs into chart data with month-only labels
   const allChartData = dayLogs
     .flatMap(log => 
       log.entries
         .filter(e => e.type === type)
         .map(e => ({ 
-          date: format(new Date(log.date), 'd MMM', { locale: sv }),
+          date: monthNames[new Date(log.date).getMonth()],
           value: e.value,
           value2: e.value2,
           value3: e.value3,
@@ -149,7 +150,7 @@ export const ProgressChart: React.FC<ProgressChartProps> = ({
   const renderChart = () => (
     <ChartContainer config={chartConfig} className={`${chartHeight} w-full`}>
       <ResponsiveContainer width="100%" height="100%">
-        <LineChart data={chartData} margin={{ top: 20, right: 10, left: 10, bottom: 10 }}>
+        <LineChart data={chartData} margin={{ top: 20, right: 45, left: 10, bottom: 10 }}>
           <CartesianGrid
             stroke="hsl(var(--muted-foreground) / 0.15)"
             horizontal
@@ -162,6 +163,7 @@ export const ProgressChart: React.FC<ProgressChartProps> = ({
             tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }}
           />
           <YAxis
+            orientation="right"
             axisLine={false}
             tickLine={false}
             tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }}
@@ -175,7 +177,6 @@ export const ProgressChart: React.FC<ProgressChartProps> = ({
               key={i}
               y={ref.value} 
               stroke={ref.color}
-              strokeDasharray="3 3"
               strokeWidth={1.5}
               label={detailed ? { 
                 value: ref.label, 
@@ -193,11 +194,13 @@ export const ProgressChart: React.FC<ProgressChartProps> = ({
               dataKey={line.dataKey}
               stroke={line.stroke}
               strokeWidth={2}
-              dot={{ r: 4, fill: line.stroke, strokeWidth: 0 }}
-              activeDot={{ r: 6, fill: line.stroke, strokeWidth: 2, stroke: 'hsl(var(--background))' }}
+              dot={false}
+              activeDot={{ r: 5, fill: line.stroke, strokeWidth: 2, stroke: 'hsl(var(--background))' }}
               name={line.name}
               connectNulls
-            />
+            >
+              <Label value={line.name} position="insideEnd" fill={line.stroke} fontSize={11} fontWeight={600} />
+            </Line>
           ))}
         </LineChart>
       </ResponsiveContainer>
