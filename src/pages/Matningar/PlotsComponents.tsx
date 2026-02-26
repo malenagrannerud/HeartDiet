@@ -194,7 +194,7 @@ export const ProgressChart: React.FC<ProgressChartProps> = ({
               dataKey={line.dataKey}
               stroke={line.stroke}
               strokeWidth={2}
-              dot={false}
+              dot={{ r: 4, fill: line.stroke, strokeWidth: 0 }}
               activeDot={{ r: 5, fill: line.stroke, strokeWidth: 2, stroke: 'hsl(var(--background))' }}
               name={line.name}
               connectNulls
