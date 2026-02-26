@@ -8,7 +8,7 @@
 
 import { format } from "date-fns";
 import { sv } from "date-fns/locale";
-import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, ReferenceLine, Tooltip } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, ReferenceLine, Tooltip, CartesianGrid } from 'recharts';
 import { ChartContainer } from "@/components/ui/chart";
 import { StatsBox } from "@/components/ProgressStatsBox";
 import { MoreButton } from "@/components/MoreButton";
@@ -150,6 +150,12 @@ export const ProgressChart: React.FC<ProgressChartProps> = ({
     <ChartContainer config={chartConfig} className={`${chartHeight} w-full`}>
       <ResponsiveContainer width="100%" height="100%">
         <LineChart data={chartData} margin={{ top: 20, right: 10, left: 10, bottom: 10 }}>
+          <CartesianGrid
+            strokeDasharray="3 3"
+            stroke="hsl(var(--muted-foreground) / 0.15)"
+            horizontal
+            vertical
+          />
           {detailed && (
             <XAxis 
               dataKey="date" 
@@ -186,7 +192,8 @@ export const ProgressChart: React.FC<ProgressChartProps> = ({
               dataKey={line.dataKey}
               stroke={line.stroke}
               strokeWidth={2}
-              dot={detailed ? { r: 3, fill: line.stroke } : false}
+              dot={{ r: 4, fill: line.stroke, strokeWidth: 0 }}
+              activeDot={{ r: 6, fill: line.stroke, strokeWidth: 2, stroke: 'hsl(var(--background))' }}
               name={line.name}
               connectNulls
             />
