@@ -31,6 +31,7 @@ import { getStorageItem, setStorageItem } from "@/lib/storage";
 import { markedTipsSchema } from "@/lib/schemas";
 import { getCurrentDate } from "@/lib/simulated-date";
 import { LoggCalender } from "@/pages/Dagbok/LoggCalender";
+import { headerContainer, pageContainer, pageSubtitle, pageTitle } from "@/lib/design-tokens";
 
 /**
  * Main diary page component
@@ -145,6 +146,16 @@ export const MainDagbok = () => {
   };
 
   return (
+
+  <div className={pageContainer}>
+          <header className={headerContainer}>
+              <h1 className={pageTitle}>Dagbok</h1>
+              <p className={pageSubtitle}>Logga dina dagliga aktiviteter</p>
+          </header>
+
+
+
+
     <div className="p-4">
       <LoggCalender
         weekDates={weekDates}
@@ -157,5 +168,8 @@ export const MainDagbok = () => {
         markedTipIds={markedTips.map(tip => tip.id).filter((id): id is number => id !== undefined)}
       />
     </div>
+  </div>
+
+
   );
 };
