@@ -38,6 +38,7 @@ import { Button } from "@/components/ui/button";
 import { bodyText, tableHeaderSmall } from "@/lib/design-tokens";
 import { healthGoalTips } from "@/data/health-goal-tips";
 import { tipPageRoutes } from "@/lib/tip-routes";
+import { hiddenTipIds } from "@/data/hidden-tips";
 
 /**
  * Props for the LoggCalender component
