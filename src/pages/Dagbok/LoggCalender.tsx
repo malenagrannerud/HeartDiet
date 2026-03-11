@@ -122,8 +122,9 @@ export const LoggCalender = ({
    * 2. Unmarked tips that have associated health goals
    * 3. Unmarked tips without health goals
    */
-  const marked = tips.filter(tip => markedTipIds.includes(tip.id));
-  const unmarked = tips.filter(tip => !markedTipIds.includes(tip.id));
+  const visibleTips = tips.filter(tip => !hiddenTipIds.includes(tip.id));
+  const marked = visibleTips.filter(tip => markedTipIds.includes(tip.id));
+  const unmarked = visibleTips.filter(tip => !markedTipIds.includes(tip.id));
   const withHealthGoals = unmarked.filter(tip => healthGoalTips[tip.id]);
   const withoutHealthGoals = unmarked.filter(tip => !healthGoalTips[tip.id]);
   const sortedTips = [...marked, ...withHealthGoals, ...withoutHealthGoals];

@@ -96,10 +96,11 @@ const Tips = () => {
       );
     };
     
-    // Categorize tips: marked tips always first
-    const marked = tips.filter(tip => isMarked(tip.id));
-    const unmarkedWithGoals = tips.filter(tip => !isMarked(tip.id) && hasRelevantHealthGoals(tip.id));
-    const unmarkedWithoutGoals = tips.filter(tip => !isMarked(tip.id) && !hasRelevantHealthGoals(tip.id));
+    // Filter out hidden tips, then categorize: marked tips always first
+    const visibleTips = tips.filter(tip => !hiddenTipIds.includes(tip.id));
+    const marked = visibleTips.filter(tip => isMarked(tip.id));
+    const unmarkedWithGoals = visibleTips.filter(tip => !isMarked(tip.id) && hasRelevantHealthGoals(tip.id));
+    const unmarkedWithoutGoals = visibleTips.filter(tip => !isMarked(tip.id) && !hasRelevantHealthGoals(tip.id));
     
     return [...marked, ...unmarkedWithGoals, ...unmarkedWithoutGoals];
   }, [markedTips]);
