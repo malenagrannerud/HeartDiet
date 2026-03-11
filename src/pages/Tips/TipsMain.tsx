@@ -9,6 +9,7 @@ import { BookmarkToggle } from "@/components/BookmarkToggle";
 import { useToast } from "@/hooks/use-toast";
 import { healthGoalTips } from "@/data/health-goal-tips";
 import { tipPageRoutes } from "@/lib/tip-routes";
+import { hiddenTipIds } from "@/data/hidden-tips";
 
 /**
  * TipsMain Page
