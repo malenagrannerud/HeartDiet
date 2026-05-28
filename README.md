@@ -36,37 +36,16 @@ Launch and run the app in your browser using GitHub Codespaces.
    * Click the **"Open in Browser"** button in the notification that appears in the bottom-right corner.
    * The app will open in a new tab! Click around, and save some metrics. 
 
-## 🛠️ Tech Stack & Features
-Built with TypeScript
-
 ## TO DO 
 
-## 📝 TO-DO / Product Roadmap
+### Phase 1: Prototype & Initial Testing (Current Stage)
 
-### 🟩 Phase 1: Prototype & Initial Testing (Current Stage)
-
-
-
-## 📊 Design Controls & Traceability Matrix (MDR / ISO 14971 / IEC 62304)
-
-This matrix demonstrates the traceability from User Needs down to Software Requirements, Risk Mitigation, and Verification Methods (including MAUQ protocols), in alignment with medical device software standards.
-
-## 📊 Integrated Traceability & Specifications Matrix (MDR / ISO 14971 / IEC 62304)
-
-This integrated matrix demonstrates 100% end-to-end traceability from User Needs, through system Inputs/Outputs and Hazards, down to the final Verification Methods.
-
-
-
-| ID | User Need  | Input Data & Validation | System Output & UI Display | Hazard  | Verification Method | Status |
+| ID | User Need  | Input | Output | Hazard  | Verification| Status |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **TM-01** | User needs to easily see and navigate the screen. | **Input:** Device viewport size and system accessibility text settings. | **Output:** High-contrast UI rendering with a minimum 16pt scalable font size. | **Hazard:** User misreads dietary metrics due to poor legibility, leading to incorrect food tracking. | **MAUQ Section 1**<br>(Usability & Interface Design Review) | Pending |
-
-| **TM-02** | User needs to accurately log food intake to manage cardiovascular risks. | **Input:** Calendar view check list. | **Output:** Real time update and daily historical logs. | **Hazard:** System software calculates or displays incorrect totals, causing the user to exceed medical limits. | **Code Verification Test v1.1**<br>(Automated unit testing for core mathematical logic) | Pass (Round 1) |
-
-| **TM-03** | User needs immediate feedback if food interact with medication | **Input:** Meal entry containing active ingredients known to interact with cardiovascular medication. | **Output:** High-priority, high-contrast visual warning modals. | **Hazard:** Alert fatigue or confusing styling causes the elderly user to ignore critical thresholds. | **MAUQ Section 3**<br>(System Usefulness & User Interaction) | Pending |
-
-| **TM-04** | User needs confidence that their data are kept confidential. | **Input:** User profile data (Age, weight, specific cardiovascular targets). | **Output:** Encrypted data stream written to local sandbox storage environment only. | **Hazard:** Data breach or leak of user identity combined with health metrics (GDPR violation). | **Security Protocol Review**<br>(Architecture & data isolation audit) | Pending  |
-
+| TM-01| User needs to easily see and navigate the app. | Device viewport size and system accessibility text settings. | High-contrast UI rendering with > 16pt scalable font size. | User misreads dietary metrics due to poor legibility, leading to incorrect food tracking. | MAUQ: Usability & Interface Design Review | Pending |
+| TM-02| User needs to accurately log food intake to manage cardiovascular risks. | Calendar view check list. | Real time update and daily historical logs. | Complicated food entry leading user to quit. | MAUQ: Ease of use  | Pass (Round 1) |
+| TM-03| User needs immediate feedback if food interact with medication | Meal entry containing active ingredients known to interact with cardiovascular medication. | High-priority, high-contrast visual warning modals. | Alert fatigue or confusing styling causes the elderly user to ignore critical thresholds. | MAUQ: System Usefulness & User Interaction | Pending |
+| TM-04| User needs confidence that their data are kept confidential. | User profile data (Age, weight, specific cardiovascular targets). | Encrypted data stream written to local sandbox storage environment only. | Data breach or leak of user identity combined with health metrics (GDPR violation). | Security Protocol Review <br>(Architecture & data isolation audit) | Pending |
 
 * [x] Develop core dietary tracking logic and TypeScript frontend
 * [x] Conduct initial test round (functional verification of code logic)
@@ -74,13 +53,13 @@ This integrated matrix demonstrates 100% end-to-end traceability from User Needs
 * [ ] Develop IFU on paper aswell
 * [ ] Exchange text to images as much as possible
 
-### 🟨 Phase 2: Regulatory Alignment (Next Steps)
+### Phase 2: Regulatory Alignment (Next Steps)
 * [ ] **IEC 62304 Compliance:** Classify software safety level and document software architecture
 * [ ] **ISO 14971 Compliance:** Perform a formal hazard analysis 
 * [ ] **IEC 62366-1 Usability Testing:** Conduct a usability study with older adult users
 * [ ] **Data Privacy:** Implement end-to-end encryption for user health metrics (GDPR / HIPAA)
 
-### 🟦 Phase 3: Validation & Deployment
+### Phase 3: Validation & Deployment
 * [ ] Perform software verification and validation (V&V) testing
 * [ ] Establish a QMS aligned with ISO 13485
 * [ ] Compile the Technical Documentation 
