@@ -13,16 +13,17 @@ This app is not deployed, since it is a prototype. However, the codebase is read
 
 ## Applicable standards
 
-A litterature review is completed
-
-## 🚀 How to Run the App (via GitHub Codespaces)
-You can launch and run the app directly in your browser using GitHub Codespaces.
-
 - EN IEC 62304:2006 – Medical device software — Software life cycle processes
 - EN ISO 14971:2019 – Medical devices — Application of risk management to medical devices
 - EN ISO 13485:2016 – Medical devices — QMS — Requirements for regulatory purposes
 - EN IEC 62366-1:2015 – Medical devices — Part 1: Application of usability engineering to medical devices
 - EN IEC 82304-1:2016 – Health software — Part 1: General requirements for product safety
+
+
+
+
+## 🚀 How to Run the App (via GitHub Codespaces)
+You can launch and run the app directly in your browser using GitHub Codespaces.
 
 ### Step-by-Step Instructions:
 1. **Launch the Codespace:**
