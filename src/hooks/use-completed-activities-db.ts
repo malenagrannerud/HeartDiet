@@ -1,101 +1,43 @@
-/**
- * TanStack Query hook for managing completed_activities in Supabase
- * Replaces localStorage-based completedActivities storage
- */
-
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { supabase, isSupabaseConfigured } from "@/integrations/supabase/client";
-import { useAuth } from "@/hooks/use-auth";
-import { format } from "date-fns";
+import { getStorageItem, setStorageItem } from "@/lib/storage";
+import type { CompletedActivity } from "@/lib/schemas";
 
-export interface CompletedActivity {
-  id: string;
-  title: string;
-  completedDate: string;
-  type: string;
-}
+const ACTIVITIES_KEY = "completedActivities";
 
-interface DbCompletedActivity {
-  id: string;
-  user_id: string;
-  activity_id: string;
-  title: string;
-  activity_type: string;
-  completed_date: string;
-  created_at: string;
-}
-
-const COMPLETED_ACTIVITIES_KEY = "completedActivities";
-
-/**
- * Fetch all completed activities for the current user
- */
 export function useCompletedActivities() {
-  const { user } = useAuth();
-
   return useQuery({
-    queryKey: [COMPLETED_ACTIVITIES_KEY, user?.id],
+    queryKey: [ACTIVITIES_KEY],
     queryFn: async (): Promise<CompletedActivity[]> => {
-      if (!user || !isSupabaseConfigured) return [];
-
-      const { data, error } = await supabase
-        .from("completed_activities")
-        .select("*")
-        .eq("user_id", user.id);
-
-      if (error) {
-        console.error("Error fetching completed activities:", error);
-        throw error;
-      }
-
-      return (data as DbCompletedActivity[]).map((a) => ({
-        id: a.activity_id,
-        title: a.title,
-        completedDate: a.completed_date,
-        type: a.activity_type,
-      }));
+      return getStorageItem<CompletedActivity[]>(ACTIVITIES_KEY) || [];
     },
-    enabled: !!user && isSupabaseConfigured,
-    staleTime: 1000 * 60 * 5, // 5 minutes
+    staleTime: 1000 * 60 * 5,
   });
 }
 
-/**
- * Mark an activity as completed
- */
-export function useMarkActivityCompleted() {
-  const { user } = useAuth();
+export function useAddCompletedActivity() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async ({
-      activityId,
-      title,
-      type,
-    }: {
-      activityId: string;
-      title: string;
-      type: string;
-    }) => {
-      if (!user || !isSupabaseConfigured) {
-        throw new Error("User not authenticated");
-      }
-
-      const { error } = await supabase.from("completed_activities").upsert(
-        {
-          user_id: user.id,
-          activity_id: activityId,
-          title,
-          activity_type: type,
-          completed_date: format(new Date(), "yyyy-MM-dd"),
-        },
-        { onConflict: "user_id,activity_id" }
-      );
-
-      if (error) throw error;
+    mutationFn: async (activity: CompletedActivity) => {
+      const activities = getStorageItem<CompletedActivity[]>(ACTIVITIES_KEY) || [];
+      setStorageItem(ACTIVITIES_KEY, [...activities, activity]);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [COMPLETED_ACTIVITIES_KEY] });
+      queryClient.invalidateQueries({ queryKey: [ACTIVITIES_KEY] });
+    },
+  });
+}
+
+export function useRemoveCompletedActivity() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (id: string) => {
+      const activities = getStorageItem<CompletedActivity[]>(ACTIVITIES_KEY) || [];
+      setStorageItem(ACTIVITIES_KEY, activities.filter((a) => a.id !== id));
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [ACTIVITIES_KEY] });
     },
   });
 }
