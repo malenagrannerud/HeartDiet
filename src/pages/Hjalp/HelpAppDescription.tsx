@@ -28,12 +28,9 @@ const Tutorial = () => {
      
       <main className={pagePadding}>
         <div className={standardSpacing.pageContent}>
-
-
           
            {/* MENY  */}
-          
-            <section className={standardSpacing.sectionContent`}>
+            <section className={standardSpacing.sectionContent}>
               <h2 className="text-lg font-bold text-black mb-4">
                 Innehåll - Så fungerar HjärtKost
               </h2>
