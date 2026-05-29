@@ -28,7 +28,7 @@ const Tutorial = () => {
         <div className={standardSpacing.pageContent}>
           
           <section className={`${standardSpacing.sectionContent} mb-8 p-6 bg-gray-50 border border-gray-200`}>
-            <h2 className={`${sectionHeadingStyle} text-lg`}>Innehållsförteckning</h2>
+            <h2 className={`${sectionHeadingStyle} text-lg`}>Innehåll - Så fungerar appen</h2>
             <ul className="space-y-0 mt-0">
               <li>
                 <button 
