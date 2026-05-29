@@ -145,6 +145,7 @@ const Today = () => {
 
       
       {/************************** RÖD INFO-BOX ********************************/}
+{/* RÖD INFO-BOX */}
 <div style={{
   backgroundColor: '#FEF2F2',
   border: '2px solid #DC2626',
@@ -166,7 +167,7 @@ const Today = () => {
       Product Description & Plan
     </p>
     <a 
-      href="https://github.com/malenagrannerud/mdrApp/blob/main/README.md"
+      href="https://github.com/malenagrannerud/HeartDiet/blob/main/README.md"
       target="_blank"
       rel="noopener noreferrer"
       style={{
