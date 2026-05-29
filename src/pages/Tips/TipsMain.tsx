@@ -18,8 +18,7 @@ import { Bookmark } from "lucide-react";
   <header className={headerContainer}>
     <h1 className={pageTitle}>Mina tips</h1>
     <p className={pageSubtitle}>
-      Välj ett eller fler tips att implementera för veckan genom att klicka{" "}
-      <Bookmark size={16} className="inline-block" fill="currentColor" />
+      Välj ett eller fler tips att implementera för veckan genom att klicka i symbolen till höger
     </p>
   </header>
 
