@@ -21,51 +21,48 @@ const Tutorial = () => {
     <div className={pageContainer}>
       <header className={headerContainer}>
         <BackToTodayButton/>
-        <h1 className={sectionHeading}>Så fungerar appen</h1>
+        <h1 className={`${sectionHeading} text-red-600`}>Så fungerar HjärtKost</h1>
         <p className={pageSubtitle}>
-          Här får du lära dig om målen med HjärtKost och de viktigaste stegen. Det finns också videoinformation om hjärt-vänlig kost. Informationen är även för dig som är närstående.
+          Här får du lära dig om målen med appen HjärtKost och de viktigaste stegen. Det finns också videoinformation om hjärt-vänlig kost från forskare bakom medelhavsdieten. Informationen är även för dig som är närstående.
         </p>      
       </header>
      
       <main className={pagePadding}>
         <div className={standardSpacing.pageContent}>
-          
-          <section className={`${standardSpacing.sectionContent} mb-8 p-6 bg-gray-50 border border-gray-200`}>
-            <h2 className={`${sectionHeadingStyle} text-lg`}>Innehåll - Så fungerar appen</h2>
-            <ul className="space-y-0 mt-0">
-              <li>
-                <button 
-                  onClick={() => scrollToSection('mal-med-appen')}
-                  className="text-left hover:text-[#DC143C] transition-colors duration-200 w-full py-1"
-                >
-                  <span className="font-medium">Mål med appen</span>
-                </button>
-              </li>
-              <li>
-                <button 
-                  onClick={() => scrollToSection('idag')}
-                  className="text-left hover:text-[#DC143C] transition-colors duration-200 w-full py-1"
-                >
-                  <span className="font-medium">HjärtKost, steg för steg</span>
-                </button>
-              </li>
-              <li>
-                <button 
-                  onClick={() => scrollToSection('mina-tips')}
-                  className="text-left hover:text-[#DC143C] transition-colors duration-200 w-full py-1"
-                >
-                  
-                  <span className="font-medium">Se klipp om medelhavsdieten på youtube</span>
-                </button>
-              </li>
-            </ul>
-          </section>
 
-          {/* MÅL MED APPEN - With border */}
+
+          
+           {/* MENY  */}
+          
+            <section className={`${standardSpacing.sectionContent} mb-8 p-6 bg-gray-50 border border-gray-200`}>
+              <h2 className={`${sectionHeadingStyle} text-lg`}>
+                Innehåll - Så fungerar HjärtKost
+              </h2>
+              <ul className="space-y-0 mt-0">
+                {[
+                  { label: 'Målen med HjärtKost', section: 'mal-med-appen' },
+                  { label: 'HjärtKost - de viktigaste stegen', section: 'idag' },
+                  { label: 'Videoinformation om medelhavsdieten på YouTube', section: 'mina-tips' },
+                ].map(({ label, section }) => (
+                  <li key={section}>
+                    <button
+                      onClick={() => scrollToSection(section)}
+                      className="text-left w-full py-1 text-red-700 font-medium"
+                    >
+                      → {label}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          
+            {/* MENY- END  */}
+
+          {/* MÅLEN MED HJÄRTKOST - With border */}
           <section id="mal-med-appen" className="mb-8 border border-gray-300 p-6">
             <div className="flex flex-col sm:flex-row gap-1">
               <div className="sm:w-2/3 space-y-4">
-                <h2 className={sectionHeadingStyle}>Mål med appen</h2>
+                <h2 className={sectionHeadingStyle}>Målen med HjärtKost</h2>
               
                 <p className={bodyText}> 
                   Målet med appen är att äta enligt medelhavsdieten, en vetenskapligt bevisad diet som 
