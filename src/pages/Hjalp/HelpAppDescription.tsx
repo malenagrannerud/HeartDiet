@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { sectionHeading, sectionSubheading, cardTitle, cardText, standardCard, primaryButton, pageContainer, standardSpacing, headerContainer, pagePadding, bodyTextBald, bodyText } from "@/lib/design-tokens";
-import { BackToTodayButton } from "@/components/BackToTodayButton";
+import { sectionHeading, sectionSubheading, cardTitle, cardText, standardCard, primaryButton, pageContainer, standardSpacing, headerContainer, pagePadding, bodyTextBald, bodyText, pageSubtitle } from "@/lib/design-tokens";import { BackToTodayButton } from "@/components/BackToTodayButton";
 import { CompleteCardButton } from "@/components/CompleteCardButton";
 import DottedList from "@/components/DottedList";
 import CardHeart from "@/components/CardHeart";
@@ -40,9 +39,9 @@ const Tutorial = () => {
               </h2>
               <ul className="space-y-0 mt-0">
                 {[
-                  { label: 'Målen med HjärtKost', section: 'mal-med-appen' },
-                  { label: 'HjärtKost - de viktigaste stegen', section: 'idag' },
-                  { label: 'Videoinformation om medelhavsdieten på YouTube', section: 'mina-tips' },
+                  { label: 'Målen med HjärtKost', section: 'mal' },
+                  { label: 'HjärtKost - de viktigaste stegen', section: 'steg' },
+                  { label: 'Videoinformation om medelhavsdieten på YouTube', section: 'video' },
                 ].map(({ label, section }) => (
                   <li key={section}>
                     <button
@@ -59,7 +58,7 @@ const Tutorial = () => {
             {/* MENY- END  */}
 
           {/* MÅLEN MED HJÄRTKOST - With border */}
-          <section id="mal-med-appen" className="mb-8 border border-gray-300 p-6">
+          <section id="mal" className="mb-8 border border-gray-300 p-6">
             <div className="flex flex-col sm:flex-row gap-1">
               <div className="sm:w-2/3 space-y-4">
                 <h2 className={sectionHeadingStyle}>Målen med HjärtKost</h2>
@@ -85,7 +84,7 @@ const Tutorial = () => {
           </section>
 
 
-           <section id="mal-med-appen" className="mb-8 border border-gray-300 p-6">
+           <section id="steg" className="mb-8 border border-gray-300 p-6">
             <div className="flex flex-col sm:flex-row gap-1">
               <div className="sm:w-2/3 space-y-4">
                 <h2 className={sectionHeadingStyle}>Använd HjärtKost, steg för steg</h2>
@@ -116,7 +115,7 @@ const Tutorial = () => {
 
                 
           {/* FINAL CARDHEART - With border */}
-          <section className="mb-8 border border-gray-300 p-6">
+<section id="video" className="mb-8 border border-gray-300 p-6">
             <h2 className={sectionHeadingStyle}>Medelhavsdieten på youtube</h2>
 
 
