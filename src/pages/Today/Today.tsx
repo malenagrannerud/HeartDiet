@@ -144,7 +144,7 @@ const Today = () => {
  </header>
 
       
-      {/************************** RÖD INFO-BOX ********************************/}
+      {/***************************** RÖD INFO-BOX ********************************/}
 {/* RÖD INFO-BOX */}
 <div style={{
   backgroundColor: '#FEF2F2',
@@ -181,46 +181,32 @@ const Today = () => {
     </a>
   </div>
 </div>
+{/******************************** RÖD INFO-BOX END ********************************/}
+
 
       <main className={pagePadding}>
          <div className={standardSpacing.pageContent}>
 
-          <section className={standardSpacing.sectionContent}>
-              <h3 className={bodyTextBald}>Dagens mål</h3>
-              <p className={bodyBaldSub}>
-                {markedTipsList.length > 0 
-                  ? "Markera ett tips som färdigt genom att klicka i boxen"
-                  : "Välj ett mål under  \"Tips\""}
-              </p>
-              {markedTipsList.length > 0 ? (
-                <div className="space-y-4">
-                  {markedTipsList.map((tip) => (
-                    <div key={tip.id} className="flex gap-4 items-center">
-                      <div className="flex-1">
-                        <TipCard
-                          tip={tip}
-                          onClick={() => handleTipClick(tip.id)}
-                          isCompleted={tipCompletions[tip.id]}
-                        />
-                      </div>
-                      <div 
-                        onClick={(e) => handleTipCheckboxToggle(tip.id, e)}
-                        className="cursor-pointer"
-                      >
-                        <Checkbox 
-                          checked={tipCompletions[tip.id] || false}
-                          className="h-7 w-7 transition-all duration-200"
-                          style={{
-                            // @ts-ignore - Override primary color for this checkbox to use completion green
-                            '--primary': '162 95% 31%',
-                          } as React.CSSProperties}
-                        />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              ) : null}
-          </section>
+
+           
+      <section className={standardSpacing.sectionContent}>
+        <h3 className={bodyTextBald}>Dagens mål</h3>
+        {markedTipsList.length > 0 ? (
+          <div className="space-y-4">
+            {markedTipsList.map((tip) => (
+              <div key={tip.id}>
+                <TipCard
+                  tip={tip}
+                  onClick={() => handleTipClick(tip.id)}
+                  isCompleted={tipCompletions[tip.id]}
+                />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className={bodyBaldSub}>Välj ett mål under "Tips"</p>
+        )}
+      </section>
 
 
 
