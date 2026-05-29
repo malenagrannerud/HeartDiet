@@ -95,13 +95,13 @@ const Tutorial = () => {
                 </p>
 
                 <DottedList items={[
-                  "1. Välj ett delmål för veckan under "Tips". Det kan vara bra med att börja med "Fem om dagen". Ditt mål blir att äta fem nävar frukter och grönsaker om dagen, den veckan  ",
-                  "2. Fyll i din matdagbok varje dag. Om du till exempel åt fem nävar, klicka i rutan under "Dagbok" ",
-                  "3. Håll koll på dina mätningar (blodtryck, socker, blodfetter och vikt) och fyll i uppdateringar, under "Mina Mätningar".",
-                  "4. Välj ett nytt mål följande vecka. Fortsätt tills alla delar är fyllda.",
-                  "5. Grattis! Du äter enligt medelhavsdieten! Använd appen som ett uppslagsverk, eller håll koll på dina mätresultat.",
-                ]} />
-                <CardHeart>
+                    "1. Välj ett delmål för veckan under 'Tips'. Det kan vara bra med att börja med 'Fem om dagen'. Ditt mål blir att äta fem nävar frukter och grönsaker om dagen, den veckan.",
+                    "2. Fyll i din matdagbok varje dag. Om du till exempel åt fem nävar, klicka i rutan under 'Dagbok'.",
+                    "3. Håll koll på dina mätningar (blodtryck, socker, blodfetter och vikt) och fyll i uppdateringar, under 'Mina Mätningar'.",
+                    "4. Välj ett nytt mål följande vecka. Fortsätt tills alla delar är fyllda.",
+                    "5. Grattis! Du äter enligt medelhavsdieten! Använd appen som ett uppslagsverk, eller håll koll på dina mätresultat.",
+                  ]} />
+                                  <CardHeart>
                   Att implementera nya vanor görs i steg. Det ska vara roligt och gott!
                 </CardHeart>
               </div>
