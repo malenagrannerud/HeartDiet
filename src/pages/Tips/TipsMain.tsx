@@ -112,9 +112,10 @@ const Tips = () => {
   <header className={headerContainer}>
     <h1 className={pageTitle}>Mina tips</h1>
     <p className={pageSubtitle}>
-      Välj ett eller fler tips att implementera för veckan genom att klicka{" "}
-      <Bookmark size={16} className="inline-block" fill="currentColor" />
-    </p>
+  Tryck på bokmärket{" "}
+  <Bookmark size={20} className="inline-block text-red-700" fill="none" strokeWidth={2} />
+  {" "}för att välja ett tips att jobba med denna vecka
+</p>
   </header>
 
       <main className={pagePadding}>
