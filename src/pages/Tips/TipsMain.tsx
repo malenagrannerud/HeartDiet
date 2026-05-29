@@ -10,6 +10,18 @@ import { useToast } from "@/hooks/use-toast";
 import { healthGoalTips } from "@/data/health-goal-tips";
 import { tipPageRoutes } from "@/lib/tip-routes";
 import { hiddenTipIds } from "@/data/hidden-tips";
+import { Bookmark } from "lucide-react";
+
+// ...
+
+<div className={pageContainer}>
+  <header className={headerContainer}>
+    <h1 className={pageTitle}>Mina tips</h1>
+    <p className={pageSubtitle}>
+      Välj ett eller fler tips att implementera för veckan genom att klicka{" "}
+      <Bookmark size={16} className="inline-block" fill="currentColor" />
+    </p>
+  </header>
 
 /**
  * TipsMain Page
@@ -107,10 +119,13 @@ const Tips = () => {
 
   return (
     <div className={pageContainer}>
-      <header className={headerContainer}>
-        <h1 className={pageTitle}>Mina tips</h1>
-        <p className={pageSubtitle}>Välj ett mål för veckan</p>
-      </header>
+  <header className={headerContainer}>
+    <h1 className={pageTitle}>Mina tips</h1>
+    <p className={pageSubtitle}>
+      Välj ett eller fler tips att implementera för veckan genom att klicka{" "}
+      <Bookmark size={16} className="inline-block" fill="currentColor" />
+    </p>
+  </header>
 
       <main className={pagePadding}>
         <div className={standardSpacing.pageContent}>
