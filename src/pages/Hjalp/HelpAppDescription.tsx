@@ -20,7 +20,7 @@ const Tutorial = () => {
     <div className={pageContainer}>
       <header className={headerContainer}>
         <BackToTodayButton/>
-        <h1 className={`${sectionHeading} text-red-600`}>Så fungerar HjärtKost</h1>
+        <h1 className={`${sectionHeading} text-red-700`}>Så fungerar HjärtKost</h1>
         <p className={pageSubtitle}>
           Här får du lära dig om målen med appen HjärtKost och de viktigaste stegen. Det finns också videoinformation om hjärt-vänlig kost från forskare bakom medelhavsdieten. Informationen är även för dig som är närstående.
         </p>      
@@ -34,9 +34,9 @@ const Tutorial = () => {
            {/* MENY  */}
           
             <section className={`${standardSpacing.sectionContent} mb-8 p-6 bg-gray-50 border border-gray-200`}>
-              <h2 className={`${sectionHeadingStyle} text-lg`}>
-                Innehåll - Så fungerar HjärtKost
-              </h2>
+              <h2 className="text-lg font-bold text-black mb-4">
+  Innehåll - Så fungerar HjärtKost
+</h2>
               <ul className="space-y-0 mt-0">
                 {[
                   { label: 'Målen med HjärtKost', section: 'mal' },
@@ -46,7 +46,7 @@ const Tutorial = () => {
                   <li key={section}>
                     <button
                       onClick={() => scrollToSection(section)}
-                      className="text-left w-full py-1 text-red-700 font-medium"
+                      className="text-left w-full py-1 text-red-800 font-medium"
                     >
                       → {label}
                     </button>
