@@ -10,17 +10,6 @@ import { useToast } from "@/hooks/use-toast";
 import { healthGoalTips } from "@/data/health-goal-tips";
 import { tipPageRoutes } from "@/lib/tip-routes";
 import { hiddenTipIds } from "@/data/hidden-tips";
-import { Bookmark } from "lucide-react";
-
-// ...
-
-<div className={pageContainer}>
-  <header className={headerContainer}>
-    <h1 className={pageTitle}>Mina tips</h1>
-    <p className={pageSubtitle}>
-      Välj ett eller fler tips att implementera för veckan genom att klicka i symbolen till höger
-    </p>
-  </header>
 
 /**
  * TipsMain Page
