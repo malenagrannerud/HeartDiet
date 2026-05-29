@@ -22,6 +22,9 @@ const Tutorial = () => {
       <header className={headerContainer}>
         <BackToTodayButton/>
         <h1 className={sectionHeading}>Så fungerar appen</h1>
+        <p className={pageSubtitle}>
+          Här får du lära dig om målen med HjärtKost och de viktigaste stegen. Det finns också videoinformation om hjärt-vänlig kost. Informationen är även för dig som är närstående.
+        </p>      
       </header>
      
       <main className={pagePadding}>
